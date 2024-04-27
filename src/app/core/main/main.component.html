@@ -1,0 +1,58 @@
+<main>
+  <div class="container-fluid">
+    <!-- Header -->
+    <app-header></app-header>
+    <!-- / Header -->
+
+    <!-- Sidemenu -->
+
+    <app-sidemenu [innerWidth]="innerWidth"></app-sidemenu>
+
+    <!-- / Sidemenu -->
+
+    <!-- / Left frame -->
+    <div class="left-frame"></div>
+    <!-- / Left frame -->
+
+    <!-- Main content -->
+    <div class="content">
+      <!-- Main content body -->
+      <div
+        class="content-body"
+        [class.full]="
+          sidemenuService.offcanvasMode || sidemenuService.isClose()
+        "
+        [class.compact]="
+          !sidemenuService.offcanvasMode && !sidemenuService.isClose()
+        "
+        [class.not-show-menu]="!isShowMenu">
+        <!-- page loading screen -->
+        <div class="loading-content">
+          <app-loading-element
+            [visible]="loading"></app-loading-element>
+        </div>
+        <!-- / Page loading screen -->
+
+        <!-- http error message -->
+        <p-toast key="httpErrorMessage" position="bottom-left"></p-toast>
+        <!-- / Http error message -->
+
+        <!-- route content viewbox -->
+        <div
+          class="route-content pt-2"
+          [@routeAnimations]="animationService.getRouteAnimationData()">
+          <router-outlet></router-outlet>
+        </div>
+        <!-- / Route content viewbox -->
+      </div>
+      <!-- / Main content body -->
+    </div>
+    <!-- / Main content -->
+
+    <!-- Footer -->
+    <div class="mt-2">
+      <app-footer> </app-footer>
+    </div>
+    <!-- / Footer -->
+  </div>
+</main>

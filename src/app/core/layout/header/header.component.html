@@ -1,0 +1,221 @@
+<header class="header py-1 px-4 d-flex ai-center justify-content-between">
+  <div class="d-flex ai-center">
+    <!-- brand content -->
+    <!-- <div class="brand-content"> -->
+    <!-- <a
+        pButton
+        pRipple
+        class="home-botton fs-5 p-button-text p-button-rounded"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"> -->
+    <!-- <sub class="pb-1 sub-brand"></sub> -->
+    <!-- <div class="pe-2"> -->
+    <img
+      ngSrc="assets/images/codal.svg"
+      class="login__header-image col-6 rounded"
+      style="width: 36px; height: 35px"
+      alt="SignIn Image"
+      width="36"
+      height="35"
+      priority />
+    <!-- </div> -->
+    <span
+      [ngStyle]="{
+        visibility: sidemenuService.isClose() ? 'visible' : 'hidden'
+      }"
+      class="pt-2 brand fs-13"
+      >سامانه مدیریت اسناد داخلی</span
+    >
+    <!-- </a> -->
+    <!-- </div> -->
+    <!-- / brand content -->
+  </div>
+
+  <!-- menu -->
+  <div *ngIf="!!authService.getAccess()" class="menubar d-none d-lg-block">
+    <!-- notifications page -->
+    <!-- <a
+      pButton
+      pRipple
+      class="menu-botton fs-6 p-button-text p-button-rounded"
+      routerLink="/default/home"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      <sub class="pb-1 sub-brand"></sub>
+      <strong class="brand">خانه</strong>
+    </a> -->
+    <!-- / notifications page -->
+
+    <!-- notifications page -->
+    <!-- <a
+      pButton
+      pRipple
+      class="menu-botton fs-6 p-button-text p-button-rounded"
+      [routerLink]="'/default/' + defaultPath"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      <sub class="pb-1 sub-brand"></sub>
+      <strong class="brand">خانه</strong>
+    </a> -->
+    <!-- / notifications page -->
+
+    <!-- companies page -->
+    <!-- <a
+      pButton
+      pRipple
+      class="menu-botton fs-6 p-button-text p-button-rounded"
+      routerLink="/default/publishers"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      <sub class="pb-1 sub-brand"></sub>
+      <strong class="brand">ناشران</strong>
+    </a> -->
+    <!-- / companies page -->
+
+    <!-- news page -->
+    <!-- <a
+      pButton
+      pRipple
+      class="menu-botton fs-6 p-button-text p-button-rounded"
+      routerLink="/default/news"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      <sub class="pb-1 sub-brand"></sub>
+      <strong class="brand">اخبار</strong>
+    </a> -->
+    <!-- / news page -->
+
+    <!-- about page -->
+    <!-- <a
+      pButton
+      pRipple
+      class="menu-botton fs-6 p-button-text p-button-rounded"
+      routerLink="/default/aboutus"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      <sub class="pb-1 sub-brand"></sub>
+      <strong class="brand">درباره ما</strong>
+    </a> -->
+    <!-- / about page -->
+
+    <!-- contact page -->
+    <!-- <a
+      pButton
+      pRipple
+      class="menu-botton fs-6 p-button-text p-button-rounded"
+      routerLink="/default/contactus"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      <sub class="pb-1 sub-brand"></sub>
+      <strong class="brand">ارتباط با ما</strong>
+    </a> -->
+    <!-- / contact page -->
+  </div>
+  <!-- / menu -->
+  <div class="d-flex align-items-center justify-content-center me-1">
+    <!-- <div>
+      <span>{{ loginData.name }} {{ loginData.family }}</span>
+    </div> -->
+    <!-- light | dark mode switch -->
+    <!-- <div class="me-3">
+      <label class="switch">
+        <input
+          type="checkbox"
+          [checked]="darkmode"
+          (change)="darkmode = !darkmode" />
+        <span class="slider"></span>
+      </label>
+    </div> -->
+    <!-- / light | dark mode switch -->
+    <!-- signout button -->
+    <!-- <button
+      *ngIf="authService.getAccess()"
+      pButton
+      pRipple
+      pTooltip="خروج از حساب کاربری"
+      class="sign-out-button p-button-lg p-button-rounded p-button-text p-button-danger"
+      type="button"
+      icon="mgc_power_fill"
+      (click)="confirmSignout()"></button -->
+    <!--/ signout button -->
+
+    <div *ngIf="!sidemenuService.offcanvasMode">
+      <p-toast></p-toast>
+      <p-menu
+        #menu
+        *ngIf="profileItems"
+        [model]="profileItems"
+        [popup]="true"
+        [styleClass]="'profile-menu'"></p-menu>
+
+      <!-- <button
+        type="button"
+        class="btn btn-warning dropdown-toggle btn-needs btn-profile"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        (click)="menu.toggle($event)"> -->
+      <!-- <div class="row">
+          <div class="icon">
+            <img src="assets/images/profile.png" />
+          </div>
+          <div class="user-info">
+            <span
+              class="spn-username"
+              *ngIf="loginData && (loginData.name || loginData.family)"
+              >{{ loginData.name }} {{ loginData.family }}</span
+            >
+            <span *ngIf="loginData && (!loginData.name || !loginData.family)"
+              >نامشخص</span
+            >
+            <br />
+            <span
+              class="spn-user-info"
+              *ngIf="loginData && loginData.loginDescription"
+              >{{ loginData.loginDescription }}</span
+            >
+          </div>
+        </div> -->
+      <!-- </button> -->
+
+      <!-- <button class="btn-profile" (click)="menu.toggle($event)"> -->
+      <button class="btn-profile" (click)="onBtnProfileClick($event, menu)">
+        <i class="pi pi-chevron-down"></i>
+        <div class="row">
+          <div class="icon">
+            <img src="assets/images/profile.png" />
+          </div>
+          <div class="user-info">
+            <span
+              class="spn-username"
+              *ngIf="loginData && (loginData.name || loginData.family)"
+              >{{ loginData.name }} {{ loginData.family }}</span
+            >
+            <span *ngIf="loginData && (!loginData.name || !loginData.family)"
+              >نامشخص</span
+            >
+            <br />
+            <span
+              class="spn-user-info"
+              *ngIf="loginData && loginData.loginDescription"
+              >{{ loginData.loginDescription }}</span
+            >
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</header>
+
+<p-confirmDialog
+  [style]="{ width: '450px' }"
+  [rtl]="true"
+  [closable]="false"></p-confirmDialog>
+
+<p-dialog
+  header="تغییر رمز ورود"
+  [(visible)]="visibleChangePass"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false">
+</p-dialog>

@@ -1,0 +1,276 @@
+ 
+
+main {
+  position: relative;
+
+  .card {
+    max-width: 530px;
+    min-height: 450px;
+  }
+  .card-body {
+    padding: 20px !important;
+  }
+}
+
+.login {
+  .login__header {
+    text-align: center;
+    .login__header-title {
+      font-size: 18px;
+    }
+  }
+
+  .login__content {
+    .login__content-title {
+      font-size: 24px;
+    }
+
+    .login__content-form {
+      .or-content {
+        font-size: 12px;
+        color: #bbb;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        min-height: 46px;
+
+        &::before {
+          content: '';
+          height: 2px;
+          width: 100%;
+          background: #f7a41f;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 0;
+        }
+
+        .register-button {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          padding: 1rem;
+          background: var(--main-card-background);
+          z-index: 1;
+          border: 2px solid #f7a41f;
+          border-radius: 10rem;
+          height: 6rem;
+          width: 6rem;
+          box-shadow: var(--main-card-background) 0px 1px 4px,
+            var(--main-card-background) 0px 0px 0px 7px !important;
+        }
+      }
+
+      .submit-button {
+        border-radius: 3px;
+        background-color: #04441e;
+        font-size: 18px;
+        width: 130px !important;
+        // border-radius: 1rem;
+        // padding: 0.7rem;
+        // background-color: #f7a41f;
+        // border: 1px solid #f7a41f;
+        // font-size: 18px;
+      }
+    }
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.div-submit-button{
+  margin-top: 30px;
+  text-align: center !important;
+}
+
+.img-captcha{
+  width: 100%;
+  height: 37px;
+  margin-top: 21px;
+}
+
+.main-web{
+  padding-right: 20%;
+  padding-left: 20%;
+}
+
+.shadow-2 {
+  box-shadow: var(--main-card-shadow) !important;
+}
+
+.text-hilight {
+  // color: var(--main-hilight-color) !important;
+  color: #004500;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}
+
+.text-900 {
+  color: var(--sidemenu-item-color) !important;
+}
+
+.text-600 {
+  color: var(--surface-600) !important;
+}
+
+.line-height-3 {
+  line-height: 1.5 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.p-ripple {
+  overflow: hidden;
+  position: relative;
+}
+
+.active-link:hover {
+  text-decoration: underline !important;
+}
+
+.field {
+  position: relative;
+
+  .p-inputgroup {
+    .large-input {
+      padding-top: 0.85rem !important;
+      padding-bottom: 0.85rem !important;
+      padding-right: 3.2rem !important;
+      border-top-right-radius: 1rem !important;
+      border-bottom-right-radius: 1rem !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border-width: 1px 1px 1px 0 !important;
+    }
+  }
+
+  .large-input {
+    // padding-top: -0.15rem !important;
+    // padding-bottom: -0.15rem !important;
+    padding-right: 1rem !important;
+    border-width: 1px !important;
+    // border-radius: 1rem;
+  }
+
+  .input-icon {
+    position: absolute;
+    padding: 0.65rem 0.4rem;
+    color: var(--main-card-color);
+    z-index: 2;
+
+    i {
+      padding: 0.5rem 0.7rem;
+    }
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 1200px) {
+  .bordered-box {
+    border-top: 1px solid var(--bluegray-100);
+  }
+}
+/* Small Devices, Tablets */
+@media only screen and (max-width: 1200px) {
+  .bordered-box {
+    border-top: 1px solid var(--bluegray-100);
+  }
+}
+
+:host ::ng-deep .p-password-input {
+  // padding-top: -0.15rem !important;
+  // padding-bottom: -0.15rem !important;
+  padding-right: 1rem !important;
+  border-width: 1px !important;
+  // border-radius: 1rem !important;
+}
+
+:host ::ng-deep .p-inputgroup-addon {
+  background: var(--main-card-background) !important;
+  padding: 0.5rem 0.2rem !important;
+}
+
+:host ::ng-deep .p-inputgroup-addon:first-child {
+  border-top-right-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-width: 1px 1px 1px 0 !important;
+}
+
+:host ::ng-deep .p-inputgroup input:last-child {
+  border-top-left-radius: 1rem !important;
+  border-bottom-left-radius: 1rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-width: 1px 0px 1px 1px !important;
+}
+
+:host ::ng-deep .p-inputgroup-addon:last-child {
+  border-left: 1px solid #ced4da !important;
+  border-top-left-radius: 1rem !important;
+  border-bottom-left-radius: 1rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  padding: 0 4rem;
+  background-color: var(--main-hilight-color) !important;
+  color: var(--sidemenu-main-color);
+  border-color: var(--main-hilight-color);
+}
+
+.div-forgot-pass{
+  font-size: 12px;
+  border-top: 1px solid #b3b3b3;
+  margin-top: 20px;
+  text-align: center;
+  a{
+    cursor: pointer;
+    position: relative;
+    top: 10px;
+  }
+}
+
+.lbl-margin{
+  margin-bottom: 8px;
+}
+
+.canvas-font{
+  font-size: 16px;
+}
+
+.canvas-img{
+  margin-bottom: 20px;
+}
+
+.canvas-title{
+  font-size: 16px !important;
+}
+
+.error-box{
+  background-color: #ff4545;
+  font-size: 13px;
+  margin-top: 15px;
+  width: fit-content;
+  padding: 5px;
+  color: white;
+}
+
+.color-gray{
+  color: gray;
+}
+
+.input-pass{
+  direction: ltr;
+}

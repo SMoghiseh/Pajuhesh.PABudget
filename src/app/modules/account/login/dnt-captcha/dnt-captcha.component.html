@@ -1,0 +1,46 @@
+<div class="dntCaptcha row" [id]="apiResponse.dntCaptchaId">
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding: 0px">
+    <img
+      alt="captcha"
+      id="dntCaptchaImg"
+      name="dntCaptchaImg"
+      [src]="apiResponse.dntCaptchaImgUrl"
+      style="margin-bottom: 4px" />
+    <i
+      class="glyphicon glyphicon-refresh btn-sm pi pi-refresh"
+      (click)="doRefresh()"></i>
+    <!-- <a
+      class="glyphicon glyphicon-refresh btn-sm pi pi-refresh"
+      style="cursor: pointer"
+      id="dntCaptchaRefreshButton"
+      name="dntCaptchaRefreshButton"
+      (click)="doRefresh()"></a> -->
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <input
+      [id]="hiddenInputName"
+      [name]="hiddenInputName"
+      type="hidden"
+      [value]="apiResponse.dntCaptchaTextValue" />
+    <div class="input-group col-md-4">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-lock"></span>
+      </span>
+      <input
+        autocomplete="off"
+        class="text-box single-line form-control col-md-4"
+        dir="ltr"
+        [id]="inputName"
+        [name]="inputName"
+        [placeholder]="placeholder"
+        type="text"
+        [(ngModel)]="inputText"
+        (change)="onInputTextChange()" />
+    </div>
+    <input
+      [id]="hiddenTokenName"
+      [name]="hiddenTokenName"
+      type="hidden"
+      [value]="apiResponse.dntCaptchaTokenValue" />
+  </div>
+</div>

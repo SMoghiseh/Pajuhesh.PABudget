@@ -1,0 +1,304 @@
+<!-- *ngIf="!sidemenuService.offcanvasMode" -->
+<aside class="sidebar" [class.closed]="sidemenuService.isClose()">
+  <div
+    class="d-flex flex-column align-items-center"
+    style="margin-top: 24px; margin-bottom: 27px">
+    <div class="btn-toggle">
+      <i
+        *ngIf="!sidemenuService.isClose()"
+        class="pi pi-angle-double-right"
+        (click)="
+          sidemenuService.isClose()
+            ? sidemenuService.open()
+            : sidemenuService.close()
+        "></i>
+      <i
+        *ngIf="sidemenuService.isClose()"
+        class="pi pi-angle-double-left"
+        (click)="
+          sidemenuService.isClose()
+            ? sidemenuService.open()
+            : sidemenuService.close()
+        "></i>
+    </div>
+
+    <div class="w-100 text-center">
+      <img class="logo" src="assets/images/codal.svg" alt="" />
+    </div>
+
+    <h2 *ngIf="!sidemenuService.isClose()" class="main-title">
+      سامانه مدیریت اسناد داخلی
+    </h2>
+  </div>
+
+  <!-- ردیف تب ها -->
+  <div
+    class="toggle-panel-active-tabs mx-3"
+    [class.tab-content-wide]="
+      sidemenuService.offcanvasMode || sidemenuService.isClose()
+    "
+    [class.tab-content-compact]="
+      !sidemenuService.offcanvasMode && !sidemenuService.isClose()
+    "
+    [class.tab-content-close]="!authService.getAccess()">
+    <div *ngIf="sidemenuService.offcanvasMode" class="toggle-panel-offcanvas">
+      <!-- حالت جم شونده -->
+      <!-- <a
+        class="toggle-panel-button"
+        [attr.data-bs-toggle]="sidemenuService.offcanvasMode && 'offcanvas'"
+        [attr.data-bs-target]="
+          sidemenuService.offcanvasMode && '#offcanvasRight'
+        "
+        [attr.aria-controls]="sidemenuService.offcanvasMode && 'offcanvasRight'"
+        [class.closed]="sidemenuService.isClose()"
+        (click)="
+          sidemenuService.isClose()
+            ? sidemenuService.open()
+            : sidemenuService.close()
+        ">
+        <div
+          class="toggle-panel-button-icon"
+          [class.closed]="sidemenuService.isClose()"
+          [class.no-icon]="!authService.getAccess()">
+          <i class="pi pi-bars" style="margin-left: 5px"></i> -->
+      <!-- [class.pi-bars]="
+              sidemenuService.offcanvasMode || sidemenuService.isClose()
+            "
+            [class.pi-times]="
+              !sidemenuService.offcanvasMode && !sidemenuService.isClose()
+            " -->
+      <!-- </div>
+      </a> -->
+      <!--/ حالت جم شونده -->
+    </div>
+    <app-active-tabs-bar
+      *ngIf="sidemenuService.offcanvasMode"></app-active-tabs-bar>
+  </div>
+  <!-- منو اصلی -->
+  <div *ngIf="!sidemenuService.offcanvasMode" class="menu-panel">
+    <!-- ایجاد منو -->
+    <div class="sidebar-nav flex-shrink-0 p-2">
+      <div class="row">
+        <div class="toggle-panel">
+          <!-- حالت جم شونده -->
+          <!-- <a
+            class="toggle-panel-button"
+            [attr.data-bs-toggle]="sidemenuService.offcanvasMode && 'offcanvas'"
+            [attr.data-bs-target]="
+              sidemenuService.offcanvasMode && '#offcanvasRight'
+            "
+            [attr.aria-controls]="
+              sidemenuService.offcanvasMode && 'offcanvasRight'
+            "
+            [class.closed]="sidemenuService.isClose()"
+            (click)="
+              sidemenuService.isClose()
+                ? sidemenuService.open()
+                : sidemenuService.close()
+            ">
+            <div
+              class="toggle-panel-button-icon"
+              [class.closed]="sidemenuService.isClose()"
+              [class.no-icon]="!authService.getAccess()">
+              <i class="pi pi-bars"></i> -->
+          <!-- [class.pi-bars]="
+                  sidemenuService.offcanvasMode || sidemenuService.isClose()
+                "
+                [class.pi-times]="
+                  !sidemenuService.offcanvasMode && !sidemenuService.isClose()
+                " -->
+          <!-- </div>
+          </a> -->
+          <!--/ حالت جم شونده -->
+        </div>
+      </div>
+      <div *ngFor="let menu of menuList">
+        <ul
+          class="list-unstyled ps-0 pb-1 small"
+          [class.display-none]="menu.isHidden">
+          <li class="nav-item">
+            <a
+              #menuItem
+              class="nav-link collapsed"
+              data-bs-toggle="collapse"
+              aria-expanded="false"
+              [attr.id]="menu.data"
+              [attr.data-bs-target]="'#components-nav-' + menu.data"
+              (click)="onClickParentMenu(menu.data)">
+              <i
+                class="text-start"
+                [class.parent-open]="!sidemenuService.isClose()"
+                [class]="menu.icon ? menu.icon : 'mgc_question_line'"></i>
+
+              <span class="p-2 menu-txt">
+                {{ menu.label }}
+              </span>
+
+              <i
+                *ngIf="menu.children && menu.children.length > 0"
+                class="p-2 mgc_down_line"></i>
+            </a>
+
+            <!-- زیر منو -->
+            <div *ngIf="menu.children && menu.children.length > 0">
+              <ul
+                *ngIf="!sidemenuService.isClose()"
+                #subMenuItem
+                [class.side-open]="!sidemenuService.isClose()"
+                class="nav-content collapse"
+                data-bs-parent="#sidebar-nav"
+                [id]="'components-nav-' + menu.data">
+                <!-- <li class="my-2" *ngFor="let children of menu.children"> -->
+                <!-- [routerLink]="'/' + menu.data + '/' + children.data" -->
+                <i
+                  style="position: relative; margin-bottom: 0px"
+                  *ngFor="let children of menu.children"
+                  [class.display-none]="children.isHidden"
+                  class="pi submenu-icon {{ children.icon }} {{
+                    children.data + '-' + children.icon
+                  }}"
+                  routerLinkActive="active"
+                  ariaCurrentWhenActive="page"
+                  (click)="
+                    onSelectedMenu(
+                      '/' + menu.data + '/' + children.data,
+                      children.underCons,
+                      children.data + '-' + children.icon
+                    )
+                  ">
+                  <span class="p-2 submenu-txt">
+                    <label class="submenu-label">{{ children.label }}</label>
+                  </span>
+                </i>
+                <!-- </li>-->
+              </ul>
+            </div>
+            <!--/ زیر منو -->
+          </li>
+          <!--/ منو اصلی -->
+
+          <!-- جدا کننده -->
+          <hr class="sidebar-divider" />
+        </ul>
+      </div>
+    </div>
+    <!--/ ایجاد منو -->
+  </div>
+
+  <div class="toggle-panel-buttom p-2"></div>
+
+  <!-- ایجاد منو جانبی -->
+  <div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-body">
+      <div class="menu-panel">
+        <!-- متن اصلی -->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center offcanvas-body">
+          <div class="sidebar-brand-icon rotate-n-15"></div>
+
+          <a class="sidebar-brand-text mx-3" ariaCurrentWhenActive="page">
+            سامانه مدیریت اسناد داخلی
+          </a>
+        </a>
+        <!--/ متن اصلی -->
+
+        <!-- جدا کننده -->
+        <hr class="sidebar-divider my-0" />
+
+        <!-- ایجاد منو -->
+        <div class="sidebar-nav flex-shrink-0 p-2">
+          <ul
+            class="list-unstyled ps-0 pb-1 small"
+            *ngFor="let menu of menuList">
+            <li class="nav-item" [class.display-none]="menu.isHidden">
+              <a
+                #menuItemOffcanvas
+                class="nav-link collapsed"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                [attr.id]="menu.data"
+                [attr.data-bs-target]="'#components-nav-' + menu.data">
+                <i
+                  class="text-start"
+                  [class]="menu.icon ? menu.icon : 'mgc_question_line'"></i>
+
+                <span class="p-2">
+                  {{ menu.label }}
+                </span>
+
+                <i
+                  *ngIf="menu.children && menu.children.length > 0"
+                  class="p-2 mgc_down_line"></i>
+              </a>
+
+              <!-- زیر منو -->
+              <div *ngIf="menu.children && menu.children.length > 0">
+                <ul
+                  #subMenuItemOffcanvas
+                  class="nav-content collapse"
+                  data-bs-parent="#sidebar-nav"
+                  [id]="'components-nav-' + menu.data">
+                  <!-- <li
+                    class="my-2"
+                    *ngFor="let children of menu.children"
+                    [class.display-none]="children.isHidden">
+                    <a
+                      [routerLink]="'/' + menu.data + '/' + children.data"
+                      routerLinkActive="active"
+                      ariaCurrentWhenActive="page"
+                      (click)="onSubmit()">
+                      <span class="p-2">
+                        {{ children.label }}
+                      </span>
+                    </a>
+                  </li> -->
+                  <i
+                    *ngFor="let children of menu.children"
+                    [class.display-none]="children.isHidden"
+                    class="pi submenu-icon {{ children.icon }} {{
+                      children.data + '-' + children.icon
+                    }}"
+                    [routerLink]="'/' + menu.data + '/' + children.data"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                    (click)="onSubmit()">
+                    <span class="p-2 submenu-txt">
+                      {{ children.label }}
+                    </span>
+                  </i>
+                </ul>
+              </div>
+              <!--/ زیر منو -->
+            </li>
+            <!--/ منو اصلی -->
+          </ul>
+        </div>
+        <!--/ ایجاد منو -->
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- [style]="{ width: '500px', height: '130px' }" -->
+<p-dialog
+  styleClass="p-fluid"
+  [modal]="true"
+  [(visible)]="isShowNotFoundDialog"
+  [closable]="false"
+  [showHeader]="false">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <div class="row page-not-found">
+      <!-- <i class="pi pi-exclamation-circle"></i> -->
+      <img src="assets/images/Underconstruction.png" />
+    </div>
+    <span> این صفحه در حال ساخت میباشد. </span>
+    <div class="row">
+      <button (click)="isShowNotFoundDialog = false">بستن</button>
+    </div>
+  </ng-template>
+</p-dialog>

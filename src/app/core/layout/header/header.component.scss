@@ -1,0 +1,169 @@
+ 
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--header-height);
+  background-color: var(--sidemenu-main-color);
+  box-shadow: var(--main-box-shadow);
+  z-index: var(--z-index-header);
+
+  .home-botton {
+    text-decoration: none;
+    color: var(--main-hilight-color);
+    transition: var(--main-transition);
+    padding: 0px;
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem transparent;
+    }
+
+    .brand {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: bold;
+    }
+
+    .sub-brand {
+      letter-spacing: 2px;
+      padding-left: 2px;
+    }
+  }
+
+  .menubar {
+    .menu-botton {
+      text-decoration: none;
+      color: var(--main-card-color);
+
+      &.active {
+        color: var(--sidemenu-hilight-color);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 0.2rem transparent;
+      }
+    }
+  }
+
+  /* The switch - the box around the slider */
+  .switch {
+    --width-of-switch: 3.2em;
+    --height-of-switch: 1.5em;
+    /* size of sliding icon -- sun and moon */
+    --size-of-icon: 1.1em;
+    /* it is like a inline-padding of switch */
+    --slider-offset: 0.2em;
+    position: relative;
+    width: var(--width-of-switch);
+    height: var(--height-of-switch);
+    transition: var(--main-transition);
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--main-color);
+    transition: 0.4s;
+    border-radius: 13px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: var(--size-of-icon, 1.4em);
+    width: var(--size-of-icon, 1.4em);
+    border-radius: 20px;
+    left: var(--slider-offset, 0.3em);
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(40deg, #fb7ba2, #fce043 70%);
+    transition: 0.4s;
+  }
+
+  input:checked + .slider {
+    background-color: var(--main-color);
+  }
+
+  input:checked + .slider:before {
+    left: calc(
+      100% - (var(--size-of-icon, 1.4em) + var(--slider-offset, 0.3em))
+    );
+    background: #3e3e3e;
+    /* change the value of second inset in box-shadow to change the angle and direction of the moon  */
+    box-shadow: inset -3px -2px 5px -2px #c5d4f9, inset -9px -3px 0 0 #fcfcfcfc;
+  }
+}
+
+@media (max-width: 400px) {
+  .brand {
+    max-width: 10rem;
+  }
+}
+
+.fs-13 {
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  right: 10px;
+  bottom: 2px;
+}
+
+.btn-profile {
+  border: 1px solid gray;
+  background: bottom;
+  border-radius: 3px;
+  min-width: 220px;
+
+  position: relative;
+  border-radius: 7px;
+  border: 1px solid #c9c9c9;
+  background: #fff;
+
+  i {
+    position: absolute;
+    left: 20px;
+    top: 14px;
+    font-size: 1.2rem;
+  }
+
+  .icon {
+    width: fit-content;
+    right: 0;
+    position: relative;
+    padding: 0px 3px;
+  }
+  .user-info {
+    position: relative;
+    left: 0px;
+    width: fit-content;
+    padding-right: 2px;
+    align-self: center;
+    margin-left: 40px;
+    .spn-username {
+      font-size: 14px;
+      font-weight: 500;
+      color: #2e4c4e;
+    }
+    .spn-user-info {
+      font-size: 11px;
+    }
+  }
+  img {
+    width: 40px;
+  }
+}

@@ -1,0 +1,261 @@
+<!-- login -->
+<main
+  class="login h-full w-full d-flex ai-center flex-column jc-center m-h-100">
+  <!-- login card -->
+  <div
+    [class.card]="!sidemenuService.offcanvasMode"
+    [class.m-0]="!sidemenuService.offcanvasMode"
+    [class.border-round]="!sidemenuService.offcanvasMode"
+    [class.shadow-2]="!sidemenuService.offcanvasMode">
+    <div
+      [class.card-body]="!sidemenuService.offcanvasMode"
+      [class.canvas-font]="sidemenuService.offcanvasMode">
+      <!-- login content -->
+      <div class="login__content row">
+        <div class="col-12 order-2 order-lg-1">
+          <!-- login content title -->
+          <!-- <div
+            class="login__content-title text-hilight text-center display-6 font-medium pt-3">
+            <strong> ورود کاربران </strong>
+          </div> -->
+          <!-- / login content title -->
+
+          <!-- login content form -->
+          <form
+            class="login__content-form py-2 px-4"
+            [formGroup]="loginForm"
+            #formDir="ngForm"
+            (ngSubmit)="signin()">
+            <div
+              class="form-group"
+              [class.main-web]="!sidemenuService.offcanvasMode">
+              <!-- نام کاربری -->
+              <div class="field pt-2">
+                <!-- <div class="input-icon">
+                  <i class="pi pi-user border-end"></i>
+                </div> -->
+                <label
+                  for="username"
+                  [class.lbl-margin]="sidemenuService.offcanvasMode"
+                  >نام کاربری</label
+                >
+                <input
+                  pInputText
+                  id="username"
+                  name="username"
+                  formControlName="username"
+                  class="w-100 large-input"
+                  [value]="username?.value | faNum"
+                  [class.ng-invalid]="username?.invalid"
+                  [class.ng-dirty]="
+                    (submitted && username?.pristine) ||
+                    username?.dirty ||
+                    username?.touched
+                  "
+                  type="text" />
+
+                <div id="username-help">
+                  <small
+                    *ngIf="(submitted && username?.pristine) || 
+        (username?.errors?.['required'] && (username?.dirty || username?.touched))"
+                    class="p-error">
+                    لطفا نام کاربری را خالی نگذارید
+                  </small>
+
+                  <small class="p-error" style="visibility: hidden">
+                    error
+                  </small>
+                </div>
+              </div>
+              <!-- / نام کاربری -->
+
+              <!-- رمز عبور -->
+              <div class="field">
+                <!-- <div class="input-icon">
+                  <i class="pi pi-key border-end"></i>
+                </div> -->
+                <label
+                  for="password"
+                  [class.lbl-margin]="sidemenuService.offcanvasMode"
+                  >رمز عبور</label
+                >
+                <p-password
+                  id="password"
+                  name="password"
+                  formControlName="password"
+                  styleClass="w-100 ng-valid"
+                  class="input-pass"
+                  inputStyleClass="w-100 large-input"
+                  [toggleMask]="true"
+                  [class.ng-invalid]="password?.invalid"
+                  [class.ng-dirty]="
+                    (submitted && password?.pristine) ||
+                    password?.dirty ||
+                    password?.touched
+                  "
+                  [feedback]="false">
+                </p-password>
+
+                <div id="password-help">
+                  <small
+                    *ngIf="(submitted && password?.pristine) || 
+        (password?.errors?.['required'] && (password?.dirty || password?.touched))"
+                    class="p-error">
+                    لطفا گذرواژه را خالی نگذارید
+                  </small>
+                  <small
+                    *ngIf="password?.errors?.['minlength'] && (password?.dirty || password?.touched)"
+                    class="p-error">
+                    {{ 'گذرواژه حداقل شامل 8 کاراکتر می‌باشد' | faNum }}
+                  </small>
+                  <small style="visibility: hidden" class="p-error">
+                    error
+                  </small>
+                </div>
+              </div>
+              <!-- / رمز عبور -->
+
+              <!-- <div
+                class="d-flex align-items-center justify-content-between m-2 mt-0"> -->
+              <!-- forgot password -->
+              <!-- <a
+                  class="active-link font-medium no-underline me-1 text-hilight text-start cursor-pointer mt-1">
+                  <strong> فراموشی رمز عبور </strong>
+                </a> -->
+              <!-- / forgot password -->
+
+              <!-- remember me -->
+              <!-- <div class="d-flex flex-row-reverse align-items-center ms-1">
+                  <label for="rememberMe" class="text-hilight mt-1">
+                    <strong> مرا به خاطر بسپار </strong>
+                  </label>
+
+                  <p-checkbox
+                    id="rememberMe"
+                    name="rememberMe"
+                    formControlName="rememberMe"
+                    class="me-2"
+                    [binary]="true">
+                  </p-checkbox>
+                </div> -->
+              <!-- / remember me -->
+              <!-- </div> -->
+
+              <!-- عبارت امنیتی -->
+              <app-dnt-captcha
+                *ngIf="model"
+                #appDntCaptcha
+                [(inputText)]="model.DNTCaptchaInputText"
+                [(text)]="model.DNTCaptchaText"
+                [(token)]="model.DNTCaptchaToken"
+                [backColor]="'#f7f3f3'"
+                [apiUrl]="captchaApiUrl"
+                [placeholder]="''"></app-dnt-captcha>
+              <!-- <div class="field">
+                <div class="row">
+                  <div class="col-6">
+                    <label for="secureCode">عبارت امنیتی</label>
+                    <input
+                      id="secureCode"
+                      pInputText
+                      class="large-input"
+                      type="text"
+                      style="width: 100%" />
+                  </div>
+                  <div class="col-6 d-flex">
+                    <img
+                      src="assets/images/captcha.jpg"
+                      alt="BotDetect CAPTCHA  image style screenshot"
+                      class="img-captcha" />
+                  </div>
+                </div>
+              </div> -->
+              <!-- / عبارت امنیتی -->
+
+              <div class="w-100 text-end pt-3 div-submit-button">
+                <button
+                  pButton
+                  pRipple
+                  class="submit-button w-100 p-button-primary"
+                  type="submit"
+                  [label]="'ورود'"
+                  [loading]="loading"></button>
+              </div>
+
+              <div class="w-100 div-forgot-pass">
+                <!-- forgot password -->
+                <!-- <a
+                  class="active-link font-medium no-underline me-1 text-hilight text-start cursor-pointer mt-1">
+                  <strong> رمز عبور خود را فراموش کرده ام. </strong>
+                </a> -->
+                <div class="color-gray" style="margin-top: 20px">
+                  <span
+                    >جهت ارتباط با پشتیبانی با شماره 72235 داخلی
+                    {{ 428 | faNum }} و {{ 435 | faNum }} تماس حاصل
+                    نمایید.</span
+                  >
+                </div>
+              </div>
+
+              <!-- <div class="mt-4 px-5">
+                <div class="or-content">
+                  <button
+                    pButton
+                    pRipple
+                    class="register-button p-button-rounded p-button-outlined">
+                    <div class="d-flex flex-column">
+                      <i class="pi pi-user-plus"></i>
+                      <strong>ثبت نام</strong>
+                    </div>
+                  </button>
+                </div>
+              </div> -->
+            </div>
+          </form>
+          <!-- login content form -->
+        </div>
+        <div class="login__header col-12">
+          <div
+            class="row w-25 d-flex jc-center ai-center w-100 pb-3"
+            [class.canvas-img]="sidemenuService.offcanvasMode"
+            [class.canvas-title]="sidemenuService.offcanvasMode">
+            <!-- light/dark theme sign in -->
+            <img
+              ngSrc="assets/images/codal.svg"
+              class="login__header-image col-6 rounded"
+              style="width: 100px; height: 80px"
+              alt="SignIn Image"
+              width="64"
+              height="64"
+              priority />
+            <!-- / light/dark theme sign in -->
+
+            <!-- login header title -->
+            <!-- <div class="col-6 text-center login__header-title w-75">
+              <div class="text-900 font-medium">
+                <strong> سامانه برنامه بودجه داخلی صندوق ذخیره فرهنگیان </strong>
+              </div>
+            </div> -->
+            <!-- / login header title -->
+          </div>
+          <div class="row w-25 d-flex jc-center ai-center w-100 pb-3">
+            <div class="text-900 font-medium">
+              <strong
+                style="font-size: 23px"
+                [class.canvas-title]="sidemenuService.offcanvasMode">
+                سامانه مدیریت اسناد داخلی
+              </strong>
+              <div>موسسه صندوق ذخیره فرهنگیان</div>
+            </div>
+            <div *ngIf="errMsg !== ''" class="error-box">
+              <span [innerHtml]="errMsg"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / login content -->
+    </div>
+  </div>
+  <!-- / login card -->
+</main>
+<!-- / login -->
