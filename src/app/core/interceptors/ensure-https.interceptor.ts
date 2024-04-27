@@ -1,5 +1,3 @@
-/** ّبِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
-
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,

@@ -1,5 +1,3 @@
-/** بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
-
 import { TestBed } from '@angular/core/testing';
 
 import { HttpErrorHandlerService } from './http-error-handler.service';

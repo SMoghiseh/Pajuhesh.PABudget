@@ -1,5 +1,3 @@
-/* بسم االه الرحمن الرحیم */
-
 import { IRCurrencyPipe } from './ircurrency.pipe';
 
 describe('IRCurrencyPipe', () => {
