@@ -25,11 +25,29 @@ const routes: Routes = [
         canMatch: [authGuard],
       },
       {
+        path: 'baseinfo',
+        title: 'برنامه و بودجه | مدیریت اطلاعات پایه',
+        loadChildren: () =>
+          import('./modules/basics-management/basics-management.module').then(
+            m => m.BasicsManagementModule
+          ),
+        canMatch: [authGuard],
+      },
+      {
         path: 'UserManagment',
         title: 'برنامه بودجه | مدیریت کاربران',
         loadChildren: () =>
           import('./modules/user-management/user-management.module').then(
             m => m.UserManagementModule
+          ),
+        canMatch: [authGuard],
+      },
+      {
+        path: 'DocSettings',
+        title: 'برنامه و بودجه | تنظیمات پایه اسناد',
+        loadChildren: () =>
+          import('./modules/document-settings/document-settings.module').then(
+            m => m.DocumentSettingsModule
           ),
         canMatch: [authGuard],
       },

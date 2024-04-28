@@ -1,0 +1,239 @@
+<!-- pop up messages -->
+<p-toast key="doctTagType" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+  <!-- <div class="card">
+    <div class="card-body"> -->
+  <div class="card-text pt-3"></div>
+  <!-- input group -->
+  <div class="pb-2">
+    <p-panel class="search-panel__secation pb-1" header="تگ های اسناد">
+      <form #formDir="ngForm" [formGroup]="addNewDocumentTagTypeForm" (ngSubmit)="addOrUpdateDocumentTagType()">
+        <div class="container">
+          <div class="row row-cols-lg-4 row-cols-1">
+            <div class="col my-1">
+              <label for="docTypeId">نوع اسناد</label>
+              <p-treeSelect id="docTypeId" class="md:w-20rem w-full" containerStyleClass="w-full"
+                formControlName="docTypeId" placeholder="انتخاب کنید" [options]="nodes" [filter]="true"
+                [filterInputAutoFocus]="true" [showClear]="true" (onNodeSelect)="onNodeSelect()"></p-treeSelect>
+            </div>
+            <div class="col my-1">
+              <label for="tagTypeId">تگ</label>
+              <p-dropdown id="tagTypeId" class="col" styleClass="w-100 my-1" optionLabel="name" optionValue="id"
+                [options]="tagsLst" placeholder="انتخاب کنید" formControlName="tagTypeId" [showClear]="true"
+                (onChange)="onChangeTag($event)" [class.ng-invalid]="tagTypeId?.invalid" [class.ng-dirty]="
+                  (addNewDocumentTagTypeFormSubmitted && tagTypeId?.pristine) ||
+                  tagTypeId?.dirty ||
+                  tagTypeId?.touched
+                ">
+              </p-dropdown>
+              <div id="tagTypeId-help">
+                <small *ngIf="(addNewDocumentTagTypeFormSubmitted && tagTypeId?.pristine) || 
+                (tagTypeId?.errors?.['required'] && (tagTypeId?.dirty || tagTypeId?.touched))" class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <div *ngIf="tagTypeId?.value === 7" class="col my-1">
+              <!-- عنوان‌ها -->
+              <label for="tagServiceMasterId">عنوان‌ها</label>
+              <p-dropdown id="tagServiceMasterId" class="col" styleClass="w-100" optionLabel="title" optionValue="id"
+                [options]="subjects" placeholder="انتخاب کنید" formControlName="tagServiceMasterId">
+              </p-dropdown>
+              <!-- / عنوان‌ها -->
+            </div>
+            <!-- نام تگ -->
+            <div class="col my-1">
+              <label for="tagName">نام تگ</label>
+              <input pInputText id="tagName" name="tagName" formControlName="tagName" type="text" class="w-100"
+                [class.ng-invalid]="tagName?.invalid" [class.ng-dirty]="
+                  (addNewDocumentTagTypeFormSubmitted && tagName?.pristine) ||
+                  tagName?.dirty ||
+                  tagName?.touched
+                " />
+
+              <div id="tagName-help">
+                <small *ngIf="(addNewDocumentTagTypeFormSubmitted && tagName?.pristine) || 
+                  (tagName?.errors?.['required'] && (tagName?.dirty || tagName?.touched))" class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / نام تگ -->
+
+            <!-- عنوان نمایشی تگ -->
+            <div class="col my-1">
+              <label for="displayName">عنوان نمایشی تگ</label>
+              <input pInputText id="displayName" name="displayName" formControlName="displayName" type="text"
+                class="w-100" [class.ng-invalid]="displayName?.invalid" [class.ng-dirty]="
+                  (addNewDocumentTagTypeFormSubmitted && displayName?.pristine) ||
+                  displayName?.dirty ||
+                  displayName?.touched
+                " />
+
+              <div id="displayName-help">
+                <small *ngIf="(addNewDocumentTagTypeFormSubmitted && displayName?.pristine) || 
+                  (displayName?.errors?.['required'] && (displayName?.dirty || displayName?.touched))" class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / عنوان نمایشی تگ -->
+          </div>
+          <div class="row">
+            <div class="col my-1">
+              <label for="isRequired" style="margin-left: 10px; font-size: 13px">اجباری بودن</label>
+              <p-checkbox id="isRequired" name="isRequired" formControlName="isRequired" [binary]="true"
+                inputId="binary">
+              </p-checkbox>
+            </div>
+            <!-- دکمه ها -->
+            <div class="col my-1" style="text-align: left">
+              <p-button class="pe-2 p-button-wide" styleClass="p-button-success" label="تایید" icon="pi pi-check"
+                type="submit" [loading]="addNewDocumentTagTypeLoading"></p-button>
+
+              <p-button class="pe-2 p-button-wide" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
+                (click)="resetaddNewDocumentTagTypeForm()"></p-button>
+            </div>
+            <!-- / دکمه ها -->
+          </div>
+        </div>
+      </form>
+    </p-panel>
+  </div>
+  <!-- / input group -->
+
+  <!-- data table -->
+  <p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [styleClass]="gridClass" [paginator]="true"
+    [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true" [totalRecords]="totalCount"
+    [value]="DocumentsTagType" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <!-- <th style="min-width: 3rem">
+              <strong>ردیف</strong>
+            </th> -->
+
+        <th style="min-width: 20rem">
+          <strong>نام تگ</strong>
+        </th>
+
+        <th style="min-width: 20rem">
+          <strong>عنوان نمایشی تگ</strong>
+        </th>
+
+        <th style="min-width: 2rem">
+          <strong> عملیات </strong>
+        </th>
+      </tr>
+    </ng-template>
+    <!-- / table header -->
+    <!-- table body -->
+    <ng-template pTemplate="body" let-tagType let-rowIndex="rowIndex">
+      <tr>
+        <!-- <td>
+              <strong style="font-size: 17px">
+                {{ rowIndex + 1 | faNum }}
+              </strong>
+            </td> -->
+
+        <td>{{ tagType.tagName }}</td>
+
+        <td>{{ tagType.displayName }}</td>
+
+        <!-- actions -->
+        <td class="d-flex jc-center ai-center">
+          <!-- edit -->
+          <p-button pRipple class="pe-2" styleClass="p-button-text p-button-warning p-button-rounded" type="button"
+            icon="pi pi-pencil" (click)="editRow(tagType)">
+          </p-button>
+          <!-- / edit -->
+
+          <!-- delete -->
+          <p-button pRipple class="pe-2" styleClass="p-button-text p-button-danger p-button-rounded" type="button"
+            icon="pi pi-times" (click)="deleteRow(tagType)">
+          </p-button>
+          <!-- / delete -->
+        </td>
+        <!-- actions -->
+      </tr>
+    </ng-template>
+    <!-- / table body -->
+  </p-table>
+  <!-- data table -->
+
+  <!-- data list -->
+  <div class="data-list d-block d-lg-none">
+    <ul *ngFor="let tagType of DocumentsTagType" class="list-group my-1">
+      <!-- عنوان نمایشی تگ -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>عنوان نمایشی تگ</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            {{ tagType.displayName }}
+          </div>
+        </div>
+      </li>
+      <!-- / عنوان نمایشی تگ -->
+
+      <!-- نام تگ -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>نام تگ</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            {{ tagType.tagName }}
+          </div>
+        </div>
+      </li>
+      <!-- / نام تگ -->
+
+      <!-- عملیات -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>عملیات</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            <div class="d-flex jc-center ai-center">
+              <!-- edit -->
+              <p-button pRipple styleClass="p-button-text p-button-warning" type="button" icon="pi pi-pencil"
+                (click)="editRow(tagType)">
+              </p-button>
+              <!-- / edit -->
+
+              <!-- delete -->
+              <p-button pRipple styleClass="p-button-text p-button-danger" type="button" icon="pi pi-times"
+                (click)="deleteRow(tagType)">
+              </p-button>
+              <!-- / delete -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- / عملیات -->
+    </ul>
+  </div>
+  <!-- / data list -->
+  <!-- </div>
+  </div> -->
+</section>
+<!-- / data table -->
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

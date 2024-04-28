@@ -1,0 +1,256 @@
+<!-- pop up messages -->
+<p-toast key="subjectDefinition" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+  <!-- <div class="card">
+    <div class="card-body"> -->
+  <div class="card-text pt-3"></div>
+  <!-- input group -->
+  <div class="pb-2">
+    <p-panel class="search-panel__secation pb-1" header="تعریف عناوین">
+      <form
+        #formDir="ngForm"
+        [formGroup]="addNewSubjectForm"
+        (ngSubmit)="addOrUpdateSubject()">
+        <div class="container">
+          <div class="row row-cols-lg-3 row-cols-1">
+            <!-- شرح -->
+            <div class="col my-1">
+              <label for="title">شرح</label>
+              <input
+                pInputText
+                id="title"
+                name="title"
+                formControlName="title"
+                type="text"
+                class="w-100"
+                [class.ng-invalid]="title?.invalid"
+                [class.ng-dirty]="
+                  (addNewSubjectFormSubmitted && title?.pristine) ||
+                  title?.dirty ||
+                  title?.touched
+                " />
+
+              <div id="title-help">
+                <small
+                  *ngIf="(addNewSubjectFormSubmitted && title?.pristine) || 
+                  (title?.errors?.['required'] && (title?.dirty || title?.touched))"
+                  class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / شرح -->
+
+            <!-- نام لاتین -->
+            <div class="col my-1">
+              <label for="enName">نام لاتین</label>
+              <input
+                pInputText
+                id="enName"
+                name="enName"
+                formControlName="enName"
+                type="text"
+                class="w-100"
+                [class.ng-invalid]="enName?.invalid"
+                [class.ng-dirty]="
+                  (addNewSubjectFormSubmitted && enName?.pristine) ||
+                  enName?.dirty ||
+                  enName?.touched
+                " />
+
+              <div id="enName-help">
+                <small
+                  *ngIf="(addNewSubjectFormSubmitted && enName?.pristine) || 
+                  (enName?.errors?.['required'] && (enName?.dirty || enName?.touched))"
+                  class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / نام لاتین -->
+
+            <!-- دکمه ها -->
+            <div class="col my-1" style="padding-top: 20px">
+              <p-button
+                class="pe-2 p-button-wide"
+                styleClass="p-button-success"
+                label="تایید"
+                icon="pi pi-check"
+                type="submit"
+                [loading]="addNewSubjectLoading"></p-button>
+
+              <p-button
+                class="pe-2 p-button-wide"
+                styleClass="p-button-warning"
+                label="انصراف"
+                icon="pi pi-times"
+                (click)="resetAddNewSubjectForm()"></p-button>
+            </div>
+            <!-- / دکمه ها -->
+          </div>
+        </div>
+      </form>
+    </p-panel>
+  </div>
+  <!-- / input group -->
+
+  <!-- data table -->
+  <p-table
+    #dataTable
+    class="data-table d-none d-lg-block"
+    dataKey="id"
+    [styleClass]="gridClass"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rowHover]="true"
+    [totalRecords]="totalCount"
+    [value]="subjects"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <!-- <th style="min-width: 3rem">
+              <strong>ردیف</strong>
+            </th> -->
+
+        <th style="min-width: 20rem">
+          <strong>شرح</strong>
+        </th>
+
+        <th style="min-width: 20rem">
+          <strong>نام لاتین</strong>
+        </th>
+
+        <th style="min-width: 2rem">
+          <strong> عملیات </strong>
+        </th>
+      </tr>
+    </ng-template>
+    <!-- / table header -->
+    <!-- table body -->
+    <ng-template pTemplate="body" let-subject let-rowIndex="rowIndex">
+      <tr>
+        <!-- <td>
+              <strong style="font-size: 17px">
+                {{ rowIndex + 1 | faNum }}
+              </strong>
+            </td> -->
+
+        <td>{{ subject.title }}</td>
+
+        <td>{{ subject.enName }}</td>
+
+        <!-- actions -->
+        <td class="d-flex jc-center ai-center">
+          <!-- edit -->
+          <p-button
+            pRipple
+            class="pe-2"
+            styleClass="p-button-text p-button-warning p-button-rounded"
+            type="button"
+            icon="pi pi-pencil"
+            (click)="editRow(subject)">
+          </p-button>
+          <!-- / edit -->
+
+          <!-- delete -->
+          <p-button
+            pRipple
+            class="pe-2"
+            styleClass="p-button-text p-button-danger p-button-rounded"
+            type="button"
+            icon="pi pi-times"
+            (click)="deleteRow(subject)">
+          </p-button>
+          <!-- / delete -->
+        </td>
+        <!-- actions -->
+      </tr>
+    </ng-template>
+    <!-- / table body -->
+  </p-table>
+  <!-- data table -->
+
+  <!-- data list -->
+  <div class="data-list d-block d-lg-none">
+    <ul *ngFor="let subject of subjects" class="list-group my-1">
+      <!-- نام لاتین -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>نام لاتین</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            {{ subject.enName }}
+          </div>
+        </div>
+      </li>
+      <!-- / نام لاتین -->
+
+      <!-- شرح -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>شرح</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            {{ subject.title }}
+          </div>
+        </div>
+      </li>
+      <!-- / شرح -->
+
+      <!-- عملیات -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>عملیات</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            <div class="d-flex jc-center ai-center">
+              <!-- edit -->
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-warning"
+                type="button"
+                icon="pi pi-pencil"
+                (click)="editRow(subject)">
+              </p-button>
+              <!-- / edit -->
+
+              <!-- delete -->
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-danger"
+                type="button"
+                icon="pi pi-times"
+                (click)="deleteRow(subject)">
+              </p-button>
+              <!-- / delete -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- / عملیات -->
+    </ul>
+  </div>
+  <!-- / data list -->
+  <!-- </div>
+  </div> -->
+</section>
+<!-- / data table -->
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

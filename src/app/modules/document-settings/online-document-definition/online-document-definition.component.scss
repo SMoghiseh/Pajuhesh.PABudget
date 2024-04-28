@@ -1,0 +1,85 @@
+:host ::ng-deep .p-button-wide .p-button {
+    min-width: 9rem;
+}
+
+.web-style{
+    margin-top: 15px;
+}
+
+.main {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    box-shadow: var(--main-card-shadow);
+    background-color: var(--main-card-background) !important;
+    border-color: var(--main-card-border-color) !important;
+    border: 1px solid;
+    padding: 20px;
+    height: 82vh;
+}
+
+.submit-btn{
+    top: 10px;
+    position: relative;
+}
+
+.pi-check-square{
+    font-size: 16px;
+    font-weight: bold;
+    color: green;
+}
+
+.pi-times-circle{
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+}
+
+.div-isActive{
+    padding-top: 25px;
+    text-align: center;
+    label{
+        margin-left: 10px;
+    }
+}
+
+.need{
+    padding: 7px 20px;
+    border: 1px solid #c3c3c3;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0px 10px 10px 0px;
+    width: fit-content;
+
+    .spn-icon{
+        position: relative;
+        top: 3px;
+        left: 7px;
+    }
+}
+
+
+.pi-check-circle{
+    font-size: 15px;
+    font-weight: bold;
+    color: green;
+}
+
+.pi-times-circle{
+    font-size: 15px;
+    font-weight: bold;
+    color: red;
+}
+
+.increase-score{
+    margin-left: 10px;
+    display: inline-block;
+    // direction: ltr;
+    @extend .pi-check-circle;
+}
+
+.decrease-score{
+    display: inline-block;
+    // direction: ltr;
+    @extend .pi-times-circle;
+}
+

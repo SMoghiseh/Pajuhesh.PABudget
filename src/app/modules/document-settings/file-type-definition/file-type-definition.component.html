@@ -1,0 +1,309 @@
+<!-- pop up messages -->
+<p-toast key="fileTypeDefinition" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+  <!-- <div class="card">
+    <div class="card-body"> -->
+  <div class="card-text pt-3"></div>
+  <!-- input group -->
+  <div class="pb-2">
+    <p-panel class="search-panel__secation pb-1" header="تعریف نوع فایل">
+      <form
+        #formDir="ngForm"
+        [formGroup]="addNewFileTypeForm"
+        (ngSubmit)="addOrUpdateFileType()">
+        <div class="container">
+          <div class="row row-cols-lg-3 row-cols-1">
+            <!-- نوع فایل -->
+            <div class="col my-1">
+              <label for="type">نوع فایل</label>
+              <input
+                pInputText
+                id="type"
+                name="type"
+                formControlName="type"
+                type="text"
+                class="w-100"
+                [class.ng-invalid]="type?.invalid"
+                [class.ng-dirty]="
+                  (addNewFileTypeFormSubmitted && type?.pristine) ||
+                  type?.dirty ||
+                  type?.touched
+                " />
+
+              <div id="type-help">
+                <small
+                  *ngIf="(addNewFileTypeFormSubmitted && type?.pristine) || 
+                  (type?.errors?.['required'] && (type?.dirty || type?.touched))"
+                  class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / نوع فایل -->
+
+            <!-- پسوند فایل -->
+            <div class="col my-1">
+              <label for="extention">پسوند فایل</label>
+              <input
+                pInputText
+                id="extention"
+                name="extention"
+                formControlName="extention"
+                type="text"
+                class="w-100"
+                [class.ng-invalid]="extention?.invalid"
+                [class.ng-dirty]="
+                  (addNewFileTypeFormSubmitted && extention?.pristine) ||
+                  extention?.dirty ||
+                  extention?.touched
+                " />
+
+              <div id="extention-help">
+                <small
+                  *ngIf="(addNewFileTypeFormSubmitted && extention?.pristine) || 
+                  (extention?.errors?.['required'] && (extention?.dirty || extention?.touched))"
+                  class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / پسوند فایل -->
+          </div>
+          <div class="row">
+            <!-- توضیحات -->
+            <div class="col-8">
+              <label for="description">توضیحات</label>
+              <input
+                pInputText
+                id="description"
+                name="description"
+                formControlName="description"
+                type="text"
+                class="w-100"
+                [class.ng-invalid]="description?.invalid"
+                [class.ng-dirty]="
+                  (addNewFileTypeFormSubmitted && description?.pristine) ||
+                  description?.dirty ||
+                  description?.touched
+                " />
+
+              <div id="description-help">
+                <small
+                  *ngIf="(addNewFileTypeFormSubmitted && description?.pristine) || 
+                  (description?.errors?.['required'] && (description?.dirty || description?.touched))"
+                  class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / توضیحات -->
+
+            <!-- دکمه ها -->
+            <div
+              class="d-flex jc-center justify-content-lg-end col my-1"
+              style="padding-top: 20px">
+              <p-button
+                class="pe-2 p-button-wide"
+                styleClass="p-button-success"
+                label="تایید"
+                icon="pi pi-check"
+                type="submit"
+                [loading]="addNewFileTypeLoading"></p-button>
+
+              <p-button
+                class="pe-2 p-button-wide"
+                styleClass="p-button-warning"
+                label="انصراف"
+                icon="pi pi-times"
+                (click)="resetAddNewFileTypeForm()"></p-button>
+            </div>
+            <!-- / دکمه ها -->
+          </div>
+        </div>
+      </form>
+    </p-panel>
+  </div>
+  <!-- / input group -->
+
+  <!-- data table -->
+  <p-table
+    #dataTable
+    class="data-table d-none d-lg-block"
+    dataKey="id"
+    [styleClass]="gridClass"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rowHover]="true"
+    [totalRecords]="totalCount"
+    [value]="fileTypes"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <!-- <th style="min-width: 3rem">
+              <strong>ردیف</strong>
+            </th> -->
+
+        <th style="min-width: 20rem">
+          <strong>نوع فایل</strong>
+        </th>
+
+        <th style="min-width: 20rem">
+          <strong>پسوند فایل</strong>
+        </th>
+
+        <th style="min-width: 2rem">
+          <strong> توضیحات </strong>
+        </th>
+        <th style="min-width: 2rem">
+          <strong> عملیات </strong>
+        </th>
+      </tr>
+    </ng-template>
+    <!-- / table header -->
+    <!-- table body -->
+    <ng-template pTemplate="body" let-fileType let-rowIndex="rowIndex">
+      <tr>
+        <!-- <td>
+              <strong style="font-size: 17px">
+                {{ rowIndex + 1 | faNum }}
+              </strong>
+            </td> -->
+
+        <td>{{ fileType.type }}</td>
+
+        <td>{{ fileType.extention }}</td>
+
+        <td>{{ fileType.description }}</td>
+
+        <!-- actions -->
+        <td class="d-flex jc-center ai-center">
+          <!-- edit -->
+          <p-button
+            pRipple
+            class="pe-2"
+            styleClass="p-button-text p-button-warning p-button-rounded"
+            type="button"
+            icon="pi pi-pencil"
+            (click)="editRow(fileType)">
+          </p-button>
+          <!-- / edit -->
+
+          <!-- delete -->
+          <p-button
+            pRipple
+            class="pe-2"
+            styleClass="p-button-text p-button-danger p-button-rounded"
+            type="button"
+            icon="pi pi-times"
+            (click)="deleteRow(fileType)">
+          </p-button>
+          <!-- / delete -->
+        </td>
+        <!-- actions -->
+      </tr>
+    </ng-template>
+    <!-- / table body -->
+  </p-table>
+  <!-- data table -->
+
+  <!-- data list -->
+  <div class="data-list d-block d-lg-none">
+    <ul *ngFor="let fileType of fileTypes" class="list-group my-1">
+      <!-- پسوند فایل -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>پسوند فایل</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            {{ fileType.extention }}
+          </div>
+        </div>
+      </li>
+      <!-- / پسوند فایل -->
+
+      <!-- نوع فایل -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>نوع فایل</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            {{ fileType.type }}
+          </div>
+        </div>
+      </li>
+      <!-- / نوع فایل -->
+
+      <!-- توضیحات -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>توضیحات</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            {{ fileType.description }}
+          </div>
+        </div>
+      </li>
+      <!-- / توضیحات -->
+
+      <!-- عملیات -->
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>عملیات</strong>
+          </div>
+
+          <div class="col my-1 text-center">
+            <div class="d-flex jc-center ai-center">
+              <!-- edit -->
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-warning"
+                type="button"
+                icon="pi pi-pencil"
+                (click)="editRow(fileType)">
+              </p-button>
+              <!-- / edit -->
+
+              <!-- delete -->
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-danger"
+                type="button"
+                icon="pi pi-times"
+                (click)="deleteRow(fileType)">
+              </p-button>
+              <!-- / delete -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- / عملیات -->
+    </ul>
+  </div>
+  <!-- / data list -->
+  <!-- </div>
+  </div> -->
+</section>
+<!-- / data table -->
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

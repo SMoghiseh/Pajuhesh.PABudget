@@ -77,7 +77,7 @@ export class RoleDefinitionComponent implements OnInit {
     this.loading = true;
     this.first = 0;
     this.httpService
-      .get<Role[]>(Role.apiAddress)
+      .post<Role[]>(Role.apiAddress, { withOutPagination: true })
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {

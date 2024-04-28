@@ -1,0 +1,22 @@
+:host ::ng-deep .p-button-wide .p-button {
+    min-width: 9rem;
+}
+
+.upload-file{
+    display: inline-flex;
+    position: relative;
+    top: 7px;
+    left: 2px;
+}
+
+.fileupload-labl{
+    display: inline-block;
+    width: 300px !important;
+}
+
+.pi-download{
+    font-size: 16px;
+    font-weight: bold;
+    color: blue;
+    cursor: pointer;
+}

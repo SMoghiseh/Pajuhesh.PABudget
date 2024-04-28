@@ -100,12 +100,6 @@ export class BaseResponse<type> {
 
     permision?: type;
 
-    regAdvertsGroup?: any;
-
-    lastWeekAdvert?: any;
-
-    allAdvertRegistered?: any;
-
     workFlowReportData?: any;
 
     byCompanyGroup?: [any];
@@ -142,15 +136,14 @@ export class Permission extends RolePermissions {
   static override readonly apiAddress: string = 'api/SsoApi/SsoAdmin/permissions';
 }
 
-export class AllRoleAdvertismentTypeTree extends RolePermissions {
-  static readonly apiAddress1 = 'api/v1/role/AllRoleAdvertismentTypeTree';
-  static readonly apiAddress2 = 'api/v1/role/RoleAdvertismentType';
+export class AllRoleDocumentTypeTree extends RolePermissions {
+  static readonly apiAddress1 = 'api/v1/role/AllRoleDocumentTypeTree';
 }
 
 /** نقش‌ها */
 export class Role {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/role/list';
+  static readonly apiAddress = 'api/SsoApi/SsoAdmin/Role/List';
 
   /** شناسه */
   id!: number;
@@ -166,10 +159,7 @@ export class Role {
 export class Group extends Pagination {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/v1/GroupPolicy/Group';
-  static readonly apiAddressAdvertType =
-    'api/v1/GroupPolicy/GroupAdvertismentTypeTree';
-  static readonly apiAddressUpdateAdvertType =
-    'api/v1/GroupPolicy/GroupAdvertismentType';
+
   static readonly apiAddressUserGroups = 'api/v1/GroupPolicy/UserGroups';
 
   /** شناسه */
@@ -266,7 +256,7 @@ export class DeletePerson {
 }
 
 export class FileType {
-  static readonly apiAddress = 'api/v1/baseinfo/FileMimeType';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/FileMimeType';
   id!: number;
   type!: string;
   description!: string;
@@ -285,7 +275,7 @@ export class AssignCompanyToSupervisor {
 /** ناظرین */
 export class CompanyTree {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/Company/tree';
+  static readonly apiAddress = 'api/PABudgetApi/v1/Company/tree';
 
   id!: number;
   data!: string;
@@ -333,8 +323,8 @@ export class GeneralPerson extends Person {
 /** نوع‌های شرکت */
 export class Company {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/company/All';
-  static readonly apiAddressSubset = 'api/v1/company/subsets';
+  static readonly apiAddress = 'api/PABudgetApi/v1/company/All';
+  static readonly apiAddressSubset = 'api/PABudgetApi/v1/company/subsets';
 
   id!: number;
   parentId!: number;
@@ -450,4 +440,130 @@ export class CreatePerson {
 export class UpdatePerson {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/v1/info/person/update';
+}
+export class DocumentType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocumentType';
+  id!: number;
+  title!: string;
+  code!: string;
+  order!: number;
+  parentId!: any;
+  childes!: number;
+  key!: any;
+  label!: string;
+  selectable!: boolean;
+  documentTypeGroupId!: number;
+  periodTypeId!: number;
+}
+
+export class DocumentTypeFileNeeds {
+  static readonly apiAddress = 'api/v1/baseinfo/DocTyeFileNeeds';
+  id!: number;
+  title!: string;
+  extention!: string;
+  isAdded!: boolean;
+  docTyeFileNeedsId!: number;
+  isRequired!: boolean;
+  year!: number;
+  month!: number;
+  attachmentFileTypeName!: string;
+}
+
+export class TagType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/TagType';
+  static readonly apiAddress1 = 'api/v1/baseinfo/DocTypeTags';
+  static readonly apiAddressTags = 'api/v1/Tags';
+  tagTypeId!: number;
+  id!: number;
+  name!: string;
+  typeName!: string;
+  docType!: string;
+  displayName!: string;
+  docTypeTagsId!: number;
+  documentTypeId!: any;
+  tagName!: string;
+  isRequired!: boolean;
+  tagValue!: string;
+  docTypeId!: number;
+  tagServiceMasterId!: number;
+  tagServiceMasterData!: any;
+}
+/** عناوین */
+export class Subject {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/master';
+
+  /** شناسه */
+  id!: number;
+
+  /** شرح */
+  title!: string;
+
+  /** نام لاتین */
+  enName!: string;
+
+  localCode!: number;
+}
+
+export class DocumentTypeGroup {
+  static readonly apiAddress = 'api/v1/BaseInfo/DocumentTypeGroup';
+
+  title!: string;
+  withOutPagination!: boolean;
+  id!: number;
+}
+export class PeriodType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PeriodType';
+
+  id!: number;
+  name!: string;
+  valueType!: number;
+}
+
+export class AttachmentType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AttachmentFileType';
+  id!: number;
+  title!: string;
+  enName!: string;
+  tempPath!: string;
+  fileMimeTypeId!: number;
+  attachmentFileTypeTemplateId!: number | null;
+}
+
+export class CreateOnlineDocDefinition {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/OnlineDocDefinition';
+  id!: number;
+  description!: string;
+  activeDate!: string | null;
+  expiredDate!: string | null;
+  increaseValueScore!: number;
+  decreaseValueScore!: number;
+  isActive!: boolean;
+  docTypeId!: number;
+  onlineDocumentNeedsInfos!: DocumentTypeFileNeeds;
+  activeDatePersian!: Date;
+  expiredDatePersian!: Date;
+  docTypeName!: string;
+}
+/** اطلاعات پایه */
+export class CreateBasics {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/v1/BaseInfo/slave/create';
+}
+/** اطلاعات پایه */
+export class Basics {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/master';
+
+  /** شناسه */
+  id!: number;
+
+  /** شرح */
+  title!: string;
+
+  /** کد */
+  code!: string;
+
+  /** شناسه نوع */
+  masterId!: number;
 }

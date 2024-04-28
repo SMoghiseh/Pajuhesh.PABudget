@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
-  AllRoleAdvertismentTypeTree,
+  AllRoleDocumentTypeTree,
   Permission,
   Role,
   RolePermissions,
@@ -47,7 +47,7 @@ export class PermissionRoleAssignmentComponent implements OnInit {
   # Role
   --------------------------*/
   getRoles() {
-    this.httpService.get<Role[]>(Role.apiAddress).subscribe(response => {
+    this.httpService.post<Role[]>(Role.apiAddress, { withOutPagination: true }).subscribe(response => {
       if (response.data.result && response.data.result.length) {
         this.roles = response.data.result;
         this.selectedRole = response.data.result[0];
@@ -84,7 +84,7 @@ export class PermissionRoleAssignmentComponent implements OnInit {
   }
 
   returnSelectedItems(
-    permissions: AllRoleAdvertismentTypeTree[],
+    permissions: AllRoleDocumentTypeTree[],
     parent = null
   ) {
     permissions.forEach((p: any) => {
@@ -97,7 +97,7 @@ export class PermissionRoleAssignmentComponent implements OnInit {
     return this.selectedPermissions;
   }
 
-  isExistAndPush(p: AllRoleAdvertismentTypeTree) {
+  isExistAndPush(p: AllRoleDocumentTypeTree) {
     const isExist = this.selectedPermissions.filter(x => x.id === p.id);
     if (isExist.length === 0) this.selectedPermissions.push(p);
     else return;

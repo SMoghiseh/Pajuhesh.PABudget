@@ -1,0 +1,275 @@
+<!-- pop up messages -->
+<p-toast key="onlineDocumentDefinition" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+  <!-- <div class="card">
+    <div class="card-body"> -->
+  <div class="card-text pt-3"></div>
+  <!-- input group -->
+  <div class="pb-2">
+    <p-panel class="search-panel__secation pb-1" header="تعریف اسناد برخط">
+      <form #formDir="ngForm" [formGroup]="onlineDocumentDefinitionForm">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <label for="documentTypeId">نوع اسناد</label>
+            <p-treeSelect id="documentTypeId" class="md:w-20rem w-full" containerStyleClass="w-full"
+              formControlName="documentTypeId" placeholder="انتخاب کنید" [options]="nodes" [filter]="true"
+              [filterInputAutoFocus]="true" (onNodeSelect)="onNodeSelect()" [showClear]="true"
+              (onClear)="onClear($event)" [class.ng-invalid]="documentTypeId?.invalid" [class.ng-dirty]="
+                onlineDocumentDefinitionFormSubmitted &&
+                (documentTypeId?.pristine ||
+                  documentTypeId?.dirty ||
+                  documentTypeId?.touched)
+              "></p-treeSelect>
+            <div id="documentTypeId-help">
+              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (documentTypeId?.pristine || 
+                  (documentTypeId?.errors?.['required'] && (documentTypeId?.dirty || documentTypeId?.touched)))"
+                class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <label for="description">توضیحات</label>
+            <input pInputText id="description" name="description" formControlName="description" type="text"
+              class="w-100" [class.ng-invalid]="description?.invalid" [class.ng-dirty]="
+                onlineDocumentDefinitionFormSubmitted &&
+                (description?.pristine ||
+                  description?.dirty ||
+                  description?.touched)
+              " />
+
+            <div id="description-help">
+              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (description?.pristine || 
+            (description?.errors?.['required'] && (description?.dirty || description?.touched)))" class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <label for="activeDate">تاریخ فعال سازی</label>
+            <p-persian-calendar id="activeDate" name="activeDate" formControlName="activeDate" styleClass="w-100 "
+              [class.ng-invalid]="activeDate?.invalid" [class.ng-dirty]="
+                onlineDocumentDefinitionFormSubmitted &&
+                (activeDate?.pristine ||
+                  activeDate?.dirty ||
+                  activeDate?.touched)
+              ">
+            </p-persian-calendar>
+            <div id="activeDate-help">
+              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (activeDate?.pristine || 
+                (activeDate?.errors?.['required'] && (activeDate?.dirty || activeDate?.touched)))" class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <label for="expiredDate">تاریخ انقضا</label>
+            <p-persian-calendar id="expiredDate" name="expiredDate" formControlName="expiredDate" styleClass="w-100 "
+              [class.ng-invalid]="expiredDate?.invalid" [class.ng-dirty]="
+                onlineDocumentDefinitionFormSubmitted &&
+                (expiredDate?.pristine ||
+                  expiredDate?.dirty ||
+                  expiredDate?.touched)
+              ">
+            </p-persian-calendar>
+            <div id="expiredDate-help">
+              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (expiredDate?.pristine || 
+                (expiredDate?.errors?.['required'] && (expiredDate?.dirty || expiredDate?.touched)))" class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+          <!-- <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 div-isActive">
+            <label for="isActive">فعال بودن</label>
+            <p-checkbox
+              id="isActive"
+              name="isActive"
+              formControlName="isActive"
+              [binary]="true"
+              inputId="binary">
+              [class.ng-invalid]="isActive?.invalid" [class.ng-dirty]="
+              (onlineDocumentDefinitionFormSubmitted && isActive?.pristine) || isActive?.dirty
+              || isActive?.touched "</p-checkbox
+            >
+            <div id="isActive-help">
+              <small
+                *ngIf="(onlineDocumentDefinitionFormSubmitted && isActive?.pristine) || 
+                (isActive?.errors?.['required'] && (isActive?.dirty || isActive?.touched))"
+                class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div> -->
+
+          <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <label for="increaseValueScore">امتیاز مثبت ارسال به موقع</label>
+            <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" id="increaseValueScore"
+              name="increaseValueScore" formControlName="increaseValueScore"
+              [class.ng-invalid]="increaseValueScore?.invalid" [class.ng-dirty]="
+                onlineDocumentDefinitionFormSubmitted &&
+                (increaseValueScore?.pristine ||
+                  increaseValueScore?.dirty ||
+                  increaseValueScore?.touched)
+              ">
+            </p-inputNumber>
+            <div id="increaseValueScore-help">
+              <small
+                *ngIf="onlineDocumentDefinitionFormSubmitted && (increaseValueScore?.pristine || 
+                (increaseValueScore?.errors?.['required'] && (increaseValueScore?.dirty || increaseValueScore?.touched)))"
+                class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <label for="decreaseValueScore">امتیاز منفی تاخیر ارسال</label>
+            <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" id="decreaseValueScore"
+              name="decreaseValueScore" formControlName="decreaseValueScore"
+              [class.ng-invalid]="decreaseValueScore?.invalid" [class.ng-dirty]="
+                onlineDocumentDefinitionFormSubmitted &&
+                (decreaseValueScore?.pristine ||
+                  decreaseValueScore?.dirty ||
+                  decreaseValueScore?.touched)
+              ">
+            </p-inputNumber>
+            <div id="decreaseValueScore-help">
+              <small
+                *ngIf="onlineDocumentDefinitionFormSubmitted && (decreaseValueScore?.pristine || 
+                (decreaseValueScore?.errors?.['required'] && (decreaseValueScore?.dirty || decreaseValueScore?.touched)))"
+                class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-top: 7px">
+            <p-button class="pe-2 p-button-wide submit-btn" styleClass="p-button-success" label="ثبت" icon="pi pi-check"
+              (click)="createOnlineDocumentDefinition()" [loading]="onlineDocumentDefinitionFormLoading"></p-button>
+          </div>
+        </div>
+      </form>
+      <p-fieldset *ngIf="needs?.length > 0" legend="نیازمندی های سند">
+        <div class="row">
+          <div *ngFor="let item of needs" class="need">
+            <span class="spn-icon">
+              <i *ngIf="item.isRequired" class="pi pi-check-square" title="اجباری"></i>
+              <i *ngIf="!item.isRequired" class="pi pi-times-circle" title="اختیاری"></i></span>
+            <span>{{ item.attachmentFileTypeName }}</span>
+          </div>
+        </div>
+      </p-fieldset>
+    </p-panel>
+    <!-- data table -->
+    <p-table #dataTable class="data-table" dataKey="id" [paginator]="true" [rows]="dataTableRows"
+      [rowsPerPageOptions]="[10, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [value]="onlineDocumentsLst"
+      [loading]="loading" [responsive]="true" [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first">
+      <!-- table header -->
+      <ng-template pTemplate="header">
+        <tr class="data-table__header">
+          <th>
+            <strong> عنوان اسناد</strong>
+          </th>
+
+          <th>
+            <strong> نوع اسناد</strong>
+          </th>
+
+          <th>
+            <strong>تاریخ فعالسازی</strong>
+          </th>
+
+          <th>
+            <strong>تاریخ انقضا</strong>
+          </th>
+
+          <th>
+            <strong>امتیاز</strong>
+          </th>
+
+          <th>
+            <strong> فعال بودن</strong>
+          </th>
+
+          <!-- <th>
+                <strong>توضیحات</strong>
+              </th> -->
+        </tr>
+      </ng-template>
+      <!-- / table header -->
+      <!-- table body -->
+      <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
+        <tr class="data-table__body">
+          <td pTooltip="{{ report.description }}" tooltipEvent="hover" tooltipPosition="top">
+            {{ report.description }}
+          </td>
+
+          <td pTooltip="{{ report.documentTypeName }}" tooltipEvent="hover" tooltipPosition="top">
+            {{ report.documentTypeName }}
+          </td>
+
+          <td>{{ report.activeDatePersian }}</td>
+
+          <td>{{ report.expiredDatePersian }}</td>
+
+          <td>
+            <span class="increase-score">{{ report.increaseValueScore | faNum }}+</span>
+            <span class="decrease-score">{{ report.decreaseValueScore | faNum }}-</span>
+          </td>
+          <td>
+            <i *ngIf="report.isActive" class="pi pi-check-square"></i>
+            <i *ngIf="!report.isActive" class="pi pi-times-circle"></i>
+          </td>
+        </tr>
+      </ng-template>
+      <!-- / table body -->
+    </p-table>
+    <!-- data table -->
+  </div>
+  <!-- <p-table
+    #dataTable
+    class="data-table"
+    dataKey="id"
+    editMode="row"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [value]="needs"
+    [loading]="loading"
+    [responsive]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(first)]="first">
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <th>
+          <strong>نوع فایل پیوست</strong>
+        </th>
+        <th>
+          <strong> اجباری بودن </strong>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-need
+      let-editing="editing"
+      let-ri="rowIndex">
+      <tr [pEditableRow]="need">
+        <td>{{ need.attachmentFileTypeName }}</td>
+        <td>
+          <i *ngIf="need.isRequired" class="pi pi-check-square"></i>
+          <i *ngIf="!need.isRequired" class="pi pi-times-circle"></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table> -->
+</section>

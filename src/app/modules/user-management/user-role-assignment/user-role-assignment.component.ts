@@ -73,7 +73,7 @@ export class UserRoleAssignmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAdvertisementGroups();
+    this.getDocumentGroups();
     this.getRoles();
     this.getCompanies();
   }
@@ -81,7 +81,7 @@ export class UserRoleAssignmentComponent implements OnInit {
   /*--------------------------
   # GeneralPerson
   --------------------------*/
-  getAdvertisementGroups() {
+  getDocumentGroups() {
     this.httpService
       .get<GeneralPerson[]>(GeneralPerson.apiAddress)
       .subscribe(response => {
@@ -94,7 +94,7 @@ export class UserRoleAssignmentComponent implements OnInit {
   # GeneralPerson
   --------------------------*/
   getRoles() {
-    this.httpService.get<Role[]>(Role.apiAddress).subscribe(response => {
+    this.httpService.post<Role[]>(Role.apiAddress, { withOutPagination: true }).subscribe(response => {
       if (response.data.result) {
         this.roles = response.data.result;
       }
@@ -141,7 +141,7 @@ export class UserRoleAssignmentComponent implements OnInit {
             });
 
             this.getUserRolesList();
-            this.getAdvertisementGroups();
+            this.getDocumentGroups();
             this.selectedCompany = new Company();
             this.selectedRole = new Role();
           }

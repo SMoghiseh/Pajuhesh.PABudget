@@ -48,7 +48,7 @@ export class SidemenuComponent implements OnInit, AfterViewInit {
     private router: Router,
     public authService: AuthService,
     public sidemenuService: SidemenuService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const loginData = localStorage.getItem('loginData');
