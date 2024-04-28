@@ -317,7 +317,7 @@ export class PersonRole {
 /** کاربران */
 export class GeneralPerson extends Person {
   /** آدرس سرویس */
-  static override readonly apiAddress: string = 'api/v1/info/GetGeneralPersons';
+  static override readonly apiAddress: string = 'api/SsoApi/SsoAdmin/GetUsersWithRole';
 }
 
 /** نوع‌های شرکت */
