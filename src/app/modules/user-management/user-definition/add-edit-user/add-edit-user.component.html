@@ -1,0 +1,402 @@
+<form #formDir="ngForm" [formGroup]="editPersonForm">
+  <div class="row row-cols-lg-2 row-cols-1">
+    <!-- نام -->
+    <div class="col my-1">
+      <label for="firstName">نام</label>
+      <input
+        pInputText
+        [pKeyFilter]="patternText"
+        id="firstName"
+        name="firstName"
+        formControlName="firstName"
+        type="text"
+        class="w-100"
+        [value]="firstName?.value | faNum"
+        [class.ng-invalid]="firstName?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && firstName?.pristine) ||
+          firstName?.dirty ||
+          firstName?.touched
+        " />
+
+      <div id="firstName-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && firstName?.pristine) || 
+            (firstName?.errors?.['required'] && (firstName?.dirty || firstName?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / نام -->
+
+    <!-- نام خانوادگی -->
+    <div class="col my-1">
+      <label for="lastName">نام خانوادگی</label>
+      <input
+        pInputText
+        [pKeyFilter]="patternText"
+        id="lastName"
+        name="lastName"
+        formControlName="lastName"
+        type="text"
+        class="w-100"
+        [value]="lastName?.value | faNum"
+        [class.ng-invalid]="lastName?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && lastName?.pristine) ||
+          lastName?.dirty ||
+          lastName?.touched
+        " />
+
+      <div id="lastName-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && lastName?.pristine) || 
+              (lastName?.errors?.['required'] && (lastName?.dirty || lastName?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / نام خانوادگی -->
+
+    <!-- نام پدر -->
+    <div class="col my-1">
+      <label for="fatherName">نام پدر</label>
+      <input
+        pInputText
+        [pKeyFilter]="patternText"
+        id="fatherName"
+        name="fatherName"
+        formControlName="fatherName"
+        type="text"
+        class="w-100"
+        [value]="fatherName?.value | faNum"
+        [class.ng-invalid]="fatherName?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && fatherName?.pristine) ||
+          fatherName?.dirty ||
+          fatherName?.touched
+        " />
+
+      <div id="fatherName-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && fatherName?.pristine) || 
+                (fatherName?.errors?.['required'] && (fatherName?.dirty || fatherName?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / نام پدر -->
+
+    <!-- کد ملی -->
+    <div class="col my-1">
+      <label for="nationalId">کد ملی</label>
+      <input
+        pInputText
+        pKeyFilter="int"
+        [maxlength]="10"
+        [minlength]="10"
+        id="nationalId"
+        name="nationalId"
+        formControlName="nationalId"
+        type="text"
+        class="w-100"
+        [value]="nationalId?.value | faNum"
+        [class.ng-invalid]="nationalId?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && nationalId?.pristine) ||
+          nationalId?.dirty ||
+          nationalId?.touched
+        " />
+
+      <div id="nationalId-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && nationalId?.pristine) || 
+                  (nationalId?.errors?.['required'] && (nationalId?.dirty || nationalId?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / کد ملی -->
+
+    <!-- سال مالی منتهی به -->
+    <!-- <div class="col my-1">
+        <label for="birthDate">تاریخ تولد</label>
+        <p-persian-calendar
+          id="birthDate"
+          name="birthDate"
+          formControlName="birthDate"
+          styleClass="w-100 "
+          [class.ng-invalid]="birthDate?.invalid"
+          [class.ng-dirty]="
+            (addNewPersonFormSubmitted && birthDate?.pristine) ||
+            birthDate?.dirty ||
+            birthDate?.touched
+          ">
+        </p-persian-calendar>
+        <div id="birthDate-help">
+          <small
+            *ngIf="(addNewPersonFormSubmitted && birthDate?.pristine) || 
+                  (birthDate?.errors?.['required'] && (birthDate?.dirty || birthDate?.touched))"
+            class="p-error">
+            لطفا این فیلد را خالی نگذارید
+          </small>
+          <small style="visibility: hidden" class="p-error">
+            error
+          </small>
+        </div>
+      </div> -->
+    <!-- / سال مالی منتهی به -->
+
+    <!-- شماره شناسنامه -->
+    <!-- <div class="col my-1">
+        <label for="birthCertificateNumber">شماره شناسنامه</label>
+        <input
+          pInputText
+          pKeyFilter="int"
+          [maxlength]="10"
+          id="birthCertificateNumber"
+          name="birthCertificateNumber"
+          formControlName="birthCertificateNumber"
+          type="text"
+          class="w-100"
+          [value]="birthCertificateNumber?.value | faNum"
+          [class.ng-invalid]="birthCertificateNumber?.invalid"
+          [class.ng-dirty]="
+            (addNewPersonFormSubmitted &&
+              birthCertificateNumber?.pristine) ||
+            birthCertificateNumber?.dirty ||
+            birthCertificateNumber?.touched
+          " />
+
+        <div id="birthCertificateNumber-help">
+          <small
+            *ngIf="(addNewPersonFormSubmitted && birthCertificateNumber?.pristine) || 
+                    (birthCertificateNumber?.errors?.['required'] && 
+                    (birthCertificateNumber?.dirty || birthCertificateNumber?.touched))"
+            class="p-error">
+            لطفا این فیلد را خالی نگذارید
+          </small>
+          <small style="visibility: hidden" class="p-error">
+            error
+          </small>
+        </div>
+      </div> -->
+    <!-- / شماره شناسنامه -->
+
+    <!-- کد پرسنلی -->
+    <div class="col my-1">
+      <label for="personelNumber">کد پرسنلی</label>
+      <input
+        pInputText
+        id="personelNumber"
+        name="personelNumber"
+        formControlName="personelNumber"
+        type="text"
+        class="w-100"
+        [value]="personelNumber?.value | faNum"
+        [class.ng-invalid]="personelNumber?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && personelNumber?.pristine) ||
+          personelNumber?.dirty ||
+          personelNumber?.touched
+        " />
+
+      <div id="personelNumber-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && personelNumber?.pristine) || 
+                (personelNumber?.errors?.['required'] && (personelNumber?.dirty || personelNumber?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / کد پرسنلی-->
+
+    <!-- سمت شغلی -->
+    <div class="col my-1">
+      <label for="post">سمت شغلی</label>
+      <input
+        pInputText
+        id="post"
+        name="post"
+        formControlName="post"
+        type="text"
+        class="w-100"
+        [value]="post?.value | faNum"
+        [class.ng-invalid]="post?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && post?.pristine) ||
+          post?.dirty ||
+          post?.touched
+        " />
+
+      <div id="post-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && post?.pristine) || 
+                (post?.errors?.['required'] && (post?.dirty || post?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / سمت شغلی-->
+
+    <!-- جنسیت -->
+    <div class="col d-flex align-items-center justify-content-around pb-1">
+      <div class="d-flex align-items-center">
+        <p-radioButton
+          id="genderType"
+          name="genderType"
+          formControlName="genderType"
+          [value]="0"
+          inputId="ingredient2"></p-radioButton>
+        <label for="ingredient2" class="ms-2">زن</label>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <p-radioButton
+          id="genderType"
+          name="genderType"
+          formControlName="genderType"
+          [value]="1"
+          inputId="ingredient1"></p-radioButton>
+        <label for="ingredient1" class="ms-2">مرد</label>
+      </div>
+    </div>
+    <!-- / جنسیت -->
+  </div>
+</form>
+
+<form #formDir="ngForm" *ngIf="!isEdit" [formGroup]="addNewPersonForm">
+  <div class="row row-cols-lg-2 row-cols-1">
+    <!-- نام -->
+    <div class="col my-1">
+      <label for="userNameForm">نام کاربری</label>
+      <input
+        pInputText
+        [pKeyFilter]="patternENText"
+        id="userNameForm"
+        name="userNameForm"
+        formControlName="userNameForm"
+        type="text"
+        class="w-100"
+        [class.ng-invalid]="userNameForm?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && userNameForm?.pristine) ||
+          userNameForm?.dirty ||
+          userNameForm?.touched
+        " />
+
+      <div id="userNameForm-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && userNameForm?.pristine) || 
+                (userNameForm?.errors?.['required'] && 
+                (userNameForm?.dirty || userNameForm?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / نام -->
+
+    <!-- رمز عبور -->
+    <div class="col my-1">
+      <label for="password">رمز عبور</label>
+
+      <input
+        pInputText
+        id="password"
+        name="password"
+        formControlName="password"
+        styleClass="w-100"
+        inputStyleClass="w-100"
+        class="pass-type"
+        [class.ng-invalid]="password?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && password?.pristine) ||
+          password?.dirty ||
+          password?.touched
+        " />
+
+      <div id="password-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && password?.pristine) || 
+              (password?.errors?.['required'] && (password?.dirty || password?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small
+          *ngIf="password?.errors?.['minlength'] && 
+              (password?.dirty || password?.touched)"
+          class="p-error">
+          {{ 'گذرواژه حداقل شامل 8 کاراکتر می‌باشد' | faNum }}
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / رمز عبور -->
+
+    <!-- تکرار رمز عبور -->
+    <div class="col my-1">
+      <label for="rePassword">تکرار رمز عبور</label>
+      <input
+        pInputText
+        id="rePassword"
+        name="rePassword"
+        formControlName="rePassword"
+        styleClass="w-100"
+        class="pass-type"
+        inputStyleClass="w-100"
+        [class.ng-invalid]="rePassword?.invalid"
+        [class.ng-dirty]="
+          (addNewPersonFormSubmitted && rePassword?.pristine) ||
+          rePassword?.dirty ||
+          rePassword?.touched
+        " />
+
+      <div id="rePassword-help">
+        <small
+          *ngIf="(addNewPersonFormSubmitted && rePassword?.pristine) || 
+              (rePassword?.errors?.['required'] && (rePassword?.dirty || rePassword?.touched))"
+          class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small
+          *ngIf="rePassword?.errors?.['minlength'] && (rePassword?.dirty || rePassword?.touched)"
+          class="p-error">
+          {{ 'گذرواژه حداقل شامل 8 کاراکتر می‌باشد' | faNum }}
+        </small>
+        <small
+          *ngIf="(addNewPersonForm?.errors?.['passwordsDontMatch'] && rePassword?.valid) &&
+            (rePassword?.dirty || rePassword?.touched)"
+          class="p-error">
+          گذرواژه های وارد شده یکسان نمی‌باشد
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
+      </div>
+    </div>
+    <!-- / تکرار رمز عبور -->
+  </div>
+</form>
+<div style="text-align: left">
+  <p-button
+    *hasPermissions="['CONFIRM']"
+    class="pe-2"
+    styleClass="p-button-success"
+    [label]="isEdit ? 'ویرایش' : 'افزودن'"
+    type="submit"
+    [loading]="addNewPersonFormLoading"
+    [disabled]="!!selectedPerson.id"
+    (click)="addNewPerson()"></p-button>
+</div>

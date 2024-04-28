@@ -1,15 +1,9 @@
 <!-- login -->
-<main
-  class="login h-full w-full d-flex ai-center flex-column jc-center m-h-100">
+<main class="login h-full w-full d-flex ai-center flex-column jc-center m-h-100">
   <!-- login card -->
-  <div
-    [class.card]="!sidemenuService.offcanvasMode"
-    [class.m-0]="!sidemenuService.offcanvasMode"
-    [class.border-round]="!sidemenuService.offcanvasMode"
-    [class.shadow-2]="!sidemenuService.offcanvasMode">
-    <div
-      [class.card-body]="!sidemenuService.offcanvasMode"
-      [class.canvas-font]="sidemenuService.offcanvasMode">
+  <div [class.card]="!sidemenuService.offcanvasMode" [class.m-0]="!sidemenuService.offcanvasMode"
+    [class.border-round]="!sidemenuService.offcanvasMode" [class.shadow-2]="!sidemenuService.offcanvasMode">
+    <div [class.card-body]="!sidemenuService.offcanvasMode" [class.canvas-font]="sidemenuService.offcanvasMode">
       <!-- login content -->
       <div class="login__content row">
         <div class="col-12 order-2 order-lg-1">
@@ -21,44 +15,24 @@
           <!-- / login content title -->
 
           <!-- login content form -->
-          <form
-            class="login__content-form py-2 px-4"
-            [formGroup]="loginForm"
-            #formDir="ngForm"
-            (ngSubmit)="signin()">
-            <div
-              class="form-group"
-              [class.main-web]="!sidemenuService.offcanvasMode">
+          <form class="login__content-form py-2 px-4" [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="signin()">
+            <div class="form-group" [class.main-web]="!sidemenuService.offcanvasMode">
               <!-- نام کاربری -->
               <div class="field pt-2">
                 <!-- <div class="input-icon">
                   <i class="pi pi-user border-end"></i>
                 </div> -->
-                <label
-                  for="username"
-                  [class.lbl-margin]="sidemenuService.offcanvasMode"
-                  >نام کاربری</label
-                >
-                <input
-                  pInputText
-                  id="username"
-                  name="username"
-                  formControlName="username"
-                  class="w-100 large-input"
-                  [value]="username?.value | faNum"
-                  [class.ng-invalid]="username?.invalid"
-                  [class.ng-dirty]="
+                <label for="username" [class.lbl-margin]="sidemenuService.offcanvasMode">نام کاربری</label>
+                <input pInputText id="username" name="username" formControlName="username" class="w-100 large-input"
+                  [value]="username?.value | faNum" [class.ng-invalid]="username?.invalid" [class.ng-dirty]="
                     (submitted && username?.pristine) ||
                     username?.dirty ||
                     username?.touched
-                  "
-                  type="text" />
+                  " type="text" />
 
                 <div id="username-help">
-                  <small
-                    *ngIf="(submitted && username?.pristine) || 
-        (username?.errors?.['required'] && (username?.dirty || username?.touched))"
-                    class="p-error">
+                  <small *ngIf="(submitted && username?.pristine) || 
+        (username?.errors?.['required'] && (username?.dirty || username?.touched))" class="p-error">
                     لطفا نام کاربری را خالی نگذارید
                   </small>
 
@@ -74,37 +48,22 @@
                 <!-- <div class="input-icon">
                   <i class="pi pi-key border-end"></i>
                 </div> -->
-                <label
-                  for="password"
-                  [class.lbl-margin]="sidemenuService.offcanvasMode"
-                  >رمز عبور</label
-                >
-                <p-password
-                  id="password"
-                  name="password"
-                  formControlName="password"
-                  styleClass="w-100 ng-valid"
-                  class="input-pass"
-                  inputStyleClass="w-100 large-input"
-                  [toggleMask]="true"
-                  [class.ng-invalid]="password?.invalid"
-                  [class.ng-dirty]="
+                <label for="password" [class.lbl-margin]="sidemenuService.offcanvasMode">رمز عبور</label>
+                <p-password id="password" name="password" formControlName="password" styleClass="w-100 ng-valid"
+                  class="input-pass" inputStyleClass="w-100 large-input" [toggleMask]="true"
+                  [class.ng-invalid]="password?.invalid" [class.ng-dirty]="
                     (submitted && password?.pristine) ||
                     password?.dirty ||
                     password?.touched
-                  "
-                  [feedback]="false">
+                  " [feedback]="false">
                 </p-password>
 
                 <div id="password-help">
-                  <small
-                    *ngIf="(submitted && password?.pristine) || 
-        (password?.errors?.['required'] && (password?.dirty || password?.touched))"
-                    class="p-error">
+                  <small *ngIf="(submitted && password?.pristine) || 
+        (password?.errors?.['required'] && (password?.dirty || password?.touched))" class="p-error">
                     لطفا گذرواژه را خالی نگذارید
                   </small>
-                  <small
-                    *ngIf="password?.errors?.['minlength'] && (password?.dirty || password?.touched)"
+                  <small *ngIf="password?.errors?.['minlength'] && (password?.dirty || password?.touched)"
                     class="p-error">
                     {{ 'گذرواژه حداقل شامل 8 کاراکتر می‌باشد' | faNum }}
                   </small>
@@ -142,15 +101,9 @@
               <!-- </div> -->
 
               <!-- عبارت امنیتی -->
-              <app-dnt-captcha
-                *ngIf="model"
-                #appDntCaptcha
-                [(inputText)]="model.DNTCaptchaInputText"
-                [(text)]="model.DNTCaptchaText"
-                [(token)]="model.DNTCaptchaToken"
-                [backColor]="'#f7f3f3'"
-                [apiUrl]="captchaApiUrl"
-                [placeholder]="''"></app-dnt-captcha>
+              <app-dnt-captcha *ngIf="model" #appDntCaptcha [(inputText)]="model.DNTCaptchaInputText"
+                [(text)]="model.DNTCaptchaText" [(token)]="model.DNTCaptchaToken" [backColor]="'#f7f3f3'"
+                [apiUrl]="captchaApiUrl" [placeholder]="''"></app-dnt-captcha>
               <!-- <div class="field">
                 <div class="row">
                   <div class="col-6">
@@ -173,12 +126,7 @@
               <!-- / عبارت امنیتی -->
 
               <div class="w-100 text-end pt-3 div-submit-button">
-                <button
-                  pButton
-                  pRipple
-                  class="submit-button w-100 p-button-primary"
-                  type="submit"
-                  [label]="'ورود'"
+                <button pButton pRipple class="submit-button w-100 p-button-primary" type="submit" [label]="'ورود'"
                   [loading]="loading"></button>
               </div>
 
@@ -189,11 +137,9 @@
                   <strong> رمز عبور خود را فراموش کرده ام. </strong>
                 </a> -->
                 <div class="color-gray" style="margin-top: 20px">
-                  <span
-                    >جهت ارتباط با پشتیبانی با شماره 72235 داخلی
+                  <span>جهت ارتباط با پشتیبانی با شماره 72235 داخلی
                     {{ 428 | faNum }} و {{ 435 | faNum }} تماس حاصل
-                    نمایید.</span
-                  >
+                    نمایید.</span>
                 </div>
               </div>
 
@@ -215,19 +161,11 @@
           <!-- login content form -->
         </div>
         <div class="login__header col-12">
-          <div
-            class="row w-25 d-flex jc-center ai-center w-100 pb-3"
-            [class.canvas-img]="sidemenuService.offcanvasMode"
+          <div class="row w-25 d-flex jc-center ai-center w-100 pb-3" [class.canvas-img]="sidemenuService.offcanvasMode"
             [class.canvas-title]="sidemenuService.offcanvasMode">
             <!-- light/dark theme sign in -->
-            <img
-              ngSrc="assets/images/codal.svg"
-              class="login__header-image col-6 rounded"
-              style="width: 100px; height: 80px"
-              alt="SignIn Image"
-              width="64"
-              height="64"
-              priority />
+            <img ngSrc="assets/images/codal.svg" class="login__header-image col-6 rounded"
+              style="width: 100px; height: 80px" alt="SignIn Image" width="64" height="64" priority />
             <!-- / light/dark theme sign in -->
 
             <!-- login header title -->
@@ -240,10 +178,8 @@
           </div>
           <div class="row w-25 d-flex jc-center ai-center w-100 pb-3">
             <div class="text-900 font-medium">
-              <strong
-                style="font-size: 23px"
-                [class.canvas-title]="sidemenuService.offcanvasMode">
-                سامانه مدیریت اسناد داخلی
+              <strong style="font-size: 23px" [class.canvas-title]="sidemenuService.offcanvasMode">
+                برنامه و بودجه
               </strong>
               <div>موسسه صندوق ذخیره فرهنگیان</div>
             </div>

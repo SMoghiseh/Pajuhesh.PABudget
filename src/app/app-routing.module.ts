@@ -24,6 +24,15 @@ const routes: Routes = [
           ),
         canMatch: [authGuard],
       },
+      {
+        path: 'UserManagment',
+        title: 'برنامه بودجه | مدیریت کاربران',
+        loadChildren: () =>
+          import('./modules/user-management/user-management.module').then(
+            m => m.UserManagementModule
+          ),
+        canMatch: [authGuard],
+      },
     ],
   },
   {
@@ -40,4 +49,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
