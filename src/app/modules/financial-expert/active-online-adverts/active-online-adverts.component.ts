@@ -75,7 +75,7 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
 
     this.httpService
       .post<CreateOnlineAdvertDefinition[]>(
-        Publisher.apiAddress + '/OnlineAdvert',
+        Publisher.apiAddress + '/OnlineDoc',
         body
       )
       .pipe(
@@ -99,7 +99,7 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
   }
 
   onAddAdvert(data: Publisher) {
-    this.router.navigate(['/Publisher/AddAdvert'], {
+    this.router.navigate(['/FinancialexpertDocuments/Registration'], {
       queryParams: {
         advertisementTypeId: data.advertisementTypeId,
         advertisementTypeName: data.advertisementTypeName,

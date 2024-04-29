@@ -84,7 +84,7 @@ export class OnlineDocumentDefinitionComponent implements OnInit {
     this.getOnlineDocumentDefinition();
     this.onlineDocumentDefinitionForm = new FormGroup({
       documentTypeId: new FormControl(
-        this.createOnlineDocumentDefinitionModel.docTypeId,
+        this.createOnlineDocumentDefinitionModel.documentTypeId,
         Validators.required
       ),
       activeDate: new FormControl(
@@ -202,7 +202,7 @@ export class OnlineDocumentDefinitionComponent implements OnInit {
       request.increaseValueScore = increaseValueScore;
       request.decreaseValueScore = decreaseValueScore;
       request.isActive = isActive;
-      request.docTypeId = documentTypeId?.key;
+      request.documentTypeId = documentTypeId?.key;
 
       this.httpService
         .post<CreateOnlineDocDefinition>(

@@ -521,8 +521,6 @@ export class Company {
   activityType?: ActivityType;
   reportingTypeId?: any;
   reportingType?: ReportingType;
-  financialManagerId?: number;
-  // publisherStatus?: PublisherStatus;
   companyInspectionInstituteId?: number;
   companyInspectionInstitute?: CompanyInspectionInstitute;
   substituteInspector?: string;
@@ -707,7 +705,7 @@ export class CreateOnlineDocDefinition {
   increaseValueScore!: number;
   decreaseValueScore!: number;
   isActive!: boolean;
-  docTypeId!: number;
+  documentTypeId!: number;
   onlineDocumentNeedsInfos!: DocumentTypeFileNeeds;
   activeDatePersian!: Date;
   expiredDatePersian!: Date;
@@ -770,8 +768,8 @@ export class CreateOnlineAdvertDefinition {
 /** ناظرین */
 export class Publisher extends Report {
   /** آدرس سرویس */
-  static override readonly apiAddress = 'api/v1/publisher';
-  static override readonly apiAddressSearch = 'api/v1/publisher/search';
+  static override readonly apiAddress = 'api/PABudgetApi/v1/FinancialExpert';
+  static override readonly apiAddressSearch = 'api/PABudgetApi/v1/FinancialExpert/search';
 }
 export class AssetAttachment {
   /** آدرس سرویس */

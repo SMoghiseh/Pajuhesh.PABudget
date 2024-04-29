@@ -65,19 +65,17 @@ export class MyadvertismentsComponent
   ) { }
 
   ngOnInit(): void {
-    this.getAdvertismentStatus();
+    // this.getAdvertismentStatus();
     this.searchReportForm = new FormGroup({
       company: new FormControl(this.searchReportModel.company),
       description: new FormControl(this.searchReportModel.description),
       code: new FormControl(this.searchReportModel.code),
       sendDate: new FormControl(this.searchReportModel.sendDate),
-      status: new FormControl(this.searchReportModel.status),
     });
 
     this.sub = this.route?.data?.subscribe((data: any) => {
       if (data.type == 'FailedAdverts') {
         this.filterData = {
-          status: 3,
         };
         this.isFailed = true;
       } else this.filterData = new Publisher();
@@ -97,7 +95,7 @@ export class MyadvertismentsComponent
   --------------------------*/
 
   getReportList() {
-    const { company, description, code, sendDate, status } =
+    const { company, description, code, sendDate } =
       this.searchReportForm.value;
 
     const searchModel = new Report();
@@ -107,8 +105,7 @@ export class MyadvertismentsComponent
     searchModel.description = description;
 
     searchModel.code = Number(PersianNumberService.toEnglish(code));
-    if (this.isFailed) searchModel.status = 3;
-    else searchModel.status = status;
+
 
     searchModel.sendDate = sendDate
       ? this.datePipe.transform(

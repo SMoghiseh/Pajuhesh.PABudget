@@ -473,10 +473,10 @@ export class AdvertismentTblsComponent implements OnInit {
         request.amendmentReason = reason;
         request.multiMediaIds = this.multimediaIdList;
         if (this.selectedReport.advertStatus === 3) {
-          apiUrl = '/EditAdvert';
+          apiUrl = '/EditDoc';
           request.description = description;
           request.subject = description;
-        } else apiUrl = '/ResendAdvert';
+        } else apiUrl = '/ResendDoc';
         this.addAmendmentLoading = true;
         const tags: any[] = [];
         this.tagsList.forEach(element => {

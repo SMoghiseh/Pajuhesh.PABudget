@@ -282,7 +282,7 @@ export class NotificationDefinitionComponent implements OnInit {
         request.tags = tags;
         const callAttach = this.httpService
           .post<Report[]>(
-            UrlBuilder.build(Publisher.apiAddress + '/AddAdvert', ''),
+            UrlBuilder.build(Publisher.apiAddress + '/AddDoc', ''),
             request
           )
           .pipe(tap(() => (this.addNewFormLoading = false)))

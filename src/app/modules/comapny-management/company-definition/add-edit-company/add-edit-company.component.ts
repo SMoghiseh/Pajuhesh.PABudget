@@ -142,8 +142,8 @@ export class AddEditCompanyComponent implements OnInit {
   get nonRegisteredCapital() {
     return this.addNewCompanyForm.get('nonRegisteredCapital');
   }
-  get financialManagerId() {
-    return this.addNewCompanyForm.get('financialManagerId');
+  get financialManager() {
+    return this.addNewCompanyForm.get('financialManager');
   }
   get yearEnd() {
     return this.addNewCompanyForm.get('yearEnd');
@@ -187,9 +187,6 @@ export class AddEditCompanyComponent implements OnInit {
   get managingDirector() {
     return this.addNewCompanyForm.get('managingDirector');
   }
-  get financialManager() {
-    return this.addNewCompanyForm.get('financialManager');
-  }
   get boardofDirectors() {
     return this.addNewCompanyForm.get('boardofDirectors');
   }
@@ -209,7 +206,7 @@ export class AddEditCompanyComponent implements OnInit {
   ngOnInit(): void {
     this.getCompanyInspectionInstitutes();
     this.getReportingTypes();
-    this.getPublisherStatuses();
+    // this.getPublisherStatuses();
     this.getCompanyTree();
     this.getCompanyTypes();
     this.getActivityTypes();
@@ -257,8 +254,8 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.nonRegisteredCapital,
         Validators.required
       ),
-      financialManagerId: new FormControl(
-        this.addNewCompanyModel.financialManagerId,
+      financialManager: new FormControl(
+        this.addNewCompanyModel.financialManager,
         Validators.required
       ),
       yearEnd: new FormControl(
@@ -298,9 +295,6 @@ export class AddEditCompanyComponent implements OnInit {
       ),
       managingDirector: new FormControl(
         this.addNewCompanyModel.managingDirector
-      ),
-      financialManager: new FormControl(
-        this.addNewCompanyModel.financialManager
       ),
       boardofDirectors: new FormControl(
         this.addNewCompanyModel.boardofDirectors
@@ -344,7 +338,7 @@ export class AddEditCompanyComponent implements OnInit {
         companyISIN,
         registeredCapital,
         nonRegisteredCapital,
-        financialManagerId,
+        financialManager,
         yearEnd,
         reportingTypeId,
         companyInspectionInstituteId,
@@ -359,7 +353,6 @@ export class AddEditCompanyComponent implements OnInit {
         centeralOfficeTelephone,
         centeralOfficeFax,
         managingDirector,
-        financialManager,
         boardofDirectors,
         substituteInspector,
       } = this.addNewCompanyForm.value;
@@ -400,7 +393,7 @@ export class AddEditCompanyComponent implements OnInit {
         : null;
       request.activitySubject = activitySubject;
       request.reportingTypeId = reportingTypeId;
-      request.financialManagerId = financialManagerId;
+      request.financialManager = financialManager;
       request.factoryAddress = factoryAddress;
       request.factoryTelephone = factoryTelephone;
       request.factoryFax = factoryFax;

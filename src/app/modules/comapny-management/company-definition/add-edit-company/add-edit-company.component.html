@@ -163,15 +163,21 @@
 
       <!--  کارشناس مالی -->
       <div class="col">
-        <label for="financialManagerId"> کارشناس مالی</label>
-        <p-dropdown id="financialManagerId" name="financialManagerId" formControlName="financialManagerId" class="col"
+        <label for="financialManager"> کارشناس مالی</label>
+        <!-- <p-dropdown id="financialManager" name="financialManager" formControlName="financialManager" class="col"
           styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [class.ng-invalid]="financialManagerId?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && financialManagerId?.pristine) ||
-            financialManagerId?.dirty ||
-            financialManagerId?.touched
+          [class.ng-invalid]="financialManager?.invalid" [class.ng-dirty]="
+            (addNewCompanySubmitted && financialManager?.pristine) ||
+            financialManager?.dirty ||
+            financialManager?.touched
           " [options]="financialStatuses" [showClear]="true">
-        </p-dropdown>
+        </p-dropdown> -->
+        <input pInputText id="financialManager" name="financialManager" formControlName="financialManager" type="text"
+          class="w-100" [class.ng-invalid]="financialManager?.invalid" [class.ng-dirty]="
+            (addNewCompanySubmitted && financialManager?.pristine) ||
+            financialManager?.dirty ||
+            financialManager?.touched
+          " />
       </div>
       <!-- /  کارشناس مالی -->
 
