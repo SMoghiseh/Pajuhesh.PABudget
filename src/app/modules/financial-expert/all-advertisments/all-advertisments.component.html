@@ -1,0 +1,153 @@
+<!-- pop up messages -->
+<p-toast key="allAdvertisments" position="bottom-left"></p-toast>
+
+<!-- main content -->
+<section class="section">
+  <div class="card-text pt-3"></div>
+
+  <div class="pb-2" *ngIf="
+      loginData.mainRole === 'CEO' || loginData.mainRole === 'Administrator'
+    " style="direction: ltr">
+    <div class="row">
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+        <button (click)="onBack()" class="back-btn">
+          <i class="pi pi-angle-left"></i> بازگشت
+        </button>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 head-title">
+        <span>{{ selectedAdvertTypeName }}</span>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+      <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <p-carousel [value]="mySubCompanies" [responsiveOptions]="responsiveOptions" [showIndicators]="false"
+          [numVisible]="4">
+          <ng-template let-company pTemplate="item">
+            <div class="div-holding" [class.disable-item]="
+                !hasAccessAllHoldings && !company.isMyCompany
+              ">
+              <div id="company-{{ company.id }}" class="div-img-logo" [class.disable-item]="
+                  !hasAccessAllHoldings && !company.isMyCompany
+                " [class.select-co-item]="
+                  !hasAccessAllHoldings && company.isMyCompany
+                " [style.background-image]="
+                  'url(../../../../assets/images/holding-logo/' +
+                  company.logo +
+                  ')'
+                " (click)="onSelectCompany(company)"></div>
+              <div>
+                <span>{{ company.companyName }}</span>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    </div>
+    <div class="row" style="margin-bottom: 20px">
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+      <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <div class="div-company-lst">
+          <p-carousel [value]="Subsets" [responsiveOptions]="responsiveOptionsSubsets" [showIndicators]="false"
+            [numVisible]="6">
+            <ng-template let-company pTemplate="item">
+              <div class="div-holding" title="{{ company.companyName }}" [class.disable-item]="
+                  !hasAccessAllSubs && !company.isMyCompany
+                ">
+                <div id="co-{{ company.id }}" [class.select-co-item]="
+                    !hasAccessAllSubs && company.isMyCompany
+                  " [class.disable-item]="
+                    !hasAccessAllSubs && !company.isMyCompany
+                  " class="div-img-logo" [style.background-image]="
+                    'url(../../../../assets/images/holding-logo/' +
+                    company.logo +
+                    ')'
+                  " (click)="onSelectSubsets(company)"></div>
+              </div>
+            </ng-template>
+          </p-carousel>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+      <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <div class="row mounth-box">
+          <div *ngFor="let item of yearsLst; index as i" class="col-lg-1 col-md-1 col-sm-12 col-xs-12 mounth-item"
+            [class.item-border]="i < yearsLst.length - 1">
+            <div [class.select-year]="i === yearsLst.length - 1" class="select-item" (click)="onSelectYear(item.id)"
+              id="y-{{ item.id }}">
+              <span>{{ item.title }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+      <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <div class="row mounth-box">
+          <div *ngFor="let item of mounthsLst; index as i" class="col-lg-1 col-md-1 col-sm-12 col-xs-12 mounth-item"
+            [class.item-border]="i < mounthsLst.length - 1">
+            <div class="select-item" (click)="onSelectMounth(item.id)" id="m-{{ item.id }}">
+              <span>{{ item.title }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    </div>
+  </div>
+  <div *ngIf="loginData.mainRole === 'CEO'" class="row">
+    <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+      <app-advertisment-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions"
+        [data]="_searchData"></app-advertisment-tbls>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+  </div>
+  <div *ngIf="loginData.mainRole !== 'CEO'" class="row">
+    <app-advertisment-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions"
+      [data]="_searchData"></app-advertisment-tbls>
+  </div>
+  <div *ngIf="loginData.mainRole === 'CEO'" class="row" style="direction: ltr">
+    <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 advert-type-box">
+      <div class="row">
+        <p-carousel [value]="advertTypeLst" [responsiveOptions]="responsiveOptionsSubsets" [showIndicators]="false"
+          [numVisible]="5">
+          <ng-template let-advertType pTemplate="item">
+            <!-- *ngFor="let item of CEOLandingLst" -->
+
+            <!-- (click)="onSelectItem(item)" -->
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 advert-types-box"
+              (click)="onChangeAdvertType(advertType)">
+              <div class="row">
+                <div style="width: 50%">
+                  <div class="advert-types-icon" [style.background-image]="
+                      'url(../../../../../assets/images/null.svg)'
+                    "></div>
+                </div>
+                <div class="div-advert-type-img">
+                  <span>{{ advertType.count }}</span>
+                  <img class="advert-type-img" src="../../../../../assets/images/number of reports.svg" />
+                </div>
+              </div>
+              <div class="row">
+                <span class="advert-type-name" style="font-size: 13px">{{
+                  advertType.title
+                  }}</span>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+  </div>
+</section>
+<!-- / main content -->

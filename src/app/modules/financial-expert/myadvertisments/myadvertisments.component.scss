@@ -1,0 +1,38 @@
+
+:host ::ng-deep .p-button-wide .p-button {
+    min-width: 9rem;
+}
+
+.mgc_xls_fill{
+    color: #059d05 !important;
+}   
+
+.mgc_pdf_fill{
+    color: #b90101 !important;
+}
+
+.mgc_doc_fill{
+    color: #055faf !important;
+}
+
+.mgc_pic_2_fill{
+    color: #af05a8 !important;
+}
+
+.mgc_video_fill{
+    color: #e35600 !important;
+}
+
+.tags-list{
+    background-color: #e3f3e6;
+    span{
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+    }
+    div{
+        padding: 4px;
+        box-shadow: 5px 8px 21px #025002;
+    }
+}
+

@@ -1,0 +1,134 @@
+.radio-btns {
+    margin-bottom: 5px;
+}
+
+.wf-box {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    box-shadow: 5px 8px 21px #9f9d9d;
+}
+
+.wf-bullet {
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: green;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.wf-stt {
+    border-bottom: 2px solid;
+    padding: 3px;
+    border-radius: 16px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.wf-fullname {
+    position: relative;
+    bottom: 3px;
+}
+
+.wf-comments-btn {
+    border: 1px solid gray;
+    padding: 3px;
+    width: fit-content;
+}
+
+.pi-comments {
+    font-size: 19px;
+    color: blue;
+    cursor: pointer;
+}
+
+
+.error {
+    background-color: #b90101;
+}
+
+.warning {
+    background-color: #e35600;
+}
+
+.success {
+    background-color: #025002;
+}
+
+.not {
+    background-color: yellow;
+}
+
+.bullet {
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    display: inline-flex;
+    position: relative;
+    top: 5px;
+}
+
+.stt-style {
+    width: 100%;
+    height: 3px;
+    border-radius: 5px;
+}
+
+.warning-color {
+    @extend .stt-style;
+    background-color: rgb(255, 205, 86);
+}
+
+.success-color {
+    @extend .stt-style;
+    background-color: rgb(75, 192, 144);
+    ;
+}
+
+.error-color {
+    @extend .stt-style;
+    background-color: rgb(255, 99, 132);
+}
+
+.danger-error {
+    @extend .stt-style;
+    background-color: #e35600;
+}
+
+.warning-row {
+    background-color: antiquewhite !important;
+}
+
+.col-w-3 {
+    min-width: 105px;
+}
+
+.col-w-4 {
+    min-width: 140px;
+}
+
+.pi-check-square {
+    @extend .icon-col;
+    color: green;
+}
+
+.pi-times-circle {
+    @extend .icon-col;
+    color: red;
+}
+
+.icon-col{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.div-upload-warn{
+    font-size: 12px;
+    background-color: #f9e2e2;
+    padding: 5px 10px 0px;
+    border: 1px solid #e77f7f;
+    border-radius: 5px;
+    line-height: 2;
+}

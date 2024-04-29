@@ -1,0 +1,85 @@
+<section class="section">
+  <div class="card-text pt-3"></div>
+
+  <table style="width: 100%">
+    <tr>
+      <td>
+        <span>شرکت:</span>
+        <span class="is-negative">بهمن ليزينگ</span>
+      </td>
+      <td>
+        <span>سرمایه ثبت شده:</span>
+        <span class="is-negative">3,200,000</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>نماد:</span>
+        <span class="is-negative">ولبهمن </span>
+      </td>
+      <td>
+        <span>سرمایه ثبت نشده:</span>
+        <span class="is-negative">2,000,000</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>کد صنعت (ISIC):</span>
+        <span class="is-negative">589101</span>
+      </td>
+      <td>
+        <span>اطلاعات و صورت‌های مالی میاندوره‌ای </span>
+        <span class="is-negative"> 6 ماهه </span>
+        <span>منتهی به</span>
+        <span class="is-negative">1402/06/31</span>
+        <span>(حسابرسی نشده)</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>سال مالی منتهی به:</span>
+        <span class="is-negative">1402/12/29</span>
+      </td>
+      <td>
+        <span>وضعیت ناشر:</span>
+        <span class="is-negative">پذيرفته شده در فرابورس ايران</span>
+      </td>
+    </tr>
+  </table>
+  <div class="row div-info-tbl">
+    <span
+      ><i class="pi pi-info-circle"></i>اطلاعات نمایش داده شده با اطلاعات امضا
+      شده مطابقت دارد</span
+    >
+  </div>
+
+  <table style="width: 100%">
+    <tr class="th-blue">
+      <th rowspan="2">شرح</th>
+      <th>دوره منتهي به ۱۴۰۲/۰۶/۳</th>
+      <th>تجديد ارائه شده دوره مالي منتهي به ۱۴۰۱/۰۶/۳۱</th>
+      <th>تجديد ارائه شده سال مالي منتهي به ۱۴۰۱/۱۲/۲۹</th>
+      <th rowspan="2">درصد تغيير</th>
+    </tr>
+    <tr class="th-blue">
+      <th>حسابرسی نشده</th>
+      <th>حسابرسی شده</th>
+      <th>حسابرسی شده</th>
+    </tr>
+    <tr
+      *ngFor="let item of data"
+      [class.tr-sub-head]="
+        item.val1 === '' &&
+        item.val2 === '' &&
+        item.val3 === '' &&
+        item.val4 === ''
+      "
+      [class.tr-yellow]="item.isImportant">
+      <td class="td-right-align">{{ item.description }}</td>
+      <td [class.is-negative]="isNegative(item.val1)">{{ item.val1 }}</td>
+      <td [class.is-negative]="isNegative(item.val2)">{{ item.val2 }}</td>
+      <td [class.is-negative]="isNegative(item.val3)">{{ item.val3 }}</td>
+      <td [class.is-negative]="isNegative(item.val4)">{{ item.val4 }}</td>
+    </tr>
+  </table>
+</section>

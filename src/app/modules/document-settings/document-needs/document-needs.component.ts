@@ -12,7 +12,7 @@ import { map, tap } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'marketwatch-document-needs',
+  selector: 'app-document-needs',
   templateUrl: './document-needs.component.html',
   styleUrls: ['./document-needs.component.scss'],
   providers: [],

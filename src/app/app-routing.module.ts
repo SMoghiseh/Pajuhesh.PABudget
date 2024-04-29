@@ -51,6 +51,22 @@ const routes: Routes = [
           ),
         canMatch: [authGuard],
       },
+      {
+        path: 'Comapny',
+        title: 'برنامه و بودجه |مدیریت سازمان ها',
+        loadChildren: () =>
+          import('./modules/comapny-management/comapny-management.module').then(
+            m => m.ComapnyManagementModule
+          ),
+        canMatch: [authGuard],
+      },
+      {
+        path: 'FinancialexpertDocuments',
+        title: 'برنامه و بودجه | مدیریت تاییدات',
+        loadChildren: () =>
+          import('./modules/financial-expert/financial-expert.module').then(m => m.FinancialExpertModule),
+        canMatch: [authGuard],
+      },
     ],
   },
   {

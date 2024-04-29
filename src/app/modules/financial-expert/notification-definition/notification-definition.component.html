@@ -1,0 +1,263 @@
+<p-dialog *ngIf="visible" header="انتخاب اسناد برخط" [(visible)]="visible" [modal]="true"
+  [style]="{ width: '70vw', height: '75vh' }" [draggable]="false" [resizable]="false">
+  <app-mdl-online-advert-lst (Hide)="onHide($event)"></app-mdl-online-advert-lst>
+</p-dialog>
+
+<!-- pop up messages -->
+<p-toast key="notificationDefinition" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+  <!-- <div class="card">
+    <div class="card-body"> -->
+  <div class="card-text pt-3"></div>
+  <!-- input group -->
+  <div class="pb-2">
+    <p-panel class="search-panel__secation pb-1" header="ثبت اسناد برخط">
+      <form #formDir="ngForm" [formGroup]="addNewReportForm">
+        <div class="container">
+          <div class="row">
+            <!-- اسناد برخط -->
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <label for="advertisementType" style="display: inherit">اسناد برخط</label>
+              <input id="advertisementType" name="advertisementType" formControlName="advertisementType" pInputText
+                type="text" class="w-90" [class.ng-invalid]="advertisementType?.invalid" [class.ng-dirty]="
+                  (addNewFormSubmitted && advertisementType?.pristine) ||
+                  advertisementType?.dirty ||
+                  advertisementType?.touched
+                " />
+
+              <button class="btn-lookup-list" (click)="onOpenTypesList()">
+                <i class="pi pi-search"></i>
+              </button>
+            </div>
+            <!-- / اسناد برخط -->
+
+            <!-- عنوان اسناد -->
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <label for="description">عنوان اسناد</label>
+              <input id="description" name="description" formControlName="description" pInputText type="text"
+                class="w-100" [class.ng-invalid]="description?.invalid" />
+              <div id="description-help">
+                <small *ngIf="
+                          (addNewFormSubmitted && description?.pristine) || 
+                          (description?.errors?.['required'] && 
+                          (description?.dirty || description?.touched))
+                        " class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / عنوان اسناد -->
+          </div>
+          <div class="row row-cols-lg-4">
+            <!-- تگ ها-->
+            <div *ngFor="let el of tagsList" class="col my-1">
+              <div *ngIf="el.typeName === 'Boolean'" style="padding-top: 17px">
+                <label for="audited" class="px-2">
+                  <strong> {{ el.displayName }} </strong>
+                </label>
+                <p-inputSwitch id="audited" name="audited" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}"></p-inputSwitch>
+              </div>
+              <div *ngIf="el.typeName === 'String'">
+                <label for="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" style="display: inherit">{{ el.displayName }}</label>
+                <input id="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" name="advertisementType" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" pInputText type="text" class="w-90" />
+              </div>
+              <div *ngIf="el.typeName === 'Decimal'">
+                <label for="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}">{{ el.displayName }}</label>
+                <p-inputNumber mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="20" id="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" name="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" value="
+                addNewReportForm.get(
+                el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+              )?.value
+            ">
+                </p-inputNumber>
+              </div>
+              <div *ngIf="el.typeName === 'Date'">
+                <label for="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}">{{ el.displayName }}</label>
+                <p-persian-calendar id="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" name="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" styleClass="w-100 ">
+                </p-persian-calendar>
+              </div>
+              <div *ngIf="el.isRequired">
+                <small *ngIf="
+                      (addNewFormSubmitted && addNewReportForm.get(el.tagName + '_' + el.typeName+ '_' + el.docTypeTagsId)?.pristine) || 
+                      (addNewReportForm.get(el.tagName + '_' + el.typeName+ '_' + el.docTypeTagsId)?.errors?.['required'] && 
+                      (addNewReportForm.get(el.tagName + '_' + el.typeName+ '_' + el.docTypeTagsId)?.dirty || addNewReportForm.get(el.tagName + '_' + el.typeName+ '_' + el.docTypeTagsId)?.touched))
+                    " class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / تگ ها-->
+          </div>
+
+          <!-- <div class="row"> -->
+          <!-- عنوان اسناد -->
+          <!-- <div class="col-8">
+              <label for="description">عنوان اسناد</label>
+              <input
+                id="description"
+                name="description"
+                formControlName="description"
+                pInputText
+                type="text"
+                class="w-100"
+                [class.ng-invalid]="description?.invalid" />
+              <div id="description-help">
+                <small
+                  *ngIf="
+                          (addNewFormSubmitted && description?.pristine) || 
+                          (description?.errors?.['required'] && 
+                          (description?.dirty || description?.touched))
+                        "
+                  class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div> -->
+          <!-- / عنوان اسناد -->
+
+          <!-- </div> -->
+          <div *ngIf="onlineAdvertAttachNeeds" class="div-upload-warn">
+            <ul>
+              <li>
+                نام فایل انتخابی شامل کاراکترهای خاص (< .> = + , ) نباشد.
+              </li>
+              <li>فایل انتخابی بایستی حداکثر 20 مگابایت باشد.</li>
+            </ul>
+          </div>
+          <div>
+            <p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="true"
+              [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [styleClass]="gridClass" [rowHover]="true"
+              [totalRecords]="totalCount" [value]="onlineAdvertAttachNeeds" [loading]="loading"
+              [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first">
+              <!-- table header -->
+              <ng-template pTemplate="header">
+                <tr class="data-table__header">
+                  <th>
+                    <strong>عنوان</strong>
+                  </th>
+
+                  <th>
+                    <strong>توضیحات</strong>
+                  </th>
+
+                  <th>
+                    <strong>پسوند</strong>
+                  </th>
+
+                  <th>
+                    <strong> نوع </strong>
+                  </th>
+
+                  <th>
+                    <strong> اجباری بودن </strong>
+                  </th>
+
+                  <th>
+                    <strong> فایل نمونه </strong>
+                  </th>
+                  <th></th>
+                </tr>
+              </ng-template>
+              <!-- / table header -->
+              <!-- table body -->
+              <ng-template pTemplate="body" let-onlineAdvertismentNeeds let-rowIndex="rowIndex">
+                <tr>
+                  <td>
+                    {{ onlineAdvertismentNeeds.attachmentFileTypeTitle }}
+                  </td>
+                  <td>{{ onlineAdvertismentNeeds.description }}</td>
+                  <td>{{ onlineAdvertismentNeeds.extention }}</td>
+                  <td>{{ onlineAdvertismentNeeds.type }}</td>
+                  <td>
+                    <i *ngIf="onlineAdvertismentNeeds.isRequired" class="pi pi-check-square"></i>
+                    <i *ngIf="!onlineAdvertismentNeeds.isRequired" class="pi pi-times-circle"></i>
+                  </td>
+                  <td>
+                    <i *ngIf="
+                        onlineAdvertismentNeeds.attachmentFileTypeTemplateId
+                      " class="pi pi-download" (click)="downloadAttachmnet(onlineAdvertismentNeeds)"
+                      title="دانلود"></i>
+                  </td>
+                  <th>
+                    <div class="row">
+                      <div style="width: fit-content; padding: 0px">
+                        <p-fileUpload #form accept=".{{ onlineAdvertismentNeeds.extention }}" id="fileUpload_{{
+                            onlineAdvertismentNeeds.adverTyeFileNeedsId
+                          }}" mode="basic" chooseLabel="افزودن پیوست" name="attachments[]" [auto]="true" (onSelect)="
+                            onSelectAttachment(
+                              $event.files,
+                              onlineAdvertismentNeeds,
+                              form
+                            )
+                          "></p-fileUpload>
+                      </div>
+                      <div style="width: 30px">
+                        <div style="width: fit-content; display: none" id="spinner_{{
+                            onlineAdvertismentNeeds.adverTyeFileNeedsId
+                          }}">
+                          <p-progressSpinner [style]="{
+                              width: '25px',
+                              height: '25px',
+                              padding: '0px'
+                            }"></p-progressSpinner>
+                        </div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </ng-template>
+              <!-- / table body -->
+            </p-table>
+          </div>
+
+          <!-- دکمه ها -->
+          <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
+            <p-button class="pe-2" styleClass="p-button-success" label="تایید" icon="pi pi-check"
+              [disabled]="disableSubmitBtn" (onClick)="addNewReport()"></p-button>
+            <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
+              (click)="resetAddNewReportForm()"></p-button>
+          </div>
+          <!-- / دکمه ها -->
+        </div>
+      </form>
+    </p-panel>
+  </div>
+  <!-- / input group -->
+  <!-- </div>
+  </div> -->
+</section>
+<!-- / data table -->

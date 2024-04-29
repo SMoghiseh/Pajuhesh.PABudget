@@ -13,7 +13,7 @@ import { map, tap } from 'rxjs';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import { DatePipe } from '@angular/common';
 @Component({
-  selector: 'marketwatch-online-document-definition',
+  selector: 'app-online-document-definition',
   templateUrl: './online-document-definition.component.html',
   styleUrls: ['./online-document-definition.component.scss'],
   providers: [],

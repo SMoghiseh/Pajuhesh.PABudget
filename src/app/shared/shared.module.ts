@@ -40,8 +40,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     CalendarComponent,
     JyearPipe,
     JdayPipe,
-    HasPermissionsDirective,
-  ],
+    HasPermissionsDirective],
   imports: [
     CommonModule,
     ButtonModule,
@@ -71,4 +70,4 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
   ],
   providers: [TransferServices],
 })
-export class SharedModule {}
+export class SharedModule { }

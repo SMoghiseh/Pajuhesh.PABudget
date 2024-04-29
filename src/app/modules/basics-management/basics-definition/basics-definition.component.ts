@@ -1,4 +1,4 @@
- 
+
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'marketwatch-basics-definition',
+  selector: 'app-basics-definition',
   templateUrl: './basics-definition.component.html',
   styleUrls: ['./basics-definition.component.scss'],
 })
@@ -65,7 +65,7 @@ export class BasicsDefinitionComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // this.getBasicsList();

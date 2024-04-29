@@ -1,0 +1,87 @@
+<!-- pop up messages -->
+<p-toast key="notificationDefinition" position="bottom-left"></p-toast>
+
+<form #formDir="ngForm" [formGroup]="editTagsForm">
+  <div class="container">
+    <div class="row row-cols-lg-4">
+      <!-- تگ ها-->
+      <div *ngFor="let el of tagsList" class="col my-1">
+        <div *ngIf="el.typeName === 'Boolean'" style="padding-top: 17px">
+          <label for="audited" class="px-2">
+            <strong> {{ el.displayName }} </strong>
+          </label>
+          <p-inputSwitch id="audited" name="audited" formControlName="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}"></p-inputSwitch>
+        </div>
+        <div *ngIf="el.typeName === 'String'">
+          <label for="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" style="display: inherit">{{ el.displayName }}</label>
+          <input id="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" name="advertisementType" formControlName="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" pInputText type="text" class="w-90" />
+        </div>
+        <div *ngIf="el.typeName === 'Decimal'">
+          <label for="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}">{{ el.displayName }}</label>
+          <p-inputNumber mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="20" id="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" name="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" formControlName="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" value="
+          editTagsForm.get(
+            el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+          )?.value
+        ">
+          </p-inputNumber>
+        </div>
+        <div *ngIf="el.typeName === 'Date'">
+          <label for="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}">{{ el.displayName }}</label>
+          <p-persian-calendar id="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" name="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" formControlName="{{
+              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            }}" styleClass="w-100 ">
+          </p-persian-calendar>
+        </div>
+        <div *ngIf="el.isRequired">
+          <small *ngIf="
+              editTagsForm.get(
+                el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              )?.invalid &&
+              (editTagsForm.get(
+                el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              )?.dirty ||
+                editTagsForm.get(
+                  el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+                )?.touched ||
+                addNewFormSubmitted)
+            " class="p-error">
+            لطفا این فیلد را خالی نگذارید
+          </small>
+          <small style="visibility: hidden" class="p-error"> error </small>
+        </div>
+      </div>
+      <!-- / تگ ها-->
+    </div>
+
+    <!-- دکمه ها -->
+    <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
+      <p-button class="pe-2" styleClass="p-button-success" label="تایید" icon="pi pi-check"
+        (onClick)="addNewReport()"></p-button>
+      <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
+        (click)="reseteditTagsForm()"></p-button>
+    </div>
+    <!-- / دکمه ها -->
+  </div>
+</form>

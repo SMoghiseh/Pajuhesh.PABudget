@@ -8,7 +8,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'marketwatch-file-type-definition',
+  selector: 'app-file-type-definition',
   templateUrl: './file-type-definition.component.html',
   styleUrls: ['./file-type-definition.component.scss'],
   providers: [ConfirmationService],
@@ -55,7 +55,7 @@ export class FileTypeDefinitionComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getFileTypes();

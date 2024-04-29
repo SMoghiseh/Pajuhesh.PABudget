@@ -8,7 +8,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'marketwatch-tag-type-definition',
+  selector: 'app-tag-type-definition',
   templateUrl: './tag-type-definition.component.html',
   styleUrls: ['./tag-type-definition.component.scss'],
   providers: [ConfirmationService],
@@ -51,7 +51,7 @@ export class TagTypeDefinitionComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getTagTypes();

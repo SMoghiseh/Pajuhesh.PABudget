@@ -1,0 +1,70 @@
+<!-- pop up messages -->
+<p-toast key="myAdvertisments" position="bottom-left"></p-toast>
+
+<!-- main content -->
+<section class="section">
+  <div class="card-text pt-3"></div>
+  <!-- جستجو -->
+  <div class="pb-2">
+    <p-panel class="search-panel__secation pb-1" [header]="isFailed ? 'اسناد برگشتی' : 'اسناد من'" iconPos="start"
+      [toggleable]="true" [collapsed]="true">
+      <form #formDir="ngForm" [formGroup]="searchReportForm" (ngSubmit)="getReportList()">
+        <div class="form-group container">
+          <div class="row row-cols-lg-4 row-cols-1">
+            <!-- نام شرکت -->
+            <div class="col my-1">
+              <label for="company">نام شرکت</label>
+              <input pInputText id="company" name="company" formControlName="company" type="text" class="w-100" />
+            </div>
+            <!-- / نام شرکت -->
+
+            <!-- عنوان اسناد -->
+            <div class="col my-1">
+              <label for="description">عنوان اسناد</label>
+              <input pInputText id="description" name="description" formControlName="description" type="text"
+                class="w-100" />
+            </div>
+            <!-- / عنوان اسناد -->
+
+            <!-- کد -->
+            <div class="col my-1">
+              <label for="code">کد</label>
+              <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100"
+                [value]="code?.value | faNum" />
+            </div>
+            <!-- / کد -->
+
+            <!-- زمان ارسال -->
+            <div class="col my-1">
+              <label for="sendDate">زمان ارسال</label>
+              <p-persian-calendar id="sendDate" name="sendDate" formControlName="sendDate" styleClass="w-100 ">
+              </p-persian-calendar>
+            </div>
+            <!-- / زمان ارسال -->
+
+            <!-- وضعیت -->
+            <div class="col my-1" *ngIf="!isFailed">
+              <label for="status">وضعیت</label>
+              <p-dropdown id="status" class="col" styleClass="w-100 my-1" optionLabel="title" optionValue="id"
+                [options]="statusLst" placeholder="انتخاب کنید" formControlName="status" [showClear]="true">
+              </p-dropdown>
+            </div>
+            <!-- / وضعیت -->
+
+            <!-- دکمه -->
+            <div class="d-flex justify-content-end my-1 w-100">
+              <p-button class="pe-2" styleClass="p-button-info w-100" label="جستجو" icon="pi pi-search" type="submit">
+              </p-button>
+            </div>
+            <!-- / دکمه -->
+          </div>
+        </div>
+      </form>
+    </p-panel>
+  </div>
+  <!-- / جستجو -->
+
+  <app-advertisment-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions"
+    [data]="_searchData"></app-advertisment-tbls>
+</section>
+<!-- / main content -->

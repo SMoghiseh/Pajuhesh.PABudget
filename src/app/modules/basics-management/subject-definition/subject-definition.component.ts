@@ -1,4 +1,4 @@
- 
+
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -10,7 +10,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'marketwatch-subject-definition',
+  selector: 'app-subject-definition',
   templateUrl: './subject-definition.component.html',
   styleUrls: ['./subject-definition.component.scss'],
   providers: [ConfirmationService],
@@ -53,7 +53,7 @@ export class SubjectDefinitionComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getSubjects();

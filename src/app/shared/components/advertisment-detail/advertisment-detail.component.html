@@ -1,0 +1,85 @@
+<div class="data-list">
+  <ul class="list-group my-1">
+    <!-- کد -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1">
+          <strong>کد</strong>
+        </div>
+        <div class="col my-1">
+          <span>
+            {{ selectedReport.code | faNum }}
+          </span>
+        </div>
+        <div class="col my-1">
+          <strong>گروه اسناد</strong>
+        </div>
+        <div class="col my-1">
+          <span>
+            {{ selectedReport.advertisementGroup }}
+          </span>
+        </div>
+      </div>
+    </li>
+    <!-- / کد -->
+
+    <!-- نوع اسناد -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1">
+          <strong>نوع اسناد</strong>
+        </div>
+
+        <div class="col my-1">
+          {{ selectedReport.parentAdvertId ? 'تلفیقی' : 'اصلی' }}
+        </div>
+
+        <div class="col my-1">
+          <strong>موضوع اسناد</strong>
+        </div>
+
+        <div class="col my-1">
+          {{ selectedReport.subject }}
+        </div>
+      </div>
+    </li>
+    <!-- / نوع اسناد -->
+    <li
+      *ngIf="selectedReport.tags?.length > 0"
+      class="list-group-item tags-list">
+      <div class="row">
+        <span>لیست تگ ها</span>
+      </div>
+    </li>
+    <li *ngIf="selectedReport.tags?.length > 0" class="list-group-item">
+      <div class="row row-cols-lg-2">
+        <div class="col my-1" *ngFor="let tag of selectedReport.tags">
+          <div class="row row-cols-lg-2">
+            <div class="col my-1">{{ tag.displayName }}</div>
+            <div
+              *ngIf="
+                tag.typeName !== 'Date' &&
+                tag.typeName !== 'Boolean' &&
+                tag.typeName !== 'Decimal'
+              "
+              class="col my-1">
+              {{ tag.tagValue }}
+            </div>
+            <div *ngIf="tag.typeName === 'Decimal'" class="col my-1">
+              {{ tag.dateTag | number }}
+            </div>
+            <div *ngIf="tag.typeName === 'Date'" class="col my-1">
+              {{ tag.dateTag }}
+            </div>
+            <div *ngIf="tag.typeName === 'Boolean'" class="col my-1">
+              <i *ngIf="tag.tagValue === 'true'" class="pi pi-check-square"></i>
+              <i
+                *ngIf="tag.tagValue === 'false'"
+                class="pi pi-times-circle"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

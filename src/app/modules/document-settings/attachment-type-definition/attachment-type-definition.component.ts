@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { HttpService } from '@core/http/http.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   AttachmentType,
   UrlBuilder,
@@ -10,10 +10,10 @@ import {
 } from '@shared/models/response.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
-import { catchError, map, of, tap } from 'rxjs';
+import { map, of, tap } from 'rxjs';
 
 @Component({
-  selector: 'marketwatch-attachment-type-definition',
+  selector: 'app-attachment-type-definition',
   templateUrl: './attachment-type-definition.component.html',
   styleUrls: ['./attachment-type-definition.component.scss'],
   providers: [ConfirmationService],
@@ -71,7 +71,7 @@ export class AttachmentTypeDefinitionComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private http: HttpClient,
     private config: AppConfigService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAttachmentTypes();

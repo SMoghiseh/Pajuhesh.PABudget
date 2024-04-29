@@ -1,0 +1,591 @@
+<form
+  #formDir="ngForm"
+  [formGroup]="addNewCompanyForm"
+  (ngSubmit)="addNewCompany()">
+  <div class="container">
+    <div class="row row-cols-1 my-1">
+      <!-- سازمان اصلی -->
+      <div class="col">
+        <label for="parent">سازمان اصلی</label>
+        <p-treeSelect
+          id="parent"
+          class="md:w-20rem w-full"
+          containerStyleClass="w-full"
+          formControlName="parent"
+          placeholder="انتخاب کنید"
+          [options]="parents"
+          [filter]="true"
+          [filterInputAutoFocus]="true"
+          [showClear]="true"></p-treeSelect>
+      </div>
+      <!-- / سازمان اصلی -->
+    </div>
+
+    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center pb-1">
+      <!-- نوع شرکت -->
+      <div class="col">
+        <label for="companyTypeModel">نوع شرکت</label>
+        <p-dropdown
+          id="companyTypeModel"
+          name="companyTypeModel"
+          formControlName="companyTypeModel"
+          class="col"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          placeholder="انتخاب کنید"
+          [class.ng-invalid]="companyTypeModel?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && companyTypeModel?.pristine) ||
+            companyTypeModel?.dirty ||
+            companyTypeModel?.touched
+          "
+          [options]="companyTypes"
+          [filter]="true"
+          [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / نوع شرکت -->
+
+      <!-- نوع فعالیت -->
+      <div class="col">
+        <label for="activityTypeId">نوع فعالیت</label>
+        <p-dropdown
+          id="activityTypeId"
+          name="activityTypeId"
+          formControlName="activityTypeId"
+          class="col"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [class.ng-invalid]="activityTypeId?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && activityTypeId?.pristine) ||
+            activityTypeId?.dirty ||
+            activityTypeId?.touched
+          "
+          [options]="activityTypes"
+          [filter]="true"
+          [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / نوع فعالیت -->
+
+      <!-- نام شرکت -->
+      <div class="col">
+        <label for="companyName">نام شرکت</label>
+        <input
+          pInputText
+          id="companyName"
+          name="companyName"
+          formControlName="companyName"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="companyName?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && companyName?.pristine) ||
+            companyName?.dirty ||
+            companyName?.touched
+          " />
+      </div>
+      <!-- / نام شرکت -->
+
+      <!-- نام لاتین -->
+      <div class="col" *ngIf="!editData?.id">
+        <label for="latinName">نام لاتین</label>
+        <input
+          pInputText
+          [pKeyFilter]="noSpacesRegex"
+          id="latinName"
+          name="latinName"
+          formControlName="latinName"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="latinName?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && latinName?.pristine) ||
+            latinName?.dirty ||
+            latinName?.touched
+          " />
+      </div>
+      <!-- / نام لاتین -->
+
+      <!-- شناسه ملی -->
+      <div class="col">
+        <label for="nationalID">شناسه ملی</label>
+        <input
+          pInputText
+          id="nationalID"
+          name="nationalID"
+          formControlName="nationalID"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="nationalID?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && nationalID?.pristine) ||
+            nationalID?.dirty ||
+            nationalID?.touched
+          "
+          [value]="nationalID?.value | faNum" />
+      </div>
+      <!-- / شناسه ملی -->
+
+      <!-- نام نماد -->
+      <div class="col">
+        <label for="symbol">نام نماد</label>
+        <input
+          pInputText
+          id="symbol"
+          name="symbol"
+          formControlName="symbol"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="symbol?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && symbol?.pristine) ||
+            symbol?.dirty ||
+            symbol?.touched
+          " />
+      </div>
+      <!-- / نام نماد -->
+
+      <!-- تاریخ ثبت -->
+      <div class="col">
+        <label for="registerDate">تاریخ ثبت</label>
+        <p-persian-calendar
+          id="registerDate"
+          name="registerDate"
+          formControlName="registerDate"
+          styleClass="w-100 "
+          [class.ng-invalid]="registerDate?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && registerDate?.pristine) ||
+            registerDate?.dirty ||
+            registerDate?.touched
+          ">
+        </p-persian-calendar>
+      </div>
+      <!-- / تاریخ ثبت -->
+
+      <!-- شماره ثبت -->
+      <div class="col">
+        <label for="registerNumber">شماره ثبت</label>
+        <input
+          pInputText
+          id="registerNumber"
+          name="registerNumber"
+          formControlName="registerNumber"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="registerNumber?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && registerNumber?.pristine) ||
+            registerNumber?.dirty ||
+            registerNumber?.touched
+          "
+          [value]="registerNumber?.value | faNum" />
+      </div>
+      <!-- / شماره ثبت -->
+
+      <!-- ISIC -->
+      <div class="col">
+        <label for="isic">ISIC</label>
+        <input
+          pInputText
+          id="isic"
+          name="isic"
+          formControlName="isic"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="isic?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && isic?.pristine) ||
+            isic?.dirty ||
+            isic?.touched
+          " />
+      </div>
+      <!-- / ISIC -->
+
+      <!-- ISIN -->
+      <div class="col">
+        <label for="companyISIN">ISIN</label>
+        <input
+          pInputText
+          id="companyISIN"
+          name="companyISIN"
+          formControlName="companyISIN"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="companyISIN?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && companyISIN?.pristine) ||
+            companyISIN?.dirty ||
+            companyISIN?.touched
+          " />
+      </div>
+      <!-- / ISIN -->
+
+      <!-- سرمایه ثبت شده -->
+      <div class="col">
+        <label for="registeredCapital">سرمایه ثبت شده</label>
+        <input
+          pInputText
+          id="registeredCapital"
+          name="registeredCapital"
+          formControlName="registeredCapital"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="registeredCapital?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && registeredCapital?.pristine) ||
+            registeredCapital?.dirty ||
+            registeredCapital?.touched
+          " />
+      </div>
+      <!-- / سرمایه ثبت شده -->
+
+      <!-- سرمایه ثبت نشده -->
+      <div class="col">
+        <label for="nonRegisteredCapital">سرمایه ثبت نشده</label>
+        <input
+          pInputText
+          id="nonRegisteredCapital"
+          name="nonRegisteredCapital"
+          formControlName="nonRegisteredCapital"
+          type="text"
+          class="w-100"
+          [class.ng-invalid]="nonRegisteredCapital?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && nonRegisteredCapital?.pristine) ||
+            nonRegisteredCapital?.dirty ||
+            nonRegisteredCapital?.touched
+          " />
+      </div>
+      <!-- / سرمایه ثبت نشده -->
+
+      <!-- وضعیت ناشر -->
+      <div class="col">
+        <label for="publisherStatusId">وضعیت ناشر</label>
+        <p-dropdown
+          id="publisherStatusId"
+          name="publisherStatusId"
+          formControlName="publisherStatusId"
+          class="col"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [class.ng-invalid]="publisherStatusId?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && publisherStatusId?.pristine) ||
+            publisherStatusId?.dirty ||
+            publisherStatusId?.touched
+          "
+          [options]="publisherStatuses"
+          [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / وضعیت ناشر -->
+
+      <!-- پایان سال مالی -->
+      <div class="col">
+        <label for="yearEnd">پایان سال مالی</label>
+        <p-persian-calendar
+          id="yearEnd"
+          name="yearEnd"
+          formControlName="yearEnd"
+          styleClass="w-100 "
+          [class.ng-invalid]="yearEnd?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && yearEnd?.pristine) ||
+            yearEnd?.dirty ||
+            yearEnd?.touched
+          ">
+        </p-persian-calendar>
+      </div>
+      <!-- / پایان سال مالی -->
+
+      <!-- ماهیت -->
+      <div class="col">
+        <label for="reportingTypeId">ماهیت</label>
+        <p-dropdown
+          id="reportingTypeId"
+          name="reportingTypeId"
+          formControlName="reportingTypeId"
+          class="col"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="reportingTypes"
+          [class.ng-invalid]="reportingTypeId?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && reportingTypeId?.pristine) ||
+            reportingTypeId?.dirty ||
+            reportingTypeId?.touched
+          "
+          [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / ماهیت -->
+
+      <!-- موسسه حسابرسی شرکت -->
+      <div class="col">
+        <label for="companyInspectionInstituteId">موسسه حسابرسی شرکت</label>
+        <p-dropdown
+          id="companyInspectionInstituteId"
+          name="companyInspectionInstituteId"
+          formControlName="companyInspectionInstituteId"
+          class="col"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="companyInspectionInstitutes"
+          [class.ng-invalid]="companyInspectionInstituteId?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted &&
+              companyInspectionInstituteId?.pristine) ||
+            companyInspectionInstituteId?.dirty ||
+            companyInspectionInstituteId?.touched
+          "
+          [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / موسسه حسابرسی شرکت -->
+    </div>
+
+    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+      <!-- موضوع فعالیت -->
+      <div class="col">
+        <label for="activitySubject">موضوع فعالیت</label>
+        <textarea
+          pInputTextarea
+          id="activitySubject"
+          name="activitySubject"
+          formControlName="activitySubject"
+          rows="5"
+          cols="30"
+          class="w-100"
+          [class.ng-invalid]="activitySubject?.invalid"
+          [class.ng-dirty]="
+            (addNewCompanySubmitted && activitySubject?.pristine) ||
+            activitySubject?.dirty ||
+            activitySubject?.touched
+          "></textarea>
+      </div>
+      <!-- / موضوع فعالیت -->
+    </div>
+
+    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+      <!-- آدرس کارخانه -->
+      <div class="col my-1">
+        <label for="factoryAddress">آدرس کارخانه</label>
+        <input
+          pInputText
+          id="factoryAddress"
+          name="factoryAddress"
+          formControlName="factoryAddress"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / آدرس کارخانه -->
+    </div>
+
+    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- تلفن کارخانه (کد) -->
+      <div class="col my-1">
+        <label for="factoryTelephone">تلفن کارخانه (کد)</label>
+        <input
+          pInputText
+          id="factoryTelephone"
+          name="factoryTelephone"
+          formControlName="factoryTelephone"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / تلفن کارخانه (کد) -->
+
+      <!-- نمابر کارخانه (کد) -->
+      <div class="col my-1">
+        <label for="factoryFax">نمابر کارخانه (کد)</label>
+        <input
+          pInputText
+          id="factoryFax"
+          name="factoryFax"
+          formControlName="factoryFax"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / نمابر کارخانه (کد) -->
+    </div>
+
+    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+      <!-- آدرس امور سهام -->
+      <div class="col my-1">
+        <label for="stockAffairsOffice">آدرس امور سهام</label>
+        <input
+          pInputText
+          id="stockAffairsOffice"
+          name="stockAffairsOffice"
+          formControlName="stockAffairsOffice"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / آدرس امور سهام -->
+    </div>
+
+    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- تلفن امور سهام (کد) -->
+      <div class="col my-1">
+        <label for="stockAffairsTelephone">تلفن امور سهام (کد)</label>
+        <input
+          pInputText
+          id="stockAffairsTelephone"
+          name="stockAffairsTelephone"
+          formControlName="stockAffairsTelephone"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / تلفن امور سهام (کد) -->
+
+      <!-- نمابر امور سهام (کد) -->
+      <div class="col my-1">
+        <label for="stockAffairsFax">نمابر امور سهام (کد)</label>
+        <input
+          pInputText
+          id="stockAffairsFax"
+          name="stockAffairsFax"
+          formControlName="stockAffairsFax"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / نمابر امور سهام (کد) -->
+    </div>
+
+    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+      <!-- آدرس دفتر مرکزی -->
+      <div class="col my-1">
+        <label for="centeralOffice">آدرس دفتر مرکزی</label>
+        <input
+          pInputText
+          id="centeralOffice"
+          name="centeralOffice"
+          formControlName="centeralOffice"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / آدرس دفتر مرکزی -->
+    </div>
+
+    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- تلفن دفتر مرکزی (کد) -->
+      <div class="col my-1">
+        <label for="centeralOfficeTelephone">تلفن دفتر مرکزی (کد)</label>
+        <input
+          pInputText
+          id="centeralOfficeTelephone"
+          name="centeralOfficeTelephone"
+          formControlName="centeralOfficeTelephone"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / تلفن دفتر مرکزی (کد) -->
+
+      <!-- نمابر دفتر مرکزی (کد) -->
+      <div class="col my-1">
+        <label for="centeralOfficeFax">نمابر دفتر مرکزی (کد)</label>
+        <input
+          pInputText
+          id="centeralOfficeFax"
+          name="centeralOfficeFax"
+          formControlName="centeralOfficeFax"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / نمابر دفتر مرکزی (کد) -->
+    </div>
+
+    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- مدیر عامل -->
+      <div class="col my-1">
+        <label for="managingDirector">مدیر عامل</label>
+        <input
+          pInputText
+          id="managingDirector"
+          name="managingDirector"
+          formControlName="managingDirector"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / مدیر عامل -->
+
+      <!-- مدیر مالی -->
+      <div class="col my-1">
+        <label for="financialManager">مدیر مالی</label>
+        <input
+          pInputText
+          id="financialManager"
+          name="financialManager"
+          formControlName="financialManager"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / مدیر مالی -->
+    </div>
+
+    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+      <!-- اعضای هییت مدیره -->
+      <div class="col my-1">
+        <label for="boardofDirectors">اعضای هیئت مدیره</label>
+        <input
+          pInputText
+          id="boardofDirectors"
+          name="boardofDirectors"
+          formControlName="boardofDirectors"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / اعضای هییت مدیره -->
+    </div>
+
+    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- حسابرس و بازرس قانونی -->
+      <div class="col my-1">
+        <label for="boardofDirectors">حسابرس و بازرس قانونی</label>
+        <input
+          pInputText
+          id="boardofDirectors"
+          name="boardofDirectors"
+          formControlName="boardofDirectors"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / حسابرس و بازرس قانونی -->
+
+      <!-- بازرس علی البدل -->
+      <div class="col my-1">
+        <label for="substituteInspector">بازرس علی البدل</label>
+        <input
+          pInputText
+          id="substituteInspector"
+          name="substituteInspector"
+          formControlName="substituteInspector"
+          type="text"
+          class="w-100" />
+      </div>
+      <!-- / بازرس علی البدل -->
+    </div>
+  </div>
+
+  <!-- دکمه ها -->
+  <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
+    <p-button
+      class="pe-2 p-button-wide"
+      styleClass="p-button-success"
+      [label]="isEdit ? 'ویرایش' : 'افزودن'"
+      type="submit"
+      [loading]="addNewCompanyLoading"></p-button>
+  </div>
+  <!-- / دکمه ها -->
+</form>

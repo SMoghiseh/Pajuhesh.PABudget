@@ -1,0 +1,127 @@
+<!-- data table -->
+<p-table
+  #dataTable
+  class="data-table d-none d-lg-block"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="dataTableRows"
+  [rowsPerPageOptions]="[10, 20, 30]"
+  [styleClass]="gridClass"
+  [rowHover]="true"
+  [totalRecords]="totalCount"
+  [value]="onlineAdvertisment"
+  [loading]="loading"
+  selectionMode="single"
+  [(selection)]="selectedRow"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [lazy]="true"
+  (onLazyLoad)="getOnlineAdvertisment($event)">
+  <!-- table header -->
+  <ng-template pTemplate="header">
+    <tr class="data-table__header">
+      <th style="min-width: 20rem">
+        <strong>توضیحات</strong>
+      </th>
+
+      <th style="min-width: 20rem">
+        <strong>تاریخ فعالسازی</strong>
+      </th>
+
+      <th style="min-width: 2rem">
+        <strong> تاریخ انقضا </strong>
+      </th>
+
+      <th style="min-width: 2rem">
+        <strong> نوع اسناد </strong>
+      </th>
+    </tr>
+  </ng-template>
+  <!-- / table header -->
+  <!-- table body -->
+  <ng-template pTemplate="body" let-onlineAdvertisment let-rowIndex="rowIndex">
+    <tr
+      [pSelectableRow]="onlineAdvertisment"
+      (dblclick)="onRowDblClick($event, onlineAdvertisment)">
+      <td
+        pTooltip="{{ onlineAdvertisment.description }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
+        {{ onlineAdvertisment.description }}
+      </td>
+
+      <td>{{ onlineAdvertisment.activeDatePersian }}</td>
+      <td>{{ onlineAdvertisment.expiredDatePersian }}</td>
+      <td
+        pTooltip="{{ onlineAdvertisment.advertisementTypeName }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
+        {{ onlineAdvertisment.advertisementTypeName }}
+      </td>
+    </tr>
+  </ng-template>
+  <!-- / table body -->
+</p-table>
+<!-- data table -->
+
+<!-- data list -->
+<div class="data-list d-block d-lg-none">
+  <ul *ngFor="let onlineAdvert of onlineAdvertisment" class="list-group my-1">
+    <!-- توضیحات -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>توضیحات</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ onlineAdvert.description }}
+        </div>
+      </div>
+    </li>
+    <!-- / توضیحات -->
+
+    <!--  تاریخ فعالسازی -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تاریخ فعالسازی</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ onlineAdvert.activeDatePersian }}
+        </div>
+      </div>
+    </li>
+    <!-- /  تاریخ فعالسازی -->
+    <!-- تاریخ انقضا -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تاریخ انقضا</strong>
+        </div>
+        <div class="col my-1 text-center">
+          {{ onlineAdvert.expiredDatePersian }}
+        </div>
+      </div>
+    </li>
+    <!-- / تاریخ انقضا -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>نوع اسناد</strong>
+        </div>
+        <div class="col my-1 text-center">
+          {{ onlineAdvert.advertisementTypeName }}
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- / data list -->
+<!-- <p-button
+  class="pe-2"
+  styleClass="p-button-success"
+  label="ثبت"
+  icon="pi pi-check"
+  type="submit"
+  (click)="onSubmit()"></p-button> -->

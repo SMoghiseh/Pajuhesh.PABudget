@@ -1,0 +1,907 @@
+<!-- data table -->
+<p-table #dataTable dataKey="id" [styleClass]="gridClass" [paginator]="true" [rows]="dataTableRows"
+  [rowsPerPageOptions]="[15, 20, 30]" [rowHover]="true" [totalRecords]="totalCount" [value]="reportList"
+  [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" (firstChange)="onfirstChange($event)"
+  (rowsChange)="onRowsChange($event)" class="data-table d-none d-lg-block" [(first)]="first">
+  <!-- table header -->
+  <ng-template pTemplate="header">
+    <tr class="data-table__header">
+      <th>
+        <strong>نام شرکت</strong>
+      </th>
+
+      <th>
+        <strong>عنوان اسناد</strong>
+      </th>
+
+      <th *ngIf="type !== 'myApproval'">
+        <strong>نوع اسناد</strong>
+      </th>
+
+      <th>
+        <strong>وضعیت</strong>
+      </th>
+
+      <th *ngIf="type !== 'myApproval'">
+        <strong>تگ</strong>
+      </th>
+
+      <th *ngIf="type !== 'myApproval'">
+        <strong>کد</strong>
+      </th>
+
+      <th>
+        <strong>زمان ارسال</strong>
+      </th>
+
+      <th *ngIf="type === 'myApproval'">
+        <strong>زمان بررسی</strong>
+      </th>
+
+      <th *ngIf="type === 'myApproval'">
+        <strong>زمان دریافت</strong>
+      </th>
+
+      <th *ngIf="type !== 'myApproval'">
+        <strong>زمان انتشار</strong>
+      </th>
+
+      <th *ngIf="type === 'myApproval'">
+        <strong>توضیحات</strong>
+      </th>
+
+      <th [class.col-w-3]="accessToActions.length === 1" [class.col-w-4]="accessToActions.length === 2">
+        <strong>عملیات</strong>
+      </th>
+    </tr>
+  </ng-template>
+  <!-- / table header -->
+  <!-- table body -->
+  <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
+    <tr class="data-table__body" [class.warning-row]="report.advertStatus === 2">
+      <td pTooltip="{{ report.company }}" tooltipEvent="hover" tooltipPosition="top">
+        {{ report.company }}
+      </td>
+
+      <td pTooltip="{{ report.description }}" tooltipEvent="hover" tooltipPosition="top">
+        {{ report.description }}
+        <!-- <a routerLink="/form" href="/form">{{ report.description }}</a> -->
+      </td>
+
+      <td pTooltip="{{ report.advertisementType }}" tooltipEvent="hover" tooltipPosition="top"
+        *ngIf="type !== 'myApproval'">
+        {{ report.advertisementType }}
+      </td>
+
+      <td>
+        <div class="col my-1 text-center">
+          {{ report.advertStatusTitle }}
+          <div [class.warning-color]="report.advertStatus === 0"></div>
+          <div [class.success-color]="report.advertStatus === 1"></div>
+          <div [class.danger-color]="report.advertStatus === 2"></div>
+          <div [class.error-color]="report.advertStatus === 3"></div>
+        </div>
+      </td>
+
+      <td *ngIf="type !== 'myApproval'">{{ report.dateTag }}</td>
+
+      <td *ngIf="type !== 'myApproval'">
+        {{ report.advertisementTypeCode }}
+      </td>
+
+      <td>{{ report.sendDate | jDate }}</td>
+
+      <td *ngIf="type === 'myApproval'">
+        {{ report.myCheckedDatePersian }}
+      </td>
+
+      <td *ngIf="type === 'myApproval'">
+        {{ report.myAddedDatePersian }}
+      </td>
+
+      <td *ngIf="type !== 'myApproval'">
+        {{ report.publishDate | jDate }}
+      </td>
+
+      <td *ngIf="type === 'myApproval'" pTooltip="{{ report.advertisementDescription }}" tooltipEvent="hover"
+        tooltipPosition="top">
+        {{ report.advertisementDescription | faNum }}
+      </td>
+
+      <td>
+        <p-button class="table-action-btns" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-eye"
+          pTooltip="جزئیات" tooltipEvent="hover" tooltipPosition="top" (click)="previewDetails(report)"></p-button>
+
+        <p-button class="table-action-btns" styleClass="p-button-text p-button-rounded p-button-lg"
+          icon="pi pi-paperclip" pTooltip="پیوست ها" tooltipEvent="hover" tooltipPosition="top"
+          (click)="previewAttachments(report)"></p-button>
+
+        <!-- <p-button
+          *ngIf="isAccessEditTag && loginData.mainRole !== 'CEO'"
+          class="table-action-btns"
+          styleClass="p-button-text p-button-rounded p-button-lg"
+          icon="pi pi-file-edit"
+          pTooltip="ویرایش تگ ها"
+          tooltipEvent="hover"
+          tooltipPosition="top"
+          (click)="editTags(report)"></p-button> -->
+
+        <p-button *ngIf="isAccessPreviewConfirmation" class="table-action-btns" pTooltip="تعیین وضعیت"
+          tooltipEvent="hover" tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg"
+          icon="pi pi-pencil" (click)="previewConfirmation(report)"></p-button>
+
+        <p-button *ngIf="isAccessWorkflow" class="table-action-btns" pTooltip="گردش کار" tooltipEvent="hover"
+          tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-sitemap"
+          (click)="onWorkflow(report)"></p-button>
+
+        <p-button *ngIf="
+            isAccessRegisterAmendment &&
+            (report.advertStatus === 3 ||
+              report.advertStatus === 1 ||
+              report.advertStatus === 2)
+          " class="table-action-btns" [pTooltip]="report.advertStatus === 3 ? 'ویرایش' : 'ثبت اصلاحیه'"
+          tooltipEvent="hover" tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg" [icon]="
+            report.advertStatus === 3 ? 'pi pi-pencil' : 'pi pi-file-edit'
+          " (click)="registerAmendment(report)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <!-- / table body -->
+</p-table>
+<!-- data table -->
+
+<!-- data list -->
+<div class="data-list d-block d-lg-none">
+  <ul *ngFor="let report of reportList" class="list-group my-1">
+    <!-- نام شرکت -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>نام شرکت</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.company }}
+        </div>
+      </div>
+    </li>
+    <!-- / نام شرکت -->
+
+    <!-- اخطار -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <i class="mgc_emergency_flashers_fill list-group-item__warning"> </i>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.comment }}
+        </div>
+      </div>
+    </li>
+    <!-- / اخطار -->
+
+    <!-- عنوان اسناد -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عنوان اسناد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.description }}
+        </div>
+      </div>
+    </li>
+    <!-- / عنوان اسناد -->
+
+    <!-- نوع اسناد -->
+    <li *ngIf="type !== 'myApproval'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>نوع اسناد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.advertisementType }}
+        </div>
+      </div>
+    </li>
+    <!-- / نوع اسناد -->
+
+    <!-- وضعیت -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>وضعیت</strong>
+        </div>
+
+        <div *ngIf="report.advertStatus === 0" class="col my-1 text-center">
+          بررسی نشده
+          <div class="warning-color"></div>
+        </div>
+        <div *ngIf="report.advertStatus === 1" class="col my-1 text-center">
+          تایید شده
+          <div class="success-color"></div>
+        </div>
+        <div *ngIf="report.advertStatus === 2" class="col my-1 text-center">
+          تحت احتیاط
+          <div class="danger-error"></div>
+        </div>
+        <div *ngIf="report.advertStatus === 3" class="col my-1 text-center">
+          برگشت داده شده
+          <div class="error-color"></div>
+        </div>
+      </div>
+    </li>
+    <!-- / وضعیت -->
+
+    <!-- تگ -->
+    <li *ngIf="type !== 'myApproval'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تگ</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.dateTag }}
+        </div>
+      </div>
+    </li>
+    <!-- / تگ -->
+
+    <!-- کد -->
+    <li *ngIf="type !== 'myApproval'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>کد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.code }}
+        </div>
+      </div>
+    </li>
+    <!-- / کد -->
+
+    <!-- زمان انتشار -->
+    <li *ngIf="type !== 'myApproval'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>زمان انتشار</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.publishDate | jDate }}
+        </div>
+      </div>
+    </li>
+    <!-- / زمان انتشار -->
+
+    <!-- زمان ارسال -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>زمان ارسال</strong>
+        </div>
+
+        <div *ngIf="type !== 'myApproval'" class="col my-1 text-center">
+          {{ report.sendDate | jDate }}
+        </div>
+        <div *ngIf="type === 'myApproval'" class="col my-1 text-center">
+          {{ report.sendDatePersian | jDate }}
+        </div>
+      </div>
+    </li>
+    <!-- / زمان ارسال -->
+
+    <!-- زمان بررسی -->
+    <li *ngIf="type === 'myApproval'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>زمان بررسی</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.myCheckedDatePersian | jDate }}
+        </div>
+      </div>
+    </li>
+    <!-- / زمان بررسی -->
+
+    <!-- زمان دریافت -->
+    <li *ngIf="type === 'myApproval'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>زمان دریافت</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.myAddedDatePersian | jDate }}
+        </div>
+      </div>
+    </li>
+    <!-- / زمان دریافت -->
+
+    <!-- توضیحات -->
+    <li *ngIf="type === 'myApproval'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>توضیحات</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ report.advertisementDescription }}
+        </div>
+      </div>
+    </li>
+    <!-- / توضیحات -->
+
+    <!-- جزئیات -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>جزئیات</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <p-button class="pe-2" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-eye"
+            (click)="previewDetails(report)"></p-button>
+        </div>
+      </div>
+    </li>
+    <!-- / جزئیات -->
+
+    <!-- پیوست‌ها -->
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>پیوست‌ها</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <p-button class="pe-2" styleClass="p-button-text p-button-rounded" icon="pi pi-file"
+            (click)="previewAttachments(report)"></p-button>
+        </div>
+      </div>
+    </li>
+    <!-- / پیوست‌ها -->
+
+    <!-- ویرایش تگ ها -->
+    <li *ngIf="isAccessEditTag && loginData.mainRole !== 'CEO'" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>ویرایش تگ ها</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <p-button class="table-action-btns" styleClass="p-button-text p-button-rounded p-button-lg"
+            icon="pi pi-file-edit" title="ویرایش تگ ها" (click)="editTags(report)"></p-button>
+        </div>
+      </div>
+    </li>
+    <!-- / ویرایش تگ ها -->
+
+    <!-- تعیین وضعیت -->
+    <li *ngIf="isAccessPreviewConfirmation" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تعیین وضعیت</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <p-button class="table-action-btns" title="تعیین وضعیت"
+            styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-pencil"
+            (click)="previewConfirmation(report)"></p-button>
+        </div>
+      </div>
+    </li>
+    <!-- / تعیین وضعیت -->
+
+    <!-- گردش کار -->
+    <li *ngIf="isAccessWorkflow" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>گردش کار</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <p-button class="table-action-btns" title="گردش کار" styleClass="p-button-text p-button-rounded p-button-lg"
+            icon="pi pi-sitemap" (click)="onWorkflow(report)"></p-button>
+        </div>
+      </div>
+    </li>
+    <!-- / گردش کار -->
+
+    <!-- ثبت اصلاحیه -->
+    <li *ngIf="isAccessRegisterAmendment" class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>ثبت اصلاحیه</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <p-button class="table-action-btns" title="ثبت اصلاحیه"
+            styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-file-edit"
+            (click)="registerAmendment(report)"></p-button>
+        </div>
+      </div>
+    </li>
+    <!-- / ثبت اصلاحیه -->
+  </ul>
+</div>
+<!-- / data list -->
+
+<!-- preview report detail -->
+<p-dialog styleClass="p-fluid" header="جزئیات" [style]="{ width: '80%' }" [modal]="true"
+  [(visible)]="previewDetailsDialog">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <div class="data-table-detail__content-info">
+      <app-advertisment-detail [selectedReport]="selectedReport"></app-advertisment-detail>
+    </div>
+  </ng-template>
+  <!-- / dialog content -->
+</p-dialog>
+<!-- / preview report detail -->
+
+<!-- preview attachments dialog -->
+<p-dialog class="data-table-detail" styleClass="p-fluid" header="پیوست‌ ها"
+  [style]="{ width: '800px', height: '500px' }" [modal]="true" [(visible)]="previewAttachmentsDialog">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <!-- header -->
+    <ul class="list-group my-1">
+      <li class="list-group-item bg-light">
+        <div class="row">
+          <div class="col my-1 text-center">
+            <strong>نمایه</strong>
+          </div>
+          <div class="col my-1 text-center">
+            <strong>نام</strong>
+          </div>
+          <div class="col my-1 text-center">
+            <strong>حجم</strong>
+          </div>
+          <div class="col my-1 text-center">
+            <strong>دریافت</strong>
+          </div>
+          <div class="col my-1 text-center">
+            <strong>پیش نمایش</strong>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- / header -->
+
+    <!-- body -->
+    <ul *ngFor="let attachment of reportAttachment.attachments" class="list-group my-1">
+      <!-- نمایه -->
+      <li class="list-group-item">
+        <div class="row d-flex jc-center ai-center">
+          <div class="col my-1 text-center">
+            <i class="mgc_file_fill fs-2" [class.mgc_pic_2_fill]="attachment.type === attachmentType.IMAGE"
+              [class.mgc_video_fill]="attachment.type === attachmentType.VIDEO"
+              [class.mgc_pdf_fill]="attachment.type === attachmentType.PDF"
+              [class.mgc_doc_fill]="attachment.type === attachmentType.WORD" [class.mgc_xls_fill]="
+                attachment.type === attachmentType.EXCEL
+              "></i>
+          </div>
+          <!-- / نمایه -->
+
+          <!-- نام فایل -->
+          <div class="col my-1 text-center" style="direction: ltr">
+            <small> {{ attachment.fileName }}</small>
+          </div>
+          <!-- / نام فایل -->
+
+          <!-- اندازه فایل -->
+          <div class="col my-1 text-center" style="direction: ltr">
+            <small> {{ attachment.size }}</small>
+          </div>
+          <!-- / اندازه فایل -->
+
+          <!-- اندازه فایل -->
+          <div class="col my-1 text-center">
+            <p-button class="pe-2" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-download"
+              (click)="downloadAttachmnet(attachment)"></p-button>
+          </div>
+          <!-- / اندازه فایل -->
+          <div class="col my-1 text-center">
+            <p-button *ngIf="attachment.type !== 5" class="pe-2" styleClass="p-button-text p-button-rounded p-button-lg"
+              icon="pi pi-eye" (click)="onClickPdfViewer(attachment)"></p-button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- / body -->
+  </ng-template>
+  <!-- / dialog content -->
+</p-dialog>
+<!-- / preview attachments dialog -->
+
+<!-- PDF viewer dialog -->
+<p-dialog class="data-table-detail" styleClass="p-fluid" [style]="{ width: '80%', height: '100%' }" [modal]="true"
+  [(visible)]="pdfViewerDialog">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <iframe [src]="srcPath" width="100%" height="99%"></iframe>
+  </ng-template>
+</p-dialog>
+
+<!-- / PDF viewer dialog -->
+
+<!-- edit tags dialog -->
+<p-dialog *ngIf="isOpenEditTags" header="ویرایش تگ" [(visible)]="isOpenEditTags" [modal]="true"
+  [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+  <app-edit-tags [rowData]="selectedRowData" (closeModal)="isOpenEditTags = false"></app-edit-tags>
+</p-dialog>
+<!-- / edit tags dialog -->
+
+<!-- confirmation dialog -->
+<p-dialog class="data-table-detail" styleClass="p-fluid" header="تعیین وضعیت"
+  [style]="{ width: '450px', height: '360px' }" [modal]="true" [(visible)]="previewConfirmationDialog">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <div class="data-table-detail__content-info">
+      <!-- actionType -->
+      <div class="align-items-center justify-content-around my-1 w-50">
+        <div class="align-items-center">
+          <p-radioButton inputId="ingredient1" name="accept" [value]="'APPROVE'" [(ngModel)]="actionType"
+            class="radio-btns"></p-radioButton>
+          <label for="ingredient1" class="ms-2">تایید</label>
+        </div>
+
+        <div class="align-items-center">
+          <p-radioButton inputId="ingredient2" name="reject" [value]="'REJECT'" [(ngModel)]="actionType"
+            class="radio-btns"></p-radioButton>
+          <label for="ingredient2" class="ms-2">تحت احتیاط</label>
+        </div>
+
+        <div class="align-items-center">
+          <p-radioButton inputId="ingredient2" name="reffer" [value]="'REFFER'" [(ngModel)]="actionType"
+            class="radio-btns"></p-radioButton>
+          <label for="ingredient2" class="ms-2">بازگشت به ناشر</label>
+        </div>
+      </div>
+      <!-- / actionType -->
+
+      <!-- rejection reason -->
+      <form #formDir="ngForm" [formGroup]="rejectReportForm">
+        <div class="form-group">
+          <div class="pt-3">
+            <textarea pInputTextarea id="reason" name="reason" formControlName="reason" rows="5" cols="30" class="w-100"
+              placeholder="توضیحات" [autoResize]="true" [class.ng-invalid]="reason?.invalid" [class.ng-dirty]="
+                (rejectReportFormSubmitted && reason?.pristine) ||
+                reason?.dirty ||
+                reason?.touched
+              "></textarea>
+
+            <div id="reason-help">
+              <small *ngIf="
+                  reason?.invalid &&
+                  (reason?.dirty ||
+                    reason?.touched ||
+                    rejectReportFormSubmitted)
+                " class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- / rejection reason -->
+    </div>
+  </ng-template>
+  <!-- / dialog content -->
+
+  <!-- dialog footer -->
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="d-flex justify-content-end align-items-center w-100">
+        <p-button class="operation__reject" styleClass="p-button-success" icon="pi pi-check" iconPos="left" label="ثبت"
+          (click)="confirmReport()">
+        </p-button>
+
+        <p-button class="operation__reject" styleClass="p-button-warning" icon="pi pi-times" iconPos="left"
+          label="انصراف" (click)="closeConfirmationDialog()">
+        </p-button>
+      </div>
+    </div>
+  </ng-template>
+  <!-- / dialog footer -->
+</p-dialog>
+<!-- / confirmation dialog -->
+
+<!-- workflow -->
+<p-dialog styleClass="p-fluid" header="گردش کار" [style]="{ width: '900px' }" [modal]="true"
+  [(visible)]="isShowWorkflowDialog">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <div *ngFor="let element of workflowList" class="row wf-box" [style.border-color]="element.advertStatusColor"
+      title="{{ element.comment }}">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <span class="wf-bullet" [style.background-color]="element.advertStatusColor"
+          title="{{ element.advertStatus }}"></span>
+        <span class="wf-fullname">{{ element.fullname }}</span>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <span>({{ element.companyName }})</span>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <span>{{ element.advertModifiedTime }}
+          {{ element.advertModifiedDate }}</span>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <span [style.border-color]="element.advertStatusColor" class="wf-stt">
+          {{ element.advertStatus }}</span>
+      </div>
+      <div *ngIf="element.comment !== null && element.comment !== ''" class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+        <i class="pi pi-comments" (click)="onClick($event)" title="نمایش نظرات"></i>
+      </div>
+      <div class="customComment" style="display: none">
+        {{ element.comment }}
+      </div>
+    </div>
+  </ng-template>
+  <!-- / dialog content -->
+</p-dialog>
+<!-- / workflow -->
+
+<!-- confirmation dialog -->
+<p-dialog class="data-table-detail" styleClass="p-fluid"
+  [header]="selectedReport.advertStatus === 3 ? 'ویرایش سند' : 'ثبت اصلاحیه'" [style]="{ width: '1024px' }"
+  [modal]="true" [(visible)]="registerAmendmentDialog" (onHide)="onHideAddAmendment()">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <div class="data-table-detail__content-info">
+      <!-- rejection reason -->
+      <form #formDir="ngForm" [formGroup]="addAmendmentForm">
+        <div class="form-group">
+          <div class="row row-cols-lg-4">
+            <!-- عنوان اسناد -->
+            <div class="col my-1" *ngIf="selectedReport.advertStatus === 3">
+              <label for="description">عنوان اسناد</label>
+              <input id="description" name="description" formControlName="description" pInputText type="text"
+                class="w-100" [class.ng-invalid]="description?.invalid" />
+              <div id="description-help">
+                <small *ngIf="
+                                      (addAmendmentFormSubmitted && description?.pristine) || 
+                                      (description?.errors?.['required'] && 
+                                      (description?.dirty || description?.touched))
+                                    " class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / عنوان اسناد -->
+            <!-- تگ ها-->
+            <div *ngFor="let el of tagsList" class="col my-1">
+              <div *ngIf="el.typeName === 'Boolean'" style="padding-top: 17px">
+                <label for="audited" class="px-2">
+                  <strong> {{ el.displayName }} </strong>
+                </label>
+                <p-inputSwitch id="audited" name="audited" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}"></p-inputSwitch>
+              </div>
+              <div *ngIf="el.typeName === 'String'">
+                <label for="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" style="display: inherit">{{ el.displayName }}</label>
+                <input id="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" name="advertisementType" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" pInputText type="text" class="w-90" />
+              </div>
+              <div *ngIf="el.typeName === 'Decimal'">
+                <label for="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}">{{ el.displayName }}</label>
+                <p-inputNumber mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="20" id="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" name="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" value="
+                    addAmendmentForm.get(
+                      el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                    )?.value
+                  ">
+                </p-inputNumber>
+                <!-- <input
+                  pInputText
+                  pKeyFilter="int"
+                  id="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}"
+                  name="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}"
+                  formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}"
+                  type="text"
+                  class="w-100"
+                  [value]="
+                    addAmendmentForm.get(
+                      el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                    )?.value | currency
+                  " /> -->
+              </div>
+              <div *ngIf="el.typeName === 'Date'">
+                <label for="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}">{{ el.displayName }}</label>
+                <p-persian-calendar id="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" name="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" formControlName="{{
+                    el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                  }}" styleClass="w-100 ">
+                </p-persian-calendar>
+              </div>
+              <div *ngIf="el.isRequired">
+                <small *ngIf="
+                    addAmendmentForm.get(
+                      el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                    )?.invalid &&
+                    (addAmendmentForm.get(
+                      el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
+                    )?.dirty ||
+                      addAmendmentForm.get(
+                        el.tagName +
+                          '_' +
+                          el.typeName +
+                          '_' +
+                          el.docTypeTagsId
+                      )?.touched ||
+                      addAmendmentFormSubmitted)
+                  " class="p-error">
+                  لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error">
+                  error
+                </small>
+              </div>
+            </div>
+            <!-- / تگ ها-->
+          </div>
+          <div class="pt-3">
+            <textarea pInputTextarea id="reason" name="reason" formControlName="reason" rows="5" cols="30" class="w-100"
+              placeholder="دلیل اصلاحیه" [autoResize]="true" [class.ng-invalid]="reasonAmendment?.invalid"
+              [class.ng-dirty]="
+                (addAmendmentFormSubmitted && reasonAmendment?.pristine) ||
+                reasonAmendment?.dirty ||
+                reasonAmendment?.touched
+              "></textarea>
+
+            <div id="reason-help">
+              <small *ngIf="
+                  (addAmendmentFormSubmitted && reasonAmendment?.pristine) || 
+                  (reasonAmendment?.errors?.['required'] && 
+                  (reasonAmendment?.dirty || reasonAmendment?.touched))
+                " class="p-error">
+                لطفا این فیلد را خالی نگذارید
+              </small>
+              <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- / rejection reason -->
+      <div>
+        <div *ngIf="onlineAdvertAttachNeeds" class="div-upload-warn">
+          <ul>
+            <li>نام فایل انتخابی شامل کاراکترهای خاص (< .> = + , ) نباشد.</li>
+            <li>فایل انتخابی بایستی حداکثر 20 مگابایت باشد.</li>
+          </ul>
+        </div>
+        <p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="false" [rows]="dataTableRows"
+          [styleClass]="gridClass" [rowHover]="true" [totalRecords]="totalCount" [value]="onlineAdvertAttachNeeds"
+          [loading]="onlineAdvertismentLoading" [tableStyle]="{ 'min-width': '75rem' }">
+          <!-- table header -->
+          <ng-template pTemplate="header">
+            <tr class="data-table__header">
+              <th>
+                <strong>عنوان</strong>
+              </th>
+
+              <th>
+                <strong>توضیحات</strong>
+              </th>
+
+              <th>
+                <strong>پسوند</strong>
+              </th>
+
+              <th>
+                <strong> نوع </strong>
+              </th>
+
+              <th>
+                <strong> اجباری بودن </strong>
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <!-- / table header -->
+          <!-- table body -->
+          <ng-template pTemplate="body" let-onlineAdvertismentNeeds let-rowIndex="rowIndex">
+            <tr>
+              <td>
+                {{ onlineAdvertismentNeeds.attachmentFileTypeTitle }}
+              </td>
+              <td>{{ onlineAdvertismentNeeds.description }}</td>
+              <td>{{ onlineAdvertismentNeeds.extention }}</td>
+              <td>{{ onlineAdvertismentNeeds.type }}</td>
+              <td>
+                <i *ngIf="onlineAdvertismentNeeds.isRequired" class="pi pi-check-square"></i>
+                <i *ngIf="!onlineAdvertismentNeeds.isRequired" class="pi pi-times-circle"></i>
+              </td>
+              <th>
+                <div class="row">
+                  <div style="width: fit-content; padding: 0px">
+                    <p-fileUpload #form accept=".{{ onlineAdvertismentNeeds.extention }}" id="fileUpload_{{
+                        onlineAdvertismentNeeds.adverTyeFileNeedsId
+                      }}" mode="basic" chooseLabel="افزودن پیوست" name="attachments[]"
+                      [disabled]="isDisableaddAmendmentBtn" [auto]="true" (onSelect)="
+                        onSelectAttachment(
+                          $event.files,
+                          onlineAdvertismentNeeds,
+                          form
+                        )
+                      "></p-fileUpload>
+                  </div>
+                  <div style="width: 30px">
+                    <div style="width: fit-content; display: none" id="spinner_{{
+                        onlineAdvertismentNeeds.adverTyeFileNeedsId
+                      }}">
+                      <p-progressSpinner [style]="{
+                          width: '25px',
+                          height: '25px',
+                          padding: '0px'
+                        }"></p-progressSpinner>
+                    </div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <!-- / table body -->
+        </p-table>
+      </div>
+    </div>
+  </ng-template>
+  <!-- / dialog content -->
+
+  <!-- dialog footer -->
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="d-flex justify-content-end align-items-center w-100">
+        <p-button class="operation__reject p-button-wide" styleClass="p-button-success" icon="pi pi-check"
+          iconPos="left" label="تایید" [loading]="addAmendmentLoading" [disabled]="isDisableaddAmendmentBtn"
+          (click)="addAmendment(selectedReport.id)">
+        </p-button>
+
+        <!-- <p-button
+          class="operation__reject p-button-wide"
+          styleClass="p-button-warning"
+          icon="pi pi-times"
+          iconPos="left"
+          label="انصراف"
+          (click)="closeConfirmationDialog()">
+        </p-button> -->
+      </div>
+    </div>
+  </ng-template>
+  <!-- / dialog footer -->
+</p-dialog>
+<!-- / confirmation dialog -->

@@ -1,0 +1,81 @@
+
+:host ::ng-deep .p-button {
+    min-width: 9rem;
+}
+
+.btn-lookup-list{
+    height: 32px;
+    width: 32px;
+    border: 1px solid #ced4da;
+    left: 1px;
+    position: relative;
+    cursor: pointer;
+}
+
+.w-90{
+    width: 70%!important;
+}
+
+p-inputSwitch{
+    position: relative;
+    top: 9px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  p-table{
+    margin-top: 20px;
+  }
+
+  .pi-download{
+    font-size: 16px;
+    font-weight: bold;
+    color: blue;
+    cursor: pointer;
+}
+
+.pi-check-square{
+  @extend .icon-col;
+  color: green;
+}
+
+.pi-times-circle{
+  @extend .icon-col;
+  color: red;
+}
+
+.icon-col{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.div-upload-warn{
+  font-size: 13px;
+    background-color: #f9e2e2;
+    padding: 5px 10px 0px;
+    border: 1px solid #e77f7f;
+    border-radius: 5px;
+    line-height: 2.5;
+}

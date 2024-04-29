@@ -137,7 +137,7 @@ export class Permission extends RolePermissions {
 }
 
 export class AllRoleDocumentTypeTree extends RolePermissions {
-  static readonly apiAddress1 = 'api/v1/role/AllRoleDocumentTypeTree';
+  static readonly apiAddress1 = 'api/PABudgetApi/v1/role/AllRoleDocumentTypeTree';
 }
 
 /** نقش‌ها */
@@ -158,9 +158,9 @@ export class Role {
 }
 export class Group extends Pagination {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/GroupPolicy/Group';
+  static readonly apiAddress = 'api/PABudgetApi/v1/GroupPolicy/Group';
 
-  static readonly apiAddressUserGroups = 'api/v1/GroupPolicy/UserGroups';
+  static readonly apiAddressUserGroups = 'api/PABudgetApi/v1/GroupPolicy/UserGroups';
 
   /** شناسه */
   id!: number;
@@ -176,6 +176,165 @@ export class Group extends Pagination {
   childCompanyAccess!: boolean;
 
   groupId!: number;
+}
+
+/** اسناد‌ها */
+export class Report extends Pagination {
+  /** آدرس سرویس */
+  static readonly apiAddress: string = 'api/v1/Advertisement';
+  static readonly apiAddressSearch: string = 'api/v1/Advertisement/search';
+
+  /** شناسه */
+  id!: number;
+
+  /** کد */
+  code!: number | null;
+
+  /** عنوان */
+  description!: string;
+
+  /** زمان ارسال */
+  sendDate!: any;
+  sendDatePersian!: Date;
+
+  /** زمان انتشار */
+  publishDate!: Date;
+
+  /** حسابرسی شده */
+  audited!: boolean;
+
+  /** سال منتهی به */
+  yearEnding!: Date;
+
+  /** طول دوره */
+  courseLength!: number;
+
+  /** شماره پیگیری */
+  issueTrackingNo!: number | null;
+
+  /** وضعیت اسناد */
+  advertStatus!: boolean | null | number;
+
+  /** دلیل اسناد */
+  amendmentReason!: boolean | null;
+
+  /** دارای اصلاحیه */
+  hasAmendment!: boolean;
+
+  /** گروه */
+  advertisementGroup!: string;
+
+  /** نوع */
+  advertisementTypeModel!: string;
+
+  /** موسسه حسابداری شرکت */
+  companyInspectionInstitute!: string;
+
+  /** شرکت */
+  company!: string;
+
+  /** شناسه عطف */
+  parentAdvertId!: number | null;
+
+  /** شناسه نوع */
+  advertisementGroupId!: number;
+
+  /** شناسه گروه */
+  advertisementTypeId!: number;
+
+  /** شناسه موسسه حسابداری شرکت */
+  companyInspectionInstituteId!: number;
+
+  /** شناسه شرکت */
+  companyId!: number;
+
+  /** دلیل عدم تائید */
+  rejectedReason!: string | null;
+
+  /** عنوان اسناد */
+  subject!: string;
+
+  /** نظر ناظر */
+  comment!: string | null;
+
+  /** نام ناظر */
+  supervisiorName!: string | null;
+
+  publisherStatus?: PublisherStatus;
+
+  advertisementGroupModel?: DocumentGroup;
+
+  companyType?: CompanyType;
+
+  advertisementType?: DocumentType | string;
+
+  companyInspectionInstituteModel?: CompanyInspectionInstitute;
+
+  isNotAudited?: false;
+
+  isAudited?: false;
+
+  isRootAdvert?: false;
+
+  isLeafAdvert?: false;
+
+  isRootCompany?: false;
+
+  isLeafCompany?: false;
+
+  isHolding?: false;
+
+  fromPublishDate?: any;
+
+  toPublishDate?: any;
+
+  publisherStatusId?: number;
+
+  companyTypeId?: number;
+
+  companyModel?: Company;
+
+  multiMediaIds?: number[];
+
+  companyName?: string;
+
+  onlineAdvertDefinitionId!: number;
+
+  advertId?: number;
+
+  stateOrder?: number;
+
+  publisherCompanyName?: string;
+
+  advertisementSubject?: string;
+
+  myCheckedDatePersian!: Date;
+
+  myAddedDatePersian!: Date;
+
+  advertStatusTitle!: string;
+
+  advertisementDescription!: string;
+
+  stateCompanyName!: string;
+
+  tags!: any;
+
+  yearValue!: number;
+
+  withSubsets!: boolean;
+
+  advertTypeId!: number;
+
+  dateTag!: string;
+
+  sendDateFrom!: string | null;
+  sendDateTo!: string | null;
+  status!: number;
+  myCheckedStatus!: number;
+  myCheckedStatusTitle!: string;
+  advertisementTypeName!: string;
+  advertisementTypeCode!: number;
 }
 
 /** کاربرها */
@@ -241,18 +400,18 @@ export class Person {
 /** کاربرها */
 export class CreateRole {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/role/create';
+  static readonly apiAddress = 'api/PABudgetApi/v1/role/create';
 }
 
 export class ChangePassword {
-  static readonly apiAddress = 'api/v1/Password/Reset';
-  static readonly apiAddressSet = 'api/v1/Password/Set';
+  static readonly apiAddress = 'api/PABudgetApi/v1/Password/Reset';
+  static readonly apiAddressSet = 'api/PABudgetApi/v1/Password/Set';
 }
 
 /** کاربرها */
 export class DeletePerson {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/info/person/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/info/person/';
 }
 
 export class FileType {
@@ -269,7 +428,7 @@ export class FileType {
 /** ناظرین */
 export class AssignCompanyToSupervisor {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/Info/AssignCompanyToSupervisor';
+  static readonly apiAddress = 'api/PABudgetApi/v1/Info/AssignCompanyToSupervisor';
 }
 
 /** ناظرین */
@@ -288,7 +447,7 @@ export class CompanyTree {
 /** ناظرین */
 export class Supervisor {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/info/GetSupervisors';
+  static readonly apiAddress = 'api/PABudgetApi/v1/info/GetSupervisors';
 
   userId!: number;
   firstName!: string;
@@ -374,12 +533,12 @@ export class Company {
 /** کاربرها */
 export class AssignRole {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/Role/assign';
+  static readonly apiAddress = 'api/PABudgetApi/v1/Role/assign';
 }
 /** موسسه‌های حسابرسی شرکت */
 export class CompanyInspectionInstitute {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/baseinfo/CompanyInspectionInstitute';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/CompanyInspectionInstitute';
 
   id!: number;
   code!: string;
@@ -390,7 +549,7 @@ export class CompanyInspectionInstitute {
 /** وضعیت‌های ناشر */
 export class PublisherStatus {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/baseinfo/PublisherStatus';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PublisherStatus';
 
   id!: number;
   code!: string;
@@ -401,7 +560,7 @@ export class PublisherStatus {
 /** فعالیت‌ها */
 export class ActivityType {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/baseinfo/ActivityType';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ActivityType';
 
   id!: number;
   code!: string;
@@ -412,7 +571,7 @@ export class ActivityType {
 /** شرکت‌ها */
 export class CompanyType {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/baseinfo/CompanyType';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/CompanyType';
 
   id!: number;
   code!: string;
@@ -423,7 +582,7 @@ export class CompanyType {
 /** ماهیت‌ها */
 export class ReportingType {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/baseinfo/ReportingType';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ReportingType';
 
   id!: number;
   code!: string;
@@ -434,12 +593,12 @@ export class ReportingType {
 /** کاربرها */
 export class CreatePerson {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/info/person/create';
+  static readonly apiAddress = 'api/PABudgetApi/v1/info/person/create';
 }
 /** کاربرها */
 export class UpdatePerson {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/info/person/update';
+  static readonly apiAddress = 'api/PABudgetApi/v1/info/person/update';
 }
 export class DocumentType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocumentType';
@@ -457,7 +616,7 @@ export class DocumentType {
 }
 
 export class DocumentTypeFileNeeds {
-  static readonly apiAddress = 'api/v1/baseinfo/DocTyeFileNeeds';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocTyeFileNeeds';
   id!: number;
   title!: string;
   extention!: string;
@@ -471,8 +630,8 @@ export class DocumentTypeFileNeeds {
 
 export class TagType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/TagType';
-  static readonly apiAddress1 = 'api/v1/baseinfo/DocTypeTags';
-  static readonly apiAddressTags = 'api/v1/Tags';
+  static readonly apiAddress1 = 'api/PABudgetApi/v1/BaseInfo/DocTypeTags';
+  static readonly apiAddressTags = 'api/PABudgetApi/v1/Tags';
   tagTypeId!: number;
   id!: number;
   name!: string;
@@ -506,11 +665,20 @@ export class Subject {
 }
 
 export class DocumentTypeGroup {
-  static readonly apiAddress = 'api/v1/BaseInfo/DocumentTypeGroup';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocumentTypeGroup';
 
   title!: string;
   withOutPagination!: boolean;
   id!: number;
+}
+export class DocumentGroup {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/v1/BaseInfo/DocumentGroup';
+
+  id!: number;
+  code!: string;
+  title!: string;
+  isActive!: boolean;
 }
 export class PeriodType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PeriodType';
@@ -548,7 +716,7 @@ export class CreateOnlineDocDefinition {
 /** اطلاعات پایه */
 export class CreateBasics {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/BaseInfo/slave/create';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/slave/create';
 }
 /** اطلاعات پایه */
 export class Basics {
@@ -566,4 +734,154 @@ export class Basics {
 
   /** شناسه نوع */
   masterId!: number;
+}
+
+/** نوع‌های شرکت */
+export class DeleteCompany {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/company';
+}
+
+/** نوع‌های شرکت */
+export class ListCompany {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/company/list';
+}
+/** نوع‌های شرکت */
+export class CreateCompany {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/company/create';
+}
+export class CreateOnlineAdvertDefinition {
+  static readonly apiAddress = 'api/v1/Advertisement/OnlineAdvertDefinition';
+  id!: number;
+  description!: string;
+  activeDate!: string | null;
+  expiredDate!: string | null;
+  increaseValueScore!: number;
+  decreaseValueScore!: number;
+  isActive!: boolean;
+  advertisementTypeId!: number;
+  onlineAdvertNeedsInfos!: DocumentTypeFileNeeds;
+  activeDatePersian!: Date;
+  expiredDatePersian!: Date;
+  advertisementTypeName!: string;
+}
+/** ناظرین */
+export class Publisher extends Report {
+  /** آدرس سرویس */
+  static override readonly apiAddress = 'api/v1/publisher';
+  static override readonly apiAddressSearch = 'api/v1/publisher/search';
+}
+export class AssetAttachment {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/v1/Assets/attachment/upload';
+
+  multiMediaId!: number;
+  fileSize!: number;
+  fileName!: string;
+}
+export class DocumentStatus {
+  static readonly apiAddress = 'api/v1/BaseInfo/DocumentStatus/list';
+  title!: string;
+  id!: number;
+}
+
+export class OnlineDocumentAttachmentNeeds {
+  static readonly apiAddress =
+    'api/v1/Advertisement/OnlineDocumentAttachmentNeeds';
+  onlineAdvertAttachmentNeedsId!: number;
+  attachmentFileTypeTitle!: string;
+  description!: string;
+  extention!: string;
+  type!: string;
+  isRequired!: boolean;
+  title!: string;
+  advertAttachmentNeedsYear!: number;
+  advertAttachmentNeedsMonth!: number;
+}
+
+export class ReportAttachment {
+  /** شناسه */
+  advertId!: number;
+
+  /** پیوست‌ها */
+  attachments!: Attachments[];
+}
+
+export class Attachments {
+  size!: string;
+  id!: number;
+  type!: AttachmentsType;
+  fileName!: string;
+  mimeType!: string;
+  fileLocation!: string;
+}
+
+export enum AttachmentsType {
+  NONE = 0,
+  IMAGE,
+  VIDEO,
+  PDF,
+  WORD,
+  EXCEL,
+}
+/** فایل‌ها */
+export class Asset {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/v1/Assets/attachment';
+}
+
+export class AdvertStatusHistory {
+  static readonly apiAddress = 'api/v1/Report/AdvertStatusHistory';
+
+  advertStatus!: string;
+  stateOrder!: number;
+  lastName!: string;
+  comment!: string;
+  advertStatusColor!: string;
+  advertModifiedDate!: string;
+  fullname!: string;
+  companyName!: string;
+  advertModifiedTime!: string;
+  myCheckedStatusTitle!: string;
+  myCheckedStatus!: number;
+}
+
+/** ناظرین */
+export class SupervisorSearch extends Report {
+  /** آدرس سرویس */
+  static override readonly apiAddress = 'api/v1/supervisor';
+  static readonly apiAddressList = 'api/v1/supervisor/list';
+}
+
+export class CEO {
+  static readonly apiAddress = 'api/v1/CEO';
+  static readonly apiAddressLand = 'api/v1/';
+
+  title!: string;
+  icon!: string;
+  url!: string;
+  subsets!: Array<CEO>;
+  id!: number;
+  headLine!: Array<CEO>;
+  count!: number;
+  order!: number;
+}
+export class AllDocs {
+  static readonly apiAddress = 'api/v1/Advertisement/allAdvert';
+}
+
+export class years {
+  static readonly apiAddress = 'api/v1/BaseInfo/FinancialYear';
+
+  title!: string;
+  id!: number;
+  startDate!: any;
+  endDate!: any;
+  pEndDate!: string;
+  pStartDate!: string;
+  financialYearDataTypeId!: number;
+  financialYearDataValue!: number;
+  parentId!: number;
 }

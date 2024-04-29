@@ -1,0 +1,222 @@
+
+:host ::ng-deep .p-button-wide .p-button {
+    min-width: 9rem;
+}
+
+.mgc_xls_fill{
+    color: #059d05 !important;
+}   
+
+.mgc_pdf_fill{
+    color: #b90101 !important;
+}
+
+.mgc_doc_fill{
+    color: #055faf !important;
+}
+
+.mgc_pic_2_fill{
+    color: #af05a8 !important;
+}
+
+.mgc_video_fill{
+    color: #e35600 !important;
+}
+
+.tags-list{
+    background-color: #e3f3e6;
+    span{
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+    }
+    div{
+        padding: 4px;
+        box-shadow: 5px 8px 21px #025002;
+    }
+}
+
+.div-search-btn{
+    position: relative;
+    top: 21px;
+    text-align: center;
+}
+
+.input-switch{
+    position: relative;
+    top: 7px;
+}
+
+.div-img-logo{
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.div-holding{
+    text-align: -webkit-center;
+}
+
+.div-company-lst{
+    padding: 8px 0px;
+    border-radius: 16px;
+    margin-top: 20px;
+    background: linear-gradient(to right,rgba(255, 240, 197, 0.00),#FFF0C5,rgba(255, 240, 197, 0.00));
+}
+
+.mounth-item{
+    cursor: pointer;
+    .select-item{
+        padding: 3px;
+        border-radius: 4px;
+    }
+}
+
+.item-border{
+    border-right: 1px solid #B0B0B0;
+}
+
+.mounth-box{
+    border: 1px solid #5273DC;
+    padding: 4px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.disable-item{
+    opacity: 0.5;
+    cursor: unset !important;
+}
+
+.select-co-item{
+    background-color: rgb(242, 246, 255);
+    border: 1px solid rgb(82, 115, 220);
+}
+
+.advert-type-box{
+    padding-top: 20px;
+    background: linear-gradient(to right,rgba(226, 245, 230, 0.00),#E2F5E6,rgba(226, 245, 230, 0.00));
+}
+
+.back-btn{
+    font-size: 13px;
+    border: none;
+    background-color: unset;
+    margin-top: 7px;
+    padding: 5px 10px;
+    &:hover{
+        background-color: #355BD6;
+        color: white;
+        border-radius: 5px;
+    }
+}
+
+.advert-types-box {
+    width: 160px;
+    height: 160px;
+    direction: rtl;
+    flex-shrink: 0;
+    border: 2.999px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(#C2D1FF, #355BD6) border-box;
+    border-radius: 16px;
+    padding: 15px;
+    display: inline-block;
+    margin: 0px 20px 20px 20px;
+    cursor: pointer;
+
+    &:hover {
+        @extend .el-hover-bottom;
+    }
+}
+
+.advert-types-icon {
+    @extend .back-imgs;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 10.423px 10.423px 10.646px 10.423px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 9.265px;
+    border: 1.158px solid var(--Primary, #2140A4);
+    background: var(--gray-01, #FFF);
+    box-shadow: 0px 0px 5.79052px 2.31621px rgba(151, 71, 255, 0.05);
+    background-size: 24px;
+    background-color: white !important;
+}
+
+.div-advert-type-img {
+    width: 50%;
+    text-align: left;
+    position: relative;
+    top: 6px;
+    padding: 0px;
+
+    span {
+        color: var(--gray-11, #606060);
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 27.794px;
+        letter-spacing: 0.579px;
+        margin-left: 3px;
+    }
+}
+
+.advert-type-img {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    padding: 0px;
+}
+
+.advert-type-name {
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    padding: 0px;
+    margin-top: 20px;
+}
+
+.el-hover-bottom {
+    background-image: linear-gradient(#C2D1FF, #355BD6);
+
+    color: white;
+
+    .div-advert-type-img {
+        span {
+            color: white;
+        }
+    }
+}
+
+.back-imgs {
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.select-year{
+    background-color: #5273DC;
+    color: white;
+}
+
+.head-title{
+    text-align: right;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.section{
+    overflow-y: scroll;
+    height: 86vh;
+    overflow-x: hidden;
+}
+

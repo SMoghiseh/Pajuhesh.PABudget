@@ -13,7 +13,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'marketwatch-document-tags-definition',
+  selector: 'app-document-tags-definition',
   templateUrl: './document-tags.component.html',
   styleUrls: ['./document-tags.component.scss'],
   providers: [ConfirmationService],

@@ -1,0 +1,27 @@
+.tags-list{
+    background-color: #e3f3e6;
+    span{
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+    }
+    div{
+        padding: 4px;
+        box-shadow: 5px 8px 21px #025002;
+    }
+}
+
+.pi-check-square{
+    @extend .tag-icons;
+    color: green;
+}
+
+.pi-times-circle{
+    @extend .tag-icons;
+    color: red;
+}
+
+.tag-icons{
+    font-size: 17px;
+    font-weight: bold;
+}
