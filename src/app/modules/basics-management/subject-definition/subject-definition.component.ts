@@ -101,7 +101,6 @@ export class SubjectDefinitionComponent implements OnInit {
       request.id = this.selectedSubject.id || 0;
       request.title = title;
       request.enName = enName;
-      request.localCode = 0;
 
       this.httpService
         .post<Subject>(UrlBuilder.build(Subject.apiAddress, 'CREATE'), request)

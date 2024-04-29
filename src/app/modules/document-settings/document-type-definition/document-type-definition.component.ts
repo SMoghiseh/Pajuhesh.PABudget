@@ -267,9 +267,8 @@ export class DocumentTypeDefinitionComponent implements OnInit {
     };
 
     this.httpService
-      .post<DocumentTypeGroup[]>(
-        DocumentTypeGroup.apiAddress + '/list',
-        body
+      .get<DocumentTypeGroup[]>(
+        DocumentTypeGroup.apiAddress
       )
       .pipe(
         map(response => {

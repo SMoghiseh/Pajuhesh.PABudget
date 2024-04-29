@@ -49,7 +49,7 @@ export class AddEditCompanyComponent implements OnInit {
   /*--------------------------
   # PublisherStatus
   --------------------------*/
-  publisherStatuses: PublisherStatus[] = [];
+  financialStatuses: PublisherStatus[] = [];
 
   /*--------------------------
   # Parents
@@ -142,8 +142,8 @@ export class AddEditCompanyComponent implements OnInit {
   get nonRegisteredCapital() {
     return this.addNewCompanyForm.get('nonRegisteredCapital');
   }
-  get publisherStatusId() {
-    return this.addNewCompanyForm.get('publisherStatusId');
+  get financialManagerId() {
+    return this.addNewCompanyForm.get('financialManagerId');
   }
   get yearEnd() {
     return this.addNewCompanyForm.get('yearEnd');
@@ -257,8 +257,8 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.nonRegisteredCapital,
         Validators.required
       ),
-      publisherStatusId: new FormControl(
-        this.addNewCompanyModel.publisherStatusId,
+      financialManagerId: new FormControl(
+        this.addNewCompanyModel.financialManagerId,
         Validators.required
       ),
       yearEnd: new FormControl(
@@ -344,7 +344,7 @@ export class AddEditCompanyComponent implements OnInit {
         companyISIN,
         registeredCapital,
         nonRegisteredCapital,
-        publisherStatusId,
+        financialManagerId,
         yearEnd,
         reportingTypeId,
         companyInspectionInstituteId,
@@ -400,7 +400,7 @@ export class AddEditCompanyComponent implements OnInit {
         : null;
       request.activitySubject = activitySubject;
       request.reportingTypeId = reportingTypeId;
-      request.publisherStatusId = publisherStatusId;
+      request.financialManagerId = financialManagerId;
       request.factoryAddress = factoryAddress;
       request.factoryTelephone = factoryTelephone;
       request.factoryFax = factoryFax;
@@ -478,7 +478,7 @@ export class AddEditCompanyComponent implements OnInit {
       .get<PublisherStatus[]>(`${PublisherStatus.apiAddress}/` + 'LIST')
       .subscribe(response => {
         if (response.data.result) {
-          this.publisherStatuses = response.data.result;
+          this.financialStatuses = response.data.result;
         }
       });
   }

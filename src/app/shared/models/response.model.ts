@@ -288,7 +288,7 @@ export class Report extends Pagination {
 
   toPublishDate?: any;
 
-  publisherStatusId?: number;
+  financialManager?: number;
 
   companyTypeId?: number;
 
@@ -400,7 +400,7 @@ export class Person {
 /** کاربرها */
 export class CreateRole {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/role/create';
+  static readonly apiAddress = 'api/SsoApi/SsoAdmin/role/create';
 }
 
 export class ChangePassword {
@@ -470,13 +470,14 @@ export class PersonRole {
   firstName!: string;
   lastName!: string;
   nationalID!: string;
-  roleTitle!: string;
+  roleName!: string;
 }
 
 /** کاربران */
 export class GeneralPerson extends Person {
   /** آدرس سرویس */
   static override readonly apiAddress: string = 'api/SsoApi/SsoAdmin/GetUsersWithRole';
+  email!: string
 }
 
 /** نوع‌های شرکت */
@@ -520,8 +521,8 @@ export class Company {
   activityType?: ActivityType;
   reportingTypeId?: any;
   reportingType?: ReportingType;
-  publisherStatusId?: number;
-  publisherStatus?: PublisherStatus;
+  financialManagerId?: number;
+  // publisherStatus?: PublisherStatus;
   companyInspectionInstituteId?: number;
   companyInspectionInstitute?: CompanyInspectionInstitute;
   substituteInspector?: string;
@@ -616,7 +617,7 @@ export class DocumentType {
 }
 
 export class DocumentTypeFileNeeds {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocTyeFileNeeds';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocTypeFileNeeds';
   id!: number;
   title!: string;
   extention!: string;
@@ -661,11 +662,10 @@ export class Subject {
   /** نام لاتین */
   enName!: string;
 
-  localCode!: number;
 }
 
 export class DocumentTypeGroup {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocumentTypeGroup';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/DocTypeGroup';
 
   title!: string;
   withOutPagination!: boolean;

@@ -153,7 +153,7 @@ export class TagTypeDefinitionComponent implements OnInit {
         tagTypeId: id,
       };
       this.httpService
-        .post<TagType>(UrlBuilder.build(TagType.apiAddress, 'DELETE'), body)
+        .post<TagType>(UrlBuilder.build(`${TagType.apiAddress}/delete/${id}`, ''), {})
         .subscribe(response => {
           if (response.successed) {
             this.getTagTypes();

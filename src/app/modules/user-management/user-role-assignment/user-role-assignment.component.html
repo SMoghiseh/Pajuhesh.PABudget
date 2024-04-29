@@ -114,9 +114,9 @@
 
         <td>{{ userRole.lastName }}</td>
 
-        <td>{{ userRole.nationalID | faNum }}</td>
+        <td>{{ userRole.nationalId | faNum }}</td>
 
-        <td>{{ userRole.roleTitle }}</td>
+        <td>{{ userRole.roleName }}</td>
       </tr>
     </ng-template>
     <!-- / table body -->
@@ -191,7 +191,7 @@
 
           <!-- value -->
           <div class="col my-1 text-center">
-            {{ userRole.roleTitle }}
+            {{ userRole.roleName }}
           </div>
           <!-- / value -->
         </div>

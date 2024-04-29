@@ -109,9 +109,8 @@ export class DocumentNeedsComponent implements OnInit {
       HasAdded: this.HasAdded,
     };
     this.httpService
-      .post<DocumentTypeFileNeeds[]>(
-        DocumentTypeFileNeeds.apiAddress + `/ListCheck`,
-        body
+      .get<DocumentTypeFileNeeds[]>(
+        `${DocumentTypeFileNeeds.apiAddress}/ListCheck/${GID}`
       )
       .pipe(
         tap(() => (this.loading = false)),
