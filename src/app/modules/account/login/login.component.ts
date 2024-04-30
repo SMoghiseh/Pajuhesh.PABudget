@@ -137,7 +137,7 @@ export class LoginComponent implements OnInit {
                     this.saveMenuItems(rememberMe, menuResponse.data.result);
 
                     this.router.navigate(
-                      ['/default/main-home'],
+                      ['/default/Dashboard'],
                       navigationExtras
                     );
                   }

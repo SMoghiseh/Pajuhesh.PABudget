@@ -1,20 +1,25 @@
 <!-- *ngIf="!sidemenuService.offcanvasMode" -->
 <aside class="sidebar" [class.closed]="sidemenuService.isClose()">
-  <div class="d-flex flex-column align-items-center" style="margin-top: 24px; margin-bottom: 27px">
+  <div
+    class="d-flex flex-column align-items-center"
+    style="margin-top: 24px; margin-bottom: 27px">
     <div class="btn-toggle">
-      <i *ngIf="!sidemenuService.isClose()" class="pi pi-angle-double-right" (click)="
-          sidemenuService.isClose()
-            ? sidemenuService.open()
-            : sidemenuService.close()
-        "></i>
-      <i *ngIf="sidemenuService.isClose()" class="pi pi-angle-double-left" (click)="
+      <i
+        class="pi pi-align-right"
+        (click)="
           sidemenuService.isClose()
             ? sidemenuService.open()
             : sidemenuService.close()
         "></i>
     </div>
+    <div *ngIf="!sidemenuService.isClose()" class="footer">
+      <span>
+        کلیه حقوق این سامانه محفوظ و متعلق به شرکت پژوهش و نوآوری صنایع آموزشی
+        می‌باشد.</span
+      >
+    </div>
 
-    <div class="w-100 text-center">
+    <div *ngIf="!sidemenuService.isClose()" class="w-100 text-center">
       <img class="logo" src="assets/images/codal.svg" alt="" />
     </div>
 
@@ -24,11 +29,15 @@
   </div>
 
   <!-- ردیف تب ها -->
-  <div class="toggle-panel-active-tabs mx-3" [class.tab-content-wide]="
+  <div
+    class="toggle-panel-active-tabs mx-3"
+    [class.tab-content-wide]="
       sidemenuService.offcanvasMode || sidemenuService.isClose()
-    " [class.tab-content-compact]="
+    "
+    [class.tab-content-compact]="
       !sidemenuService.offcanvasMode && !sidemenuService.isClose()
-    " [class.tab-content-close]="!authService.getAccess()">
+    "
+    [class.tab-content-close]="!authService.getAccess()">
     <div *ngIf="sidemenuService.offcanvasMode" class="toggle-panel-offcanvas">
       <!-- حالت جم شونده -->
       <!-- <a
@@ -59,7 +68,8 @@
       </a> -->
       <!--/ حالت جم شونده -->
     </div>
-    <app-active-tabs-bar *ngIf="sidemenuService.offcanvasMode"></app-active-tabs-bar>
+    <app-active-tabs-bar
+      *ngIf="sidemenuService.offcanvasMode"></app-active-tabs-bar>
   </div>
   <!-- منو اصلی -->
   <div *ngIf="!sidemenuService.offcanvasMode" class="menu-panel">
@@ -100,31 +110,53 @@
         </div>
       </div>
       <div *ngFor="let menu of menuList">
-        <ul class="list-unstyled ps-0 pb-1 small" [class.display-none]="menu.isHidden">
+        <ul
+          class="list-unstyled ps-0 pb-1 small"
+          [class.display-none]="menu.isHidden">
           <li class="nav-item">
-            <a #menuItem class="nav-link collapsed" data-bs-toggle="collapse" aria-expanded="false"
-              [attr.id]="menu.data" [attr.data-bs-target]="'#components-nav-' + menu.data"
+            <a
+              #menuItem
+              class="nav-link collapsed"
+              data-bs-toggle="collapse"
+              aria-expanded="false"
+              [attr.id]="menu.data"
+              [attr.data-bs-target]="'#components-nav-' + menu.data"
               (click)="onClickParentMenu(menu.data)">
-              <i class="text-start" [class.parent-open]="!sidemenuService.isClose()"
+              <i
+                class="text-start"
+                [class.parent-open]="!sidemenuService.isClose()"
                 [class]="menu.icon ? menu.icon : 'mgc_question_line'"></i>
 
               <span class="p-2 menu-txt">
                 {{ menu.label }}
               </span>
 
-              <i *ngIf="menu.children && menu.children.length > 0" class="p-2 mgc_down_line"></i>
+              <i
+                *ngIf="menu.children && menu.children.length > 0"
+                class="p-2 mgc_down_line"></i>
             </a>
 
             <!-- زیر منو -->
             <div *ngIf="menu.children && menu.children.length > 0">
-              <ul *ngIf="!sidemenuService.isClose()" #subMenuItem [class.side-open]="!sidemenuService.isClose()"
-                class="nav-content collapse" data-bs-parent="#sidebar-nav" [id]="'components-nav-' + menu.data">
+              <ul
+                *ngIf="!sidemenuService.isClose()"
+                #subMenuItem
+                [class.side-open]="!sidemenuService.isClose()"
+                class="nav-content collapse"
+                data-bs-parent="#sidebar-nav"
+                [id]="'components-nav-' + menu.data">
                 <!-- <li class="my-2" *ngFor="let children of menu.children"> -->
                 <!-- [routerLink]="'/' + menu.data + '/' + children.data" -->
-                <i style="position: relative; margin-bottom: 0px" *ngFor="let children of menu.children"
-                  [class.display-none]="children.isHidden" class="pi submenu-icon {{ children.icon }} {{
+                <i
+                  style="position: relative; margin-bottom: 0px"
+                  *ngFor="let children of menu.children"
+                  [class.display-none]="children.isHidden"
+                  class="pi submenu-icon {{ children.icon }} {{
                     children.data + '-' + children.icon
-                  }}" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="
+                  }}"
+                  routerLinkActive="active"
+                  ariaCurrentWhenActive="page"
+                  (click)="
                     onSelectedMenu(
                       '/' + menu.data + '/' + children.data,
                       children.underCons,
@@ -153,11 +185,16 @@
   <div class="toggle-panel-buttom p-2"></div>
 
   <!-- ایجاد منو جانبی -->
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-body">
       <div class="menu-panel">
         <!-- متن اصلی -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center offcanvas-body">
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center offcanvas-body">
           <div class="sidebar-brand-icon rotate-n-15"></div>
 
           <a class="sidebar-brand-text mx-3" ariaCurrentWhenActive="page">
@@ -171,22 +208,36 @@
 
         <!-- ایجاد منو -->
         <div class="sidebar-nav flex-shrink-0 p-2">
-          <ul class="list-unstyled ps-0 pb-1 small" *ngFor="let menu of menuList">
+          <ul
+            class="list-unstyled ps-0 pb-1 small"
+            *ngFor="let menu of menuList">
             <li class="nav-item" [class.display-none]="menu.isHidden">
-              <a #menuItemOffcanvas class="nav-link collapsed" data-bs-toggle="collapse" aria-expanded="false"
-                [attr.id]="menu.data" [attr.data-bs-target]="'#components-nav-' + menu.data">
-                <i class="text-start" [class]="menu.icon ? menu.icon : 'mgc_question_line'"></i>
+              <a
+                #menuItemOffcanvas
+                class="nav-link collapsed"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                [attr.id]="menu.data"
+                [attr.data-bs-target]="'#components-nav-' + menu.data">
+                <i
+                  class="text-start"
+                  [class]="menu.icon ? menu.icon : 'mgc_question_line'"></i>
 
                 <span class="p-2">
                   {{ menu.label }}
                 </span>
 
-                <i *ngIf="menu.children && menu.children.length > 0" class="p-2 mgc_down_line"></i>
+                <i
+                  *ngIf="menu.children && menu.children.length > 0"
+                  class="p-2 mgc_down_line"></i>
               </a>
 
               <!-- زیر منو -->
               <div *ngIf="menu.children && menu.children.length > 0">
-                <ul #subMenuItemOffcanvas class="nav-content collapse" data-bs-parent="#sidebar-nav"
+                <ul
+                  #subMenuItemOffcanvas
+                  class="nav-content collapse"
+                  data-bs-parent="#sidebar-nav"
                   [id]="'components-nav-' + menu.data">
                   <!-- <li
                     class="my-2"
@@ -202,10 +253,16 @@
                       </span>
                     </a>
                   </li> -->
-                  <i *ngFor="let children of menu.children" [class.display-none]="children.isHidden" class="pi submenu-icon {{ children.icon }} {{
+                  <i
+                    *ngFor="let children of menu.children"
+                    [class.display-none]="children.isHidden"
+                    class="pi submenu-icon {{ children.icon }} {{
                       children.data + '-' + children.icon
-                    }}" [routerLink]="'/' + menu.data + '/' + children.data" routerLinkActive="active"
-                    ariaCurrentWhenActive="page" (click)="onSubmit()">
+                    }}"
+                    [routerLink]="'/' + menu.data + '/' + children.data"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                    (click)="onSubmit()">
                     <span class="p-2 submenu-txt">
                       {{ children.label }}
                     </span>
@@ -224,7 +281,11 @@
 </aside>
 
 <!-- [style]="{ width: '500px', height: '130px' }" -->
-<p-dialog styleClass="p-fluid" [modal]="true" [(visible)]="isShowNotFoundDialog" [closable]="false"
+<p-dialog
+  styleClass="p-fluid"
+  [modal]="true"
+  [(visible)]="isShowNotFoundDialog"
+  [closable]="false"
   [showHeader]="false">
   <!-- dialog content -->
   <ng-template pTemplate="content">

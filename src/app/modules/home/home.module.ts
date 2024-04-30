@@ -19,9 +19,10 @@ import { BlockUIModule } from 'primeng/blockui';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { MainHomeComponent } from './components/main-home/main-home.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [HomeComponent, MainHomeComponent],
+  declarations: [HomeComponent, MainHomeComponent, DashboardComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

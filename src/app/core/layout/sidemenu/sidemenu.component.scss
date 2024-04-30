@@ -20,9 +20,6 @@ a {
   transition: var(--main-transition);
   border-left: 1px solid #e7e7e7;
   background-color: var(--sidemenu-bgcolor);
-  // background-color: white;
-  border-radius: 16px 0px 0px 16px;
-  // background-image: linear-gradient(to bottom, #e7e7e7, #334f3c);
 
   .main-title {
     width: 128px;
@@ -38,7 +35,6 @@ a {
   .btn-toggle {
     position: absolute;
     left: 15px;
-    bottom: 15px;
     background-color: transparent;
     border-radius: 8px;
     width: 30px;
@@ -51,9 +47,10 @@ a {
 
     i {
       font-size: 1.5rem;
-      background-color: #116b37;
+      color: #116b37;
       border-radius: 8px;
       padding: 7px;
+      font-weight: bold;
     }
   }
 
@@ -491,4 +488,12 @@ p-dialog {
 .closed-icon {
   font-size: 24px;
   color: white;
+}
+
+.footer{
+  width: 240px;
+  position: absolute;
+  bottom: 6px;
+  text-align: center;
+  font-size: 11px;
 }

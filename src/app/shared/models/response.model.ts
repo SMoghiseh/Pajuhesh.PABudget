@@ -1,3 +1,5 @@
+import { Title } from 'chart.js/dist';
+
 export class UrlBuilder {
   static build(url: string, actionType: ActionType) {
     switch (actionType) {
@@ -133,11 +135,13 @@ export class RolePermissions {
 export class Permission extends RolePermissions {
   /** آدرس سرویس */
   // static override readonly apiAddress: string = 'api/SsoApi/Role/permissions';
-  static override readonly apiAddress: string = 'api/SsoApi/SsoAdmin/permissions';
+  static override readonly apiAddress: string =
+    'api/SsoApi/SsoAdmin/permissions';
 }
 
 export class AllRoleDocumentTypeTree extends RolePermissions {
-  static readonly apiAddress1 = 'api/PABudgetApi/v1/role/AllRoleDocumentTypeTree';
+  static readonly apiAddress1 =
+    'api/PABudgetApi/v1/role/AllRoleDocumentTypeTree';
 }
 
 /** نقش‌ها */
@@ -160,7 +164,8 @@ export class Group extends Pagination {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/PABudgetApi/v1/GroupPolicy/Group';
 
-  static readonly apiAddressUserGroups = 'api/PABudgetApi/v1/GroupPolicy/UserGroups';
+  static readonly apiAddressUserGroups =
+    'api/PABudgetApi/v1/GroupPolicy/UserGroups';
 
   /** شناسه */
   id!: number;
@@ -396,7 +401,6 @@ export class Person {
   groupId!: number;
 }
 
-
 /** کاربرها */
 export class CreateRole {
   /** آدرس سرویس */
@@ -428,7 +432,8 @@ export class FileType {
 /** ناظرین */
 export class AssignCompanyToSupervisor {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/Info/AssignCompanyToSupervisor';
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/Info/AssignCompanyToSupervisor';
 }
 
 /** ناظرین */
@@ -476,15 +481,20 @@ export class PersonRole {
 /** کاربران */
 export class GeneralPerson extends Person {
   /** آدرس سرویس */
-  static override readonly apiAddress: string = 'api/SsoApi/SsoAdmin/GetUsersWithRole';
-  email!: string
+  static override readonly apiAddress: string =
+    'api/SsoApi/SsoAdmin/GetUsersWithRole';
+  email!: string;
 }
 
 /** نوع‌های شرکت */
 export class Company {
   /** آدرس سرویس */
+
   static readonly apiAddress = 'api/PABudgetApi/v1/company/All';
   static readonly apiAddressSubset = 'api/PABudgetApi/v1/company/subsets';
+  static readonly apiAddressSubCompanies =
+    'api/PABudgetApi/v1/Company/SubCompanies/';
+  static readonly apiAddressDetailCo = 'api/PABudgetApi/v1/Company/';
 
   id!: number;
   parentId!: number;
@@ -526,8 +536,10 @@ export class Company {
   substituteInspector?: string;
   hasAccessAll?: boolean;
   isMyCompany?: boolean;
+  logo?: string;
+  persianRegisterDate?: string;
+  isSelected?: boolean;
 }
-
 
 /** کاربرها */
 export class AssignRole {
@@ -537,7 +549,8 @@ export class AssignRole {
 /** موسسه‌های حسابرسی شرکت */
 export class CompanyInspectionInstitute {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/CompanyInspectionInstitute';
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/CompanyInspectionInstitute';
 
   id!: number;
   code!: string;
@@ -659,7 +672,6 @@ export class Subject {
 
   /** نام لاتین */
   enName!: string;
-
 }
 
 export class DocumentTypeGroup {
@@ -697,7 +709,8 @@ export class AttachmentType {
 }
 
 export class CreateOnlineDocDefinition {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/OnlineDocDefinition';
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/OnlineDocDefinition';
   id!: number;
   description!: string;
   activeDate!: string | null;
@@ -769,7 +782,8 @@ export class CreateOnlineAdvertDefinition {
 export class Publisher extends Report {
   /** آدرس سرویس */
   static override readonly apiAddress = 'api/PABudgetApi/v1/FinancialExpert';
-  static override readonly apiAddressSearch = 'api/PABudgetApi/v1/FinancialExpert/search';
+  static override readonly apiAddressSearch =
+    'api/PABudgetApi/v1/FinancialExpert/search';
 }
 export class AssetAttachment {
   /** آدرس سرویس */
@@ -882,4 +896,17 @@ export class years {
   financialYearDataTypeId!: number;
   financialYearDataValue!: number;
   parentId!: number;
+}
+
+export class Dashboard {
+  /** آدرس سرویس */
+  static readonly apiAddressReportChart =
+    'api/PABudgetApi/Dashboard/reportchart';
+  static readonly apiAddressReportType =
+    'api/PABudgetApi/v1/BaseInfo/ReportType/list';
+  labels!: Array<string>;
+  datasets!: Array<number>;
+  id!: number;
+  title!: string;
+  isSelected?: boolean;
 }

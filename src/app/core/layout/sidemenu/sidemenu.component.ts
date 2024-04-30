@@ -180,16 +180,8 @@ export class SidemenuComponent implements OnInit, AfterViewInit {
   }
 
   onClickParentMenu(data: string) {
-    if (data == 'dashboard') {
-      let url = '';
-      if (
-        this.loginData.mainRole == 'CEO' ||
-        this.loginData.mainRole == 'Administrator'
-      )
-        url = '/default/CEO/landing';
-      else url = '/default' + '/' + this.loginData.mainRole + '/' + data;
-      this.router.navigate([url]);
-    } else if (data == 'adrvers') this.router.navigate(['/default/home']);
-    else if (data == 'Adverts') this.router.navigate(['/Publisher/Adverts']);
+    if (data == 'Dashboard') {
+      this.router.navigate(['/default/Dashboard']);
+    }
   }
 }

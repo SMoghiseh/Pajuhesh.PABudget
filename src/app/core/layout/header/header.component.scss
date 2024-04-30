@@ -124,16 +124,11 @@
 }
 
 .btn-profile {
-  border: 1px solid gray;
   background: bottom;
-  border-radius: 3px;
   min-width: 220px;
-
   position: relative;
-  border-radius: 7px;
-  border: 1px solid #c9c9c9;
   background: #fff;
-
+  border: unset;
   i {
     position: absolute;
     left: 20px;
@@ -164,6 +159,6 @@
     }
   }
   img {
-    width: 40px;
+    width: 35px;
   }
 }
