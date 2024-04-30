@@ -64,7 +64,9 @@ const routes: Routes = [
         path: 'FinancialexpertDocuments',
         title: 'برنامه و بودجه | مدیریت تاییدات',
         loadChildren: () =>
-          import('./modules/financial-expert/financial-expert.module').then(m => m.FinancialExpertModule),
+          import('./modules/financial-expert/financial-expert.module').then(
+            m => m.FinancialExpertModule
+          ),
         canMatch: [authGuard],
       },
     ],
@@ -83,4 +85,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
