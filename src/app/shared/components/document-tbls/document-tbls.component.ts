@@ -17,18 +17,18 @@ import { map, of, tap } from 'rxjs';
 import { HttpService } from '@core/http/http.service';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
-import { TransferServices } from 'src/app/config.service';
+import { TransferServices } from '../../../config.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppConfigService } from '@core/services/app-config.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { JDate } from '@shared/utilities/JDate/jdate';
 import { Table } from 'primeng/table';
 @Component({
-  selector: 'app-advertisment-tbls',
-  templateUrl: './advertisment-tbls.component.html',
-  styleUrls: ['./advertisment-tbls.component.scss'],
+  selector: 'app-document-tbls',
+  templateUrl: './document-tbls.component.html',
+  styleUrls: ['./document-tbls.component.scss'],
 })
-export class AdvertismentTblsComponent implements OnInit {
+export class DocumentTblsComponent implements OnInit {
   /** Main table rows */
   dataTableRows = 15;
 
@@ -91,7 +91,7 @@ export class AdvertismentTblsComponent implements OnInit {
 
   registerAmendmentDialog = false;
 
-  onlineAdvertismentLoading = false;
+  onlineDocumentLoading = false;
 
   onlineAdvertAttachNeeds: any;
 
@@ -136,8 +136,8 @@ export class AdvertismentTblsComponent implements OnInit {
       let page: any;
       if (
         this.searchData &&
-        this.searchData.advertTypeId &&
-        val?.advertTypeId !== this.searchData?.advertTypeId
+        this.searchData.docTypeId &&
+        val?.docTypeId !== this.searchData?.docTypeId
       ) {
         page = {
           first: 0,
@@ -203,15 +203,15 @@ export class AdvertismentTblsComponent implements OnInit {
   }
 
   previewDetails(report: Report) {
-    if (!report.code && report.advertisementTypeCode)
-      report.code = report.advertisementTypeCode;
+    if (!report.code && report.docTypeCode)
+      report.code = report.docTypeCode;
     this.selectedReport = report;
     this.previewDetailsDialog = true;
   }
 
   previewAttachments(data: Report) {
-    if (data.id || data.advertId) {
-      const id = data.advertId ? data.advertId : data.id;
+    if (data.id || data.docId) {
+      const id = data.docId ? data.docId : data.id;
       this.previewAttachmentsLoading = true;
 
       this.httpService
@@ -304,14 +304,14 @@ export class AdvertismentTblsComponent implements OnInit {
       )
       .subscribe(reportList => {
         reportList.forEach(element1 => {
-          if (element1.advertStatus === 3)
-            element1.advertStatusTitle = 'برگشت داده شده';
-          if (element1.advertStatus === 2)
-            element1.advertStatusTitle = 'تحت احتیاط';
-          if (element1.advertStatus === 1)
-            element1.advertStatusTitle = 'تایید شده';
-          if (element1.advertStatus === 0)
-            element1.advertStatusTitle = 'بررسی نشده';
+          if (element1.docStatus === 3)
+            element1.docStatusTitle = 'برگشت داده شده';
+          if (element1.docStatus === 2)
+            element1.docStatusTitle = 'تحت احتیاط';
+          if (element1.docStatus === 1)
+            element1.docStatusTitle = 'تایید شده';
+          if (element1.docStatus === 0)
+            element1.docStatusTitle = 'بررسی نشده';
           if (element1.tags.length > 0) {
             element1.tags.forEach((element2: any) => {
               if (element2.typeName == 'Date') {
@@ -350,7 +350,7 @@ export class AdvertismentTblsComponent implements OnInit {
     ) {
       // if((this.actionType==='REFFER'||this.actionType==='REJECT')&&)
       const body = {
-        advertId: this.selectedReport.advertId,
+        docId: this.selectedReport.docId,
         workFlowId: this.selectedReport.id,
         comment: this.rejectReportForm.get('reason')?.value,
       };
@@ -383,7 +383,7 @@ export class AdvertismentTblsComponent implements OnInit {
   onWorkflow(report: Report) {
     this.httpService
       .get<AdvertStatusHistory[]>(
-        AdvertStatusHistory.apiAddress + '/' + report.advertId
+        AdvertStatusHistory.apiAddress + '/' + report.docId
       )
       .pipe(
         map(response => {
@@ -417,7 +417,7 @@ export class AdvertismentTblsComponent implements OnInit {
       });
     }
     this.addAmendmentForm.patchValue(report);
-    this.getOnlineAdvertisment(report.advertisementTypeId);
+    this.getOnlineDocument(report.docTypeCodeTypeId);
     this.getAdvertTypeTagsList(report.id);
     this.selectedReport = report;
     this.registerAmendmentDialog = true;
@@ -429,13 +429,13 @@ export class AdvertismentTblsComponent implements OnInit {
     this.getReportList(this.searchData);
   }
 
-  getOnlineAdvertisment(Id: any) {
-    this.onlineAdvertismentLoading = true;
+  getOnlineDocument(Id: any) {
+    this.onlineDocumentLoading = true;
     this.httpService
       .get<OnlineDocumentAttachmentNeeds[]>(
         OnlineDocumentAttachmentNeeds.apiAddress + `/list/${Id}`
       )
-      .pipe(tap(() => (this.onlineAdvertismentLoading = false)))
+      .pipe(tap(() => (this.onlineDocumentLoading = false)))
       .subscribe(onlineAdvertAttachNeeds => {
         this.onlineAdvertAttachNeeds = onlineAdvertAttachNeeds.data.result;
       });
@@ -445,9 +445,9 @@ export class AdvertismentTblsComponent implements OnInit {
     this.addAmendmentFormSubmitted = true;
     if (
       this.addAmendmentForm.valid &&
-      ((this.selectedReport.advertStatus === 3 &&
+      ((this.selectedReport.docStatus === 3 &&
         this.addAmendmentForm.controls['description'].value !== '') ||
-        this.selectedReport.advertStatus !== 3)
+        this.selectedReport.docStatus !== 3)
     ) {
       let isNotAttach = false;
       for (let i = 0; i < this.onlineAdvertAttachNeeds.length; i++) {
@@ -457,7 +457,7 @@ export class AdvertismentTblsComponent implements OnInit {
         ) {
           isNotAttach = true;
           this.messageService.add({
-            key: 'myAdvertisments',
+            key: 'myDocuments',
             life: 8000,
             severity: 'error',
             summary: 'لطفا تمامی فایل های اجباری را بارگذاری کنید',
@@ -469,10 +469,10 @@ export class AdvertismentTblsComponent implements OnInit {
         let apiUrl = '';
         const { reason, description } = this.addAmendmentForm.value;
         const request = new Report();
-        request.advertId = reportId;
+        request.docId = reportId;
         request.amendmentReason = reason;
         request.multiMediaIds = this.multimediaIdList;
-        if (this.selectedReport.advertStatus === 3) {
+        if (this.selectedReport.docStatus === 3) {
           apiUrl = '/EditDoc';
           request.description = description;
           request.subject = description;
@@ -537,7 +537,7 @@ export class AdvertismentTblsComponent implements OnInit {
           .subscribe(response => {
             if (response.successed) {
               this.messageService.add({
-                key: 'myAdvertisments',
+                key: 'myDocuments',
                 life: 8000,
                 severity: 'success',
                 detail: `اصلاحیه`,
@@ -569,9 +569,9 @@ export class AdvertismentTblsComponent implements OnInit {
           else return [new TagType()];
         })
       )
-      .subscribe(advertismentTypes => {
-        this.tagsList = advertismentTypes;
-        advertismentTypes.forEach(element => {
+      .subscribe(documentTypes => {
+        this.tagsList = documentTypes;
+        documentTypes.forEach(element => {
           this.addAmendmentForm.addControl(
             element.tagName +
             '_' +
@@ -601,7 +601,7 @@ export class AdvertismentTblsComponent implements OnInit {
       this.uploadAttachment(files, data);
     else {
       this.messageService.add({
-        key: 'myAdvertisments',
+        key: 'myDocuments',
         life: 8000,
         severity: 'error',
         detail: '',
@@ -630,7 +630,7 @@ export class AdvertismentTblsComponent implements OnInit {
               this.isDisableaddAmendmentBtn = false;
               if (response.successed && response.data && response.data.result) {
                 this.messageService.add({
-                  key: 'myAdvertisments',
+                  key: 'myDocuments',
                   life: 8000,
                   severity: 'success',
                   detail: 'رسانه',
@@ -654,7 +654,7 @@ export class AdvertismentTblsComponent implements OnInit {
           this.isDisableaddAmendmentBtn = false;
           el?.classList.add('spinner-not-display');
           this.messageService.add({
-            key: 'myAdvertisments',
+            key: 'myDocuments',
             life: 8000,
             severity: 'error',
             summary: 'حجم فایل ارسالی بیش از حد مجاز است',

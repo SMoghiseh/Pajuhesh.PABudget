@@ -75,8 +75,8 @@ export class NotificationDefinitionComponent implements OnInit {
   get description() {
     return this.addNewReportForm.get('description');
   }
-  get advertisementType() {
-    return this.addNewReportForm.get('advertisementType');
+  get documentType() {
+    return this.addNewReportForm.get('documentType');
   }
 
   constructor(
@@ -93,14 +93,14 @@ export class NotificationDefinitionComponent implements OnInit {
         this.addNewFormModel.description,
         Validators.required
       ),
-      advertisementType: new FormControl(
-        { value: this.addNewFormModel.advertisementType, disabled: true },
+      documentType: new FormControl(
+        { value: this.addNewFormModel.documentType, disabled: true },
         Validators.required
       ),
     });
 
     this.route.queryParams.subscribe((params: any) => {
-      if (params.advertisementTypeId) {
+      if (params.documentTypeId) {
         const el = document.getElementsByClassName('AddAdvert-pi pi-info');
         const elSelect = document.getElementsByClassName('e-select');
         if (elSelect.length > 0) {
@@ -111,14 +111,14 @@ export class NotificationDefinitionComponent implements OnInit {
         if (!el[0].querySelector('e-select')) el[0].classList.add('e-select');
         this.selectedOnlineAdvert = {
           id: params.id,
-          advertisementTypeId: params.advertisementTypeId,
+          documentTypeId: params.documentTypeId,
         };
         this.addNewReportForm.patchValue({
-          advertisementType: params.advertisementTypeName,
+          documentType: params.documentTypeName,
         });
 
-        this.getOnlineAdvertisment(params.advertisementTypeId);
-        this.getAdvertTypeTagsList(params.advertisementTypeId);
+        this.getOnlineDocument(params.documentTypeId);
+        this.getAdvertTypeTagsList(params.documentTypeId);
       }
     });
   }
@@ -227,8 +227,8 @@ export class NotificationDefinitionComponent implements OnInit {
         request.subject = description;
         request.description = description;
         request.onlineAdvertDefinitionId = this.selectedOnlineAdvert?.id;
-        request.advertisementTypeId =
-          this.selectedOnlineAdvert?.advertisementTypeId;
+        request.docTypeId =
+          this.selectedOnlineAdvert?.documentTypeId;
         request.multiMediaIds = this.multimediaIdList;
         this.addNewFormLoading = true;
         const tags: any[] = [];
@@ -343,14 +343,14 @@ export class NotificationDefinitionComponent implements OnInit {
     });
 
     this.addNewReportForm.patchValue({
-      advertisementType: event?.advertisementTypeName,
+      documentType: event?.documentTypeName,
     });
 
-    this.getOnlineAdvertisment(event.advertisementTypeId);
-    this.getAdvertTypeTagsList(event.advertisementTypeId);
+    this.getOnlineDocument(event.documentTypeId);
+    this.getAdvertTypeTagsList(event.documentTypeId);
   }
 
-  getOnlineAdvertisment(Id: number) {
+  getOnlineDocument(Id: number) {
     this.loading = true;
     this.first = 0;
     this.httpService
@@ -373,9 +373,9 @@ export class NotificationDefinitionComponent implements OnInit {
           else return [new TagType()];
         })
       )
-      .subscribe(advertismentTypes => {
-        this.tagsList = advertismentTypes;
-        advertismentTypes.forEach(element => {
+      .subscribe(documentTypes => {
+        this.tagsList = documentTypes;
+        documentTypes.forEach(element => {
           this.addNewReportForm.addControl(
             element.tagName +
             '_' +

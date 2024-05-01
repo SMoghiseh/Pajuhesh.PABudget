@@ -1,21 +1,8 @@
 <!-- data table -->
-<p-table
-  #dataTable
-  class="data-table d-none d-lg-block"
-  dataKey="id"
-  [paginator]="true"
-  [rows]="dataTableRows"
-  [rowsPerPageOptions]="[10, 20, 30]"
-  [styleClass]="gridClass"
-  [rowHover]="true"
-  [totalRecords]="totalCount"
-  [value]="onlineAdvertisment"
-  [loading]="loading"
-  selectionMode="single"
-  [(selection)]="selectedRow"
-  [tableStyle]="{ 'min-width': '75rem' }"
-  [lazy]="true"
-  (onLazyLoad)="getOnlineAdvertisment($event)">
+<p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="true" [rows]="dataTableRows"
+  [rowsPerPageOptions]="[10, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [totalRecords]="totalCount"
+  [value]="onlineDocument" [loading]="loading" selectionMode="single" [(selection)]="selectedRow"
+  [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" (onLazyLoad)="getOnlineDocument($event)">
   <!-- table header -->
   <ng-template pTemplate="header">
     <tr class="data-table__header">
@@ -38,24 +25,16 @@
   </ng-template>
   <!-- / table header -->
   <!-- table body -->
-  <ng-template pTemplate="body" let-onlineAdvertisment let-rowIndex="rowIndex">
-    <tr
-      [pSelectableRow]="onlineAdvertisment"
-      (dblclick)="onRowDblClick($event, onlineAdvertisment)">
-      <td
-        pTooltip="{{ onlineAdvertisment.description }}"
-        tooltipEvent="hover"
-        tooltipPosition="top">
-        {{ onlineAdvertisment.description }}
+  <ng-template pTemplate="body" let-onlineDocument let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="onlineDocument" (dblclick)="onRowDblClick($event, onlineDocument)">
+      <td pTooltip="{{ onlineDocument.description }}" tooltipEvent="hover" tooltipPosition="top">
+        {{ onlineDocument.description }}
       </td>
 
-      <td>{{ onlineAdvertisment.activeDatePersian }}</td>
-      <td>{{ onlineAdvertisment.expiredDatePersian }}</td>
-      <td
-        pTooltip="{{ onlineAdvertisment.advertisementTypeName }}"
-        tooltipEvent="hover"
-        tooltipPosition="top">
-        {{ onlineAdvertisment.advertisementTypeName }}
+      <td>{{ onlineDocument.activeDatePersian }}</td>
+      <td>{{ onlineDocument.expiredDatePersian }}</td>
+      <td pTooltip="{{ onlineDocument.documentTypeName }}" tooltipEvent="hover" tooltipPosition="top">
+        {{ onlineDocument.documentTypeName }}
       </td>
     </tr>
   </ng-template>
@@ -65,7 +44,7 @@
 
 <!-- data list -->
 <div class="data-list d-block d-lg-none">
-  <ul *ngFor="let onlineAdvert of onlineAdvertisment" class="list-group my-1">
+  <ul *ngFor="let onlineAdvert of onlineDocument" class="list-group my-1">
     <!-- توضیحات -->
     <li class="list-group-item">
       <div class="row">
@@ -111,7 +90,7 @@
           <strong>نوع اسناد</strong>
         </div>
         <div class="col my-1 text-center">
-          {{ onlineAdvert.advertisementTypeName }}
+          {{ onlineAdvert.docTypeCodeTypeName }}
         </div>
       </div>
     </li>

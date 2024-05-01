@@ -58,7 +58,7 @@
   <!-- / table header -->
   <!-- table body -->
   <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
-    <tr class="data-table__body" [class.warning-row]="report.advertStatus === 2">
+    <tr class="data-table__body" [class.warning-row]="report.docStatus === 2">
       <td pTooltip="{{ report.company }}" tooltipEvent="hover" tooltipPosition="top">
         {{ report.company }}
       </td>
@@ -68,25 +68,24 @@
         <!-- <a routerLink="/form" href="/form">{{ report.description }}</a> -->
       </td>
 
-      <td pTooltip="{{ report.advertisementType }}" tooltipEvent="hover" tooltipPosition="top"
-        *ngIf="type !== 'myApproval'">
-        {{ report.advertisementType }}
+      <td pTooltip="{{ report.documentType }}" tooltipEvent="hover" tooltipPosition="top" *ngIf="type !== 'myApproval'">
+        {{ report.documentType }}
       </td>
 
       <td>
         <div class="col my-1 text-center">
-          {{ report.advertStatusTitle }}
-          <div [class.warning-color]="report.advertStatus === 0"></div>
-          <div [class.success-color]="report.advertStatus === 1"></div>
-          <div [class.danger-color]="report.advertStatus === 2"></div>
-          <div [class.error-color]="report.advertStatus === 3"></div>
+          {{ report.docStatusTitle }}
+          <div [class.warning-color]="report.docStatus === 0"></div>
+          <div [class.success-color]="report.docStatus === 1"></div>
+          <div [class.danger-color]="report.docStatus === 2"></div>
+          <div [class.error-color]="report.docStatus === 3"></div>
         </div>
       </td>
 
       <td *ngIf="type !== 'myApproval'">{{ report.dateTag }}</td>
 
       <td *ngIf="type !== 'myApproval'">
-        {{ report.advertisementTypeCode }}
+        {{ report.docTypeCode }}
       </td>
 
       <td>{{ report.sendDate | jDate }}</td>
@@ -103,9 +102,9 @@
         {{ report.publishDate | jDate }}
       </td>
 
-      <td *ngIf="type === 'myApproval'" pTooltip="{{ report.advertisementDescription }}" tooltipEvent="hover"
+      <td *ngIf="type === 'myApproval'" pTooltip="{{ report.docTypeCodeDescription }}" tooltipEvent="hover"
         tooltipPosition="top">
-        {{ report.advertisementDescription | faNum }}
+        {{ report.docTypeCodeDescription | faNum }}
       </td>
 
       <td>
@@ -130,18 +129,18 @@
           tooltipEvent="hover" tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg"
           icon="pi pi-pencil" (click)="previewConfirmation(report)"></p-button>
 
-        <p-button *ngIf="isAccessWorkflow" class="table-action-btns" pTooltip="گردش کار" tooltipEvent="hover"
+        <!-- <p-button *ngIf="isAccessWorkflow" class="table-action-btns" pTooltip="گردش کار" tooltipEvent="hover"
           tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-sitemap"
-          (click)="onWorkflow(report)"></p-button>
+          (click)="onWorkflow(report)"></p-button> -->
 
         <p-button *ngIf="
             isAccessRegisterAmendment &&
-            (report.advertStatus === 3 ||
-              report.advertStatus === 1 ||
-              report.advertStatus === 2)
-          " class="table-action-btns" [pTooltip]="report.advertStatus === 3 ? 'ویرایش' : 'ثبت اصلاحیه'"
+            (report.docStatus === 3 ||
+              report.docStatus === 1 ||
+              report.docStatus === 2)
+          " class="table-action-btns" [pTooltip]="report.docStatus === 3 ? 'ویرایش' : 'ثبت اصلاحیه'"
           tooltipEvent="hover" tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg" [icon]="
-            report.advertStatus === 3 ? 'pi pi-pencil' : 'pi pi-file-edit'
+            report.docStatus === 3 ? 'pi pi-pencil' : 'pi pi-file-edit'
           " (click)="registerAmendment(report)"></p-button>
       </td>
     </tr>
@@ -203,7 +202,7 @@
         </div>
 
         <div class="col my-1 text-center">
-          {{ report.advertisementType }}
+          {{ report.documentType }}
         </div>
       </div>
     </li>
@@ -216,19 +215,19 @@
           <strong>وضعیت</strong>
         </div>
 
-        <div *ngIf="report.advertStatus === 0" class="col my-1 text-center">
+        <div *ngIf="report.docStatus === 0" class="col my-1 text-center">
           بررسی نشده
           <div class="warning-color"></div>
         </div>
-        <div *ngIf="report.advertStatus === 1" class="col my-1 text-center">
+        <div *ngIf="report.docStatus === 1" class="col my-1 text-center">
           تایید شده
           <div class="success-color"></div>
         </div>
-        <div *ngIf="report.advertStatus === 2" class="col my-1 text-center">
+        <div *ngIf="report.docStatus === 2" class="col my-1 text-center">
           تحت احتیاط
           <div class="danger-error"></div>
         </div>
-        <div *ngIf="report.advertStatus === 3" class="col my-1 text-center">
+        <div *ngIf="report.docStatus === 3" class="col my-1 text-center">
           برگشت داده شده
           <div class="error-color"></div>
         </div>
@@ -331,7 +330,7 @@
         </div>
 
         <div class="col my-1 text-center">
-          {{ report.advertisementDescription }}
+          {{ report.docTypeCodeDescription }}
         </div>
       </div>
     </li>
@@ -438,7 +437,7 @@
   <!-- dialog content -->
   <ng-template pTemplate="content">
     <div class="data-table-detail__content-info">
-      <app-advertisment-detail [selectedReport]="selectedReport"></app-advertisment-detail>
+      <app-document-detail [selectedReport]="selectedReport"></app-document-detail>
     </div>
   </ng-template>
   <!-- / dialog content -->
@@ -623,7 +622,7 @@
       title="{{ element.comment }}">
       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <span class="wf-bullet" [style.background-color]="element.advertStatusColor"
-          title="{{ element.advertStatus }}"></span>
+          title="{{ element.docStatus }}"></span>
         <span class="wf-fullname">{{ element.fullname }}</span>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -635,7 +634,7 @@
       </div>
       <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <span [style.border-color]="element.advertStatusColor" class="wf-stt">
-          {{ element.advertStatus }}</span>
+          {{ element.docStatus }}</span>
       </div>
       <div *ngIf="element.comment !== null && element.comment !== ''" class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
         <i class="pi pi-comments" (click)="onClick($event)" title="نمایش نظرات"></i>
@@ -651,8 +650,8 @@
 
 <!-- confirmation dialog -->
 <p-dialog class="data-table-detail" styleClass="p-fluid"
-  [header]="selectedReport.advertStatus === 3 ? 'ویرایش سند' : 'ثبت اصلاحیه'" [style]="{ width: '1024px' }"
-  [modal]="true" [(visible)]="registerAmendmentDialog" (onHide)="onHideAddAmendment()">
+  [header]="selectedReport.docStatus === 3 ? 'ویرایش سند' : 'ثبت اصلاحیه'" [style]="{ width: '1024px' }" [modal]="true"
+  [(visible)]="registerAmendmentDialog" (onHide)="onHideAddAmendment()">
   <!-- dialog content -->
   <ng-template pTemplate="content">
     <div class="data-table-detail__content-info">
@@ -661,7 +660,7 @@
         <div class="form-group">
           <div class="row row-cols-lg-4">
             <!-- عنوان اسناد -->
-            <div class="col my-1" *ngIf="selectedReport.advertStatus === 3">
+            <div class="col my-1" *ngIf="selectedReport.docStatus === 3">
               <label for="description">عنوان اسناد</label>
               <input id="description" name="description" formControlName="description" pInputText type="text"
                 class="w-100" [class.ng-invalid]="description?.invalid" />
@@ -695,7 +694,7 @@
                   }}" style="display: inherit">{{ el.displayName }}</label>
                 <input id="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}" name="advertisementType" formControlName="{{
+                  }}" name="documentType" formControlName="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
                   }}" pInputText type="text" class="w-90" />
               </div>
@@ -806,7 +805,7 @@
         </div>
         <p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="false" [rows]="dataTableRows"
           [styleClass]="gridClass" [rowHover]="true" [totalRecords]="totalCount" [value]="onlineAdvertAttachNeeds"
-          [loading]="onlineAdvertismentLoading" [tableStyle]="{ 'min-width': '75rem' }">
+          [loading]="onlineDocumentLoading" [tableStyle]="{ 'min-width': '75rem' }">
           <!-- table header -->
           <ng-template pTemplate="header">
             <tr class="data-table__header">
@@ -834,35 +833,35 @@
           </ng-template>
           <!-- / table header -->
           <!-- table body -->
-          <ng-template pTemplate="body" let-onlineAdvertismentNeeds let-rowIndex="rowIndex">
+          <ng-template pTemplate="body" let-onlineDocumentNeeds let-rowIndex="rowIndex">
             <tr>
               <td>
-                {{ onlineAdvertismentNeeds.attachmentFileTypeTitle }}
+                {{ onlineDocumentNeeds.attachmentFileTypeTitle }}
               </td>
-              <td>{{ onlineAdvertismentNeeds.description }}</td>
-              <td>{{ onlineAdvertismentNeeds.extention }}</td>
-              <td>{{ onlineAdvertismentNeeds.type }}</td>
+              <td>{{ onlineDocumentNeeds.description }}</td>
+              <td>{{ onlineDocumentNeeds.extention }}</td>
+              <td>{{ onlineDocumentNeeds.type }}</td>
               <td>
-                <i *ngIf="onlineAdvertismentNeeds.isRequired" class="pi pi-check-square"></i>
-                <i *ngIf="!onlineAdvertismentNeeds.isRequired" class="pi pi-times-circle"></i>
+                <i *ngIf="onlineDocumentNeeds.isRequired" class="pi pi-check-square"></i>
+                <i *ngIf="!onlineDocumentNeeds.isRequired" class="pi pi-times-circle"></i>
               </td>
               <th>
                 <div class="row">
                   <div style="width: fit-content; padding: 0px">
-                    <p-fileUpload #form accept=".{{ onlineAdvertismentNeeds.extention }}" id="fileUpload_{{
-                        onlineAdvertismentNeeds.adverTyeFileNeedsId
+                    <p-fileUpload #form accept=".{{ onlineDocumentNeeds.extention }}" id="fileUpload_{{
+                        onlineDocumentNeeds.adverTyeFileNeedsId
                       }}" mode="basic" chooseLabel="افزودن پیوست" name="attachments[]"
                       [disabled]="isDisableaddAmendmentBtn" [auto]="true" (onSelect)="
                         onSelectAttachment(
                           $event.files,
-                          onlineAdvertismentNeeds,
+                          onlineDocumentNeeds,
                           form
                         )
                       "></p-fileUpload>
                   </div>
                   <div style="width: 30px">
                     <div style="width: fit-content; display: none" id="spinner_{{
-                        onlineAdvertismentNeeds.adverTyeFileNeedsId
+                        onlineDocumentNeeds.adverTyeFileNeedsId
                       }}">
                       <p-progressSpinner [style]="{
                           width: '25px',

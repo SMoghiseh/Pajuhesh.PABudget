@@ -14,11 +14,11 @@ import { HttpService } from '@core/http/http.service';
 import { map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'app-myadvertisments',
-  templateUrl: './myadvertisments.component.html',
-  styleUrls: ['./myadvertisments.component.scss'],
+  selector: 'app-mydocuments',
+  templateUrl: './mydocuments.component.html',
+  styleUrls: ['./mydocuments.component.scss'],
 })
-export class MyadvertismentsComponent
+export class MydocumentsComponent
   implements OnInit, AfterViewInit, OnDestroy {
   public datePipe = new DatePipe('en-US');
   apiUrl = Publisher.apiAddressSearch;
@@ -65,7 +65,7 @@ export class MyadvertismentsComponent
   ) { }
 
   ngOnInit(): void {
-    // this.getAdvertismentStatus();
+    // this.getDocumentStatus();
     this.searchReportForm = new FormGroup({
       company: new FormControl(this.searchReportModel.company),
       description: new FormControl(this.searchReportModel.description),
@@ -121,7 +121,7 @@ export class MyadvertismentsComponent
     this._searchData = searchModel;
   }
 
-  getAdvertismentStatus() {
+  getDocumentStatus() {
     const body = {};
     this.httpService
       .post<DocumentType[]>(DocumentStatus.apiAddress, body)

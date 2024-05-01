@@ -4,9 +4,9 @@ import { FinancialExpertComponent } from './financial-expert.component';
 
 import { authGuard } from '@core/guards/auth/auth.guard';
 import { NotificationDefinitionComponent } from './notification-definition/notification-definition.component';
-import { MyadvertismentsComponent } from './myadvertisments/myadvertisments.component';
-import { ActiveOnlineAdvertsComponent } from './active-online-adverts/active-online-adverts.component';
-import { AlladvertismentsComponent } from './all-advertisments/all-advertisments.component';
+import { MydocumentsComponent } from './mydocuments/mydocuments.component';
+import { ActiveOnlineDocsComponent } from './active-online-docs/active-online-docs.component';
+import { AllDocumentsComponent } from './all-documents/all-documents.component';
 
 const routes: Routes = [
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
         children: [
           {
             path: 'MyDocument',
-            component: MyadvertismentsComponent,
+            component: MydocumentsComponent,
             title: 'برنامه و بودجه | اسناد‌ من',
             data: {
               reuse: true,
@@ -40,7 +40,7 @@ const routes: Routes = [
           },
           {
             path: 'OnlineDocuments',
-            component: ActiveOnlineAdvertsComponent,
+            component: ActiveOnlineDocsComponent,
             title: 'برنامه و بودجه | اسناد برخط فعال',
             data: {
               reuse: true,
@@ -50,7 +50,7 @@ const routes: Routes = [
           },
           {
             path: 'Document',
-            component: AlladvertismentsComponent,
+            component: AllDocumentsComponent,
             title: 'برنامه و بودجه | کل اسناد',
             data: {
               reuse: true,

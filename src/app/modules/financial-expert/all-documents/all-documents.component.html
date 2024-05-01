@@ -1,5 +1,5 @@
 <!-- pop up messages -->
-<p-toast key="allAdvertisments" position="bottom-left"></p-toast>
+<p-toast key="allDocuments" position="bottom-left"></p-toast>
 
 <!-- main content -->
 <section class="section">
@@ -105,14 +105,12 @@
   <div *ngIf="loginData.mainRole === 'CEO'" class="row">
     <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-      <app-advertisment-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions"
-        [data]="_searchData"></app-advertisment-tbls>
+      <app-document-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions" [data]="_searchData"></app-document-tbls>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
   </div>
   <div *ngIf="loginData.mainRole !== 'CEO'" class="row">
-    <app-advertisment-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions"
-      [data]="_searchData"></app-advertisment-tbls>
+    <app-document-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions" [data]="_searchData"></app-document-tbls>
   </div>
   <div *ngIf="loginData.mainRole === 'CEO'" class="row" style="direction: ltr">
     <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>

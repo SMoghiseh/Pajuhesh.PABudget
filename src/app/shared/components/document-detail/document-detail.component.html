@@ -16,7 +16,7 @@
         </div>
         <div class="col my-1">
           <span>
-            {{ selectedReport.advertisementGroup }}
+            <!-- {{ selectedReport.documentGroup }} -->
           </span>
         </div>
       </div>
@@ -44,9 +44,7 @@
       </div>
     </li>
     <!-- / نوع اسناد -->
-    <li
-      *ngIf="selectedReport.tags?.length > 0"
-      class="list-group-item tags-list">
+    <li *ngIf="selectedReport.tags?.length > 0" class="list-group-item tags-list">
       <div class="row">
         <span>لیست تگ ها</span>
       </div>
@@ -56,13 +54,11 @@
         <div class="col my-1" *ngFor="let tag of selectedReport.tags">
           <div class="row row-cols-lg-2">
             <div class="col my-1">{{ tag.displayName }}</div>
-            <div
-              *ngIf="
+            <div *ngIf="
                 tag.typeName !== 'Date' &&
                 tag.typeName !== 'Boolean' &&
                 tag.typeName !== 'Decimal'
-              "
-              class="col my-1">
+              " class="col my-1">
               {{ tag.tagValue }}
             </div>
             <div *ngIf="tag.typeName === 'Decimal'" class="col my-1">
@@ -73,9 +69,7 @@
             </div>
             <div *ngIf="tag.typeName === 'Boolean'" class="col my-1">
               <i *ngIf="tag.tagValue === 'true'" class="pi pi-check-square"></i>
-              <i
-                *ngIf="tag.tagValue === 'false'"
-                class="pi pi-times-circle"></i>
+              <i *ngIf="tag.tagValue === 'false'" class="pi pi-times-circle"></i>
             </div>
           </div>
         </div>

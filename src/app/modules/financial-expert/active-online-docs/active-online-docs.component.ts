@@ -12,11 +12,11 @@ import { map, tap } from 'rxjs';
 import { LazyLoadEvent } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
 @Component({
-  selector: 'app-active-online-adverts',
-  templateUrl: './active-online-adverts.component.html',
-  styleUrls: ['./active-online-adverts.component.scss'],
+  selector: 'app-active-online-docs',
+  templateUrl: './active-online-docs.component.html',
+  styleUrls: ['./active-online-docs.component.scss'],
 })
-export class ActiveOnlineAdvertsComponent implements OnInit {
+export class ActiveOnlineDocsComponent implements OnInit {
   @Output() Hide: EventEmitter<any> = new EventEmitter();
   /** Table data total count. */
 
@@ -24,7 +24,7 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
   totalCount!: number;
   nodes: any;
   /** Main table data. */
-  onlineAdvertisment: CreateOnlineAdvertDefinition[] = [];
+  onlineDocument: CreateOnlineAdvertDefinition[] = [];
 
   /** Main table loading. */
   loading = false;
@@ -40,10 +40,10 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getAdvertismentTypeTree();
+    this.getDocumentTypeTree();
 
     this.activeOnlineAdvertForm = new FormGroup({
-      advertisementType: new FormControl(),
+      documentType: new FormControl(),
       isExpired: new FormControl(false),
     });
   }
@@ -51,8 +51,8 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
   /*--------------------------
   # Data
   --------------------------*/
-  /** Get onlineAdvertisment from server. */
-  getOnlineAdvertisment(event?: LazyLoadEvent) {
+  /** Get onlineDocument from server. */
+  getOnlineDocument(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -67,7 +67,7 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
       pageNumber: pagination.pageNumber,
       withOutPagination: true,
       advertTypeId:
-        this.activeOnlineAdvertForm.controls['advertisementType'].value?.key,
+        this.activeOnlineAdvertForm.controls['documentType'].value?.key,
       isExpireToday: this.activeOnlineAdvertForm.controls['isExpired'].value,
     };
 
@@ -89,7 +89,7 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
         })
       )
       .subscribe(
-        onlineAdvertisment => (this.onlineAdvertisment = onlineAdvertisment)
+        onlineDocument => (this.onlineDocument = onlineDocument)
       );
   }
 
@@ -101,14 +101,14 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
   onAddAdvert(data: Publisher) {
     this.router.navigate(['/FinancialexpertDocuments/Registration'], {
       queryParams: {
-        advertisementTypeId: data.advertisementTypeId,
-        advertisementTypeName: data.advertisementTypeName,
+        docTypeId: data.docTypeId,
+        documentTypeName: data.docTypeCodeTypeName,
         id: data.id,
       },
     });
   }
 
-  getAdvertismentTypeTree() {
+  getDocumentTypeTree() {
     this.httpService
       .get<DocumentType[]>(
         UrlBuilder.build(DocumentType.apiAddress + '/tree/selectable', '')
@@ -120,6 +120,6 @@ export class ActiveOnlineAdvertsComponent implements OnInit {
           else return [new DocumentType()];
         })
       )
-      .subscribe(advertismentTypes => (this.nodes = advertismentTypes));
+      .subscribe(documentTypes => (this.nodes = documentTypes));
   }
 }

@@ -1,4 +1,3 @@
-import { Title } from 'chart.js/dist';
 
 export class UrlBuilder {
   static build(url: string, actionType: ActionType) {
@@ -218,7 +217,7 @@ export class Report extends Pagination {
   issueTrackingNo!: number | null;
 
   /** وضعیت اسناد */
-  advertStatus!: boolean | null | number;
+  docStatus!: boolean | null | number;
 
   /** دلیل اسناد */
   amendmentReason!: boolean | null;
@@ -227,10 +226,10 @@ export class Report extends Pagination {
   hasAmendment!: boolean;
 
   /** گروه */
-  advertisementGroup!: string;
+  docTypeCodeGroup!: string;
 
   /** نوع */
-  advertisementTypeModel!: string;
+  docTypeCodeTypeModel!: string;
 
   /** موسسه حسابداری شرکت */
   companyInspectionInstitute!: string;
@@ -242,10 +241,10 @@ export class Report extends Pagination {
   parentAdvertId!: number | null;
 
   /** شناسه نوع */
-  advertisementGroupId!: number;
+  docTypeCodeGroupId!: number;
 
   /** شناسه گروه */
-  advertisementTypeId!: number;
+  docTypeCodeTypeId!: number;
 
   /** شناسه موسسه حسابداری شرکت */
   companyInspectionInstituteId!: number;
@@ -267,11 +266,11 @@ export class Report extends Pagination {
 
   publisherStatus?: PublisherStatus;
 
-  advertisementGroupModel?: DocumentGroup;
+  docTypeCodeGroupModel?: DocumentGroup;
 
   companyType?: CompanyType;
 
-  advertisementType?: DocumentType | string;
+  documentType?: DocumentType | string;
 
   companyInspectionInstituteModel?: CompanyInspectionInstitute;
 
@@ -305,21 +304,21 @@ export class Report extends Pagination {
 
   onlineAdvertDefinitionId!: number;
 
-  advertId?: number;
+  docId?: number;
 
   stateOrder?: number;
 
   publisherCompanyName?: string;
 
-  advertisementSubject?: string;
+  docTypeCodeSubject?: string;
 
   myCheckedDatePersian!: Date;
 
   myAddedDatePersian!: Date;
 
-  advertStatusTitle!: string;
+  docStatusTitle!: string;
 
-  advertisementDescription!: string;
+  docTypeCodeDescription!: string;
 
   stateCompanyName!: string;
 
@@ -329,7 +328,7 @@ export class Report extends Pagination {
 
   withSubsets!: boolean;
 
-  advertTypeId!: number;
+  docTypeId!: number;
 
   dateTag!: string;
 
@@ -338,8 +337,8 @@ export class Report extends Pagination {
   status!: number;
   myCheckedStatus!: number;
   myCheckedStatusTitle!: string;
-  advertisementTypeName!: string;
-  advertisementTypeCode!: number;
+  docTypeCodeTypeName!: string;
+  docTypeCode!: number;
 }
 
 /** کاربرها */
@@ -651,11 +650,10 @@ export class TagType {
   docType!: string;
   displayName!: string;
   docTypeTagsId!: number;
-  documentTypeId!: any;
+  docTypeId!: any;
   tagName!: string;
   isRequired!: boolean;
   tagValue!: string;
-  docTypeId!: number;
   tagServiceMasterId!: number;
   tagServiceMasterData!: any;
 }
@@ -772,11 +770,11 @@ export class CreateOnlineAdvertDefinition {
   increaseValueScore!: number;
   decreaseValueScore!: number;
   isActive!: boolean;
-  advertisementTypeId!: number;
+  docTypeCodeTypeId!: number;
   onlineAdvertNeedsInfos!: DocumentTypeFileNeeds;
   activeDatePersian!: Date;
   expiredDatePersian!: Date;
-  advertisementTypeName!: string;
+  docTypeCodeTypeName!: string;
 }
 /** ناظرین */
 export class Publisher extends Report {
@@ -815,7 +813,7 @@ export class OnlineDocumentAttachmentNeeds {
 
 export class ReportAttachment {
   /** شناسه */
-  advertId!: number;
+  docId!: number;
 
   /** پیوست‌ها */
   attachments!: Attachments[];
@@ -847,7 +845,7 @@ export class Asset {
 export class AdvertStatusHistory {
   static readonly apiAddress = 'api/v1/Report/AdvertStatusHistory';
 
-  advertStatus!: string;
+  docStatus!: string;
   stateOrder!: number;
   lastName!: string;
   comment!: string;

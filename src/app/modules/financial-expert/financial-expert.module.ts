@@ -7,10 +7,10 @@ import { SharedModule } from '@shared/shared.module';
 import { FinancialExpertRoutingModule } from './financial-expert-routing.module';
 import { FinancialExpertComponent } from './financial-expert.component';
 import { NotificationDefinitionComponent } from './notification-definition/notification-definition.component';
-import { ModalOnlineAdvertListComponent } from './notification-definition/mdl-online-advert-lst/mdl-online-advert-lst.component';
-import { MyadvertismentsComponent } from './myadvertisments/myadvertisments.component';
-import { ActiveOnlineAdvertsComponent } from './active-online-adverts/active-online-adverts.component';
-import { AlladvertismentsComponent } from './all-advertisments/all-advertisments.component';
+import { MdlOnlineDocLstComponent } from './notification-definition/mdl-online-doc-lst/mdl-online-doc-lst.component';
+import { MydocumentsComponent } from './mydocuments/mydocuments.component';
+import { ActiveOnlineDocsComponent } from './active-online-docs/active-online-docs.component';
+import { AllDocumentsComponent } from './all-documents/all-documents.component';
 
 /* PrimeNG */
 import { TableModule } from 'primeng/table';
@@ -33,23 +33,23 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputNumberModule } from 'primeng/inputnumber';
 
-import { AdvertsFormComponent } from './all-advertisments/adverts-form/adverts-form.component';
-import { AdvertismentTblsComponent } from '@shared/components/advertisment-tbls/advertisment-tbls.component';
-import { AdvertismentDetailComponent } from '@shared/components/advertisment-detail/advertisment-detail.component';
-import { EditTagsComponent } from './all-advertisments/edit-tags/edit-tags.component';
+import { DocsFormComponent } from './all-documents/docs-form/docs-form.component';
+import { DocumentTblsComponent } from '@shared/components/document-tbls/document-tbls.component';
+import { DocumentDetailComponent } from '@shared/components/document-detail/document-detail.component';
+import { EditTagsComponent } from './all-documents/edit-tags/edit-tags.component';
 
 @NgModule({
   declarations: [
     FinancialExpertComponent,
     NotificationDefinitionComponent,
-    MyadvertismentsComponent,
-    ModalOnlineAdvertListComponent,
-    ActiveOnlineAdvertsComponent,
-    AlladvertismentsComponent,
-    AdvertsFormComponent,
-    AdvertismentTblsComponent,
+    MydocumentsComponent,
+    MdlOnlineDocLstComponent,
+    ActiveOnlineDocsComponent,
+    AllDocumentsComponent,
+    DocsFormComponent,
+    DocumentTblsComponent,
     EditTagsComponent,
-    AdvertismentDetailComponent
+    DocumentDetailComponent
   ],
   imports: [
     CommonModule,

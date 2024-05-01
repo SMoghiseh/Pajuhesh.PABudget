@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-adverts-form',
-  templateUrl: './adverts-form.component.html',
-  styleUrls: ['./adverts-form.component.scss'],
+  selector: 'app-docs-form',
+  templateUrl: './docs-form.component.html',
+  styleUrls: ['./docs-form.component.scss'],
 })
-export class AdvertsFormComponent {
+export class DocsFormComponent {
   data = [
     {
       description: 'عمليات در حال تداوم:',

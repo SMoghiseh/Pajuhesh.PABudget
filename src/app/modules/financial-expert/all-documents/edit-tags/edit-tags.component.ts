@@ -24,7 +24,7 @@ export class EditTagsComponent implements OnInit {
 
   @Input()
   set rowData(data: Report) {
-    this.selectedAdvertId = data.advertId;
+    this.selectedAdvertId = data.docId;
     this.getAdvertTypeTagsList(data.id);
   }
 
@@ -103,7 +103,7 @@ export class EditTagsComponent implements OnInit {
           isRequired: element.isRequired,
         });
       });
-      request.advertId = this.selectedAdvertId;
+      request.docId = this.selectedAdvertId;
       request.tags = tags;
       this.httpService
         .post<Report[]>(
@@ -145,9 +145,9 @@ export class EditTagsComponent implements OnInit {
           else return [new TagType()];
         })
       )
-      .subscribe(advertismentTypes => {
-        this.tagsList = advertismentTypes;
-        advertismentTypes.forEach(element => {
+      .subscribe(documentTypes => {
+        this.tagsList = documentTypes;
+        documentTypes.forEach(element => {
           this.editTagsForm.addControl(
             element.tagName +
             '_' +

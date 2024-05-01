@@ -1,6 +1,6 @@
 <p-dialog *ngIf="visible" header="انتخاب اسناد برخط" [(visible)]="visible" [modal]="true"
   [style]="{ width: '70vw', height: '75vh' }" [draggable]="false" [resizable]="false">
-  <app-mdl-online-advert-lst (Hide)="onHide($event)"></app-mdl-online-advert-lst>
+  <app-mdl-online-doc-lst (Hide)="onHide($event)"></app-mdl-online-doc-lst>
 </p-dialog>
 
 <!-- pop up messages -->
@@ -19,12 +19,12 @@
           <div class="row">
             <!-- اسناد برخط -->
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <label for="advertisementType" style="display: inherit">اسناد برخط</label>
-              <input id="advertisementType" name="advertisementType" formControlName="advertisementType" pInputText
-                type="text" class="w-90" [class.ng-invalid]="advertisementType?.invalid" [class.ng-dirty]="
-                  (addNewFormSubmitted && advertisementType?.pristine) ||
-                  advertisementType?.dirty ||
-                  advertisementType?.touched
+              <label for="documentType" style="display: inherit">اسناد برخط</label>
+              <input id="documentType" name="documentType" formControlName="documentType" pInputText type="text"
+                class="w-90" [class.ng-invalid]="documentType?.invalid" [class.ng-dirty]="
+                  (addNewFormSubmitted && documentType?.pristine) ||
+                  documentType?.dirty ||
+                  documentType?.touched
                 " />
 
               <button class="btn-lookup-list" (click)="onOpenTypesList()">
@@ -70,7 +70,7 @@
                   }}" style="display: inherit">{{ el.displayName }}</label>
                 <input id="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}" name="advertisementType" formControlName="{{
+                  }}" name="documentType" formControlName="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
                   }}" pInputText type="text" class="w-90" />
               </div>
@@ -194,40 +194,39 @@
               </ng-template>
               <!-- / table header -->
               <!-- table body -->
-              <ng-template pTemplate="body" let-onlineAdvertismentNeeds let-rowIndex="rowIndex">
+              <ng-template pTemplate="body" let-onlineDocumentNeeds let-rowIndex="rowIndex">
                 <tr>
                   <td>
-                    {{ onlineAdvertismentNeeds.attachmentFileTypeTitle }}
+                    {{ onlineDocumentNeeds.attachmentFileTypeTitle }}
                   </td>
-                  <td>{{ onlineAdvertismentNeeds.description }}</td>
-                  <td>{{ onlineAdvertismentNeeds.extention }}</td>
-                  <td>{{ onlineAdvertismentNeeds.type }}</td>
+                  <td>{{ onlineDocumentNeeds.description }}</td>
+                  <td>{{ onlineDocumentNeeds.extention }}</td>
+                  <td>{{ onlineDocumentNeeds.type }}</td>
                   <td>
-                    <i *ngIf="onlineAdvertismentNeeds.isRequired" class="pi pi-check-square"></i>
-                    <i *ngIf="!onlineAdvertismentNeeds.isRequired" class="pi pi-times-circle"></i>
+                    <i *ngIf="onlineDocumentNeeds.isRequired" class="pi pi-check-square"></i>
+                    <i *ngIf="!onlineDocumentNeeds.isRequired" class="pi pi-times-circle"></i>
                   </td>
                   <td>
                     <i *ngIf="
-                        onlineAdvertismentNeeds.attachmentFileTypeTemplateId
-                      " class="pi pi-download" (click)="downloadAttachmnet(onlineAdvertismentNeeds)"
-                      title="دانلود"></i>
+                        onlineDocumentNeeds.attachmentFileTypeTemplateId
+                      " class="pi pi-download" (click)="downloadAttachmnet(onlineDocumentNeeds)" title="دانلود"></i>
                   </td>
                   <th>
                     <div class="row">
                       <div style="width: fit-content; padding: 0px">
-                        <p-fileUpload #form accept=".{{ onlineAdvertismentNeeds.extention }}" id="fileUpload_{{
-                            onlineAdvertismentNeeds.adverTyeFileNeedsId
+                        <p-fileUpload #form accept=".{{ onlineDocumentNeeds.extention }}" id="fileUpload_{{
+                            onlineDocumentNeeds.adverTyeFileNeedsId
                           }}" mode="basic" chooseLabel="افزودن پیوست" name="attachments[]" [auto]="true" (onSelect)="
                             onSelectAttachment(
                               $event.files,
-                              onlineAdvertismentNeeds,
+                              onlineDocumentNeeds,
                               form
                             )
                           "></p-fileUpload>
                       </div>
                       <div style="width: 30px">
                         <div style="width: fit-content; display: none" id="spinner_{{
-                            onlineAdvertismentNeeds.adverTyeFileNeedsId
+                            onlineDocumentNeeds.adverTyeFileNeedsId
                           }}">
                           <p-progressSpinner [style]="{
                               width: '25px',

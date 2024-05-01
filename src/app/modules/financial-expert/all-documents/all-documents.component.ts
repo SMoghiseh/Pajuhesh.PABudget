@@ -14,11 +14,11 @@ import { map } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'app-all-advertisments',
-  templateUrl: './all-advertisments.component.html',
-  styleUrls: ['./all-advertisments.component.scss'],
+  selector: 'app-all-documents',
+  templateUrl: './all-documents.component.html',
+  styleUrls: ['./all-documents.component.scss'],
 })
-export class AlladvertismentsComponent implements OnInit, AfterViewInit {
+export class AllDocumentsComponent implements OnInit, AfterViewInit {
   mySubCompanies: Company[] = [];
 
   yearsLst: years[] = [];
@@ -157,7 +157,7 @@ export class AlladvertismentsComponent implements OnInit, AfterViewInit {
           companyId: parseInt(params.companyId),
         });
         this.selectedCompanyId = parseInt(params.companyId);
-        this.getAdvertismentType();
+        this.getDocumentType();
       }
     });
   }
@@ -396,7 +396,7 @@ export class AlladvertismentsComponent implements OnInit, AfterViewInit {
     this.location.back();
   }
 
-  getAdvertismentType() {
+  getDocumentType() {
     this.httpService
       .get<DocumentType[]>(
         UrlBuilder.build(
@@ -420,6 +420,6 @@ export class AlladvertismentsComponent implements OnInit, AfterViewInit {
     this.advertTypeId = advertT.id;
     this.selectedAdvertTypeName = advertT.title;
     this.getReportList();
-    this.getAdvertismentType();
+    this.getDocumentType();
   }
 }

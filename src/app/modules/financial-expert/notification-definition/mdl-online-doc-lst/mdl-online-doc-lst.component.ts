@@ -9,18 +9,18 @@ import {
 import { map, tap } from 'rxjs';
 import { LazyLoadEvent } from 'primeng/api';
 @Component({
-  selector: 'app-mdl-online-advert-lst',
-  templateUrl: './mdl-online-advert-lst.component.html',
+  selector: 'app-mdl-online-doc-lst',
+  templateUrl: './mdl-online-doc-lst.component.html',
   styles: [``],
 })
-export class ModalOnlineAdvertListComponent {
+export class MdlOnlineDocLstComponent {
   @Output() Hide: EventEmitter<any> = new EventEmitter();
 
   /** Table data total count. */
   totalCount!: number;
 
   /** Main table data. */
-  onlineAdvertisment: CreateOnlineAdvertDefinition[] = [];
+  onlineDocument: CreateOnlineAdvertDefinition[] = [];
 
   /** Main table loading. */
   loading = false;
@@ -40,8 +40,8 @@ export class ModalOnlineAdvertListComponent {
   /*--------------------------
   # Data
   --------------------------*/
-  /** Get onlineAdvertisment from server. */
-  getOnlineAdvertisment(event?: LazyLoadEvent) {
+  /** Get onlineDocument from server. */
+  getOnlineDocument(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -77,7 +77,7 @@ export class ModalOnlineAdvertListComponent {
         })
       )
       .subscribe(
-        onlineAdvertisment => (this.onlineAdvertisment = onlineAdvertisment)
+        onlineDocument => (this.onlineDocument = onlineDocument)
       );
   }
 

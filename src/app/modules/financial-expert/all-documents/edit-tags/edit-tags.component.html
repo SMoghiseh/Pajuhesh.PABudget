@@ -11,59 +11,59 @@
             <strong> {{ el.displayName }} </strong>
           </label>
           <p-inputSwitch id="audited" name="audited" formControlName="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}"></p-inputSwitch>
         </div>
         <div *ngIf="el.typeName === 'String'">
           <label for="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" style="display: inherit">{{ el.displayName }}</label>
           <input id="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
-            }}" name="advertisementType" formControlName="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
+            }}" name="documentType" formControlName="{{
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" pInputText type="text" class="w-90" />
         </div>
         <div *ngIf="el.typeName === 'Decimal'">
           <label for="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}">{{ el.displayName }}</label>
           <p-inputNumber mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="20" id="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" name="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" formControlName="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" value="
           editTagsForm.get(
-            el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+            el.tagName + '_' + el.typeName + '_' + el.docTypeId
           )?.value
         ">
           </p-inputNumber>
         </div>
         <div *ngIf="el.typeName === 'Date'">
           <label for="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}">{{ el.displayName }}</label>
           <p-persian-calendar id="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" name="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" formControlName="{{
-              el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+              el.tagName + '_' + el.typeName + '_' + el.docTypeId
             }}" styleClass="w-100 ">
           </p-persian-calendar>
         </div>
         <div *ngIf="el.isRequired">
           <small *ngIf="
               editTagsForm.get(
-                el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+                el.tagName + '_' + el.typeName + '_' + el.docTypeId
               )?.invalid &&
               (editTagsForm.get(
-                el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+                el.tagName + '_' + el.typeName + '_' + el.docTypeId
               )?.dirty ||
                 editTagsForm.get(
-                  el.tagName + '_' + el.typeName + '_' + el.documentTypeId
+                  el.tagName + '_' + el.typeName + '_' + el.docTypeId
                 )?.touched ||
                 addNewFormSubmitted)
             " class="p-error">
