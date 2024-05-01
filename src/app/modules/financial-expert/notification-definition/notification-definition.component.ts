@@ -88,7 +88,6 @@ export class NotificationDefinitionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger
     this.addNewReportForm = new FormGroup({
       description: new FormControl(
         this.addNewFormModel.description,
@@ -203,7 +202,6 @@ export class NotificationDefinitionComponent implements OnInit {
   # Form
   --------------------------*/
   addNewReport() {
-    debugger
     this.addNewFormSubmitted = true;
     if (this.addNewReportForm.valid) {
       let isNotAttach = false;
@@ -353,7 +351,6 @@ export class NotificationDefinitionComponent implements OnInit {
   }
 
   getOnlineDocument(Id: number) {
-    debugger
     this.loading = true;
     this.first = 0;
     this.httpService

@@ -102,7 +102,6 @@ export class DocumentTagsComponent implements OnInit {
   }
 
   onChangeTag(e: any) {
-    debugger;
     this.tagTypeId;
   }
 
@@ -126,7 +125,7 @@ export class DocumentTagsComponent implements OnInit {
         tagServiceMasterId,
       } = this.addNewDocumentTagTypeForm.value;
 
-      const request = new TagType(); debugger
+      const request = new TagType();
       request.docTypeTagsId = this.selectedTagType.docTypeTagsId || 0;
       request.documentTypeId = documentTypeId?.key;
       request.tagTypeId = tagTypeId;
@@ -271,7 +270,6 @@ export class DocumentTagsComponent implements OnInit {
   }
 
   onNodeSelect() {
-    debugger
     this.getDocumentTypeTagsList(this.documentTypeId?.value.key);
   }
 
