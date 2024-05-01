@@ -910,3 +910,12 @@ export class Dashboard {
   title!: string;
   isSelected?: boolean;
 }
+
+export class BaseInfo {
+  /** آدرس سرویس */
+  static readonly apiAddressYearTypet =
+    'api/PABudgetApi/v1/BaseInfo/FinancialYearType/list';
+  id!: number;
+  title!: string;
+  isSelected?: boolean;
+}

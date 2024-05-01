@@ -13,17 +13,29 @@
 
   <!-- جستجو -->
   <div class="pb-2">
-    <p-panel *ngIf="type === ''" class="search-panel__secation pb-1" header="تعریف کاربر">
+    <p-panel
+      *ngIf="type === ''"
+      class="search-panel__secation pb-1"
+      header="تعریف کاربر">
       <div class="container">
         <!-- <p-panel class="search-panel__secation pb-1" header="جستجو"> -->
-        <form #formDir="ngForm" [formGroup]="searchPersonForm" (ngSubmit)="getPersonList()">
+        <form
+          #formDir="ngForm"
+          [formGroup]="searchPersonForm"
+          (ngSubmit)="getPersonList()">
           <div class="form-group container">
             <div class="row row-cols-lg-6 row-cols-1">
               <!-- نام -->
               <div class="col my-1">
                 <label for="searchFirstName">نام</label>
-                <input pInputText [pKeyFilter]="patternText" id="searchFirstName" name="searchFirstName"
-                  formControlName="searchFirstName" type="text" class="w-100"
+                <input
+                  pInputText
+                  [pKeyFilter]="patternText"
+                  id="searchFirstName"
+                  name="searchFirstName"
+                  formControlName="searchFirstName"
+                  type="text"
+                  class="w-100"
                   [value]="searchFirstName?.value | faNum" />
               </div>
               <!-- / نام -->
@@ -31,34 +43,64 @@
               <!-- نام خانوادگی -->
               <div class="col my-1">
                 <label for="searchLastName">نام خانوادگی</label>
-                <input pInputText [pKeyFilter]="patternText" id="searchLastName" name="searchLastName"
-                  formControlName="searchLastName" type="text" class="w-100" [value]="searchLastName?.value | faNum" />
+                <input
+                  pInputText
+                  [pKeyFilter]="patternText"
+                  id="searchLastName"
+                  name="searchLastName"
+                  formControlName="searchLastName"
+                  type="text"
+                  class="w-100"
+                  [value]="searchLastName?.value | faNum" />
               </div>
               <!-- / نام خانوادگی -->
 
               <!-- کد ملی -->
               <div class="col my-1">
                 <label for="searchNationalId">کد ملی</label>
-                <input pInputText pKeyFilter="int" id="searchNationalId" name="searchNationalId"
-                  formControlName="searchNationalId" type="text" class="w-100" [value]="searchNationalId?.value | faNum"
-                  [maxlength]="10" [minlength]="10" />
+                <input
+                  pInputText
+                  pKeyFilter="int"
+                  id="searchNationalId"
+                  name="searchNationalId"
+                  formControlName="searchNationalId"
+                  type="text"
+                  class="w-100"
+                  [value]="searchNationalId?.value | faNum"
+                  [maxlength]="10"
+                  [minlength]="10" />
               </div>
               <!-- / کد ملی -->
 
               <!-- نام کاربری -->
               <div class="col my-1">
                 <label for="userName">نام کاربری</label>
-                <input pInputText id="userName" name="userName" formControlName="userName" type="text" class="w-100" />
+                <input
+                  pInputText
+                  id="userName"
+                  name="userName"
+                  formControlName="userName"
+                  type="text"
+                  class="w-100" />
               </div>
               <!-- / نام کاربری -->
 
               <!-- دکمه -->
               <div class="col my-1" style="padding-top: 20px">
-                <p-button class="pe-2" styleClass="p-button-info" label="جستجو" type="submit" icon="pi pi-search">
+                <p-button
+                  class="pe-2"
+                  styleClass="p-button-info"
+                  label="جستجو"
+                  type="submit"
+                  icon="pi pi-search">
                 </p-button>
               </div>
               <div class="col my-1" style="padding-top: 20px; text-align: left">
-                <p-button class="pe-2" styleClass="p-button-success" icon="pi pi-plus" label="افزودن کاربر"
+                <p-button
+                  class="pe-2"
+                  styleClass="p-button-success"
+                  icon="pi pi-plus"
+                  label="افزودن کاربر"
                   (click)="onOpenAddPerson()"></p-button>
               </div>
               <!-- / دکمه -->
@@ -68,48 +110,92 @@
         <!-- </p-panel> -->
       </div>
     </p-panel>
-    <form *ngIf="type === 'lookup'" #formDir="ngForm" [formGroup]="searchPersonForm" (ngSubmit)="getPersonList()">
+    <form
+      *ngIf="type === 'lookup'"
+      #formDir="ngForm"
+      [formGroup]="searchPersonForm"
+      (ngSubmit)="getPersonList()">
       <div class="form-group container">
         <div class="row row-cols-lg-6 row-cols-1">
           <!-- نام -->
           <div class="col my-1">
             <label for="searchFirstName">نام</label>
-            <input pInputText [pKeyFilter]="patternText" id="searchFirstName" name="searchFirstName"
-              formControlName="searchFirstName" type="text" class="w-100" [value]="searchFirstName?.value | faNum" />
+            <input
+              pInputText
+              [pKeyFilter]="patternText"
+              id="searchFirstName"
+              name="searchFirstName"
+              formControlName="searchFirstName"
+              type="text"
+              class="w-100"
+              [value]="searchFirstName?.value | faNum" />
           </div>
           <!-- / نام -->
 
           <!-- نام خانوادگی -->
           <div class="col my-1">
             <label for="searchLastName">نام خانوادگی</label>
-            <input pInputText [pKeyFilter]="patternText" id="searchLastName" name="searchLastName"
-              formControlName="searchLastName" type="text" class="w-100" [value]="searchLastName?.value | faNum" />
+            <input
+              pInputText
+              [pKeyFilter]="patternText"
+              id="searchLastName"
+              name="searchLastName"
+              formControlName="searchLastName"
+              type="text"
+              class="w-100"
+              [value]="searchLastName?.value | faNum" />
           </div>
           <!-- / نام خانوادگی -->
 
           <!-- کد ملی -->
           <div class="col my-1">
             <label for="searchNationalId">کد ملی</label>
-            <input pInputText pKeyFilter="int" id="searchNationalId" name="searchNationalId"
-              formControlName="searchNationalId" type="text" class="w-100" [value]="searchNationalId?.value | faNum"
-              [maxlength]="10" [minlength]="10" />
+            <input
+              pInputText
+              pKeyFilter="int"
+              id="searchNationalId"
+              name="searchNationalId"
+              formControlName="searchNationalId"
+              type="text"
+              class="w-100"
+              [value]="searchNationalId?.value | faNum"
+              [maxlength]="10"
+              [minlength]="10" />
           </div>
           <!-- / کد ملی -->
 
           <!-- نام کاربری -->
           <div class="col my-1">
             <label for="userName">نام کاربری</label>
-            <input pInputText id="userName" name="userName" formControlName="userName" type="text" class="w-100" />
+            <input
+              pInputText
+              id="userName"
+              name="userName"
+              formControlName="userName"
+              type="text"
+              class="w-100" />
           </div>
           <!-- / نام کاربری -->
 
           <!-- دکمه -->
           <div class="col my-1" style="padding-top: 20px">
-            <p-button class="pe-2" styleClass="p-button-info" label="جستجو" type="submit" icon="pi pi-search">
+            <p-button
+              class="pe-2"
+              styleClass="p-button-info"
+              label="جستجو"
+              type="submit"
+              icon="pi pi-search">
             </p-button>
           </div>
-          <div *ngIf="type !== 'lookup'" class="col my-1" style="padding-top: 20px; text-align: left">
-            <p-button class="pe-2" styleClass="p-button-success" icon="pi pi-plus" label="افزودن کاربر"
+          <div
+            *ngIf="type !== 'lookup'"
+            class="col my-1"
+            style="padding-top: 20px; text-align: left">
+            <p-button
+              class="pe-2"
+              styleClass="p-button-success"
+              icon="pi pi-plus"
+              label="افزودن کاربر"
               (click)="onOpenAddPerson()"></p-button>
           </div>
           <!-- / دکمه -->
@@ -121,10 +207,23 @@
 
   <!-- data table -->
 
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass"
-    [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true" [paginator]="true" [(first)]="dataTableFirst"
-    [rows]="dataTableRows" [totalRecords]="totalCount" [value]="personList" [loading]="loading"
-    [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" (onLazyLoad)="getPersonList($event)" [(first)]="first">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rowHover]="true"
+    [paginator]="true"
+    [(first)]="dataTableFirst"
+    [rows]="dataTableRows"
+    [totalRecords]="totalCount"
+    [value]="personList"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getPersonList($event)"
+    [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -141,27 +240,10 @@
         </th>
 
         <th>
-          <strong>نام پدر</strong>
+          <strong>تلفن</strong>
         </th>
-
-        <th>
-          <strong>جنسیت</strong>
-        </th>
-
         <th>
           <strong>کد ملی</strong>
-        </th>
-
-        <th>
-          <strong>کد پرسنلی</strong>
-        </th>
-
-        <th>
-          <strong>سمت شغلی</strong>
-        </th>
-
-        <th>
-          <strong>نقش</strong>
         </th>
         <th *ngIf="type !== 'lookup'">
           <strong> عملیات </strong>
@@ -178,49 +260,62 @@
 
         <td>{{ person.userName }}</td>
 
-        <td>{{ person.fatherName }}</td>
-
-        <td>{{ person.genderType ? 'مرد' : 'زن' }}</td>
+        <td>{{ person.mobileNo }}</td>
 
         <td>{{ person.nationalId | faNum }}</td>
 
-        <td>{{ person.personelNumber }}</td>
-
-        <td>{{ person.post }}</td>
-
-        <td>{{ person.roleName }}</td>
-
-        <!-- <td>{{ person.birthDate | jDate | faNum }}</td>
-
-        <td>{{ person.birthCertificateNumber | faNum }}</td> -->
-
         <!-- actions -->
-        <td *ngIf="type !== 'lookup'" class="d-flex jc-center ai-center">
+        <td
+          *ngIf="type !== 'lookup'"
+          class="d-flex jc-center ai-center"
+          style="max-width: none">
           <!-- edit -->
-          <p-button pRipple styleClass="p-button-text p-button-warning custom-style" type="button" icon="pi pi-pencil"
-            title="ویرایش کاربر" (click)="onEdit(person)">
+          <p-button
+            pRipple
+            styleClass="p-button-text p-button-warning custom-style"
+            type="button"
+            icon="pi pi-pencil"
+            title="ویرایش کاربر"
+            (click)="onEdit(person)">
           </p-button>
           <!-- / edit -->
 
           <!-- delete -->
-          <p-button pRipple styleClass="p-button-text p-button-danger custom-style" type="button" icon="pi pi-times"
-            title="حذف کاربر" [loading]="deletePersonFormLoading" (click)="onDelete(person)">
+          <p-button
+            pRipple
+            styleClass="p-button-text p-button-danger custom-style"
+            type="button"
+            icon="pi pi-times"
+            title="حذف کاربر"
+            [loading]="deletePersonFormLoading"
+            (click)="onDelete(person)">
           </p-button>
           <!-- / delete -->
 
           <!-- Reset Pass -->
-          <p-button pRipple styleClass="p-button-text p-button-help custom-style" type="button" icon="pi pi-lock"
-            title="بازنشانی کلمه عبور" (click)="onResetPass(person)">
+          <p-button
+            pRipple
+            styleClass="p-button-text p-button-help custom-style"
+            type="button"
+            icon="pi pi-lock"
+            title="بازنشانی کلمه عبور"
+            (click)="onResetPass(person)">
           </p-button>
           <!-- / Reset Pass -->
 
           <!-- Activate User -->
-          <p-button pRipple [styleClass]="
+          <p-button
+            pRipple
+            [styleClass]="
               person.active
                 ? 'p-button-text custom-style p-button-danger'
                 : 'p-button-text custom-style p-button-success'
-            " [class.p-button-danger]="person.active" [class.p-button-success]="!person.active" type="button"
-            [icon]="returnIcon(person.active)" [title]="!person.active ? 'فعال کردن کاربر' : 'غیر فعال کردن کاربر'"
+            "
+            [class.p-button-danger]="person.active"
+            [class.p-button-success]="!person.active"
+            type="button"
+            [icon]="returnIcon(person.active)"
+            [title]="!person.active ? 'فعال کردن کاربر' : 'غیر فعال کردن کاربر'"
             (click)="onActivateUser(person)">
           </p-button>
           <!-- / Activate User -->
@@ -392,13 +487,21 @@
           <div class="col my-1">
             <div class="d-flex jc-center ai-center">
               <!-- edit -->
-              <p-button pRipple styleClass="p-button-text p-button-warning" type="button" icon="pi pi-pencil"
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-warning"
+                type="button"
+                icon="pi pi-pencil"
                 (click)="onEdit(person)">
               </p-button>
               <!-- / edit -->
 
               <!-- delete -->
-              <p-button pRipple styleClass="p-button-text p-button-danger" type="button" icon="pi pi-times"
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-danger"
+                type="button"
+                icon="pi pi-times"
                 (click)="onDelete(person)">
               </p-button>
               <!-- / delete -->
@@ -417,10 +520,18 @@
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
 
-<p-dialog [header]="
+<p-dialog
+  [header]="
     editPersonData && editPersonData.userName
       ? 'ویرایش ' + editPersonData.userName
       : 'افزودن کاربر جدید'
-  " [(visible)]="isOpenAddPerson" [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '550px' }">
-  <app-add-edit-user (closeModal)="onCloseModal()" [data]="editPersonData"></app-add-edit-user>
+  "
+  [(visible)]="isOpenAddPerson"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '550px' }">
+  <app-add-edit-user
+    (closeModal)="onCloseModal()"
+    [data]="editPersonData"></app-add-edit-user>
 </p-dialog>

@@ -50,6 +50,14 @@
         <h4>نمودار عملکرد شرکت</h4>
         <div class="row row-feature">
           <div
+            *ngFor="let item of yearTypeLst"
+            (click)="onYearType(item.id)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.title }}</span>
+          </div>
+        </div>
+        <div class="row row-feature">
+          <div
             *ngFor="let item of reportTypeLst"
             (click)="onReportType(item.id)"
             [class.select-feature]="item.isSelected">

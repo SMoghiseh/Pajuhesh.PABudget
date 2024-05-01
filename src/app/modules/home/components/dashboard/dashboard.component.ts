@@ -1,5 +1,10 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Company, Dashboard, UrlBuilder } from '@shared/models/response.model';
+import {
+  BaseInfo,
+  Company,
+  Dashboard,
+  UrlBuilder,
+} from '@shared/models/response.model';
 import { map } from 'rxjs';
 import { HttpService } from '@core/http/http.service';
 import Chart from 'chart.js/auto';
@@ -16,6 +21,8 @@ export class DashboardComponent implements OnInit {
   myChart!: Chart;
   reportTypeLst!: Dashboard[];
   selectedReportTypeId = 0;
+  yearTypeLst!: BaseInfo[];
+  selectedYearTypeId = 0;
 
   constructor(private httpService: HttpService, private rd: Renderer2) {}
 
@@ -40,12 +47,16 @@ export class DashboardComponent implements OnInit {
       )
       .subscribe(mySubCompanies => {
         this.mySubCompanies = mySubCompanies;
+        this.selectedHoldingId = mySubCompanies[0].id;
+        this.selectCoItem(mySubCompanies[0].id);
         this.getReportType();
       });
   }
 
   onSelectCompany(company: Company) {
+    this.selectedHoldingId = company.id;
     this.selectCoItem(company.id);
+    this.getReportChart();
   }
 
   getCoInfo(coId: number) {
@@ -68,9 +79,7 @@ export class DashboardComponent implements OnInit {
       if (element.isSelected) element.isSelected = false;
       if (element.id === id) element.isSelected = true;
     });
-    this.selectedHoldingId = id;
     this.getCoInfo(id);
-    this.getReportChart();
   }
 
   createBarChart(labels: any, counts: any) {
@@ -105,6 +114,7 @@ export class DashboardComponent implements OnInit {
     const body = {
       companyId: this.selectedHoldingId,
       reportId: this.selectedReportTypeId,
+      financialYearTypeId: this.selectedYearTypeId,
     };
     this.httpService
       .post<Dashboard>(
@@ -138,6 +148,7 @@ export class DashboardComponent implements OnInit {
       .subscribe(reportType => {
         this.reportTypeLst = reportType;
         this.selectReportType(reportType[0].id);
+        this.getYearType();
       });
   }
 
@@ -153,6 +164,37 @@ export class DashboardComponent implements OnInit {
       if (element.isSelected) element.isSelected = false;
       if (element.id == id) element.isSelected = true;
     });
-    if (!this.selectedHoldingId) this.selectCoItem(this.mySubCompanies[0].id);
+    // if (!this.selectedHoldingId) this.selectCoItem(this.mySubCompanies[0].id);
+  }
+
+  getYearType() {
+    this.httpService
+      .get<BaseInfo[]>(UrlBuilder.build(BaseInfo.apiAddressYearTypet, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return new Array<BaseInfo>();
+        })
+      )
+      .subscribe(yearType => {
+        this.yearTypeLst = yearType;
+        this.selectedYearTypeId = yearType[0].id;
+        this.selectYearType();
+        this.getReportChart();
+      });
+  }
+
+  selectYearType() {
+    this.yearTypeLst.forEach(element => {
+      if (element.isSelected) element.isSelected = false;
+      if (element.id === this.selectedYearTypeId) element.isSelected = true;
+    });
+  }
+
+  onYearType(id: number) {
+    this.selectedYearTypeId = id;
+    this.selectYearType();
+    this.getReportChart();
   }
 }
