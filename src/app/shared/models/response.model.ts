@@ -495,6 +495,9 @@ export class Company {
     'api/PABudgetApi/v1/Company/SubCompanies/';
   static readonly apiAddressDetailCo = 'api/PABudgetApi/v1/Company/';
 
+  static readonly apiAddressReportParentCo =
+    'api/PABudgetApi/Dashboard/ReportParentCompany';
+
   id!: number;
   parentId!: number;
   parent?: Company;
@@ -538,6 +541,8 @@ export class Company {
   logo?: string;
   persianRegisterDate?: string;
   isSelected?: boolean;
+  companyId?: number;
+  count?: number;
 }
 
 /** کاربرها */

@@ -26,9 +26,8 @@ body {
     @extend.all-box;
     align-content: center;
     text-align: -webkit-center;
-    width: 150px;
     height: 140px;
-    margin: 5px 10px 0px 3%;
+    margin: 5px 10px 0px 10px;
     cursor: pointer;
 
     .count {
@@ -42,6 +41,7 @@ body {
 .all-box {
     background-color: white;
     border-radius: 10px;
+    box-shadow: 0px 0px 6px 0px #B6C2D3;
 }
 
 .co-info-box {
@@ -54,7 +54,7 @@ body {
 }
 
 .chart-box {
-    height: 300px !important;
+    height: 280px !important;
     text-align: -webkit-center;
 }
 
@@ -105,4 +105,9 @@ h5 {
 .deselect-feature{
     background-color: #E2E8F0 !important;
     color: #64748B !important;
+}
+
+.center-box{
+    text-align: -webkit-center;
+    padding: 0px;
 }

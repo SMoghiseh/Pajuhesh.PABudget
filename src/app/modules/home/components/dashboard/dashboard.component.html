@@ -1,22 +1,25 @@
 <body>
   <div class="row">
     <div
-      class="holding-box"
-      *ngFor="let company of mySubCompanies"
-      [class.select-co-item]="company.isSelected"
-      (click)="onSelectCompany(company)">
+      class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box"
+      *ngFor="let company of mySubCompanies">
       <div
-        class="div-img-logo"
-        [style.background-image]="
-          'url(../../../../assets/images/holding-logo/' + company.logo + ')'
-        "></div>
-      <div style="height: 36px">
-        <span style="color: black">{{ company.companyName }}</span>
+        class="holding-box"
+        [class.select-co-item]="company.isSelected"
+        (click)="onSelectCompany(company)">
+        <div
+          class="div-img-logo"
+          [style.background-image]="
+            'url(../../../../assets/images/holding-logo/' + company.logo + ')'
+          "></div>
+        <div style="height: 36px">
+          <span style="color: black">{{ company.companyName }}</span>
+        </div>
+        <span class="count">{{ company.count }}</span>
       </div>
-      <!-- <span class="count">5</span> -->
     </div>
   </div>
-  <div class="row" style="margin-top: 30px">
+  <div class="row" style="margin-top: 20px">
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 h-60">
       <div class="co-info-box">
         <div class="row">

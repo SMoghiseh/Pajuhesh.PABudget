@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   selectedReportTypeId = 0;
   yearTypeLst!: BaseInfo[];
   selectedYearTypeId = 0;
+  reportParentLst!: Company[];
 
   constructor(private httpService: HttpService, private rd: Renderer2) {}
 
@@ -133,6 +134,7 @@ export class DashboardComponent implements OnInit {
         const counts = coInfo.datasets;
         this.createBarChart(labels, counts);
       });
+    this.getReportParentCo();
   }
 
   getReportType() {
@@ -196,5 +198,31 @@ export class DashboardComponent implements OnInit {
     this.selectedYearTypeId = id;
     this.selectYearType();
     this.getReportChart();
+  }
+
+  getReportParentCo() {
+    const body = {
+      reportId: this.selectedReportTypeId,
+      financialYearTypeId: this.selectedYearTypeId,
+    };
+    this.httpService
+      .post<Company[]>(
+        UrlBuilder.build(Company.apiAddressReportParentCo, ''),
+        body
+      )
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return new Array<Company>();
+        })
+      )
+      .subscribe(reportParent => {
+        this.reportParentLst = reportParent;
+        this.mySubCompanies.forEach(element => {
+          const fltr = reportParent.filter(x => x.companyId === element.id);
+          if (fltr.length > 0) element.count = fltr[0].count;
+        });
+      });
   }
 }
