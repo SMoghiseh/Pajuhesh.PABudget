@@ -42,8 +42,8 @@ export class DocumentTagsComponent implements OnInit {
     return this.addNewDocumentTagTypeForm.get('tagTypeId');
   }
 
-  get docTypeId() {
-    return this.addNewDocumentTagTypeForm.get('docTypeId');
+  get documentTypeId() {
+    return this.addNewDocumentTagTypeForm.get('documentTypeId');
   }
 
   get tagName() {
@@ -78,7 +78,7 @@ export class DocumentTagsComponent implements OnInit {
     this.getTagsList();
     this.getSubjects();
     this.addNewDocumentTagTypeForm = new FormGroup({
-      docTypeId: new FormControl(
+      documentTypeId: new FormControl(
         this.addNewTagTypeModel.docTypeId,
         Validators.required
       ),
@@ -118,7 +118,7 @@ export class DocumentTagsComponent implements OnInit {
       this.addNewDocumentTagTypeLoading = true;
 
       const {
-        docTypeId,
+        documentTypeId,
         tagTypeId,
         displayName,
         tagName,
@@ -126,9 +126,9 @@ export class DocumentTagsComponent implements OnInit {
         tagServiceMasterId,
       } = this.addNewDocumentTagTypeForm.value;
 
-      const request = new TagType();
+      const request = new TagType(); debugger
       request.docTypeTagsId = this.selectedTagType.docTypeTagsId || 0;
-      request.docTypeId = docTypeId?.key;
+      request.documentTypeId = documentTypeId?.key;
       request.tagTypeId = tagTypeId;
       request.tagName = tagName;
       request.displayName = displayName;
@@ -271,14 +271,15 @@ export class DocumentTagsComponent implements OnInit {
   }
 
   onNodeSelect() {
-    this.getDocumentTypeTagsList(this.docTypeId?.value.key);
+    debugger
+    this.getDocumentTypeTagsList(this.documentTypeId?.value.key);
   }
 
-  getDocumentTypeTagsList(documentTypeId: number) {
-    this.selectedDocumentTypeId = documentTypeId;
+  getDocumentTypeTagsList(docTypeId: number) {
+    this.selectedDocumentTypeId = docTypeId;
     this.loading = true;
     this.httpService
-      .get<TagType[]>(TagType.apiAddress1 + `/list/${documentTypeId}`)
+      .get<TagType[]>(TagType.apiAddress1 + `/list/${docTypeId}`)
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {

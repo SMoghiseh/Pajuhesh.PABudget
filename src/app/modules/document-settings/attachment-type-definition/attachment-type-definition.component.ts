@@ -7,6 +7,7 @@ import {
   AttachmentType,
   UrlBuilder,
   FileType,
+  AssetAttachment,
 } from '@shared/models/response.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
@@ -274,7 +275,7 @@ export class AttachmentTypeDefinitionComponent implements OnInit {
 
         if (file.size <= 25000000)
           return this.httpService
-            .post<any>(AttachmentType.apiAddress + '/Template/upload', data)
+            .post<any>(AssetAttachment.apiAddress, data)
             .subscribe(response => {
               if (response.successed && response.data && response.data.result) {
                 this.messageService.add({

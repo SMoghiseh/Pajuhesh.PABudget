@@ -145,9 +145,9 @@ export class EditTagsComponent implements OnInit {
           else return [new TagType()];
         })
       )
-      .subscribe(documentTypes => {
-        this.tagsList = documentTypes;
-        documentTypes.forEach(element => {
+      .subscribe(advertismentTypes => {
+        this.tagsList = advertismentTypes;
+        advertismentTypes.forEach(element => {
           this.editTagsForm.addControl(
             element.tagName +
             '_' +

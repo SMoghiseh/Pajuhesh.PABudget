@@ -43,12 +43,12 @@ export class NotificationDefinitionComponent implements OnInit {
 
   visible = false;
 
-  selectedOnlineAdvert: any;
+  selectedOnlineDoc: any;
 
   totalCount!: number;
 
   /** Main table data. */
-  onlineAdvertAttachNeeds: any;
+  onlineDocAttachNeed: any;
 
   /** Main table loading. */
   loading = false;
@@ -88,6 +88,7 @@ export class NotificationDefinitionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    debugger
     this.addNewReportForm = new FormGroup({
       description: new FormControl(
         this.addNewFormModel.description,
@@ -100,8 +101,8 @@ export class NotificationDefinitionComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((params: any) => {
-      if (params.documentTypeId) {
-        const el = document.getElementsByClassName('AddAdvert-pi pi-info');
+      if (params.docTypeId) {
+        const el = document.getElementsByClassName('AddDoc-pi pi-info');
         const elSelect = document.getElementsByClassName('e-select');
         if (elSelect.length > 0) {
           for (let i = 0; i < elSelect.length; i++) {
@@ -109,16 +110,16 @@ export class NotificationDefinitionComponent implements OnInit {
           }
         }
         if (!el[0].querySelector('e-select')) el[0].classList.add('e-select');
-        this.selectedOnlineAdvert = {
+        this.selectedOnlineDoc = {
           id: params.id,
-          documentTypeId: params.documentTypeId,
+          docTypeId: params.docTypeId,
         };
         this.addNewReportForm.patchValue({
           documentType: params.documentTypeName,
         });
 
-        this.getOnlineDocument(params.documentTypeId);
-        this.getAdvertTypeTagsList(params.documentTypeId);
+        this.getOnlineDocument(params.docTypeId);
+        this.getDocTypeTagsList(params.docTypeId);
       }
     });
   }
@@ -155,7 +156,7 @@ export class NotificationDefinitionComponent implements OnInit {
         data.append('File', file);
         data.append('adverTyeFileNeedsId', rowData.adverTyeFileNeedsId);
 
-        // inputData.OnlineAdvertNeedsInfoId = this.selectedOnlineAdvert;
+        // inputData.OnlineDocNeedsInfoId = this.selectedOnlineDoc;
 
         if (file.size <= 25000000)
           return this.httpService
@@ -202,13 +203,14 @@ export class NotificationDefinitionComponent implements OnInit {
   # Form
   --------------------------*/
   addNewReport() {
+    debugger
     this.addNewFormSubmitted = true;
     if (this.addNewReportForm.valid) {
       let isNotAttach = false;
-      for (let i = 0; i < this.onlineAdvertAttachNeeds.length; i++) {
+      for (let i = 0; i < this.onlineDocAttachNeed.length; i++) {
         if (
-          this.onlineAdvertAttachNeeds[i].isRequired &&
-          !this.onlineAdvertAttachNeeds[i].isAttach
+          this.onlineDocAttachNeed[i].isRequired &&
+          !this.onlineDocAttachNeed[i].isAttach
         ) {
           isNotAttach = true;
           this.messageService.add({
@@ -226,9 +228,9 @@ export class NotificationDefinitionComponent implements OnInit {
         const request = new Report();
         request.subject = description;
         request.description = description;
-        request.onlineAdvertDefinitionId = this.selectedOnlineAdvert?.id;
+        request.onlineDocDefinitionId = this.selectedOnlineDoc?.id;
         request.docTypeId =
-          this.selectedOnlineAdvert?.documentTypeId;
+          this.selectedOnlineDoc?.docTypeId;
         request.multiMediaIds = this.multimediaIdList;
         this.addNewFormLoading = true;
         const tags: any[] = [];
@@ -321,7 +323,7 @@ export class NotificationDefinitionComponent implements OnInit {
     this.disableSubmitBtn = false;
     this.addNewReportForm.reset();
     this.addNewFormSubmitted = false;
-    this.onlineAdvertAttachNeeds = [];
+    this.onlineDocAttachNeed = [];
     this.tagsList = [];
   }
 
@@ -331,7 +333,7 @@ export class NotificationDefinitionComponent implements OnInit {
 
   onHide(event: any) {
     this.visible = false;
-    this.selectedOnlineAdvert = event;
+    this.selectedOnlineDoc = event;
     this.tagsList.forEach(element => {
       this.addNewReportForm.removeControl(
         element.tagName +
@@ -346,11 +348,12 @@ export class NotificationDefinitionComponent implements OnInit {
       documentType: event?.documentTypeName,
     });
 
-    this.getOnlineDocument(event.documentTypeId);
-    this.getAdvertTypeTagsList(event.documentTypeId);
+    this.getOnlineDocument(event.docTypeId);
+    this.getDocTypeTagsList(event.docTypeId);
   }
 
   getOnlineDocument(Id: number) {
+    debugger
     this.loading = true;
     this.first = 0;
     this.httpService
@@ -358,12 +361,13 @@ export class NotificationDefinitionComponent implements OnInit {
         OnlineDocumentAttachmentNeeds.apiAddress + `/list/${Id}`
       )
       .pipe(tap(() => (this.loading = false)))
-      .subscribe(onlineAdvertAttachNeeds => {
-        this.onlineAdvertAttachNeeds = onlineAdvertAttachNeeds.data.result;
+      .subscribe(onlineDocAttachNeed => {
+        console.log(onlineDocAttachNeed.data.result)
+        this.onlineDocAttachNeed = onlineDocAttachNeed.data.result;
       });
   }
 
-  getAdvertTypeTagsList(advertTypeId: number) {
+  getDocTypeTagsList(advertTypeId: number) {
     this.httpService
       .get<TagType[]>(TagType.apiAddress1 + `/list/${advertTypeId}`)
       .pipe(

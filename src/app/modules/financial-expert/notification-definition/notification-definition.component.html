@@ -150,7 +150,7 @@
           <!-- / عنوان اسناد -->
 
           <!-- </div> -->
-          <div *ngIf="onlineAdvertAttachNeeds" class="div-upload-warn">
+          <div *ngIf="onlineDocAttachNeed" class="div-upload-warn">
             <ul>
               <li>
                 نام فایل انتخابی شامل کاراکترهای خاص (< .> = + , ) نباشد.
@@ -161,7 +161,7 @@
           <div>
             <p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="true"
               [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [styleClass]="gridClass" [rowHover]="true"
-              [totalRecords]="totalCount" [value]="onlineAdvertAttachNeeds" [loading]="loading"
+              [totalRecords]="totalCount" [value]="onlineDocAttachNeed" [loading]="loading"
               [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first">
               <!-- table header -->
               <ng-template pTemplate="header">

@@ -185,8 +185,8 @@ export class Group extends Pagination {
 /** اسناد‌ها */
 export class Report extends Pagination {
   /** آدرس سرویس */
-  static readonly apiAddress: string = 'api/v1/Advertisement';
-  static readonly apiAddressSearch: string = 'api/v1/Advertisement/search';
+  static readonly apiAddress: string = 'api/PABudgetApi/v1/FinancialExpert';
+  static readonly apiAddressSearch: string = 'api/PABudgetApi/v1/FinancialExpert/search';
 
   /** شناسه */
   id!: number;
@@ -302,7 +302,7 @@ export class Report extends Pagination {
 
   companyName?: string;
 
-  onlineAdvertDefinitionId!: number;
+  onlineDocDefinitionId!: number;
 
   docId?: number;
 
@@ -339,6 +339,7 @@ export class Report extends Pagination {
   myCheckedStatusTitle!: string;
   docTypeCodeTypeName!: string;
   docTypeCode!: number;
+  documentTypeGroup!: string;
 }
 
 /** کاربرها */
@@ -648,6 +649,7 @@ export class TagType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/TagType';
   static readonly apiAddress1 = 'api/PABudgetApi/v1/BaseInfo/DocTypeTags';
   static readonly apiAddressTags = 'api/PABudgetApi/v1/Tags';
+  static readonly apiAddressTags2 = 'api/PABudgetApi/v1/FinancialExpert';
   tagTypeId!: number;
   id!: number;
   name!: string;
@@ -656,6 +658,7 @@ export class TagType {
   displayName!: string;
   docTypeTagsId!: number;
   docTypeId!: any;
+  documentTypeId!: any;
   tagName!: string;
   isRequired!: boolean;
   tagValue!: string;
@@ -790,7 +793,7 @@ export class Publisher extends Report {
 }
 export class AssetAttachment {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/v1/Assets/attachment/upload';
+  static readonly apiAddress = 'api/FileManagerApi/v1/FileManager/UploadFile';
 
   multiMediaId!: number;
   fileSize!: number;
@@ -804,7 +807,7 @@ export class DocumentStatus {
 
 export class OnlineDocumentAttachmentNeeds {
   static readonly apiAddress =
-    'api/v1/Advertisement/OnlineDocumentAttachmentNeeds';
+    'api/PABudgetApi/v1/BaseInfo/OnlineDocAttachmentNeeds';
   onlineAdvertAttachmentNeedsId!: number;
   attachmentFileTypeTitle!: string;
   description!: string;

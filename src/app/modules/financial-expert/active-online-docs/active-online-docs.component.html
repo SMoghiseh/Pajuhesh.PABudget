@@ -73,7 +73,7 @@
     <!-- table body -->
     <ng-template pTemplate="body" let-onlineDocument let-rowIndex="rowIndex">
       <tr [pSelectableRow]="onlineDocument">
-        <td>{{ onlineDocument.documentTypeName }}</td>
+        <td>{{ onlineDocument.docTypeName }}</td>
         <td>{{ onlineDocument.activeDatePersian }}</td>
         <td>{{ onlineDocument.expiredDatePersian }}</td>
         <td pTooltip="{{ onlineDocument.description }}" tooltipEvent="hover" tooltipPosition="top">

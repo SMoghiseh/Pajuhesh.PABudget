@@ -211,13 +211,13 @@
             {{ report.description }}
           </td>
 
-          <td pTooltip="{{ report.documentTypeName }}" tooltipEvent="hover" tooltipPosition="top">
-            {{ report.documentTypeName }}
+          <td pTooltip="{{ report.docTypeName }}" tooltipEvent="hover" tooltipPosition="top">
+            {{ report.docTypeName }}
           </td>
 
-          <td>{{ report.activeDatePersian }}</td>
+          <td>{{ report.activeDate | jDate }}</td>
 
-          <td>{{ report.expiredDatePersian }}</td>
+          <td>{{ report.expiredDate | jDate }}</td>
 
           <td>
             <span class="increase-score">{{ report.increaseValueScore | faNum }}+</span>

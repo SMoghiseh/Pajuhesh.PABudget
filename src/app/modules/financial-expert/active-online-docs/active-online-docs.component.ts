@@ -66,7 +66,7 @@ export class ActiveOnlineDocsComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: true,
-      advertTypeId:
+      docTypeId:
         this.activeOnlineAdvertForm.controls['documentType'].value?.key,
       isExpireToday: this.activeOnlineAdvertForm.controls['isExpired'].value,
     };

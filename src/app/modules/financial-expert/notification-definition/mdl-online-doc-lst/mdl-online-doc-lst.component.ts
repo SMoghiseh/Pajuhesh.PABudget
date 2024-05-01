@@ -62,7 +62,7 @@ export class MdlOnlineDocLstComponent {
     this.first = 0;
     this.httpService
       .post<CreateOnlineAdvertDefinition[]>(
-        Publisher.apiAddress + '/OnlineAdvert',
+        Publisher.apiAddress + '/OnlineDoc',
         body
       )
 

@@ -191,7 +191,7 @@ export class AddEditCompanyComponent implements OnInit {
     return this.addNewCompanyForm.get('boardofDirectors');
   }
   get alternateInspector() {
-    return this.addNewCompanyForm.get('boardofDirectors');
+    return this.addNewCompanyForm.get('alternateInspector');
   }
   get substituteInspector() {
     return this.addNewCompanyForm.get('substituteInspector');
@@ -299,6 +299,9 @@ export class AddEditCompanyComponent implements OnInit {
       boardofDirectors: new FormControl(
         this.addNewCompanyModel.boardofDirectors
       ),
+      alternateInspector: new FormControl(
+        this.addNewCompanyModel.alternateInspector
+      ),
       substituteInspector: new FormControl(
         this.addNewCompanyModel.substituteInspector
       ),
@@ -354,6 +357,7 @@ export class AddEditCompanyComponent implements OnInit {
         centeralOfficeFax,
         managingDirector,
         boardofDirectors,
+        alternateInspector,
         substituteInspector,
       } = this.addNewCompanyForm.value;
 
@@ -407,6 +411,7 @@ export class AddEditCompanyComponent implements OnInit {
       request.financialManager = financialManager;
       request.boardofDirectors = boardofDirectors;
       request.substituteInspector = substituteInspector;
+      request.alternateInspector = alternateInspector;
       request.companyInspectionInstituteId = companyInspectionInstituteId;
 
       this.addNewCompanyLoading = true;

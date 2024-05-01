@@ -417,7 +417,7 @@ export class DocumentTblsComponent implements OnInit {
       });
     }
     this.addAmendmentForm.patchValue(report);
-    this.getOnlineDocument(report.docTypeCodeTypeId);
+    this.getOnlineDocument(report.docTypeId);
     this.getAdvertTypeTagsList(report.id);
     this.selectedReport = report;
     this.registerAmendmentDialog = true;
@@ -561,7 +561,7 @@ export class DocumentTblsComponent implements OnInit {
 
   getAdvertTypeTagsList(id: number) {
     this.httpService
-      .get<TagType[]>(TagType.apiAddressTags + `/AdvertTagsWithNeed/${id}`)
+      .get<TagType[]>(TagType.apiAddressTags2 + `/DocTagsWithNeed/${id}`)
       .pipe(
         map(response => {
           if (response.data && response.data.result)
