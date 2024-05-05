@@ -1,4 +1,3 @@
-
 export class UrlBuilder {
   static build(url: string, actionType: ActionType) {
     switch (actionType) {
@@ -186,7 +185,8 @@ export class Group extends Pagination {
 export class Report extends Pagination {
   /** آدرس سرویس */
   static readonly apiAddress: string = 'api/PABudgetApi/v1/FinancialExpert';
-  static readonly apiAddressSearch: string = 'api/PABudgetApi/v1/FinancialExpert/search';
+  static readonly apiAddressSearch: string =
+    'api/PABudgetApi/v1/FinancialExpert/search';
 
   /** شناسه */
   id!: number;
@@ -469,6 +469,7 @@ export class Supervisor {
 export class PersonRole {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/SsoApi/SsoAdmin/User/GetAllUsersWithRoles';
+  static readonly apiAddressRemove = 'api/SsoApi/SsoAdmin/userRole/remove';
 
   roleId!: number;
   userId!: number;
@@ -549,7 +550,7 @@ export class Company {
 /** کاربرها */
 export class AssignRole {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/Role/assign';
+  static readonly apiAddress = 'api/SsoApi/SsoAdmin/AssignRoleToUser';
 }
 /** موسسه‌های حسابرسی شرکت */
 export class CompanyInspectionInstitute {

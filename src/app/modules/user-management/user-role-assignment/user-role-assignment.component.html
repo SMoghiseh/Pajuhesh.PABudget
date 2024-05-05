@@ -14,8 +14,16 @@
           <!-- عنوان‌ها -->
           <div class="col my-1">
             <label for="selectUser">انتخاب کاربر</label>
-            <p-dropdown id="selectUser" class="col" styleClass="w-100 my-1" optionLabel="fullName" [options]="users"
-              placeholder="انتخاب کنید" filterBy="fullName" [filter]="true" [showClear]="true"
+            <p-dropdown
+              id="selectUser"
+              class="col"
+              styleClass="w-100 my-1"
+              optionLabel="fullName"
+              [options]="users"
+              placeholder="انتخاب کنید"
+              filterBy="fullName"
+              [filter]="true"
+              [showClear]="true"
               [(ngModel)]="selectedUser">
               <ng-template pTemplate="selectedItem">
                 <div>
@@ -34,35 +42,28 @@
           <!-- نقش -->
           <div class="col my-1">
             <label for="selectRole">انتخاب نقش</label>
-            <p-dropdown id="selectRole" class="col" styleClass="w-100 my-1" optionLabel="title" [options]="roles"
-              placeholder="''" [(ngModel)]="selectedRole" placeholder="انتخاب کنید"
-              (onChange)="resetSelectedCompany($event)">
+            <p-dropdown
+              id="selectRole"
+              class="col"
+              styleClass="w-100 my-1"
+              optionLabel="title"
+              [options]="roles"
+              placeholder="''"
+              [(ngModel)]="selectedRole"
+              placeholder="انتخاب کنید">
             </p-dropdown>
           </div>
           <!-- / نقش -->
 
-          <!-- سازمان -->
-          <div class="col my-1">
-            <label for="selectCompanies">انتخاب سازمان</label>
-            <p-dropdown id="selectCompanies" class="col" styleClass="w-100 my-1" optionLabel="companyName"
-              placeholder="انتخاب کنید" [disabled]="!selectedRole.isNeedCompany" [options]="companies"
-              [(ngModel)]="selectedCompany" [filter]="true">
-            </p-dropdown>
-          </div>
-          <!-- / سازمان -->
-
           <!-- دکمه ها -->
-          <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
-            <p-button class="pe-2" styleClass="p-button-success" label="تایید" icon="pi pi-check"
-              [loading]="assignRoleLoading" (click)="
-                assignRoleTouser(selectedUser, selectedRole, selectedCompany)
-              "></p-button>
-
-            <!-- <p-button
-                  class="pe-2"
-                  styleClass="p-button-warning"
-                  label="انصراف"
-                  icon="pi pi-times"></p-button> -->
+          <div class="col my-1" style="align-content: end; text-align: end">
+            <p-button
+              class="pe-2"
+              styleClass="p-button-success"
+              label="تایید"
+              icon="pi pi-check"
+              [loading]="assignRoleLoading"
+              (click)="assignRoleTouser(selectedUser, selectedRole)"></p-button>
           </div>
           <!-- / دکمه ها -->
         </div>
@@ -72,10 +73,22 @@
   <!-- / input group -->
 
   <!-- data table -->
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass"
-    [rowsPerPageOptions]="[10, 20, 30]" [rows]="dataTableRows" [totalRecords]="totalCount" [value]="userRolesList"
-    [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" [rowHover]="true" [paginator]="true"
-    (onLazyLoad)="getUserRolesList($event)" [(first)]="first">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rows]="dataTableRows"
+    [totalRecords]="totalCount"
+    [value]="userRolesList"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    [rowHover]="true"
+    [paginator]="true"
+    (onLazyLoad)="getUserRolesList($event)"
+    [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -98,6 +111,10 @@
         <th style="min-width: 10rem">
           <strong>نقش</strong>
         </th>
+
+        <th>
+          <strong> عملیات </strong>
+        </th>
       </tr>
     </ng-template>
     <!-- / table header -->
@@ -117,6 +134,20 @@
         <td>{{ userRole.nationalId | faNum }}</td>
 
         <td>{{ userRole.roleName }}</td>
+        <!-- actions -->
+        <td>
+          <!-- delete -->
+          <p-button
+            pRipple
+            class="pe-2"
+            styleClass="p-button-text p-button-danger p-button-rounded"
+            type="button"
+            icon="pi pi-times"
+            (click)="deleteRow(userRole)">
+          </p-button>
+          <!-- / delete -->
+        </td>
+        <!-- actions -->
       </tr>
     </ng-template>
     <!-- / table body -->

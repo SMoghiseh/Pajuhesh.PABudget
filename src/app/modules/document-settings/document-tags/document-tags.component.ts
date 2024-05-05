@@ -71,7 +71,7 @@ export class DocumentTagsComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getDocumentismentTypeTree();
@@ -165,11 +165,7 @@ export class DocumentTagsComponent implements OnInit {
     if (TagType.docTypeTagsId) {
       this.selectedTagType = TagType;
       if (typeof TagType.docTypeId == 'number')
-        this.returnSelectedNode(
-          TagType.docTypeId,
-          this.nodes,
-          TagType
-        );
+        this.returnSelectedNode(TagType.docTypeId, this.nodes, TagType);
       else this.addNewDocumentTagTypeForm.patchValue(TagType);
     }
   }
@@ -241,9 +237,7 @@ export class DocumentTagsComponent implements OnInit {
     this.loading = true;
 
     this.httpService
-      .get<DocumentType[]>(
-        UrlBuilder.build(DocumentType.apiAddress, 'TREE')
-      )
+      .get<DocumentType[]>(UrlBuilder.build(DocumentType.apiAddress, 'TREE'))
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
