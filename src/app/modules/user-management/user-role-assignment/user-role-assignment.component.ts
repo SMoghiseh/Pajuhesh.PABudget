@@ -1,10 +1,7 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
   AssignRole,
-  Company,
   GeneralPerson,
   Pagination,
   PersonRole,
@@ -36,14 +33,6 @@ export class UserRoleAssignmentComponent implements OnInit {
   selectedRole = new Role();
 
   /*--------------------------
-  # Company
-  --------------------------*/
-  /** سازمان‌ها  */
-  companies: Company[] = [];
-  /** سازمان انتخاب شده */
-  selectedCompany = new Company();
-
-  /*--------------------------
   # Assign
   --------------------------*/
   assignRoleLoading = false;
@@ -70,12 +59,11 @@ export class UserRoleAssignmentComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getDocumentGroups();
     this.getRoles();
-    this.getCompanies();
   }
 
   /*--------------------------
@@ -94,28 +82,20 @@ export class UserRoleAssignmentComponent implements OnInit {
   # GeneralPerson
   --------------------------*/
   getRoles() {
-    this.httpService.post<Role[]>(Role.apiAddress, { withOutPagination: true }).subscribe(response => {
-      if (response.data.result) {
-        this.roles = response.data.result;
-      }
-    });
-  }
-
-  /*--------------------------
-  # Company
-  --------------------------*/
-  getCompanies() {
-    this.httpService.get<Company[]>(Company.apiAddress).subscribe(response => {
-      if (response.data.result) {
-        this.companies = response.data.result;
-      }
-    });
+    this.httpService
+      .post<Role[]>(Role.apiAddress, { withOutPagination: true })
+      .subscribe(response => {
+        if (response.data.result) {
+          this.roles = response.data.result;
+        }
+      });
   }
 
   /*--------------------------
   # Assign
   --------------------------*/
-  assignRoleTouser(user: GeneralPerson, role: Role, company: Company) {
+  assignRoleTouser(user: GeneralPerson, role: Role) {
+    debugger;
     if (user.id && role.id) {
       this.assignRoleLoading = true;
 
@@ -123,7 +103,7 @@ export class UserRoleAssignmentComponent implements OnInit {
         .post<AssignRole>(AssignRole.apiAddress, {
           roleId: role.id,
           userId: user.userId,
-          companyId: role.isNeedCompany ? company.id : null,
+          isMainRole: true,
         })
         .pipe(
           tap(() => {
@@ -142,7 +122,6 @@ export class UserRoleAssignmentComponent implements OnInit {
 
             this.getUserRolesList();
             this.getDocumentGroups();
-            this.selectedCompany = new Company();
             this.selectedRole = new Role();
           }
         });
@@ -155,10 +134,6 @@ export class UserRoleAssignmentComponent implements OnInit {
         summary: 'اطلاعات وارد شده کامل نیست',
       });
     }
-  }
-
-  resetSelectedCompany(role: Role) {
-    if (!role.isNeedCompany) this.selectedCompany = new Company();
   }
 
   /*--------------------------
@@ -182,6 +157,26 @@ export class UserRoleAssignmentComponent implements OnInit {
         map(response => {
           if (response.data && response.data.totalCount != undefined)
             this.totalCount = response.data.totalCount;
+          if (response.data && response.data.result)
+            return response.data.result;
+          else return [new PersonRole()];
+        })
+      )
+      .subscribe(userRolesList => (this.userRolesList = userRolesList));
+  }
+
+  deleteRow(userRole: PersonRole) {
+    const body = {
+      userId: userRole.userId,
+      roleId: userRole.roleId,
+    };
+
+    this.httpService
+      .post<PersonRole[]>(PersonRole.apiAddressRemove, body)
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          debugger;
           if (response.data && response.data.result)
             return response.data.result;
           else return [new PersonRole()];
