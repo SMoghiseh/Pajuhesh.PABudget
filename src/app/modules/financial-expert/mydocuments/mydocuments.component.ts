@@ -104,7 +104,7 @@ export class MydocumentsComponent
 
     searchModel.description = description;
 
-    searchModel.code = Number(PersianNumberService.toEnglish(code));
+    searchModel.code = code ? Number(PersianNumberService.toEnglish(code)) : null;
 
 
     searchModel.sendDate = sendDate
