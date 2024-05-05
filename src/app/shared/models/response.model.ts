@@ -610,7 +610,7 @@ export class ReportingType {
 /** کاربرها */
 export class CreatePerson {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/info/person/create';
+  static readonly apiAddress = 'api/SsoApi/Account/user/create';
 }
 /** کاربرها */
 export class UpdatePerson {
@@ -769,21 +769,21 @@ export class CreateCompany {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/PABudgetApi/v1/company/create';
 }
-export class CreateOnlineAdvertDefinition {
-  static readonly apiAddress = 'api/v1/Advertisement/OnlineAdvertDefinition';
-  id!: number;
-  description!: string;
-  activeDate!: string | null;
-  expiredDate!: string | null;
-  increaseValueScore!: number;
-  decreaseValueScore!: number;
-  isActive!: boolean;
-  docTypeCodeTypeId!: number;
-  onlineAdvertNeedsInfos!: DocumentTypeFileNeeds;
-  activeDatePersian!: Date;
-  expiredDatePersian!: Date;
-  docTypeCodeTypeName!: string;
-}
+// export class CreateOnlineDocDefinition {
+//   static readonly apiAddress = 'api/v1/Advertisement/OnlineAdvertDefinition';
+//   id!: number;
+//   description!: string;
+//   activeDate!: string | null;
+//   expiredDate!: string | null;
+//   increaseValueScore!: number;
+//   decreaseValueScore!: number;
+//   isActive!: boolean;
+//   docTypeCodeTypeId!: number;
+//   onlineAdvertNeedsInfos!: DocumentTypeFileNeeds;
+//   activeDatePersian!: Date;
+//   expiredDatePersian!: Date;
+//   docTypeCodeTypeName!: string;
+// }
 /** ناظرین */
 export class Publisher extends Report {
   /** آدرس سرویس */
