@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
-  CreateOnlineAdvertDefinition,
+  CreateOnlineDocDefinition,
   Publisher,
   Pagination,
   DocumentType,
@@ -24,7 +24,7 @@ export class ActiveOnlineDocsComponent implements OnInit {
   totalCount!: number;
   nodes: any;
   /** Main table data. */
-  onlineDocument: CreateOnlineAdvertDefinition[] = [];
+  onlineDocument: CreateOnlineDocDefinition[] = [];
 
   /** Main table loading. */
   loading = false;
@@ -35,7 +35,7 @@ export class ActiveOnlineDocsComponent implements OnInit {
 
   lazyLoadEvent?: LazyLoadEvent;
 
-  selectedRow = new CreateOnlineAdvertDefinition();
+  selectedRow = new CreateOnlineDocDefinition();
 
   constructor(private httpService: HttpService, private router: Router) { }
 
@@ -74,7 +74,7 @@ export class ActiveOnlineDocsComponent implements OnInit {
     this.loading = true;
 
     this.httpService
-      .post<CreateOnlineAdvertDefinition[]>(
+      .post<CreateOnlineDocDefinition[]>(
         Publisher.apiAddress + '/OnlineDoc',
         body
       )
@@ -85,7 +85,7 @@ export class ActiveOnlineDocsComponent implements OnInit {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new CreateOnlineAdvertDefinition()];
+          } else return [new CreateOnlineDocDefinition()];
         })
       )
       .subscribe(

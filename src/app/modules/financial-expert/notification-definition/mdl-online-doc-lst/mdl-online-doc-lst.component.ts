@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
-  CreateOnlineAdvertDefinition,
+  CreateOnlineDocDefinition,
   Pagination,
   Publisher,
 } from '@shared/models/response.model';
@@ -20,7 +20,7 @@ export class MdlOnlineDocLstComponent {
   totalCount!: number;
 
   /** Main table data. */
-  onlineDocument: CreateOnlineAdvertDefinition[] = [];
+  onlineDocument: CreateOnlineDocDefinition[] = [];
 
   /** Main table loading. */
   loading = false;
@@ -29,7 +29,7 @@ export class MdlOnlineDocLstComponent {
 
   dataTableRows = 10;
 
-  selectedRow = new CreateOnlineAdvertDefinition();
+  selectedRow = new CreateOnlineDocDefinition();
 
   first = 0;
 
@@ -61,7 +61,7 @@ export class MdlOnlineDocLstComponent {
 
     this.first = 0;
     this.httpService
-      .post<CreateOnlineAdvertDefinition[]>(
+      .post<CreateOnlineDocDefinition[]>(
         Publisher.apiAddress + '/OnlineDoc',
         body
       )
@@ -73,7 +73,7 @@ export class MdlOnlineDocLstComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new CreateOnlineAdvertDefinition()];
+          } else return [new CreateOnlineDocDefinition()];
         })
       )
       .subscribe(
