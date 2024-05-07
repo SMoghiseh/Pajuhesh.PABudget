@@ -89,17 +89,16 @@ export class UserDefinitionComponent implements OnInit {
 
   isOpenAddPerson = false;
 
+  fullTextSearch?: string;
+  pageNumber!: number;
+  pageSize!: number;
+  currentPage!: number;
+  propertyName: string | null = null;
+  isAsc!: boolean;
+
   /** نام */
-  get searchFirstName() {
+  get searchText() {
     return this.searchPersonForm.get('firstName');
-  }
-  /** نام خانوادگی */
-  get searchLastName() {
-    return this.searchPersonForm.get('lastName');
-  }
-  /** کد ملی */
-  get searchNationalId() {
-    return this.searchPersonForm.get('nationalId');
   }
 
   /** انتظار برای حذف کاربر */
@@ -115,14 +114,14 @@ export class UserDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {
+    this.pageNumber = 1;
+    this.pageSize = 10;
+  }
 
   ngOnInit(): void {
     this.searchPersonForm = new FormGroup({
-      searchFirstName: new FormControl(this.searchPersonModel.firstName),
-      searchLastName: new FormControl(this.searchPersonModel.lastName),
-      searchNationalId: new FormControl(this.searchPersonModel.nationalId),
-      userName: new FormControl(),
+      searchText: new FormControl(this.searchPersonModel.firstName)
     });
   }
 
@@ -134,21 +133,20 @@ export class UserDefinitionComponent implements OnInit {
     if (event) this.lazyLoadEvent = event;
     else this.first = 0;
     if (this.searchPersonForm.valid) {
-      const { searchFirstName, searchLastName, searchNationalId, userName } =
-        this.searchPersonForm.value;
+      const { searchText } = this.searchPersonForm.value;
 
-      const searchModel = new SearchPerson();
-      searchModel.firstName = PersianNumberService.toEnglish(searchFirstName);
-      searchModel.lastName = PersianNumberService.toEnglish(searchLastName);
-      searchModel.nationalId = PersianNumberService.toEnglish(searchNationalId);
-      searchModel.userName = PersianNumberService.toEnglish(userName);
-
+      const searchModel = {
+        pageNumber: this.pageNumber,
+        pageSize: this.pageSize,
+        propertyName: this.propertyName,
+        isAsc: this.isAsc,
+        fullTextSearch: this.fullTextSearch
+      }
       const first = this.lazyLoadEvent?.first || 0;
       const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-
       searchModel.pageNumber = first / rows + 1;
       searchModel.pageSize = rows;
-
+      searchModel.fullTextSearch = PersianNumberService.toEnglish(searchText);
       this.loading = true;
 
       this.httpService
@@ -208,7 +206,7 @@ export class UserDefinitionComponent implements OnInit {
       // this.editPersonFormLoading = true;
 
       this.httpService
-        .delete<DeletePerson>(DeletePerson.apiAddress + id + '/delete')
+        .post<DeletePerson>(`${DeletePerson.apiAddress}${id}`, '')
         .pipe(
           tap(() => {
             // this.editPersonFormLoading = false;

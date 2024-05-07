@@ -142,10 +142,17 @@ export class AllRoleDocumentTypeTree extends RolePermissions {
     'api/PABudgetApi/v1/role/AllRoleDocumentTypeTree';
 }
 
+/** کاربرها */
+export class CreateRole {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/SsoApi/SsoAdmin/role/create';
+}
+
 /** نقش‌ها */
 export class Role {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/SsoApi/SsoAdmin/Role/List';
+  static readonly apiAddress = 'api/SsoApi/SsoAdmin/Role';
+  static readonly deleteApiAddress = 'api/SsoApi/SsoAdmin/Role/Remove/';
 
   /** شناسه */
   id!: number;
@@ -401,11 +408,6 @@ export class Person {
   groupId!: number;
 }
 
-/** کاربرها */
-export class CreateRole {
-  /** آدرس سرویس */
-  static readonly apiAddress = 'api/SsoApi/SsoAdmin/role/create';
-}
 
 export class ChangePassword {
   static readonly apiAddress = 'api/PABudgetApi/v1/Password/Reset';
@@ -415,7 +417,7 @@ export class ChangePassword {
 /** کاربرها */
 export class DeletePerson {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/info/person/';
+  static readonly apiAddress = 'api/SsoApi/Account/user/remove/';
 }
 
 export class FileType {

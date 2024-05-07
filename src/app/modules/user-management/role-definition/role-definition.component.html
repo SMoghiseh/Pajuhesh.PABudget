@@ -64,11 +64,11 @@
             <div class="col my-1"></div>
             <!-- دکمه ها -->
             <div class="col my-1" style="padding-top: 25px">
-              <p-button class="pe-2 p-button-wide" styleClass="p-button-success" label="افزودن" icon="pi pi-plus"
+              <p-button class="pe-2 p-button-wide" styleClass="p-button-success" label="تایید" icon="pi pi-plus"
                 type="submit"></p-button>
 
               <p-button class="pe-2 p-button-wide" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
-                (click)="resetAddNewPersonForm()"></p-button>
+                (click)="resetAddNewRoleForm()"></p-button>
             </div>
             <!-- / دکمه ها -->
           </div>
@@ -79,10 +79,10 @@
   <!-- / input group -->
 
   <!-- data table -->
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [paginator]="true"
-    [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true" [rows]="dataTableRows" [totalRecords]="totalCount"
-    [value]="roleList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-    (onLazyLoad)="getRoleList()" [(first)]="first">
+  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass"
+    [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true" [paginator]="true" [rows]="dataTableRows"
+    [totalRecords]="totalCount" [value]="roleList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true" (onLazyLoad)="getRoleList($event)" [(first)]="first">
     <!-- table caption -->
     <!-- <ng-template pTemplate="caption">
           <div class="d-flex align-items-center justify-content-end w-100">
@@ -107,6 +107,9 @@
         <th style="min-width: 10rem">
           <strong>شرح</strong>
         </th>
+        <th>
+          <strong> عملیات </strong>
+        </th>
       </tr>
     </ng-template>
     <!-- / table header -->
@@ -122,6 +125,23 @@
         <td>{{ role.name }}</td>
 
         <td>{{ role.title }}</td>
+        <!-- actions -->
+        <td class="d-flex jc-center ai-center" style="max-width: none">
+          <!-- edit -->
+          <p-button pRipple styleClass="p-button-text p-button-warning custom-style" type="button" icon="pi pi-pencil"
+            title="ویرایش کاربر" (click)="onEdit(role)">
+          </p-button>
+          <!-- / edit -->
+
+          <!-- delete -->
+          <p-button pRipple styleClass="p-button-text p-button-danger custom-style" type="button" icon="pi pi-times"
+            title="حذف کاربر" [loading]="deleteRoleFormLoading" (click)="onDelete(role)">
+          </p-button>
+          <!-- / delete -->
+
+
+        </td>
+        <!-- actions -->
       </tr>
     </ng-template>
     <!-- / table body -->
@@ -189,3 +209,13 @@
   </div> -->
 </section>
 <!-- / data table -->
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
+
+<p-dialog [header]="
+    editRoleData && editRoleData.title
+      ? 'ویرایش ' + editRoleData.title
+      : 'افزودن کاربر جدید'
+  " [(visible)]="isOpenAddRole" [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '550px' }">
+  <app-add-edit-role (closeModal)="onCloseModal()" [data1]="editRoleData"></app-add-edit-role>
+</p-dialog>
