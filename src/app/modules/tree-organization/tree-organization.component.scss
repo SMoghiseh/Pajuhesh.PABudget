@@ -1,27 +1,24 @@
-::ng-deep .sidebar {
-    display: none !important;
-}
-
-::ng-deep .content-body {
-    margin: 5rem 4rem 1.43rem !important;
-}
-
-
 .chart-structure {
     background-color: #F5F7FA;
     padding: 30px 0;
 }
 
+//  first node margin auto
+.chart-structure>.company>.company-item {
+    margin: 0 auto;
+}
+
 .company-item {
-    border-radius: 10px;
     padding: 0 15px 10px;
     border: 1px solid #eee;
     width: 194px;
-    margin: 32px 15px;
+    margin: 35px 20px;
     height: 150px;
     background: #fff;
     position: relative;
     text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
 
 
     .company-logo {
@@ -66,71 +63,84 @@
         }
     }
 
-    .border-tree {
-        width: 1px;
-        height: 24px;
-        background: #BDC3CB;
-        position: absolute;
-        bottom: -29px;
-        right: 50%;
-    }
 }
 
 .companyInfoItemParent {
     display: block;
 }
 
-.company-children {
-    // display: flex;
-
-    // .company-children {
-    //     display: block;
-    // }
-}
-
-.chart-structure>.tree>.company-row> {
-    .tree> {
+//  add border between nodes 
+.chart-structure>.company>.company-list> {
+    .company> {
         div.company-item {
             &::after {
                 height: 1px;
-                width: 24px;
-                background: #777;
+                width: 28px;
+                background: #BDC3CB;
                 content: "";
                 display: block;
                 position: absolute;
-                right: -28px;
+                right: -36px;
                 top: 50%;
             }
         }
     }
 
-    .tree:nth-child(1)> {
+    .company:nth-child(1)> {
         div.company-item {
             &::after {
                 height: 0px;
                 width: 0px;
-                background: #777;
-                content: "";
-                display: block;
-                position: absolute;
-                right: -28px;
-                top: 50%;
+
             }
         }
     }
 }
 
-.company-row {
+//  add border to bottom of nodes 
+.chart-structure {
+    div.company-item {
+        &::before {
+            width: 1px;
+            height: 25px;
+            background: #BDC3CB;
+            content: "";
+            display: block;
+            position: absolute;
+            top: 100%;
+            right: 50%;
+            margin: 5px 0;
+        }
+    }
+
+    >div.company>div.company-list {
+        >div>div.company-list>div:last-child {
+            .company-item {
+                &::before {
+                    width: 0px;
+                    height: 0px;
+                }
+            }
+        }
+    }
+}
+
+.company-list {
     display: flex;
     display: flex;
     margin: 0 auto;
     width: fit-content;
 
-    .company-row {
+    .company-list {
         display: unset;
     }
 }
 
-.chart-structure>.tree>.company-item {
-    margin: 0 auto;
-}
+
+// ::ng-deep .sidebar {
+//     display: none !important;
+// }
+
+// ::ng-deep .content-body {
+//     margin: 5rem 4rem 1.43rem !important;
+// }

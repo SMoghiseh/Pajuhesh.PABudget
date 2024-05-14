@@ -5,16 +5,9 @@ import { authGuard } from '@core/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'treeOrganization',
+    path: '',
     component: TreeOrganizationComponent,
-    canMatch: [authGuard],
-    // children: [
-    //   {
-    //     path: '',
-    //     canMatch: [authGuard],
-    //     component: TreeOrganizationComponent,
-    //   },
-    // ],
+    canMatch: [authGuard]
   },
 ];
 

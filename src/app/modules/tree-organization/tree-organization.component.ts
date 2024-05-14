@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-tree-organization',
@@ -8,7 +10,14 @@ import { Component } from '@angular/core';
 export class TreeOrganizationComponent {
   data: any = {}
 
+  constructor(private router: ActivatedRoute, @Inject(DOCUMENT) document: Document) {
+    if (router.snapshot.data['showSideBar'] == false) {
+      this.changeStyleOfSideBar();
+    }
+  }
+
   ngOnInit(): void {
+
 
     this.data = [
       {
@@ -55,6 +64,15 @@ export class TreeOrganizationComponent {
       }
     ]
 
+  }
+
+  changeStyleOfSideBar() {
+    let sidebar: HTMLCollection = document.getElementsByClassName('sidebar');
+    let sidebar0: any = sidebar[0];
+    sidebar0.style.display = 'none';
+    let contentBody: HTMLCollection = document.getElementsByClassName('content-body');
+    let contentBody0: any = contentBody[0];
+    contentBody0.style.margin = '5rem 4rem 1.43rem';
   }
 
 }

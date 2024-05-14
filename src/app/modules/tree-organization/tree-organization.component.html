@@ -11,7 +11,7 @@
 
     <ng-container *ngFor="let company of companyList">
         <!-- company item -->
-        <div class="tree">
+        <div class="company">
             <div class="company-item">
                 <!-- <div class="company-logo" [style.background-image]=" 'url(../../../../assets/images/holding-logo/atlas.svg)'">
           </div> -->
@@ -24,9 +24,8 @@
                     <span class="status"> تملیکی </span>
                     <span class="detail-link"><a href="">جزئیات</a></span>
                 </div>
-                <div class="border-tree"></div>
             </div>
-            <div *ngIf="company.children" class="company-row">
+            <div *ngIf="company.children" class="company-list">
                 <ng-container [ngTemplateOutlet]="companyInfoItem"
                     [ngTemplateOutletContext]="{$implicit: company.children}">
                 </ng-container>
