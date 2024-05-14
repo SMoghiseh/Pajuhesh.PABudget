@@ -16,6 +16,7 @@ import Chart from 'chart.js/auto';
 })
 export class DashboardComponent implements OnInit {
   mySubCompanies: Company[] = [];
+  subCos: Company[] = [];
   selectedHoldingId: null | number = null;
   coInfo: Company = new Company();
   myChart!: Chart;
@@ -29,6 +30,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMySubCompanies(0);
+    const lbl = ['سود', 'زیان'];
+    const val = [1255, 300];
+    this.createDoughnutChart(lbl, val);
   }
 
   getCoApi(id: number) {
@@ -47,10 +51,12 @@ export class DashboardComponent implements OnInit {
         })
       )
       .subscribe(mySubCompanies => {
-        this.mySubCompanies = mySubCompanies;
-        this.selectedHoldingId = mySubCompanies[0].id;
-        this.selectCoItem(mySubCompanies[0].id);
-        this.getReportType();
+        if (id === 0) {
+          this.mySubCompanies = mySubCompanies;
+          this.selectedHoldingId = mySubCompanies[0].id;
+          this.selectCoItem(mySubCompanies[0].id);
+          this.getReportType();
+        } else this.subCos = mySubCompanies;
       });
   }
 
@@ -58,6 +64,7 @@ export class DashboardComponent implements OnInit {
     this.selectedHoldingId = company.id;
     this.selectCoItem(company.id);
     this.getReportChart();
+    if (company.id !== 5) this.getMySubCompanies(company.id);
   }
 
   getCoInfo(coId: number) {
@@ -224,5 +231,40 @@ export class DashboardComponent implements OnInit {
           if (fltr.length > 0) element.count = fltr[0].count;
         });
       });
+  }
+
+  onSelectSubCo(id: number) {
+    this.getCoInfo(id);
+    this.subCos.forEach(element => {
+      element.isSelected = false;
+    });
+    const selectedItem = this.subCos.filter(x => x.id === id);
+    if (selectedItem.length > 0) selectedItem[0].isSelected = true;
+  }
+
+  createDoughnutChart(labels: any, counts: any) {
+    new Chart('DoughnutChart', {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            data: counts,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                family: 'Shabnam',
+              },
+            },
+          },
+        },
+      },
+    });
   }
 }

@@ -20,55 +20,93 @@
     </div>
   </div>
   <div class="row" style="margin-top: 20px">
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 h-60">
-      <div class="co-info-box">
-        <div class="row">
-          <h3 class="margin-20">اطلاعات شرکت</h3>
+    <div
+      [class.col-lg-9]="subCos.length > 0 && selectedHoldingId !== 5"
+      [class.col-md-9]="subCos.length > 0 && selectedHoldingId !== 5"
+      [class.col-lg-12]="subCos.length === 0 && selectedHoldingId === 5"
+      [class.col-md-12]="subCos.length === 0 && selectedHoldingId === 5"
+      class="col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <div class="co-info-box">
+            <h4>نمودار عملکرد شرکت</h4>
+            <div class="row row-feature">
+              <div
+                *ngFor="let item of yearTypeLst"
+                (click)="onYearType(item.id)"
+                [class.select-feature]="item.isSelected">
+                <span>{{ item.title }}</span>
+              </div>
+            </div>
+            <div class="row row-feature">
+              <div
+                *ngFor="let item of reportTypeLst"
+                (click)="onReportType(item.id)"
+                [class.select-feature]="item.isSelected">
+                <span>{{ item.title }}</span>
+              </div>
+            </div>
+            <div id="chart-wrapper" class="chart-box">
+              <canvas id="BarChart"></canvas>
+            </div>
+          </div>
         </div>
-        <div class="row margin-20">
-          <h5>مدیرعامل :</h5>
-          <span>{{ coInfo.managingDirector }}</span>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+          <div class="co-info-box">
+            <h4>نمودار سود و زیان</h4>
+            <div id="chart-wrapper">
+              <canvas id="DoughnutChart" width="700"></canvas>
+            </div>
+          </div>
         </div>
-        <div class="row margin-20">
-          <h5>شناسه ملی شرکت :</h5>
-          <span>{{ coInfo.nationalID }}</span>
-        </div>
-        <div class="row margin-20">
-          <h5>سرمایه ثبت شده :</h5>
-          <span>{{ coInfo.registeredCapital }}</span>
-        </div>
-        <div class="row margin-20">
-          <h5>نام شرکت :</h5>
-          <span>{{ coInfo.companyName }}</span>
-        </div>
-        <div class="row margin-20">
-          <h5>سال تاسیس :</h5>
-          <span>{{ coInfo.persianRegisterDate }}</span>
+      </div>
+      <div class="row margin-b-20">
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+          style="padding-top: 20px">
+          <div class="co-info-box">
+            <div class="row">
+              <h3 class="margin-20">اطلاعات شرکت</h3>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 inline-flx">
+                <h5>مدیرعامل :</h5>
+                <span>{{ coInfo.managingDirector }}</span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 inline-flx">
+                <h5>شناسه ملی شرکت :</h5>
+                <span>{{ coInfo.nationalID }}</span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 inline-flx">
+                <h5>سرمایه ثبت شده :</h5>
+                <span>{{ coInfo.registeredCapital }}</span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 inline-flx">
+                <h5>نام شرکت :</h5>
+                <span>{{ coInfo.companyName }}</span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 inline-flx">
+                <h5>سال تاسیس :</h5>
+                <span>{{ coInfo.persianRegisterDate }}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 h-60">
+    <div
+      *ngIf="subCos.length > 0 && selectedHoldingId !== 5"
+      class="col-lg-3 col-md-3 col-sm-12 col-xs-12 margin-b-20">
       <div class="co-info-box">
-        <h4>نمودار عملکرد شرکت</h4>
-        <div class="row row-feature">
-          <div
-            *ngFor="let item of yearTypeLst"
-            (click)="onYearType(item.id)"
-            [class.select-feature]="item.isSelected">
-            <span>{{ item.title }}</span>
-          </div>
+        <div class="row">
+          <h4 class="sub-co-title">شرکت های تابعه</h4>
         </div>
-        <div class="row row-feature">
-          <div
-            *ngFor="let item of reportTypeLst"
-            (click)="onReportType(item.id)"
-            [class.select-feature]="item.isSelected">
-            <span>{{ item.title }}</span>
-          </div>
-        </div>
-        <div id="chart-wrapper" class="chart-box">
-          <canvas id="BarChart"></canvas>
+        <div
+          *ngFor="let item of subCos"
+          class="row sub-co"
+          (click)="onSelectSubCo(item.id)"
+          [class.selected-sub-co]="item.isSelected">
+          <span>{{ item.companyName }}</span>
         </div>
       </div>
     </div>
