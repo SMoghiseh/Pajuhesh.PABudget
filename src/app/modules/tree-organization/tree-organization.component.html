@@ -1,0 +1,50 @@
+<div class="chart-structure">
+
+    <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{$implicit: data}">
+    </ng-container>
+
+</div>
+
+
+<!-- template for company item -->
+<ng-template #companyInfoItem let-companyList>
+
+    <ng-container *ngFor="let company of companyList">
+        <!-- company item -->
+        <div class="tree">
+            <div class="company-item">
+                <!-- <div class="company-logo" [style.background-image]=" 'url(../../../../assets/images/holding-logo/atlas.svg)'">
+          </div> -->
+                <img src="../../../../assets/images/holding-logo/atlas.svg" class="company-logo" />
+                <div class="company-header">
+                    {{ company.title }}
+                </div>
+                <div class="company-detail">
+                    <span class="percentage">70%</span>
+                    <span class="status"> تملیکی </span>
+                    <span class="detail-link"><a href="">جزئیات</a></span>
+                </div>
+                <div class="border-tree"></div>
+            </div>
+            <div *ngIf="company.children" class="company-row">
+                <ng-container [ngTemplateOutlet]="companyInfoItem"
+                    [ngTemplateOutletContext]="{$implicit: company.children}">
+                </ng-container>
+            </div>
+        </div>
+
+        <!-- company item -->
+
+
+
+    </ng-container>
+
+
+
+
+
+
+
+
+
+</ng-template>
