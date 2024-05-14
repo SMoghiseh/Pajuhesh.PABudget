@@ -1,7 +1,6 @@
 body {
     background-color: #F5F7FA;
     height: 87vh;
-    padding: 15px;
 }
 
 .disable-item {
@@ -40,7 +39,7 @@ body {
 .all-box {
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0px 0px 2px 0px #B6C2D3;
+    box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
 }
 
 .co-info-box {
@@ -49,6 +48,14 @@ body {
 
     h4 {
         padding: 25px 30px 15px;
+    }
+
+    .inline-flx{
+        display: inline-flex;
+        padding: 20px;
+        h5, span{
+            text-align: center;
+        }
     }
 }
 
@@ -109,4 +116,37 @@ h5 {
 .center-box{
     text-align: -webkit-center;
     padding: 0px;
+}
+
+.sub-co-title{
+    margin: 0px 10px 0px 10px;
+}
+
+.sub-co{
+    background-color: #F1F5F9;
+    margin: 12px;
+    font-size: 13px;
+    padding: 7px;
+    border-radius: 7px;
+    color: black;
+    cursor: pointer;
+    &:hover{
+        @extend .selected-sub-co;
+    }
+}
+
+.selected-sub-co{
+    background-color: #DBEAFE;
+    color: #1E40AF;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#chart-wrapper{
+    height: 250px !important;
+    text-align: -webkit-center;
+}
+
+.margin-b-20{
+    margin-bottom: 20px;;
 }

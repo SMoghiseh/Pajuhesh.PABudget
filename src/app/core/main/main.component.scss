@@ -8,6 +8,7 @@ main {
   .container-fluid {
     padding: 0 0 0 0;
     margin: 0 0 0 0;
+    background-color: #F5F7FA;
 
     .compact-header {
       ::ng-deep {
@@ -28,7 +29,7 @@ main {
     .content {
       position: relative;
       width: 100%;
-      height: calc(100vh - var(--header-height) + var(--footer-height));
+      height: 100vh;
 
       overflow-y: auto;
       overflow-x: hidden;
@@ -60,7 +61,7 @@ main {
         &.full {
           // margin: calc(var(--content-height) + 1rem) 1.43rem 1rem 1.43rem;
           @media only screen and (min-width: 1200px){
-            margin: 4rem 5.43rem 1rem 1.43rem;
+            margin: 6rem 6rem 0rem 1.5rem;
           }
           @media only screen and (max-width: 1200px){
             margin: 8rem 1.43rem 1rem 1.43rem;
@@ -68,10 +69,7 @@ main {
         }
 
         &.compact {
-          // margin: calc(var(--content-height) + 1rem)
-          //   calc(var(--sidemenu-width) + 1rem) 1rem 1.43rem;
-          margin: 4rem
-            calc(var(--sidemenu-width) + 1rem) 1rem 1.43rem;
+          margin: 6rem calc(var(--sidemenu-width) + 1.8rem) 0rem 1.5rem;
         }
 
         .loading-content {
