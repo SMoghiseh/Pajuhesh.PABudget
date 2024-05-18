@@ -1,151 +1,27 @@
-<form #formDir="ngForm" [formGroup]="addNewCompanyForm" (ngSubmit)="addNewCompany()">
-  <div class="container">
-    <div class="row row-cols-1 my-1">
-      <!-- سازمان اصلی -->
-      <div class="col">
-        <label for="parent">سازمان اصلی</label>
-        <p-treeSelect id="parent" class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="parent"
-          placeholder="انتخاب کنید" [options]="parents" [filter]="true" [filterInputAutoFocus]="true"
-          [showClear]="true"></p-treeSelect>
-      </div>
-      <!-- / سازمان اصلی -->
-    </div>
-
-    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center pb-1">
-      <!-- نوع شرکت -->
-      <div class="col">
-        <label for="companyTypeModel">نوع شرکت</label>
-        <p-dropdown id="companyTypeModel" name="companyTypeModel" formControlName="companyTypeModel" class="col"
-          styleClass="w-100 my-1" optionLabel="title" placeholder="انتخاب کنید"
-          [class.ng-invalid]="companyTypeModel?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && companyTypeModel?.pristine) ||
-            companyTypeModel?.dirty ||
-            companyTypeModel?.touched
-          " [options]="companyTypes" [filter]="true" [showClear]="true">
-        </p-dropdown>
-      </div>
-      <!-- / نوع شرکت -->
-
-      <!-- نوع فعالیت -->
-      <div class="col">
-        <label for="activityTypeId">نوع فعالیت</label>
-        <p-dropdown id="activityTypeId" name="activityTypeId" formControlName="activityTypeId" class="col"
-          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [class.ng-invalid]="activityTypeId?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && activityTypeId?.pristine) ||
-            activityTypeId?.dirty ||
-            activityTypeId?.touched
-          " [options]="activityTypes" [filter]="true" [showClear]="true">
-        </p-dropdown>
-      </div>
-      <!-- / نوع فعالیت -->
-
-      <!-- نام شرکت -->
-      <div class="col">
-        <label for="companyName">نام شرکت</label>
-        <input pInputText id="companyName" name="companyName" formControlName="companyName" type="text" class="w-100"
-          [class.ng-invalid]="companyName?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && companyName?.pristine) ||
-            companyName?.dirty ||
-            companyName?.touched
-          " />
-      </div>
-      <!-- / نام شرکت -->
-
-      <!-- نام لاتین -->
-      <div class="col" *ngIf="!editData?.id">
-        <label for="latinName">نام لاتین</label>
-        <input pInputText [pKeyFilter]="noSpacesRegex" id="latinName" name="latinName" formControlName="latinName"
-          type="text" class="w-100" [class.ng-invalid]="latinName?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && latinName?.pristine) ||
-            latinName?.dirty ||
-            latinName?.touched
-          " />
-      </div>
-      <!-- / نام لاتین -->
-
+<p-panel class="search-panel__secation pb-1" header="تعریف سازمان">
+  <form #formDir="ngForm" [formGroup]="addNewCompanyForm" (ngSubmit)="addNewCompany()">
+    <div class="container row row-cols-lg-3 row-cols-1">
       <!-- شناسه ملی -->
       <div class="col">
         <label for="nationalID">شناسه ملی</label>
         <input pInputText id="nationalID" name="nationalID" formControlName="nationalID" type="text" class="w-100"
           [class.ng-invalid]="nationalID?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && nationalID?.pristine) ||
-            nationalID?.dirty ||
-            nationalID?.touched
-          " [value]="nationalID?.value | faNum" />
+      (addNewCompanySubmitted && nationalID?.pristine) ||
+      nationalID?.dirty ||
+      nationalID?.touched
+    " [value]="nationalID?.value | faNum" />
       </div>
       <!-- / شناسه ملی -->
-
-      <!-- نام نماد -->
-      <div class="col">
-        <label for="symbol">نام نماد</label>
-        <input pInputText id="symbol" name="symbol" formControlName="symbol" type="text" class="w-100"
-          [class.ng-invalid]="symbol?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && symbol?.pristine) ||
-            symbol?.dirty ||
-            symbol?.touched
-          " />
-      </div>
-      <!-- / نام نماد -->
-
-      <!-- تاریخ ثبت -->
-      <div class="col">
-        <label for="registerDate">تاریخ ثبت</label>
-        <p-persian-calendar id="registerDate" name="registerDate" formControlName="registerDate" styleClass="w-100 "
-          [class.ng-invalid]="registerDate?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && registerDate?.pristine) ||
-            registerDate?.dirty ||
-            registerDate?.touched
-          ">
-        </p-persian-calendar>
-      </div>
-      <!-- / تاریخ ثبت -->
-
-      <!-- شماره ثبت -->
-      <div class="col">
-        <label for="registerNumber">شماره ثبت</label>
-        <input pInputText id="registerNumber" name="registerNumber" formControlName="registerNumber" type="text"
-          class="w-100" [class.ng-invalid]="registerNumber?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && registerNumber?.pristine) ||
-            registerNumber?.dirty ||
-            registerNumber?.touched
-          " [value]="registerNumber?.value | faNum" />
-      </div>
-      <!-- / شماره ثبت -->
-
-      <!-- ISIC -->
-      <div class="col">
-        <label for="isic">ISIC</label>
-        <input pInputText id="isic" name="isic" formControlName="isic" type="text" class="w-100"
-          [class.ng-invalid]="isic?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && isic?.pristine) ||
-            isic?.dirty ||
-            isic?.touched
-          " />
-      </div>
-      <!-- / ISIC -->
-
-      <!-- ISIN -->
-      <div class="col">
-        <label for="companyISIN">ISIN</label>
-        <input pInputText id="companyISIN" name="companyISIN" formControlName="companyISIN" type="text" class="w-100"
-          [class.ng-invalid]="companyISIN?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && companyISIN?.pristine) ||
-            companyISIN?.dirty ||
-            companyISIN?.touched
-          " />
-      </div>
-      <!-- / ISIN -->
 
       <!-- سرمایه ثبت شده -->
       <div class="col">
         <label for="registeredCapital">سرمایه ثبت شده</label>
         <input pInputText id="registeredCapital" name="registeredCapital" formControlName="registeredCapital"
           type="text" class="w-100" [class.ng-invalid]="registeredCapital?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && registeredCapital?.pristine) ||
-            registeredCapital?.dirty ||
-            registeredCapital?.touched
-          " />
+              (addNewCompanySubmitted && registeredCapital?.pristine) ||
+              registeredCapital?.dirty ||
+              registeredCapital?.touched
+            " />
       </div>
       <!-- / سرمایه ثبت شده -->
 
@@ -154,102 +30,198 @@
         <label for="nonRegisteredCapital">سرمایه ثبت نشده</label>
         <input pInputText id="nonRegisteredCapital" name="nonRegisteredCapital" formControlName="nonRegisteredCapital"
           type="text" class="w-100" [class.ng-invalid]="nonRegisteredCapital?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && nonRegisteredCapital?.pristine) ||
-            nonRegisteredCapital?.dirty ||
-            nonRegisteredCapital?.touched
-          " />
+              (addNewCompanySubmitted && nonRegisteredCapital?.pristine) ||
+              nonRegisteredCapital?.dirty ||
+              nonRegisteredCapital?.touched
+            " />
       </div>
       <!-- / سرمایه ثبت نشده -->
-
-      <!--  کارشناس مالی -->
+      <!--   طبقه بندی بین المللی -->
       <div class="col">
-        <label for="financialManager"> کارشناس مالی</label>
-        <!-- <p-dropdown id="financialManager" name="financialManager" formControlName="financialManager" class="col"
-          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [class.ng-invalid]="financialManager?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && financialManager?.pristine) ||
-            financialManager?.dirty ||
-            financialManager?.touched
-          " [options]="financialStatuses" [showClear]="true">
-        </p-dropdown> -->
-        <input pInputText id="financialManager" name="financialManager" formControlName="financialManager" type="text"
-          class="w-100" [class.ng-invalid]="financialManager?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && financialManager?.pristine) ||
-            financialManager?.dirty ||
-            financialManager?.touched
-          " />
+        <label for="isic">طبقه بندی بین المللی </label>
+        <input pInputText id="isic" name="isic" formControlName="isic" type="text" class="w-100"
+          [class.ng-invalid]="isic?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && isic?.pristine) ||
+              isic?.dirty ||
+              isic?.touched
+            " />
       </div>
-      <!-- /  کارشناس مالی -->
+      <!-- / طبقه بندی بین المللی -->
+      <!--   استاندارد نام    -->
+      <div class="col">
+        <label for="companyISIN">طبقه بندی بین المللی </label>
+        <input pInputText id="companyISIN" name="companyISIN" formControlName="companyISIN" type="text" class="w-100"
+          [class.ng-invalid]="companyISIN?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && companyISIN?.pristine) ||
+              companyISIN?.dirty ||
+              companyISIN?.touched
+            " />
+      </div>
+      <!-- / استاندارد نام -->
+      <!-- نام شرکت -->
+      <div class="col">
+        <label for="companyName">نام شرکت</label>
+        <input pInputText id="companyName" name="companyName" formControlName="companyName" type="text" class="w-100"
+          [class.ng-invalid]="companyName?.invalid" [class.ng-dirty]="
+                        (addNewCompanySubmitted && companyName?.pristine) ||
+                        companyName?.dirty ||
+                        companyName?.touched
+                      " />
+      </div>
+      <!-- / نام شرکت -->
+      <!-- شماره ثبت -->
+      <div class="col">
+        <label for="registerNumber">شماره ثبت</label>
+        <input pInputText id="registerNumber" name="registerNumber" formControlName="registerNumber" type="text"
+          class="w-100" [class.ng-invalid]="registerNumber?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && registerNumber?.pristine) ||
+              registerNumber?.dirty ||
+              registerNumber?.touched
+            " [value]="registerNumber?.value | faNum" />
+      </div>
+      <!-- / شماره ثبت -->
+      <!-- تاریخ ثبت -->
+      <div class="col">
+        <label for="registerDate">تاریخ ثبت</label>
+        <p-persian-calendar id="registerDate" name="registerDate" formControlName="registerDate" styleClass="w-100 "
+          [class.ng-invalid]="registerDate?.invalid" [class.ng-dirty]="
+                        (addNewCompanySubmitted && registerDate?.pristine) ||
+                        registerDate?.dirty ||
+                        registerDate?.touched
+                      ">
+        </p-persian-calendar>
+      </div>
+      <!-- / تاریخ ثبت -->
+      <!-- نوع شرکت -->
+      <div class="col">
+        <label for="companyType">نوع شرکت</label>
+        <p-dropdown id="companyType" name="companyType" formControlName="companyType" class="col"
+          styleClass="w-100 my-1" optionLabel="title" placeholder="انتخاب کنید"
+          [class.ng-invalid]="companyType?.invalid" [class.ng-dirty]="
+            (addNewCompanySubmitted && companyType?.pristine) ||
+            companyType?.dirty ||
+            companyType?.touched
+          " [options]="companyTypes" [filter]="true" [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / نوع شرکت -->
+      <!-- نوع فعالیت -->
+      <div class="col">
+        <label for="activityType">نوع فعالیت</label>
+        <p-dropdown id="activityType" name="activityType" formControlName="activityType" class="col"
+          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+          [class.ng-invalid]="activityType?.invalid" [class.ng-dirty]="
+                    (addNewCompanySubmitted && activityType?.pristine) ||
+                    activityType?.dirty ||
+                    activityType?.touched
+                  " [options]="activityTypes" [filter]="true" [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / نوع فعالیت -->
 
+      <!-- نام نماد -->
+      <div class="col">
+        <label for="symbol">نام نماد</label>
+        <input pInputText id="symbol" name="symbol" formControlName="symbol" type="text" class="w-100"
+          [class.ng-invalid]="symbol?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && symbol?.pristine) ||
+              symbol?.dirty ||
+              symbol?.touched
+            " />
+      </div>
+      <!-- / نام نماد -->
+      <!--  والد -->
+      <div class="col">
+        <label for="parentId">والد </label>
+        <input pInputText id="parentId" name="parentId" formControlName="parentId" type="text" class="w-100"
+          [class.ng-invalid]="parentId?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && parentId?.pristine) ||
+              parentId?.dirty ||
+              parentId?.touched
+            " />
+      </div>
+      <!-- /  والد -->
+      <!-- نام لاتین -->
+      <div class="col" *ngIf="!editData?.id">
+        <label for="latinName">نام لاتین</label>
+        <input pInputText [pKeyFilter]="noSpacesRegex" id="latinName" name="latinName" formControlName="latinName"
+          type="text" class="w-100" [class.ng-invalid]="latinName?.invalid" [class.ng-dirty]="
+                        (addNewCompanySubmitted && latinName?.pristine) ||
+                        latinName?.dirty ||
+                        latinName?.touched
+                      " />
+      </div>
+      <!-- / نام لاتین -->
       <!-- پایان سال مالی -->
       <div class="col">
-        <label for="yearEnd">پایان سال مالی</label>
-        <p-persian-calendar id="yearEnd" name="yearEnd" formControlName="yearEnd" styleClass="w-100 "
-          [class.ng-invalid]="yearEnd?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && yearEnd?.pristine) ||
-            yearEnd?.dirty ||
-            yearEnd?.touched
-          ">
+        <label for="periodType">پایان سال مالی</label>
+        <p-persian-calendar id="periodType" name="periodType" formControlName="periodType" styleClass="w-100 "
+          [class.ng-invalid]="periodType?.invalid" [class.ng-dirty]="
+                    (addNewCompanySubmitted && periodType?.pristine) ||
+                    periodType?.dirty ||
+                    periodType?.touched
+                  ">
         </p-persian-calendar>
       </div>
       <!-- / پایان سال مالی -->
-
-      <!-- ماهیت -->
-      <div class="col">
-        <label for="reportingTypeId">ماهیت</label>
-        <p-dropdown id="reportingTypeId" name="reportingTypeId" formControlName="reportingTypeId" class="col"
-          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [options]="reportingTypes" [class.ng-invalid]="reportingTypeId?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && reportingTypeId?.pristine) ||
-            reportingTypeId?.dirty ||
-            reportingTypeId?.touched
-          " [showClear]="true">
-        </p-dropdown>
-      </div>
-      <!-- / ماهیت -->
-
-      <!-- موسسه حسابرسی شرکت -->
-      <div class="col">
-        <label for="companyInspectionInstituteId">موسسه حسابرسی شرکت</label>
-        <p-dropdown id="companyInspectionInstituteId" name="companyInspectionInstituteId"
-          formControlName="companyInspectionInstituteId" class="col" styleClass="w-100 my-1" optionLabel="title"
-          optionValue="id" placeholder="انتخاب کنید" [options]="companyInspectionInstitutes"
-          [class.ng-invalid]="companyInspectionInstituteId?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted &&
-              companyInspectionInstituteId?.pristine) ||
-            companyInspectionInstituteId?.dirty ||
-            companyInspectionInstituteId?.touched
-          " [showClear]="true">
-        </p-dropdown>
-      </div>
-      <!-- / موسسه حسابرسی شرکت -->
-    </div>
-
-    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
       <!-- موضوع فعالیت -->
       <div class="col">
         <label for="activitySubject">موضوع فعالیت</label>
         <textarea pInputTextarea id="activitySubject" name="activitySubject" formControlName="activitySubject" rows="5"
           cols="30" class="w-100" [class.ng-invalid]="activitySubject?.invalid" [class.ng-dirty]="
-            (addNewCompanySubmitted && activitySubject?.pristine) ||
-            activitySubject?.dirty ||
-            activitySubject?.touched
-          "></textarea>
+              (addNewCompanySubmitted && activitySubject?.pristine) ||
+              activitySubject?.dirty ||
+              activitySubject?.touched
+            "></textarea>
       </div>
       <!-- / موضوع فعالیت -->
-    </div>
+      <!-- ماهیت -->
+      <div class="col">
+        <label for="reportingType">ماهیت</label>
+        <p-dropdown id="reportingType" name="reportingType" formControlName="reportingType" class="col"
+          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+          [options]="reportingTypes" [class.ng-invalid]="reportingType?.invalid" [class.ng-dirty]="
+                        (addNewCompanySubmitted && reportingType?.pristine) ||
+                        reportingType?.dirty ||
+                        reportingType?.touched
+                      " [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / ماهیت -->
+      <!-- موسسه حسابرسی شرکت -->
+      <div class="col">
+        <label for="companyInspectionInstitute">موسسه حسابرسی شرکت</label>
+        <p-dropdown id="companyInspectionInstitute" name="companyInspectionInstitute"
+          formControlName="companyInspectionInstitute" class="col" styleClass="w-100 my-1" optionLabel="title"
+          optionValue="id" placeholder="انتخاب کنید" [options]="companyInspectionInstitutes"
+          [class.ng-invalid]="companyInspectionInstitute?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted &&
+                companyInspectionInstitute?.pristine) ||
+              companyInspectionInstitute?.dirty ||
+              companyInspectionInstitute?.touched
+            " [showClear]="true">
+        </p-dropdown>
+      </div>
+      <!-- / موسسه حسابرسی شرکت -->
+      <!-- تاریخ شروع حسابرسی -->
+      <div class="col">
+        <label for="">موسسه حسابرسی شرکت</label>
 
-    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
-      <!-- آدرس کارخانه -->
+      </div>
+      <!-- / تاریخ شروع حسابرسی -->
+      <!-- تاریخ پایان حسابرسی -->
+      <div class="col">
+        <label for="">موسسه حسابرسی شرکت</label>
+
+      </div>
+      <!-- / تاریخ پایان حسابرسی -->
+      <!-- مدیر عامل -->
       <div class="col my-1">
-        <label for="factoryAddress">آدرس کارخانه</label>
-        <input pInputText id="factoryAddress" name="factoryAddress" formControlName="factoryAddress" type="text"
+        <label for="managingDirector">مدیر عامل</label>
+        <input pInputText id="managingDirector" name="managingDirector" formControlName="managingDirector" type="text"
           class="w-100" />
       </div>
-      <!-- / آدرس کارخانه -->
-    </div>
-
-    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- / مدیر عامل -->
       <!-- تلفن کارخانه (کد) -->
       <div class="col my-1">
         <label for="factoryTelephone">تلفن کارخانه (کد)</label>
@@ -264,19 +236,13 @@
         <input pInputText id="factoryFax" name="factoryFax" formControlName="factoryFax" type="text" class="w-100" />
       </div>
       <!-- / نمابر کارخانه (کد) -->
-    </div>
-
-    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
-      <!-- آدرس امور سهام -->
+      <!-- آدرس کارخانه -->
       <div class="col my-1">
-        <label for="stockAffairsOffice">آدرس امور سهام</label>
-        <input pInputText id="stockAffairsOffice" name="stockAffairsOffice" formControlName="stockAffairsOffice"
-          type="text" class="w-100" />
+        <label for="factoryAddress">آدرس کارخانه</label>
+        <input pInputText id="factoryAddress" name="factoryAddress" formControlName="factoryAddress" type="text"
+          class="w-100" />
       </div>
-      <!-- / آدرس امور سهام -->
-    </div>
-
-    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- / آدرس کارخانه -->
       <!-- تلفن امور سهام (کد) -->
       <div class="col my-1">
         <label for="stockAffairsTelephone">تلفن امور سهام (کد)</label>
@@ -292,27 +258,20 @@
           class="w-100" />
       </div>
       <!-- / نمابر امور سهام (کد) -->
-    </div>
-
-    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
-      <!-- آدرس دفتر مرکزی -->
+      <!-- آدرس امور سهام -->
       <div class="col my-1">
-        <label for="centeralOffice">آدرس دفتر مرکزی</label>
-        <input pInputText id="centeralOffice" name="centeralOffice" formControlName="centeralOffice" type="text"
-          class="w-100" />
+        <label for="stockAffairsOffice">آدرس امور سهام</label>
+        <input pInputText id="stockAffairsOffice" name="stockAffairsOffice" formControlName="stockAffairsOffice"
+          type="text" class="w-100" />
       </div>
-      <!-- / آدرس دفتر مرکزی -->
-    </div>
-
-    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+      <!-- / آدرس امور سهام -->
       <!-- تلفن دفتر مرکزی (کد) -->
-      <div class="col my-1">
+      <!-- <div class="col my-1">
         <label for="centeralOfficeTelephone">تلفن دفتر مرکزی (کد)</label>
         <input pInputText id="centeralOfficeTelephone" name="centeralOfficeTelephone"
           formControlName="centeralOfficeTelephone" type="text" class="w-100" />
-      </div>
+      </div> -->
       <!-- / تلفن دفتر مرکزی (کد) -->
-
       <!-- نمابر دفتر مرکزی (کد) -->
       <div class="col my-1">
         <label for="centeralOfficeFax">نمابر دفتر مرکزی (کد)</label>
@@ -320,59 +279,102 @@
           type="text" class="w-100" />
       </div>
       <!-- / نمابر دفتر مرکزی (کد) -->
-    </div>
-
-    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
-      <!-- مدیر عامل -->
+      <!-- آدرس دفتر مرکزی -->
       <div class="col my-1">
-        <label for="managingDirector">مدیر عامل</label>
-        <input pInputText id="managingDirector" name="managingDirector" formControlName="managingDirector" type="text"
+        <label for="centeralOffice">آدرس دفتر مرکزی</label>
+        <input pInputText id="centeralOffice" name="centeralOffice" formControlName="centeralOffice" type="text"
           class="w-100" />
       </div>
-      <!-- / مدیر عامل -->
-
-      <!-- مدیر مالی -->
+      <!-- / آدرس دفتر مرکزی -->
+      <!--  کد سیستمی  -->
       <div class="col my-1">
-        <label for="financialManager">مدیر مالی</label>
-        <input pInputText id="financialManager" name="financialManager" formControlName="financialManager" type="text"
+        <label for="systemOrganizationCode"> کد سیستمی</label>
+        <input pInputText id="systemOrganizationCode" name="systemOrganizationCode"
+          formControlName="systemOrganizationCode" type="text" class="w-100" />
+      </div>
+      <!-- / کد سیستمی   -->
+      <!--  کد سیستمی  -->
+      <div class="col my-1">
+        <label for="countOfEmployees"> تعداد کارکنان </label>
+        <input pInputText id="countOfEmployees" name="countOfEmployees" formControlName="countOfEmployees" type="text"
           class="w-100" />
       </div>
-      <!-- / مدیر مالی -->
-    </div>
-
-    <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
-      <!-- اعضای هییت مدیره -->
+      <!-- / کد سیستمی   -->
+      <!--   شماره صورتجلسه  -->
       <div class="col my-1">
-        <label for="boardofDirectors">اعضای هیئت مدیره</label>
-        <input pInputText id="boardofDirectors" name="boardofDirectors" formControlName="boardofDirectors" type="text"
+        <label for="minutesNumber"> شماره صورتجلسه </label>
+        <input pInputText id="minutesNumber" name="minutesNumber" formControlName="minutesNumber" type="text"
           class="w-100" />
       </div>
-      <!-- / اعضای هییت مدیره -->
-    </div>
-
-    <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
-      <!-- حسابرس و بازرس قانونی -->
+      <!-- / شماره صورتجلسه   -->
+      <!--    تاریخ صورتجلسه  -->
       <div class="col my-1">
-        <label for="alternateInspector ">حسابرس و بازرس قانونی</label>
-        <input pInputText id="alternateInspector " name="alternateInspector " formControlName="alternateInspector "
-          type="text" class="w-100" />
+        <label for="minutesDate"> تاریخ صورتجلسه</label>
+        <input pInputText id="minutesDate" name="minutesDate" formControlName="minutesDate" type="text" class="w-100" />
       </div>
-      <!-- / حسابرس و بازرس قانونی -->
+      <!-- /  تاریخ صورتجلسه   -->
 
-      <!-- بازرس علی البدل -->
+      <!-- conditional input -->
+
+
+      <!--  درصد سهام شرکت های زیرمجموعه -->
       <div class="col my-1">
-        <label for="substituteInspector">بازرس علی البدل</label>
-        <input pInputText id="substituteInspector" name="substituteInspector" formControlName="substituteInspector"
-          type="text" class="w-100" />
+        <label for="percentOwner"> درصد سهام شرکت های زیرمجموعه</label>
+        <input pInputText id="percentOwner" name="percentOwner" formControlName="percentOwner" type="text"
+          class="w-100" />
       </div>
-      <!-- / بازرس علی البدل -->
-    </div>
-  </div>
+      <!-- / درصد سهام شرکت های زیرمجموعه  -->
+      <!-- از تاریخ  -->
+      <div class="col">
+        <label for="fromDate">تاریخ ثبت</label>
+        <p-persian-calendar id="fromDate" name="fromDate" formControlName="fromDate" styleClass="w-100 "
+          [class.ng-invalid]="fromDate?.invalid" [class.ng-dirty]="
+                              (addNewCompanySubmitted && fromDate?.pristine) ||
+                              fromDate?.dirty ||
+                              fromDate?.touched
+                            ">
+        </p-persian-calendar>
+      </div>
+      <!-- / از تاریخ  -->
+      <!-- تا تاریخ  -->
+      <div class="col">
+        <label for="toDate">تاریخ ثبت</label>
+        <p-persian-calendar id="toDate" name="toDate" formControlName="toDate" styleClass="w-100 "
+          [class.ng-invalid]="toDate?.invalid" [class.ng-dirty]="
+                              (addNewCompanySubmitted && toDate?.pristine) ||
+                              toDate?.dirty ||
+                              toDate?.touched
+                            ">
+        </p-persian-calendar>
+      </div>
+      <!-- / تا تاریخ  -->
+      <!-- تاریخ صورت جلسه  -->
+      <div class="col">
+        <label for="meetingManagementDate">تاریخ صورت جلسه</label>
+        <p-persian-calendar id="toDate" name="meetingManagementDate" formControlName="meetingManagementDate"
+          styleClass="w-100 " [class.ng-invalid]="meetingManagementDate?.invalid" [class.ng-dirty]="
+                              (addNewCompanySubmitted && meetingManagementDate?.pristine) ||
+                              meetingManagementDate?.dirty ||
+                              meetingManagementDate?.touched
+                            ">
+        </p-persian-calendar>
+      </div>
+      <!-- / تاریخ صورت جلسه  -->
+      <!-- شماره صورت جلسات -->
+      <div class="col my-1">
+        <label for="meetingManagmentNumber"> شماره صورت جلسات </label>
+        <input pInputText id="meetingManagmentNumber" name="meetingManagmentNumber"
+          formControlName="meetingManagmentNumber" type="text" class="w-100" />
+      </div>
+      <!-- / شماره صورت جلسات -->
 
-  <!-- دکمه ها -->
-  <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
-    <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="isEdit ? 'ویرایش' : 'افزودن'"
-      type="submit" [loading]="addNewCompanyLoading"></p-button>
-  </div>
-  <!-- / دکمه ها -->
-</form>
+      <!-- /conditional input -->
+    </div>
+    <!-- دکمه ها -->
+    <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="isEdit ? 'ویرایش' : 'افزودن'"
+        type="submit" [loading]="addNewCompanyLoading"></p-button>
+    </div>
+    <!-- / دکمه ها -->
+  </form>
+</p-panel>

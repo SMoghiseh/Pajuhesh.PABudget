@@ -1,0 +1,160 @@
+<p-panel class="search-panel__secation pb-1" header="تعریف سازمان">
+  <form #formDir="ngForm" [formGroup]="addNewCompanyForm" (ngSubmit)="addNewCompany()">
+    <div class="container">
+      <div class="row row-cols-1 my-1">
+        <!-- سازمان اصلی -->
+        <div class="col">
+          <label for="parent">سازمان اصلی</label>
+          <p-treeSelect id="parent" class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="parent"
+            placeholder="انتخاب کنید" [options]="parents" [filter]="true" [filterInputAutoFocus]="true"
+            [showClear]="true"></p-treeSelect>
+        </div>
+        <!-- / سازمان اصلی -->
+      </div>
+
+      <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center pb-1">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ISIC -->
+        <div class="col">
+          <label for="isic">ISIC</label>
+          <input pInputText id="isic" name="isic" formControlName="isic" type="text" class="w-100"
+            [class.ng-invalid]="isic?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && isic?.pristine) ||
+              isic?.dirty ||
+              isic?.touched
+            " />
+        </div>
+        <!-- / ISIC -->
+
+        <!-- ISIN -->
+        <div class="col">
+          <label for="companyISIN">ISIN</label>
+          <input pInputText id="companyISIN" name="companyISIN" formControlName="companyISIN" type="text" class="w-100"
+            [class.ng-invalid]="companyISIN?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && companyISIN?.pristine) ||
+              companyISIN?.dirty ||
+              companyISIN?.touched
+            " />
+        </div>
+        <!-- / ISIN -->
+
+
+        <!--  کارشناس مالی -->
+        <div class="col">
+          <label for="financialManager"> کارشناس مالی</label>
+          <!-- <p-dropdown id="financialManager" name="financialManager" formControlName="financialManager" class="col"
+            styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+            [class.ng-invalid]="financialManager?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && financialManager?.pristine) ||
+              financialManager?.dirty ||
+              financialManager?.touched
+            " [options]="financialStatuses" [showClear]="true">
+          </p-dropdown> -->
+          <input pInputText id="financialManager" name="financialManager" formControlName="financialManager" type="text"
+            class="w-100" [class.ng-invalid]="financialManager?.invalid" [class.ng-dirty]="
+              (addNewCompanySubmitted && financialManager?.pristine) ||
+              financialManager?.dirty ||
+              financialManager?.touched
+            " />
+        </div>
+        <!-- /  کارشناس مالی -->
+
+
+
+
+
+
+      </div>
+
+      <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+
+      </div>
+
+      <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+
+
+        <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+
+        </div>
+
+        <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+
+        </div>
+
+        <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+
+        </div>
+
+        <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+
+        </div>
+
+        <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+
+
+
+        </div>
+
+        <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+
+
+          <!-- مدیر مالی -->
+          <div class="col my-1">
+            <label for="financialManager">مدیر مالی</label>
+            <input pInputText id="financialManager" name="financialManager" formControlName="financialManager"
+              type="text" class="w-100" />
+          </div>
+          <!-- / مدیر مالی -->
+        </div>
+
+        <div class="row row-cols-lg-1 row-cols-1 d-flex align-items-center">
+          <!-- اعضای هییت مدیره -->
+          <div class="col my-1">
+            <label for="boardofDirectors">اعضای هیئت مدیره</label>
+            <input pInputText id="boardofDirectors" name="boardofDirectors" formControlName="boardofDirectors"
+              type="text" class="w-100" />
+          </div>
+          <!-- / اعضای هییت مدیره -->
+        </div>
+
+        <div class="row row-cols-lg-2 row-cols-1 d-flex align-items-center">
+          <!-- حسابرس و بازرس قانونی -->
+          <div class="col my-1">
+            <label for="alternateInspector ">حسابرس و بازرس قانونی</label>
+            <input pInputText id="alternateInspector " name="alternateInspector " formControlName="alternateInspector "
+              type="text" class="w-100" />
+          </div>
+          <!-- / حسابرس و بازرس قانونی -->
+
+          <!-- بازرس علی البدل -->
+          <div class="col my-1">
+            <label for="substituteInspector">بازرس علی البدل</label>
+            <input pInputText id="substituteInspector" name="substituteInspector" formControlName="substituteInspector"
+              type="text" class="w-100" />
+          </div>
+          <!-- / بازرس علی البدل -->
+        </div>
+      </div>
+
+      <!-- دکمه ها -->
+      <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
+        <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="isEdit ? 'ویرایش' : 'افزودن'"
+          type="submit" [loading]="addNewCompanyLoading"></p-button>
+      </div>
+      <!-- / دکمه ها -->
+  </form>
+</p-panel>

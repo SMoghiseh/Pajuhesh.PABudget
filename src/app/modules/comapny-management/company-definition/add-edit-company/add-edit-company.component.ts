@@ -79,8 +79,8 @@ export class AddEditCompanyComponent implements OnInit {
       this.editData = company;
       this.addNewCompanyForm.patchValue(company);
       this.addNewCompanyForm.patchValue({
-        parent: this.parents.find(data => data.id === company.parentId),
-        companyTypeModel: this.companyTypes.find(
+        parentId: this.parents.find(data => data.id === company.parentId),
+        companyType: this.companyTypes.find(
           data => data.id === company.companyTypeId
         ),
       });
@@ -91,9 +91,9 @@ export class AddEditCompanyComponent implements OnInit {
           registerDate: new JDate(new Date(company.registerDate)),
         });
       }
-      if (typeof company.yearEnd === 'string') {
+      if (typeof company.periodType === 'string') {
         this.addNewCompanyForm.patchValue({
-          yearEnd: new JDate(new Date(company.yearEnd)),
+          periodType: new JDate(new Date(company.periodType)),
         });
       }
     } else {
@@ -103,14 +103,14 @@ export class AddEditCompanyComponent implements OnInit {
     }
   }
 
-  get parent() {
-    return this.addNewCompanyForm.get('parent');
+  get parentId() {
+    return this.addNewCompanyForm.get('parentId');
   }
-  get companyTypeModel() {
-    return this.addNewCompanyForm.get('companyTypeModel');
+  get companyType() {
+    return this.addNewCompanyForm.get('companyType');
   }
-  get activityTypeId() {
-    return this.addNewCompanyForm.get('activityTypeId');
+  get activityType() {
+    return this.addNewCompanyForm.get('activityType');
   }
   get companyName() {
     return this.addNewCompanyForm.get('companyName');
@@ -145,14 +145,26 @@ export class AddEditCompanyComponent implements OnInit {
   get financialManager() {
     return this.addNewCompanyForm.get('financialManager');
   }
-  get yearEnd() {
-    return this.addNewCompanyForm.get('yearEnd');
+  get periodType() {
+    return this.addNewCompanyForm.get('periodType');
   }
-  get reportingTypeId() {
-    return this.addNewCompanyForm.get('reportingTypeId');
+  get reportingType() {
+    return this.addNewCompanyForm.get('reportingType');
   }
-  get companyInspectionInstituteId() {
-    return this.addNewCompanyForm.get('companyInspectionInstituteId');
+  get companyInspectionInstitute() {
+    return this.addNewCompanyForm.get('companyInspectionInstitute');
+  }
+  get systemOrganizationCode() {
+    return this.addNewCompanyForm.get('systemOrganizationCode');
+  }
+  get fromDate() {
+    return this.addNewCompanyForm.get('fromDate');
+  }
+  get toDate() {
+    return this.addNewCompanyForm.get('toDate');
+  }
+  get percentOwner() {
+    return this.addNewCompanyForm.get('percentOwner');
   }
   get activitySubject() {
     return this.addNewCompanyForm.get('activitySubject');
@@ -196,6 +208,15 @@ export class AddEditCompanyComponent implements OnInit {
   get substituteInspector() {
     return this.addNewCompanyForm.get('substituteInspector');
   }
+  get countOfEmployees() {
+    return this.addNewCompanyForm.get('countOfEmployees');
+  }
+  get meetingManagementDate() {
+    return this.addNewCompanyForm.get('meetingManagementDate');
+  }
+  get meetingManagmentNumber() {
+    return this.addNewCompanyForm.get('meetingManagmentNumber');
+  }
 
   constructor(
     private httpService: HttpService,
@@ -211,28 +232,28 @@ export class AddEditCompanyComponent implements OnInit {
     this.getCompanyTypes();
     this.getActivityTypes();
     this.addNewCompanyForm = new FormGroup({
-      parent: new FormControl(this.addNewCompanyModel.parent),
-      companyTypeModel: new FormControl(
-        this.addNewCompanyModel.companyTypeModel,
+      // parentId: new FormControl(this.addNewCompanyModel.parentId),
+      companyType: new FormControl(
+        this.addNewCompanyModel.companyType,
         Validators.required
       ),
-      activityTypeId: new FormControl(
-        this.addNewCompanyModel.activityTypeId,
+      activityType: new FormControl(
+        this.addNewCompanyModel.activityType,
         Validators.required
       ),
       companyName: new FormControl(
         this.addNewCompanyModel.companyName,
         Validators.required
       ),
-      latinName: new FormControl(this.addNewCompanyModel.latinName),
+      // latinName: new FormControl(this.addNewCompanyModel.latinName),
       nationalID: new FormControl(
         this.addNewCompanyModel.nationalID,
         Validators.required
       ),
-      symbol: new FormControl(
-        this.addNewCompanyModel.symbol,
-        Validators.required
-      ),
+      // symbol: new FormControl(
+      //   this.addNewCompanyModel.symbol,
+      //   Validators.required
+      // ),
       registerDate: new FormControl(
         this.addNewCompanyModel.registerDate,
         Validators.required
@@ -254,20 +275,36 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.nonRegisteredCapital,
         Validators.required
       ),
-      financialManager: new FormControl(
-        this.addNewCompanyModel.financialManager,
+      // financialManager: new FormControl(
+      //   this.addNewCompanyModel.financialManager,
+      //   Validators.required
+      // ),
+      periodType: new FormControl(
+        this.addNewCompanyModel.periodType,
         Validators.required
       ),
-      yearEnd: new FormControl(
-        this.addNewCompanyModel.yearEnd,
+      systemOrganizationCode: new FormControl(
+        this.addNewCompanyModel.systemOrganizationCode,
         Validators.required
       ),
-      reportingTypeId: new FormControl(
-        this.addNewCompanyModel.reportingTypeId,
+      fromDate: new FormControl(
+        this.addNewCompanyModel.fromDate,
         Validators.required
       ),
-      companyInspectionInstituteId: new FormControl(
-        this.addNewCompanyModel.companyInspectionInstituteId,
+      toDate: new FormControl(
+        this.addNewCompanyModel.toDate,
+        Validators.required
+      ),
+      percentOwner: new FormControl(
+        this.addNewCompanyModel.percentOwner,
+        Validators.required
+      ),
+      reportingType: new FormControl(
+        this.addNewCompanyModel.reportingType,
+        Validators.required
+      ),
+      companyInspectionInstitute: new FormControl(
+        this.addNewCompanyModel.companyInspectionInstitute,
         Validators.required
       ),
       activitySubject: new FormControl(
@@ -287,23 +324,32 @@ export class AddEditCompanyComponent implements OnInit {
       ),
       stockAffairsFax: new FormControl(this.addNewCompanyModel.stockAffairsFax),
       centeralOffice: new FormControl(this.addNewCompanyModel.centeralOffice),
-      centeralOfficeTelephone: new FormControl(
-        this.addNewCompanyModel.centeralOfficeTelephone
+      // centeralOfficeTelephone: new FormControl(
+      //   this.addNewCompanyModel.centeralOfficeTelephone
+      // ),
+      // centeralOfficeFax: new FormControl(
+      //   this.addNewCompanyModel.centeralOfficeFax
+      // ),
+      // managingDirector: new FormControl(
+      //   this.addNewCompanyModel.managingDirector
+      // ),
+      // boardofDirectors: new FormControl(
+      //   this.addNewCompanyModel.boardofDirectors
+      // ),
+      // alternateInspector: new FormControl(
+      //   this.addNewCompanyModel.alternateInspector
+      // ),
+      // substituteInspector: new FormControl(
+      //   this.addNewCompanyModel.substituteInspector
+      // ),
+      countOfEmployees: new FormControl(
+        this.addNewCompanyModel.countOfEmployees
       ),
-      centeralOfficeFax: new FormControl(
-        this.addNewCompanyModel.centeralOfficeFax
+      meetingManagementDate: new FormControl(
+        this.addNewCompanyModel.meetingManagementDate
       ),
-      managingDirector: new FormControl(
-        this.addNewCompanyModel.managingDirector
-      ),
-      boardofDirectors: new FormControl(
-        this.addNewCompanyModel.boardofDirectors
-      ),
-      alternateInspector: new FormControl(
-        this.addNewCompanyModel.alternateInspector
-      ),
-      substituteInspector: new FormControl(
-        this.addNewCompanyModel.substituteInspector
+      meetingManagmentNumber: new FormControl(
+        this.addNewCompanyModel.meetingManagmentNumber
       ),
     });
   }
@@ -311,7 +357,7 @@ export class AddEditCompanyComponent implements OnInit {
   returnSelectedNode(key: number, list: any, rowData: any) {
     list.forEach((element: any) => {
       if (element.id == key) {
-        rowData.parent = element;
+        rowData.parentId = element;
         this.addNewCompanyForm.patchValue(rowData);
         return;
       } else if (element.children?.length > 0) {
@@ -328,9 +374,9 @@ export class AddEditCompanyComponent implements OnInit {
 
     if (this.addNewCompanyForm.valid) {
       const {
-        parent,
-        companyTypeModel,
-        activityTypeId,
+        parentId,
+        companyType,
+        activityType,
         companyName,
         latinName,
         nationalID,
@@ -342,9 +388,13 @@ export class AddEditCompanyComponent implements OnInit {
         registeredCapital,
         nonRegisteredCapital,
         financialManager,
-        yearEnd,
-        reportingTypeId,
-        companyInspectionInstituteId,
+        periodType,
+        reportingType,
+        companyInspectionInstitute,
+        systemOrganizationCode,
+        fromDate,
+        toDate,
+        percentOwner,
         activitySubject,
         factoryAddress,
         factoryTelephone,
@@ -359,6 +409,9 @@ export class AddEditCompanyComponent implements OnInit {
         boardofDirectors,
         alternateInspector,
         substituteInspector,
+        countOfEmployees,
+        meetingManagementDate,
+        meetingManagmentNumber
       } = this.addNewCompanyForm.value;
 
       const request = new Company();
@@ -380,23 +433,23 @@ export class AddEditCompanyComponent implements OnInit {
           'yyyy-MM-ddTHH:mm:ss'
         )
         : null;
-      request.companyTypeId = companyTypeModel.id;
-      request.activityTypeId = activityTypeId;
+      request.companyTypeId = companyType.id;
+      request.activityType = activityType;
       request.symbol = symbol;
-      request.parentId = parent.id;
+      request.parentId = parentId.id;
       request.latinName = latinName;
-      request.yearEnd = yearEnd
+      request.periodType = periodType
         ? this.datePipe.transform(
           this.jDateCalculatorService.convertToGeorgian(
-            yearEnd?.getFullYear(),
-            yearEnd?.getMonth(),
-            yearEnd?.getDate()
+            periodType?.getFullYear(),
+            periodType?.getMonth(),
+            periodType?.getDate()
           ),
           'yyyy-MM-ddTHH:mm:ss'
         )
         : null;
       request.activitySubject = activitySubject;
-      request.reportingTypeId = reportingTypeId;
+      request.reportingType = reportingType;
       request.financialManager = financialManager;
       request.factoryAddress = factoryAddress;
       request.factoryTelephone = factoryTelephone;
@@ -411,8 +464,15 @@ export class AddEditCompanyComponent implements OnInit {
       request.financialManager = financialManager;
       request.boardofDirectors = boardofDirectors;
       request.substituteInspector = substituteInspector;
+      request.countOfEmployees = countOfEmployees;
+      request.meetingManagementDate = meetingManagementDate;
+      request.meetingManagmentNumber = meetingManagmentNumber;
       request.alternateInspector = alternateInspector;
-      request.companyInspectionInstituteId = companyInspectionInstituteId;
+      request.companyInspectionInstitute = companyInspectionInstitute;
+      request.systemOrganizationCode = systemOrganizationCode;
+      request.fromDate = fromDate;
+      request.toDate = toDate;
+      request.percentOwner = percentOwner;
 
       this.addNewCompanyLoading = true;
 

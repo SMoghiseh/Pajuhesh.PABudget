@@ -528,7 +528,7 @@ export class Company {
   boardofDirectors?: string;
   alternateInspector?: string;
   registerDate!: any;
-  yearEnd!: any;
+  periodType!: any;
   registeredCapital?: number;
   nonRegisteredCapital?: number;
   companyTypeId?: number;
@@ -547,6 +547,13 @@ export class Company {
   isSelected?: boolean;
   companyId?: number;
   count?: number;
+  countOfEmployees?: number;
+  systemOrganizationCode?: number;
+  percentOwner?: number;
+  fromDate?: any;
+  toDate?: any;
+  meetingManagmentNumber?: any;
+  meetingManagementDate?: any;
 }
 
 /** کاربرها */

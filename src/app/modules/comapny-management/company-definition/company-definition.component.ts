@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
   ActivityType,
@@ -83,15 +84,20 @@ export class CompanyDefinitionComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.searchCompanyForm = new FormGroup({
       companyName: new FormControl(),
-      isic: new FormControl(),
     });
+
+    this.getCompanyList();
+
   }
+
+
 
   /*--------------------------
   # GET
@@ -102,7 +108,7 @@ export class CompanyDefinitionComponent implements OnInit {
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-    const { companyName, isic } = this.searchCompanyForm.value;
+    const { companyName } = this.searchCompanyForm.value;
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
 
@@ -113,8 +119,42 @@ export class CompanyDefinitionComponent implements OnInit {
         id: this.selectedCompany.id || 0,
         pageNumber: pagination.pageNumber,
         pageSize: pagination.pageSize,
-        companyName: companyName,
-        isic: isic,
+        companyName: companyName
+      })
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          if (response.data && response.data.totalCount != undefined)
+            this.totalCount = response.data.totalCount;
+          if (response.data && response.data.result)
+            return response.data.result;
+          else return [new Company()];
+        })
+      )
+      .subscribe(companyList => (this.companyList = companyList));
+  }
+
+  /*--------------------------
+# GET
+--------------------------*/
+  getDataList(event?: LazyLoadEvent) {
+    if (event) this.lazyLoadEvent = event;
+
+    const pagination = new Pagination();
+    const first = this.lazyLoadEvent?.first || 0;
+    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+    const { companyName } = this.searchCompanyForm.value;
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+
+    this.loading = true;
+
+    this.httpService
+      .post<Company[]>(ListCompany.apiAddress, {
+        id: this.selectedCompany.id || 0,
+        pageNumber: pagination.pageNumber,
+        pageSize: pagination.pageSize,
+        companyName: companyName
       })
       .pipe(
         tap(() => (this.loading = false)),
@@ -171,7 +211,7 @@ export class CompanyDefinitionComponent implements OnInit {
         .subscribe(response => {
           if (response.successed) {
             this.dataTableFirst = 0;
-            this.getCompanyList();
+            this.getDataList();
 
             this.messageService.add({
               key: 'subjectDefinition',
@@ -187,11 +227,16 @@ export class CompanyDefinitionComponent implements OnInit {
 
   onOpenAddCompany() {
     this.editCompanyData = new Company();
-    this.isOpenAddCompany = true;
+    // this.isOpenAddCompany = true;
+    this.router.navigate(['/Comapny/createCompanyForm']);
   }
 
   onCloseModal() {
     this.isOpenAddCompany = false;
     this.getCompanyList();
   }
+
+  selectBoardOfManagments(company: Company) { }
+
+  selectAuditors(company: Company) { }
 }
