@@ -240,7 +240,8 @@ export class CompanyDefinitionComponent implements OnInit {
   onOpenAddCompany() {
     this.editCompanyData = new Company();
     // this.isOpenAddCompany = true;
-    this.router.navigate([`/Comapny/createCompanyForm/${this.selectedCompany.id}`]);
+    // this.router.navigate([`/Comapny/createCompanyForm/${this.selectedCompany.id}`]);
+    this.router.navigate([`/Comapny/createCompanyForm`]);
   }
 
   onCloseModal() {
