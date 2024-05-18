@@ -11,14 +11,18 @@
     <form #formDir="ngForm" [formGroup]="searchCompanyForm" (ngSubmit)="getCompanyList()">
       <div class="form-group container">
         <div class="row row-cols-lg-4 row-cols-1">
-          <!-- نام شرکت -->
-          <div class="col my-1">
-            <label for="companyName">نام شرکت</label>
-            <p-dropdown id="subjects" class="col" styleClass="w-100" optionLabel="title" [options]="companyList"
-              placeholder="انتخاب کنید" formControlName="companyName" (onChange)="getDataList($event)">
-            </p-dropdown>
-          </div>
+
           <!-- / نام شرکت -->
+          <div class="col">
+            <label for="companyName">نام شرکت</label>
+            <!-- <p-treeSelect id="companyName" class="md:w-20rem w-full" containerStyleClass="w-full"
+              [(ngModel)]="selectedCompany" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+              [filterInputAutoFocus]="true" (onNodeSelect)="onCompanySelected($event)" [showClear]="true"></p-treeSelect> -->
+            <p-treeSelect id="companyName" class="md:w-20rem w-full" containerStyleClass="w-full"
+              [(ngModel)]="selectedCompany" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+              [filterInputAutoFocus]="true" (onNodeSelect)="onCompanySelected($event)"
+              [showClear]="true"></p-treeSelect>
+          </div>
         </div>
       </div>
     </form>
@@ -72,27 +76,19 @@
           <!-- actions -->
           <td class=" jc-left ai-left">
             <!-- edit -->
-            <p-button pRipple class="pe-2" styleClass="p-button-text p-button-warning p-button-rounded" type="button"
-              icon="pi pi-pencil" (click)="editRow(company)">
-            </p-button>
+            <button class="action-image-container edit-button" (click)="editRow(company)"></button>
             <!-- / edit -->
 
             <!-- delete -->
-            <p-button pRipple class="pe-2" styleClass="p-button-text p-button-danger p-button-rounded" type="button"
-              icon="pi pi-times" (click)="deleteRow(company)">
-            </p-button>
+            <button class="action-image-container delete-button" (click)="deleteRow(company)"></button>
             <!-- / delete -->
 
             <!-- select Board of Managments -->
-            <p-button pRipple class="pe-2" styleClass="p-button-text p-button-danger p-button-rounded" type="button"
-              icon="pi pi-times" (click)="selectBoardOfManagments(company)">
-            </p-button>
+            <button class="action-image-container add-boardofdirectors-button" (click)="deleteRow(company)"></button>
             <!-- select Board of Managments -->
 
             <!-- select auditor -->
-            <p-button pRipple class="pe-2" styleClass="p-button-text p-button-danger p-button-rounded" type="button"
-              icon="pi pi-times" (click)="selectAuditors(company)">
-            </p-button>
+            <button class="action-image-container add-auditors-button pr-1" (click)="selectAuditors(company)"> </button>
             <!-- select auditor -->
 
 

@@ -115,12 +115,14 @@ export class CompanyDefinitionComponent implements OnInit {
     this.loading = true;
 
     this.httpService
-      .post<Company[]>(ListCompany.apiAddress, {
-        id: this.selectedCompany.id || 0,
-        pageNumber: pagination.pageNumber,
-        pageSize: pagination.pageSize,
-        companyName: companyName
-      })
+      .post<Company[]>(ListCompany.apiAddress,
+        {
+          // id: this.selectedCompany.id || 0,
+          // pageNumber: pagination.pageNumber,
+          // pageSize: pagination.pageSize,
+          // companyName: companyName
+        }
+      )
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
@@ -132,6 +134,12 @@ export class CompanyDefinitionComponent implements OnInit {
         })
       )
       .subscribe(companyList => (this.companyList = companyList));
+  }
+
+
+  onCompanySelected(event: any) {
+    this.selectedCompany = event.value;
+    debugger
   }
 
   /*--------------------------
@@ -151,10 +159,11 @@ export class CompanyDefinitionComponent implements OnInit {
 
     this.httpService
       .post<Company[]>(ListCompany.apiAddress, {
+
+
         id: this.selectedCompany.id || 0,
-        pageNumber: pagination.pageNumber,
-        pageSize: pagination.pageSize,
-        companyName: companyName
+        withOutPagination: true,
+
       })
       .pipe(
         tap(() => (this.loading = false)),
@@ -166,7 +175,10 @@ export class CompanyDefinitionComponent implements OnInit {
           else return [new Company()];
         })
       )
-      .subscribe(companyList => (this.companyList = companyList));
+      .subscribe(companyList => {
+        this.companyList = companyList;
+        this.selectedCompany = this.companyList[0];
+      });
   }
 
   /*--------------------------
@@ -177,13 +189,13 @@ export class CompanyDefinitionComponent implements OnInit {
    * @param report report details model
    */
   previewDetails(company: Company) {
-    this.selectedCompany = company;
-    this.previewDetailsDialog = true;
+    // this.selectedCompany = company;
+    // this.previewDetailsDialog = true;
   }
 
   editRow(company: Company) {
-    this.isOpenAddCompany = true;
-    this.editCompanyData = company;
+    // this.isOpenAddCompany = true;
+    // this.editCompanyData = company;
   }
 
   deleteRow(company: Company) {
@@ -228,7 +240,7 @@ export class CompanyDefinitionComponent implements OnInit {
   onOpenAddCompany() {
     this.editCompanyData = new Company();
     // this.isOpenAddCompany = true;
-    this.router.navigate(['/Comapny/createCompanyForm']);
+    this.router.navigate([`/Comapny/createCompanyForm/${this.selectedCompany.id}`]);
   }
 
   onCloseModal() {

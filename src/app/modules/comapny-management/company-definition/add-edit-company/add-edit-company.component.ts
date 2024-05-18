@@ -327,9 +327,9 @@ export class AddEditCompanyComponent implements OnInit {
       // centeralOfficeTelephone: new FormControl(
       //   this.addNewCompanyModel.centeralOfficeTelephone
       // ),
-      // centeralOfficeFax: new FormControl(
-      //   this.addNewCompanyModel.centeralOfficeFax
-      // ),
+      centeralOfficeFax: new FormControl(
+        this.addNewCompanyModel.centeralOfficeFax
+      ),
       // managingDirector: new FormControl(
       //   this.addNewCompanyModel.managingDirector
       // ),
