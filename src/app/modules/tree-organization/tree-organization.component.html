@@ -1,6 +1,8 @@
+<p class="return"><a routerLink="/default/Dashboard">بازگشت</a></p>
+
 <div class="chart-structure">
 
-    <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{$implicit: data}">
+    <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{$implicit: companyList}">
     </ng-container>
 
 </div>
@@ -13,16 +15,18 @@
         <!-- company item -->
         <div class="company">
             <div class="company-item">
-                <!-- <div class="company-logo" [style.background-image]=" 'url(../../../../assets/images/holding-logo/atlas.svg)'">
-          </div> -->
-                <img src="../../../../assets/images/holding-logo/atlas.svg" class="company-logo" />
+                <div class="company-logo"
+                    [style.background-image]=" 'url(../../../../assets/images/holding-logo/' + company.logo + ')'">
+                </div>
+
+                <!-- <img src="../../../../assets/images/holding-logo/atlas.svg" class="company-logo" /> -->
                 <div class="company-header">
-                    {{ company.title }}
+                    {{ company.label }}
                 </div>
                 <div class="company-detail">
-                    <span class="percentage">70%</span>
-                    <span class="status"> تملیکی </span>
-                    <span class="detail-link"><a href="">جزئیات</a></span>
+                    <span class="percentage"> {{ company.percentOwner }} </span>
+                    <span class="status"> {{ company.companyType }} </span>
+                    <span class="detail-link"><a href="">جزئیات </a></span>
                 </div>
             </div>
             <div *ngIf="company.children" class="company-list">
