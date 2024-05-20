@@ -17,7 +17,7 @@
     }
 }
 
-::ng-deep .p-datatable {
+:host ::ng-deep .p-datatable {
     .p-datatable-thead>tr>th {
         background: unset;
         text-align: right !important;
@@ -50,11 +50,14 @@
 
 .edit-button {
     background-image: url('./../../../../assets/images/icons/Group 116.svg');
-
 }
 
 .delete-button {
     background-image: url('./../../../../assets/images/icons/Group 117.svg');
+}
+
+.add-button {
+    background-image: url('./../../../../assets/images/icons/Group 187.svg');
 }
 
 .add-boardofdirectors-button {

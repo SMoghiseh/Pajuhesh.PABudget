@@ -8,27 +8,22 @@
   <div class="card-text pt-3"></div>
 
   <div class="pb-2">
-    <form #formDir="ngForm" [formGroup]="searchCompanyForm" (ngSubmit)="getCompanyList()">
-      <div class="form-group container">
-        <div class="row row-cols-lg-4 row-cols-1">
+    <!-- <form #formDir="ngForm" [formGroup]="searchCompanyForm" (ngSubmit)="getCompanyList()"> -->
+    <div class="form-group container">
+      <div class="row row-cols-lg-4 row-cols-1">
 
-          <!-- / نام شرکت -->
-          <div class="col">
-            <label for="companyName">نام شرکت</label>
-            <!-- <p-treeSelect id="companyName" class="md:w-20rem w-full" containerStyleClass="w-full"
-              [(ngModel)]="selectedCompany" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
-              [filterInputAutoFocus]="true" (onNodeSelect)="onCompanySelected($event)" [showClear]="true"></p-treeSelect> -->
-            <p-treeSelect id="companyName" class="md:w-20rem w-full" containerStyleClass="w-full"
-              [(ngModel)]="selectedCompany" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
-              [filterInputAutoFocus]="true" (onNodeSelect)="onCompanySelected($event)"
-              [showClear]="true"></p-treeSelect>
-          </div>
+        <!-- / نام شرکت -->
+        <div class="col">
+          <label for="companyName">نام شرکت</label>
+          <p-dropdown id="companyName" class="col" styleClass="w-100" optionLabel="companyName" [options]="subCompanies"
+            placeholder="انتخاب کنید" [(ngModel)]="selectedCompany" (onChange)="onCompanySelected($event)">
+          </p-dropdown>
         </div>
       </div>
-    </form>
+    </div>
+    <!-- </form> -->
     <!-- </p-panel> -->
   </div>
-  <!-- / جستجو -->
 
   <!-- data table -->
   <div class="table-container">
@@ -38,13 +33,13 @@
       <!-- table title -->
       <!-- دکمه -->
       <p-button class="pe-2" styleClass="p-button-success" icon="pi pi-plus" label="افزودن سازمان"
-        (click)="onOpenAddCompany()"></p-button>
+        (click)="addCompany(selectedCompany)"></p-button>
       <!-- / دکمه -->
     </div>
     <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
       [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-      [value]="companyList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-      (onLazyLoad)="getDataList($event)" [(first)]="dataTableFirst">
+      [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+      [(first)]="dataTableFirst">
 
       <!-- table header -->
       <ng-template pTemplate="header">
@@ -69,10 +64,10 @@
       <!-- table body -->
       <ng-template pTemplate="body" let-company let-rowIndex="rowIndex">
         <tr>
-          <!-- <td>{{ company.companyName }}</td> -->
-          <td>هلدینگ سامانه فرهنگیان</td>
-          <td>سعید ساجدی نیا </td>
-          <td>101015487896 </td>
+          <td>{{ company.companyName }}</td>
+          <td>{{ company.companyType }}</td>
+          <td>{{ company.nationalID }}</td>
+
           <!-- actions -->
           <td class=" jc-left ai-left">
             <!-- edit -->
@@ -81,6 +76,10 @@
 
             <!-- delete -->
             <button class="action-image-container delete-button" (click)="deleteRow(company)"></button>
+            <!-- / delete -->
+
+            <!-- delete -->
+            <button class="action-image-container add-button" (click)="addCompany(company)"></button>
             <!-- / delete -->
 
             <!-- select Board of Managments -->
@@ -104,7 +103,7 @@
 
   <!-- data list -->
   <div class="data-list d-block d-lg-none">
-    <ul *ngFor="let company of companyList" class="list-group my-1">
+    <ul *ngFor="let company of data" class="list-group my-1">
       <!-- نام شرکت -->
       <li class="list-group-item">
         <div class="row">
@@ -113,7 +112,7 @@
           </div>
 
           <div class="col my-1 text-center">
-            {{ company.companyName }}
+            <!-- {{ company.companyName }} -->
           </div>
         </div>
       </li>
@@ -127,7 +126,7 @@
           </div>
 
           <div class="col my-1 text-center">
-            {{ company.isic || '' | faNum }}
+            <!-- {{ company.isic || '' | faNum }} -->
           </div>
         </div>
       </li>
@@ -423,7 +422,7 @@
               </div>
 
               <div class="col my-1 text-center">
-                {{ selectedCompany.centeralOfficeTelephone || '' | faNum }}
+                {{ selectedCompany.partyTelephone || '' | faNum }}
               </div>
             </div>
           </li>
@@ -437,7 +436,7 @@
               </div>
 
               <div class="col my-1 text-center">
-                {{ selectedCompany.centeralOfficeFax || '' | faNum }}
+                {{ selectedCompany.partyFax || '' | faNum }}
               </div>
             </div>
           </li>
@@ -494,11 +493,3 @@
 <!-- / preview report detail -->
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-
-<p-dialog [header]="
-    editCompanyData && editCompanyData.id
-      ? 'ویرایش ' + editCompanyData.companyName
-      : 'افزودن سازمان جدید'
-  " [(visible)]="isOpenAddCompany" [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '700px' }">
-  <app-add-edit-company (closeModal)="onCloseModal()" [data]="editCompanyData"></app-add-edit-company>
-</p-dialog>

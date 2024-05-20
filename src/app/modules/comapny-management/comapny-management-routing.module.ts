@@ -25,7 +25,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'createCompanyForm',
+            path: 'CompanyForm',
             component: AddEditCompanyComponent,
             title: 'برنامه و بودجه | تعریف سازمان',
             data: {

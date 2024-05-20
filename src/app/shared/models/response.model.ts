@@ -521,8 +521,8 @@ export class Company {
   stockAffairsTelephone?: string;
   stockAffairsFax?: string;
   centeralOffice?: string;
-  centeralOfficeTelephone?: string;
-  centeralOfficeFax?: string;
+  partyTelephone?: string;
+  partyFax?: string;
   managingDirector?: string;
   financialManager?: string;
   boardofDirectors?: string;
