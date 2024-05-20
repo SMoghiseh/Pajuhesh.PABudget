@@ -52,6 +52,16 @@ const routes: Routes = [
         canMatch: [authGuard],
       },
       {
+        path: 'TreeOrganization',
+        title: 'برنامه و بودجه |  ساختار درختی شرکت ها ',
+        loadChildren: () =>
+          import('./modules/tree-organization/tree-organization.module').then(
+            m => m.TreeOrganizationModule
+          ),
+        canMatch: [authGuard],
+        data: { showSideBar: false },
+      },
+      {
         path: 'Comapny',
         title: 'برنامه و بودجه |مدیریت سازمان ها',
         loadChildren: () =>
@@ -85,4 +95,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

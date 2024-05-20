@@ -22,7 +22,7 @@ const routes: Routes = [
         canMatch: [authGuard],
         children: [],
         component: DashboardComponent,
-        data: { title: 'داشبورد' },
+        data: { title: 'داشبورد', showSideBar: true },
       },
     ],
   },
@@ -32,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomeRoutingModule {}
+export class HomeRoutingModule { }

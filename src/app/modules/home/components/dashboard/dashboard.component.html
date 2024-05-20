@@ -1,15 +1,15 @@
 <body>
+  <div class="dashboard-menu-list col-sm-12 col-xs-12">
+    <ul>
+      <li (click)="navigateToPage()"><span>ساختار درختی سازمان ها </span></li>
+      <li><span> </span></li>
+      <li><span> </span></li>
+    </ul>
+  </div>
   <div class="row">
-    <div
-      class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box"
-      *ngFor="let company of mySubCompanies">
-      <div
-        class="holding-box"
-        [class.select-co-item]="company.isSelected"
-        (click)="onSelectCompany(company)">
-        <div
-          class="div-img-logo"
-          [style.background-image]="
+    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box" *ngFor="let company of mySubCompanies">
+      <div class="holding-box" [class.select-co-item]="company.isSelected" (click)="onSelectCompany(company)">
+        <div class="div-img-logo" [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
         <div style="height: 36px">
@@ -20,28 +20,22 @@
     </div>
   </div>
   <div class="row" style="margin-top: 20px">
-    <div
-      [class.col-lg-9]="subCos.length > 0 && selectedHoldingId !== 5"
+    <div [class.col-lg-9]="subCos.length > 0 && selectedHoldingId !== 5"
       [class.col-md-9]="subCos.length > 0 && selectedHoldingId !== 5"
       [class.col-lg-12]="subCos.length === 0 && selectedHoldingId === 5"
-      [class.col-md-12]="subCos.length === 0 && selectedHoldingId === 5"
-      class="col-sm-12 col-xs-12">
+      [class.col-md-12]="subCos.length === 0 && selectedHoldingId === 5" class="col-sm-12 col-xs-12">
       <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
           <div class="co-info-box">
             <h4>نمودار عملکرد شرکت</h4>
             <div class="row row-feature">
-              <div
-                *ngFor="let item of yearTypeLst"
-                (click)="onYearType(item.id)"
+              <div *ngFor="let item of yearTypeLst" (click)="onYearType(item.id)"
                 [class.select-feature]="item.isSelected">
                 <span>{{ item.title }}</span>
               </div>
             </div>
             <div class="row row-feature">
-              <div
-                *ngFor="let item of reportTypeLst"
-                (click)="onReportType(item.id)"
+              <div *ngFor="let item of reportTypeLst" (click)="onReportType(item.id)"
                 [class.select-feature]="item.isSelected">
                 <span>{{ item.title }}</span>
               </div>
@@ -61,9 +55,7 @@
         </div>
       </div>
       <div class="row margin-b-20">
-        <div
-          class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-          style="padding-top: 20px">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px">
           <div class="co-info-box">
             <div class="row">
               <h3 class="margin-20">اطلاعات شرکت</h3>
@@ -94,17 +86,12 @@
         </div>
       </div>
     </div>
-    <div
-      *ngIf="subCos.length > 0 && selectedHoldingId !== 5"
-      class="col-lg-3 col-md-3 col-sm-12 col-xs-12 margin-b-20">
+    <div *ngIf="subCos.length > 0 && selectedHoldingId !== 5" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 margin-b-20">
       <div class="co-info-box">
         <div class="row">
           <h4 class="sub-co-title">شرکت های تابعه</h4>
         </div>
-        <div
-          *ngFor="let item of subCos"
-          class="row sub-co"
-          (click)="onSelectSubCo(item.id)"
+        <div *ngFor="let item of subCos" class="row sub-co" (click)="onSelectSubCo(item.id)"
           [class.selected-sub-co]="item.isSelected">
           <span>{{ item.companyName }}</span>
         </div>

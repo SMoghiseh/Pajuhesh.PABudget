@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ActivityType,
@@ -16,7 +16,7 @@ import { map, tap } from 'rxjs';
 import { PersianNumberService } from '@shared/services/persian-number.service';
 import { DatePipe } from '@angular/common';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
-import { JDate } from '@shared/utilities/JDate/jdate';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-edit-company',
@@ -26,7 +26,8 @@ import { JDate } from '@shared/utilities/JDate/jdate';
 export class AddEditCompanyComponent implements OnInit {
   public datePipe = new DatePipe('en-US');
   noSpacesRegex = /^[a-zA-z_-]+$/;
-
+  formHeader: string = "";
+  buttonLabel: string = "";
   /*--------------------------
   # From
   --------------------------*/
@@ -70,47 +71,48 @@ export class AddEditCompanyComponent implements OnInit {
 
   isEdit = false;
   editData: any;
+  companySelected: Company = new Company();
+  parentCompanySelected: Company = new Company();
+  // @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
+  // @Input() set data(company: Company) {
+  //   if (company && company.id) {
+  //     this.isEdit = true;
+  //     this.editData = company;
+  //     this.addNewCompanyForm.patchValue(company);
+  //     this.addNewCompanyForm.patchValue({
+  //       // parentId: this.parents.find(data => data.id === company.parentId),
+  //       companyType: this.companyTypes.find(
+  //         data => data.id === company.companyTypeId
+  //       ),
+  //     });
+  //     if (typeof company.parentId == 'number')
+  //       this.returnSelectedNode(company.parentId, this.parents, company);
+  //     if (typeof company.registerDate === 'string') {
+  //       this.addNewCompanyForm.patchValue({
+  //         registerDate: new JDate(new Date(company.registerDate)),
+  //       });
+  //     }
+  //     if (typeof company.periodType === 'string') {
+  //       this.addNewCompanyForm.patchValue({
+  //         periodType: new JDate(new Date(company.periodType)),
+  //       });
+  //     }
+  //   } else {
+  //     this.isEdit = false;
+  //     // this.addNewCompanyForm.reset();
+  //     this.editData = new Company();
+  //   }
+  // }
 
-  @Input() set data(company: Company) {
-    if (company && company.id) {
-      this.isEdit = true;
-      this.editData = company;
-      this.addNewCompanyForm.patchValue(company);
-      this.addNewCompanyForm.patchValue({
-        parent: this.parents.find(data => data.id === company.parentId),
-        companyTypeModel: this.companyTypes.find(
-          data => data.id === company.companyTypeId
-        ),
-      });
-      if (typeof company.parentId == 'number')
-        this.returnSelectedNode(company.parentId, this.parents, company);
-      if (typeof company.registerDate === 'string') {
-        this.addNewCompanyForm.patchValue({
-          registerDate: new JDate(new Date(company.registerDate)),
-        });
-      }
-      if (typeof company.yearEnd === 'string') {
-        this.addNewCompanyForm.patchValue({
-          yearEnd: new JDate(new Date(company.yearEnd)),
-        });
-      }
-    } else {
-      this.isEdit = false;
-      this.addNewCompanyForm.reset();
-      this.editData = new Company();
-    }
+  get parentId() {
+    return this.addNewCompanyForm.get('parentId');
   }
-
-  get parent() {
-    return this.addNewCompanyForm.get('parent');
+  get companyType() {
+    return this.addNewCompanyForm.get('companyType');
   }
-  get companyTypeModel() {
-    return this.addNewCompanyForm.get('companyTypeModel');
-  }
-  get activityTypeId() {
-    return this.addNewCompanyForm.get('activityTypeId');
+  get activityType() {
+    return this.addNewCompanyForm.get('activityType');
   }
   get companyName() {
     return this.addNewCompanyForm.get('companyName');
@@ -145,14 +147,26 @@ export class AddEditCompanyComponent implements OnInit {
   get financialManager() {
     return this.addNewCompanyForm.get('financialManager');
   }
-  get yearEnd() {
-    return this.addNewCompanyForm.get('yearEnd');
+  get periodType() {
+    return this.addNewCompanyForm.get('periodType');
   }
-  get reportingTypeId() {
-    return this.addNewCompanyForm.get('reportingTypeId');
+  get reportingType() {
+    return this.addNewCompanyForm.get('reportingType');
   }
-  get companyInspectionInstituteId() {
-    return this.addNewCompanyForm.get('companyInspectionInstituteId');
+  get companyInspectionInstitute() {
+    return this.addNewCompanyForm.get('companyInspectionInstitute');
+  }
+  get systemOrganizationCode() {
+    return this.addNewCompanyForm.get('systemOrganizationCode');
+  }
+  get fromDate() {
+    return this.addNewCompanyForm.get('fromDate');
+  }
+  get toDate() {
+    return this.addNewCompanyForm.get('toDate');
+  }
+  get percentOwner() {
+    return this.addNewCompanyForm.get('percentOwner');
   }
   get activitySubject() {
     return this.addNewCompanyForm.get('activitySubject');
@@ -178,15 +192,15 @@ export class AddEditCompanyComponent implements OnInit {
   get centeralOffice() {
     return this.addNewCompanyForm.get('centeralOffice');
   }
-  get centeralOfficeTelephone() {
-    return this.addNewCompanyForm.get('centeralOfficeTelephone');
+  get partyTelephone() {
+    return this.addNewCompanyForm.get('partyTelephone');
   }
-  get centeralOfficeFax() {
-    return this.addNewCompanyForm.get('centeralOfficeFax');
+  get partyFax() {
+    return this.addNewCompanyForm.get('partyFax');
   }
-  get managingDirector() {
-    return this.addNewCompanyForm.get('managingDirector');
-  }
+  // get managingDirector() {
+  //   return this.addNewCompanyForm.get('managingDirector');
+  // }
   get boardofDirectors() {
     return this.addNewCompanyForm.get('boardofDirectors');
   }
@@ -196,28 +210,50 @@ export class AddEditCompanyComponent implements OnInit {
   get substituteInspector() {
     return this.addNewCompanyForm.get('substituteInspector');
   }
+  get countOfEmployees() {
+    return this.addNewCompanyForm.get('countOfEmployees');
+  }
+  get meetingManagementDate() {
+    return this.addNewCompanyForm.get('meetingManagementDate');
+  }
+  get meetingManagmentNumber() {
+    return this.addNewCompanyForm.get('meetingManagmentNumber');
+  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
-    private jDateCalculatorService: JDateCalculatorService
-  ) { }
+    private jDateCalculatorService: JDateCalculatorService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+
+  }
 
   ngOnInit(): void {
+    this.getDropDownData();
+    this.createForm();
+    this.setComponentMode();
+  }
+
+  getDropDownData() {
     this.getCompanyInspectionInstitutes();
     this.getReportingTypes();
-    // this.getPublisherStatuses();
     this.getCompanyTree();
     this.getCompanyTypes();
     this.getActivityTypes();
+  }
+
+  createForm() {
     this.addNewCompanyForm = new FormGroup({
-      parent: new FormControl(this.addNewCompanyModel.parent),
-      companyTypeModel: new FormControl(
-        this.addNewCompanyModel.companyTypeModel,
+      parentId: new FormControl(this.addNewCompanyModel.parentId),
+      parentTitle: new FormControl(),
+      companyType: new FormControl(
+        this.addNewCompanyModel.companyType,
         Validators.required
       ),
-      activityTypeId: new FormControl(
-        this.addNewCompanyModel.activityTypeId,
+      activityType: new FormControl(
+        this.addNewCompanyModel.activityType,
         Validators.required
       ),
       companyName: new FormControl(
@@ -254,20 +290,36 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.nonRegisteredCapital,
         Validators.required
       ),
-      financialManager: new FormControl(
-        this.addNewCompanyModel.financialManager,
+      // financialManager: new FormControl(
+      //   this.addNewCompanyModel.financialManager,
+      //   Validators.required
+      // ),
+      periodType: new FormControl(
+        this.addNewCompanyModel.periodType,
         Validators.required
       ),
-      yearEnd: new FormControl(
-        this.addNewCompanyModel.yearEnd,
+      systemOrganizationCode: new FormControl(
+        this.addNewCompanyModel.systemOrganizationCode,
         Validators.required
       ),
-      reportingTypeId: new FormControl(
-        this.addNewCompanyModel.reportingTypeId,
+      fromDate: new FormControl(
+        this.addNewCompanyModel.fromDate,
         Validators.required
       ),
-      companyInspectionInstituteId: new FormControl(
-        this.addNewCompanyModel.companyInspectionInstituteId,
+      toDate: new FormControl(
+        this.addNewCompanyModel.toDate,
+        Validators.required
+      ),
+      percentOwner: new FormControl(
+        this.addNewCompanyModel.percentOwner,
+        Validators.required
+      ),
+      reportingType: new FormControl(
+        this.addNewCompanyModel.reportingType,
+        Validators.required
+      ),
+      companyInspectionInstitute: new FormControl(
+        this.addNewCompanyModel.companyInspectionInstitute,
         Validators.required
       ),
       activitySubject: new FormControl(
@@ -287,31 +339,92 @@ export class AddEditCompanyComponent implements OnInit {
       ),
       stockAffairsFax: new FormControl(this.addNewCompanyModel.stockAffairsFax),
       centeralOffice: new FormControl(this.addNewCompanyModel.centeralOffice),
-      centeralOfficeTelephone: new FormControl(
-        this.addNewCompanyModel.centeralOfficeTelephone
+      partyTelephone: new FormControl(
+        this.addNewCompanyModel.partyTelephone
       ),
-      centeralOfficeFax: new FormControl(
-        this.addNewCompanyModel.centeralOfficeFax
+      partyFax: new FormControl(
+        this.addNewCompanyModel.partyFax
       ),
-      managingDirector: new FormControl(
-        this.addNewCompanyModel.managingDirector
+      // managingDirector: new FormControl(
+      //   this.addNewCompanyModel.managingDirector
+      // ),
+      // boardofDirectors: new FormControl(
+      //   this.addNewCompanyModel.boardofDirectors
+      // ),
+      // alternateInspector: new FormControl(
+      //   this.addNewCompanyModel.alternateInspector
+      // ),
+      // substituteInspector: new FormControl(
+      //   this.addNewCompanyModel.substituteInspector
+      // ),
+      countOfEmployees: new FormControl(
+        this.addNewCompanyModel.countOfEmployees
       ),
-      boardofDirectors: new FormControl(
-        this.addNewCompanyModel.boardofDirectors
+      meetingManagementDate: new FormControl(
+        this.addNewCompanyModel.meetingManagementDate
       ),
-      alternateInspector: new FormControl(
-        this.addNewCompanyModel.alternateInspector
-      ),
-      substituteInspector: new FormControl(
-        this.addNewCompanyModel.substituteInspector
+      meetingManagmentNumber: new FormControl(
+        this.addNewCompanyModel.meetingManagmentNumber
       ),
     });
+  }
+
+  setComponentMode() {
+    this.route.queryParams
+      .subscribe(params => {
+
+        // component is in edit mode 
+        if (params.hasOwnProperty('companyId')) {
+          this.companySelected.id = params['companyId'];
+          // get data of comoany selected
+          this.getSelectedCompanyData(this.companySelected.id);
+          this.formHeader = "ویرایش سازمان";
+          this.buttonLabel = "ویرایش";
+        }
+
+        // component is in insert mode 
+        else if (params.hasOwnProperty('parentId')) {
+          this.parentCompanySelected.id = params['parentId'];
+          // get parent data of comoany selected
+          this.getParentSelectedCompanyData(this.parentCompanySelected.id);
+          this.formHeader = "افزودن سازمان"
+          this.buttonLabel = "افزودن";
+        }
+        else {
+          alert("mode is not defined!");
+        }
+
+      });
+  }
+
+  getParentSelectedCompanyData(id: number) {
+    this.httpService
+      .get<Company>(`${Company.apiAddressDetailCo}${id}`)
+      .subscribe(response => {
+        if (response.data.result) {
+          this.parentCompanySelected = response.data.result;
+          this.addNewCompanyForm.patchValue({
+            parentId: this.parentCompanySelected.id,
+          })
+        }
+      });
+  }
+
+  getSelectedCompanyData(id: number) {
+    this.httpService
+      .get<Company>(`${Company.apiAddressDetailCo}${id}`)
+      .subscribe(response => {
+        if (response.data.result) {
+          this.companySelected = response.data.result;
+          this.addNewCompanyForm.patchValue(this.companySelected);
+        }
+      });
   }
 
   returnSelectedNode(key: number, list: any, rowData: any) {
     list.forEach((element: any) => {
       if (element.id == key) {
-        rowData.parent = element;
+        rowData.parentId = element;
         this.addNewCompanyForm.patchValue(rowData);
         return;
       } else if (element.children?.length > 0) {
@@ -325,12 +438,11 @@ export class AddEditCompanyComponent implements OnInit {
   --------------------------*/
   addNewCompany() {
     this.addNewCompanySubmitted = true;
-
     if (this.addNewCompanyForm.valid) {
       const {
-        parent,
-        companyTypeModel,
-        activityTypeId,
+        parentId,
+        companyType,
+        activityType,
         companyName,
         latinName,
         nationalID,
@@ -342,9 +454,13 @@ export class AddEditCompanyComponent implements OnInit {
         registeredCapital,
         nonRegisteredCapital,
         financialManager,
-        yearEnd,
-        reportingTypeId,
-        companyInspectionInstituteId,
+        periodType,
+        reportingType,
+        companyInspectionInstitute,
+        systemOrganizationCode,
+        fromDate,
+        toDate,
+        percentOwner,
         activitySubject,
         factoryAddress,
         factoryTelephone,
@@ -353,12 +469,15 @@ export class AddEditCompanyComponent implements OnInit {
         stockAffairsTelephone,
         stockAffairsFax,
         centeralOffice,
-        centeralOfficeTelephone,
-        centeralOfficeFax,
-        managingDirector,
+        partyTelephone,
+        partyFax,
+        // managingDirector,
         boardofDirectors,
         alternateInspector,
         substituteInspector,
+        countOfEmployees,
+        meetingManagementDate,
+        meetingManagmentNumber
       } = this.addNewCompanyForm.value;
 
       const request = new Company();
@@ -380,23 +499,23 @@ export class AddEditCompanyComponent implements OnInit {
           'yyyy-MM-ddTHH:mm:ss'
         )
         : null;
-      request.companyTypeId = companyTypeModel.id;
-      request.activityTypeId = activityTypeId;
-      request.symbol = symbol;
-      request.parentId = parent.id;
-      request.latinName = latinName;
-      request.yearEnd = yearEnd
+      request.periodType = periodType
         ? this.datePipe.transform(
           this.jDateCalculatorService.convertToGeorgian(
-            yearEnd?.getFullYear(),
-            yearEnd?.getMonth(),
-            yearEnd?.getDate()
+            periodType?.getFullYear(),
+            periodType?.getMonth(),
+            periodType?.getDate()
           ),
           'yyyy-MM-ddTHH:mm:ss'
         )
         : null;
+      request.companyTypeId = companyType.id;
+      request.activityType = activityType;
+      request.symbol = symbol;
+      request.parentId = parentId.id;
+      request.latinName = latinName;
       request.activitySubject = activitySubject;
-      request.reportingTypeId = reportingTypeId;
+      request.reportingType = reportingType;
       request.financialManager = financialManager;
       request.factoryAddress = factoryAddress;
       request.factoryTelephone = factoryTelephone;
@@ -405,14 +524,21 @@ export class AddEditCompanyComponent implements OnInit {
       request.stockAffairsTelephone = stockAffairsTelephone;
       request.stockAffairsFax = stockAffairsFax;
       request.centeralOffice = centeralOffice;
-      request.centeralOfficeTelephone = centeralOfficeTelephone;
-      request.centeralOfficeFax = centeralOfficeFax;
-      request.managingDirector = managingDirector;
+      request.partyTelephone = partyTelephone;
+      request.partyFax = partyFax;
+      // request.managingDirector = managingDirector;
       request.financialManager = financialManager;
       request.boardofDirectors = boardofDirectors;
       request.substituteInspector = substituteInspector;
+      request.countOfEmployees = countOfEmployees;
+      request.meetingManagementDate = meetingManagementDate;
+      request.meetingManagmentNumber = meetingManagmentNumber;
       request.alternateInspector = alternateInspector;
-      request.companyInspectionInstituteId = companyInspectionInstituteId;
+      request.companyInspectionInstitute = companyInspectionInstitute;
+      request.systemOrganizationCode = systemOrganizationCode;
+      request.fromDate = fromDate;
+      request.toDate = toDate;
+      request.percentOwner = percentOwner;
 
       this.addNewCompanyLoading = true;
 
@@ -421,8 +547,7 @@ export class AddEditCompanyComponent implements OnInit {
         .pipe(tap(() => (this.addNewCompanyLoading = false)))
         .subscribe(response => {
           if (response.successed) {
-            this.closeModal.emit(true);
-            this.resetAddNewCompanyForm();
+
 
             this.messageService.add({
               key: 'companyDefinition',
@@ -435,10 +560,7 @@ export class AddEditCompanyComponent implements OnInit {
         });
     }
   }
-  resetAddNewCompanyForm() {
-    this.addNewCompanySubmitted = false;
-    this.addNewCompanyForm.reset();
-  }
+
 
   /*--------------------------
   # CompanyInspectionInstitute

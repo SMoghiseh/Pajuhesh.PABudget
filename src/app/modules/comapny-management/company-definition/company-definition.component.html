@@ -8,113 +8,102 @@
   <div class="card-text pt-3"></div>
 
   <div class="pb-2">
-    <form #formDir="ngForm" [formGroup]="searchCompanyForm" (ngSubmit)="getCompanyList()">
-      <div class="form-group container">
-        <div class="row row-cols-lg-4 row-cols-1">
-          <!-- نام شرکت -->
-          <div class="col my-1">
-            <label for="companyName">نام شرکت</label>
-            <input pInputText id="companyName" name="companyName" formControlName="companyName" type="text"
-              class="w-100" />
-          </div>
-          <!-- / نام شرکت -->
+    <!-- <form #formDir="ngForm" [formGroup]="searchCompanyForm" (ngSubmit)="getCompanyList()"> -->
+    <div class="form-group container">
+      <div class="row row-cols-lg-4 row-cols-1">
 
-          <!-- کد صنعت -->
-          <div class="col my-1">
-            <label for="isic">کد صنعت</label>
-            <input pInputText id="isic" name="isic" formControlName="isic" type="text" class="w-100" />
-          </div>
-          <!-- / کد صنعت -->
-
-          <!-- دکمه -->
-          <div class="col my-1" style="padding-top: 20px">
-            <p-button class="pe-2" styleClass="p-button-info" label="جستجو" type="submit" icon="pi pi-search">
-            </p-button>
-          </div>
-          <div class="col my-1" style="padding-top: 20px; text-align: left">
-            <p-button class="pe-2" styleClass="p-button-success" icon="pi pi-plus" label="افزودن سازمان"
-              (click)="onOpenAddCompany()"></p-button>
-          </div>
-          <!-- / دکمه -->
+        <!-- / نام شرکت -->
+        <div class="col">
+          <label for="companyName">نام شرکت</label>
+          <p-dropdown id="companyName" class="col" styleClass="w-100" optionLabel="companyName" [options]="subCompanies"
+            placeholder="انتخاب کنید" [(ngModel)]="selectedCompany" (onChange)="onCompanySelected($event)">
+          </p-dropdown>
         </div>
       </div>
-    </form>
+    </div>
+    <!-- </form> -->
     <!-- </p-panel> -->
   </div>
-  <!-- / جستجو -->
 
   <!-- data table -->
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-    [value]="companyList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-    (onLazyLoad)="getCompanyList($event)" [(first)]="dataTableFirst">
-    <!-- table header -->
-    <ng-template pTemplate="header">
-      <tr class="data-table__header">
-        <!-- <th style="min-width: 3rem">
-              <strong>ردیف</strong>
-            </th> -->
+  <div class="table-container">
+    <div class="d-flex justify-content-between pt-3 pb-3 w-100">
+      <!-- table title -->
+      <div class="table-header">لیست شرکت ها </div>
+      <!-- table title -->
+      <!-- دکمه -->
+      <p-button class="pe-2" styleClass="p-button-success" icon="pi pi-plus" label="افزودن سازمان"
+        (click)="addCompany(selectedCompany)"></p-button>
+      <!-- / دکمه -->
+    </div>
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+      [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+      [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+      [(first)]="dataTableFirst">
 
-        <th style="min-width: 1rem">
-          <strong>جزئیات</strong>
-        </th>
+      <!-- table header -->
+      <ng-template pTemplate="header">
 
-        <th style="min-width: 10rem">
-          <strong>نام شرکت</strong>
-        </th>
 
-        <th style="min-width: 10rem">
-          <strong>کد صنعت (ISIC)</strong>
-        </th>
+        <tr class="data-table__header">
+          <th>
+            <strong>نام شرکت</strong>
+          </th>
+          <th>
+            <strong>نام مدیر عامل</strong>
+          </th>
+          <th>
+            <strong>شناسه ملی شرکت</strong>
+          </th>
+          <th>
+            <strong> عملیات </strong>
+          </th>
+        </tr>
+      </ng-template>
+      <!-- / table header -->
+      <!-- table body -->
+      <ng-template pTemplate="body" let-company let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ company.companyName }}</td>
+          <td>{{ company.companyType }}</td>
+          <td>{{ company.nationalID }}</td>
 
-        <th style="min-width: 2rem">
-          <strong> عملیات </strong>
-        </th>
-      </tr>
-    </ng-template>
-    <!-- / table header -->
-    <!-- table body -->
-    <ng-template pTemplate="body" let-company let-rowIndex="rowIndex">
-      <tr>
-        <!-- <td>
-              <strong style="font-size: 17px">
-                {{ rowIndex + 1 | faNum }}
-              </strong>
-            </td> -->
+          <!-- actions -->
+          <td class=" jc-left ai-left">
+            <!-- edit -->
+            <button class="action-image-container edit-button" (click)="editRow(company)"></button>
+            <!-- / edit -->
 
-        <td>
-          <p-button styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-eye"
-            (click)="previewDetails(company)"></p-button>
-        </td>
+            <!-- delete -->
+            <button class="action-image-container delete-button" (click)="deleteRow(company)"></button>
+            <!-- / delete -->
 
-        <td>{{ company.companyName }}</td>
+            <!-- delete -->
+            <button class="action-image-container add-button" (click)="addCompany(company)"></button>
+            <!-- / delete -->
 
-        <td>{{ company.isic | faNum }}</td>
+            <!-- select Board of Managments -->
+            <button class="action-image-container add-boardofdirectors-button" (click)="deleteRow(company)"></button>
+            <!-- select Board of Managments -->
 
-        <!-- actions -->
-        <td class="d-flex jc-center ai-center">
-          <!-- edit -->
-          <p-button pRipple class="pe-2" styleClass="p-button-text p-button-warning p-button-rounded" type="button"
-            icon="pi pi-pencil" (click)="editRow(company)">
-          </p-button>
-          <!-- / edit -->
+            <!-- select auditor -->
+            <button class="action-image-container add-auditors-button pr-1" (click)="selectAuditors(company)"> </button>
+            <!-- select auditor -->
 
-          <!-- delete -->
-          <p-button pRipple class="pe-2" styleClass="p-button-text p-button-danger p-button-rounded" type="button"
-            icon="pi pi-times" (click)="deleteRow(company)">
-          </p-button>
-          <!-- / delete -->
-        </td>
-        <!-- actions -->
-      </tr>
-    </ng-template>
-    <!-- / table body -->
-  </p-table>
+
+          </td>
+          <!-- actions -->
+        </tr>
+      </ng-template>
+      <!-- / table body -->
+    </p-table>
+  </div>
+
   <!-- data table -->
 
   <!-- data list -->
   <div class="data-list d-block d-lg-none">
-    <ul *ngFor="let company of companyList" class="list-group my-1">
+    <ul *ngFor="let company of data" class="list-group my-1">
       <!-- نام شرکت -->
       <li class="list-group-item">
         <div class="row">
@@ -123,7 +112,7 @@
           </div>
 
           <div class="col my-1 text-center">
-            {{ company.companyName }}
+            <!-- {{ company.companyName }} -->
           </div>
         </div>
       </li>
@@ -137,7 +126,7 @@
           </div>
 
           <div class="col my-1 text-center">
-            {{ company.isic || '' | faNum }}
+            <!-- {{ company.isic || '' | faNum }} -->
           </div>
         </div>
       </li>
@@ -293,7 +282,7 @@
               </div>
 
               <div class="col my-1 text-center">
-                {{ selectedCompany.yearEnd | jDate | faNum }}
+                {{ selectedCompany.periodType | jDate | faNum }}
               </div>
             </div>
           </li>
@@ -433,7 +422,7 @@
               </div>
 
               <div class="col my-1 text-center">
-                {{ selectedCompany.centeralOfficeTelephone || '' | faNum }}
+                {{ selectedCompany.partyTelephone || '' | faNum }}
               </div>
             </div>
           </li>
@@ -447,7 +436,7 @@
               </div>
 
               <div class="col my-1 text-center">
-                {{ selectedCompany.centeralOfficeFax || '' | faNum }}
+                {{ selectedCompany.partyFax || '' | faNum }}
               </div>
             </div>
           </li>
@@ -504,11 +493,3 @@
 <!-- / preview report detail -->
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-
-<p-dialog [header]="
-    editCompanyData && editCompanyData.id
-      ? 'ویرایش ' + editCompanyData.companyName
-      : 'افزودن سازمان جدید'
-  " [(visible)]="isOpenAddCompany" [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '700px' }">
-  <app-add-edit-company (closeModal)="onCloseModal()" [data]="editCompanyData"></app-add-edit-company>
-</p-dialog>

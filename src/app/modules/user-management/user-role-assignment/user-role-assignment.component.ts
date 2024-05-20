@@ -6,6 +6,7 @@ import {
   Pagination,
   PersonRole,
   Role,
+  UrlBuilder,
 } from '@shared/models/response.model';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
@@ -59,7 +60,7 @@ export class UserRoleAssignmentComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getDocumentGroups();
@@ -83,7 +84,9 @@ export class UserRoleAssignmentComponent implements OnInit {
   --------------------------*/
   getRoles() {
     this.httpService
-      .post<Role[]>(Role.apiAddress, { withOutPagination: true })
+      .post<Role[]>(
+        UrlBuilder.build(Role.apiAddress, "LIST")
+        , { withOutPagination: true })
       .subscribe(response => {
         if (response.data.result) {
           this.roles = response.data.result;
@@ -95,7 +98,6 @@ export class UserRoleAssignmentComponent implements OnInit {
   # Assign
   --------------------------*/
   assignRoleTouser(user: GeneralPerson, role: Role) {
-    debugger;
     if (user.id && role.id) {
       this.assignRoleLoading = true;
 

@@ -1,5 +1,69 @@
-/* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم *//* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
-
 :host ::ng-deep .p-button-wide .p-button {
     min-width: 9rem;
+}
+
+.table-container {
+    background: #fff;
+    padding: 13px 20px 11px;
+    height: 100%;
+    width: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+    .table-header {
+        padding: 0 0 11px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+}
+
+:host ::ng-deep .p-datatable {
+    .p-datatable-thead>tr>th {
+        background: unset;
+        text-align: right !important;
+
+        &:last-child {
+            text-align: center !important;
+        }
+    }
+
+    .p-datatable-tbody>tr>td {
+        text-align: right !important;
+
+        &:last-child {
+            text-align: left !important;
+
+        }
+    }
+}
+
+.action-image-container {
+    width: 29px;
+    height: 34px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    border: none;
+    background-color: unset;
+    margin-right: 10px;
+}
+
+.edit-button {
+    background-image: url('./../../../../assets/images/icons/Group 116.svg');
+}
+
+.delete-button {
+    background-image: url('./../../../../assets/images/icons/Group 117.svg');
+}
+
+.add-button {
+    background-image: url('./../../../../assets/images/icons/Group 187.svg');
+}
+
+.add-boardofdirectors-button {
+    background-image: url('./../../../../assets/images/icons/Group 118.svg');
+}
+
+.add-auditors-button {
+    background-image: url('./../../../../assets/images/icons/Group 119.svg');
 }

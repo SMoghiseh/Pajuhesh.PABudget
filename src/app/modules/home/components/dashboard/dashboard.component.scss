@@ -12,6 +12,29 @@ body {
     background-color: #E2E8F0 !important;
 }
 
+
+.dashboard-menu-list {
+    background-color: #3B82F6;
+    color: #fff;
+    padding: 5px 2px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        display: inline-block;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+}
+
+
 .div-img-logo {
     width: 60px;
     height: 60px;
@@ -50,10 +73,12 @@ body {
         padding: 25px 30px 15px;
     }
 
-    .inline-flx{
+    .inline-flx {
         display: inline-flex;
         padding: 20px;
-        h5, span{
+
+        h5,
+        span {
             text-align: center;
         }
     }
@@ -103,26 +128,26 @@ h5 {
     }
 }
 
-.select-feature{
+.select-feature {
     background-color: #3B82F6 !important;
     color: white !important;
 }
 
-.deselect-feature{
+.deselect-feature {
     background-color: #E2E8F0 !important;
     color: #64748B !important;
 }
 
-.center-box{
+.center-box {
     text-align: -webkit-center;
     padding: 0px;
 }
 
-.sub-co-title{
+.sub-co-title {
     margin: 0px 10px 0px 10px;
 }
 
-.sub-co{
+.sub-co {
     background-color: #F1F5F9;
     margin: 12px;
     font-size: 13px;
@@ -130,23 +155,25 @@ h5 {
     border-radius: 7px;
     color: black;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
         @extend .selected-sub-co;
     }
 }
 
-.selected-sub-co{
+.selected-sub-co {
     background-color: #DBEAFE;
     color: #1E40AF;
     font-size: 14px;
     font-weight: 500;
 }
 
-#chart-wrapper{
+#chart-wrapper {
     height: 250px !important;
     text-align: -webkit-center;
 }
 
-.margin-b-20{
-    margin-bottom: 20px;;
+.margin-b-20 {
+    margin-bottom: 20px;
+    ;
 }

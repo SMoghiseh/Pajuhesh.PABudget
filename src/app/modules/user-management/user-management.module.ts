@@ -30,12 +30,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ListboxModule } from 'primeng/listbox';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { AddEditUserComponent } from './user-definition/add-edit-user/add-edit-user.component';
+import { AddEditRoleComponent } from './role-definition/add-edit-role/add-edit-role.component';
 
 @NgModule({
   declarations: [
     UserManagementComponent,
     UserDefinitionComponent,
     RoleDefinitionComponent,
+    AddEditRoleComponent,
     UserRoleAssignmentComponent,
     PermissionRoleAssignmentComponent,
     AddEditUserComponent
