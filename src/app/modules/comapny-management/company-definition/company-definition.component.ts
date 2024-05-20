@@ -131,8 +131,6 @@ export class CompanyDefinitionComponent implements OnInit {
 # GET
 --------------------------*/
   getSubsets(id: number) {
-    debugger
-
     this.httpService
       .get<Company[]>(`${Company.apiAddressSubCompanies}${id}`)
       .pipe(
