@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+  NgOptimizedImage,
+  provideImgixLoader,
+} from '@angular/common';
 
 import { ComapnyManagementRoutingModule } from './comapny-management-routing.module';
 import { CompanyManagementComponent } from './company-management.component';
@@ -29,16 +35,20 @@ import { ListboxModule } from 'primeng/listbox';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
 
+import { NgxGaugeModule } from 'ngx-gauge';
 
 @NgModule({
   declarations: [
     CompanyManagementComponent,
     CompanyDefinitionComponent,
-    AddEditCompanyComponent
+    AddEditCompanyComponent,
+    CompanyProfileComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,
+    NgOptimizedImage,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -62,7 +72,15 @@ import { AddEditCompanyComponent } from './company-definition/add-edit-company/a
     CheckboxModule,
     ListboxModule,
     TreeSelectModule,
-
-  ]
+    NgxGaugeModule,
+  ],
+  providers: [
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `assets/images/${config.src}`;
+      },
+    },
+  ],
 })
-export class ComapnyManagementModule { }
+export class ComapnyManagementModule {}

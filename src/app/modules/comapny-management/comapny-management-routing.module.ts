@@ -4,6 +4,7 @@ import { authGuard } from '@core/guards/auth/auth.guard';
 import { CompanyManagementComponent } from './company-management.component';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,16 @@ const routes: Routes = [
               title: 'تعریف سازمان',
               animation: 'createCompany',
             },
-          }
+          },
+          {
+            path: 'companyProfile/:id',
+            component: CompanyProfileComponent,
+            title: 'برنامه و بودجه | پروفایل سازمان',
+            data: {
+              reuse: true,
+              title: 'پروفایل سازمان',
+            },
+          },
         ],
       },
     ],
@@ -42,6 +52,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ComapnyManagementRoutingModule { }
+export class ComapnyManagementRoutingModule {}

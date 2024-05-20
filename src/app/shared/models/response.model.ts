@@ -408,7 +408,6 @@ export class Person {
   groupId!: number;
 }
 
-
 export class ChangePassword {
   static readonly apiAddress = 'api/PABudgetApi/v1/Password/Reset';
   static readonly apiAddressSet = 'api/PABudgetApi/v1/Password/Set';
@@ -507,6 +506,7 @@ export class Company {
   parent?: Company;
   symbol!: string;
   companyName!: string;
+  name!: string;
   companyType!: string;
   latinName!: string;
   nationalID!: string;
@@ -554,6 +554,8 @@ export class Company {
   toDate?: any;
   meetingManagmentNumber?: any;
   meetingManagementDate?: any;
+  ceo!: string;
+  oldCode!: string;
 }
 
 /** کاربرها */
@@ -920,6 +922,12 @@ export class Dashboard {
     'api/PABudgetApi/Dashboard/reportchart';
   static readonly apiAddressReportType =
     'api/PABudgetApi/v1/BaseInfo/ReportType/list';
+  static readonly apiAddressCashBudgetByMonthForProfile =
+    'api/PABudgetApi/Dashboard/CashBudgetByMonthForProfile/';
+  static readonly apiAddressShareholdersDashboard =
+    'api/PABudgetApi/Dashboard/ShareholdersDashboard/';
+  static readonly apiAddressCostAndBenefitForProfile =
+    'api/PABudgetApi/Dashboard/CostAndBenefitForProfile/';
   labels!: Array<string>;
   datasets!: Array<number>;
   id!: number;
