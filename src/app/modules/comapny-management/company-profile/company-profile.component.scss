@@ -1,0 +1,125 @@
+.all-box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
+    padding: 5px;
+}
+
+.co-info-box {
+    @extend .all-box;
+    height: 100%;
+
+    h4 {
+        @extend .h4;
+    }
+
+    .inline-flx{
+        padding: 20px;
+        h5, span{
+            text-align: center;
+            width: auto;
+        }
+        span{
+            font-size: 13px;
+        }
+    }
+}
+
+.h4{
+    padding: 15px;
+}
+
+.sub-co{
+    background-color: #F1F5F9;
+    margin: 12px;
+    font-size: 13px;
+    padding: 7px;
+    border-radius: 7px;
+    color: black;
+    cursor: pointer;
+    align-items: center;
+    &:hover{
+        @extend .selected-sub-co;
+    }
+    img, span{
+        width: auto;
+    }
+}
+
+.selected-sub-co{
+    background-color: #DBEAFE;
+    color: #1E40AF;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bar-chart2{
+    padding-top: 18px;
+    h4{
+        padding-bottom: 0px !important;
+    }
+    span{
+        margin-right: 15px;
+    }
+}
+
+.chart-box {
+    height: 280px !important;
+    text-align: -webkit-center;
+}
+
+.chart-outside-box{
+    padding: 0px 15px 0px 15px;
+}
+
+#chart-wrapper {
+    background-color: white;
+    height: fit-content;
+}
+
+.bar-chart2{
+    display: -webkit-inline-box;
+    padding: 0px 20px;
+    -webkit-box-align: center;
+    .in{
+        background-color: #1B84FF;
+    }
+    .out{
+        background-color: #17C653;
+    }
+    .chart-legend{
+        width: 40px;
+        height: 12px;
+    }
+}
+
+.cost-benefit-box{
+    text-align: center;
+    h4{
+        text-align: right;
+    }
+    .div1{
+        display: -webkit-inline-box;
+        -webkit-box-align: center;
+        margin-right: 20px;
+        .div2{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            align-content: space-around;
+            background-color: #0AB39C;
+            color: white;
+            border-radius: 35px;
+            i{
+                font-size: 26px;
+            }
+        }
+        .cost{
+            font-size: 23px;
+            font-weight: bold;
+            color: #0AB39C;
+        }
+    }
+}
+
+
