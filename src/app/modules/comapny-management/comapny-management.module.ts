@@ -3,8 +3,7 @@ import {
   CommonModule,
   IMAGE_LOADER,
   ImageLoaderConfig,
-  NgOptimizedImage,
-  provideImgixLoader,
+  NgOptimizedImage
 } from '@angular/common';
 
 import { ComapnyManagementRoutingModule } from './comapny-management-routing.module';
@@ -36,8 +35,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
-
-import { NgxGaugeModule } from 'ngx-gauge';
+import { PersonsCompanyComponent } from './persons-company/persons-company.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +43,7 @@ import { NgxGaugeModule } from 'ngx-gauge';
     CompanyDefinitionComponent,
     AddEditCompanyComponent,
     CompanyProfileComponent,
+    PersonsCompanyComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -72,7 +71,6 @@ import { NgxGaugeModule } from 'ngx-gauge';
     CheckboxModule,
     ListboxModule,
     TreeSelectModule,
-    NgxGaugeModule,
   ],
   providers: [
     {
@@ -83,4 +81,4 @@ import { NgxGaugeModule } from 'ngx-gauge';
     },
   ],
 })
-export class ComapnyManagementModule {}
+export class ComapnyManagementModule { }

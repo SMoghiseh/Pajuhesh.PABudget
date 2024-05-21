@@ -8,6 +8,7 @@ import { authGuard } from '@core/guards/auth/auth.guard';
 
 import { SubjectDefinitionComponent } from './subject-definition/subject-definition.component';
 import { BasicsDefinitionComponent } from './basics-definition/basics-definition.component';
+import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,17 @@ const routes: Routes = [
               title: 'تعریف اطلاعات پایه',
               animation: 'BasicsDefinitionPage',
             },
+          },
+          {
+            path: 'period',
+            component: PeriodDefinitionComponent,
+            title: 'برنامه و بودجه | تعریف دوره',
+            data: {
+              reuse: true,
+              title: 'تعریف دوره',
+              animation: 'BasicsDefinitionPage',
+            },
+
           },
           {
             path: '',
