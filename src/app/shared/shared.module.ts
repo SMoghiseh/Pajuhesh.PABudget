@@ -30,6 +30,18 @@ import { HasPermissionsDirective } from './directives/has-permissions.directive'
 import { TransferServices } from 'src/app/config.service';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { HeaderComponent } from '@core/layout/header/header.component';
+import { MenuModule } from 'primeng/menu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TabViewModule } from 'primeng/tabview';
+import { ToolbarModule } from 'primeng/toolbar';
+import { PasswordModule } from 'primeng/password';
+import { ActiveTabsBarComponent } from '@core/layout/active-tabs-bar/active-tabs-bar.component';
+import { FooterComponent } from '@core/layout/footer/footer.component';
+import { LoadingElementComponent } from '@core/layout/loading-element/loading-element.component';
+import { PageNotFoundComponent } from '@core/layout/page-not-found/page-not-found.component';
+import { SidemenuComponent } from '@core/layout/sidemenu/sidemenu.component';
+import { MainComponent } from '@core/main/main.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +52,14 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     CalendarComponent,
     JyearPipe,
     JdayPipe,
-    HasPermissionsDirective],
+    HasPermissionsDirective,
+    HeaderComponent,
+    FooterComponent,
+    PageNotFoundComponent,
+    SidemenuComponent,
+    MainComponent,
+    LoadingElementComponent,
+    ActiveTabsBarComponent,],
   imports: [
     CommonModule,
     ButtonModule,
@@ -57,7 +76,19 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     TooltipModule,
     PdfViewerModule,
     InputNumberModule,
-  ],
+    MenuModule,
+    DialogModule,
+    ButtonModule,
+    TooltipModule,
+    ProgressSpinnerModule,
+    ToastModule,
+    ConfirmDialogModule,
+    TabViewModule,
+    ToolbarModule,
+    RippleModule,
+    PasswordModule,
+    FormsModule,
+    ReactiveFormsModule],
   exports: [
     IRCurrencyPipe,
     FaNumPipe,
@@ -67,6 +98,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     JyearPipe,
     JdayPipe,
     HasPermissionsDirective,
+    HeaderComponent
   ],
   providers: [TransferServices],
 })
