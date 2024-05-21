@@ -23,12 +23,14 @@ import { DialogModule } from 'primeng/dialog';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
 
 @NgModule({
   declarations: [
     BasicsManagementComponent,
     SubjectDefinitionComponent,
-    BasicsDefinitionComponent
+    BasicsDefinitionComponent,
+    PeriodDefinitionComponent
   ],
   imports: [
     CommonModule,

@@ -29,13 +29,15 @@ import { ListboxModule } from 'primeng/listbox';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
+import { PersonsCompanyComponent } from './persons-company/persons-company.component';
 
 
 @NgModule({
   declarations: [
     CompanyManagementComponent,
     CompanyDefinitionComponent,
-    AddEditCompanyComponent
+    AddEditCompanyComponent,
+    PersonsCompanyComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,
