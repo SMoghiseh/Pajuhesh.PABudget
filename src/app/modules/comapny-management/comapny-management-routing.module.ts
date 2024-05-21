@@ -5,7 +5,6 @@ import { CompanyManagementComponent } from './company-management.component';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
-import { PersonsCompanyComponent } from './persons-company/persons-company.component';
 
 const routes: Routes = [
   {
@@ -45,16 +44,6 @@ const routes: Routes = [
               title: 'پروفایل سازمان',
             },
           },
-          {
-            path: 'personscompany',
-            component: PersonsCompanyComponent,
-            title: 'برنامه و بودجه |لیست اعضاء شرکت',
-            data: {
-              reuse: true,
-              title: 'لیست اعضاء شرکت',
-              animation: 'createCompany',
-            }
-          }
         ],
       },
     ],
@@ -65,4 +54,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ComapnyManagementRoutingModule { }
+export class ComapnyManagementRoutingModule {}

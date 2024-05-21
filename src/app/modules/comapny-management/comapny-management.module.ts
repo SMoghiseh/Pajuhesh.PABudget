@@ -3,7 +3,7 @@ import {
   CommonModule,
   IMAGE_LOADER,
   ImageLoaderConfig,
-  NgOptimizedImage
+  NgOptimizedImage,
 } from '@angular/common';
 
 import { ComapnyManagementRoutingModule } from './comapny-management-routing.module';
@@ -35,7 +35,6 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
-import { PersonsCompanyComponent } from './persons-company/persons-company.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +42,6 @@ import { PersonsCompanyComponent } from './persons-company/persons-company.compo
     CompanyDefinitionComponent,
     AddEditCompanyComponent,
     CompanyProfileComponent,
-    PersonsCompanyComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -81,4 +79,4 @@ import { PersonsCompanyComponent } from './persons-company/persons-company.compo
     },
   ],
 })
-export class ComapnyManagementModule { }
+export class ComapnyManagementModule {}
