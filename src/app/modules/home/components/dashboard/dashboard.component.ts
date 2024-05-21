@@ -8,7 +8,7 @@ import {
 import { map } from 'rxjs';
 import { HttpService } from '@core/http/http.service';
 import Chart from 'chart.js/auto';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,10 +27,8 @@ export class DashboardComponent implements OnInit {
   selectedYearTypeId = 0;
   reportParentLst!: Company[];
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) {
-    if (route.snapshot.data['showSideBar']) {
-      this.changeStyleOfSideBar();
-    }
+  constructor(private httpService: HttpService, private router: Router) {
+
   }
 
   ngOnInit(): void {
@@ -38,15 +36,6 @@ export class DashboardComponent implements OnInit {
     const lbl = ['سود', 'زیان'];
     const val = [1255, 300];
     this.createDoughnutChart(lbl, val);
-  }
-
-  changeStyleOfSideBar() {
-    let sidebar: HTMLCollection = document.getElementsByClassName('sidebar');
-    let sidebar0: any = sidebar[0];
-    sidebar0.style.display = 'block';
-    let contentBody: HTMLCollection = document.getElementsByClassName('content-body');
-    let contentBody0: any = contentBody[0];
-    contentBody0.style.margin = '6rem calc(var(--sidemenu-width) + 1.8rem) 0rem 1.5rem';
   }
 
   getCoApi(id: number) {
@@ -284,7 +273,6 @@ export class DashboardComponent implements OnInit {
 
   navigateToPage() {
     this.router.navigateByUrl('/TreeOrganization');
-    // window.location.href = 'http://localhost:56513/TreeOrganization'
   }
 
 }
