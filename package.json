@@ -26,6 +26,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "chart.js": "^4.3.0",
+    "force": "^0.0.3",
     "mingcute_icon": "^2.8.4",
     "ng2-pdf-viewer": "^9.1.5",
     "ngx-gauge": "^7.0.0",

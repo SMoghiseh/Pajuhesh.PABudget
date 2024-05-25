@@ -1,9 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../app-routing.module';
 import { RouteReuseStrategy } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { tap } from 'rxjs';
 
 import {
@@ -12,13 +10,6 @@ import {
 } from './services/request-cache.service';
 
 import { httpInterceptorProviders } from './interceptors';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
-import { SidemenuComponent } from './layout/sidemenu/sidemenu.component';
-import { MainComponent } from './main/main.component';
-import { LoadingElementComponent } from './layout/loading-element/loading-element.component';
-import { ActiveTabsBarComponent } from './layout/active-tabs-bar/active-tabs-bar.component';
 
 import { AppConfigService } from './services/app-config.service';
 import { AuthService } from './authentication/auth.service';
@@ -29,51 +20,21 @@ import { StoredRoutesService } from './services/route-reuse-strategy/stored-rout
 import { RouteReuseService } from './services/route-reuse-strategy/route-reuse.service';
 import { ThemeService } from './services/theme.service';
 import { SidemenuService } from './layout/sidemenu/sidemenu.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SharedModule } from '@shared/shared.module';
 
 /* PrimeNG */
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { TabViewModule } from 'primeng/tabview';
-import { ToolbarModule } from 'primeng/toolbar';
-import { RippleModule } from 'primeng/ripple';
-import { DialogModule } from 'primeng/dialog';
-import { MenuModule } from 'primeng/menu';
-import { PasswordModule } from 'primeng/password';
+import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   declarations: [
-    HeaderComponent,
-    FooterComponent,
-    PageNotFoundComponent,
-    SidemenuComponent,
-    MainComponent,
-    LoadingElementComponent,
-    ActiveTabsBarComponent,
   ],
   imports: [
     CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    NgOptimizedImage,
-    AppRoutingModule,
-    ButtonModule,
-    TooltipModule,
-    ProgressSpinnerModule,
-    ToastModule,
-    ConfirmDialogModule,
-    TabViewModule,
-    ToolbarModule,
-    RippleModule,
-    DialogModule,
-    MenuModule,
-    PasswordModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule,
+    NgOptimizedImage
   ],
   providers: [
     AppConfigService,
@@ -101,4 +62,4 @@ import { PasswordModule } from 'primeng/password';
     },
   ],
 })
-export class CoreModule {}
+export class CoreModule { }

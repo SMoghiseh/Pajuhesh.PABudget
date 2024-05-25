@@ -521,14 +521,12 @@ export class Company {
   stockAffairsTelephone?: string;
   stockAffairsFax?: string;
   centeralOffice?: string;
-  partyTelephone?: string;
-  partyFax?: string;
+  centeralOfficeTelephone?: string;
+  centeralOfficeFax?: string;
   managingDirector?: string;
   financialManager?: string;
-  boardofDirectors?: string;
-  alternateInspector?: string;
   registerDate!: any;
-  periodType!: any;
+  periodTypeId!: any;
   registeredCapital?: number;
   nonRegisteredCapital?: number;
   companyTypeId?: number;
@@ -552,10 +550,13 @@ export class Company {
   percentOwner?: number;
   fromDate?: any;
   toDate?: any;
-  meetingManagmentNumber?: any;
-  meetingManagementDate?: any;
+  auditStart?: any;
+  auditEnd?: any;
+  meetingNo?: any;
+  meetingDate?: any;
   ceo!: string;
   oldCode!: string;
+  shareHolders: any;
 }
 
 /** کاربرها */
