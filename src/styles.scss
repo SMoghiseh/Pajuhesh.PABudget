@@ -826,3 +826,32 @@
    padding: 4px 22px;
    height: 30px;
  }
+
+ .table-container {
+   background: #fff;
+   padding: 13px 20px 11px;
+   height: 100%;
+   width: auto;
+   border-radius: 10px;
+   margin-bottom: 15px;
+
+   .p-datatable {
+     .p-datatable-thead>tr>th {
+       background: unset;
+       text-align: right !important;
+
+       &:last-child {
+         text-align: center !important;
+       }
+     }
+
+     .p-datatable-tbody>tr>td {
+       text-align: right !important;
+
+       &:last-child {
+         text-align: left !important;
+
+       }
+     }
+   }
+ }
