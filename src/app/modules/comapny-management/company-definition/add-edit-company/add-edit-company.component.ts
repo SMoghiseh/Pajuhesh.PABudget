@@ -218,7 +218,10 @@ export class AddEditCompanyComponent implements OnInit {
 
   createForm() {
     this.addNewCompanyForm = new FormGroup({
-      parentId: new FormControl(this.addNewCompanyModel.parentId),
+      parentId: new FormControl(
+        this.addNewCompanyModel.parentId,
+        Validators.required
+      ),
       companyTypeId: new FormControl(
         this.addNewCompanyModel.companyTypeId,
         Validators.required
@@ -231,14 +234,15 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.companyName,
         Validators.required
       ),
-      latinName: new FormControl(this.addNewCompanyModel.latinName),
+      latinName: new FormControl(
+        this.addNewCompanyModel.latinName,
+        Validators.required),
       nationalID: new FormControl(
         this.addNewCompanyModel.nationalID,
         Validators.required
       ),
       symbol: new FormControl(
-        this.addNewCompanyModel.symbol,
-        Validators.required
+        this.addNewCompanyModel.symbol
       ),
       registerDate: new FormControl(
         this.addNewCompanyModel.registerDate,
@@ -266,19 +270,18 @@ export class AddEditCompanyComponent implements OnInit {
         Validators.required
       ),
       systemOrganizationCode: new FormControl(
-        this.addNewCompanyModel.systemOrganizationCode,
-        Validators.required
+        this.addNewCompanyModel.systemOrganizationCode
       ),
       reportingTypeId: new FormControl(
         this.addNewCompanyModel.reportingTypeId,
         Validators.required
       ),
       companyInspectionInstituteId: new FormControl(
-        this.addNewCompanyModel.companyInspectionInstituteId
+        this.addNewCompanyModel.companyInspectionInstituteId,
+        Validators.required
       ),
       activitySubject: new FormControl(
         this.addNewCompanyModel.activitySubject,
-        Validators.required
       ),
       factoryAddress: new FormControl(this.addNewCompanyModel.factoryAddress),
       factoryTelephone: new FormControl(
@@ -385,7 +388,6 @@ export class AddEditCompanyComponent implements OnInit {
   # CREATE
   --------------------------*/
   addNewCompany() {
-    console.log('click')
     debugger
     this.addNewCompanySubmitted = true;
     if (this.addNewCompanyForm.valid) {
@@ -422,7 +424,7 @@ export class AddEditCompanyComponent implements OnInit {
       } = this.addNewCompanyForm.value;
 
       const request = new Company();
-      request.id = this.editData?.id;
+      request.id = this.companySelected?.id;
       request.nationalID = PersianNumberService.toEnglish(nationalID);
       request.registeredCapital = registeredCapital;
       request.nonRegisteredCapital = nonRegisteredCapital;
@@ -441,7 +443,7 @@ export class AddEditCompanyComponent implements OnInit {
         )
         : null;
       request.periodTypeId = periodTypeId
-      request.companyTypeId = companyTypeId.id;
+      request.companyTypeId = companyTypeId;
       request.activityTypeId = activityTypeId;
       request.symbol = symbol;
       request.parentId = parentId;
@@ -477,7 +479,7 @@ export class AddEditCompanyComponent implements OnInit {
           'yyyy-MM-ddTHH:mm:ss'
         )
         : null;
-      request.companyInspectionInstituteId = 0;
+      request.companyInspectionInstituteId = companyInspectionInstituteId;
       request.systemOrganizationCode = systemOrganizationCode;
       request.shareHolders = this.sharedHoldersArrayList;
       this.addNewCompanyLoading = true;
