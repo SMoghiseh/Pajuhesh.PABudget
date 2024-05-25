@@ -339,10 +339,11 @@
         </form>
         <!-- / form group -->
         <!-- data table -->
-        <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass"
-          [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true"
-          [totalRecords]="totalCount" [value]="sharedHoldersArrayList" [loading]="loading"
-          [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first">
+        <p-table *ngIf="sharedHoldersArrayList.length != 0" #dataTable dataKey="id"
+          class="data-table d-none d-lg-block mt-4" [styleClass]="gridClass" [paginator]="true" [rows]="dataTableRows"
+          [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true" [totalRecords]="totalCount"
+          [value]="sharedHoldersArrayList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }"
+          [(first)]="first">
           <!-- table header -->
           <ng-template pTemplate="header">
             <tr class="data-table__header">
