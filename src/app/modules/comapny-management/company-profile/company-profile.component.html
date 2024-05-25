@@ -39,10 +39,21 @@
     <div class="co-info-box cost-benefit-box">
       <h4>سود و زیان</h4>
       <div class="row div1">
-        <div class="div2">
-          <i class="pi pi-arrow-up"></i>
+        <div
+          class="div2"
+          [class.profitable-b-col]="benefitCost.hasProfitable"
+          [class.not-profitable-b-col]="!benefitCost.hasProfitable">
+          <i
+            class="pi"
+            [class.pi-arrow-up]="benefitCost.hasProfitable"
+            [class.pi-arrow-down]="!benefitCost.hasProfitable"></i>
         </div>
-        <span class="cost">{{ benefitCost }} ریال</span>
+        <span
+          class="cost"
+          [class.profitable-col]="benefitCost.hasProfitable"
+          [class.not-profitable-col]="!benefitCost.hasProfitable"
+          >{{ benefitCost.benefitThisYear }} ریال</span
+        >
         <div>
           <span>سود شرکت در سال گذشته</span>
         </div>
@@ -51,10 +62,34 @@
         <span>مشاهده تغییرات نسبت به سال گذشته</span>
       </div>
       <div class="div4">
-        <span>درصد تغییر: </span>
+        <span class="ttl">درصد تغییر: </span>
+        <i
+          [class.pi-angle-up]="benefitCost.hasProfitable"
+          [class.pi-angle-down]="!benefitCost.hasProfitable"
+          [class.profitable-col]="benefitCost.hasProfitable"
+          [class.not-profitable-col]="!benefitCost.hasProfitable"
+          class="pi val"></i>
+        <span
+          class="val"
+          [class.profitable-col]="benefitCost.hasProfitable"
+          [class.not-profitable-col]="!benefitCost.hasProfitable"
+          >{{ benefitCost.percentageChange }}</span
+        >
       </div>
       <div class="div4">
-        <span>میزان تغییر: </span>
+        <span class="ttl">میزان تغییر: </span>
+        <i
+          [class.pi-angle-up]="benefitCost.hasProfitable"
+          [class.pi-angle-down]="!benefitCost.hasProfitable"
+          [class.profitable-col]="benefitCost.hasProfitable"
+          [class.not-profitable-col]="!benefitCost.hasProfitable"
+          class="pi val"></i>
+        <span
+          class="val"
+          [class.profitable-col]="benefitCost.hasProfitable"
+          [class.not-profitable-col]="!benefitCost.hasProfitable"
+          >{{ benefitCost.countChange }}</span
+        >
       </div>
     </div>
   </div>

@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -53,7 +51,7 @@ export class SubjectDefinitionComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getSubjects();

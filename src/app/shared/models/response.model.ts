@@ -944,3 +944,20 @@ export class BaseInfo {
   title!: string;
   isSelected?: boolean;
 }
+
+export class Period {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Period/';
+  static readonly apiAddressDetail =
+    'api/PABudgetApi/v1/BaseInfo/PeriodDetail/';
+  id!: number;
+  title!: string;
+  periodTitle!: string;
+  code!: string;
+  periodCode!: string;
+  statusTitle!: string;
+  fromDate!: any;
+  toDate!: any;
+  type1!: string;
+  type2!: string;
+}

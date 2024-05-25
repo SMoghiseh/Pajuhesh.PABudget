@@ -47,7 +47,7 @@ a {
 
     i {
       font-size: 1.5rem;
-      color: #116b37;
+      color: var(--sidemenu-text-color);
       border-radius: 8px;
       padding: 7px;
       font-weight: bold;
@@ -297,13 +297,13 @@ a {
 
 .sidebar-nav .nav-link i {
   //color: white;
-  color: black;
+  color: #ABAEB5;
 }
 
 .sidebar-nav .nav-link:hover {
   //color: var(--sidemenu-hilight-color);
   color: var(--sidemenu-hover-color);
-  background: #cfe8d4;
+  background: #2C3344;
   border-radius: 4px;
 }
 

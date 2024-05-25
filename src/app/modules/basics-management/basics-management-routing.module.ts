@@ -48,7 +48,6 @@ const routes: Routes = [
               title: 'تعریف دوره',
               animation: 'BasicsDefinitionPage',
             },
-
           },
           {
             path: '',
@@ -65,4 +64,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BasicsManagementRoutingModule { }
+export class BasicsManagementRoutingModule {}

@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+  NgOptimizedImage,
+} from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { BasicsManagementRoutingModule } from './basics-management-routing.module';
@@ -24,15 +29,18 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
+import { AddEditPeriodComponent } from './period-definition/add-edit-period/add-edit-period.component';
 
 @NgModule({
   declarations: [
     BasicsManagementComponent,
     SubjectDefinitionComponent,
     BasicsDefinitionComponent,
-    PeriodDefinitionComponent
+    PeriodDefinitionComponent,
+    AddEditPeriodComponent,
   ],
   imports: [
+    NgOptimizedImage,
     CommonModule,
     BasicsManagementRoutingModule,
     FormsModule,
@@ -54,5 +62,13 @@ import { PeriodDefinitionComponent } from './period-definition/period-definition
     InputNumberModule,
     KeyFilterModule,
   ],
+  providers: [
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `assets/images/${config.src}`;
+      },
+    },
+  ],
 })
-export class BasicsManagementModule { }
+export class BasicsManagementModule {}
