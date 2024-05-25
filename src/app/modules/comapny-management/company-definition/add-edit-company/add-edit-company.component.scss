@@ -1,0 +1,23 @@
+.bg-container {
+    background: #F1F5F9;
+    border: 1px solid #D0D5DC;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+:host ::ng-deep .p-datatable {
+    margin-top: 10px;
+
+    .p-datatable-thead>tr>th {
+        background: inherit !important;
+    }
+
+    .p-datatable-tbody>tr {
+        background: inherit !important;
+    }
+
+
+    .p-paginator-bottom {
+        display: none;
+    }
+}

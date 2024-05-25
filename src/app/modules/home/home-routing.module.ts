@@ -21,8 +21,7 @@ const routes: Routes = [
         path: 'Dashboard',
         canMatch: [authGuard],
         children: [],
-        component: DashboardComponent,
-        data: { title: 'داشبورد', showSideBar: true },
+        component: DashboardComponent
       },
     ],
   },
