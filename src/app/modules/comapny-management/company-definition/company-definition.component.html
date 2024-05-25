@@ -28,11 +28,8 @@
       [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
       [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
       [(first)]="dataTableFirst">
-
       <!-- table header -->
       <ng-template pTemplate="header">
-
-
         <tr class="data-table__header">
           <th>
             <strong>نام شرکت</strong>
@@ -57,9 +54,11 @@
           <td>{{ company.nationalID }}</td>
 
           <!-- actions -->
-          <td class=" jc-left ai-left">
+          <td class="jc-left ai-left">
             <!-- edit -->
-            <button class="action-image-container edit-button" (click)="editRow(company)"></button>
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(company)"></button>
             <!-- / edit -->
 
             <!-- delete -->
@@ -71,14 +70,16 @@
             <!-- / delete -->
 
             <!-- select Board of Managments -->
-            <button class="action-image-container add-boardofdirectors-button" (click)="deleteRow(company)"></button>
+            <button
+              class="action-image-container add-boardofdirectors-button"
+              (click)="deleteRow(company)"></button>
             <!-- select Board of Managments -->
 
             <!-- select auditor -->
-            <button class="action-image-container add-auditors-button pr-1" (click)="selectAuditors(company)"> </button>
+            <button
+              class="action-image-container add-auditors-button pr-1"
+              (click)="selectAuditors(company)"></button>
             <!-- select auditor -->
-
-
           </td>
           <!-- actions -->
         </tr>
@@ -130,13 +131,21 @@
           <div class="col my-1 text-center">
             <div class="d-flex jc-center ai-center">
               <!-- edit -->
-              <p-button pRipple styleClass="p-button-text p-button-warning" type="button" icon="pi pi-pencil"
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-warning"
+                type="button"
+                icon="pi pi-pencil"
                 (click)="editRow(company)">
               </p-button>
               <!-- / edit -->
 
               <!-- delete -->
-              <p-button pRipple styleClass="p-button-text p-button-danger" type="button" icon="pi pi-times"
+              <p-button
+                pRipple
+                styleClass="p-button-text p-button-danger"
+                type="button"
+                icon="pi pi-times"
                 (click)="deleteRow(company)">
               </p-button>
               <!-- / delete -->
@@ -154,7 +163,11 @@
 <!-- / data table -->
 
 <!-- preview report detail -->
-<p-dialog styleClass="p-fluid" header="جزئیات" [style]="{ width: '800px', height: '640px' }" [modal]="true"
+<p-dialog
+  styleClass="p-fluid"
+  header="جزئیات"
+  [style]="{ width: '800px', height: '640px' }"
+  [modal]="true"
   [(visible)]="previewDetailsDialog">
   <!-- dialog content -->
   <ng-template pTemplate="content">
@@ -259,8 +272,6 @@
             </div>
           </li>
           <!-- / شناسه ملی -->
-
-
 
           <!--	پایان سال مالی -->
           <li class="list-group-item">
