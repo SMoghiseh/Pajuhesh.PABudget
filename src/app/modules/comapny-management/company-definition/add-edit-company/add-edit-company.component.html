@@ -315,10 +315,11 @@
               <input pInputText id="meetingNo" name="meetingNo" formControlName="meetingNo" type="text" class="w-100" />
             </div>
             <!-- / شماره صورت جلسات -->
-            <div class="col-3 mt-2">
-              <button class="button-primary mt-4" (click)="addNewsharedHolders()">
-                افزودن
-              </button>
+            <div class="col-3 mt-3">
+
+              <p-button class="mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن به لیست "
+                (click)="addNewsharedHolders()"></p-button>
+
             </div>
           </div>
         </form>

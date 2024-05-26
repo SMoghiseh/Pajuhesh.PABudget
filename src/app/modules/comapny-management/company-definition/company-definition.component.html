@@ -1,52 +1,31 @@
+<!-- pop up messages -->
+<p-toast key="subjectDefinition" position="bottom-left"></p-toast>
+
 <!-- data table -->
 <section class="section">
-  <div class="card-text pt-3"></div>
   <div class="pb-2">
-    <div class="form-group container">
-      <div class="d-flex justify-content-between pt-3 pb-3 w-100">
-        <!-- / نام شرکت -->
-        <div class="col-4">
-          <label for="companyName"> لیست شرکت ها</label>
-          <p-dropdown
-            id="companyName"
-            class="col"
-            styleClass="w-100"
-            optionLabel="companyName"
-            [options]="subCompanies"
-            placeholder="انتخاب کنید"
-            [(ngModel)]="selectedCompany"
-            (onChange)="onCompanySelected($event)">
-          </p-dropdown>
-        </div>
-        <!-- دکمه -->
-        <p-button
-          class="pe-2 mt-4"
-          styleClass="p-button-success"
-          icon="pi pi-plus"
-          label="افزودن شرکت جدید"
-          (click)="addCompany(selectedCompany)"></p-button>
-        <!-- / دکمه -->
+    <div class="table-header">لیست شرکت ها</div>
+    <div class="d-flex justify-content-between pb-3 w-100">
+      <!-- / نام شرکت -->
+      <div class="col-4">
+        <label for="companyName"> &nbsp; </label>
+        <p-dropdown id="companyName" class="col" styleClass="w-100" optionLabel="companyName" [options]="subCompanies"
+          placeholder="انتخاب کنید" [(ngModel)]="selectedCompany" (onChange)="onCompanySelected($event)">
+        </p-dropdown>
       </div>
+      <!-- دکمه -->
+      <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن شرکت جدید"
+        (click)="addCompany(selectedCompany)"></p-button>
+      <!-- / دکمه -->
     </div>
     <!-- </p-panel> -->
   </div>
 
   <!-- data table -->
   <div class="table-container">
-    <p-table
-      #dataTable
-      dataKey="id"
-      class="data-table d-none d-lg-block"
-      [styleClass]="gridClass"
-      [rowHover]="true"
-      [paginator]="true"
-      [rows]="dataTableRows"
-      [rowsPerPageOptions]="[10, 20, 30]"
-      [totalRecords]="totalCount"
-      [value]="data"
-      [loading]="loading"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      [lazy]="true"
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+      [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+      [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
       [(first)]="dataTableFirst">
       <!-- table header -->
       <ng-template pTemplate="header">
@@ -76,33 +55,29 @@
           <!-- actions -->
           <td class="jc-left ai-left">
             <!-- edit -->
-            <button
-              class="action-image-container edit-button"
-              (click)="editRow(company)"></button>
+            <button class="action-image-container" pTooltip="ویرایش دوره" (click)="editRow(company)">
+              <img ngSrc="icons\Group 116.svg" width="24" height="24" /></button>
             <!-- / edit -->
 
-            <!-- delete -->
-            <button
-              class="action-image-container add-button"
-              (click)="addCompany(company)"></button>
-            <!-- / delete -->
+            <!-- insert -->
+            <button class="action-image-container" pTooltip="افزودن شرکت" (click)="addCompany(company)">
+              <img ngSrc="icons\Group 187.svg" width="24" height="24" />
+            </button>
+            <!-- / insert -->
 
             <!-- delete -->
-            <button
-              class="action-image-container delete-button"
-              (click)="deleteRow(company)"></button>
+            <button class="action-image-container" pTooltip="حذف شرکت" (click)="deleteRow(company)">
+              <img ngSrc="icons\Group 117.svg" width="24" height="24" /></button>
             <!-- / delete -->
 
             <!-- select Board of Managments -->
-            <button
-              class="action-image-container add-boardofdirectors-button"
-              (click)="deleteRow(company)"></button>
+            <button class="action-image-container" pTooltip="لیست هیئت مدیره" (click)="deleteRow(company)">
+              <img ngSrc="icons\Group 118.svg" width="24" height="24" /></button>
             <!-- select Board of Managments -->
 
             <!-- select auditor -->
-            <button
-              class="action-image-container add-auditors-button pr-1"
-              (click)="selectAuditors(company)"></button>
+            <button class="action-image-container" pTooltip="لیست بازرس ها" (click)="selectAuditors(company)">
+              <img ngSrc="icons\Group 119.svg" width="24" height="24" /></button>
             <!-- select auditor -->
           </td>
           <!-- actions -->
@@ -155,21 +130,13 @@
           <div class="col my-1 text-center">
             <div class="d-flex jc-center ai-center">
               <!-- edit -->
-              <p-button
-                pRipple
-                styleClass="p-button-text p-button-warning"
-                type="button"
-                icon="pi pi-pencil"
+              <p-button pRipple styleClass="p-button-text p-button-warning" type="button" icon="pi pi-pencil"
                 (click)="editRow(company)">
               </p-button>
               <!-- / edit -->
 
               <!-- delete -->
-              <p-button
-                pRipple
-                styleClass="p-button-text p-button-danger"
-                type="button"
-                icon="pi pi-times"
+              <p-button pRipple styleClass="p-button-text p-button-danger" type="button" icon="pi pi-times"
                 (click)="deleteRow(company)">
               </p-button>
               <!-- / delete -->
@@ -186,333 +153,5 @@
 </section>
 <!-- / data table -->
 
-<!-- preview report detail -->
-<p-dialog
-  styleClass="p-fluid"
-  header="جزئیات"
-  [style]="{ width: '800px', height: '640px' }"
-  [modal]="true"
-  [(visible)]="previewDetailsDialog">
-  <!-- dialog content -->
-  <ng-template pTemplate="content">
-    <div class="data-table-detail__content-info">
-      <!-- data list -->
-      <div class="data-list">
-        <ul class="list-group">
-          <!-- نام شرکت -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>نام شرکت</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.companyName }}
-              </div>
-            </div>
-          </li>
-          <!-- / نام شرکت -->
-
-          <!-- نماد -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>نماد</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.symbol | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / نماد -->
-
-          <!-- سرمایه ثبت شده -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>سرمایه ثبت شده</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.registeredCapital | irCurrency | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / سرمایه ثبت شده -->
-
-          <!-- سرمایه ثبت نشده -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>سرمایه ثبت نشده</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.nonRegisteredCapital | irCurrency | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / سرمایه ثبت نشده -->
-
-          <!-- ISIC -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>ISIC</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.isic || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / ISIC -->
-
-          <!-- ISIN -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>ISIN</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.companyISIN }}
-              </div>
-            </div>
-          </li>
-          <!-- / ISIN -->
-
-          <!-- شناسه ملی -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>شناسه ملی</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.nationalID || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / شناسه ملی -->
-
-          <!--	پایان سال مالی -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>پایان سال مالی</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.periodType | jDate | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / پایان سال مالی -->
-
-          <!-- ماهیت -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>ماهیت</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.reportingType }}
-              </div>
-            </div>
-          </li>
-          <!-- / ماهیت -->
-
-          <!-- موضوع فعالیت -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>موضوع فعالیت</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.activitySubject }}
-              </div>
-            </div>
-          </li>
-          <!-- / موضوع فعالیت -->
-
-          <!-- آدرس کارخانه -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>آدرس کارخانه</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.factoryAddress }}
-              </div>
-            </div>
-          </li>
-          <!-- / آدرس کارخانه -->
-
-          <!-- تلفن کارخانه (کد) -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>تلفن کارخانه (کد)</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.factoryTelephone || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / تلفن کارخانه (کد) -->
-
-          <!-- نمابر کارخانه (کد) -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>نمابر کارخانه (کد)</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.factoryFax || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / نمابر کارخانه (کد) -->
-
-          <!-- آدرس امور سهام  -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>آدرس امور سهام </strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.stockAffairsOffice }}
-              </div>
-            </div>
-          </li>
-          <!-- / آدرس امور سهام -->
-
-          <!-- تلفن امور سهام (کد) -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-3 my-1">
-                <strong>تلفن امور سهام (کد)</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.stockAffairsTelephone || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / تلفن امور سهام (کد) -->
-
-          <!-- نمابر امور سهام (کد) -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-3 my-1">
-                <strong>نمابر امور سهام (کد)</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.stockAffairsFax || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / نمابر امور سهام (کد) -->
-
-          <!-- آدرس دفتر مرکزی -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>آدرس دفتر مرکزی</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.centeralOffice }}
-              </div>
-            </div>
-          </li>
-          <!-- / آدرس دفتر مرکزی -->
-
-          <!-- تلفن دفتر مرکزی (کد) -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-3 my-1">
-                <strong>تلفن دفتر مرکزی (کد)</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.partyTelephone || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / تلفن دفتر مرکزی (کد) -->
-
-          <!-- نمابر دفتر مرکزی (کد) -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-3 my-1">
-                <strong>نمابر دفتر مرکزی (کد)</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.partyFax || '' | faNum }}
-              </div>
-            </div>
-          </li>
-          <!-- / نمابر دفتر مرکزی (کد) -->
-
-          <!-- مدیر عامل -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>مدیر عامل</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.managingDirector }}
-              </div>
-            </div>
-          </li>
-          <!-- / مدیر عامل -->
-
-          <!-- مدیر مالی -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 my-1">
-                <strong>مدیر مالی</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.financialManager }}
-              </div>
-            </div>
-          </li>
-          <!-- / مدیر مالی -->
-
-          <!-- اعضای هیات مدیره -->
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-3 my-1">
-                <strong>اعضای هیات مدیره</strong>
-              </div>
-
-              <div class="col my-1 text-center">
-                {{ selectedCompany.boardofDirectors }}
-              </div>
-            </div>
-          </li>
-          <!-- / اعضای هیات مدیره -->
-        </ul>
-      </div>
-      <!-- / data list -->
-    </div>
-  </ng-template>
-  <!-- / dialog content -->
-</p-dialog>
-<!-- / preview report detail -->
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

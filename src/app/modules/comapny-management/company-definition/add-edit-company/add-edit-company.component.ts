@@ -324,16 +324,27 @@ export class AddEditCompanyComponent implements OnInit {
         this.buttonLabel = 'ویرایش';
       }
 
-      // component is in insert mode
+      // component is in edit mode 
+      if (params.hasOwnProperty('companyId')) {
+        this.companySelected.id = params['companyId'];
+        // get data of comoany selected
+        this.getSelectedCompanyData(this.companySelected.id);
+        this.formHeader = "ویرایش سازمان";
+        this.buttonLabel = "ویرایش";
+      }
+
+      // component is in insert mode 
       else if (params.hasOwnProperty('parentId')) {
         this.parentCompanySelected.id = params['parentId'];
         // get parent data of comoany selected
         this.getParentSelectedCompanyData(this.parentCompanySelected.id);
-        this.formHeader = 'افزودن سازمان';
-        this.buttonLabel = 'افزودن';
-      } else {
-        alert('mode is not defined!');
+        this.formHeader = "افزودن سازمان"
+        this.buttonLabel = "ثبت";
       }
+      else {
+        console.log("mode is not defined!");
+      }
+
     });
   }
 

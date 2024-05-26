@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
-  ActivityType,
-  Company,
-  CompanyInspectionInstitute,
-  CompanyType, PublisherStatus,
-  ReportingType
+  Company, DeleteCompany, UrlBuilder
 } from '@shared/models/response.model';
 import {
   ConfirmationService,
@@ -23,59 +18,23 @@ import { map, tap } from 'rxjs';
   providers: [ConfirmationService],
 })
 export class CompanyDefinitionComponent implements OnInit {
-  /** نوع فعالبت انتخاب شده */
-  selectedActivityType = new ActivityType();
-
-  /** نوع شرکت انتخاب شده */
-  selectedCompanyType = new CompanyType();
-
-  // selectedParent = new Company();
-
-  selectedReportingType = new ReportingType();
-
-  selectedPublisherStatus = new PublisherStatus();
-
-  /** موسسه حسابرسی شرکت انتخاب شده */
-  selectedCompanyInspectionInstitute = new CompanyInspectionInstitute();
 
   /*--------------------------
   # Table
   --------------------------*/
-  /** Table data total count. */
   totalCount!: number;
-
-  /** Main table data. */
-  subCompanies: Company[] = [];
   data: Company[] = [];
-
-  /** Main table loading. */
   loading = false;
-
-  /** Main table rows */
   dataTableRows = 10;
+  /*--------------------------
+# Table
+--------------------------*/
 
   selectedCompany: any = {};
-
-  previewDetailsDialog = false;
-
-  fomrCollapsed = true;
-
-  selectedSubject = new Company();
-
-  /** Main table first row */
   dataTableFirst = 0;
-
   gridClass = 'p-datatable-sm';
-
-  selectedCompanyId = 0;
-
   lazyLoadEvent?: LazyLoadEvent;
-
-  editCompanyData = new Company();
-
-  isOpenAddCompany = false;
-
-  searchCompanyForm!: FormGroup;
+  subCompanies: Company[] = [];
 
   constructor(
     private httpService: HttpService,
@@ -85,12 +44,7 @@ export class CompanyDefinitionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.searchCompanyForm = new FormGroup({
-      companyName: new FormControl(),
-    });
-
     this.getSubCompanies();
-
   }
 
 
@@ -148,57 +102,42 @@ export class CompanyDefinitionComponent implements OnInit {
       });
   }
 
-  /*--------------------------
-  # DETAILS
-  --------------------------*/
-  /**
-   * Show report details modal.
-   * @param report report details model
-   */
-  previewDetails(company: Company) {
-    // this.selectedCompany = company;
-    // this.previewDetailsDialog = true;
-  }
-
-
-
   deleteRow(company: Company) {
-    // if (company && company.id)
-    //   this.confirmationService.confirm({
-    //     message: 'آیا از حذف شرکت اطمینان دارید؟',
-    //     header: `عنوان ${company.companyName}`,
-    //     icon: 'pi pi-exclamation-triangle',
-    //     acceptLabel: 'تایید و حذف',
-    //     acceptButtonStyleClass: 'p-button-danger',
-    //     acceptIcon: 'pi pi-trash',
-    //     rejectLabel: 'انصراف',
-    //     rejectButtonStyleClass: 'p-button-secondary',
-    //     defaultFocus: 'reject',
-    //     accept: () => this.deleteCompany(company.id, company.companyName),
-    //   });
+    if (company && company.id)
+      this.confirmationService.confirm({
+        message: 'آیا از حذف شرکت اطمینان دارید؟',
+        header: `عنوان ${company.companyName}`,
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'تایید و حذف',
+        acceptButtonStyleClass: 'p-button-danger',
+        acceptIcon: 'pi pi-trash',
+        rejectLabel: 'انصراف',
+        rejectButtonStyleClass: 'p-button-secondary',
+        defaultFocus: 'reject',
+        accept: () => this.deleteCompany(company.id, company.companyName),
+      });
   }
 
   deleteCompany(id: number, companyName: string) {
-    // if (id && companyName) {
-    //   this.httpService
-    //     .delete<Company>(
-    //       UrlBuilder.build(DeleteCompany.apiAddress, 'DELETE') + `/${id}`
-    //     )
-    //     .subscribe(response => {
-    //       if (response.successed) {
-    //         this.dataTableFirst = 0;
-    //         // this.getSubsets();
+    if (id && companyName) {
+      this.httpService
+        .delete<Company>(
+          UrlBuilder.build(DeleteCompany.apiAddress, 'DELETE') + `/${id}`
+        )
+        .subscribe(response => {
+          if (response.successed) {
+            this.dataTableFirst = 0;
 
-    //         this.messageService.add({
-    //           key: 'subjectDefinition',
-    //           life: 8000,
-    //           severity: 'success',
-    //           detail: `شرکت ${companyName}`,
-    //           summary: 'با موفقیت حذف شد',
-    //         });
-    //       }
-    //     });
-    // }
+            this.messageService.add({
+              key: 'subjectDefinition',
+              life: 8000,
+              severity: 'success',
+              detail: `شرکت ${companyName}`,
+              summary: 'با موفقیت حذف شد',
+            });
+          }
+        });
+    }
   }
 
   addCompany(company: Company) {
