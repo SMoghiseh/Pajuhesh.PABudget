@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Period } from '@shared/models/response.model';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import { HttpService } from '@core/http/http.service';
-import { map, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { JDate } from '@shared/utilities/JDate/jdate';
 
 @Component({
   selector: 'app-add-edit-period',
@@ -24,6 +25,8 @@ export class AddEditPeriodComponent implements OnInit {
   set data(data: Period) {
     this.inputData = data;
   }
+
+  @Output() isSuccess = new EventEmitter<boolean>();
 
   get code() {
     return this.addEditPeriodForm.get('code');
@@ -60,12 +63,22 @@ export class AddEditPeriodComponent implements OnInit {
         Validators.required
       ),
     });
+    if (this.inputData.type1 === 'edit') {
+      this.addEditPeriodForm.patchValue(this.inputData);
+      this.addEditPeriodForm.patchValue({
+        fromDate: new JDate(new Date(this.inputData.fromDate)),
+        toDate: new JDate(new Date(this.inputData.toDate)),
+      });
+    }
   }
 
   addEditPeriod() {
     this.addEditPeriodSubmitted = true;
     if (this.addEditPeriodForm.valid) {
       const request: Period = this.addEditPeriodForm.value;
+      request.id = this.inputData.type1 === 'insert' ? 0 : this.inputData.id;
+      if (this.inputData.type2 === 'detail')
+        request.periodId = this.inputData.periodId;
       request.fromDate = request.fromDate
         ? this.datePipe.transform(
             this.jDateCalculatorService.convertToGeorgian(
@@ -111,6 +124,7 @@ export class AddEditPeriodComponent implements OnInit {
                   ? 'با موفقیت درج شد'
                   : 'با موفقیت بروزرسانی شد',
             });
+            this.isSuccess.emit(true);
           }
         });
     }

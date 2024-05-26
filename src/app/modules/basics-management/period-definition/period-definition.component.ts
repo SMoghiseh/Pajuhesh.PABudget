@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination, Period } from '@shared/models/response.model';
+import { Pagination, Period, UrlBuilder } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
-import { LazyLoadEvent } from 'primeng/api';
+import {
+  ConfirmationService,
+  LazyLoadEvent,
+  MessageService,
+} from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-period-definition',
   templateUrl: './period-definition.component.html',
   styleUrls: ['./period-definition.component.scss'],
+  providers: [ConfirmationService],
 })
 export class PeriodDefinitionComponent implements OnInit {
   gridClass = 'p-datatable-sm';
@@ -20,11 +26,24 @@ export class PeriodDefinitionComponent implements OnInit {
   modalTitle = '';
   isOpenAddEditPeriod = false;
   addEditData = new Period();
+  isDetail = false;
+  pId!: string;
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getPeriod();
+    this.route.params.subscribe((param: any) => {
+      if (param.id) {
+        this.isDetail = true;
+        this.pId = param.id;
+      }
+    });
   }
 
   getPeriod(event?: LazyLoadEvent) {
@@ -41,13 +60,17 @@ export class PeriodDefinitionComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      periodId: parseInt(this.pId),
     };
 
     this.loading = true;
 
     this.first = 0;
+    const url = this.pId
+      ? Period.apiAddressDetail + 'List'
+      : Period.apiAddress + 'ListByFilter';
     this.httpService
-      .post<Period[]>(Period.apiAddress + 'ListByFilter', body)
+      .post<Period[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -65,19 +88,71 @@ export class PeriodDefinitionComponent implements OnInit {
   addPeriod() {
     this.modalTitle = 'افزودن دوره بودجه جدید';
     this.addEditData.type1 = 'insert';
-    this.addEditData.type2 = 'master';
+    if (this.isDetail) {
+      this.addEditData.periodId = parseInt(this.pId);
+      this.addEditData.type2 = 'detail';
+    } else this.addEditData.type2 = 'master';
+
     this.isOpenAddEditPeriod = true;
   }
 
   editRow(data: Period) {
-    this.modalTitle = 'ویرایش دوره بودجه ' + data.title;
+    this.modalTitle = 'ویرایش دوره ' + data.title;
     this.addEditData = data;
     this.addEditData.type1 = 'edit';
-    this.addEditData.type2 = 'master';
+    if (this.isDetail) {
+      this.addEditData.periodId = parseInt(this.pId);
+      this.addEditData.type2 = 'detail';
+    } else this.addEditData.type2 = 'master';
+
     this.isOpenAddEditPeriod = true;
   }
 
-  deleteRow(data: Period) {}
+  deleteRow(period: Period) {
+    if (period && period.id)
+      this.confirmationService.confirm({
+        message: 'آیا از حذف دوره بودجه اطمینان دارید؟',
+        header: `عنوان ${period.title}`,
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'تایید و حذف',
+        acceptButtonStyleClass: 'p-button-danger',
+        acceptIcon: 'pi pi-trash',
+        rejectLabel: 'انصراف',
+        rejectButtonStyleClass: 'p-button-secondary',
+        defaultFocus: 'reject',
+        accept: () => this.deletePeriod(period.id, period.title),
+      });
+  }
 
-  periodDetail(data: Period) {}
+  deletePeriod(id: number, title: string) {
+    if (id && title) {
+      let url = '';
+      if (this.isDetail) url = Period.apiAddressDetail;
+      else url = Period.apiAddress;
+      this.httpService
+        .delete<Period>(UrlBuilder.build(url + 'DELETE', '') + `/${id}`)
+        .subscribe(response => {
+          if (response.successed) {
+            this.first = 0;
+            this.messageService.add({
+              key: 'periodDefinition',
+              life: 8000,
+              severity: 'success',
+              detail: `دوره ${title}`,
+              summary: 'با موفقیت حذف شد',
+            });
+            this.getPeriod();
+          }
+        });
+    }
+  }
+
+  periodDetail(data: Period) {
+    this.router.navigate(['/baseinfo/period/' + data.id]);
+  }
+
+  reloadData() {
+    this.isOpenAddEditPeriod = false;
+    this.getPeriod();
+  }
 }

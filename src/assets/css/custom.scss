@@ -12,6 +12,16 @@
    height: 30px;
  }
 
+ .action-image-container {
+  border: none;
+  background-color: unset;
+  margin-right: 10px;
+  img{
+      width: 29px;
+      height: 34px;
+  }
+}
+
 
  /*--------------------------------------------------------------
 # table
@@ -42,5 +52,10 @@
 
        }
      }
-   }
- }
+    }
+  }
+  .table-header {
+   padding: 0 0 11px;
+   font-size: 15px;
+   font-weight: 600;
+}

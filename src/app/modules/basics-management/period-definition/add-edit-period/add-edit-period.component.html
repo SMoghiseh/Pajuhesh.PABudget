@@ -3,7 +3,37 @@
   [formGroup]="addEditPeriodForm"
   (ngSubmit)="addEditPeriod()">
   <div class="container row">
-    <div class="col-3">
+    <div class="w-date">
+      <label for="fromDate">از تاریخ</label>
+      <p-persian-calendar
+        id="fromDate"
+        name="fromDate"
+        formControlName="fromDate"
+        styleClass="w-100 "
+        [class.ng-invalid]="fromDate?.invalid"
+        [class.ng-dirty]="
+          (addEditPeriodSubmitted && fromDate?.pristine) ||
+          fromDate?.dirty ||
+          fromDate?.touched
+        ">
+      </p-persian-calendar>
+    </div>
+    <div class="w-date">
+      <label for="toDate">تا تاریخ</label>
+      <p-persian-calendar
+        id="toDate"
+        name="toDate"
+        formControlName="toDate"
+        styleClass="w-100 "
+        [class.ng-invalid]="toDate?.invalid"
+        [class.ng-dirty]="
+          (addEditPeriodSubmitted && toDate?.pristine) ||
+          toDate?.dirty ||
+          toDate?.touched
+        ">
+      </p-persian-calendar>
+    </div>
+    <div class="w-date">
       <label for="code">کد</label>
       <input
         pInputText
@@ -20,7 +50,7 @@
         "
         [value]="code?.value | faNum" />
     </div>
-    <div class="col-3">
+    <div class="w-date">
       <label for="title">عنوان</label>
       <input
         pInputText
@@ -37,36 +67,7 @@
         "
         [value]="title?.value | faNum" />
     </div>
-    <div class="col-3">
-      <label for="fromDate">از تاریخ</label>
-      <p-persian-calendar
-        id="fromDate"
-        name="fromDate"
-        formControlName="fromDate"
-        styleClass="w-100 "
-        [class.ng-invalid]="fromDate?.invalid"
-        [class.ng-dirty]="
-          (addEditPeriodSubmitted && fromDate?.pristine) ||
-          fromDate?.dirty ||
-          fromDate?.touched
-        ">
-      </p-persian-calendar>
-    </div>
-    <div class="col-3">
-      <label for="toDate">تا تاریخ</label>
-      <p-persian-calendar
-        id="toDate"
-        name="toDate"
-        formControlName="toDate"
-        styleClass="w-100 "
-        [class.ng-invalid]="toDate?.invalid"
-        [class.ng-dirty]="
-          (addEditPeriodSubmitted && toDate?.pristine) ||
-          toDate?.dirty ||
-          toDate?.touched
-        ">
-      </p-persian-calendar>
-    </div>
+
     <div class="col-12">
       <p-button
         class="pe-2 p-button-wide"

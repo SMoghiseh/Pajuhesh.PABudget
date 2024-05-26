@@ -984,4 +984,5 @@ export class Period {
   toDate!: any;
   type1!: string;
   type2!: string;
+  periodId!: number;
 }

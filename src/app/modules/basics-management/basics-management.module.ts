@@ -28,6 +28,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { TooltipModule } from 'primeng/tooltip';
 import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
 import { AddEditPeriodComponent } from './period-definition/add-edit-period/add-edit-period.component';
 
@@ -61,6 +62,7 @@ import { AddEditPeriodComponent } from './period-definition/add-edit-period/add-
     TreeSelectModule,
     InputNumberModule,
     KeyFilterModule,
+    TooltipModule,
   ],
   providers: [
     {

@@ -46,7 +46,15 @@ const routes: Routes = [
             data: {
               reuse: true,
               title: 'تعریف دوره',
-              animation: 'BasicsDefinitionPage',
+            },
+          },
+          {
+            path: 'period/:id',
+            component: PeriodDefinitionComponent,
+            title: 'برنامه و بودجه | تعریف دوره عملیاتی',
+            data: {
+              reuse: true,
+              title: 'تعریف دوره عملیاتی',
             },
           },
           {

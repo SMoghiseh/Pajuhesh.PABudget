@@ -1,65 +1,160 @@
 <p-toast key="periodDefinition" position="bottom-left"></p-toast>
-<section class="section">
-  <div class="card-text pt-3"></div>
 
-  <div class="table-container">
-    <div class="d-flex justify-content-between pt-3 pb-3 w-100">
-      <div class="table-header">لیست دوره ها</div>
-      <p-button
-        class="pe-2"
-        styleClass="p-button-info"
-        icon="pi pi-plus-circle"
-        label="افزودن دوره جدید"
-        (click)="addPeriod()"></p-button>
-    </div>
-    <p-table
-      #dataTable
-      dataKey="id"
-      class="data-table d-none d-lg-block"
-      [styleClass]="gridClass"
-      [rowHover]="true"
-      [paginator]="true"
-      [rows]="dataTableRows"
-      [rowsPerPageOptions]="[10, 20, 30]"
-      [totalRecords]="totalCount"
-      [value]="data"
-      [loading]="loading"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      [lazy]="true"
-      (onLazyLoad)="getPeriod($event)"
-      [(first)]="first">
-      <!-- table header -->
-      <ng-template pTemplate="header">
-        <tr class="data-table__header">
-          <th>
-            <strong>کد</strong>
-          </th>
-          <th>
-            <strong>عنوان</strong>
-          </th>
-          <th>
-            <strong> از تاریخ </strong>
-          </th>
-          <th>
-            <strong> تا تاریخ </strong>
-          </th>
-          <th>
-            <strong> وضعیت </strong>
-          </th>
-          <th>
-            <strong> عملیات</strong>
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-period let-rowIndex="rowIndex">
-        <tr>
-          <td>{{ period.periodCode }}</td>
-          <td>{{ period.periodTitle }}</td>
-          <td>{{ period.fromDate }}</td>
-          <td>{{ period.toDate }}</td>
-          <td>{{ period.statusTitle }}</td>
+<div class="table-header">لیست دوره ها</div>
+<div class="justify-content-between pb-3 w-100" style="text-align: end">
+  <p-button
+    class="pe-2"
+    styleClass="p-button-info"
+    icon="pi pi-plus-circle"
+    label="افزودن دوره جدید"
+    (click)="addPeriod()"></p-button>
+</div>
+<div class="table-container">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getPeriod($event)"
+    [(first)]="first">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <th>
+          <strong>کد</strong>
+        </th>
+        <th>
+          <strong>عنوان</strong>
+        </th>
+        <th>
+          <strong> از تاریخ </strong>
+        </th>
+        <th>
+          <strong> تا تاریخ </strong>
+        </th>
+        <th>
+          <strong> وضعیت </strong>
+        </th>
+        <th>
+          <strong> عملیات</strong>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-period let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ period.code }}</td>
+        <td>{{ period.title }}</td>
+        <td>{{ period.fromDatePC }}</td>
+        <td>{{ period.toDatePC }}</td>
+        <td>{{ period.statusTitle }}</td>
 
-          <td class="jc-left ai-left">
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(period)"
+            pTooltip="ویرایش دوره">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
+
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(period)"
+            pTooltip="حذف دوره">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
+
+          <button
+            *ngIf="!isDetail"
+            class="action-image-container add-button"
+            (click)="periodDetail(period)"
+            pTooltip="دوره عملیاتی">
+            <img ngSrc="icons\Group 223.svg" width="24" height="24" />
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<div class="data-list d-block d-lg-none">
+  <ul *ngFor="let period of data" class="list-group my-1">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>کد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ period.periodCode }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عنوان</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ period.periodTitle }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>از تاریخ</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ period.fromDate }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تا تاریخ</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ period.toDate }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>وضعیت</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ period.statusTitle }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عملیات</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <div class="d-flex jc-center ai-center">
             <button
               class="action-image-container edit-button"
               (click)="editRow(period)"
@@ -75,114 +170,18 @@
             </button>
 
             <button
+              *ngIf="!isDetail"
               class="action-image-container add-button"
               (click)="periodDetail(period)"
               title="دوره عملیاتی">
-              <img ngSrc="icons\Group 223.svg" width="24" height="24" />
+              <img ngSrc="icons\remaind.svg" width="24" height="24" />
             </button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-
-  <div class="data-list d-block d-lg-none">
-    <ul *ngFor="let period of data" class="list-group my-1">
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>کد</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            {{ period.periodCode }}
           </div>
         </div>
-      </li>
-
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>عنوان</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            {{ period.periodTitle }}
-          </div>
-        </div>
-      </li>
-
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>از تاریخ</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            {{ period.fromDate }}
-          </div>
-        </div>
-      </li>
-
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>تا تاریخ</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            {{ period.toDate }}
-          </div>
-        </div>
-      </li>
-
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>وضعیت</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            {{ period.statusTitle }}
-          </div>
-        </div>
-      </li>
-
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>عملیات</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            <div class="d-flex jc-center ai-center">
-              <button
-                class="action-image-container edit-button"
-                (click)="editRow(period)"
-                title="ویرایش دوره">
-                <img ngSrc="icons\Group 116.svg" width="24" height="24" />
-              </button>
-
-              <button
-                class="action-image-container delete-button"
-                (click)="deleteRow(period)"
-                title="حذف دوره">
-                <img ngSrc="icons\Group 117.svg" width="24" height="24" />
-              </button>
-
-              <button
-                class="action-image-container add-button"
-                (click)="periodDetail(period)"
-                title="دوره عملیاتی">
-                <img ngSrc="icons\remaind.svg" width="24" height="24" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
+      </div>
+    </li>
+  </ul>
+</div>
 
 <p-dialog
   *ngIf="isOpenAddEditPeriod"
@@ -191,8 +190,10 @@
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
-  [style]="{ height: '500px' }">
-  <app-add-edit-period [data]="addEditData"></app-add-edit-period>
+  [style]="{ height: '420px', width: '430px' }">
+  <app-add-edit-period
+    [data]="addEditData"
+    (isSuccess)="reloadData()"></app-add-edit-period>
 </p-dialog>
 
-<!-- <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog> -->
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
