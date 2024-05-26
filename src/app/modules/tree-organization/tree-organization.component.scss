@@ -5,8 +5,7 @@
 
 .chart-structure {
     background-color: #F5F7FA;
-    padding: 25px 0;
-    margin-top: var(--header-height);
+    margin-top: calc(var(--header-height) + 25px);
 }
 
 //  first node margin auto
@@ -138,22 +137,96 @@
     }
 }
 
+// level 1
 .company-list {
-    display: flex;
     display: flex;
     margin: 0 auto;
     width: fit-content;
 
+    // level 2
     .company-list {
         display: unset;
+
+        .company-item {
+            display: flex;
+            height: 120px;
+
+            .company-header {
+                margin: 10px 0;
+                text-align: right;
+                padding-right: 10px;
+            }
+        }
+
+        // level 3
+        .company {
+            &:has(.company-list) {
+                position: relative;
+                width: 80%;
+                margin: 0 auto;
+                background: #fff;
+                padding: 8px 0 10px;
+                border-radius: 10px;
+                box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
+
+                .company-item {
+                    margin: 0;
+                    box-shadow: none;
+                    width: 185px;
+                    border: none;
+                    display: flex;
+                    height: 120px;
+                    position: relative;
+
+                    .company-header {
+                        margin-top: 15px;
+                    }
+
+                    &::before {
+                        height: 1px;
+                        width: 94%;
+                        right: 3%;
+                        background: #d2d4d6;
+                    }
+
+                }
+
+
+                &::before {
+                    width: 1px;
+                    height: 25px;
+                    background: #BDC3CB;
+                    content: "";
+                    position: absolute;
+                    top: 101%;
+                    right: 50%;
+                }
+            }
+
+
+
+            .company-list {
+
+                .company-item {
+
+                    background: #F1F5F9;
+                    height: 80px;
+                    margin: 20px auto 0;
+                    width: 170px;
+
+                    .company-logo {
+                        display: none;
+                    }
+
+                    &::before {
+                        width: 0px;
+                        height: 0px;
+                    }
+                }
+
+            }
+        }
+
+
     }
 }
-
-
-// ::ng-deep .sidebar {
-//     display: none !important;
-// }
-
-// ::ng-deep .content-body {
-//     margin: 5rem 4rem 1.43rem !important;
-// }
