@@ -3,7 +3,7 @@ import { HttpService } from '@core/http/http.service';
 import { Company, Dashboard, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-profile',
@@ -14,19 +14,21 @@ export class CompanyProfileComponent implements OnInit {
   infoLst = new Company();
   myChart!: Chart;
   benefitCost: any;
+  coId: any;
 
   constructor(
     private httpService: HttpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const coId = params['id'];
-      this.getProfileCoInfo(coId);
-      this.getCashBudgetByMonth(coId);
-      this.getShareholdersDashboard(coId);
-      this.getCostAndBenefitForProfile(coId);
+      this.coId = params['id'];
+      this.getProfileCoInfo(this.coId);
+      this.getCashBudgetByMonth(this.coId);
+      this.getShareholdersDashboard(this.coId);
+      this.getCostAndBenefitForProfile(this.coId);
     });
   }
 
@@ -87,6 +89,13 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
+  contractRoute() {
+    debugger;
+    this.router.navigate(['/Comapny/contractCompany', this.coId]),
+      {
+        queryParams: {},
+      };
+  }
   getCashBudgetByMonth(id: string) {
     this.httpService
       .get<Dashboard>(

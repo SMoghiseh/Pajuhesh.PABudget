@@ -3,12 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ActivityType,
   Company,
-  CompanyInspectionInstitute, CompanyType,
+  CompanyInspectionInstitute,
+  CompanyType,
   CreateCompany,
   ListCompany,
   PeriodType,
   PublisherStatus,
-  ReportingType
+  ReportingType,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { MessageService } from 'primeng/api';
@@ -31,8 +32,8 @@ export class sharedHolder {
 export class AddEditCompanyComponent implements OnInit {
   public datePipe = new DatePipe('en-US');
   noSpacesRegex = /^[a-zA-z_-]+$/;
-  formHeader: string = "";
-  buttonLabel: string = "";
+  formHeader: string = '';
+  buttonLabel: string = '';
   /*--------------------------
   # From
   --------------------------*/
@@ -196,10 +197,8 @@ export class AddEditCompanyComponent implements OnInit {
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) {
-
-  }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getDropDownData();
@@ -299,12 +298,8 @@ export class AddEditCompanyComponent implements OnInit {
       centeralOfficeFax: new FormControl(
         this.addNewCompanyModel.centeralOfficeFax
       ),
-      auditStart: new FormControl(
-        this.addNewCompanyModel.auditStart
-      ),
-      auditEnd: new FormControl(
-        this.addNewCompanyModel.auditEnd
-      ),
+      auditStart: new FormControl(this.addNewCompanyModel.auditStart),
+      auditEnd: new FormControl(this.addNewCompanyModel.auditEnd),
     });
 
     this.sharedHoldersForm = new FormGroup({
@@ -312,37 +307,31 @@ export class AddEditCompanyComponent implements OnInit {
       percentOwner: new FormControl(),
       meetingNo: new FormControl(),
       meetingDate: new FormControl(),
-    })
-
-
+    });
   }
 
   setComponentMode() {
-    this.route.queryParams
-      .subscribe(params => {
+    this.route.queryParams.subscribe(params => {
+      // component is in edit mode
+      if (params.hasOwnProperty('companyId')) {
+        this.companySelected.id = params['companyId'];
+        // get data of comoany selected
+        this.getSelectedCompanyData(this.companySelected.id);
+        this.formHeader = 'ویرایش سازمان';
+        this.buttonLabel = 'ویرایش';
+      }
 
-        // component is in edit mode 
-        if (params.hasOwnProperty('companyId')) {
-          this.companySelected.id = params['companyId'];
-          // get data of comoany selected
-          this.getSelectedCompanyData(this.companySelected.id);
-          this.formHeader = "ویرایش سازمان";
-          this.buttonLabel = "ویرایش";
-        }
-
-        // component is in insert mode 
-        else if (params.hasOwnProperty('parentId')) {
-          this.parentCompanySelected.id = params['parentId'];
-          // get parent data of comoany selected
-          this.getParentSelectedCompanyData(this.parentCompanySelected.id);
-          this.formHeader = "افزودن سازمان"
-          this.buttonLabel = "افزودن";
-        }
-        else {
-          alert("mode is not defined!");
-        }
-
-      });
+      // component is in insert mode
+      else if (params.hasOwnProperty('parentId')) {
+        this.parentCompanySelected.id = params['parentId'];
+        // get parent data of comoany selected
+        this.getParentSelectedCompanyData(this.parentCompanySelected.id);
+        this.formHeader = 'افزودن سازمان';
+        this.buttonLabel = 'افزودن';
+      } else {
+        alert('mode is not defined!');
+      }
+    });
   }
 
   getParentSelectedCompanyData(id: number) {
@@ -353,7 +342,7 @@ export class AddEditCompanyComponent implements OnInit {
           this.parentCompanySelected = response.data.result;
           this.addNewCompanyForm.patchValue({
             parentId: this.parentCompanySelected.id,
-          })
+          });
         }
       });
   }
@@ -385,8 +374,8 @@ export class AddEditCompanyComponent implements OnInit {
   # CREATE
   --------------------------*/
   addNewCompany() {
-    console.log('click')
-    debugger
+    console.log('click');
+    debugger;
     this.addNewCompanySubmitted = true;
     if (this.addNewCompanyForm.valid) {
       const {
@@ -418,7 +407,7 @@ export class AddEditCompanyComponent implements OnInit {
         centeralOfficeTelephone,
         centeralOfficeFax,
         auditStart,
-        auditEnd
+        auditEnd,
       } = this.addNewCompanyForm.value;
 
       const request = new Company();
@@ -432,15 +421,15 @@ export class AddEditCompanyComponent implements OnInit {
       request.registerNumber = registerNumber;
       request.registerDate = registerDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            registerDate?.getFullYear(),
-            registerDate?.getMonth(),
-            registerDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              registerDate?.getFullYear(),
+              registerDate?.getMonth(),
+              registerDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
-      request.periodTypeId = periodTypeId
+      request.periodTypeId = periodTypeId;
       request.companyTypeId = companyTypeId.id;
       request.activityTypeId = activityTypeId;
       request.symbol = symbol;
@@ -459,23 +448,23 @@ export class AddEditCompanyComponent implements OnInit {
       request.centeralOfficeFax = centeralOfficeFax;
       request.auditStart = auditStart
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            auditStart?.getFullYear(),
-            auditStart?.getMonth(),
-            auditStart?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              auditStart?.getFullYear(),
+              auditStart?.getMonth(),
+              auditStart?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
       request.auditEnd = auditEnd
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            auditEnd?.getFullYear(),
-            auditEnd?.getMonth(),
-            auditEnd?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              auditEnd?.getFullYear(),
+              auditEnd?.getMonth(),
+              auditEnd?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
       request.companyInspectionInstituteId = 0;
       request.systemOrganizationCode = systemOrganizationCode;
@@ -487,8 +476,6 @@ export class AddEditCompanyComponent implements OnInit {
         .pipe(tap(() => (this.addNewCompanyLoading = false)))
         .subscribe(response => {
           if (response.successed) {
-
-
             this.messageService.add({
               key: 'companyDefinition',
               life: 8000,
@@ -500,7 +487,6 @@ export class AddEditCompanyComponent implements OnInit {
         });
     }
   }
-
 
   /*--------------------------
   # CompanyInspectionInstitute
@@ -545,7 +531,7 @@ export class AddEditCompanyComponent implements OnInit {
 
   getCompanyTree() {
     this.httpService
-      .post<Company[]>(ListCompany.apiAddress, { "withOutPagination": true, })
+      .post<Company[]>(ListCompany.apiAddress, { withOutPagination: true })
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -597,35 +583,36 @@ export class AddEditCompanyComponent implements OnInit {
   }
 
   addNewsharedHolders() {
-
     let formValue: sharedHolder = this.sharedHoldersForm.value;
 
-    if (!(formValue.meetingDate || formValue.meetingNo || formValue.percentOwner)) return;
+    if (
+      !(formValue.meetingDate || formValue.meetingNo || formValue.percentOwner)
+    )
+      return;
 
     // add id to each row
     if (this.sharedHoldersArrayList?.length != 0) {
-      formValue.id = this.sharedHoldersArrayList[this.sharedHoldersArrayList?.length - 1].id + 1;
+      formValue.id =
+        this.sharedHoldersArrayList[this.sharedHoldersArrayList?.length - 1]
+          .id + 1;
     }
-    // convert date 
+    // convert date
     formValue['meetingDate'] = formValue['meetingDate']
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue['meetingDate']?.getFullYear(),
-          formValue['meetingDate']?.getMonth(),
-          formValue['meetingDate']?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue['meetingDate']?.getFullYear(),
+            formValue['meetingDate']?.getMonth(),
+            formValue['meetingDate']?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
     this.sharedHoldersArrayList.push(formValue);
     this.sharedHoldersForm.reset();
   }
 
-
   deleteRow(item: any) {
-    let index = this.sharedHoldersArrayList.findIndex((n) => n.id == item.id);
-    if (index > -1)
-      this.sharedHoldersArrayList.splice(index, 1);
+    let index = this.sharedHoldersArrayList.findIndex(n => n.id == item.id);
+    if (index > -1) this.sharedHoldersArrayList.splice(index, 1);
   }
-
 }

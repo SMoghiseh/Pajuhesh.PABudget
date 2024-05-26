@@ -559,6 +559,22 @@ export class Company {
   shareHolders: any;
 }
 
+/**قرارداد */
+export class Contract {
+  /** آدرس سرویس */
+
+  static readonly apiAddress = 'api/PABudgetApi/v1/Info/';
+
+  id!: number;
+  contractCode!: number;
+  contractDate!: any;
+  contractFromDate!: any;
+  contractToDate!: any;
+  contracTypeID!: number;
+  employerID!: number;
+  contractorID!: number;
+  contractPriceCu!: number;
+}
 /** کاربرها */
 export class AssignRole {
   /** آدرس سرویس */
@@ -606,6 +622,14 @@ export class CompanyType {
   id!: number;
   code!: string;
   title!: string;
+  isActive!: boolean;
+}
+
+export class ContractType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ContracType';
+  id!: number;
+  title!: string;
+  code!: string;
   isActive!: boolean;
 }
 

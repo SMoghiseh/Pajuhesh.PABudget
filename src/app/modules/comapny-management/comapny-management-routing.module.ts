@@ -5,6 +5,8 @@ import { CompanyManagementComponent } from './company-management.component';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
+import { CompanyContractComponent } from './company-profile/company-contract/company-contract.component';
+import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 
 const routes: Routes = [
   {
@@ -36,8 +38,27 @@ const routes: Routes = [
             },
           },
           {
+            path: 'ContractForm',
+            component: AddEditContractComponent,
+            title: 'برنامه و بودجه | تعریف قرارداد',
+            data: {
+              reuse: true,
+              title: 'تعریف سازمان',
+              animation: 'createContract',
+            },
+          },
+          {
             path: 'companyProfile/:id',
             component: CompanyProfileComponent,
+            title: 'برنامه و بودجه | پروفایل سازمان',
+            data: {
+              reuse: true,
+              title: 'پروفایل سازمان',
+            },
+          },
+          {
+            path: 'contractCompany/:id',
+            component: CompanyContractComponent,
             title: 'برنامه و بودجه | پروفایل سازمان',
             data: {
               reuse: true,

@@ -35,6 +35,8 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
+import { CompanyContractComponent } from './company-profile/company-contract/company-contract.component';
+import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { CompanyProfileComponent } from './company-profile/company-profile.compo
     CompanyDefinitionComponent,
     AddEditCompanyComponent,
     CompanyProfileComponent,
+    CompanyContractComponent,
+    AddEditContractComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,
