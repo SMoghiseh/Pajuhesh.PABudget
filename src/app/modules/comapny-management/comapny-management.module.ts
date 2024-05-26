@@ -36,6 +36,7 @@ import { CompanyDefinitionComponent } from './company-definition/company-definit
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CompanyContractComponent } from './company-profile/company-contract/company-contract.component';
+import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CompanyContractComponent } from './company-profile/company-contract/com
     AddEditCompanyComponent,
     CompanyProfileComponent,
     CompanyContractComponent,
+    AddEditContractComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,

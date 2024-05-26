@@ -6,6 +6,7 @@ import { CompanyDefinitionComponent } from './company-definition/company-definit
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CompanyContractComponent } from './company-profile/company-contract/company-contract.component';
+import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,16 @@ const routes: Routes = [
               reuse: true,
               title: 'تعریف سازمان',
               animation: 'createCompany',
+            },
+          },
+          {
+            path: 'ContractForm',
+            component: AddEditContractComponent,
+            title: 'برنامه و بودجه | تعریف قرارداد',
+            data: {
+              reuse: true,
+              title: 'تعریف سازمان',
+              animation: 'createContract',
             },
           },
           {

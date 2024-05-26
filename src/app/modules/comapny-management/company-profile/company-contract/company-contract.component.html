@@ -1,0 +1,134 @@
+<!-- data table -->
+<section class="section">
+  <div class="card-text pt-3"></div>
+  <div class="pb-2">
+    <div class="form-group container">
+      <div class="d-flex justify-content-between pt-3 pb-3 w-100">
+        <!-- / نام شرکت -->
+        <!-- <div class="col-4">
+          <label for="companyName"> لیست شرکت ها</label>
+          <p-dropdown
+            id="companyName"
+            class="col"
+            styleClass="w-100"
+            optionLabel="companyName"
+            [options]="subCompanies"
+            placeholder="انتخاب کنید"
+            [(ngModel)]="selectedCompany"
+            (onChange)="onCompanySelected($event)">
+          </p-dropdown>
+        </div> -->
+        <!-- دکمه -->
+        <p-button
+          class="pe-2 mt-4"
+          styleClass="p-button-success"
+          icon="pi pi-plus"
+          label="افزودن قرارداد جدید"
+          (click)="addContract()"></p-button>
+        <!-- / دکمه -->
+      </div>
+    </div>
+    <!-- </p-panel> -->
+  </div>
+
+  <!-- data table -->
+  <div class="table-container">
+    <p-table
+      #dataTable
+      dataKey="id"
+      class="data-table d-none d-lg-block"
+      [styleClass]="gridClass"
+      [rowHover]="true"
+      [paginator]="true"
+      [rows]="dataTableRows"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [totalRecords]="totalCount"
+      [value]="data"
+      [loading]="loading"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [lazy]="true"
+      [(first)]="dataTableFirst">
+      <!-- table header -->
+      <ng-template pTemplate="header">
+        <tr class="data-table__header">
+          <th>
+            <strong>شماره قرارداد</strong>
+          </th>
+          <th>
+            <strong>نوع قرارداد</strong>
+          </th>
+          <th>
+            <strong>کارفرما</strong>
+          </th>
+          <th>
+            <strong>پیمانکار</strong>
+          </th>
+          <th>
+            <strong>تاریخ شروع</strong>
+          </th>
+          <th>
+            <strong>تاریخ پایان</strong>
+          </th>
+          <th>
+            <strong>مبلغ قرارداد</strong>
+          </th>
+          <th>
+            <strong>وضعیت</strong>
+          </th>
+          <th>
+            <strong> عملیات </strong>
+          </th>
+        </tr>
+      </ng-template>
+      <!-- / table header -->
+      <!-- table body -->
+      <ng-template pTemplate="body" let-contract let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ contract.contractCode }}</td>
+          <td>{{ contract.contracTypeID }}</td>
+          <td>{{ contract.contractorID }}</td>
+          <td>{{ contract.employerID }}</td>
+          <td>{{ contract.contractFromDate }}</td>
+          <td>{{ contract.contractPriceCu }}</td>
+          <td>{{ contract.contractorID }}</td>
+          <td>{{ contract.contractorID }}</td>
+
+          <!-- actions -->
+          <td class="jc-left ai-left">
+            <!-- edit -->
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(contract)"></button>
+            <!-- / edit -->
+
+            <!-- delete -->
+            <button
+              class="action-image-container add-button"
+              (click)="addCompany(contract)"></button>
+            <!-- / delete -->
+
+            <!-- delete -->
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(contract)"></button>
+            <!-- / delete -->
+
+            <!-- select Board of Managments -->
+            <button
+              class="action-image-container add-boardofdirectors-button"
+              (click)="deleteRow(contract)"></button>
+            <!-- select Board of Managments -->
+
+            <!-- select auditor -->
+            <button
+              class="action-image-container add-auditors-button pr-1"
+              (click)="selectAuditors(contract)"></button>
+            <!-- select auditor -->
+          </td>
+          <!-- actions -->
+        </tr>
+      </ng-template>
+      <!-- / table body -->
+    </p-table>
+  </div>
+</section>
