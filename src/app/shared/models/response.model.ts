@@ -796,6 +796,13 @@ export class DeleteCompany {
   static readonly apiAddress = 'api/PABudgetApi/v1/company';
 }
 
+/**اعضاء شرکت */
+export class personsCompany {
+  static readonly apiAddress = 'api/PABudgetApi/v1/CompanyManager/GetAllPersonsCompanyByRole';
+}
+
+/**اعضاء شرکت */
+
 /** نوع‌های شرکت */
 export class ListCompany {
   /** آدرس سرویس */

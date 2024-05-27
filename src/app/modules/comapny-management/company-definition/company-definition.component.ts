@@ -118,6 +118,11 @@ export class CompanyDefinitionComponent implements OnInit {
       });
   }
 
+  personscompany(company: Company) {
+    this.router.navigate(['/Comapny/personscompany/' + company.id]);
+
+  }
+
   deleteCompany(id: number, companyName: string) {
     if (id && companyName) {
       this.httpService

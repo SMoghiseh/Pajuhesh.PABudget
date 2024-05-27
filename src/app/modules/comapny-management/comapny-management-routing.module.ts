@@ -7,6 +7,7 @@ import { AddEditCompanyComponent } from './company-definition/add-edit-company/a
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CompanyContractComponent } from './company-profile/company-contract/company-contract.component';
 import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
+import { PersonsCompanyComponent } from './persons-company/persons-company.component';
 
 const routes: Routes = [
   {
@@ -64,7 +65,15 @@ const routes: Routes = [
               reuse: true,
               title: 'پروفایل سازمان',
             },
-          },
+          }, {
+            path: 'personscompany/:id',
+            component: PersonsCompanyComponent,
+            title: 'برنامه و بودجه |لیست اعضاء شرکت',
+            data: {
+              reuse: true,
+              title: 'لیست اعضاء شرکت',
+            }
+          }
         ],
       },
     ],
@@ -75,4 +84,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ComapnyManagementRoutingModule {}
+export class ComapnyManagementRoutingModule { }
