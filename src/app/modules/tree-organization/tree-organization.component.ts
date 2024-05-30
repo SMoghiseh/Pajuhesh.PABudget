@@ -56,10 +56,9 @@ export class TreeOrganizationComponent {
       if (el.classList.contains('company'))
         el.classList.add('hide')
     })
-    downIcon.classList.add('hide')
-
-    upIcon.classList.remove('hide')
-    upIcon.classList.add('show')
+    downIcon.classList.add('hide');
+    upIcon.classList.remove('hide');
+    upIcon.classList.add('show');
 
   }
 
@@ -70,10 +69,9 @@ export class TreeOrganizationComponent {
         el.classList.remove('hide')
     })
 
-    downIcon.classList.remove('hide')
-
-    upIcon.classList.add('hide')
-    upIcon.classList.remove('show')
+    downIcon.classList.remove('hide');
+    upIcon.classList.add('hide');
+    upIcon.classList.remove('show');
 
   }
 

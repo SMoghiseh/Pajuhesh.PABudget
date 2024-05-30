@@ -130,7 +130,7 @@
     }
 
     >div.company>div.company-list {
-        >div>div.company-list>div.company-item:last-of-type {
+        >div>div.company-list>div:nth-last-child(2) {
             .company-item {
                 &::before {
                     width: 0px;
@@ -168,6 +168,7 @@
                 position: absolute;
                 top: 110px;
                 right: 45%;
+                cursor: pointer;
             }
         }
 
@@ -186,6 +187,7 @@
                 background: #fff;
                 box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
                 z-index: 999;
+                cursor: pointer;
             }
         }
     }
