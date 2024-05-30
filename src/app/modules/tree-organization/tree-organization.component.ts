@@ -1,8 +1,6 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
-import { CompanyTree } from '@shared/models/response.model';
+import { CompanyTree, listReportForTree } from '@shared/models/response.model';
 
 @Component({
   selector: 'PABudget-tree-organization',
@@ -11,21 +9,31 @@ import { CompanyTree } from '@shared/models/response.model';
 })
 export class TreeOrganizationComponent {
   companyList: CompanyTree[] = []
+  filterList: any = []
+  selectedFilterTab = new listReportForTree();
 
-  constructor(private router: ActivatedRoute, @Inject(DOCUMENT) document: Document,
-    private httpService: HttpService) {
-    if (router.snapshot.data['showSideBar'] == false) {
-      this.changeStyleOfSideBar();
-    }
+  constructor(private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-    this.getAllCompanyList();
+    this.getFilteredCompanyList();
   }
 
-  getAllCompanyList() {
+  getFilteredCompanyList() {
     this.httpService
-      .get<CompanyTree[]>(CompanyTree.apiAddress)
+      .get<listReportForTree[]>(listReportForTree.apiAddress)
+      .subscribe(response => {
+        if (response.data) {
+          this.filterList = response.data;
+          this.selectedFilterTab = this.filterList[0];
+          this.getAllCompanyList(this.selectedFilterTab.id);
+        }
+      });
+  }
+
+  getAllCompanyList(id: number) {
+    this.httpService
+      .post<CompanyTree[]>(CompanyTree.apiAddress, { reportId: id })
       .subscribe(response => {
         if (response.data.result) {
           this.companyList = response.data.result;
@@ -33,13 +41,40 @@ export class TreeOrganizationComponent {
       });
   }
 
-  changeStyleOfSideBar() {
-    let sidebar: HTMLCollection = document.getElementsByClassName('sidebar');
-    let sidebar0: any = sidebar[0];
-    sidebar0.style.display = 'none';
-    let contentBody: HTMLCollection = document.getElementsByClassName('content-body');
-    let contentBody0: any = contentBody[0];
-    contentBody0.style.margin = '5rem 4rem 1.43rem';
+  onSelectFilterTab(item: listReportForTree) {
+    this.selectedFilterTab = item;
+    this.getAllCompanyList(item.id);
+  }
+
+  isSelectedItem(item: listReportForTree) {
+    return item.id == this.selectedFilterTab.id ? true : false;
+  }
+
+  toggleList(element: HTMLElement, downIcon: HTMLElement, upIcon: HTMLElement) {
+
+    Array.from(element.children).forEach(el => {
+      if (el.classList.contains('company'))
+        el.classList.add('hide')
+    })
+    downIcon.classList.add('hide')
+
+    upIcon.classList.remove('hide')
+    upIcon.classList.add('show')
+
+  }
+
+  toggleList2(element: HTMLElement, downIcon: HTMLElement, upIcon: HTMLElement) {
+
+    Array.from(element.children).forEach(el => {
+      if (el.classList.contains('company'))
+        el.classList.remove('hide')
+    })
+
+    downIcon.classList.remove('hide')
+
+    upIcon.classList.add('hide')
+    upIcon.classList.remove('show')
+
   }
 
 }

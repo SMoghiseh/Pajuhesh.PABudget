@@ -14,14 +14,14 @@
    scroll-behavior: smooth;
 
    --main-transition: all 0.2s linear;
-
-  --sidemenu-width: 240px;
-  // --sidemenu-bgcolor:#DDF1E1;
-  --sidemenu-bgcolor: #0F172A;
-  // --sidemenu-text-color:#404040;
-  --sidemenu-text-color:#ABAEB5;
-  --sidemenu-sub-color:#909090;
-  --sidemenu-hover-color:#ABAEB5;
+   --filter-list-width: 180px;
+   --sidemenu-width: 240px;
+   // --sidemenu-bgcolor:#DDF1E1;
+   --sidemenu-bgcolor: #0F172A;
+   // --sidemenu-text-color:#404040;
+   --sidemenu-text-color: #ABAEB5;
+   --sidemenu-sub-color: #909090;
+   --sidemenu-hover-color: #ABAEB5;
 
    --header-height: 60px;
    --footer-height: 30px;

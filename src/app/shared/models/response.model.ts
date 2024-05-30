@@ -430,6 +430,12 @@ export class FileType {
   enName!: string;
 }
 
+export class listReportForTree {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/listReportForTree';
+  id!: number;
+  reportName!: string;
+}
+
 /** ناظرین */
 export class AssignCompanyToSupervisor {
   /** آدرس سرویس */

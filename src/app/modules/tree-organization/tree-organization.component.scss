@@ -1,11 +1,18 @@
+.content-page {
+    display: flex;
+    background-color: #F5F7FA;
+}
+
 .return {
     text-align: left;
     margin-left: 30px;
+    margin-top: 20px;
 }
 
 .chart-structure {
-    background-color: #F5F7FA;
-    margin-top: calc(var(--header-height) + 25px);
+    margin-top: var(--header-height);
+    width: calc(100% - var(--filter-list-width));
+    margin-right: var(--filter-list-width);
 }
 
 //  first node margin auto
@@ -16,7 +23,7 @@
 .company-item {
     padding: 0 15px 10px;
     border: 1px solid #eee;
-    width: 194px;
+    width: 185px;
     margin: 35px 20px;
     height: 150px;
     background: #fff;
@@ -27,9 +34,6 @@
 
 
     .company-logo {
-        // width: 55px;
-        // height: 55px;
-        // margin-top: 15px;
         width: 60px;
         height: 60px;
         background-repeat: no-repeat;
@@ -98,7 +102,7 @@
         }
     }
 
-    .company:nth-child(1)> {
+    .company:nth-child(2)> {
         div.company-item {
             &::after {
                 height: 0px;
@@ -126,12 +130,62 @@
     }
 
     >div.company>div.company-list {
-        >div>div.company-list>div:last-child {
+        >div>div.company-list>div.company-item:last-of-type {
             .company-item {
                 &::before {
                     width: 0px;
                     height: 0px;
                 }
+            }
+        }
+
+        .collapsed-down {
+            display: none;
+            text-align: center;
+
+            div {
+                background: #BDC3CB;
+                height: 1px;
+                width: 58px;
+                display: inline-block;
+            }
+
+            >div:nth-child(1) {
+                margin-right: 8px;
+            }
+
+            >div:nth-child(3) {
+                margin-right: 42px;
+            }
+
+            i {
+                font-size: 1.2rem;
+                padding: 5px;
+                border-radius: 50%;
+                color: #64748B;
+                background: #fff;
+                box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
+                position: absolute;
+                top: 110px;
+                right: 45%;
+            }
+        }
+
+
+        .collapsed-up {
+            text-align: center;
+
+            i {
+                position: absolute;
+                right: 44%;
+                top: 108px;
+                font-size: 1.2rem;
+                padding: 5px;
+                border-radius: 50%;
+                color: #64748B;
+                background: #fff;
+                box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
+                z-index: 999;
             }
         }
     }
@@ -162,7 +216,7 @@
         .company {
             &:has(.company-list) {
                 position: relative;
-                width: 80%;
+                width: 82%;
                 margin: 0 auto;
                 background: #fff;
                 padding: 8px 0 10px;
@@ -177,16 +231,15 @@
                     display: flex;
                     height: 120px;
                     position: relative;
+                    height: 104px;
 
                     .company-header {
                         margin-top: 15px;
                     }
 
                     &::before {
-                        height: 1px;
-                        width: 94%;
-                        right: 3%;
-                        background: #d2d4d6;
+                        height: 0px;
+                        width: 0;
                     }
 
                 }
@@ -201,11 +254,26 @@
                     top: 101%;
                     right: 50%;
                 }
+
+                &::after {
+                    width: 1px;
+                    height: 25px;
+                    background: #BDC3CB;
+                    content: "";
+                    position: absolute;
+                    top: 101%;
+                    right: 50%;
+                }
+
             }
 
 
 
             .company-list {
+
+                .collapsed-down {
+                    display: block;
+                }
 
                 .company-item {
 
@@ -229,4 +297,50 @@
 
 
     }
+}
+
+.filter-box {
+    background: #fff;
+    width: var(--filter-list-width);
+    position: fixed;
+    text-align: center;
+    height: 100vh;
+    margin: calc(var(--header-height)) 0 0 0;
+    padding: 30px 0;
+
+    .filter-tab-title {
+        font-size: 1.15rem;
+        margin: 0px 10px 25px 10px;
+    }
+
+    .filter-tab {
+        background-color: #F1F5F9;
+        margin: 13px auto;
+        font-size: 12px;
+        padding: 10px 2px;
+        border-radius: 7px;
+        color: black;
+        cursor: pointer;
+        width: 144px;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            @extend .selected-filter-tab;
+        }
+    }
+}
+
+.selected-filter-tab {
+    background-color: #DBEAFE !important;
+    color: #1E40AF !important;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.show {
+    display: block !important;
+}
+
+.hide {
+    display: none !important;
 }

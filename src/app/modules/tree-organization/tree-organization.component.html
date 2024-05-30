@@ -1,42 +1,58 @@
-<div>
+<!-- Header -->
+<app-header></app-header>
+<!-- / Header -->
+<div class="content-page">
 
-    <!-- Header -->
-    <app-header></app-header>
-    <!-- / Header -->
-
+    <div class="filter-box">
+        <h6 class="filter-tab-title">فیلتر نتایج بر اساس</h6>
+        <ng-container *ngFor="let filter of filterList">
+            <div [ngClass]="isSelectedItem(filter) ? 'selected-filter-tab' : ''" (click)="onSelectFilterTab(filter)"
+                class="filter-tab">
+                {{filter.reportName}}
+            </div>
+        </ng-container>
+    </div>
     <div class="chart-structure">
         <p class="return"><a routerLink="/default/Dashboard">بازگشت</a></p>
         <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{$implicit: companyList}">
         </ng-container>
     </div>
 
+</div>
 
-    <!-- template for company item -->
-    <ng-template #companyInfoItem let-companyList>
-        <ng-container *ngFor="let company of companyList">
-            <!-- company item -->
-            <div class="company">
-                <div class="company-item">
-                    <div class="company-logo"
-                        [style.background-image]=" 'url(../../../../assets/images/holding-logo/' + company.logo + ')'">
-                    </div>
-                    <div class="company-header">
-                        {{ company.label }}
-                    </div>
-                    <div class="company-detail">
-                        <span class="percentage"> {{ company.percentOwner }} </span>
-                        <span class="status"> {{ company.companyType }} </span>
-                        <span class="detail-link"><a [routerLink]="['/Comapny/companyProfile' , company.id]">جزئیات
-                            </a></span>
-                    </div>
+<!-- template for company item -->
+<ng-template #companyInfoItem let-companyList>
+    <ng-container *ngFor="let company of companyList">
+        <!-- company item -->
+        <div class="company">
+            <div class="company-item">
+                <div class="company-logo"
+                    [style.background-image]=" 'url(../../../../assets/images/holding-logo/' + company.logo + ')'">
                 </div>
-                <div *ngIf="company.children" class="company-list">
-                    <ng-container [ngTemplateOutlet]="companyInfoItem"
-                        [ngTemplateOutletContext]="{$implicit: company.children}">
-                    </ng-container>
+                <div class="company-header">
+                    {{ company.label }}
+                </div>
+                <div class="company-detail">
+                    <span class="percentage"> {{ company.percentOwner }} </span>
+                    <span class="status"> {{ company.companyType }} </span>
+                    <span class="detail-link"><a [routerLink]="['/Comapny/companyProfile' , company.id]">جزئیات
+                        </a></span>
                 </div>
             </div>
-            <!-- company item -->
-        </ng-container>
-    </ng-template>
-</div>
+            <div *ngIf="company.children" class="company-list" #content>
+                <div class="collapsed-down" #downIcon>
+                    <div></div>
+                    <i (click)="toggleList(content , downIcon ,  upIcon)" class="pi pi-chevron-down"></i>
+                    <div></div>
+                </div>
+                <ng-container [ngTemplateOutlet]="companyInfoItem"
+                    [ngTemplateOutletContext]="{$implicit: company.children}">
+                </ng-container>
+                <div class="collapsed-up hide" #upIcon>
+                    <i (click)="toggleList2(content , downIcon ,  upIcon)" class="pi pi-chevron-up"></i>
+                </div>
+            </div>
+        </div>
+        <!-- company item -->
+    </ng-container>
+</ng-template>
