@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
-import { Company, Dashboard, UrlBuilder } from '@shared/models/response.model';
+import {
+  Company,
+  Dashboard,
+  GridBalanceSheet,
+  StaticYear,
+  UrlBuilder,
+} from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,7 +23,14 @@ export class CompanyProfileComponent implements OnInit {
   myChart2!: Chart;
   benefitCost: any;
   coId: any;
-  selectedYearTypeId = 0;
+  staticYearLst = [new StaticYear()];
+  selectedYearId!: number;
+  gridBalanceLst: Array<GridBalanceSheet> | [] = [];
+  selectedProgramName = '';
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 5;
+  loading = false;
+  selectedReportId!: number;
 
   constructor(
     private httpService: HttpService,
@@ -26,6 +39,7 @@ export class CompanyProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getStaticYear();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
       this.getProfileCoInfo(this.coId);
@@ -162,18 +176,71 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   onSelectYear(id: number) {
-    this.selectedYearTypeId = id;
+    this.selectedYearId = id;
     this.selectYearType();
+    this.getGridBalanceSheet();
   }
 
   selectYearType() {
-    // this.yearTypeLst.forEach(element => {
-    //   if (element.isSelected) element.isSelected = false;
-    //   if (element.id === this.selectedYearTypeId) element.isSelected = true;
-    // });
+    this.staticYearLst.forEach(element => {
+      if (element.isSelected) element.isSelected = false;
+      if (element.id === this.selectedYearId) element.isSelected = true;
+    });
   }
 
-  onCoDetail() {
-    this.router.navigate(['/Comapny/companyDetail']);
+  onCoDetail(id: number) {
+    this.router.navigate(['/Comapny/companyDetail/' + id]);
+  }
+
+  getStaticYear() {
+    this.httpService
+      .get<StaticYear[]>(UrlBuilder.build(StaticYear.apiAddress + 'List', ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [new StaticYear()];
+        })
+      )
+      .subscribe(res => {
+        res.forEach((element, index) => {
+          if (index === 0) {
+            this.selectedYearId = element.id;
+            element.isSelected = true;
+          } else element.isSelected = false;
+        });
+        this.staticYearLst = res;
+      });
+  }
+
+  onSelectPrograms(id: number, pName: string) {
+    this.selectedProgramName = pName;
+    this.selectedReportId = id;
+    this.getGridBalanceSheet();
+  }
+
+  getGridBalanceSheet() {
+    this.loading = true;
+    const body = {
+      companyId: this.coId,
+      yearId: this.selectedYearId,
+      reportTypeId: this.selectedReportId,
+    };
+    this.httpService
+      .post<GridBalanceSheet[]>(
+        UrlBuilder.build(GridBalanceSheet.apiAddress + 'list', ''),
+        body
+      )
+      .pipe(
+        map(response => {
+          this.loading = false;
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        this.gridBalanceLst = res;
+      });
   }
 }

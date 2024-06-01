@@ -37,7 +37,7 @@
         </div>
         <div class="inline-flx">
           <h5>والد :</h5>
-          <span>{{ infoLst.reportingTypeTitle }}</span>
+          <span>{{ infoLst.companyParentName }}</span>
         </div>
         <div class="inline-flx">
           <h5>ماهیت :</h5>
@@ -56,7 +56,7 @@
             class="pe-2"
             styleClass="p-button-info"
             label="جزئیات بیشتر"
-            (click)="onCoDetail()"></p-button>
+            (click)="onCoDetail(infoLst.id)"></p-button>
         </div>
       </div>
     </div>
@@ -181,11 +181,11 @@
         <img ngSrc="icons\a7.svg" width="24" height="24" />
         <span>صورت های مالی</span>
       </div>
-      <div class="row sub-co">
+      <div class="row sub-co" (click)="onSelectPrograms(1, 'ترازنامه')">
         <img ngSrc="icons\a15 1.svg" width="24" height="24" />
         <span>ترازنامه</span>
       </div>
-      <div class="row sub-co">
+      <div class="row sub-co" (click)="onSelectPrograms(2, 'سود و زیان')">
         <img ngSrc="icons\budget 2.svg" width="24" height="24" />
         <span>سود و زیان</span>
       </div>
@@ -215,26 +215,53 @@
 
 <div class="row bar-chart1">
   <div class="co-info-box">
+    <h3>{{ selectedProgramName }}</h3>
     <div class="row row-feature">
-      <!-- *ngFor="let item of yearTypeLst"
-      [class.select-feature]="item.isSelected" -->
-      <div (click)="onSelectYear(1)" class="select-feature">
-        <span>1402</span>
-      </div>
-      <div (click)="onSelectYear(2)">
-        <span>1401</span>
-      </div>
-      <div (click)="onSelectYear(3)">
-        <span>1400</span>
-      </div>
-      <div (click)="onSelectYear(4)">
-        <span>1399</span>
-      </div>
-      <div (click)="onSelectYear(5)">
-        <span>1398</span>
+      <div
+        *ngFor="let item of staticYearLst"
+        (click)="onSelectYear(item.id)"
+        [class.select-feature]="item.isSelected">
+        <span>{{ item.year }}</span>
       </div>
     </div>
-    <!-- <h4>بودجه نقدی</h4>
+    <div class="table-container">
+      <p-table
+        *ngIf="gridBalanceLst.length > 0"
+        #dataTable
+        class="data-table d-none d-lg-block"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[5, 10, 20, 30]"
+        [value]="gridBalanceLst"
+        [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }">
+        <!-- table header -->
+        <ng-template pTemplate="header">
+          <tr class="data-table__header">
+            <th>
+              <strong>کد</strong>
+            </th>
+            <th>
+              <strong>عنوان</strong>
+            </th>
+            <th>
+              <strong> مقدار</strong>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-val let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ val.reportTypeId }}</td>
+            <td>{{ val.reportName }}</td>
+            <td>{{ val.value }}</td>
+            <td></td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <!-- <h4>بودجه نقدی</h4>
     <span>نمودار به تفکیک ماه</span>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chart-outside-box">
       <div id="chart-wrapper">
@@ -245,5 +272,6 @@
           style="display: unset"></canvas>
       </div>
     </div> -->
+    </div>
   </div>
 </div>

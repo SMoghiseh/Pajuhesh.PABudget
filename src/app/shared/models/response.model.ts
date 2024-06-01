@@ -569,6 +569,9 @@ export class Company {
   reportingTypeTitle!: string;
   activityTypeTitle!: string;
   countOfEmployee!: number;
+  companyParentName!: string;
+  RegisterNumber!: number;
+  companyInspectionInstituteTitle!: string;
 }
 
 /**قرارداد */
@@ -810,7 +813,8 @@ export class DeleteCompany {
 
 /**اعضاء شرکت */
 export class personsCompany {
-  static readonly apiAddress = 'api/PABudgetApi/v1/CompanyManager/GetAllPersonsCompanyByRole';
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/CompanyManager/GetAllPersonsCompanyByRole';
 }
 
 /**اعضاء شرکت */
@@ -1004,4 +1008,21 @@ export class Period {
   type1!: string;
   type2!: string;
   periodId!: number;
+}
+
+export class StaticYear {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/StaticYear/';
+  id!: number;
+  year!: string;
+  isSelected!: boolean;
+}
+
+export class GridBalanceSheet {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/Dashboard/GridBalanceSheet/';
+
+  reportTypeId!: number;
+  reportName!: string;
+  value!: number;
 }

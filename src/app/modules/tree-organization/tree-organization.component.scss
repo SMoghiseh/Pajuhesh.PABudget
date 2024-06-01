@@ -7,6 +7,19 @@
     text-align: left;
     margin-left: 30px;
     margin-top: 20px;
+    font-size: 15px;
+
+    .pi-arrow-left{
+        font-size: 15px;
+        color: #3B82F6;
+        position: relative;
+        top: 4px;
+        right: 7px;
+    }
+
+    a{
+        text-decoration: none;
+    }
 }
 
 .chart-structure {
@@ -40,7 +53,9 @@
         background-position: center;
         background-size: 46px;
         cursor: pointer;
-        margin: 8px auto 0;
+        // margin: 8px auto 0;
+        align-self: center;
+        margin: auto;
     }
 
     .company-header {
@@ -209,8 +224,9 @@
 
             .company-header {
                 margin: 10px 0;
-                text-align: right;
+                // text-align: right;
                 padding-right: 10px;
+                align-content: center;
             }
         }
 
@@ -236,7 +252,7 @@
                     height: 104px;
 
                     .company-header {
-                        margin-top: 15px;
+                        // margin-top: 15px;
                     }
 
                     &::before {

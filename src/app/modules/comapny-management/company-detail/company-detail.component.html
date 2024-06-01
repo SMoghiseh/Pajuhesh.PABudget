@@ -1,1 +1,66 @@
-<p>company-detail works!</p>
+<h4>{{ infoLst.companyName }}</h4>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="all-box">
+      <h4>اطلاعات شرکت</h4>
+      <div class="row row-info">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">شماره ثبت :</span>
+          <span class="val">{{ infoLst.registerNumber }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">تاریخ ثبت شرکت :</span>
+          <span class="val">{{ infoLst.registerDate }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">کد سیستمی :</span>
+          <span class="val">{{ infoLst.systemOrganizationCode }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">استاندارد بین المللی :</span>
+          <span class="val">{{ infoLst.companyISIN }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">کد شناسایی طبقه بندی بین المللی :</span>
+          <span class="val">{{ infoLst.isic }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">نام لاتین :</span>
+          <span class="val">{{ infoLst.latinName }}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">موسسه حسابداری :</span>
+          <span class="val">{{ infoLst.companyInspectionInstituteTitle }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">تلفن کارخانه :</span>
+          <span class="val">{{ infoLst.factoryTelephone }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">نمابر کارخانه :</span>
+          <span class="val">{{ infoLst.factoryFax }}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-info">
+          <span class="ttl">آدرس کارخانه :</span>
+          <span class="val">{{ infoLst.factoryAddress }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">تلفن دفتر مرکزی :</span>
+          <span class="val">{{ infoLst.centeralOfficeTelephone }}</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-info">
+          <span class="ttl">نمابر دفتر مرکزی :</span>
+          <span class="val">{{ infoLst.centeralOfficeFax }}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-info">
+          <span class="ttl">آدرس دفتر مرکزی :</span>
+          <span class="val">{{ infoLst.centeralOffice }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="all-box">
+      <h4>اساسنامه شرکت</h4>
+      <div class="main-content" [innerHTML]="infoLst.activitySubject"></div>
+    </div>
+  </div>
+</div>
