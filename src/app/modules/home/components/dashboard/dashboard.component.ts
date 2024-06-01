@@ -26,16 +26,29 @@ export class DashboardComponent implements OnInit {
   yearTypeLst!: BaseInfo[];
   selectedYearTypeId = 0;
   reportParentLst!: Company[];
+  benefitCost: any;
 
-  constructor(private httpService: HttpService, private router: Router) {
-
-  }
+  constructor(private httpService: HttpService, private router: Router) {}
 
   ngOnInit(): void {
     this.getMySubCompanies(0);
-    const lbl = ['سود', 'زیان'];
-    const val = [1255, 300];
-    this.createDoughnutChart(lbl, val);
+  }
+
+  getCostAndBenefitForProfile(id: number) {
+    this.httpService
+      .get<number>(
+        UrlBuilder.build(Dashboard.apiAddressCostAndBenefitForProfile + id, '')
+      )
+      .pipe(
+        map(response => {
+          if (response.data) {
+            return response.data;
+          } else return 0;
+        })
+      )
+      .subscribe(res => {
+        this.benefitCost = res;
+      });
   }
 
   getCoApi(id: number) {
@@ -57,6 +70,7 @@ export class DashboardComponent implements OnInit {
         if (id === 0) {
           this.mySubCompanies = mySubCompanies;
           this.selectedHoldingId = mySubCompanies[0].id;
+          this.getCostAndBenefitForProfile(this.selectedHoldingId);
           this.selectCoItem(mySubCompanies[0].id);
           this.getReportType();
         } else this.subCos = mySubCompanies;
@@ -67,6 +81,7 @@ export class DashboardComponent implements OnInit {
     this.selectedHoldingId = company.id;
     this.selectCoItem(company.id);
     this.getReportChart();
+    this.getCostAndBenefitForProfile(company.id);
     if (company.id !== 5) this.getMySubCompanies(company.id);
   }
 
@@ -238,6 +253,7 @@ export class DashboardComponent implements OnInit {
 
   onSelectSubCo(id: number) {
     this.getCoInfo(id);
+    this.getCostAndBenefitForProfile(id);
     this.subCos.forEach(element => {
       element.isSelected = false;
     });
@@ -245,34 +261,11 @@ export class DashboardComponent implements OnInit {
     if (selectedItem.length > 0) selectedItem[0].isSelected = true;
   }
 
-  createDoughnutChart(labels: any, counts: any) {
-    new Chart('DoughnutChart', {
-      type: 'doughnut',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            data: counts,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            labels: {
-              font: {
-                family: 'Shabnam',
-              },
-            },
-          },
-        },
-      },
-    });
-  }
-
   navigateToPage() {
     this.router.navigateByUrl('/TreeOrganization');
   }
 
+  onCoDetail() {
+    this.router.navigateByUrl('/Comapny/companyProfile/' + this.coInfo.id);
+  }
 }

@@ -7,9 +7,16 @@
     </ul>
   </div>
   <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box" *ngFor="let company of mySubCompanies">
-      <div class="holding-box" [class.select-co-item]="company.isSelected" (click)="onSelectCompany(company)">
-        <div class="div-img-logo" [style.background-image]="
+    <div
+      class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box"
+      *ngFor="let company of mySubCompanies">
+      <div
+        class="holding-box"
+        [class.select-co-item]="company.isSelected"
+        (click)="onSelectCompany(company)">
+        <div
+          class="div-img-logo"
+          [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
         <div style="height: 36px">
@@ -20,22 +27,28 @@
     </div>
   </div>
   <div class="row" style="margin-top: 20px">
-    <div [class.col-lg-9]="subCos.length > 0 && selectedHoldingId !== 5"
+    <div
+      [class.col-lg-9]="subCos.length > 0 && selectedHoldingId !== 5"
       [class.col-md-9]="subCos.length > 0 && selectedHoldingId !== 5"
       [class.col-lg-12]="subCos.length === 0 && selectedHoldingId === 5"
-      [class.col-md-12]="subCos.length === 0 && selectedHoldingId === 5" class="col-sm-12 col-xs-12">
+      [class.col-md-12]="subCos.length === 0 && selectedHoldingId === 5"
+      class="col-sm-12 col-xs-12">
       <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
           <div class="co-info-box">
             <h4>نمودار عملکرد شرکت</h4>
             <div class="row row-feature">
-              <div *ngFor="let item of yearTypeLst" (click)="onYearType(item.id)"
+              <div
+                *ngFor="let item of yearTypeLst"
+                (click)="onYearType(item.id)"
                 [class.select-feature]="item.isSelected">
                 <span>{{ item.title }}</span>
               </div>
             </div>
             <div class="row row-feature">
-              <div *ngFor="let item of reportTypeLst" (click)="onReportType(item.id)"
+              <div
+                *ngFor="let item of reportTypeLst"
+                (click)="onReportType(item.id)"
                 [class.select-feature]="item.isSelected">
                 <span>{{ item.title }}</span>
               </div>
@@ -46,16 +59,68 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <div class="co-info-box">
-            <h4>نمودار سود و زیان</h4>
-            <div id="chart-wrapper">
-              <canvas id="DoughnutChart" width="700"></canvas>
+          <div class="co-info-box cost-benefit-box">
+            <h4>سود و زیان</h4>
+            <div class="row div1">
+              <div
+                class="div2"
+                [class.profitable-b-col]="benefitCost?.hasProfitable"
+                [class.not-profitable-b-col]="!benefitCost?.hasProfitable">
+                <i
+                  class="pi"
+                  [class.pi-arrow-up]="benefitCost?.hasProfitable"
+                  [class.pi-arrow-down]="!benefitCost?.hasProfitable"></i>
+              </div>
+              <span
+                class="cost"
+                [class.profitable-col]="benefitCost?.hasProfitable"
+                [class.not-profitable-col]="!benefitCost?.hasProfitable"
+                >{{ benefitCost?.benefitThisYear }} ریال</span
+              >
+              <div>
+                <span>سود شرکت در سال گذشته</span>
+              </div>
+            </div>
+            <div class="div3">
+              <span>مشاهده تغییرات نسبت به سال گذشته</span>
+            </div>
+            <div class="div4">
+              <span class="ttl">درصد تغییر: </span>
+              <i
+                [class.pi-angle-up]="benefitCost?.hasProfitable"
+                [class.pi-angle-down]="!benefitCost?.hasProfitable"
+                [class.profitable-col]="benefitCost?.hasProfitable"
+                [class.not-profitable-col]="!benefitCost?.hasProfitable"
+                class="pi val"></i>
+              <span
+                class="val"
+                [class.profitable-col]="benefitCost?.hasProfitable"
+                [class.not-profitable-col]="!benefitCost?.hasProfitable"
+                >{{ benefitCost?.percentageChange }}</span
+              >
+            </div>
+            <div class="div4">
+              <span class="ttl">میزان تغییر: </span>
+              <i
+                [class.pi-angle-up]="benefitCost?.hasProfitable"
+                [class.pi-angle-down]="!benefitCost?.hasProfitable"
+                [class.profitable-col]="benefitCost?.hasProfitable"
+                [class.not-profitable-col]="!benefitCost?.hasProfitable"
+                class="pi val"></i>
+              <span
+                class="val"
+                [class.profitable-col]="benefitCost?.hasProfitable"
+                [class.not-profitable-col]="!benefitCost?.hasProfitable"
+                >{{ benefitCost?.countChange }}</span
+              >
             </div>
           </div>
         </div>
       </div>
       <div class="row margin-b-20">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px">
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+          style="padding-top: 20px">
           <div class="co-info-box">
             <div class="row">
               <h3 class="margin-20">اطلاعات شرکت</h3>
@@ -81,17 +146,30 @@
                 <h5>سال تاسیس :</h5>
                 <span>{{ coInfo.persianRegisterDate }}</span>
               </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 detail-btn">
+                <p-button
+                  class="pe-2"
+                  styleClass="p-button-info"
+                  icon="pi pi-plus-circle"
+                  label="مشاهده جزئیات شرکت"
+                  (click)="onCoDetail()"></p-button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="subCos.length > 0 && selectedHoldingId !== 5" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 margin-b-20">
+    <div
+      *ngIf="subCos.length > 0 && selectedHoldingId !== 5"
+      class="col-lg-3 col-md-3 col-sm-12 col-xs-12 margin-b-20">
       <div class="co-info-box">
         <div class="row">
           <h4 class="sub-co-title">شرکت های تابعه</h4>
         </div>
-        <div *ngFor="let item of subCos" class="row sub-co" (click)="onSelectSubCo(item.id)"
+        <div
+          *ngFor="let item of subCos"
+          class="row sub-co"
+          (click)="onSelectSubCo(item.id)"
           [class.selected-sub-co]="item.isSelected">
           <span>{{ item.companyName }}</span>
         </div>

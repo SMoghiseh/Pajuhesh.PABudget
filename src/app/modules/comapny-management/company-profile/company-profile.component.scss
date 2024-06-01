@@ -14,26 +14,39 @@
     }
 
     .inline-flx{
-        padding: 20px;
-        h5, span{
-            text-align: center;
-            width: auto;
-        }
+        padding: 10px 20px;
+        display: inline-flex;
+        // h5, span{
+        //     text-align: center;
+        //     width: auto;
+        // }
         span{
             font-size: 13px;
+            margin-right: 15px;
         }
+        &:nth-child(odd){
+            width: 60%;
+        }
+        &:nth-child(even){
+            width: 40%;
+        }
+    }
+
+    .div-more-btn{
+        text-align: left;
+        display: block;
     }
 }
 
 .h4{
-    padding: 15px;
+    padding: 7px 15px;
 }
 
 .sub-co{
     background-color: #F1F5F9;
-    margin: 12px;
+    margin: 7px 12px;
     font-size: 13px;
-    padding: 7px;
+    padding: 3px;
     border-radius: 7px;
     color: black;
     cursor: pointer;
@@ -169,6 +182,34 @@
 }
 .not-profitable-b-col{
     background-color: #E4002B;
+}
+
+.row-feature {
+    margin: 0px 30px 20px;
+
+    div {
+        width: fit-content;
+        background-color: #E2E8F0;
+        color: #64748B;
+        padding: 5px;
+        border-radius: 7px;
+        cursor: pointer;
+        margin-left: 10px;
+        
+        span{
+            margin: 13px;
+        }
+    }
+}
+
+.select-feature {
+    background-color: #3B82F6 !important;
+    color: white !important;
+}
+
+.deselect-feature {
+    background-color: #E2E8F0 !important;
+    color: #64748B !important;
 }
 
 

@@ -13,8 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CompanyProfileComponent implements OnInit {
   infoLst = new Company();
   myChart!: Chart;
+  myChart1!: Chart;
+  myChart2!: Chart;
   benefitCost: any;
   coId: any;
+  selectedYearTypeId = 0;
 
   constructor(
     private httpService: HttpService,
@@ -33,27 +36,28 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   getProfileCoInfo(id: string) {
+    const body = {
+      companyId: id,
+    };
     this.httpService
-      .get<Company>(
-        UrlBuilder.build(
-          Company.apiAddressDetailCo + 'profileCompany/' + id,
-          ''
-        )
+      .post<Company[]>(
+        UrlBuilder.build(Company.apiAddressDetailCo + 'list', ''),
+        body
       )
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
             return response.data.result;
-          } else return new Company();
+          } else return [new Company()];
         })
       )
       .subscribe(info => {
-        this.infoLst = info;
+        this.infoLst = info[0];
       });
   }
 
   createBarChart(labels: Array<string>, ds: Array<any>, chartName: string) {
-    new Chart(chartName, {
+    this.myChart = new Chart(chartName, {
       type: 'bar',
       data: {
         labels: labels,
@@ -87,10 +91,11 @@ export class CompanyProfileComponent implements OnInit {
         },
       },
     });
+    if (chartName === 'BarChart') this.myChart1 = this.myChart;
+    else this.myChart2 = this.myChart;
   }
 
   contractRoute() {
-    debugger;
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
       {
         queryParams: {},
@@ -114,6 +119,7 @@ export class CompanyProfileComponent implements OnInit {
       .subscribe(coInfo => {
         const labels = coInfo.labels;
         const counts = coInfo.datasets;
+        if (this.myChart1) this.myChart1.destroy();
         this.createBarChart(labels, counts, 'BarChart');
       });
   }
@@ -133,6 +139,7 @@ export class CompanyProfileComponent implements OnInit {
       .subscribe(coInfo => {
         const labels = coInfo.labels;
         const counts = coInfo.datasets;
+        if (this.myChart2) this.myChart2.destroy();
         this.createBarChart(labels, counts, 'BarChart2');
       });
   }
@@ -152,5 +159,21 @@ export class CompanyProfileComponent implements OnInit {
       .subscribe(res => {
         this.benefitCost = res;
       });
+  }
+
+  onSelectYear(id: number) {
+    this.selectedYearTypeId = id;
+    this.selectYearType();
+  }
+
+  selectYearType() {
+    // this.yearTypeLst.forEach(element => {
+    //   if (element.isSelected) element.isSelected = false;
+    //   if (element.id === this.selectedYearTypeId) element.isSelected = true;
+    // });
+  }
+
+  onCoDetail() {
+    this.router.navigate(['/Comapny/companyDetail']);
   }
 }

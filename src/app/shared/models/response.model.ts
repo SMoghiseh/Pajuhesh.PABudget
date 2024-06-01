@@ -563,6 +563,12 @@ export class Company {
   ceo!: string;
   oldCode!: string;
   shareHolders: any;
+  partyLogo!: string;
+  managerName!: string;
+  companyTypeTitle!: string;
+  reportingTypeTitle!: string;
+  activityTypeTitle!: string;
+  countOfEmployee!: number;
 }
 
 /**قرارداد */
