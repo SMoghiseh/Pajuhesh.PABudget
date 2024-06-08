@@ -563,7 +563,8 @@ export class Company {
   ceo!: string;
   oldCode!: string;
   shareHolders: any;
-  partyLogo!: string;
+  partyLogo!: any;
+  partyId!: number;
   managerName!: string;
   companyTypeTitle!: string;
   reportingTypeTitle!: string;
@@ -854,6 +855,7 @@ export class Publisher extends Report {
 export class AssetAttachment {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/FileManagerApi/v1/FileManager/UploadFile';
+  static readonly downloadApiAddress = 'api/FileManagerApi/v1/FileManager/DownloadFile';
 
   multiMediaId!: number;
   fileSize!: number;

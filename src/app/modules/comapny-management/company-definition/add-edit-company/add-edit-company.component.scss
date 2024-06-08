@@ -21,3 +21,65 @@
         display: none;
     }
 }
+
+
+
+
+::ng-deep .fileUploader {
+    >div {
+        position: relative;
+        border: 1px solid #D0D5DC;
+        width: 150px;
+        height: 59px;
+        border-radius: 4px;
+    }
+
+    .upload-file-button {
+        position: absolute;
+        top: 12px;
+        right: 23px;
+    }
+
+    .download-file-button {
+        position: absolute;
+        top: 19px;
+        right: 7px;
+    }
+
+    .p-button {
+        background: #0288D1;
+        border: 1px solid #0288D1;
+
+        &:active {
+            background: #026da7;
+            color: #ffffff;
+            border-color: #026da7;
+            cursor: pointer;
+        }
+
+        &:hover {
+            background: #026da7;
+            color: #ffffff;
+            border-color: #026da7;
+            cursor: pointer;
+        }
+    }
+
+    .p-fileupload-choose:not(.p-disabled):hover {
+        background: #026da7;
+        color: #ffffff;
+        border-color: #026da7;
+    }
+
+    .remove-file {
+        position: absolute;
+        left: 4px;
+        top: 1px;
+        font-size: 0.8rem;
+        cursor: pointer;
+
+        .pi {
+            color: red;
+        }
+    }
+}

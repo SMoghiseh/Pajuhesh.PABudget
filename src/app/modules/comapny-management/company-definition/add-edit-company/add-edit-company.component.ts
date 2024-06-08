@@ -2,22 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ActivityType,
-  Company,
+  AssetAttachment, Company,
   CompanyInspectionInstitute,
   CompanyType,
-  CreateCompany,
-  ListCompany,
+  CreateCompany, ListCompany,
   PeriodType,
   PublisherStatus,
-  ReportingType,
+  ReportingType
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { MessageService } from 'primeng/api';
-import { map, tap } from 'rxjs';
+import { map, of, tap } from 'rxjs';
 import { PersianNumberService } from '@shared/services/persian-number.service';
 import { DatePipe } from '@angular/common';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AppConfigService } from '@core/services/app-config.service';
 export class sharedHolder {
   id = 1;
   percentOwner: any;
@@ -80,6 +80,10 @@ export class AddEditCompanyComponent implements OnInit {
   companySelected: Company = new Company();
   parentCompanySelected: Company = new Company();
   first = 0;
+  isDisableaddAmendmentBtn = false;
+  partyLogo = 0;
+
+
   /*--------------------------
   # TABLE
   --------------------------*/
@@ -186,7 +190,7 @@ export class AddEditCompanyComponent implements OnInit {
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService,
     private route: ActivatedRoute,
-    private router: Router
+    private config: AppConfigService
   ) { }
 
   ngOnInit(): void {
@@ -448,6 +452,10 @@ export class AddEditCompanyComponent implements OnInit {
       //   : null;
       request.companyInspectionInstituteId = companyInspectionInstituteId;
       request.systemOrganizationCode = systemOrganizationCode;
+      request.partyLogo =
+        this.partyLogo == 0
+          ? 0
+          : this.partyLogo;
       request.shareHolders = this.sharedHoldersArrayList;
       this.addNewCompanyLoading = true;
 
@@ -596,33 +604,52 @@ export class AddEditCompanyComponent implements OnInit {
     if (index > -1) this.sharedHoldersArrayList.splice(index, 1);
   }
 
-  // onSelectAttachment(files: FileList, form: any) {
-  //   const fileName = files[0]?.name;
-  //   if (files.length) {
-  //     Array.from(files).forEach(file => {
-  //       const data = new FormData();
-  //       data.append('File', file);
+  uploadAttachment(files: FileList, form: any) {
+    debugger
+    const fileName = files[0]?.name;
+    if (files.length) {
+      Array.from(files).forEach(file => {
+        const data = new FormData();
+        data.append('File', file);
 
-  //       if (file.size <= 25000000)
-  //         return this.httpService
-  //           .post<any>(AttachmentType.apiAddress + '/Template/upload', data)
-  //           .subscribe(response => {
-  //             if (response.successed && response.data && response.data.result) {
-  //               this.messageService.add({
-  //                 key: 'attachmentTypeDefinition',
-  //                 life: 8000,
-  //                 severity: 'success',
-  //                 summary: 'فایل با موفقیت بارگذاری شد',
-  //               });
-  //               this.addNewAttachmentTypeForm.patchValue({
-  //                 tempPath: fileName,
-  //               });
-  //               this.attachmentFileTypeTemplateId =
-  //                 response.data.result.multiMediaId;
-  //             }
-  //           });
-  //       else return of();
-  //     });
-  //   }
-  // }
+        if (file.size <= 25000000)
+          return this.httpService
+            .post<any>(AssetAttachment.apiAddress, data)
+            .subscribe(response => {
+              if (response.successed && response.data && response.data.result) {
+                this.messageService.add({
+                  key: 'uploadFile',
+                  life: 8000,
+                  severity: 'success',
+                  summary: 'فایل با موفقیت بارگذاری شد',
+                });
+                this.partyLogo =
+                  response.data.result.multiMediaId;
+              }
+            });
+        else return of();
+      });
+    }
+    // }
+    form.clear();
+  }
+
+  downloadAttachmnet(attachment: number) {
+    const url =
+      this.config.getAddress('baseUrl') +
+      AssetAttachment.downloadApiAddress +
+      `/${attachment}`;
+
+    const a = document.createElement('a');
+    a.href = url;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  removePreviousLogo() {
+    this.companySelected.partyId = 0;
+    this.companySelected.partyLogo = '';
+  }
+
 }

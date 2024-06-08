@@ -1,5 +1,6 @@
 <!-- pop up messages -->
 <p-toast key="companyDefinition" position="bottom-left"></p-toast>
+<p-toast key="uploadFile" position="bottom-left"></p-toast>
 
 <p-panel class="search-panel__secation pb-1" header="{{ formHeader }}">
   <form #formDir="ngForm" [formGroup]="addNewCompanyForm" (ngSubmit)="addNewCompany()">
@@ -183,6 +184,8 @@
           formControlName="systemOrganizationCode" type="text" class="w-100" />
       </div>
       <!-- / کد سیستمی   -->
+
+
       <!-- نمابر امور سهام (کد) -->
       <!-- <div class="col-3 mt-2">
         <label for="stockAffairsFax">نمابر امور سهام (کد)</label>
@@ -261,6 +264,30 @@
           cols="10" class="w-100"></textarea>
       </div>
       <!-- / موضوع فعالیت -->
+      <!-- آپلود فایل -->
+      <div class="mt-2 fileUploader">
+        <label for="partyLogo"> لوگو </label>
+        <div>
+          <p-fileUpload *ngIf="!companySelected.partyId" #form id="partyLogo" mode="basic" class="upload-file-button"
+            chooseLabel=" آپلود فایل" name="attachments[]" [disabled]="isDisableaddAmendmentBtn" [auto]="true"
+            (onSelect)="
+  uploadAttachment(
+    $event.files,
+    form
+  )
+"></p-fileUpload>
+          <p-button *ngIf="companySelected.partyId" id="partyLogo" mode="basic"
+            class="download-file-button  p-button-info" icon="pi pi-download" label=" دانلود فایل"
+            (onClick)="downloadAttachmnet(companySelected.partyId)"></p-button>
+
+          <div *ngIf="companySelected.partyId" class="remove-file">
+            <span>حذف فایل <i class="pi pi-times" (click)="removePreviousLogo()"></i></span>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- /آپلود فایل -->
     </div>
 
     <!--  درصد سهام شرکت های زیرمجموعه -->
@@ -294,17 +321,6 @@
               <p-button class="mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن به لیست "
                 (click)="addNewsharedHolders()"></p-button>
             </div>
-            <!-- <div style="width: fit-content; padding: 0px">
-              <p-fileUpload #form  id="fileUpload_{{
-                  onlineAdvertismentNeeds.adverTyeFileNeedsId
-                }}" mode="basic" chooseLabel="افزودن پیوست" name="attachments[]" [disabled]="isDisableaddAmendmentBtn"
-                [auto]="true" (onSelect)="
-                  onSelectAttachment(
-                    $event.files,
-                    form
-                  )
-                "></p-fileUpload>
-            </div> -->
           </div>
         </form>
         <!-- / form group -->
