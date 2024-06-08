@@ -77,8 +77,6 @@ export class AddEditCompanyComponent implements OnInit {
   /** نوع‌های فعالبت  */
   activityTypes: ActivityType[] = [];
   periodTypes: any[] = [];
-  isEdit = false;
-  editData: any;
   companySelected: Company = new Company();
   parentCompanySelected: Company = new Company();
   first = 0;
@@ -152,12 +150,12 @@ export class AddEditCompanyComponent implements OnInit {
   get factoryFax() {
     return this.addNewCompanyForm.get('factoryFax');
   }
-  get stockAffairsOffice() {
-    return this.addNewCompanyForm.get('stockAffairsOffice');
-  }
-  get stockAffairsTelephone() {
-    return this.addNewCompanyForm.get('stockAffairsTelephone');
-  }
+  // get stockAffairsOffice() {
+  //   return this.addNewCompanyForm.get('stockAffairsOffice');
+  // }
+  // get stockAffairsTelephone() {
+  //   return this.addNewCompanyForm.get('stockAffairsTelephone');
+  // }
   get stockAffairsFax() {
     return this.addNewCompanyForm.get('stockAffairsFax');
   }
@@ -176,12 +174,12 @@ export class AddEditCompanyComponent implements OnInit {
   get meetingNo() {
     return this.addNewCompanyForm.get('meetingNo');
   }
-  get auditStart() {
-    return this.addNewCompanyForm.get('auditStart');
-  }
-  get auditEnd() {
-    return this.addNewCompanyForm.get('auditEnd');
-  }
+  // get auditStart() {
+  //   return this.addNewCompanyForm.get('auditStart');
+  // }
+  // get auditEnd() {
+  //   return this.addNewCompanyForm.get('auditEnd');
+  // }
 
   constructor(
     private httpService: HttpService,
@@ -189,7 +187,7 @@ export class AddEditCompanyComponent implements OnInit {
     private jDateCalculatorService: JDateCalculatorService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getDropDownData();
@@ -266,12 +264,12 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.factoryTelephone
       ),
       factoryFax: new FormControl(this.addNewCompanyModel.factoryFax),
-      stockAffairsOffice: new FormControl(
-        this.addNewCompanyModel.stockAffairsOffice
-      ),
-      stockAffairsTelephone: new FormControl(
-        this.addNewCompanyModel.stockAffairsTelephone
-      ),
+      // stockAffairsOffice: new FormControl(
+      //   this.addNewCompanyModel.stockAffairsOffice
+      // ),
+      // stockAffairsTelephone: new FormControl(
+      //   this.addNewCompanyModel.stockAffairsTelephone
+      // ),
       stockAffairsFax: new FormControl(this.addNewCompanyModel.stockAffairsFax),
       centeralOffice: new FormControl(this.addNewCompanyModel.centeralOffice),
       centeralOfficeTelephone: new FormControl(
@@ -280,8 +278,8 @@ export class AddEditCompanyComponent implements OnInit {
       centeralOfficeFax: new FormControl(
         this.addNewCompanyModel.centeralOfficeFax
       ),
-      auditStart: new FormControl(this.addNewCompanyModel.auditStart),
-      auditEnd: new FormControl(this.addNewCompanyModel.auditEnd),
+      // auditStart: new FormControl(this.addNewCompanyModel.auditStart),
+      // auditEnd: new FormControl(this.addNewCompanyModel.auditEnd),
     });
 
     this.sharedHoldersForm = new FormGroup({
@@ -299,15 +297,7 @@ export class AddEditCompanyComponent implements OnInit {
         this.companySelected.id = params['companyId'];
         // get data of comoany selected
         this.getSelectedCompanyData(this.companySelected.id);
-        this.formHeader = 'ویرایش سازمان';
-        this.buttonLabel = 'ویرایش';
-      }
-
-      // component is in edit mode
-      if (params.hasOwnProperty('companyId')) {
-        this.companySelected.id = params['companyId'];
-        // get data of comoany selected
-        this.getSelectedCompanyData(this.companySelected.id);
+        this.setChangesOnFields();
         this.formHeader = 'ویرایش سازمان';
         this.buttonLabel = 'ویرایش';
       }
@@ -323,6 +313,12 @@ export class AddEditCompanyComponent implements OnInit {
         console.log('mode is not defined!');
       }
     });
+  }
+
+  setChangesOnFields() {
+    if (this.companySelected.companyTypeId == 1) {
+
+    }
   }
 
   getParentSelectedCompanyData(id: number) {
@@ -387,14 +383,14 @@ export class AddEditCompanyComponent implements OnInit {
         factoryAddress,
         factoryTelephone,
         factoryFax,
-        stockAffairsOffice,
-        stockAffairsTelephone,
+        // stockAffairsOffice,
+        // stockAffairsTelephone,
         stockAffairsFax,
         centeralOffice,
         centeralOfficeTelephone,
         centeralOfficeFax,
-        auditStart,
-        auditEnd,
+        // auditStart,
+        // auditEnd,
       } = this.addNewCompanyForm.value;
 
       const request = new Company();
@@ -405,13 +401,13 @@ export class AddEditCompanyComponent implements OnInit {
       request.registerNumber = registerNumber;
       request.registerDate = registerDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              registerDate?.getFullYear(),
-              registerDate?.getMonth(),
-              registerDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            registerDate?.getFullYear(),
+            registerDate?.getMonth(),
+            registerDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
       request.periodTypeId = periodTypeId;
       request.companyTypeId = companyTypeId;
@@ -424,32 +420,32 @@ export class AddEditCompanyComponent implements OnInit {
       request.factoryAddress = factoryAddress;
       request.factoryTelephone = factoryTelephone;
       request.factoryFax = factoryFax;
-      request.stockAffairsOffice = stockAffairsOffice;
-      request.stockAffairsTelephone = stockAffairsTelephone;
+      // request.stockAffairsOffice = stockAffairsOffice;
+      // request.stockAffairsTelephone = stockAffairsTelephone;
       request.stockAffairsFax = stockAffairsFax;
       request.centeralOffice = centeralOffice;
       request.centeralOfficeTelephone = centeralOfficeTelephone;
       request.centeralOfficeFax = centeralOfficeFax;
-      request.auditStart = auditStart
-        ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              auditStart?.getFullYear(),
-              auditStart?.getMonth(),
-              auditStart?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
-        : null;
-      request.auditEnd = auditEnd
-        ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              auditEnd?.getFullYear(),
-              auditEnd?.getMonth(),
-              auditEnd?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
-        : null;
+      // request.auditStart = auditStart
+      //   ? this.datePipe.transform(
+      //       this.jDateCalculatorService.convertToGeorgian(
+      //         auditStart?.getFullYear(),
+      //         auditStart?.getMonth(),
+      //         auditStart?.getDate()
+      //       ),
+      //       'yyyy-MM-ddTHH:mm:ss'
+      //     )
+      //   : null;
+      // request.auditEnd = auditEnd
+      //   ? this.datePipe.transform(
+      //       this.jDateCalculatorService.convertToGeorgian(
+      //         auditEnd?.getFullYear(),
+      //         auditEnd?.getMonth(),
+      //         auditEnd?.getDate()
+      //       ),
+      //       'yyyy-MM-ddTHH:mm:ss'
+      //     )
+      //   : null;
       request.companyInspectionInstituteId = companyInspectionInstituteId;
       request.systemOrganizationCode = systemOrganizationCode;
       request.shareHolders = this.sharedHoldersArrayList;
@@ -583,13 +579,13 @@ export class AddEditCompanyComponent implements OnInit {
     // convert date
     formValue['meetingDate'] = formValue['meetingDate']
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue['meetingDate']?.getFullYear(),
-            formValue['meetingDate']?.getMonth(),
-            formValue['meetingDate']?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue['meetingDate']?.getFullYear(),
+          formValue['meetingDate']?.getMonth(),
+          formValue['meetingDate']?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     this.sharedHoldersArrayList.push(formValue);
     this.sharedHoldersForm.reset();
@@ -599,4 +595,34 @@ export class AddEditCompanyComponent implements OnInit {
     const index = this.sharedHoldersArrayList.findIndex(n => n.id == item.id);
     if (index > -1) this.sharedHoldersArrayList.splice(index, 1);
   }
+
+  // onSelectAttachment(files: FileList, form: any) {
+  //   const fileName = files[0]?.name;
+  //   if (files.length) {
+  //     Array.from(files).forEach(file => {
+  //       const data = new FormData();
+  //       data.append('File', file);
+
+  //       if (file.size <= 25000000)
+  //         return this.httpService
+  //           .post<any>(AttachmentType.apiAddress + '/Template/upload', data)
+  //           .subscribe(response => {
+  //             if (response.successed && response.data && response.data.result) {
+  //               this.messageService.add({
+  //                 key: 'attachmentTypeDefinition',
+  //                 life: 8000,
+  //                 severity: 'success',
+  //                 summary: 'فایل با موفقیت بارگذاری شد',
+  //               });
+  //               this.addNewAttachmentTypeForm.patchValue({
+  //                 tempPath: fileName,
+  //               });
+  //               this.attachmentFileTypeTemplateId =
+  //                 response.data.result.multiMediaId;
+  //             }
+  //           });
+  //       else return of();
+  //     });
+  //   }
+  // }
 }
