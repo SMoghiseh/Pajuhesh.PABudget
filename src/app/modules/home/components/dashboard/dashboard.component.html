@@ -64,18 +64,18 @@
             <div class="row div1">
               <div
                 class="div2"
-                [class.profitable-b-col]="benefitCost?.hasProfitable"
-                [class.not-profitable-b-col]="!benefitCost?.hasProfitable">
+                [class.profitable-b-col]="benefitCost?.haspositiveProfit"
+                [class.not-profitable-b-col]="!benefitCost?.haspositiveProfit">
                 <i
                   class="pi"
-                  [class.pi-arrow-up]="benefitCost?.hasProfitable"
-                  [class.pi-arrow-down]="!benefitCost?.hasProfitable"></i>
+                  [class.pi-arrow-up]="benefitCost?.haspositiveProfit"
+                  [class.pi-arrow-down]="!benefitCost?.haspositiveProfit"></i>
               </div>
               <span
                 class="cost"
-                [class.profitable-col]="benefitCost?.hasProfitable"
-                [class.not-profitable-col]="!benefitCost?.hasProfitable"
-                >{{ benefitCost?.benefitThisYear }} ریال</span
+                [class.profitable-col]="benefitCost?.haspositiveProfit"
+                [class.not-profitable-col]="!benefitCost?.haspositiveProfit"
+                >{{ benefitCost?.benefitThisYear }}</span
               >
               <div>
                 <span>سود شرکت در سال گذشته</span>
