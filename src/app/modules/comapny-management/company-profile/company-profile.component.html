@@ -36,7 +36,7 @@
           <span>{{ infoLst.reportingTypeTitle }}</span>
         </div>
         <div class="inline-flx">
-          <h5>والد :</h5>
+          <h5>مالک :</h5>
           <span>{{ infoLst.companyParentName }}</span>
         </div>
         <div class="inline-flx">
@@ -169,18 +169,6 @@
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <div class="co-info-box">
       <h4>بودجه</h4>
-      <div class="row sub-co">
-        <img ngSrc="icons\a14 1.svg" width="24" height="24" />
-        <span>شرکت های تابعه</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\agent List.svg" width="24" height="24" />
-        <span>نیروی انسانی</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a7.svg" width="24" height="24" />
-        <span>صورت های مالی</span>
-      </div>
       <div class="row sub-co" (click)="onSelectPrograms(1, 'ترازنامه')">
         <img ngSrc="icons\a15 1.svg" width="24" height="24" />
         <span>ترازنامه</span>
@@ -194,12 +182,24 @@
         <span>منابع و مصارف</span>
       </div>
       <div class="row sub-co">
+        <img ngSrc="icons\a7.svg" width="24" height="24" />
+        <span>صورت های مالی (بودجه عملیاتی)</span>
+      </div>
+      <div class="row sub-co">
         <img ngSrc="icons\a2.svg" width="24" height="24" />
         <span>طرح ها</span>
       </div>
       <div class="row sub-co">
+        <img ngSrc="icons\a14 1.svg" width="24" height="24" />
+        <span>شرکت های تابعه</span>
+      </div>
+      <div class="row sub-co">
         <img ngSrc="icons\a13.svg" width="24" height="24" />
         <span>سهامداران</span>
+      </div>
+      <div class="row sub-co">
+        <img ngSrc="icons\agent List.svg" width="24" height="24" />
+        <span>کارکنان</span>
       </div>
       <!-- <div class="row sub-co">
         <img
