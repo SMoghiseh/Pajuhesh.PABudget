@@ -156,9 +156,9 @@ export class AddEditCompanyComponent implements OnInit {
   // get stockAffairsTelephone() {
   //   return this.addNewCompanyForm.get('stockAffairsTelephone');
   // }
-  get stockAffairsFax() {
-    return this.addNewCompanyForm.get('stockAffairsFax');
-  }
+  // get stockAffairsFax() {
+  //   return this.addNewCompanyForm.get('stockAffairsFax');
+  // }
   get centeralOffice() {
     return this.addNewCompanyForm.get('centeralOffice');
   }
@@ -270,7 +270,7 @@ export class AddEditCompanyComponent implements OnInit {
       // stockAffairsTelephone: new FormControl(
       //   this.addNewCompanyModel.stockAffairsTelephone
       // ),
-      stockAffairsFax: new FormControl(this.addNewCompanyModel.stockAffairsFax),
+      // stockAffairsFax: new FormControl(this.addNewCompanyModel.stockAffairsFax),
       centeralOffice: new FormControl(this.addNewCompanyModel.centeralOffice),
       centeralOfficeTelephone: new FormControl(
         this.addNewCompanyModel.centeralOfficeTelephone
@@ -385,7 +385,7 @@ export class AddEditCompanyComponent implements OnInit {
         factoryFax,
         // stockAffairsOffice,
         // stockAffairsTelephone,
-        stockAffairsFax,
+        // stockAffairsFax,
         centeralOffice,
         centeralOfficeTelephone,
         centeralOfficeFax,
@@ -422,7 +422,7 @@ export class AddEditCompanyComponent implements OnInit {
       request.factoryFax = factoryFax;
       // request.stockAffairsOffice = stockAffairsOffice;
       // request.stockAffairsTelephone = stockAffairsTelephone;
-      request.stockAffairsFax = stockAffairsFax;
+      // request.stockAffairsFax = stockAffairsFax;
       request.centeralOffice = centeralOffice;
       request.centeralOfficeTelephone = centeralOfficeTelephone;
       request.centeralOfficeFax = centeralOfficeFax;
