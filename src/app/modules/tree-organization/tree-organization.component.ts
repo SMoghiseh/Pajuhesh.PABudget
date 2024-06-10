@@ -75,4 +75,8 @@ export class TreeOrganizationComponent {
 
   }
 
+  returnConvertedValue(data: number) {
+
+  }
+
 }

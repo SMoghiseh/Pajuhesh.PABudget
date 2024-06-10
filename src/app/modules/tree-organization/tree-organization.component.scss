@@ -9,7 +9,7 @@
     margin-top: 20px;
     font-size: 15px;
 
-    .pi-arrow-left{
+    .pi-arrow-left {
         font-size: 15px;
         color: #3B82F6;
         position: relative;
@@ -17,7 +17,7 @@
         right: 7px;
     }
 
-    a{
+    a {
         text-decoration: none;
     }
 }
@@ -75,6 +75,13 @@
         span {
             padding: 0 10px;
             color: #777;
+            width: 77px;
+            display: table-cell;
+            direction: ltr;
+        }
+
+        span.red {
+            color: red;
         }
 
         .percentage {
