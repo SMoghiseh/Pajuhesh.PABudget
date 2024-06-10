@@ -5,9 +5,7 @@
   <div class="filter-box">
     <h6 class="filter-tab-title">فیلتر نتایج بر اساس</h6>
     <ng-container *ngFor="let filter of filterList">
-      <div
-        [ngClass]="isSelectedItem(filter) ? 'selected-filter-tab' : ''"
-        (click)="onSelectFilterTab(filter)"
+      <div [ngClass]="isSelectedItem(filter) ? 'selected-filter-tab' : ''" (click)="onSelectFilterTab(filter)"
         class="filter-tab">
         {{ filter.reportName }}
       </div>
@@ -18,9 +16,7 @@
       <a routerLink="/default/Dashboard">بازگشت</a>
       <i class="pi pi-arrow-left"></i>
     </p>
-    <ng-container
-      [ngTemplateOutlet]="companyInfoItem"
-      [ngTemplateOutletContext]="{ $implicit: companyList }">
+    <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{ $implicit: companyList }">
     </ng-container>
   </div>
 </div>
@@ -31,39 +27,28 @@
     <!-- company item -->
     <div class="company">
       <div class="company-item">
-        <div
-          class="company-logo"
-          [style.background-image]="
+        <div class="company-logo" [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
         <div class="company-header">
           {{ company.label }}
         </div>
         <div class="company-detail">
-          <span class="status"> {{ company.valus }} </span>
-          <span class="detail-link"
-            ><a [routerLink]="['/Comapny/companyProfile', company.id]"
-              >جزئیات
-            </a></span
-          >
+          <span class="status" [ngClass]="{'red' : company.valus  < 0 }"> {{ company.valus | faNum }} </span>
+          <span class="detail-link"><a [routerLink]="['/Comapny/companyProfile', company.id]">جزئیات
+            </a></span>
         </div>
       </div>
       <div *ngIf="company.children" class="company-list" #content>
         <div class="collapsed-down" #downIcon>
           <div></div>
-          <i
-            (click)="toggleList(content, downIcon, upIcon)"
-            class="pi pi-chevron-down"></i>
+          <i (click)="toggleList(content, downIcon, upIcon)" class="pi pi-chevron-down"></i>
           <div></div>
         </div>
-        <ng-container
-          [ngTemplateOutlet]="companyInfoItem"
-          [ngTemplateOutletContext]="{ $implicit: company.children }">
+        <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{ $implicit: company.children }">
         </ng-container>
         <div class="collapsed-up hide" #upIcon>
-          <i
-            (click)="toggleList2(content, downIcon, upIcon)"
-            class="pi pi-chevron-up"></i>
+          <i (click)="toggleList2(content, downIcon, upIcon)" class="pi pi-chevron-up"></i>
         </div>
       </div>
     </div>
