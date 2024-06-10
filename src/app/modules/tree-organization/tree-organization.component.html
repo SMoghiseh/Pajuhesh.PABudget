@@ -31,10 +31,10 @@
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
         <div class="company-header">
-          {{ company.label }}
+          {{ company.shortName }}
         </div>
         <div class="company-detail">
-          <span class="status" [ngClass]="{'red' : company.valus  < 0 }"> {{ company.valus | faNum }} </span>
+          <span class="status" [ngClass]="{'red' : !company.isPositive }"> {{ company.valus }} </span>
           <span class="detail-link"><a [routerLink]="['/Comapny/companyProfile', company.id]">جزئیات
             </a></span>
         </div>
