@@ -1,0 +1,121 @@
+<form
+  #formDir="ngForm"
+  [formGroup]="addEditPersonelNoForm"
+  (ngSubmit)="addEditPersonelNo()">
+  <div class="container row">
+    <div class="col-4 mt-2">
+      <label for="periodId">دوره بودجه</label>
+      <p-dropdown
+        id="periodId"
+        name="periodId"
+        formControlName="periodId"
+        styleClass="w-100 my-1"
+        optionLabel="periodTitle"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [class.ng-invalid]="periodId?.invalid"
+        [class.ng-dirty]="
+          (addEditPersonelNoSubmitted && periodId?.pristine) ||
+          periodId?.dirty ||
+          periodId?.touched
+        "
+        [options]="periodLst"
+        [filter]="true"
+        (onChange)="onChangePeriod($event)">
+      </p-dropdown>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="perioddetailId">دوره عملیاتی</label>
+      <p-dropdown
+        id="perioddetailId"
+        name="perioddetailId"
+        formControlName="perioddetailId"
+        styleClass="w-100 my-1"
+        optionLabel="periodDetailTitle"
+        optionValue="periodDetailCode"
+        placeholder="انتخاب کنید"
+        [class.ng-invalid]="perioddetailId?.invalid"
+        [class.ng-dirty]="
+          (addEditPersonelNoSubmitted && perioddetailId?.pristine) ||
+          perioddetailId?.dirty ||
+          perioddetailId?.touched
+        "
+        [options]="periodDetailLst"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="costCenterTypeId">مرکز هزینه</label>
+      <p-dropdown
+        id="costCenterTypeId"
+        name="costCenterTypeId"
+        formControlName="costCenterTypeId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="CostCenterLst"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="employmentTypeId">نوع استخدام</label>
+      <p-dropdown
+        id="employmentTypeId"
+        name="employmentTypeId"
+        formControlName="employmentTypeId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="employmentTypeLst"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+
+    <div class="col-4 mt-2">
+      <label for="educationTypeId">تحصیلات</label>
+      <p-dropdown
+        id="educationTypeId"
+        name="educationTypeId"
+        formControlName="educationTypeId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="educationTypeCodeLst"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="personelCount">تعداد</label>
+      <input
+        pInputText
+        pKeyFilter="int"
+        id="personelCount"
+        name="personelCount"
+        formControlName="personelCount"
+        type="text"
+        class="w-100" />
+    </div>
+    <div class="col-4 mt-2">
+      <label for="employeewageCU">مبلغ دستمزد</label>
+      <input
+        pInputText
+        pKeyFilter="int"
+        id="employeewageCU"
+        name="employeewageCU"
+        formControlName="employeewageCU"
+        type="text"
+        class="w-100" />
+    </div>
+    <div class="col-12 row-btn">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>

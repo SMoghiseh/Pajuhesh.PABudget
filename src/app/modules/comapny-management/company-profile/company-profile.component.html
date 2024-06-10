@@ -217,11 +217,25 @@
   <div class="co-info-box">
     <h3>{{ selectedProgramName }}</h3>
     <div class="row row-feature">
-      <div
-        *ngFor="let item of staticYearLst"
-        (click)="onSelectYear(item.id)"
-        [class.select-feature]="item.isSelected">
-        <span>{{ item.year }}</span>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div
+          *ngFor="let item of staticYearLst"
+          class="items"
+          (click)="onSelectYear(item.id)"
+          [class.select-feature]="item.isSelected">
+          <span>{{ item.year }}</span>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div class="items select-feature">
+          <span>جدول</span>
+        </div>
+        <div class="items">
+          <span>نمودار</span>
+        </div>
+        <div class="items">
+          <span>مقایسه</span>
+        </div>
       </div>
     </div>
     <div class="table-container">
@@ -231,7 +245,7 @@
         class="data-table d-none d-lg-block"
         [styleClass]="gridClass"
         [rowHover]="true"
-        [paginator]="true"
+        [paginator]="false"
         [rows]="dataTableRows"
         [rowsPerPageOptions]="[5, 10, 20, 30]"
         [value]="gridBalanceLst"

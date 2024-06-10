@@ -1,0 +1,195 @@
+<p-toast key="personelNo" position="bottom-left"></p-toast>
+
+<div class="table-header">لیست بودجه پرسنل</div>
+<div class="justify-content-between pb-3 w-100" style="text-align: end">
+  <p-button
+    class="pe-2"
+    styleClass="p-button-info"
+    icon="pi pi-plus-circle"
+    label="افزودن بودجه پرسنل جدید"
+    (click)="addPersonelNo()"></p-button>
+</div>
+<div class="table-container">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getPersonelNo($event)"
+    [(first)]="first">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <th>
+          <strong>دوره بودجه</strong>
+        </th>
+        <th>
+          <strong>دوره عملیاتی</strong>
+        </th>
+        <th>
+          <strong> مرکز هزینه </strong>
+        </th>
+        <th>
+          <strong> نوع استخدام </strong>
+        </th>
+        <th>
+          <strong> تحصیلات </strong>
+        </th>
+        <th>
+          <strong> تعداد </strong>
+        </th>
+        <th>
+          <strong> مبلغ دستمزد </strong>
+        </th>
+        <th>
+          <strong> وضعیت </strong>
+        </th>
+        <th>
+          <strong> عملیات</strong>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-personelNo let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ personelNo.periodTitle }}</td>
+        <td>{{ personelNo.periodDetailTitle }}</td>
+        <td>{{ personelNo.costCenterTitle }}</td>
+        <td>{{ personelNo.employmentTitle }}</td>
+        <td>{{ personelNo.educationTitle }}</td>
+        <td>{{ personelNo.personelCount }}</td>
+        <td>{{ personelNo.employeewageCU }}</td>
+        <td>{{ personelNo.statusTitle }}</td>
+
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(personelNo)"
+            pTooltip="ویرایش بودجه پرسنل">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
+
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(personelNo)"
+            pTooltip="حذف بودجه پرسنل">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<div class="data-list d-block d-lg-none">
+  <ul *ngFor="let personelNo of data" class="list-group my-1">
+    <!-- <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>کد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ personelNo.periodCode }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عنوان</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ personelNo.periodTitle }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>از تاریخ</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ personelNo.fromDate }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تا تاریخ</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ personelNo.toDate }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>وضعیت</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ personelNo.statusTitle }}
+        </div>
+      </div>
+    </li> -->
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عملیات</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <div class="d-flex jc-center ai-center">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(personelNo)"
+              title="ویرایش بودجه پرسنل">
+              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+            </button>
+
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(personelNo)"
+              title="حذف بودجه پرسنل">
+              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<p-dialog
+  *ngIf="isOpenAddEditPersonelNo"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditPersonelNo"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '800px', height: '400px' }">
+  <app-add-edit-personel-no
+    [data]="addEditData"
+    (isSuccess)="reloadData()"></app-add-edit-personel-no>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

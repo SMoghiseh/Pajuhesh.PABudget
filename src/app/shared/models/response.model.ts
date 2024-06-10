@@ -855,7 +855,8 @@ export class Publisher extends Report {
 export class AssetAttachment {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/FileManagerApi/v1/FileManager/UploadFile';
-  static readonly downloadApiAddress = 'api/FileManagerApi/v1/FileManager/DownloadFile';
+  static readonly downloadApiAddress =
+    'api/FileManagerApi/v1/FileManager/DownloadFile';
 
   multiMediaId!: number;
   fileSize!: number;
@@ -1027,4 +1028,50 @@ export class GridBalanceSheet {
   reportTypeId!: number;
   reportName!: string;
   value!: number;
+}
+
+export class PersonelNo {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PersonelNo/';
+
+  id!: number;
+  educationTypeId!: number;
+  personelCount!: number;
+  periodDetailId!: number;
+  employeewageCU!: number;
+  periodId!: number;
+  statusTypeId!: number;
+  educationTitle!: string;
+  statusTitle!: string;
+  type!: string;
+  employmentTypeId!: number;
+  perioddetailId!: number;
+  costCenterTypeId!: number;
+}
+
+export class CostCenterType {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/CostCenterType/';
+
+  id!: number;
+  title!: string;
+  isActive!: boolean;
+}
+
+export class EmploymentType {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/EmploymentType/';
+
+  id!: number;
+  title!: string;
+  isActive!: boolean;
+}
+
+export class EducationTypeCode {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/EducationTypeCode/';
+
+  id!: number;
+  title!: string;
+  isActive!: boolean;
 }

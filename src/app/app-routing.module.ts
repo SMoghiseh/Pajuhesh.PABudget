@@ -25,6 +25,15 @@ const routes: Routes = [
         canMatch: [authGuard],
       },
       {
+        path: 'Operation',
+        title: 'برنامه و بودجه | عملیات',
+        loadChildren: () =>
+          import('./modules/operation/operation.module').then(
+            m => m.OperationModule
+          ),
+        canMatch: [authGuard],
+      },
+      {
         path: 'baseinfo',
         title: 'برنامه و بودجه | مدیریت اطلاعات پایه',
         loadChildren: () =>
@@ -77,7 +86,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/tree-organization/tree-organization.module').then(
         m => m.TreeOrganizationModule
-      )
+      ),
   },
   {
     path: 'account',
@@ -93,4 +102,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -190,7 +190,11 @@
 .row-feature {
     margin: 0px 30px 20px;
 
-    div {
+    div.box{
+        display: inline-flex;
+    }
+
+    div.items {
         width: fit-content;
         background-color: #E2E8F0;
         color: #64748B;
