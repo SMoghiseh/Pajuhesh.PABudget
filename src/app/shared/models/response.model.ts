@@ -1058,6 +1058,7 @@ export class PersonelNo {
   employmentTypeId!: number;
   perioddetailId!: number;
   costCenterTypeId!: number;
+  periodTitle!: string;
 }
 
 export class CostCenterType {

@@ -84,7 +84,7 @@ export class PersonelNoComponent {
   }
 
   editRow(data: PersonelNo) {
-    this.modalTitle = 'ویرایش بودجه پرسنل ' + data.educationTitle;
+    this.modalTitle = 'ویرایش بودجه پرسنل ' + data.periodTitle;
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditPersonelNo = true;
@@ -94,7 +94,7 @@ export class PersonelNoComponent {
     if (period && period.id)
       this.confirmationService.confirm({
         message: 'آیا از حذف بودجه پرسنل اطمینان دارید؟',
-        header: `عنوان ${period.educationTitle}`,
+        header: `عنوان ${period.periodTitle}`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -102,7 +102,7 @@ export class PersonelNoComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deletePersonelNo(period.id, period.educationTitle),
+        accept: () => this.deletePersonelNo(period.id, period.periodTitle),
       });
   }
 
