@@ -9,6 +9,7 @@ import { authGuard } from '@core/guards/auth/auth.guard';
 import { SubjectDefinitionComponent } from './subject-definition/subject-definition.component';
 import { BasicsDefinitionComponent } from './basics-definition/basics-definition.component';
 import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
+import { ProductGroupComponent } from './product-group/product-group.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,15 @@ const routes: Routes = [
             },
           },
           {
+            path: 'ProductGroup',
+            component: ProductGroupComponent,
+            title: 'برنامه و بودجه | تعریف دوره',
+            data: {
+              reuse: true,
+              title: 'تعریف دوره',
+            },
+          },
+          {
             path: '',
             redirectTo: '/baseinfo/createmasters',
             pathMatch: 'full',
@@ -72,4 +82,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BasicsManagementRoutingModule {}
+export class BasicsManagementRoutingModule { }

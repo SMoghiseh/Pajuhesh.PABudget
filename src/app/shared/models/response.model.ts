@@ -575,6 +575,17 @@ export class Company {
   companyInspectionInstituteTitle!: string;
 }
 
+export class ProductGroup {
+  static readonly getListApiAddress = 'api/PABudgetApi/ProductGroup/GetAllProductGroups';
+  static readonly createApiAddress = 'api/PABudgetApi/ProductGroup/CreateProductGroup';
+  static readonly deleteApiAddress = 'api/PABudgetApi/ProductGroup/DeleteProductGroup';
+  id!: number;
+  parentId!: number;
+  productGroupCode!: number;
+  productGroupTitle!: string;
+  children!: ProductGroup[]
+}
+
 /**قرارداد */
 export class Contract {
   /** آدرس سرویس */

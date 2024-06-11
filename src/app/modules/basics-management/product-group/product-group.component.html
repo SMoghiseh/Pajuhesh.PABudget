@@ -1,0 +1,111 @@
+<!-- pop up messages -->
+<p-toast key="productGroupMessage" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+    <div class="pb-2">
+        <div class="table-header"> گروه محصولات</div>
+        <div class="d-flex justify-content-end pb-3 w-100">
+
+            <!-- دکمه -->
+            <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle"
+                label="افزودن گروه محصول جدید" (click)="onAddNewProductGroup()"></p-button>
+            <!-- / دکمه -->
+        </div>
+        <!-- </p-panel> -->
+    </div>
+
+    <!-- data table -->
+    <div class="table-container">
+        <div class="tree-header">لیست گروه محصول </div>
+        <p-tree selectionMode="single" class="w-full md:w-30rem" [value]="productGroups"
+            [(selection)]="selectedProductGroups" [style]="{ height: '73vh', overflow: 'auto' }"
+            (onNodeSelect)="onNodeSelect($event)">
+
+            <ng-template let-node pTemplate="default">
+                <div class="node-container  d-flex justify-content-between">
+                    <span>{{node.productGroupTitle}}</span>
+                    <div class="command-list">
+                        <!-- edit -->
+                        <button class="action-image-container" pTooltip="ویرایش گروه محصول" (click)="onEditRow()">
+                            <img ngSrc="icons\Group 116.svg" width="22" height="22" /></button>
+                        <!-- / edit -->
+
+                        <!-- insert -->
+                        <button class="action-image-container" pTooltip="افزودن گروه محصول" (click)="onAddSubGroup()">
+                            <img ngSrc="icons\Group 187.svg" width="22" height="22" />
+                        </button>
+                        <!-- / insert -->
+
+                        <!-- delete -->
+                        <button class="action-image-container" pTooltip="حذف گروه محصول" (click)="onDeleteRow()">
+                            <img ngSrc="icons\Group 117.svg" width="22" height="22" /></button>
+                        <!-- / delete -->
+
+                    </div>
+                </div>
+            </ng-template>
+
+        </p-tree>
+    </div>
+
+    <!-- data table -->
+
+    <!-- data list -->
+    <div class="data-list d-block d-lg-none">
+
+    </div>
+    <!-- / data list -->
+    <!-- </div>
+  </div> -->
+</section>
+<!-- / data table -->
+
+
+<!--  insert modal -->
+<p-dialog styleClass="p-fluid" header={{modalTitle}} [style]="{ width: '50%' }" [modal]="true"
+    [(visible)]="isOpenAddProductGroup">
+    <!-- dialog content -->
+    <ng-template pTemplate="content">
+        <form [formGroup]="addNewProductGroupForm" (ngSubmit)="onSubmitNewProductGroup()">
+            <div class="form-group row">
+
+                <!-- کد  -->
+                <div class="col-3 mt-2">
+                    <label for="productGroupCode"> کد</label>
+                    <input pInputText id="productGroupCode" name="productGroupCode" formControlName="productGroupCode"
+                        type="int" pKeyFilter="int" [minlength]="0" class="w-100"
+                        [class.ng-invalid]="productGroupCode?.invalid" [class.ng-dirty]="
+            (addNewProductGroupSubmitted && productGroupCode?.pristine) ||
+            productGroupCode?.dirty ||
+            productGroupCode?.touched
+          " />
+                </div>
+                <!-- / کد  -->
+                <!-- عنوان  -->
+                <div class="col-3 mt-2">
+                    <label for="productGroupTitle"> عنوان</label>
+                    <input pInputText id="productGroupTitle" name="productGroupTitle"
+                        formControlName="productGroupTitle" type="text" class="w-100"
+                        [class.ng-invalid]="productGroupTitle?.invalid" [class.ng-dirty]="
+            (addNewProductGroupSubmitted && productGroupTitle?.pristine) ||
+            productGroupTitle?.dirty ||
+            productGroupTitle?.touched" />
+                </div>
+                <!-- / عنوان  -->
+                <!-- دکمه ها -->
+                <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
+                    <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                        [loading]="addNewProductGroupLoading"></p-button>
+                </div>
+                <!-- / دکمه ها -->
+            </div>
+        </form>
+    </ng-template>
+    <!-- / dialog content -->
+</p-dialog>
+<!-- / insert modal -->
+
+
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
