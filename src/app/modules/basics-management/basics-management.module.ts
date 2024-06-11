@@ -31,6 +31,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { TooltipModule } from 'primeng/tooltip';
 import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
 import { AddEditPeriodComponent } from './period-definition/add-edit-period/add-edit-period.component';
+import { ProductGroupComponent } from './product-group/product-group.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AddEditPeriodComponent } from './period-definition/add-edit-period/add-
     BasicsDefinitionComponent,
     PeriodDefinitionComponent,
     AddEditPeriodComponent,
+    ProductGroupComponent,
   ],
   imports: [
     NgOptimizedImage,

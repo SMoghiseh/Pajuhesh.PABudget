@@ -1,0 +1,28 @@
+.content-page {
+    display: flex;
+    background-color: #F5F7FA;
+}
+
+::ng-deep .p-treenode-label {
+    width: 100%;
+}
+
+::ng-deep .p-tree {
+    border: none;
+    // background: #F1F5F9;
+}
+
+.node-container {
+    span {
+        line-height: 32px;
+    }
+
+    .command-list {
+        margin: 0 10px;
+    }
+
+    .action-image-container img {
+        width: 26px;
+        height: 33px;
+    }
+}
