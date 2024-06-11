@@ -9,7 +9,21 @@
 
 ::ng-deep .p-tree {
     border: none;
+
     // background: #F1F5F9;
+    .p-tree-wrapper .p-tree-container {
+
+        .p-treenode {
+
+            .p-treenode-children {
+                padding: 0 1rem 0 1rem;
+            }
+        }
+    }
+}
+
+::ng-deep .p-tree .p-tree-container .p-treenode .p-treenode-content {
+    background: #F1F5F9;
 }
 
 .node-container {
