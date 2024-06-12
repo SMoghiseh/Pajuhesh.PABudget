@@ -34,9 +34,16 @@
           {{ company.shortName }}
         </div>
         <div class="company-detail">
-          <span class="status" [ngClass]="{'red' : !company.isPositive }"> {{ company.valus }} </span>
-          <span class="detail-link"><a [routerLink]="['/Comapny/companyProfile', company.id]">جزئیات
-            </a></span>
+          <p class="status" *ngIf="company.isPositive != false " pTooltip="{{ company.valus }}"> {{
+            company.valus }}
+          </p>
+          <p class="status" *ngIf="company.isPositive == false" [ngClass]="{'red' : company.isPositive == false }"
+            pTooltip="{{returnTooltip(company.valus)}}">{{
+            company.valus }}
+          </p>
+
+          <p class="detail-link"><a [routerLink]="['/Comapny/companyProfile', company.id]">جزئیات
+            </a></p>
         </div>
       </div>
       <div *ngIf="company.children" class="company-list" #content>

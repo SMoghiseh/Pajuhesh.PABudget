@@ -75,8 +75,16 @@ export class TreeOrganizationComponent {
 
   }
 
-  returnConvertedValue(data: number) {
+  returnTooltip(data: any) {
 
+    if (data.charAt(0) === '-') {
+      data = data.substring(1);
+    }
+    let a = '-'
+
+    return data.concat(a);
   }
+
+
 
 }
