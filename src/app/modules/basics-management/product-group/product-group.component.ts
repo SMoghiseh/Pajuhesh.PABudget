@@ -101,8 +101,7 @@ export class ProductGroupComponent {
     let url = '';
     const request = new ProductGroup();
     const value = this.addNewProductGroupForm.value;
-    // value.id = 0;
-    value.parenId = 0;
+    value.parenId = null;
 
     if (this.mode == 'editGroupPro') {
       url = ProductGroup.editApiAddress + '/' + this.selectedProductGroups.id
