@@ -563,8 +563,8 @@ export class Company {
   ceo!: string;
   oldCode!: string;
   shareHolders: any;
-  partyLogo!: any;
-  partyId!: number;
+  partyLogo!: string;
+  multiMediaId!: number;
   managerName!: string;
   companyTypeTitle!: string;
   reportingTypeTitle!: string;

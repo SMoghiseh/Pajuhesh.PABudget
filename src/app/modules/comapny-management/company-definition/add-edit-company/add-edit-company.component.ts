@@ -452,7 +452,7 @@ export class AddEditCompanyComponent implements OnInit {
       //   : null;
       request.companyInspectionInstituteId = companyInspectionInstituteId;
       request.systemOrganizationCode = systemOrganizationCode;
-      request.partyLogo =
+      request.multiMediaId =
         this.partyLogo == 0
           ? 0
           : this.partyLogo;
@@ -648,7 +648,7 @@ export class AddEditCompanyComponent implements OnInit {
   }
 
   removePreviousLogo() {
-    this.companySelected.partyId = 0;
+    this.companySelected.multiMediaId = 0;
     this.companySelected.partyLogo = '';
   }
 

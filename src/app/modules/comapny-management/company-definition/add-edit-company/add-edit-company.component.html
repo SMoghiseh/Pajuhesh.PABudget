@@ -268,7 +268,7 @@
       <div class="mt-2 fileUploader">
         <label for="partyLogo"> لوگو </label>
         <div>
-          <p-fileUpload *ngIf="!companySelected.partyId" #form id="partyLogo" mode="basic" class="upload-file-button"
+          <p-fileUpload *ngIf="!companySelected.multiMediaId" #form id="partyLogo" mode="basic" class="upload-file-button"
             chooseLabel=" آپلود فایل" name="attachments[]" [disabled]="isDisableaddAmendmentBtn" [auto]="true"
             (onSelect)="
   uploadAttachment(
@@ -276,11 +276,11 @@
     form
   )
 "></p-fileUpload>
-          <p-button *ngIf="companySelected.partyId" id="partyLogo" mode="basic"
+          <p-button *ngIf="companySelected.multiMediaId" id="partyLogo" mode="basic"
             class="download-file-button  p-button-info" icon="pi pi-download" label=" دانلود فایل"
-            (onClick)="downloadAttachmnet(companySelected.partyId)"></p-button>
+            (onClick)="downloadAttachmnet(companySelected.multiMediaId)"></p-button>
 
-          <div *ngIf="companySelected.partyId" class="remove-file">
+          <div *ngIf="companySelected.multiMediaId" class="remove-file">
             <span>حذف فایل <i class="pi pi-times" (click)="removePreviousLogo()"></i></span>
 
           </div>
