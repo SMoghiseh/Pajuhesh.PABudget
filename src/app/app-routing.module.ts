@@ -80,6 +80,14 @@ const routes: Routes = [
       )
   },
   {
+    path: 'CompanyInfo',
+    title: 'برنامه و بودجه |  اطلاعات شرکت ها ',
+    loadChildren: () =>
+      import('./modules/company-info/company-info.module').then(
+        m => m.CompanyInfoModule
+      )
+  },
+  {
     path: 'account',
     title: 'برنامه بودجه | ورود',
     loadChildren: () => AccountModule,
