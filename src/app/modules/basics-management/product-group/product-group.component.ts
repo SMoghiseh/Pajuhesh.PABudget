@@ -48,62 +48,7 @@ export class ProductGroupComponent {
       ),
     });
 
-    // this.getProductGroupList();
-    this.productGroups = [
-      {
-        id: 4,
-        productGroupTitle: 'عنوان',
-        parentId: 0,
-        productGroupCode: 0,
-        children: [
-          {
-            id: 5,
-            productGroupTitle: 'عنوان1',
-            parentId: 4,
-            productGroupCode: 0,
-
-            children: [
-              {
-                id: 4,
-                productGroupTitle: 'عنوان56',
-                parentId: 5,
-                children: [],
-                productGroupCode: 0
-              }
-            ]
-          },
-          {
-            id: 6,
-            productGroupTitle: 'عنوان2',
-            parentId: 4,
-            children: [],
-            productGroupCode: 0
-          },
-        ]
-      },
-      {
-        id: 48,
-        productGroupCode: 0,
-        productGroupTitle: 'عنوانd',
-        parentId: 0,
-        children: [
-          {
-            id: 5,
-            productGroupTitle: 'عنوان1d',
-            parentId: 48,
-            productGroupCode: 0,
-            children: []
-          },
-          {
-            id: 6,
-            productGroupTitle: 'عنوان2d',
-            parentId: 48,
-            children: [],
-            productGroupCode: 0,
-          },
-        ]
-      }
-    ]
+    this.getProductGroupList();
   }
 
 
@@ -112,7 +57,7 @@ export class ProductGroupComponent {
   --------------------------*/
   getProductGroupList() {
     this.httpService
-      .get<ProductGroup[]>(ProductGroup.getListApiAddress,
+      .get<ProductGroup[]>(ProductGroup.getTreeViewApiAddress,
       )
       .pipe(
         map(response => {
@@ -151,28 +96,27 @@ export class ProductGroupComponent {
   }
 
   onSubmitNewProductGroup() {
-    debugger
     this.addNewProductGroupSubmitted = true;
     if (this.addNewProductGroupForm.invalid) return;
+    let url = '';
     const request = new ProductGroup();
     const value = this.addNewProductGroupForm.value;
-    value.id = 0;
-    value.parenId = 0;
+    value.parenId = null;
 
     if (this.mode == 'editGroupPro') {
-      value.id = this.selectedProductGroups.id;
+      url = ProductGroup.editApiAddress + '/' + this.selectedProductGroups.id
     } else if (this.mode == 'insertSubGroupPro') {
       value.parentId = this.selectedProductGroups.id;
+      url = ProductGroup.createApiAddress;
     } else if (this.mode == 'insertGroupPro') {
     }
 
-    request.id = value.id;
     request.parentId = value.parenId;
     request.productGroupCode = Number(value.productGroupCode);
     request.productGroupTitle = value.productGroupTitle;
 
     this.httpService
-      .post<ProductGroup>(ProductGroup.createApiAddress, request)
+      .post<ProductGroup>(url, request)
       .pipe(tap(() => (this.addNewProductGroupLoading = false)))
       .subscribe(response => {
         if (response.successed) {
@@ -194,7 +138,7 @@ export class ProductGroupComponent {
       this.addNewProductGroupForm.reset();
       this.isOpenAddProductGroup = true;
       this.modalTitle = 'ویرایش گروه محصول';
-      this.mode = 'editGroupPro'
+      this.mode = 'editGroupPro';
       this.addNewProductGroupForm.patchValue({
         productGroupTitle: this.selectedProductGroups.productGroupTitle,
         productGroupCode: this.selectedProductGroups.productGroupCode

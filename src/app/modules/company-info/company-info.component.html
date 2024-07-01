@@ -1,0 +1,102 @@
+<!-- Header -->
+<app-header></app-header>
+<!-- / Header -->
+
+<div style="margin-top: 80px;"></div>
+<!-- page contetnt -->
+<div class="content-page">
+
+
+    <div class="row m-4">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+            <div class="box management">
+                <div class="management-title">
+                    <div><span class="border-left"> مدیرعامل </span><span>مهدی مسکنی</span></div>
+                    <div><span class="border-left">آغاز به کار</span><span>1402/07/01 </span></div>
+                </div>
+                <div class="box-detail font-bold">8ماه</div>
+                <div class="d-flex gap-2">
+                    <div class="box-detail col"> <span class="font-bold">22مین</span> مدیرعامل </div>
+                    <div class="box-detail col"> <span class="font-bold">30ماه</span> میانگین عمر مدیران </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="box  directors-chart">
+                <p class="text-center">اعضای هیئت مدیره</p>
+                <div class="chart">
+                    <div class="text-center"></div>
+                    <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <span> حمید تاجیک</span>
+                        <span>سید حمید رضا هاشمی</span>
+                        <span>ماجد ناجی</span>
+                        <span>جواد مصطفی لو</span>
+                    </div>
+                </div>
+                <div class="box-detail mt-2"> <span><span class="font-bold">24ماه</span> میانگین عمر اعضا </span></div>
+
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="box sections-holder d-flex flex-wrap justify-content-start gap-3">
+                <div class="sections  col">
+                    <img ngSrc="icons/Project.svg" width="30" height="30" />
+                    <p class="title">32برنامه</p>
+                    <div class="d-flex gap-3 mt-24">
+                        <div class="box-detail-space-between col"> <span class="font-bold">12</span> معاونت </div>
+                        <div class="box-detail-space-between col "> <span class="font-bold">20</span> هلدینگ ها </div>
+                    </div>
+                </div>
+                <div class="sections  col">
+                    <img ngSrc="icons/HardtoFind.svg" width="30" height="30" />
+                    <p class="title">32برنامه</p>
+                    <div class="d-flex gap-3 mt-24">
+                        <div class="box-detail-space-between col"> <span class="font-bold">12</span> معاونت </div>
+                        <div class="box-detail-space-between col "> <span class="font-bold">20</span> هلدینگ ها </div>
+                    </div>
+                </div>
+                <div class="sections  col">
+                    <img ngSrc="icons/Conflict.svg" width="30" height="30" />
+                    <p class="title">32برنامه</p>
+                    <div class="d-flex gap-3 mt-24">
+                        <div class="box-detail-space-between col"> <span class="font-bold">12</span> معاونت </div>
+                        <div class="box-detail-space-between col "> <span class="font-bold">20</span> هلدینگ ها </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xs-12 mt-24">
+            <div class="tab-list d-flex flex-wrap justify-content-start  m-auto ">
+                <span class="col" *ngFor="let tab of tabList ; let index = index"
+                    [ngClass]="index === selectedTab  ?  'selectedTab' : '' " (click)="showTemplate(tab.id , index)">
+                    {{tab.title}} </span>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xs-12">
+            <div class="tab-content ">
+                <ng-container *ngIf="tabContent == 'tab_1' ">
+                    <PABudget-bongahdari></PABudget-bongahdari>
+                </ng-container>
+                <ng-container *ngIf="tabContent == 'tab_3' ">
+                    <PABudget-sazmani></PABudget-sazmani>
+                </ng-container>
+                <ng-container *ngIf="tabContent == 'tab_2' ">
+                    <PABudget-tamin-ejtemaee></PABudget-tamin-ejtemaee>
+                </ng-container>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- /page contetnt -->

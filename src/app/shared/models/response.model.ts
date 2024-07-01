@@ -563,8 +563,8 @@ export class Company {
   ceo!: string;
   oldCode!: string;
   shareHolders: any;
-  partyLogo!: any;
-  partyId!: number;
+  partyLogo!: string;
+  multiMediaId!: number;
   managerName!: string;
   companyTypeTitle!: string;
   reportingTypeTitle!: string;
@@ -577,7 +577,9 @@ export class Company {
 
 export class ProductGroup {
   static readonly getListApiAddress = 'api/PABudgetApi/ProductGroup/GetAllProductGroups';
+  static readonly getTreeViewApiAddress = 'api/PABudgetApi/ProductGroup/GetProductGroupTreeView';
   static readonly createApiAddress = 'api/PABudgetApi/ProductGroup/CreateProductGroup';
+  static readonly editApiAddress = 'api/PABudgetApi/ProductGroup/UpdateProductGroup';
   static readonly deleteApiAddress = 'api/PABudgetApi/ProductGroup/DeleteProductGroup';
   id!: number;
   parentId!: number;

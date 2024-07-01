@@ -98,9 +98,10 @@ export class RoleDefinitionComponent implements OnInit {
     const searchModel = {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
-      propertyName: this.propertyName,
-      isAsc: this.isAsc,
-      fullTextSearch: this.fullTextSearch
+      withOutPagination: true,
+      fullTextSearch: this,
+      setadId: 0,
+      locationId: 0
     }
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;

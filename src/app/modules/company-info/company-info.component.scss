@@ -1,0 +1,274 @@
+$main_color : #13623A;
+$secondary_color : #13623A1A;
+$lighten_color : rgb($main_color , 0.4);
+
+
+// main component start
+
+
+.content-page {
+
+    background-color: #F5F7FA;
+}
+
+.box {
+    border: 1px solid #0000001A;
+    border-radius: 10px;
+    padding: 10px 10px;
+    height: 210px;
+
+}
+
+
+
+.management {
+    text-align: center;
+
+    .management-title {
+        background-color: $main_color;
+        color: #fff;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        padding: 15px 0;
+        font-size: 1.1rem;
+
+        >div {
+            padding: 7px 0;
+
+            span {
+                &:nth-child(1) {
+                    margin-left: 10px;
+                }
+
+                &:nth-child(2) {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .border-left {
+            &::after {
+                content: "";
+                height: 12px;
+                width: 1px;
+                display: inline-block;
+                background: rgba(255, 255, 255, 0.6);
+                right: 9px;
+                position: relative;
+                top: 4px;
+            }
+        }
+    }
+
+
+}
+
+
+.directors-chart {
+    p{
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .chart {
+        border-bottom: 1px solid #0000001A;
+        padding-bottom: 16px;
+
+        >div {
+            &:nth-child(1) {
+                width: 1px;
+                height: 20px;
+                border: 1px dashed $lighten_color;
+                margin: 0 auto 10px;
+            }
+        }
+
+        >div {
+
+            &:nth-child(2) {
+                width: 94%;
+                margin: 0 auto;
+                border-top: 1px solid $lighten_color;
+                display: flex;
+                justify-content: space-between;
+
+                div {
+                    width: 1px;
+                    height: 20px;
+                    border: 1px dashed $lighten_color;
+                    margin-top: 10px;
+
+                    &::after {
+                        content: "";
+                        background-color: rgba($main_color , 0.7);
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        display: inline-block;
+                        position: relative;
+                        top: 15px;
+                        left: 3px;
+                    }
+                }
+            }
+        }
+
+        >div {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+
+            &:nth-child(3) {
+                span {
+                    font-weight: 700;
+                }
+            }
+        }
+
+    }
+}
+
+
+.tab-list {
+    width: 70%;
+    background-color: #fff;
+    border: 1px solid #0000001A;
+    border-radius: 10px;
+    padding: 4px;
+    gap: 12px;
+
+    span {
+        text-align: center;
+        padding: 8px;
+        border-radius: 10px;
+        font-size: 1.3rem;
+        cursor: pointer;
+        // margin: 0px 6px;
+        background-color: rgba($main_color , 0.1);
+        color: #000;
+    }
+}
+
+.sections-holder {
+    padding: 12px;
+}
+
+.sections {
+    background: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 0 10px;
+
+    img {
+        margin-top: 30px;
+    }
+
+    .title {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-top: 20px;
+    }
+}
+
+// main component end
+
+
+// global style start
+
+::ng-deep .box-detail {
+    background-color: $secondary_color;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    padding: 6px 7px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+::ng-deep .box-detail-space-between {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 7px;
+    line-height: 23px;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: $secondary_color;
+    margin-bottom: 4px;
+    border-radius: 8px;
+}
+
+.selectedTab {
+    background: rgba($main_color , 0.8) !important;
+    color: #fff !important;
+    box-shadow: 0px 4px 12px 0px #00000040;
+
+}
+
+::ng-deep .font-bold {
+    font-weight: 700;
+    font-size: 1.1rem !important;
+}
+
+// global style end
+
+
+// child component style start
+
+::ng-deep .page-content {
+    border-radius: 12px;
+    border: 1px solid rgba(30, 30, 30, 0.10);
+    background: rgba(242, 242, 242, 0.95);
+    padding: 13px 10px;
+    margin: 16px 4px;
+}
+
+::ng-deep .box {}
+
+::ng-deep .box-content {
+    padding: 8px 8px 2px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+::ng-deep .box-content {
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            background: #FAFAFA;
+            font-size: 1rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+            padding: 3px 10px;
+            text-align: center;
+            border-radius: 6px;
+        }
+    }
+}
+
+::ng-deep .present-box {
+    .title {
+        font-size: 1.7rem;
+        font-weight: 500;
+    }
+
+    .present-box_1 {
+        margin: 9px auto 0px;
+    }
+
+    .present-box_2 {
+        width: 70%;
+        margin: 0 auto 10px;
+
+    }
+
+    .present-box_3 {
+        width: 96%;
+        margin: 0 auto;
+        border-top: 1px solid #0000001A;
+        padding: 10px 5px;
+    }
+}
+
+// child component style end
