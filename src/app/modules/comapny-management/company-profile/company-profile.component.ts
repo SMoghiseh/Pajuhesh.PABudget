@@ -33,7 +33,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   loading = false;
   selectedReportId!: number;
   private subscription?: Subscription;
-  previousUrl :string | null = '';
+  previousUrl  = '';
 
   constructor(
     private httpService: HttpService,
