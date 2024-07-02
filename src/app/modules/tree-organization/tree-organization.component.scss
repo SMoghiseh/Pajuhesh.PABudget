@@ -6,7 +6,6 @@
 .return {
     text-align: left;
     margin-left: 30px;
-    margin-top: 20px;
     font-size: 15px;
 
     .pi-arrow-left {
@@ -23,7 +22,7 @@
 }
 
 .chart-structure {
-    margin-top: var(--header-height);
+    margin-top: calc(var(--header-height) + 20px);
     width: calc(100% - var(--filter-list-width));
     margin-right: var(--filter-list-width);
 }
@@ -448,6 +447,21 @@
     }
 }
 
+.menu-shortcut{
+    background-color: #3B82F6;
+    color: #fff;
+    padding: 9px 0;
+    width: 80%;
+    margin: 0 auto 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    img{
+        width: 16px;
+        position: relative;
+        right: -9px;
+    }
+}
+
 .filter-box {
     background: #fff;
     width: var(--filter-list-width);
@@ -455,11 +469,11 @@
     text-align: center;
     height: 100vh;
     margin: calc(var(--header-height)) 0 0 0;
-    padding: 30px 0;
+    padding: 11px 0;
 
     .filter-tab-title {
         font-size: 1.15rem;
-        margin: 0px 10px 25px 10px;
+        // margin: 0px 10px 25px 10px;
     }
 
     .filter-tab {

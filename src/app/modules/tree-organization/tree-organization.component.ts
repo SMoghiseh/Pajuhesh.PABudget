@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import { CompanyTree, listReportForTree } from '@shared/models/response.model';
 
@@ -12,7 +13,7 @@ export class TreeOrganizationComponent {
   filterList: any = []
   selectedFilterTab = new listReportForTree();
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -86,5 +87,8 @@ export class TreeOrganizationComponent {
   }
 
 
+  routeToDashboard() {
+    this.router.navigate(['/default/Dashboard']);
+  }
 
 }

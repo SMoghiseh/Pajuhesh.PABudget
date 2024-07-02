@@ -3,6 +3,10 @@
 <!-- / Header -->
 <div class="content-page">
   <div class="filter-box">
+    <div class="menu-shortcut" (click)="routeToDashboard()">
+      <img src="../../../assets/images/icons/Vector.svg">
+      <span>داشبورد</span>
+    </div>
     <h6 class="filter-tab-title">فیلتر نتایج بر اساس</h6>
     <ng-container *ngFor="let filter of filterList">
       <div [ngClass]="isSelectedItem(filter) ? 'selected-filter-tab' : ''" (click)="onSelectFilterTab(filter)"
@@ -12,10 +16,10 @@
     </ng-container>
   </div>
   <div class="chart-structure">
-    <p class="return">
+    <!-- <p class="return">
       <a routerLink="/default/Dashboard">بازگشت</a>
       <i class="pi pi-arrow-left"></i>
-    </p>
+    </p> -->
     <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{ $implicit: companyList }">
     </ng-container>
   </div>
