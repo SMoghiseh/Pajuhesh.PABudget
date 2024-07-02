@@ -16,6 +16,7 @@ import { DntCaptchaComponent } from './dnt-captcha/dnt-captcha.component';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/services/app-config.service';
 import { LoginForm } from './login-form';
+import { Common } from 'src/app/app.component';
 
 class LoginModel {
   username = '';
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
   public loginModel = new LoginModel();
   public errMsg = '';
   model = new LoginForm('', '');
+  prjType = '';
 
   // Form group fields:
   get username() {
@@ -67,6 +69,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.prjType = Common.prjType;
     this.GetDNTCaptcha();
     this.offcanvasModeDetection(window.innerWidth);
     this.loginForm = new FormGroup({
@@ -137,7 +140,7 @@ export class LoginComponent implements OnInit {
                     this.saveMenuItems(rememberMe, menuResponse.data.result);
 
                     this.router.navigate(
-                      ['/default/Dashboard'],
+                      ['/TreeOrganization'],
                       navigationExtras
                     );
                   }

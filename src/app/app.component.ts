@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppConfigService } from '@core/services/app-config.service';
 
 import { fadeInAnimation } from '@shared/animations/transition.animation';
 import { AnimationService } from '@shared/services/animation.service';
@@ -15,8 +16,11 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   constructor(
     public animationService: AnimationService,
-    private primengConfig: PrimeNGConfig
-  ) {}
+    private primengConfig: PrimeNGConfig,
+    private config: AppConfigService
+  ) {
+    Common.prjType = this.config.getAddress('type');
+  }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -119,4 +123,8 @@ export class AppComponent implements OnInit {
       emptyFilterMessage: 'هیچ ردیفی یافت نشد',
     });
   }
+}
+
+export class Common {
+  public static prjType: string;
 }
