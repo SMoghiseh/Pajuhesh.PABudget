@@ -8,41 +8,48 @@
 .co-info-box {
     @extend .all-box;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     h4 {
         @extend .h4;
     }
 
-    .inline-flx{
+    .inline-flx {
         padding: 10px 20px;
-        display: inline-flex;
-        // h5, span{
-        //     text-align: center;
-        //     width: auto;
-        // }
-        span{
-            font-size: 13px;
-            margin-right: 15px;
+
+        h5 {
+            font-size: 1rem;
+            font-weight: 600;
         }
-        &:nth-child(odd){
+
+        span {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        &:nth-child(odd) {
             width: 60%;
         }
-        &:nth-child(even){
+
+        &:nth-child(even) {
             width: 40%;
         }
     }
 
-    .div-more-btn{
-        text-align: left;
+    .div-more-btn {
         display: block;
     }
 }
 
-.h4{
-    padding: 7px 15px;
+.h4 {
+    font-size: 1.35rem;
+    padding: 7px 9px;
+    margin: 0;
 }
 
-.sub-co{
+.sub-co {
     background-color: #F1F5F9;
     margin: 7px 12px;
     font-size: 13px;
@@ -51,15 +58,18 @@
     color: black;
     cursor: pointer;
     align-items: center;
-    &:hover{
+
+    &:hover {
         @extend .selected-sub-co;
     }
-    img, span{
+
+    img,
+    span {
         width: auto;
     }
 }
 
-.selected-sub-co{
+.selected-sub-co {
     background-color: #DBEAFE;
     color: #1E40AF;
     font-size: 14px;
@@ -81,7 +91,7 @@
     text-align: -webkit-center;
 }
 
-.chart-outside-box{
+.chart-outside-box {
     padding: 0px 15px 0px 15px;
 }
 
@@ -90,107 +100,128 @@
     height: fit-content;
 }
 
-.bar-chart2{
+.bar-chart2 {
     display: -webkit-inline-box;
     padding: 20px;
     -webkit-box-align: center;
-    .in{
+
+    .in {
         background-color: #1B84FF;
     }
-    .out{
+
+    .out {
         background-color: #17C653;
     }
-    .chart-legend{
+
+    .chart-legend {
         width: 40px;
         height: 12px;
     }
 }
 
-.bar-chart1{
+.bar-chart1 {
     margin: 18px 0px;
-    .co-info-box{
+
+    .co-info-box {
         padding: 10px 30px;
-        h4{
+
+        h4 {
             padding: 10px 15px 0px;
         }
 
-        span{
+        span {
             margin-right: 13px;
         }
     }
-    h3{
+
+    h3 {
         margin: 20px 30px;
     }
 }
 
-.cost-benefit-box{
+.cost-benefit-box {
     text-align: center;
-    h4{
+
+    h4 {
         text-align: right;
     }
-    .div1{
+
+    .div1 {
         display: -webkit-inline-box;
         -webkit-box-align: center;
         margin-right: 20px;
-        .div2{
+
+        .div2 {
             width: 50px;
             height: 50px;
             text-align: center;
             align-content: space-around;
             color: white;
             border-radius: 35px;
-            i{
+
+            i {
                 font-size: 26px;
             }
         }
-        .cost{
+
+        .cost {
             font-size: 23px;
             font-weight: bold;
         }
     }
-    .div3{
+
+    .div3 {
         font-weight: bold;
         font-size: 13px;
         margin: 25px;
         text-align: right;
     }
-    .div4{
+
+    .div4 {
         text-align: right;
         margin: 0px 20px 15px 20px;
         font-size: 13px;
-        .val{
+
+        .val {
             font-size: 15px;
             margin-right: 10px;
         }
-       @extend .profitable-col;
-       @extend .not-profitable-col;
-        .pi-angle-up, .pi-angle-down{
+
+        @extend .profitable-col;
+        @extend .not-profitable-col;
+
+        .pi-angle-up,
+        .pi-angle-down {
             position: relative;
             top: 3px;
         }
-        .ttl{
+
+        .ttl {
             color: black;
         }
     }
 }
 
-.profitable-col{
+.profitable-col {
     color: #0AB39C;
 }
-.not-profitable-col{
+
+.not-profitable-col {
     color: #E4002B;
 }
-.profitable-b-col{
+
+.profitable-b-col {
     background-color: #0AB39C;
 }
-.not-profitable-b-col{
+
+.not-profitable-b-col {
     background-color: #E4002B;
 }
 
 .row-feature {
     margin: 0px 30px 20px;
 
-    div.box{
+    div.box {
         display: inline-flex;
     }
 
@@ -202,8 +233,8 @@
         border-radius: 7px;
         cursor: pointer;
         margin-left: 10px;
-        
-        span{
+
+        span {
             margin: 13px;
         }
     }
@@ -218,5 +249,3 @@
     background-color: #E2E8F0 !important;
     color: #64748B !important;
 }
-
-
