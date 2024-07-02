@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
   Company,
@@ -7,16 +7,17 @@ import {
   StaticYear,
   UrlBuilder,
 } from '@shared/models/response.model';
-import { map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import Chart from 'chart.js/auto';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PreviousRouteService } from '@shared/services/previous-route.service';
 
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
   styleUrls: ['./company-profile.component.scss'],
 })
-export class CompanyProfileComponent implements OnInit {
+export class CompanyProfileComponent implements OnInit, OnDestroy {
   infoLst = new Company();
   myChart!: Chart;
   myChart1!: Chart;
@@ -31,12 +32,15 @@ export class CompanyProfileComponent implements OnInit {
   dataTableRows = 5;
   loading = false;
   selectedReportId!: number;
+  private subscription?: Subscription;
+  previousUrl :string | null = '';
 
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private previousRouteService: PreviousRouteService
+  ) { }
 
   ngOnInit(): void {
     this.getStaticYear();
@@ -47,6 +51,13 @@ export class CompanyProfileComponent implements OnInit {
       this.getShareholdersDashboard(this.coId);
       this.getCostAndBenefitForProfile(this.coId);
     });
+    this.subscription = this.previousRouteService.getPreviousUrl().subscribe(url => {debugger
+      this.previousUrl = url ? url : '';
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 
   getProfileCoInfo(id: string) {
@@ -111,9 +122,9 @@ export class CompanyProfileComponent implements OnInit {
 
   contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
-      {
-        queryParams: {},
-      };
+    {
+      queryParams: {},
+    };
   }
   getCashBudgetByMonth(id: string) {
     this.httpService

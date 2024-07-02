@@ -42,6 +42,7 @@ import { LoadingElementComponent } from '@core/layout/loading-element/loading-el
 import { PageNotFoundComponent } from '@core/layout/page-not-found/page-not-found.component';
 import { SidemenuComponent } from '@core/layout/sidemenu/sidemenu.component';
 import { MainComponent } from '@core/main/main.component';
+import { PreviousRouteService } from './services/previous-route.service';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,6 @@ import { MainComponent } from '@core/main/main.component';
     HasPermissionsDirective,
     HeaderComponent
   ],
-  providers: [TransferServices],
+  providers: [TransferServices , PreviousRouteService],
 })
 export class SharedModule { }
