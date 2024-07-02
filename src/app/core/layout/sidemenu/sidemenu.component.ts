@@ -183,5 +183,9 @@ export class SidemenuComponent implements OnInit, AfterViewInit {
     if (data == 'Dashboard') {
       this.router.navigate(['/default/Dashboard']);
     }
+
+    if (data == 'AllCompanyReports') {
+      this.router.navigate(['/AllCompanyReports']);
+    }
   }
 }

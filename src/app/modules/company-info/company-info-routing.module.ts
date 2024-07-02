@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyInfoComponent } from './company-info.component';
+import { AllCompanyReportsComponent } from './company-info.component';
 import { authGuard } from '@core/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: CompanyInfoComponent,
+    component: AllCompanyReportsComponent,
     canMatch: [authGuard]
   },
 ];
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CompanyInfoRoutingModule { }
+export class AllCompanyReportsRoutingModule { }

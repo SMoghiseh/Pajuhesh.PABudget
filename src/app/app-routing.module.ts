@@ -89,11 +89,11 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'CompanyInfo',
+    path: 'AllCompanyReports',
     title: 'برنامه و بودجه |  اطلاعات شرکت ها ',
     loadChildren: () =>
       import('./modules/company-info/company-info.module').then(
-        m => m.CompanyInfoModule
+        m => m.AllCompanyReportsModule
       )
   },
   {

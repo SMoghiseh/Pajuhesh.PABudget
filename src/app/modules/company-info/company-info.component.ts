@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './company-info.component.html',
   styleUrls: ['./company-info.component.scss']
 })
-export class CompanyInfoComponent {
+export class AllCompanyReportsComponent {
   selectedTab= 0 ; 
   tabContent = 'tab_1';
   tabList = [
