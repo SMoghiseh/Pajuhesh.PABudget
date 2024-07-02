@@ -1,4 +1,4 @@
 {
-  "baseUrl": "http://pabgateway.pajuheshdev.com/",
-  "type": "sandogh"
+  "baseUrl": "http://172.16.31.145:8085/",
+  "type": "bazneshastegi" 
 }
