@@ -99,7 +99,7 @@ const routes: Routes = [
         path: 'AllCompanyReports',
         title: 'برنامه و بودجه |  اطلاعات شرکت ها ',
         loadChildren: () =>
-          import('./modules/company-info/company-info.module').then(
+          import('./modules/all-company-reports/all-company-reports.module').then(
             m => m.AllCompanyReportsModule
           )
       },

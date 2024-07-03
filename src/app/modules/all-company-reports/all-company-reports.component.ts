@@ -3,9 +3,9 @@ import { PreviousRouteService } from '@shared/services/previous-route.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-company-info',
-  templateUrl: './company-info.component.html',
-  styleUrls: ['./company-info.component.scss']
+  selector: 'PABudget-all-company-reports',
+  templateUrl: './all-company-reports.component.html',
+  styleUrls: ['./all-company-reports.component.scss']
 })
 export class AllCompanyReportsComponent implements OnInit , OnDestroy{
   selectedTab = 0;
