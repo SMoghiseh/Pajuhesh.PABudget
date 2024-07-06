@@ -32,9 +32,19 @@ import { PersonelNoComponent } from './personel-no/personel-no.component';
 import { AddEditPersonelNoComponent } from './personel-no/add-edit-personel-no/add-edit-personel-no.component';
 import { SaleComponent } from './sale/sale.component';
 import { AddEditSaleComponent } from './sale/add-edit-sale/add-edit-sale.component';
+import { ContractComponent } from './contract/contract.component';
+import { AddEditContractNoComponent } from './contract/add-edit-contract-no/add-edit-contract-no.component';
+
 
 @NgModule({
-  declarations: [OperationComponent, PersonelNoComponent, AddEditPersonelNoComponent , SaleComponent , AddEditSaleComponent],
+  declarations: [
+    OperationComponent,
+    PersonelNoComponent,
+    AddEditPersonelNoComponent,
+    ContractComponent,
+    AddEditContractNoComponent,
+    SaleComponent, AddEditSaleComponent
+  ],
   imports: [
     CommonModule,
     OperationRoutingModule,
@@ -69,4 +79,4 @@ import { AddEditSaleComponent } from './sale/add-edit-sale/add-edit-sale.compone
     },
   ],
 })
-export class OperationModule {}
+export class OperationModule { }
