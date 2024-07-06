@@ -63,7 +63,7 @@ export class AddEditPeriodComponent implements OnInit {
         Validators.required
       ),
     });
-    if (this.inputData.type1 === 'edit') {
+    if (this.inputData.type1 === 'edit') { debugger
       this.addEditPeriodForm.patchValue(this.inputData);
       this.addEditPeriodForm.patchValue({
         fromDate: new JDate(new Date(this.inputData.fromDate)),
@@ -72,7 +72,7 @@ export class AddEditPeriodComponent implements OnInit {
     }
   }
 
-  addEditPeriod() {
+  addEditPeriod() { debugger
     this.addEditPeriodSubmitted = true;
     if (this.addEditPeriodForm.valid) {
       const request: Period = this.addEditPeriodForm.value;
