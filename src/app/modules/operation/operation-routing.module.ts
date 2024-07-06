@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OperationComponent } from './operation.component';
 import { authGuard } from '@core/guards/auth/auth.guard';
 import { PersonelNoComponent } from './personel-no/personel-no.component';
+import { SaleComponent } from './sale/sale.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,16 @@ const routes: Routes = [
           {
             path: 'PersonelNo',
             component: PersonelNoComponent,
+            title: 'برنامه و بودجه | تعریف عناوین',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Sale',
+            component: SaleComponent,
             title: 'برنامه و بودجه | تعریف عناوین',
             data: {
               reuse: true,

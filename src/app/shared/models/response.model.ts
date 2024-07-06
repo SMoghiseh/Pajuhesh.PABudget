@@ -1089,3 +1089,22 @@ export class EducationTypeCode {
   title!: string;
   isActive!: boolean;
 }
+export class Sale {
+    /** آدرس سرویس */
+    static readonly apiAddress = 'api/PABudgetApi/v1/Sale/';
+
+    id!: number
+    title!: string
+    budgetPeriodId!: number
+    budgetPeriodDetailId!: number
+    contractId!: number
+    saleType!: number
+    productGroupId!: number
+    productNumber!: number
+    productUnitSalesCu!: number
+    productAllSalesCu!: number
+    costingUnitCu!: number
+    costingAllCu!: number
+    benefitLossCu!: number
+
+}

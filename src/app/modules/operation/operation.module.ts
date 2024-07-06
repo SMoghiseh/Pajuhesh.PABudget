@@ -30,9 +30,11 @@ import { OperationRoutingModule } from './operation-routing.module';
 import { OperationComponent } from './operation.component';
 import { PersonelNoComponent } from './personel-no/personel-no.component';
 import { AddEditPersonelNoComponent } from './personel-no/add-edit-personel-no/add-edit-personel-no.component';
+import { SaleComponent } from './sale/sale.component';
+import { AddEditSaleComponent } from './sale/add-edit-sale/add-edit-sale.component';
 
 @NgModule({
-  declarations: [OperationComponent, PersonelNoComponent, AddEditPersonelNoComponent],
+  declarations: [OperationComponent, PersonelNoComponent, AddEditPersonelNoComponent , SaleComponent , AddEditSaleComponent],
   imports: [
     CommonModule,
     OperationRoutingModule,
