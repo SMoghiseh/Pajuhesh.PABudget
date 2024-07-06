@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://pabgateway.pajuheshdev.com/",
-  "type": "bazneshastegi",
-  "title": " هوش تجاری",
-  "description": " صندوق بازنشستگی کشوری"
+  "type": "sandogh",
+"title" : "برنامه و بودجه" , 
+  "description" : "موسسه صندوق ذخیره فرهنگیان"
 }
