@@ -30,9 +30,17 @@ import { OperationRoutingModule } from './operation-routing.module';
 import { OperationComponent } from './operation.component';
 import { PersonelNoComponent } from './personel-no/personel-no.component';
 import { AddEditPersonelNoComponent } from './personel-no/add-edit-personel-no/add-edit-personel-no.component';
+import { ContractComponent } from './contract/contract.component';
+import { AddEditContractNoComponent } from './contract/add-edit-contract-no/add-edit-contract-no.component';
 
 @NgModule({
-  declarations: [OperationComponent, PersonelNoComponent, AddEditPersonelNoComponent],
+  declarations: [
+    OperationComponent,
+    PersonelNoComponent,
+    AddEditPersonelNoComponent,
+    ContractComponent,
+    AddEditContractNoComponent,
+  ],
   imports: [
     CommonModule,
     OperationRoutingModule,

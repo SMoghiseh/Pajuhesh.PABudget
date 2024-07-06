@@ -1,0 +1,108 @@
+<form
+  #formDir="ngForm"
+  [formGroup]="addEditContractNoForm"
+  (ngSubmit)="addEditContractNo()">
+  <div class="container row">
+    <div class="col-4 mt-2 w-date">
+      <label for="contractCode">شماره قرار داد</label>
+      <input
+        pInputText
+        pKeyFilter="int"
+        id="contractCode"
+        name="contractCode"
+        formControlName="contractCode"
+        type="text"
+        class="w-100" />
+    </div>
+
+    <div class="col-4 mt-2 w-date">
+      <label for="contractDate">تاریخ قرارداد</label>
+      <p-persian-calendar
+        id="contractDate"
+        name="contractDate"
+        formControlName="contractDate"
+        styleClass="w-100 ">
+      </p-persian-calendar>
+    </div>
+    <div class="col-4 mt-2 w-date">
+      <label for="contractFromDate">تاریخ شروع قرارداد</label>
+      <p-persian-calendar
+        id="contractFromDate"
+        name="contractFromDate"
+        formControlName="contractFromDate"
+        styleClass="w-100 ">
+      </p-persian-calendar>
+    </div>
+    <div class="col-4 mt-2 w-date">
+      <label for="contractToDate">تاریخ پایان قرارداد</label>
+      <p-persian-calendar
+        id="contractToDate"
+        name="contractToDate"
+        formControlName="contractToDate"
+        styleClass="w-100 ">
+      </p-persian-calendar>
+    </div>
+    <div class="col-4 mt-2 w-date">
+        <label for="contractorID">پیمان کار</label>
+        <p-dropdown
+          id="contractorID"
+          name="contractorID"
+          formControlName="contractorID"
+          styleClass="w-100 my-1"
+          optionLabel="partyName"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="contractorLst"
+          [filter]="true">
+        </p-dropdown>
+      </div>
+    <div class="col-4 mt-2 w-date">
+      <label for="employerID">کارفرما</label>
+      <p-dropdown
+        id="employerID"
+        name="employerID"
+        formControlName="employerID"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="employerLst"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+
+    <div class="col-4 mt-2 w-date">
+        <label for="contracTypeID">نوع قرارداد</label>
+        <p-dropdown
+          id="contracTypeID"
+          name="contracTypeID"
+          formControlName="contracTypeID"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="contracTypeLst"
+          [filter]="true">
+        </p-dropdown>
+      </div>
+    <div class="col-4 mt-2 w-date">
+      <label for="contractPriceCu">شماره قرار داد</label>
+      <input
+        pInputText
+        pKeyFilter="int"
+        id="contractPriceCu"
+        name="contractPriceCu"
+        formControlName="contractPriceCu"
+        type="text"
+        class="w-100" />
+    </div>
+    <div class="col-12 row-btn">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>

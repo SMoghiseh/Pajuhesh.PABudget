@@ -46,7 +46,7 @@ export class PeriodDefinitionComponent implements OnInit {
     });
   }
 
-  getPeriod(event?: LazyLoadEvent) {
+  getPeriod(event?: LazyLoadEvent) { debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -96,7 +96,7 @@ export class PeriodDefinitionComponent implements OnInit {
     this.isOpenAddEditPeriod = true;
   }
 
-  editRow(data: Period) {
+  editRow(data: Period) { debugger
     this.modalTitle = 'ویرایش دوره ' + data.title;
     this.addEditData = data;
     this.addEditData.type1 = 'edit';
@@ -147,7 +147,7 @@ export class PeriodDefinitionComponent implements OnInit {
     }
   }
 
-  periodDetail(data: Period) {
+  periodDetail(data: Period) { debugger
     this.router.navigate(['/baseinfo/period/' + data.id]);
   }
 

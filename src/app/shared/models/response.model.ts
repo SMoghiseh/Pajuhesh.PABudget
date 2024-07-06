@@ -576,14 +576,17 @@ export class Company {
 }
 
 export class ProductGroup {
-  static readonly getListApiAddress = 'api/PABudgetApi/ProductGroup/GetAllProductGroups';
-  static readonly createApiAddress = 'api/PABudgetApi/ProductGroup/CreateProductGroup';
-  static readonly deleteApiAddress = 'api/PABudgetApi/ProductGroup/DeleteProductGroup';
+  static readonly getListApiAddress =
+    'api/PABudgetApi/ProductGroup/GetAllProductGroups';
+  static readonly createApiAddress =
+    'api/PABudgetApi/ProductGroup/CreateProductGroup';
+  static readonly deleteApiAddress =
+    'api/PABudgetApi/ProductGroup/DeleteProductGroup';
   id!: number;
   parentId!: number;
   productGroupCode!: number;
   productGroupTitle!: string;
-  children!: ProductGroup[]
+  children!: ProductGroup[];
 }
 
 /**قرارداد */
@@ -591,6 +594,8 @@ export class Contract {
   /** آدرس سرویس */
 
   static readonly apiAddress = 'api/PABudgetApi/v1/Info/';
+  static readonly apiAddressDel = 'api/PABudgetApi/v1/Info/DeleteContract';
+  
 
   id!: number;
   contractCode!: number;
@@ -660,6 +665,14 @@ export class ContractType {
   isActive!: boolean;
 }
 
+export class Employers {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/Party/GetAllEmployers';
+  partyNationalID!: any;
+  partyName!: string;
+  
+ 
+}
 /** ماهیت‌ها */
 export class ReportingType {
   /** آدرس سرویس */
@@ -1059,6 +1072,22 @@ export class PersonelNo {
   perioddetailId!: number;
   costCenterTypeId!: number;
   periodTitle!: string;
+}
+export class ContractNo {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Info/CreateContract';
+  static readonly adiAddressList = 'api/PABudgetApi/v1/Info/GetContractList';
+  id!: number;
+  contractCode!: string;
+  contractDate!: any;
+  contractFromDate!: any;
+  contractToDate!: any;
+  contracTypeID!: number;
+  employerID!: number;
+  contractorID!: number;
+  contractPriceCu!: number;
+  contractNo!: number;
+  type!: string;
+  contracType!: string;
 }
 
 export class CostCenterType {
