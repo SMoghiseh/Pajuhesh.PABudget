@@ -1,5 +1,6 @@
 <p-toast key="sale" position="bottom-left"></p-toast>
 
+
 <div class="table-header">لیست نوع فروش</div>
 <div class="justify-content-between pb-3 w-100" style="text-align: end">
   <p-button class="pe-2" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن نوع فروش جدید"
@@ -18,12 +19,14 @@
         <th><strong> دوره عملیاتی</strong></th>
         <th><strong>شماره قرارداد</strong></th>
         <th><strong> نوع فروش</strong></th>
+        <th><strong>  گروه محصول</strong></th>
         <th><strong> تعداد</strong></th>
         <th><strong> مبلغ واحد فروش</strong></th>
         <th><strong> مبلغ کل فروش</strong></th>
         <th><strong> مبلغ سود و زیان</strong></th>
         <th><strong> بهای تمام شده</strong></th>
-        <th><strong>   عملیات</strong></th>
+        <th><strong>  مبلغ قرارداد </strong></th>
+        <th><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-sale let-rowIndex="rowIndex">
@@ -31,15 +34,15 @@
         <td>{{ sale.budgetPeriodTitle }}</td>
         <td>{{ sale.budgetPeriodDetailTitle }}</td>
         <td>{{ sale.contractId }}</td>
-        <td  *ngIf="sale.saleTypeId == 0" >بازرگانی</td>
-        <td  *ngIf="sale.saleTypeId == 1" >تولیدی</td>
-        <td  *ngIf="sale.saleTypeId == 2" >پیمانکاری</td>
-        <td>{{ sale.productGroupTitle  }}</td>
-        <td>{{ sale.productNumber  }}</td>
-        <td>{{ sale.productAllSalesCu  }}</td>
+        <!-- <td>{{ sale.saleType }}</td> -->
+        <td>saleType</td>
+        <td>{{ sale.productGroupTitle }}</td>
+        <td>{{ sale.productNumber }}</td>
+        <td>{{ sale.productUnitSalesCu  }}</td>
+        <td>{{ sale.productAllSalesCu }}</td>
         <td>{{ sale.benefitLossCu }}</td>
-        <td>{{ sale.costingAllCu  }}</td>
-        <td>{{ sale.costingUnitCu  }}</td>
+        <td>{{ sale.costingAllCu }}</td>
+        <td>{{ sale.costingUnitCu }}</td>
 
 
         <td class="jc-left ai-left">
@@ -86,7 +89,7 @@
 
 <p-dialog *ngIf="isOpenAddEditSale" [header]="modalTitle" [(visible)]="isOpenAddEditSale" [modal]="true"
   [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '400px' }">
-  <app-add-edit-sale [data1]="addEditData" (isSuccess)="reloadData()"></app-add-edit-sale>
+  <app-add-edit-sale [data1]="addEditData" [mode]="mode"  (isSuccess)="reloadData()"></app-add-edit-sale>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

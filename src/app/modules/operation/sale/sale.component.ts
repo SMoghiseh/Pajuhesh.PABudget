@@ -39,7 +39,10 @@ export class SaleComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+
+
+  }
 
   getSale(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -53,15 +56,13 @@ export class SaleComponent {
 
     const body = {
       pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-      withOutPagination: false,
-      periodId: parseInt(this.pId),
+      pageNumber: pagination.pageNumber
     };
 
     this.loading = true;
 
     this.first = 0;
-    const url = Sale.apiAddress + 'ListByFilter';
+    const url = Sale.apiAddress + 'GetAllSales';
     this.httpService
       .post<Sale[]>(url, body)
 
@@ -85,17 +86,28 @@ export class SaleComponent {
   }
 
   editRow(data: Sale) {
-    this.modalTitle = 'ویرایش  نوع فروش ' + data.title;
-    this.addEditData = data;
-    this.mode = 'edit';
-    this.isOpenAddEditSale = true;
+    this.modalTitle = 'ویرایش ' + '"'+ data.budgetPeriodTitle + '-' + data.budgetPeriodDetailTitle + '"';
+    this.getRowDataById(data.id);
+
+  }
+
+  getRowDataById(id: number) {
+    this.httpService
+      .get<Sale>(Sale.apiAddress + 'GetSaleById/' + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.addEditData = response.data.result;
+          this.mode = 'edit';
+          this.isOpenAddEditSale = true;
+        }
+      });
   }
 
   deleteRow(period: Sale) {
     if (period && period.id)
       this.confirmationService.confirm({
-        message: 'آیا از حذف نوع فروش اطمینان دارید؟',
-        header: `عنوان ${period.title}`,
+        message: `آیا از حذف "${period.budgetPeriodTitle} - ${period.budgetPeriodDetailTitle}" اطمینان دارید؟`,
+        header: `عنوان "${period.budgetPeriodTitle}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -103,7 +115,7 @@ export class SaleComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteSale(period.id, period.title),
+        accept: () => this.deleteSale(period.id, period.budgetPeriodTitle),
       });
   }
 
@@ -111,7 +123,7 @@ export class SaleComponent {
     if (id && title) {
       this.httpService
         .delete<Sale>(
-          UrlBuilder.build(Sale.apiAddress + 'DELETE', '') + `/${id}`
+          UrlBuilder.build(Sale.apiAddress + 'DeleteSale', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {

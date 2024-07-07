@@ -25,20 +25,10 @@ export class AddEditSaleComponent implements OnInit {
   budgetPeriodList: any = [];
   budgetPeriodDetailList: any = [];
   productGroupList: any = [];
-  saleTypeList: any = [
-    {id: 0 , title: 'بازرگانی'} , 
-    {id: 1 , title: 'تولیدی'} , 
-    {id: 2 , title: 'پیمانکاری'} , 
-  ];
-
-
-
+  saleTypeList: any = [];
   inputData = new Sale();
-  mode = '';
-
-  @Input()
-
-  set data1(data: Sale) {
+  @Input() mode = '';
+  @Input() set data1(data: Sale) {
     this.inputData = data;
   }
 
@@ -59,6 +49,9 @@ export class AddEditSaleComponent implements OnInit {
   get productNumber() {
     return this.addEditSaleForm.get('productNumber');
   }
+  get costingUnitCu() {
+    return this.addEditSaleForm.get('costingUnitCu');
+  }
 
 
   constructor(
@@ -67,46 +60,49 @@ export class AddEditSaleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.getRowData();
     this.getPeriodLst();
     this.getProductGroupLst();
-
+    this.getAllSaleTypeLst();
     this.addEditSaleForm = new FormGroup({
       budgetPeriodId: new FormControl('', Validators.required),
       budgetPeriodDetailId: new FormControl('', Validators.required),
-      contractId: new FormControl(''),
+      contractId: new FormControl(this.inputData.contractId),
       saleType: new FormControl(''),
-      productGroupId: new FormControl(''  , Validators.required),
-      productNumber: new FormControl('' , Validators.required),
-      productUnitSalesCu: new FormControl('' ,Validators.required),
-      productAllSalesCu: new FormControl(''),
-      benefitLossCu: new FormControl(''),
-      costingAllCu: new FormControl(''),
-      costingUnitCu: new FormControl('')
+      productGroupId: new FormControl('', Validators.required),
+      productNumber: new FormControl(this.inputData.productNumber, Validators.required),
+      productUnitSalesCu: new FormControl(this.inputData.productUnitSalesCu, Validators.required),
+      productAllSalesCu: new FormControl(this.inputData.productAllSalesCu),
+      benefitLossCu: new FormControl(this.inputData.benefitLossCu),
+      costingAllCu: new FormControl(this.inputData.costingAllCu),
+      costingUnitCu: new FormControl(this.inputData.costingUnitCu)
     });
 
-    // if (this.mode === 'edit') {
-    //   this.getPeriodDetailLst(this.inputData.id);
-    //   this.addEditSaleForm.patchValue(this.inputData);
-    // }
+    if (this.mode === 'edit') {
+      this.getRowData(this.inputData.id);
+      this.getPeriodDetailLst(this.inputData.budgetPeriodId);
+    }
   }
 
-  addEditSale() {debugger
+  addEditSale() {
     this.addEditSaleSubmitted = true;
     if (this.addEditSaleForm.valid) {
       const request: Sale = this.addEditSaleForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
+      const url = this.mode === 'insert' ? Sale.apiAddress + 'CreateSale' :
+        Sale.apiAddress + 'UpdateSale';
       this.isLoadingSubmit = true;
 
       this.httpService
-        .post<Sale>(Sale.apiAddress + 'CreateSale', request)
+        .post<Sale>(url, request)
         .pipe(tap(() => (this.isLoadingSubmit = false)))
         .subscribe(response => {
           if (response.successed) {
             this.messageService.add({
-              key: 'companyDefinition',
+              key: 'sale',
               life: 8000,
               severity: 'success',
-              detail: `بودجه پرسنل`,
+              detail: ` نوع فروش`,
               summary:
                 this.mode === 'insert'
                   ? 'با موفقیت درج شد'
@@ -127,15 +123,36 @@ export class AddEditSaleComponent implements OnInit {
         }
       });
   }
+  getRowData(id: number) {
+    this.httpService
+      .get<any>(Sale.apiAddress + 'GetSaleById/' + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.inputData = response.data.result;
+          this.addEditSaleForm.patchValue(response.data.result);
+        }
+      });
+  }
   getProductGroupLst() {
     this.httpService
       .get<ProductGroup[]>(ProductGroup.getListApiAddress)
       .subscribe(response => {
-        if (response.data ) {
+        if (response.data) {
           this.productGroupList = response.data;
         }
       });
   }
+
+  getAllSaleTypeLst() {
+    this.httpService
+      .get<Sale[]>(Sale.typesApiAddress + 'GetAllSaleTypes')
+      .subscribe(response => {
+        if (response.data) {
+          this.saleTypeList = response.data;
+        }
+      });
+  }
+
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
   }

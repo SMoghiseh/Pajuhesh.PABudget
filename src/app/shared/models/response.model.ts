@@ -1119,21 +1119,25 @@ export class EducationTypeCode {
   isActive!: boolean;
 }
 export class Sale {
-    /** آدرس سرویس */
-    static readonly apiAddress = 'api/PABudgetApi/v1/Sale/';
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/Sale/';
+  static readonly typesApiAddress = 'api/PABudgetApi/v1/Sale/';
 
-    id!: number
-    title!: string
-    budgetPeriodId!: number
-    budgetPeriodDetailId!: number
-    contractId!: number
-    saleType!: number
-    productGroupId!: number
-    productNumber!: number
-    productUnitSalesCu!: number
-    productAllSalesCu!: number
-    costingUnitCu!: number
-    costingAllCu!: number
-    benefitLossCu!: number
+  id!: number
+  // title!: string
+  budgetPeriodId!: number
+  budgetPeriodTitle!: string
+  budgetPeriodDetailId!: number
+  budgetPeriodDetailTitle!: string
+  contractId!: number
+  saleType!: number
+  productGroupId!: number
+  productGroupTitle!: string
+  productNumber!: number
+  productUnitSalesCu!: number
+  productAllSalesCu!: number
+  costingUnitCu!: number
+  costingAllCu!: number
+  benefitLossCu!: number
 
 }

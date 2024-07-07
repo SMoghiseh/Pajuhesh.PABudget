@@ -1,3 +1,6 @@
+<p-toast key="sale" position="bottom-left"></p-toast>
+
+
 <form
   #formDir="ngForm"
   [formGroup]="addEditSaleForm"
@@ -27,7 +30,7 @@
         formControlName="budgetPeriodDetailId"
         styleClass="w-100 my-1"
         optionLabel="periodDetailTitle"
-        optionValue="periodDetailCode"
+        optionValue="id"
         placeholder="انتخاب کنید"
         [options]="budgetPeriodDetailList"
         [filter]="true">
@@ -38,13 +41,13 @@
     <div class="col-4 mt-2">
       <label for="contractId">شماره قرارداد</label>
       <p-inputNumber
-        
         pKeyFilter="int"
         id="contractId"
         name="contractId"
         formControlName="contractId"
         type="text"
-        class="w-100" ></p-inputNumber>
+        class="w-100" 
+       ></p-inputNumber>
     </div>
     <div class="col-4 mt-2">
       <label for="saleType">نوع فروش </label>
@@ -135,7 +138,8 @@
         name="costingUnitCu"
         formControlName="costingUnitCu"
         type="text"
-        class="w-100" ></p-inputNumber>
+        class="w-100" 
+        value="costingUnitCu"></p-inputNumber>
     </div>
 
     <div class="col-12 row-btn">
