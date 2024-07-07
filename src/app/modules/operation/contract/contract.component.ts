@@ -119,7 +119,7 @@ export class ContractComponent {
   }
 
   editRow(data: ContractNo) {
-    // this.modalTitle = 'ویرایش بودجه پرسنل ' + data.periodTitle;
+    this.modalTitle = 'ویرایش بودجه پرسنل ';
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditContractlNo = true;
