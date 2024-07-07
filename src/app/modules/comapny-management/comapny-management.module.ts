@@ -13,7 +13,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 /* PrimeNG */
-import { TableModule } from 'primeng/table';
+import { TableModule, TableCheckbox } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -32,13 +32,14 @@ import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ListboxModule } from 'primeng/listbox';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { FileUploadModule } from 'primeng/fileupload';
+
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CompanyContractComponent } from './company-profile/company-contract/company-contract.component';
 import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
-import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { FileUploadModule } from 'primeng/fileupload';
         return `assets/images/${config.src}`;
       },
     },
+    TableCheckbox,
   ],
 })
-export class ComapnyManagementModule { }
+export class ComapnyManagementModule {}

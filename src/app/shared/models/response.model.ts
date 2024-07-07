@@ -532,6 +532,7 @@ export class Company {
   managingDirector?: string;
   financialManager?: string;
   registerDate!: any;
+  registerDatePC!: any;
   periodTypeId!: any;
   registeredCapital?: number;
   nonRegisteredCapital?: number;
@@ -576,16 +577,21 @@ export class Company {
 }
 
 export class ProductGroup {
-  static readonly getListApiAddress = 'api/PABudgetApi/ProductGroup/GetAllProductGroups';
-  static readonly getTreeViewApiAddress = 'api/PABudgetApi/ProductGroup/GetProductGroupTreeView';
-  static readonly createApiAddress = 'api/PABudgetApi/ProductGroup/CreateProductGroup';
-  static readonly editApiAddress = 'api/PABudgetApi/ProductGroup/UpdateProductGroup';
-  static readonly deleteApiAddress = 'api/PABudgetApi/ProductGroup/DeleteProductGroup';
+  static readonly getListApiAddress =
+    'api/PABudgetApi/ProductGroup/GetAllProductGroups';
+  static readonly getTreeViewApiAddress =
+    'api/PABudgetApi/ProductGroup/GetProductGroupTreeView';
+  static readonly createApiAddress =
+    'api/PABudgetApi/ProductGroup/CreateProductGroup';
+  static readonly editApiAddress =
+    'api/PABudgetApi/ProductGroup/UpdateProductGroup';
+  static readonly deleteApiAddress =
+    'api/PABudgetApi/ProductGroup/DeleteProductGroup';
   id!: number;
   parentId!: number;
   productGroupCode!: number;
   productGroupTitle!: string;
-  children!: ProductGroup[]
+  children!: ProductGroup[];
 }
 
 /**قرارداد */
@@ -1088,4 +1094,18 @@ export class EducationTypeCode {
   id!: number;
   title!: string;
   isActive!: boolean;
+}
+
+export class Profile {
+  /** آدرس سرویس */
+  static readonly apiAddressGetPlan = 'api/PABudgetApi/Dashboard/GetPlan/List';
+  static readonly apiAddressGetBudget =
+    'api/PABudgetApi/Dashboard/GetBudget/List';
+  static readonly apiAddressGetPlanDetail =
+    'api/PABudgetApi/Dashboard/GetPlanDetail/List';
+  static readonly apiAddressGetBudgetDetail =
+    'api/PABudgetApi/Dashboard/GetBudgetDetail/List';
+  id!: number;
+  title!: string;
+  icon!: string;
 }

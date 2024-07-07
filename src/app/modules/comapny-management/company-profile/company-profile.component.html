@@ -9,7 +9,11 @@
           <span>{{ infoLst.companyName }}</span>
         </div>
         <div class="inline-flx">
-          <img *ngIf="infoLst.partyLogo" ngSrc="{{ 'holding-logo/' + infoLst.partyLogo }}" width="55" height="55" />
+          <img
+            *ngIf="infoLst.partyLogo"
+            ngSrc="{{ 'holding-logo/' + infoLst.partyLogo }}"
+            width="55"
+            height="55" />
         </div>
         <div class="inline-flx">
           <h5>مدیرعامل :</h5>
@@ -25,7 +29,7 @@
         </div>
         <div class="inline-flx">
           <h5>تاریخ تاسیس :</h5>
-          <span>{{ infoLst.registerDate }}</span>
+          <span>{{ infoLst.registerDatePC }}</span>
         </div>
         <div class="inline-flx">
           <h5>صنعت :</h5>
@@ -48,226 +52,169 @@
           <span>{{ infoLst.countOfEmployee }}</span>
         </div>
         <div class="inline-flx div-more-btn">
-          <p-button class="pe-2" styleClass="p-button-info" label="جزئیات بیشتر"
+          <p-button
+            class="pe-2"
+            styleClass="p-button-info"
+            label="جزئیات بیشتر"
             (click)="onCoDetail(infoLst.id)"></p-button>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-    <div class="co-info-box">
-      <h4>سهامداران شرکت</h4>
-      <div id="chart-wrapper">
-        <canvas id="BarChart2" width="700" style="display: unset"></canvas>
-      </div>
-      <div class="row bar-chart2">
-        <span>سهامداران خارج از شرکت</span>
-        <div class="chart-legend out"></div>
-        <span>سهامداران شرکتی</span>
-        <div class="chart-legend in"></div>
-      </div>
-    </div>
-  </div> -->
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <div class="co-info-box cost-benefit-box">
       <h4>برنامه</h4>
-      <div class="row sub-co">
-        <img ngSrc="icons\a6.svg" width="20" height="20" />
-        <span>چشم انداز و ماموریت</span>
+      <div
+        *ngFor="let item of planLst"
+        class="row sub-co"
+        [class.selected-sub-co]="item.id === selectedPlanId"
+        (click)="onSelectPlan(item.id)">
+        <i class="{{ item.icon }}"></i>
+        <span>{{ item.title }}</span>
       </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\agent List.svg" width="20" height="20" />
-        <span>ارزش ها</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a4.svg" width="20" height="20" />
-        <span>جهت گیری</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a8.svg" width="20" height="20" />
-        <span>اهداف</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a11.svg" width="20" height="20" />
-        <span>ماتریس SWOT</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a17 1.svg" width="20" height="20" />
-        <span>نقشه استراتژی</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\mag.svg" width="20" height="20" />
-        <span>برنامه های عملیاتی</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a9.svg" width="20" height="20" />
-        <span>مفروضات</span>
-      </div>
-      <!-- <h4>سود و زیان</h4>
-      <div class="row div1">
-        <div
-          class="div2"
-          [class.profitable-b-col]="benefitCost?.hasProfitable"
-          [class.not-profitable-b-col]="!benefitCost?.hasProfitable">
-          <i
-            class="pi"
-            [class.pi-arrow-up]="benefitCost?.hasProfitable"
-            [class.pi-arrow-down]="!benefitCost?.hasProfitable"></i>
-        </div>
-        <span
-          class="cost"
-          [class.profitable-col]="benefitCost?.hasProfitable"
-          [class.not-profitable-col]="!benefitCost?.hasProfitable"
-          >{{ benefitCost?.benefitThisYear }} ریال</span
-        >
-        <div>
-          <span>سود شرکت در سال گذشته</span>
-        </div>
-      </div>
-      <div class="div3">
-        <span>مشاهده تغییرات نسبت به سال گذشته</span>
-      </div>
-      <div class="div4">
-        <span class="ttl">درصد تغییر: </span>
-        <i
-          [class.pi-angle-up]="benefitCost?.hasProfitable"
-          [class.pi-angle-down]="!benefitCost?.hasProfitable"
-          [class.profitable-col]="benefitCost?.hasProfitable"
-          [class.not-profitable-col]="!benefitCost?.hasProfitable"
-          class="pi val"></i>
-        <span
-          class="val"
-          [class.profitable-col]="benefitCost?.hasProfitable"
-          [class.not-profitable-col]="!benefitCost?.hasProfitable"
-          >{{ benefitCost?.percentageChange }}</span
-        >
-      </div>
-      <div class="div4">
-        <span class="ttl">میزان تغییر: </span>
-        <i
-          [class.pi-angle-up]="benefitCost?.hasProfitable"
-          [class.pi-angle-down]="!benefitCost?.hasProfitable"
-          [class.profitable-col]="benefitCost?.hasProfitable"
-          [class.not-profitable-col]="!benefitCost?.hasProfitable"
-          class="pi val"></i>
-        <span
-          class="val"
-          [class.profitable-col]="benefitCost?.hasProfitable"
-          [class.not-profitable-col]="!benefitCost?.hasProfitable"
-          >{{ benefitCost?.countChange }}</span
-        >
-      </div> -->
     </div>
   </div>
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <div class="co-info-box">
       <h4>بودجه</h4>
-      <div class="row sub-co" (click)="onSelectPrograms(1, 'ترازنامه')">
-        <img ngSrc="icons\a15 1.svg" width="20" height="20" />
-        <span>ترازنامه</span>
+      <ng-container *ngFor="let item of budgetLst; index as i">
+        <div
+          *ngIf="i !== budgetLst.length - 1 && i !== budgetLst.length - 2"
+          class="row sub-co"
+          (click)="onSelectBudget(item.id)">
+          <i class="{{ item.icon }}"></i>
+          <span>{{ item.title }}</span>
+        </div>
+      </ng-container>
+      <div class="person-box">
+        <ng-container *ngFor="let item of budgetLst; index as i">
+          <div
+            *ngIf="i === budgetLst.length - 1 || i === budgetLst.length - 2"
+            class="item"
+            (click)="onSelectBudget(item.id)">
+            <div class="row sub-co">
+              <i class="{{ item.icon }}"></i>
+              <span>{{ item.title }}</span>
+            </div>
+          </div>
+        </ng-container>
       </div>
-      <div class="row sub-co" (click)="onSelectPrograms(2, 'سود و زیان')">
-        <img ngSrc="icons\budget 2.svg" width="20" height="20" />
-        <span>سود و زیان</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\Regular.svg" width="20" height="20" />
-        <span>منابع و مصارف</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a7.svg" width="20" height="20" />
-        <span>صورت های مالی (بودجه عملیاتی)</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a2.svg" width="20" height="20" />
-        <span>طرح ها</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a14 1.svg" width="20" height="20" />
-        <span>شرکت های تابعه</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\a13.svg" width="20" height="20" />
-        <span>سهامداران</span>
-      </div>
-      <div class="row sub-co">
-        <img ngSrc="icons\agent List.svg" width="20" height="20" />
-        <span>کارکنان</span>
-      </div>
-      <!-- <div class="row sub-co">
-        <img
-          ngSrc="icons\mag.svg"
-          width="24"
-          height="24"
-          (click)="contractRoute()" />
-        <span>قراردادها</span>
-      </div> -->
     </div>
   </div>
 </div>
 
-<div class="row bar-chart1">
+<div class="row bottom-section">
   <div class="co-info-box">
     <h3>{{ selectedProgramName }}</h3>
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-        <div *ngFor="let item of staticYearLst" class="items" (click)="onSelectYear(item.id)"
-          [class.select-feature]="item.isSelected">
-          <span>{{ item.year }}</span>
+        <div *ngIf="planDetailData?.hasYear" class="row">
+          <div
+            *ngFor="let item of staticYearLst"
+            class="items"
+            (click)="onSelectYear(item.id)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.year }}</span>
+          </div>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-        <div class="items select-feature">
+        <div *ngIf="planDetailData?.hasTable" class="items select-feature">
           <span>جدول</span>
         </div>
-        <div class="items">
-          <span>نمودار</span>
+        <div *ngIf="planDetailData?.hasDesc" class="items select-feature">
+          <span>شرح</span>
         </div>
-        <div class="items">
+        <div
+          class="items"
+          *ngIf="planDetailData?.hasTrend"
+          [class.disable-btns]="liveSelectionRow === 0">
+          <span>روند</span>
+        </div>
+        <div
+          class="items"
+          *ngIf="planDetailData?.hasCompare"
+          [class.disable-btns]="liveSelectionRow === 0">
           <span>مقایسه</span>
+        </div>
+        <div
+          class="items"
+          *ngIf="planDetailData?.hasPercent"
+          [class.disable-btns]="liveSelectionRow === 0">
+          <span>سهم درصد</span>
         </div>
       </div>
     </div>
-    <div class="table-container">
-      <p-table *ngIf="gridBalanceLst.length > 0" #dataTable class="data-table d-none d-lg-block"
-        [styleClass]="gridClass" [rowHover]="true" [paginator]="false" [rows]="dataTableRows"
-        [rowsPerPageOptions]="[5, 10, 20, 30]" [value]="gridBalanceLst" [loading]="loading"
-        [tableStyle]="{ 'min-width': '75rem' }">
-        <!-- table header -->
+    <div class="row desc" *ngFor="let item of planDetailData?.datasDescs">
+      <div [innerHTML]="item.desc"></div>
+    </div>
+    <div *ngIf="planDetailData?.hasCustomTable" class="row">
+      <table class="c-tbl">
+        <tr class="c-tr" *ngFor="let item1 of planDetailData?.planType">
+          <td class="c-td head">{{ item1.planTypeName }}</td>
+          <td
+            class="c-td"
+            *ngFor="let item2 of item1?.planTypeDetails"
+            [ngStyle]="{ 'background-color': item2.color }">
+            <div [innerHTML]="item2.desc"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="planDetailData?.hasTable" class="table-container">
+      <p-table
+        [columns]="planDetailData.headers"
+        [value]="planDetailData.budgetDetails">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{ col.headerName }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns">
+              {{ rowData[col.field] }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <!-- <p-table
+        *ngIf="planDetailData?.data?.length > 0"
+        #dataTable
+        class="data-table d-none d-lg-block"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [paginator]="false"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[5, 10, 20, 30]"
+        [value]="planDetailData?.data"
+        [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectedRows"
+        (onRowSelect)="onRowSelect($event)"
+        (onRowUnselect)="onRowUnselect($event)">
         <ng-template pTemplate="header">
           <tr class="data-table__header">
-            <th>
-              <strong>کد</strong>
+            <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+            <th *ngFor="let item of planDetailData?.header">
+              <strong>{{item}}</strong>
             </th>
-            <th>
-              <strong>عنوان</strong>
-            </th>
-            <th>
-              <strong> مقدار</strong>
-            </th>
-            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-val let-rowIndex="rowIndex">
           <tr>
-            <td>{{ val.reportTypeId }}</td>
+            <td>
+              <p-tableCheckbox [value]="val.id" />
+            </td>
+            <td>{{ val.desc }}</td>
             <td>{{ val.reportName }}</td>
             <td>{{ val.value }}</td>
             <td></td>
           </tr>
         </ng-template>
-      </p-table>
-      <!-- <h4>بودجه نقدی</h4>
-    <span>نمودار به تفکیک ماه</span>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chart-outside-box">
-      <div id="chart-wrapper">
-        <canvas
-          id="BarChart"
-          width="700"
-          height="200"
-          style="display: unset"></canvas>
-      </div>
-    </div> -->
+      </p-table> -->
     </div>
   </div>
 </div>

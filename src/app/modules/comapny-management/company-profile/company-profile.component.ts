@@ -4,11 +4,11 @@ import {
   Company,
   Dashboard,
   GridBalanceSheet,
+  Profile,
   StaticYear,
   UrlBuilder,
 } from '@shared/models/response.model';
 import { map } from 'rxjs';
-import Chart from 'chart.js/auto';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -18,19 +18,69 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CompanyProfileComponent implements OnInit {
   infoLst = new Company();
-  myChart!: Chart;
-  myChart1!: Chart;
-  myChart2!: Chart;
   benefitCost: any;
   coId: any;
   staticYearLst = [new StaticYear()];
-  selectedYearId!: number;
   gridBalanceLst: Array<GridBalanceSheet> | [] = [];
   selectedProgramName = '';
   gridClass = 'p-datatable-sm';
   dataTableRows = 5;
   loading = false;
   selectedReportId!: number;
+  selectedRows: any;
+  liveSelectionRow = 0;
+  planLst!: Profile[];
+  budgetLst!: Profile[];
+  selectedYears: Array<number> = [];
+  planDetailData: any;
+  budgetDetailData: any;
+  selectedPlanId!: number;
+  selectedBudgetId!: number;
+
+  products = [
+    {
+      category: 'Accessories',
+      code: {
+        color: 'green',
+        id: 'f230fh0g3',
+      },
+      description: 'Product Description',
+      id: '1000',
+      image: 'bamboo-watch.jpg',
+      inventoryStatus: 'INSTOCK',
+      name: {
+        id: 'Bamboo Watch',
+        color: null,
+      },
+      price: 65,
+      quantity: 24,
+      rating: 5,
+      color: 'green',
+    },
+    {
+      category: 'Accessories',
+      code: {
+        color: 'red',
+        id: 'f230fh0g3',
+      },
+      description: 'Product Description',
+      id: '1000',
+      image: 'bamboo-watch.jpg',
+      inventoryStatus: 'INSTOCK',
+      name: 'Bamboo Watch',
+      price: 65,
+      quantity: 24,
+      rating: 5,
+      color: 'red',
+    },
+  ];
+
+  cols = [
+    { field: 'code', header: 'Code' },
+    { field: 'name', header: 'Name' },
+    { field: 'category', header: 'Category' },
+    { field: 'quantity', header: 'Quantity' },
+  ];
 
   constructor(
     private httpService: HttpService,
@@ -39,12 +89,12 @@ export class CompanyProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getBudget();
+    this.getPlan();
     this.getStaticYear();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
       this.getProfileCoInfo(this.coId);
-      this.getCashBudgetByMonth(this.coId);
-      this.getShareholdersDashboard(this.coId);
       this.getCostAndBenefitForProfile(this.coId);
     });
   }
@@ -70,92 +120,11 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  createBarChart(labels: Array<string>, ds: Array<any>, chartName: string) {
-    this.myChart = new Chart(chartName, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: ds,
-      },
-      options: {
-        plugins: {
-          legend: {
-            labels: {
-              font: {
-                family: 'shabnam',
-              },
-            },
-            display: chartName === 'BarChart2' ? false : true,
-          },
-          tooltip: {
-            titleFont: {
-              family: 'shabnam',
-            },
-            bodyFont: {
-              family: 'shabnam',
-            },
-          },
-        },
-
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-    if (chartName === 'BarChart') this.myChart1 = this.myChart;
-    else this.myChart2 = this.myChart;
-  }
-
   contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
       {
         queryParams: {},
       };
-  }
-  getCashBudgetByMonth(id: string) {
-    this.httpService
-      .get<Dashboard>(
-        UrlBuilder.build(
-          Dashboard.apiAddressCashBudgetByMonthForProfile + id,
-          ''
-        )
-      )
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return new Dashboard();
-        })
-      )
-      .subscribe(coInfo => {
-        const labels = coInfo.labels;
-        const counts = coInfo.datasets;
-        if (this.myChart1) this.myChart1.destroy();
-        this.createBarChart(labels, counts, 'BarChart');
-      });
-  }
-
-  getShareholdersDashboard(id: string) {
-    this.httpService
-      .get<Dashboard>(
-        UrlBuilder.build(Dashboard.apiAddressShareholdersDashboard + id, '')
-      )
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return new Dashboard();
-        })
-      )
-      .subscribe(coInfo => {
-        const labels = coInfo.labels;
-        const counts = coInfo.datasets;
-        if (this.myChart2) this.myChart2.destroy();
-        this.createBarChart(labels, counts, 'BarChart2');
-      });
   }
 
   getCostAndBenefitForProfile(id: string) {
@@ -176,16 +145,27 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   onSelectYear(id: number) {
-    this.selectedYearId = id;
-    this.selectYearType();
-    this.getGridBalanceSheet();
+    this.selectYearType(id);
+    // this.getGridBalanceSheet();
   }
 
-  selectYearType() {
+  selectYearType(id: number) {
+    const fltr = this.selectedYears.filter(x => x === id);
     this.staticYearLst.forEach(element => {
-      if (element.isSelected) element.isSelected = false;
-      if (element.id === this.selectedYearId) element.isSelected = true;
+      if (element.id === id) {
+        if (fltr.length === 0) {
+          element.isSelected = true;
+          this.selectedYears.push(element.id);
+        } else {
+          element.isSelected = false;
+          const index = this.selectedYears.indexOf(element.id);
+          if (index > -1) this.selectedYears.splice(index, 1);
+        }
+      }
     });
+    if (this.selectedPlanId !== -1) this.onSelectPlan(this.selectedPlanId);
+    if (this.selectedBudgetId !== -1)
+      this.onSelectBudget(this.selectedBudgetId);
   }
 
   onCoDetail(id: number) {
@@ -205,7 +185,7 @@ export class CompanyProfileComponent implements OnInit {
       .subscribe(res => {
         res.forEach((element, index) => {
           if (index === 0) {
-            this.selectedYearId = element.id;
+            this.selectedYears.push(element.id);
             element.isSelected = true;
           } else element.isSelected = false;
         });
@@ -213,34 +193,110 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  onSelectPrograms(id: number, pName: string) {
-    this.selectedProgramName = pName;
-    this.selectedReportId = id;
-    this.getGridBalanceSheet();
+  // getGridBalanceSheet() {
+  //   this.loading = true;
+  //   const body = {
+  //     companyId: this.coId,
+  //     yearId: this.selectedYears,
+  //     reportTypeId: this.selectedReportId,
+  //   };
+  //   this.httpService
+  //     .post<GridBalanceSheet[]>(
+  //       UrlBuilder.build(GridBalanceSheet.apiAddress + 'list', ''),
+  //       body
+  //     )
+  //     .pipe(
+  //       map(response => {
+  //         this.loading = false;
+  //         if (response.data && response.data.result) {
+  //           return response.data.result;
+  //         } else return [];
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       this.gridBalanceLst = res;
+  //     });
+  // }
+
+  onRowSelect(e: any) {
+    this.liveSelectionRow++;
   }
 
-  getGridBalanceSheet() {
-    this.loading = true;
-    const body = {
-      companyId: this.coId,
-      yearId: this.selectedYearId,
-      reportTypeId: this.selectedReportId,
-    };
+  onRowUnselect(e: any) {
+    this.liveSelectionRow--;
+  }
+
+  getPlan() {
     this.httpService
-      .post<GridBalanceSheet[]>(
-        UrlBuilder.build(GridBalanceSheet.apiAddress + 'list', ''),
-        body
-      )
+      .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetPlan, ''))
       .pipe(
         map(response => {
-          this.loading = false;
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [new Profile()];
+        })
+      )
+      .subscribe(res => {
+        this.planLst = res;
+      });
+  }
+
+  getBudget() {
+    this.httpService
+      .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetBudget, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [new Profile()];
+        })
+      )
+      .subscribe(res => {
+        this.budgetLst = res;
+      });
+  }
+
+  onSelectPlan(id: number) {
+    this.selectedPlanId = id;
+    this.selectedBudgetId = -1;
+    const body = {
+      companyId: this.coId,
+      staticYearId: this.selectedYears[this.selectedYears.length - 1],
+      planId: id,
+    };
+    this.httpService
+      .post<any>(UrlBuilder.build(Profile.apiAddressGetPlanDetail, ''), body)
+      .pipe(
+        map(response => {
           if (response.data && response.data.result) {
             return response.data.result;
           } else return [];
         })
       )
       .subscribe(res => {
-        this.gridBalanceLst = res;
+        this.planDetailData = res;
+      });
+  }
+
+  onSelectBudget(id: number) {
+    this.selectedBudgetId = id;
+    this.selectedPlanId = -1;
+    const body = {
+      companyId: this.coId,
+      staticYearId: this.selectedYears[this.selectedYears.length - 1],
+      budgetId: id,
+    };
+    this.httpService
+      .post<any>(UrlBuilder.build(Profile.apiAddressGetBudgetDetail, ''), body)
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        this.planDetailData = res;
       });
   }
 }
