@@ -1,0 +1,223 @@
+<p-toast key="contractNo" position="bottom-left"></p-toast>
+<div class="table-header">لیست قراردادها</div>
+<div class="justify-content-between pb-3 w-100" style="text-align: end">
+  <p-button
+    class="pe-2"
+    styleClass="p-button-info"
+    icon="pi pi-plus-circle"
+    label="افزودن قرارداد جدید"
+    (click)="addContractlNo()"></p-button>
+</div>
+<div class="table-container">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getContractlNo($event)"
+    [(first)]="first">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <td>
+          <strong>کد قرارداد</strong>
+        </td>
+        <td>
+          <strong>تاریخ قرارداد</strong>
+        </td>
+        <td>
+          <strong>تاریخ شروع قرارداد</strong>
+        </td>
+        <td>
+          <strong>تاریخ پایان قرارداد</strong>
+        </td>
+        <td>
+          <strong>نوع قرارداد</strong>
+        </td>
+        <td>
+          <strong>کارفرما</strong>
+        </td>
+        <td>
+          <strong>پیمانکار</strong>
+        </td>
+        <td>
+          <strong>مبلغ قرارداد</strong>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-contractNo let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ contractNo.contractCode }}</td>
+        <td>{{ contractNo.contractDate | jDate }}</td>
+        <td>{{ contractNo.contractFromDate | jDate }}</td>
+        <td>{{ contractNo.contractToDate | jDate }}</td>
+        <td>{{ contractNo.contracType }}</td>
+        <td>{{ contractNo.employer }}</td>
+        <td>{{ contractNo.contractor }}</td>
+        <td>{{ contractNo.contractPriceCu }}</td>
+
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(contractNo)"
+            pTooltip="ویرایش قرارداد">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
+
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(contractNo)"
+            pTooltip="حذف قرارداد">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="data-list d-block d-lg-none">
+  <ul *ngFor="let contractNo of data" class="list-group my-1">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>کد قرارداد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.contractCode }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تاریخ قرارداد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.contractDate }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تاریخ شروع قرارداد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.contractFromDate }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>تاریخ پایان قرارداد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.contractToDate }}
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>پیمانکار</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.contractorID }}
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>کارفرما</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.employerID }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>نوع قرارداد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.contracTypeID }}
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>مبلغ قرارداد</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          {{ contractNo.contractPriceCu }}
+        </div>
+      </div>
+    </li>
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عملیات</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <div class="d-flex jc-center ai-center">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(contractNo)"
+              title="ویرایش قرارداد">
+              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+            </button>
+
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(contractNo)"
+              title="حذف قرارداد">
+              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<p-dialog
+  *ngIf="isOpenAddEditContractlNo"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditContractlNo"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '800px', height: '500px' }">
+  <PABudget-add-edit-contract-no
+    [data]="addEditData"
+    (dataDetaild)="(editDataDetails)"
+    (isSuccess)="reloadData()"></PABudget-add-edit-contract-no>
+</p-dialog>
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

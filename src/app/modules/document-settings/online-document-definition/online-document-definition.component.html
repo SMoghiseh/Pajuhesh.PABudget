@@ -13,17 +13,28 @@
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="documentTypeId">نوع اسناد</label>
-            <p-treeSelect id="documentTypeId" class="md:w-20rem w-full" containerStyleClass="w-full"
-              formControlName="documentTypeId" placeholder="انتخاب کنید" [options]="nodes" [filter]="true"
-              [filterInputAutoFocus]="true" (onNodeSelect)="onNodeSelect()" [showClear]="true"
-              (onClear)="onClear($event)" [class.ng-invalid]="documentTypeId?.invalid" [class.ng-dirty]="
+            <p-treeSelect
+              id="documentTypeId"
+              class="md:w-20rem w-full"
+              containerStyleClass="w-full"
+              formControlName="documentTypeId"
+              placeholder="انتخاب کنید"
+              [options]="nodes"
+              [filter]="true"
+              [filterInputAutoFocus]="true"
+              (onNodeSelect)="onNodeSelect()"
+              [showClear]="true"
+              (onClear)="onClear($event)"
+              [class.ng-invalid]="documentTypeId?.invalid"
+              [class.ng-dirty]="
                 onlineDocumentDefinitionFormSubmitted &&
                 (documentTypeId?.pristine ||
                   documentTypeId?.dirty ||
                   documentTypeId?.touched)
               "></p-treeSelect>
             <div id="documentTypeId-help">
-              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (documentTypeId?.pristine || 
+              <small
+                *ngIf="onlineDocumentDefinitionFormSubmitted && (documentTypeId?.pristine || 
                   (documentTypeId?.errors?.['required'] && (documentTypeId?.dirty || documentTypeId?.touched)))"
                 class="p-error">
                 لطفا این فیلد را خالی نگذارید
@@ -33,8 +44,15 @@
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="description">توضیحات</label>
-            <input pInputText id="description" name="description" formControlName="description" type="text"
-              class="w-100" [class.ng-invalid]="description?.invalid" [class.ng-dirty]="
+            <input
+              pInputText
+              id="description"
+              name="description"
+              formControlName="description"
+              type="text"
+              class="w-100"
+              [class.ng-invalid]="description?.invalid"
+              [class.ng-dirty]="
                 onlineDocumentDefinitionFormSubmitted &&
                 (description?.pristine ||
                   description?.dirty ||
@@ -42,8 +60,10 @@
               " />
 
             <div id="description-help">
-              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (description?.pristine || 
-            (description?.errors?.['required'] && (description?.dirty || description?.touched)))" class="p-error">
+              <small
+                *ngIf="onlineDocumentDefinitionFormSubmitted && (description?.pristine || 
+            (description?.errors?.['required'] && (description?.dirty || description?.touched)))"
+                class="p-error">
                 لطفا این فیلد را خالی نگذارید
               </small>
               <small style="visibility: hidden" class="p-error"> error </small>
@@ -51,8 +71,13 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <label for="activeDate">تاریخ فعال سازی</label>
-            <p-persian-calendar id="activeDate" name="activeDate" formControlName="activeDate" styleClass="w-100 "
-              [class.ng-invalid]="activeDate?.invalid" [class.ng-dirty]="
+            <p-persian-calendar
+              id="activeDate"
+              name="activeDate"
+              formControlName="activeDate"
+              styleClass="w-100 "
+              [class.ng-invalid]="activeDate?.invalid"
+              [class.ng-dirty]="
                 onlineDocumentDefinitionFormSubmitted &&
                 (activeDate?.pristine ||
                   activeDate?.dirty ||
@@ -60,8 +85,10 @@
               ">
             </p-persian-calendar>
             <div id="activeDate-help">
-              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (activeDate?.pristine || 
-                (activeDate?.errors?.['required'] && (activeDate?.dirty || activeDate?.touched)))" class="p-error">
+              <small
+                *ngIf="onlineDocumentDefinitionFormSubmitted && (activeDate?.pristine || 
+                (activeDate?.errors?.['required'] && (activeDate?.dirty || activeDate?.touched)))"
+                class="p-error">
                 لطفا این فیلد را خالی نگذارید
               </small>
               <small style="visibility: hidden" class="p-error"> error </small>
@@ -69,8 +96,13 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <label for="expiredDate">تاریخ انقضا</label>
-            <p-persian-calendar id="expiredDate" name="expiredDate" formControlName="expiredDate" styleClass="w-100 "
-              [class.ng-invalid]="expiredDate?.invalid" [class.ng-dirty]="
+            <p-persian-calendar
+              id="expiredDate"
+              name="expiredDate"
+              formControlName="expiredDate"
+              styleClass="w-100 "
+              [class.ng-invalid]="expiredDate?.invalid"
+              [class.ng-dirty]="
                 onlineDocumentDefinitionFormSubmitted &&
                 (expiredDate?.pristine ||
                   expiredDate?.dirty ||
@@ -78,8 +110,10 @@
               ">
             </p-persian-calendar>
             <div id="expiredDate-help">
-              <small *ngIf="onlineDocumentDefinitionFormSubmitted && (expiredDate?.pristine || 
-                (expiredDate?.errors?.['required'] && (expiredDate?.dirty || expiredDate?.touched)))" class="p-error">
+              <small
+                *ngIf="onlineDocumentDefinitionFormSubmitted && (expiredDate?.pristine || 
+                (expiredDate?.errors?.['required'] && (expiredDate?.dirty || expiredDate?.touched)))"
+                class="p-error">
                 لطفا این فیلد را خالی نگذارید
               </small>
               <small style="visibility: hidden" class="p-error"> error </small>
@@ -110,9 +144,15 @@
 
           <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <label for="increaseValueScore">امتیاز مثبت ارسال به موقع</label>
-            <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" id="increaseValueScore"
-              name="increaseValueScore" formControlName="increaseValueScore"
-              [class.ng-invalid]="increaseValueScore?.invalid" [class.ng-dirty]="
+            <p-inputNumber
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+              id="increaseValueScore"
+              name="increaseValueScore"
+              formControlName="increaseValueScore"
+              [class.ng-invalid]="increaseValueScore?.invalid"
+              [class.ng-dirty]="
                 onlineDocumentDefinitionFormSubmitted &&
                 (increaseValueScore?.pristine ||
                   increaseValueScore?.dirty ||
@@ -131,9 +171,15 @@
           </div>
           <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <label for="decreaseValueScore">امتیاز منفی تاخیر ارسال</label>
-            <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" id="decreaseValueScore"
-              name="decreaseValueScore" formControlName="decreaseValueScore"
-              [class.ng-invalid]="decreaseValueScore?.invalid" [class.ng-dirty]="
+            <p-inputNumber
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+              id="decreaseValueScore"
+              name="decreaseValueScore"
+              formControlName="decreaseValueScore"
+              [class.ng-invalid]="decreaseValueScore?.invalid"
+              [class.ng-dirty]="
                 onlineDocumentDefinitionFormSubmitted &&
                 (decreaseValueScore?.pristine ||
                   decreaseValueScore?.dirty ||
@@ -150,9 +196,16 @@
               <small style="visibility: hidden" class="p-error"> error </small>
             </div>
           </div>
-          <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-top: 7px">
-            <p-button class="pe-2 p-button-wide submit-btn" styleClass="p-button-success" label="ثبت" icon="pi pi-check"
-              (click)="createOnlineDocumentDefinition()" [loading]="onlineDocumentDefinitionFormLoading"></p-button>
+          <div
+            class="col-lg-2 col-md-2 col-sm-12 col-xs-12"
+            style="padding-top: 7px">
+            <p-button
+              class="pe-2 p-button-wide submit-btn"
+              styleClass="p-button-success"
+              label="ثبت"
+              icon="pi pi-check"
+              (click)="createOnlineDocumentDefinition()"
+              [loading]="onlineDocumentDefinitionFormLoading"></p-button>
           </div>
         </div>
       </form>
@@ -160,17 +213,35 @@
         <div class="row">
           <div *ngFor="let item of needs" class="need">
             <span class="spn-icon">
-              <i *ngIf="item.isRequired" class="pi pi-check-square" title="اجباری"></i>
-              <i *ngIf="!item.isRequired" class="pi pi-times-circle" title="اختیاری"></i></span>
+              <i
+                *ngIf="item.isRequired"
+                class="pi pi-check-square"
+                title="اجباری"></i>
+              <i
+                *ngIf="!item.isRequired"
+                class="pi pi-times-circle"
+                title="اختیاری"></i
+            ></span>
             <span>{{ item.attachmentFileTypeName }}</span>
           </div>
         </div>
       </p-fieldset>
     </p-panel>
     <!-- data table -->
-    <p-table #dataTable class="data-table" dataKey="id" [paginator]="true" [rows]="dataTableRows"
-      [rowsPerPageOptions]="[10, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [value]="onlineDocumentsLst"
-      [loading]="loading" [responsive]="true" [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first">
+    <p-table
+      #dataTable
+      class="data-table"
+      dataKey="id"
+      [paginator]="true"
+      [rows]="dataTableRows"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [styleClass]="gridClass"
+      [rowHover]="true"
+      [value]="onlineDocumentsLst"
+      [loading]="loading"
+      [responsive]="true"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [(first)]="first">
       <!-- table header -->
       <ng-template pTemplate="header">
         <tr class="data-table__header">
@@ -207,11 +278,17 @@
       <!-- table body -->
       <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
         <tr class="data-table__body">
-          <td pTooltip="{{ report.description }}" tooltipEvent="hover" tooltipPosition="top">
+          <td
+            pTooltip="{{ report.description }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
             {{ report.description }}
           </td>
 
-          <td pTooltip="{{ report.docTypeName }}" tooltipEvent="hover" tooltipPosition="top">
+          <td
+            pTooltip="{{ report.docTypeName }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
             {{ report.docTypeName }}
           </td>
 
@@ -220,8 +297,12 @@
           <td>{{ report.expiredDate | jDate }}</td>
 
           <td>
-            <span class="increase-score">{{ report.increaseValueScore | faNum }}+</span>
-            <span class="decrease-score">{{ report.decreaseValueScore | faNum }}-</span>
+            <span class="increase-score"
+              >{{ report.increaseValueScore | faNum }}+</span
+            >
+            <span class="decrease-score"
+              >{{ report.decreaseValueScore | faNum }}-</span
+            >
           </td>
           <td>
             <i *ngIf="report.isActive" class="pi pi-check-square"></i>

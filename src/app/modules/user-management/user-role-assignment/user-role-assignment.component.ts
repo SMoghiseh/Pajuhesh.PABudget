@@ -60,7 +60,7 @@ export class UserRoleAssignmentComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getDocumentGroups();
@@ -84,9 +84,9 @@ export class UserRoleAssignmentComponent implements OnInit {
   --------------------------*/
   getRoles() {
     this.httpService
-      .post<Role[]>(
-        UrlBuilder.build(Role.apiAddress, "LIST")
-        , { withOutPagination: true })
+      .post<Role[]>(UrlBuilder.build(Role.apiAddress, 'LIST'), {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data.result) {
           this.roles = response.data.result;
@@ -178,7 +178,6 @@ export class UserRoleAssignmentComponent implements OnInit {
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
-          debugger;
           if (response.data && response.data.result)
             return response.data.result;
           else return [new PersonRole()];

@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
     private config: AppConfigService
   ) {
     Common.prjType = this.config.getAddress('type');
+    Common.prjTitle = this.config.getAddress('title');
+    Common.prjDescription = this.config.getAddress('description');
   }
 
   ngOnInit(): void {
@@ -127,4 +129,6 @@ export class AppComponent implements OnInit {
 
 export class Common {
   public static prjType: string;
+  public static prjTitle: string;
+  public static prjDescription: string;
 }

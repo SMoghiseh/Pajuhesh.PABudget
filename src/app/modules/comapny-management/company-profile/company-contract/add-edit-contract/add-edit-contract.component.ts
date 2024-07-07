@@ -85,7 +85,6 @@ export class AddEditContractComponent {
   }
 
   addNewContract() {
-    debugger;
     this.addNewContractSubmitted = true;
     if (this.addNewContractForm.valid) {
       const {

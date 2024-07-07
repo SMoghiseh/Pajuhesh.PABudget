@@ -12,6 +12,7 @@ import { AuthService } from '@core/authentication/auth.service';
 import { SidemenuService } from './sidemenu.service';
 import { Permission } from '@shared/models/response.model';
 import { Router } from '@angular/router';
+import { Common } from 'src/app/app.component';
 @Component({
   selector: 'app-sidemenu',
   templateUrl: './sidemenu.component.html',
@@ -30,6 +31,9 @@ export class SidemenuComponent implements OnInit, AfterViewInit {
   isShowNotFoundDialog = false;
 
   loginData: any;
+
+  prjType = '';
+  prjTitle = '';
 
   @ViewChildren('menuItem') menuItems!: QueryList<ElementRef>;
   @ViewChildren('menuItemOffcanvas') menuItemsOffcanvas!: QueryList<ElementRef>;
@@ -51,6 +55,8 @@ export class SidemenuComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    this.prjType = Common.prjType;
+    this.prjTitle = Common.prjTitle;
     const loginData = localStorage.getItem('loginData');
     this.loginData = loginData ? JSON.parse(loginData) : {};
     this.menuList = this.getMenuItems();
@@ -182,6 +188,10 @@ export class SidemenuComponent implements OnInit, AfterViewInit {
   onClickParentMenu(data: string) {
     if (data == 'Dashboard') {
       this.router.navigate(['/default/Dashboard']);
+    }
+
+    if (data == 'AllCompanyReports') {
+      this.router.navigate(['/AllCompanyReports']);
     }
   }
 }

@@ -1,4 +1,6 @@
 {
   "baseUrl": "http://pabgateway.pajuheshdev.com/",
-  "type": "sandogh"
+  "type": "sandogh",
+"title" : "برنامه و بودجه" , 
+  "description" : "موسسه صندوق ذخیره فرهنگیان"
 }

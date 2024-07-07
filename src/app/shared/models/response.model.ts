@@ -587,6 +587,7 @@ export class ProductGroup {
     'api/PABudgetApi/ProductGroup/UpdateProductGroup';
   static readonly deleteApiAddress =
     'api/PABudgetApi/ProductGroup/DeleteProductGroup';
+
   id!: number;
   parentId!: number;
   productGroupCode!: number;
@@ -598,17 +599,21 @@ export class ProductGroup {
 export class Contract {
   /** آدرس سرویس */
 
-  static readonly apiAddress = 'api/PABudgetApi/v1/Info/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/Info/GetContractById/';
+  static readonly apiAddressDel = 'api/PABudgetApi/v1/Info/DeleteContract';
 
   id!: number;
   contractCode!: number;
   contractDate!: any;
   contractFromDate!: any;
   contractToDate!: any;
-  contracTypeID!: number;
+  contracTypeID!: any;
   employerID!: number;
   contractorID!: number;
   contractPriceCu!: number;
+  milContractDate!: any;
+  milContractFromDate!: any;
+  milContractToDate!: any;
 }
 /** کاربرها */
 export class AssignRole {
@@ -668,6 +673,12 @@ export class ContractType {
   isActive!: boolean;
 }
 
+export class Employers {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/Party/GetAllEmployers';
+  partyNationalID!: any;
+  partyName!: string;
+}
 /** ماهیت‌ها */
 export class ReportingType {
   /** آدرس سرویس */
@@ -1068,6 +1079,25 @@ export class PersonelNo {
   costCenterTypeId!: number;
   periodTitle!: string;
 }
+export class ContractNo {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Info/CreateContract';
+  static readonly adiAddressList = 'api/PABudgetApi/v1/Info/GetContractList';
+  id!: number;
+  contractCode!: string;
+  contractDate!: any;
+  contractFromDate!: any;
+  contractToDate!: any;
+  contracTypeID!: number;
+  employerID!: number;
+  contractorID!: number;
+  contractPriceCu!: number;
+  contractNo!: number;
+  type!: string;
+  contracType!: string;
+  milContractToDate!: any;
+  milContractDate!: any;
+  milContractFromDate!: any;
+}
 
 export class CostCenterType {
   /** آدرس سرویس */
@@ -1094,6 +1124,28 @@ export class EducationTypeCode {
   id!: number;
   title!: string;
   isActive!: boolean;
+}
+export class Sale {
+  /** آدرس سرویس */
+  static readonly apiAddress = 'api/PABudgetApi/v1/Sale/';
+  static readonly typesApiAddress = 'api/PABudgetApi/v1/Sale/';
+
+  id!: number;
+  // title!: string
+  budgetPeriodId!: number;
+  budgetPeriodTitle!: string;
+  budgetPeriodDetailId!: number;
+  budgetPeriodDetailTitle!: string;
+  contractId!: number;
+  saleType!: number;
+  productGroupId!: number;
+  productGroupTitle!: string;
+  productNumber!: number;
+  productUnitSalesCu!: number;
+  productAllSalesCu!: number;
+  costingUnitCu!: number;
+  costingAllCu!: number;
+  benefitLossCu!: number;
 }
 
 export class Profile {

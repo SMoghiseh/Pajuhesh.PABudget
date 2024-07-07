@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
   public errMsg = '';
   model = new LoginForm('', '');
   prjType = '';
+  prjTitle = '';
+  prjDescription = '';
 
   // Form group fields:
   get username() {
@@ -66,10 +68,12 @@ export class LoginComponent implements OnInit {
     public sidemenuService: SidemenuService,
     private httpService: HttpService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.prjType = Common.prjType;
+    this.prjTitle = Common.prjTitle;
+    this.prjDescription = Common.prjDescription;
     this.GetDNTCaptcha();
     this.offcanvasModeDetection(window.innerWidth);
     this.loginForm = new FormGroup({

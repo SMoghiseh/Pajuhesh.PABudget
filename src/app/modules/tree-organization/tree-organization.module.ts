@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 
 import { TreeOrganizationRoutingModule } from './tree-organization-routing.module';
 import { TreeOrganizationComponent } from './tree-organization.component';
@@ -41,6 +41,14 @@ import { SharedModule } from '@shared/shared.module';
     BlockUIModule,
     TreeSelectModule,
     OrganizationChartModule,
-  ]
+  ] ,
+  providers:[
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `assets/images/${config.src}`;
+      },
+    },
+  ],
 })
 export class TreeOrganizationModule { }

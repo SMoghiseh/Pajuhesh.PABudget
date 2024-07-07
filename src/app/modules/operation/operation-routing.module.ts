@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { OperationComponent } from './operation.component';
 import { authGuard } from '@core/guards/auth/auth.guard';
 import { PersonelNoComponent } from './personel-no/personel-no.component';
+import { SaleComponent } from './sale/sale.component';
+import { ContractComponent } from './contract/contract.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,21 @@ const routes: Routes = [
           {
             path: 'PersonelNo',
             component: PersonelNoComponent,
+            title: 'برنامه و بودجه | تعریف عناوین',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Sale',
+            component: SaleComponent,
+            title: 'برنامه و بودجه |  نوع فروش'
+          },
+          {
+            path: 'Contract',
+            component: ContractComponent,
             title: 'برنامه و بودجه | تعریف عناوین',
             data: {
               reuse: true,
@@ -54,4 +71,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class OperationRoutingModule {}
+export class OperationRoutingModule { }

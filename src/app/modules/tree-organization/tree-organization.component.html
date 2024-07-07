@@ -3,6 +3,10 @@
 <!-- / Header -->
 <div class="content-page">
   <div class="filter-box">
+    <div class="menu-shortcut" (click)="routeToDashboard()">
+      <img src="../../../assets/images/icons/Vector.svg">
+      <span>داشبورد</span>
+    </div>
     <h6 class="filter-tab-title">فیلتر نتایج بر اساس</h6>
     <ng-container *ngFor="let filter of filterList">
       <div [ngClass]="isSelectedItem(filter) ? 'selected-filter-tab' : ''" (click)="onSelectFilterTab(filter)"

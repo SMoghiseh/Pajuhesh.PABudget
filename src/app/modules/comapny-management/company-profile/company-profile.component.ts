@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
   Company,
@@ -8,15 +8,16 @@ import {
   StaticYear,
   UrlBuilder,
 } from '@shared/models/response.model';
-import { map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PreviousRouteService } from '@shared/services/previous-route.service';
 
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
   styleUrls: ['./company-profile.component.scss'],
 })
-export class CompanyProfileComponent implements OnInit {
+export class CompanyProfileComponent implements OnInit, OnDestroy {
   infoLst = new Company();
   benefitCost: any;
   coId: any;
@@ -81,11 +82,14 @@ export class CompanyProfileComponent implements OnInit {
     { field: 'category', header: 'Category' },
     { field: 'quantity', header: 'Quantity' },
   ];
+  private subscription?: Subscription;
+  previousUrl = '';
 
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private previousRouteService: PreviousRouteService
   ) {}
 
   ngOnInit(): void {
@@ -97,6 +101,15 @@ export class CompanyProfileComponent implements OnInit {
       this.getProfileCoInfo(this.coId);
       this.getCostAndBenefitForProfile(this.coId);
     });
+    this.subscription = this.previousRouteService
+      .getPreviousUrl()
+      .subscribe(url => {
+        this.previousUrl = url ? url : '';
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   getProfileCoInfo(id: string) {

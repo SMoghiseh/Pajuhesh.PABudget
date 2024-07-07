@@ -5,6 +5,21 @@
     padding: 5px;
 }
 
+.return {
+    text-align: left;
+    font-size: 13px;
+    .pi-arrow-left {
+        color: #3B82F6;
+        position: relative;
+        top: 2px;
+        right: 7px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+
 .co-info-box {
     @extend .all-box;
     height: 100%;
