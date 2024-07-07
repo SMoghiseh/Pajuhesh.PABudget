@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
   Contract,
@@ -30,6 +31,7 @@ export class ContractComponent {
   modalTitle = '';
   isOpenAddEditContractlNo = false;
   addEditData = new ContractNo();
+  editDataDetails: Contract[] = [];
   pId!: string;
 
   constructor(
@@ -41,7 +43,7 @@ export class ContractComponent {
   addContractlNo() {
     this.modalTitle = 'افزودن قرارداد جدید';
     this.isOpenAddEditContractlNo = true;
-    // this.addEditData.type = 'insert';
+    this.addEditData.type = 'insert';
   }
   getContractlNo(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -81,7 +83,6 @@ export class ContractComponent {
   }
 
   deleteRow(contractNo: ContractNo) {
-    debugger;
     if (contractNo && contractNo.id)
       this.confirmationService.confirm({
         message: 'آیا از حذف  قرارداد اطمینان دارید؟',
@@ -97,7 +98,6 @@ export class ContractComponent {
       });
   }
   deleteContractNo(id: number) {
-    debugger;
     if (id) {
       this.httpService
         .post<Contract[]>(`${Contract.apiAddressDel}/${id}`, {})
@@ -118,22 +118,11 @@ export class ContractComponent {
     }
   }
 
-  getContractDetails(id: number) {
-    debugger;
-    this.httpService
-      .get(Contract.apiAddress + 'GetContractById/' + id)
-      .subscribe((response: any) => {
-        if (response.data) {
-          this.data = response.data?.result;
-        }
-      });
-  }
   editRow(data: ContractNo) {
-    debugger;
     // this.modalTitle = 'ویرایش بودجه پرسنل ' + data.periodTitle;
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditContractlNo = true;
-    this.getContractDetails(data.id);
+    // this.getContractDetails(data.id);
   }
 }

@@ -33,14 +33,14 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   loading = false;
   selectedReportId!: number;
   private subscription?: Subscription;
-  previousUrl  = '';
+  previousUrl = '';
 
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router,
     private previousRouteService: PreviousRouteService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getStaticYear();
@@ -51,13 +51,15 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       this.getShareholdersDashboard(this.coId);
       this.getCostAndBenefitForProfile(this.coId);
     });
-    this.subscription = this.previousRouteService.getPreviousUrl().subscribe(url => {debugger
-      this.previousUrl = url ? url : '';
-    })
+    this.subscription = this.previousRouteService
+      .getPreviousUrl()
+      .subscribe(url => {
+        this.previousUrl = url ? url : '';
+      });
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe()
+    this.subscription?.unsubscribe();
   }
 
   getProfileCoInfo(id: string) {
@@ -122,9 +124,9 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
 
   contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
-    {
-      queryParams: {},
-    };
+      {
+        queryParams: {},
+      };
   }
   getCashBudgetByMonth(id: string) {
     this.httpService

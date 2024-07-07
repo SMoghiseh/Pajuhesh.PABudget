@@ -3,22 +3,37 @@
 
 <div class="table-header">لیست نوع فروش</div>
 <div class="justify-content-between pb-3 w-100" style="text-align: end">
-  <p-button class="pe-2" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن نوع فروش جدید"
+  <p-button
+    class="pe-2"
+    styleClass="p-button-info"
+    icon="pi pi-plus-circle"
+    label="افزودن نوع فروش جدید"
     (click)="addSale()"></p-button>
 </div>
 <div class="table-container">
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-    (onLazyLoad)="getSale($event)" [(first)]="first">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getSale($event)"
+    [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-
         <th><strong> دوره بودجه</strong></th>
         <th><strong> دوره عملیاتی</strong></th>
         <th><strong>شماره قرارداد</strong></th>
-        <th><strong> نوع فروش</strong></th>
+        <!-- <th><strong> نوع فروش</strong></th> -->
         <th><strong>  گروه محصول</strong></th>
         <th><strong> تعداد</strong></th>
         <th><strong> مبلغ واحد فروش</strong></th>
@@ -35,7 +50,6 @@
         <td>{{ sale.budgetPeriodDetailTitle }}</td>
         <td>{{ sale.contractId }}</td>
         <!-- <td>{{ sale.saleType }}</td> -->
-        <td>saleType</td>
         <td>{{ sale.productGroupTitle }}</td>
         <td>{{ sale.productNumber }}</td>
         <td>{{ sale.productUnitSalesCu  }}</td>
@@ -44,13 +58,18 @@
         <td>{{ sale.costingAllCu }}</td>
         <td>{{ sale.costingUnitCu }}</td>
 
-
         <td class="jc-left ai-left">
-          <button class="action-image-container edit-button" (click)="editRow(sale)" pTooltip="ویرایش بودجه پرسنل">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(sale)"
+            pTooltip="ویرایش بودجه پرسنل">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
           </button>
 
-          <button class="action-image-container delete-button" (click)="deleteRow(sale)" pTooltip="حذف بودجه پرسنل">
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(sale)"
+            pTooltip="حذف بودجه پرسنل">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
           </button>
         </td>
@@ -61,7 +80,6 @@
 
 <div class="data-list d-block d-lg-none">
   <ul *ngFor="let sale of data" class="list-group my-1">
-
     <li class="list-group-item">
       <div class="row">
         <div class="col my-1 text-center">
@@ -73,11 +91,17 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button class="action-image-container edit-button" (click)="editRow(sale)" title="ویرایش  ">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(sale)"
+              title="ویرایش  ">
               <img ngSrc="icons\Group 116.svg" width="24" height="24" />
             </button>
 
-            <button class="action-image-container delete-button" (click)="deleteRow(sale)" title="حذف بودجه ">
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(sale)"
+              title="حذف بودجه ">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>
           </div>

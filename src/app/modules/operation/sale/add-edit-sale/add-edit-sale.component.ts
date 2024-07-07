@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  Period,
-  ProductGroup,
-  Sale,
-} from '@shared/models/response.model';
+import { Period, ProductGroup, Sale } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -15,7 +11,6 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./add-edit-sale.component.scss'],
 })
 export class AddEditSaleComponent implements OnInit {
-
   // form property
   addEditSaleForm!: FormGroup;
   addEditSaleSubmitted = false;
@@ -53,11 +48,10 @@ export class AddEditSaleComponent implements OnInit {
     return this.addEditSaleForm.get('costingUnitCu');
   }
 
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // this.getRowData();
@@ -169,5 +163,4 @@ export class AddEditSaleComponent implements OnInit {
         }
       });
   }
-
 }
