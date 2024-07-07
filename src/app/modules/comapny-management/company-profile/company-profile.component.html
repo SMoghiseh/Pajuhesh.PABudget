@@ -1,6 +1,7 @@
-<h4 class="h4">پروفایل شرکت
+<h4 class="h4">
+  پروفایل شرکت
   <span class="return float-end">
-    <a routerLink={{previousUrl}}>بازگشت</a>
+    <a routerLink="{{ previousUrl }}">بازگشت</a>
     <i class="pi pi-arrow-left"></i>
   </span>
 </h4>
@@ -176,6 +177,7 @@
             <th *ngFor="let col of columns">
               {{ col.headerName }}
             </th>
+            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -183,6 +185,7 @@
             <td *ngFor="let col of columns">
               {{ rowData[col.field] }}
             </td>
+            <td></td>
           </tr>
         </ng-template>
       </p-table>
