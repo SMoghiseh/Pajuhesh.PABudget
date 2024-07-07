@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  Pagination,
-  Sale,
-  UrlBuilder,
-} from '@shared/models/response.model';
+import { Pagination, Sale, UrlBuilder } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {

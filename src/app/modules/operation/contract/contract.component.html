@@ -217,6 +217,7 @@
   [style]="{ width: '800px', height: '500px' }">
   <PABudget-add-edit-contract-no
     [data]="addEditData"
-    (isSuccess)="reloadData()" ></PABudget-add-edit-contract-no>
+    (dataDetaild)="(editDataDetails)"
+    (isSuccess)="reloadData()"></PABudget-add-edit-contract-no>
 </p-dialog>
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

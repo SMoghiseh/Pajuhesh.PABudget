@@ -29,7 +29,7 @@ export class CompanyContractComponent {
     });
   }
   selectAuditors(company: Company) {}
-  addContract() { debugger
+  addContract() {
     this.router.navigate(['/Comapny/ContractForm']);
   }
 }

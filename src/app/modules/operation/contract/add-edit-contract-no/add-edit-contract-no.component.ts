@@ -22,6 +22,7 @@ export class AddEditContractNoComponent implements OnInit {
   addEditContractNoForm!: FormGroup;
   public datePipe = new DatePipe('en-US');
   inputData = new ContractNo();
+  inputDataDetails = new Contract();
   addEditContractNoModel = new ContractNo();
   isLoadingSubmit = false;
   contracTypeLst: ContractType[] = [];
@@ -33,8 +34,37 @@ export class AddEditContractNoComponent implements OnInit {
   set data(data: ContractNo) {
     this.inputData = data;
   }
+  @Input()
+  set dataDetaild(dataDetaild: Contract) {
+    this.inputDataDetails = dataDetaild;
+  }
 
   @Output() isSuccess = new EventEmitter<boolean>();
+  get contractCode() {
+    return this.addEditContractNoForm.get('contractCode');
+  }
+  get contractDate() {
+    return this.addEditContractNoForm.get('contractDate');
+  }
+  get contractFromDate() {
+    return this.addEditContractNoForm.get('contractFromDate');
+  }
+  get contractToDate() {
+    return this.addEditContractNoForm.get('contractToDate');
+  }
+  get contractorID() {
+    return this.addEditContractNoForm.get('contractorID');
+  }
+  get employerID() {
+    return this.addEditContractNoForm.get('employerID');
+  }
+  get contracTypeID() {
+    return this.addEditContractNoForm.get('contracTypeID');
+  }
+
+  get contractPriceCu() {
+    return this.addEditContractNoForm.get('contractPriceCu');
+  }
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
@@ -61,13 +91,33 @@ export class AddEditContractNoComponent implements OnInit {
         this.addEditContractNoModel.contractPriceCu
       ),
     });
-    if (this.inputData.type === 'edit') {
-      debugger;
 
-      this.addEditContractNoForm.patchValue(this.inputData);
+    if (this.inputData.id && this.inputData.type == 'edit') {
+      this.getContractDetails(this.inputData.id);
     }
   }
 
+  getContractDetails(id: number) {
+    this.httpService
+      .get(Contract.apiAddress + id)
+      .subscribe((response: any) => {
+        if (response.data) {
+          this.inputDataDetails = response.data?.result;
+        }
+        this.addEditContractNoForm.patchValue(this.inputDataDetails);
+        this.addEditContractNoForm.patchValue({
+          contractDate: new JDate(
+            new Date(this.inputDataDetails.milContractDate)
+          ),
+          contractFromDate: new JDate(
+            new Date(this.inputDataDetails.milContractFromDate)
+          ),
+          contractToDate: new JDate(
+            new Date(this.inputDataDetails.milContractToDate)
+          ),
+        });
+      });
+  }
   getContracType() {
     this.httpService
       .get<ContractType[]>(ContractType.apiAddress + '/list')
@@ -99,10 +149,10 @@ export class AddEditContractNoComponent implements OnInit {
   }
 
   addEditContractNo() {
-    debugger;
     if (this.addEditContractNoForm.valid) {
       this.isLoadingSubmit = true;
       const {
+        id,
         contractCode,
         contractDate,
         contractFromDate,
@@ -113,42 +163,46 @@ export class AddEditContractNoComponent implements OnInit {
         contractPriceCu,
       } = this.addEditContractNoForm.value;
       const request: ContractNo = this.addEditContractNoForm.value;
-      request.id = this.inputData.type === 'insert' ? 0 : this.inputData.id;
+      request.id = this.inputData.type === 'insert' ? id : this.inputData.id;
+      // if (this.inputData.type === 'edit')
       request.contracTypeID = contracTypeID;
       request.contractCode = contractCode;
-      request.contractDate = request.contractDate
-        ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              contractDate?.getFullYear(),
-              contractDate?.getMonth(),
-              contractDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
-        : null;
-      request.contractFromDate = request.contractFromDate
-        ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              contractFromDate?.getFullYear(),
-              contractFromDate?.getMonth(),
-              contractFromDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
-        : null;
-      request.contractToDate = request.contractToDate
-        ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              contractToDate?.getFullYear(),
-              contractToDate?.getMonth(),
-              contractToDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
-        : null;
       request.employerID = employerID;
       request.contractorID = contractorID;
       request.contractPriceCu = contractPriceCu;
+      // request.contracTypeID = contracTypeID;
+      // request.contractCode = contractCode;
+      request.contractDate = contractDate
+        ? this.datePipe.transform(
+            this.jDateCalculatorService.convertToGeorgian(
+              request.contractDate?.getFullYear(),
+              request.contractDate?.getMonth(),
+              request.contractDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
+        : null;
+      request.contractFromDate = contractFromDate
+        ? this.datePipe.transform(
+            this.jDateCalculatorService.convertToGeorgian(
+              request.contractFromDate?.getFullYear(),
+              request.contractFromDate?.getMonth(),
+              request.contractFromDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
+        : null;
+      request.contractToDate = contractToDate
+        ? this.datePipe.transform(
+            this.jDateCalculatorService.convertToGeorgian(
+              request.contractToDate?.getFullYear(),
+              request.contractToDate?.getMonth(),
+              request.contractToDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
+        : null;
+
       this.httpService
         .post<ContractNo>(ContractNo.apiAddress, request)
         .pipe(tap(() => (this.isLoadingSubmit = false)))
@@ -159,7 +213,10 @@ export class AddEditContractNoComponent implements OnInit {
               life: 8000,
               severity: 'success',
               detail: `قرارداد`,
-              summary: 'با موفقیت درج شد',
+              summary:
+                this.inputData.type === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
 
             this.isSuccess.emit(true);
