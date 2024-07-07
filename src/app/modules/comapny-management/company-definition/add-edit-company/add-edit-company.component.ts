@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ActivityType,
-  AssetAttachment, Company,
+  AssetAttachment,
+  Company,
   CompanyInspectionInstitute,
   CompanyType,
-  CreateCompany, ListCompany,
+  CreateCompany,
+  ListCompany,
   PeriodType,
   PublisherStatus,
-  ReportingType
+  ReportingType,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { MessageService } from 'primeng/api';
@@ -82,7 +84,6 @@ export class AddEditCompanyComponent implements OnInit {
   first = 0;
   isDisableaddAmendmentBtn = false;
   partyLogo = 0;
-
 
   /*--------------------------
   # TABLE
@@ -191,7 +192,7 @@ export class AddEditCompanyComponent implements OnInit {
     private jDateCalculatorService: JDateCalculatorService,
     private route: ActivatedRoute,
     private config: AppConfigService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getDropDownData();
@@ -321,7 +322,6 @@ export class AddEditCompanyComponent implements OnInit {
 
   setChangesOnFields() {
     if (this.companySelected.companyTypeId == 1) {
-
     }
   }
 
@@ -365,7 +365,6 @@ export class AddEditCompanyComponent implements OnInit {
   # CREATE
   --------------------------*/
   addNewCompany() {
-    debugger;
     this.addNewCompanySubmitted = true;
     if (this.addNewCompanyForm.valid) {
       const {
@@ -405,13 +404,13 @@ export class AddEditCompanyComponent implements OnInit {
       request.registerNumber = registerNumber;
       request.registerDate = registerDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            registerDate?.getFullYear(),
-            registerDate?.getMonth(),
-            registerDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              registerDate?.getFullYear(),
+              registerDate?.getMonth(),
+              registerDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
       request.periodTypeId = periodTypeId;
       request.companyTypeId = companyTypeId;
@@ -452,10 +451,7 @@ export class AddEditCompanyComponent implements OnInit {
       //   : null;
       request.companyInspectionInstituteId = companyInspectionInstituteId;
       request.systemOrganizationCode = systemOrganizationCode;
-      request.multiMediaId =
-        this.partyLogo == 0
-          ? 0
-          : this.partyLogo;
+      request.multiMediaId = this.partyLogo == 0 ? 0 : this.partyLogo;
       request.shareHolders = this.sharedHoldersArrayList;
       this.addNewCompanyLoading = true;
 
@@ -587,13 +583,13 @@ export class AddEditCompanyComponent implements OnInit {
     // convert date
     formValue['meetingDate'] = formValue['meetingDate']
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue['meetingDate']?.getFullYear(),
-          formValue['meetingDate']?.getMonth(),
-          formValue['meetingDate']?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue['meetingDate']?.getFullYear(),
+            formValue['meetingDate']?.getMonth(),
+            formValue['meetingDate']?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
     this.sharedHoldersArrayList.push(formValue);
     this.sharedHoldersForm.reset();
@@ -605,7 +601,6 @@ export class AddEditCompanyComponent implements OnInit {
   }
 
   uploadAttachment(files: FileList, form: any) {
-    debugger
     const fileName = files[0]?.name;
     if (files.length) {
       Array.from(files).forEach(file => {
@@ -623,8 +618,7 @@ export class AddEditCompanyComponent implements OnInit {
                   severity: 'success',
                   summary: 'فایل با موفقیت بارگذاری شد',
                 });
-                this.partyLogo =
-                  response.data.result.multiMediaId;
+                this.partyLogo = response.data.result.multiMediaId;
               }
             });
         else return of();
@@ -651,5 +645,4 @@ export class AddEditCompanyComponent implements OnInit {
     this.companySelected.multiMediaId = 0;
     this.companySelected.partyLogo = '';
   }
-
 }

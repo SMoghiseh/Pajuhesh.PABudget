@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  Period,
-  ProductGroup,
-  Sale,
-} from '@shared/models/response.model';
+import { Period, ProductGroup, Sale } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -15,7 +11,6 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./add-edit-sale.component.scss'],
 })
 export class AddEditSaleComponent implements OnInit {
-
   // form property
   addEditSaleForm!: FormGroup;
   addEditSaleSubmitted = false;
@@ -26,18 +21,15 @@ export class AddEditSaleComponent implements OnInit {
   budgetPeriodDetailList: any = [];
   productGroupList: any = [];
   saleTypeList: any = [
-    {id: 0 , title: 'بازرگانی'} , 
-    {id: 1 , title: 'تولیدی'} , 
-    {id: 2 , title: 'پیمانکاری'} , 
+    { id: 0, title: 'بازرگانی' },
+    { id: 1, title: 'تولیدی' },
+    { id: 2, title: 'پیمانکاری' },
   ];
-
-
 
   inputData = new Sale();
   mode = '';
 
   @Input()
-
   set data1(data: Sale) {
     this.inputData = data;
   }
@@ -60,11 +52,10 @@ export class AddEditSaleComponent implements OnInit {
     return this.addEditSaleForm.get('productNumber');
   }
 
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -75,13 +66,13 @@ export class AddEditSaleComponent implements OnInit {
       budgetPeriodDetailId: new FormControl('', Validators.required),
       contractId: new FormControl(''),
       saleType: new FormControl(''),
-      productGroupId: new FormControl(''  , Validators.required),
-      productNumber: new FormControl('' , Validators.required),
-      productUnitSalesCu: new FormControl('' ,Validators.required),
+      productGroupId: new FormControl('', Validators.required),
+      productNumber: new FormControl('', Validators.required),
+      productUnitSalesCu: new FormControl('', Validators.required),
       productAllSalesCu: new FormControl(''),
       benefitLossCu: new FormControl(''),
       costingAllCu: new FormControl(''),
-      costingUnitCu: new FormControl('')
+      costingUnitCu: new FormControl(''),
     });
 
     // if (this.mode === 'edit') {
@@ -90,7 +81,7 @@ export class AddEditSaleComponent implements OnInit {
     // }
   }
 
-  addEditSale() {debugger
+  addEditSale() {
     this.addEditSaleSubmitted = true;
     if (this.addEditSaleForm.valid) {
       const request: Sale = this.addEditSaleForm.value;
@@ -131,7 +122,7 @@ export class AddEditSaleComponent implements OnInit {
     this.httpService
       .get<ProductGroup[]>(ProductGroup.getListApiAddress)
       .subscribe(response => {
-        if (response.data ) {
+        if (response.data) {
           this.productGroupList = response.data;
         }
       });
@@ -152,5 +143,4 @@ export class AddEditSaleComponent implements OnInit {
         }
       });
   }
-
 }
