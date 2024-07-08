@@ -1161,3 +1161,16 @@ export class Profile {
   title!: string;
   icon!: string;
 }
+
+export class Reports {
+  static readonly apiAddressBoardmembers = 'api/PABudgetApi/v1/CSPF/GetBoardmembers';
+  static readonly apiAddressCompanyManagerActivity = 'api/PABudgetApi/v1/CSPF/GetCompanyManagerActivity';
+  static readonly apiAddressAllSubCompanyCountWithCompanyType = 'api/PABudgetApi/v1/CSPF/GetAllSubCompanyCountWithCompanyType';
+  static readonly apiAddressplan = 'api/PABudgetApi/v1/CSPF/Getplan';
+  static readonly apiAddressRanking = 'api/PABudgetApi/v1/CSPF/GetRanking';
+  static readonly apiAddressElection = 'api/PABudgetApi/v1/CSPF/GetElection';
+  static readonly apiAddressAssemblies = 'api/PABudgetApi/v1/CSPF/GetAssemblies';
+  static readonly apiAddressRankingManagers = 'api/PABudgetApi/v1/CSPF/GetRankingManagers';
+  static readonly apiAddresslegalCases = 'api/PABudgetApi/v1/CSPF/GetLegalCases';
+
+}
