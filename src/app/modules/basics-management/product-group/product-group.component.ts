@@ -21,7 +21,7 @@ export class ProductGroupComponent {
   addNewProductGroupLoading = false;
   addNewProductGroupSubmitted = false;
   modalTitle = '';
-  mode: 'insertGroupPro' | 'insertSubGroupPro' | 'editGroupPro' | 'editSubGroupPro';
+  mode!: 'insertGroupPro' | 'insertSubGroupPro' | 'editGroupPro' | 'editSubGroupPro';
 
   get productGroupTitle() {
     return this.addNewProductGroupForm.get('productGroupTitle');
