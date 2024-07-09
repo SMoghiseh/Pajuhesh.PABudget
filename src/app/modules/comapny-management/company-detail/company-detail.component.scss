@@ -4,20 +4,44 @@
     box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
     padding: 20px;
     margin-top: 20px;
-    .main-content{
+
+    .main-content {
         font-size: 14px;
         line-height: 31px;
         margin-top: 20px;
     }
 
-    .col-info{
+    .col-info {
         margin-top: 35px;
         font-size: 14px;
-        .ttl{
+
+        .ttl {
             font-weight: bold;
         }
-        .val{
+
+        .val {
             margin-right: 10px;
         }
+    }
+}
+
+
+
+.return {
+    text-align: left;
+    margin-left: 30px;
+    font-size: 15px;
+    color: #3B82F6;
+    cursor: pointer;
+
+    .pi-arrow-left {
+        font-size: 15px;
+        position: relative;
+        top: 4px;
+        right: 7px;
+    }
+
+    a {
+        text-decoration: none;
     }
 }

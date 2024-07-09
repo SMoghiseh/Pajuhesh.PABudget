@@ -1,21 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import { Reports } from '@shared/models/response.model';
-import { PreviousRouteService } from '@shared/services/previous-route.service';
-import { Subscription, map } from 'rxjs';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'PABudget-all-company-reports',
   templateUrl: './all-company-reports.component.html',
   styleUrls: ['./all-company-reports.component.scss'],
 })
-export class AllCompanyReportsComponent implements OnInit, OnDestroy {
+export class AllCompanyReportsComponent implements OnInit {
 
   // reports list
   boardmembersList = { names: [], average: '' }
   companyManagerActivity: any;
   planList: any;
-
+  service: any
 
   selectedTab = 0;
   tabContent = 'tab_1';
@@ -24,21 +23,15 @@ export class AllCompanyReportsComponent implements OnInit, OnDestroy {
     { id: 2, title: 'تامین اجتماعی ' },
     { id: 3, title: ' سازمانی' },
   ];
-  private subscription?: Subscription;
-  previousUrl = '';
 
-  constructor(private previousRouteService: PreviousRouteService, private httpService: HttpService) { }
+
+  constructor( private httpService: HttpService) {
+  }
+
   ngOnInit(): void {
-    this.subscription = this.previousRouteService
-      .getPreviousUrl()
-      .subscribe(url => {
-        this.previousUrl = url ? url : '';
-      });
-
     this.GetBoardmembers();
     this.GetCompanyManagerActivity();
     this.Getplan();
-
   }
 
 
@@ -105,9 +98,5 @@ export class AllCompanyReportsComponent implements OnInit, OnDestroy {
   showTemplate(id: number, index: number) {
     this.selectedTab = index;
     this.tabContent = 'tab_' + id;
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
   }
 }

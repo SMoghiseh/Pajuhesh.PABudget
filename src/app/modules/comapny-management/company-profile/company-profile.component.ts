@@ -8,16 +8,15 @@ import {
   StaticYear,
   UrlBuilder,
 } from '@shared/models/response.model';
-import { Subscription, map } from 'rxjs';
+import { map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PreviousRouteService } from '@shared/services/previous-route.service';
 
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
   styleUrls: ['./company-profile.component.scss'],
 })
-export class CompanyProfileComponent implements OnInit, OnDestroy {
+export class CompanyProfileComponent implements OnInit {
   infoLst = new Company();
   benefitCost: any;
   coId: any;
@@ -82,14 +81,11 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
     { field: 'category', header: 'Category' },
     { field: 'quantity', header: 'Quantity' },
   ];
-  private subscription?: Subscription;
-  previousUrl = '';
 
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
-    private router: Router,
-    private previousRouteService: PreviousRouteService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -101,15 +97,6 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       this.getProfileCoInfo(this.coId);
       this.getCostAndBenefitForProfile(this.coId);
     });
-    this.subscription = this.previousRouteService
-      .getPreviousUrl()
-      .subscribe(url => {
-        this.previousUrl = url ? url : '';
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
   }
 
   getProfileCoInfo(id: string) {

@@ -17,7 +17,7 @@
   </div>
   <div class="chart-structure">
     <p class="return">
-      <a routerLink="/default/Dashboard">بازگشت</a>
+      <a (click)="backClicked()">بازگشت</a>
       <i class="pi pi-arrow-left"></i>
     </p>
     <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{ $implicit: companyList }">

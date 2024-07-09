@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import { CompanyTree, listReportForTree } from '@shared/models/response.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'PABudget-tree-organization',
@@ -13,7 +14,7 @@ export class TreeOrganizationComponent {
   filterList: any = []
   selectedFilterTab = new listReportForTree();
 
-  constructor(private httpService: HttpService, private router: Router) {
+  constructor(private httpService: HttpService, private router: Router , private _location:Location) {
   }
 
   ngOnInit(): void {
@@ -89,6 +90,10 @@ export class TreeOrganizationComponent {
 
   routeToDashboard() {
     this.router.navigate(['/default/Dashboard']);
+  }
+
+  backClicked() {
+    this._location.back();
   }
 
 }
