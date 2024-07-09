@@ -11,6 +11,7 @@ import { CompanyManagementComponent } from './company-management.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SafeHtmlPipe } from 'src/app/shared/pipes/safe-html.pipe';
 
 /* PrimeNG */
 import { TableModule, TableCheckbox } from 'primeng/table';
@@ -40,6 +41,7 @@ import { CompanyProfileComponent } from './company-profile/company-profile.compo
 import { CompanyContractComponent } from './company-profile/company-contract/company-contract.component';
 import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { SelectDateComponent } from './company-profile/select-date/select-date.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { CompanyDetailComponent } from './company-detail/company-detail.componen
     CompanyContractComponent,
     AddEditContractComponent,
     CompanyDetailComponent,
+    SafeHtmlPipe,
+    SelectDateComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,

@@ -1,0 +1,9 @@
+<div class="row">
+  <div
+    *ngFor="let item of staticYearLst"
+    class="items"
+    (click)="onSelectYear(item.id)"
+    [class.select-feature]="item.isSelected">
+    <span>{{ item.year }}</span>
+  </div>
+</div>

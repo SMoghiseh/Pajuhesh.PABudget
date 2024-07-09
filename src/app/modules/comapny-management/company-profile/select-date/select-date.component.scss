@@ -1,0 +1,23 @@
+.select-feature {
+    background-color: #3B82F6 !important;
+    color: white !important;
+}
+
+.deselect-feature {
+    background-color: #E2E8F0 !important;
+    color: #64748B !important;
+}
+
+.items {
+    width: fit-content;
+    background-color: #E2E8F0;
+    color: #64748B;
+    padding: 5px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-left: 10px;
+
+    span {
+        margin: 13px;
+    }
+}
