@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import { Company, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-company-detail',
@@ -14,8 +15,9 @@ export class CompanyDetailComponent implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private _location: Location
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -43,4 +45,9 @@ export class CompanyDetailComponent implements OnInit {
         this.infoLst = info[0];
       });
   }
+
+  backClicked() {
+    this._location.back();
+  }
+
 }

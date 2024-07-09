@@ -7,10 +7,11 @@
     text-align: left;
     margin-left: 30px;
     font-size: 15px;
+    color: #3B82F6;
+    cursor: pointer;
 
     .pi-arrow-left {
         font-size: 15px;
-        color: #3B82F6;
         position: relative;
         top: 4px;
         right: 7px;
@@ -447,7 +448,7 @@
     }
 }
 
-.menu-shortcut{
+.menu-shortcut {
     background-color: #3B82F6;
     color: #fff;
     padding: 9px 0;
@@ -455,7 +456,8 @@
     margin: 0 auto 25px;
     border-radius: 6px;
     cursor: pointer;
-    img{
+
+    img {
         width: 16px;
         position: relative;
         right: -9px;
