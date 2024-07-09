@@ -11,6 +11,7 @@ import {
 import { Subscription, map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreviousRouteService } from '@shared/services/previous-route.service';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-company-profile',
@@ -28,15 +29,22 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   dataTableRows = 5;
   loading = false;
   selectedReportId!: number;
-  selectedRows: any;
+  selectedRows: any = [];
   liveSelectionRow = 0;
   planLst!: Profile[];
   budgetLst!: Profile[];
-  selectedYears: Array<number> = [];
+  selectedYears: any;
   planDetailData: any;
   budgetDetailData: any;
   selectedPlanId!: number;
   selectedBudgetId!: number;
+  isSelectBudget = false;
+  isSelectPlan = false;
+  isShowChart = false;
+  lineChart1: any;
+  selectDateType = 'single';
+  tableYearSelectedId: any;
+  _tableYearSelectedId: any;
 
   products = [
     {
@@ -95,7 +103,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getBudget();
     this.getPlan();
-    this.getStaticYear();
+    // this.getStaticYear();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
       this.getProfileCoInfo(this.coId);
@@ -157,54 +165,54 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSelectYear(id: number) {
-    this.selectYearType(id);
-    // this.getGridBalanceSheet();
-  }
+  // onSelectYear(id: number) {
+  //   this.selectYearType(id);
+  // }
 
-  selectYearType(id: number) {
-    const fltr = this.selectedYears.filter(x => x === id);
-    this.staticYearLst.forEach(element => {
-      if (element.id === id) {
-        if (fltr.length === 0) {
-          element.isSelected = true;
-          this.selectedYears.push(element.id);
-        } else {
-          element.isSelected = false;
-          const index = this.selectedYears.indexOf(element.id);
-          if (index > -1) this.selectedYears.splice(index, 1);
-        }
-      }
-    });
-    if (this.selectedPlanId !== -1) this.onSelectPlan(this.selectedPlanId);
-    if (this.selectedBudgetId !== -1)
-      this.onSelectBudget(this.selectedBudgetId);
-  }
+  // selectYearType(id: number) {
+  //   const fltr = this.selectedYears.filter(x => x === id);
+  //   this.staticYearLst.forEach(element => {
+  //     if (element.id === id) {
+  //       if (fltr.length === 0) {
+  //         element.isSelected = true;
+  //         this.selectedYears.push(element.id);
+  //       } else {
+  //         element.isSelected = false;
+  //         const index = this.selectedYears.indexOf(element.id);
+  //         if (index > -1) this.selectedYears.splice(index, 1);
+  //       }
+  //     }
+  //   });
+  //   if (this.selectedPlanId !== -1) this.onSelectPlan(this.selectedPlanId);
+  //   if (this.selectedBudgetId !== -1)
+  //     this.onSelectBudget(this.selectedBudgetId);
+  //   if (this.isShowChart) this.getChart();
+  // }
 
   onCoDetail(id: number) {
     this.router.navigate(['/Comapny/companyDetail/' + id]);
   }
 
-  getStaticYear() {
-    this.httpService
-      .get<StaticYear[]>(UrlBuilder.build(StaticYear.apiAddress + 'List', ''))
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [new StaticYear()];
-        })
-      )
-      .subscribe(res => {
-        res.forEach((element, index) => {
-          if (index === 0) {
-            this.selectedYears.push(element.id);
-            element.isSelected = true;
-          } else element.isSelected = false;
-        });
-        this.staticYearLst = res;
-      });
-  }
+  // getStaticYear() {
+  //   this.httpService
+  //     .get<StaticYear[]>(UrlBuilder.build(StaticYear.apiAddress + 'List', ''))
+  //     .pipe(
+  //       map(response => {
+  //         if (response.data && response.data.result) {
+  //           return response.data.result;
+  //         } else return [new StaticYear()];
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       res.forEach((element, index) => {
+  //         if (index === 0) {
+  //           this.selectedYears.push(element.id);
+  //           element.isSelected = true;
+  //         } else element.isSelected = false;
+  //       });
+  //       this.staticYearLst = res;
+  //     });
+  // }
 
   // getGridBalanceSheet() {
   //   this.loading = true;
@@ -272,9 +280,17 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   onSelectPlan(id: number) {
     this.selectedPlanId = id;
     this.selectedBudgetId = -1;
+    this.isSelectPlan = true;
+    this.isSelectBudget = false;
+    // this.selectedBudgetId = -1;
+    let yearId = 12;
+    if (this.selectedYears) {
+      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+      else yearId = this.selectedYears[0];
+    }
     const body = {
       companyId: this.coId,
-      staticYearId: this.selectedYears[this.selectedYears.length - 1],
+      staticYearId: yearId,
       planId: id,
     };
     this.httpService
@@ -294,9 +310,18 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   onSelectBudget(id: number) {
     this.selectedBudgetId = id;
     this.selectedPlanId = -1;
+    this.isSelectBudget = true;
+    this.isSelectPlan = false;
+    // this.selectedPlanId = -1;
+    let yearId = 12;
+    if (this.selectedYears) {
+      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+      else yearId = this.selectedYears[0];
+    }
+
     const body = {
       companyId: this.coId,
-      staticYearId: this.selectedYears[this.selectedYears.length - 1],
+      staticYearId: yearId,
       budgetId: id,
     };
     this.httpService
@@ -311,5 +336,87 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.planDetailData = res;
       });
+  }
+
+  selectTable() {
+    this.selectDateType = 'single';
+    this.isShowChart = false;
+    this.tableYearSelectedId = this._tableYearSelectedId;
+    this.selectedRows = [];
+  }
+
+  getChart() {
+    this.selectDateType = 'multiple';
+    this.isShowChart = true;
+    // this.selectedPlanId = -1;
+    // this.selectedBudgetId = -1;
+    const type = typeof this.selectedYears;
+    let arr = [];
+    if (type === 'number') arr.push(this.selectedYears);
+    else arr = this.selectedYears;
+    this._tableYearSelectedId = this.selectedYears;
+    const body = {
+      companyId: this.coId,
+      reportTypeId: this.selectedRows,
+      yearId: arr,
+    };
+    this.httpService
+      .post<any>(UrlBuilder.build(Profile.apiAddressGetChart, ''), body)
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        if (this.lineChart1) this.lineChart1.destroy();
+        this.createLineChart(res);
+      });
+  }
+
+  createLineChart(data: any) {
+    this.lineChart1 = new Chart('LineChart', {
+      type: 'line',
+      data: data,
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                family: 'shabnam',
+              },
+            },
+          },
+          tooltip: {
+            titleFont: {
+              family: 'shabnam',
+            },
+            bodyFont: {
+              family: 'shabnam',
+            },
+          },
+        },
+
+        responsive: true,
+        scales: {
+          x: {
+            stacked: false,
+          },
+          y: {
+            stacked: false,
+          },
+        },
+      },
+    });
+  }
+
+  returnSelectedDate(e: any) {
+    this.selectedYears = e;
+    if (this.isSelectPlan && this.selectedPlanId > -1)
+      this.onSelectPlan(this.selectedPlanId);
+    if (this.isSelectBudget && this.selectedBudgetId > -1)
+      this.onSelectBudget(this.selectedBudgetId);
+    if (this.isShowChart) this.getChart();
   }
 }

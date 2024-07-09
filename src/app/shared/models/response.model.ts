@@ -574,6 +574,8 @@ export class Company {
   companyParentName!: string;
   RegisterNumber!: number;
   companyInspectionInstituteTitle!: string;
+  companyManagerName!: string;
+  registerDatePc!: any;
 }
 
 export class ProductGroup {
@@ -1157,6 +1159,7 @@ export class Profile {
     'api/PABudgetApi/Dashboard/GetPlanDetail/List';
   static readonly apiAddressGetBudgetDetail =
     'api/PABudgetApi/Dashboard/GetBudgetDetail/List';
+  static readonly apiAddressGetChart = 'api/PABudgetApi/Dashboard/GetChart';
   id!: number;
   title!: string;
   icon!: string;
