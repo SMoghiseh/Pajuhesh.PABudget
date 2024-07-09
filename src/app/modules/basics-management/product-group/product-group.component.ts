@@ -21,7 +21,8 @@ export class ProductGroupComponent {
   addNewProductGroupLoading = false;
   addNewProductGroupSubmitted = false;
   modalTitle = '';
-  mode = '';
+  mode: 'insertGroupPro' | 'insertSubGroupPro' | 'editGroupPro' | 'editSubGroupPro';
+
   get productGroupTitle() {
     return this.addNewProductGroupForm.get('productGroupTitle');
   }
@@ -79,16 +80,16 @@ export class ProductGroupComponent {
 
   onAddNewProductGroup(): void {
     this.addNewProductGroupForm.reset();
+    this.addNewProductGroupSubmitted = false ;
     this.isOpenAddProductGroup = true;
     this.modalTitle = 'تعریف گروه محصول';
-    this.mode = 'insertGroupPro'
+    this.mode = 'insertGroupPro';
   }
-
-
 
   onAddSubGroup() {
     setTimeout(() => {
       this.addNewProductGroupForm.reset();
+      this.addNewProductGroupSubmitted = false ;
       this.isOpenAddProductGroup = true;
       this.modalTitle = 'تعریف زیرگروه محصول';
       this.mode = 'insertSubGroupPro';
@@ -96,24 +97,33 @@ export class ProductGroupComponent {
   }
 
   onSubmitNewProductGroup() {
+    debugger
     this.addNewProductGroupSubmitted = true;
     if (this.addNewProductGroupForm.invalid) return;
     let url = '';
-    const request = new ProductGroup();
-    const value = this.addNewProductGroupForm.value;
-    value.parenId = null;
+    const request: ProductGroup = this.addNewProductGroupForm.value;
 
     if (this.mode == 'editGroupPro') {
-      url = ProductGroup.editApiAddress + '/' + this.selectedProductGroups.id
-    } else if (this.mode == 'insertSubGroupPro') {
-      value.parentId = this.selectedProductGroups.id;
-      url = ProductGroup.createApiAddress;
-    } else if (this.mode == 'insertGroupPro') {
+      url = ProductGroup.editApiAddress;
+      request.parentId = this.selectedProductGroups.parentId;
+      request.id = this.selectedProductGroups.id;
+    }
+    else if (this.mode == 'editSubGroupPro') {
+      url = ProductGroup.editApiAddress;
+      request.parentId = this.selectedProductGroups.parentId;
+      request.id = this.selectedProductGroups.id;
     }
 
-    request.parentId = value.parenId;
-    request.productGroupCode = Number(value.productGroupCode);
-    request.productGroupTitle = value.productGroupTitle;
+    else if (this.mode == 'insertSubGroupPro') {
+      url = ProductGroup.createApiAddress;
+      request.parentId = this.selectedProductGroups.id;
+    }
+    else if (this.mode == 'insertGroupPro') {
+      url = ProductGroup.createApiAddress;
+      request.parentId = null;
+    }
+
+    request.productGroupCode = Number(request.productGroupCode);
 
     this.httpService
       .post<ProductGroup>(url, request)
@@ -134,11 +144,16 @@ export class ProductGroupComponent {
   }
 
   onEditRow() {
+    debugger
     setTimeout(() => {
+      debugger
       this.addNewProductGroupForm.reset();
       this.isOpenAddProductGroup = true;
       this.modalTitle = 'ویرایش گروه محصول';
-      this.mode = 'editGroupPro';
+      if (!this.selectedProductGroups.parentId)
+        this.mode = 'editGroupPro';
+      else
+        this.mode = 'editSubGroupPro';
       this.addNewProductGroupForm.patchValue({
         productGroupTitle: this.selectedProductGroups.productGroupTitle,
         productGroupCode: this.selectedProductGroups.productGroupCode

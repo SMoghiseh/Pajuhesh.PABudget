@@ -591,7 +591,7 @@ export class ProductGroup {
     'api/PABudgetApi/ProductGroup/DeleteProductGroup';
 
   id!: number;
-  parentId!: number;
+  parentId!: number | null;
   productGroupCode!: number;
   productGroupTitle!: string;
   children!: ProductGroup[];
