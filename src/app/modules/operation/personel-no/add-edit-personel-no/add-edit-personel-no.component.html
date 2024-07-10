@@ -1,3 +1,5 @@
+<p-toast key="personelNo" position="bottom-left"></p-toast>
+
 <form
   #formDir="ngForm"
   [formGroup]="addEditPersonelNoForm"
@@ -25,20 +27,20 @@
       </p-dropdown>
     </div>
     <div class="col-4 mt-2">
-      <label for="perioddetailId">دوره عملیاتی</label>
+      <label for="periodDetailId">دوره عملیاتی</label>
       <p-dropdown
-        id="perioddetailId"
-        name="perioddetailId"
-        formControlName="perioddetailId"
+        id="periodDetailId"
+        name="periodDetailId"
+        formControlName="periodDetailId"
         styleClass="w-100 my-1"
         optionLabel="periodDetailTitle"
-        optionValue="periodDetailCode"
+        optionValue="id"
         placeholder="انتخاب کنید"
-        [class.ng-invalid]="perioddetailId?.invalid"
+        [class.ng-invalid]="periodDetailId?.invalid"
         [class.ng-dirty]="
-          (addEditPersonelNoSubmitted && perioddetailId?.pristine) ||
-          perioddetailId?.dirty ||
-          perioddetailId?.touched
+          (addEditPersonelNoSubmitted && periodDetailId?.pristine) ||
+          periodDetailId?.dirty ||
+          periodDetailId?.touched
         "
         [options]="periodDetailLst"
         [filter]="true">

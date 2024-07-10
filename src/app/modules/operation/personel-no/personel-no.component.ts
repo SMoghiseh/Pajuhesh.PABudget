@@ -83,7 +83,7 @@ export class PersonelNoComponent {
     this.isOpenAddEditPersonelNo = true;
   }
 
-  editRow(data: PersonelNo) {
+  editRow(data: PersonelNo) {debugger
     this.modalTitle = 'ویرایش بودجه پرسنل ' + data.periodTitle;
     this.addEditData = data;
     this.addEditData.type = 'edit';

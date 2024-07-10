@@ -35,8 +35,8 @@ export class AddEditPersonelNoComponent implements OnInit {
 
   @Output() isSuccess = new EventEmitter<boolean>();
 
-  get perioddetailId() {
-    return this.addEditPersonelNoForm.get('perioddetailId');
+  get periodDetailId() {
+    return this.addEditPersonelNoForm.get('periodDetailId');
   }
   get periodId() {
     return this.addEditPersonelNoForm.get('periodId');
@@ -53,8 +53,8 @@ export class AddEditPersonelNoComponent implements OnInit {
     this.getEmploymentType();
     this.getEducationTypeCode();
     this.addEditPersonelNoForm = new FormGroup({
-      perioddetailId: new FormControl(
-        this.addEditPersonelNoModel.perioddetailId,
+      periodDetailId: new FormControl(
+        this.addEditPersonelNoModel.periodDetailId,
         Validators.required
       ),
       periodId: new FormControl(
@@ -94,7 +94,7 @@ export class AddEditPersonelNoComponent implements OnInit {
         .subscribe(response => {
           if (response.successed) {
             this.messageService.add({
-              key: 'companyDefinition',
+              key: 'personelNo',
               life: 8000,
               severity: 'success',
               detail: `بودجه پرسنل`,
@@ -130,7 +130,7 @@ export class AddEditPersonelNoComponent implements OnInit {
           this.periodDetailLst = response.data.result;
           if (this.inputData.id)
             this.addEditPersonelNoForm.patchValue({
-              perioddetailId: this.inputData.perioddetailId,
+              periodDetailId: this.inputData.periodDetailId,
             });
         }
       });
