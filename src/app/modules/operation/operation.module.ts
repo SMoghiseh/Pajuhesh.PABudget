@@ -3,7 +3,6 @@ import {
   CommonModule,
   IMAGE_LOADER,
   ImageLoaderConfig,
-  NgComponentOutlet,
   NgOptimizedImage,
 } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -70,7 +69,6 @@ import { AddEditContractNoComponent } from './contract/add-edit-contract-no/add-
     InputNumberModule,
     KeyFilterModule,
     TooltipModule,
-    NgComponentOutlet
   ],
   providers: [
     {
