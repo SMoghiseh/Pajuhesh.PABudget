@@ -19,7 +19,13 @@
         placeholder="انتخاب کنید"
         [options]="budgetPeriodList"
         [filter]="true"
-        (onChange)="onChangePeriod($event)">
+        (onChange)="onChangePeriod($event)"
+        [class.ng-invalid]="budgetPeriodId?.invalid"
+        [class.ng-dirty]="
+          (addEditSaleSubmitted && budgetPeriodId?.pristine) ||
+          budgetPeriodId?.dirty ||
+          budgetPeriodId?.touched
+        ">
       </p-dropdown>
     </div>
     <div class="col-4 mt-2">
@@ -33,7 +39,13 @@
         optionValue="id"
         placeholder="انتخاب کنید"
         [options]="budgetPeriodDetailList"
-        [filter]="true">
+        [filter]="true"
+        [class.ng-invalid]="budgetPeriodDetailId?.invalid"
+        [class.ng-dirty]="
+          (addEditSaleSubmitted && budgetPeriodDetailId?.pristine) ||
+          budgetPeriodDetailId?.dirty ||
+          budgetPeriodDetailId?.touched
+        ">
       </p-dropdown>
     </div>
  
@@ -60,7 +72,13 @@
         optionValue="id"
         placeholder="انتخاب کنید"
         [options]="saleTypeList"
-        [filter]="true">
+        [filter]="true"
+        [class.ng-invalid]="saleType?.invalid"
+        [class.ng-dirty]="
+          (addEditSaleSubmitted && saleType?.pristine) ||
+          saleType?.dirty ||
+          saleType?.touched
+        ">
       </p-dropdown>
     </div>
 
@@ -75,7 +93,13 @@
         optionValue="id"
         placeholder="انتخاب کنید"
         [options]="productGroupList"
-        [filter]="true">
+        [filter]="true"
+        [class.ng-invalid]="productGroupId?.invalid"
+        [class.ng-dirty]="
+          (addEditSaleSubmitted && productGroupId?.pristine) ||
+          productGroupId?.dirty ||
+          productGroupId?.touched
+        ">
       </p-dropdown>
     </div>
 
@@ -87,7 +111,13 @@
         name="productNumber"
         formControlName="productNumber"
         type="text"
-        class="w-100" ></p-inputNumber>
+        class="w-100" 
+        [class.ng-invalid]="productNumber?.invalid"
+        [class.ng-dirty]="
+          (addEditSaleSubmitted && productNumber?.pristine) ||
+          productNumber?.dirty ||
+          productNumber?.touched
+        "></p-inputNumber>
     </div>
 
     <div class="col-4 mt-2">
@@ -98,7 +128,13 @@
         name="productUnitSalesCu"
         formControlName="productUnitSalesCu"
         type="text"
-        class="w-100" ></p-inputNumber>
+        class="w-100" 
+        [class.ng-invalid]="productUnitSalesCu?.invalid"
+        [class.ng-dirty]="
+          (addEditSaleSubmitted && productUnitSalesCu?.pristine) ||
+          productUnitSalesCu?.dirty ||
+          productUnitSalesCu?.touched
+        "></p-inputNumber>
     </div>
     <div class="col-4 mt-2">
       <label for="productAllSalesCu">مبلغ کل فروش </label>

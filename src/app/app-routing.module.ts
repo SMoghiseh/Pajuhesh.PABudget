@@ -56,6 +56,20 @@ const routes: Routes = [
     
               ),    
           },
+          {
+    
+            path: 'Reports',
+    
+            title: 'برنامه و بودجه | عملیات',
+    
+            loadChildren: () =>
+    
+              import('./modules/reports/reports.module').then(
+    
+                m => m.ReportsModule
+    
+              ),    
+          },
     
           {
     

@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  Pagination,
-  PersonelNo,
-  UrlBuilder,
-} from '@shared/models/response.model';
+import { Pagination, AccountReport, UrlBuilder } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {
@@ -11,36 +7,39 @@ import {
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-personel-no',
-  templateUrl: './personel-no.component.html',
-  styleUrls: ['./personel-no.component.scss'],
-  providers: [ConfirmationService],
+  selector: 'PABudget-account-report',
+  templateUrl: './account-report.component.html',
+  styleUrls: ['./account-report.component.scss'],
+  providers: [ConfirmationService]
+
 })
-export class PersonelNoComponent {
+export class AccountReportComponent {
+
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: PersonelNo[] = [];
+  data: AccountReport[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
-  isOpenAddEditPersonelNo = false;
-  addEditData = new PersonelNo();
+  isOpenAddEditReport = false;
+  addEditData = new AccountReport();
   pId!: string;
+  mode!: string;
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private messageService: MessageService
+  ) {
 
-  getPersonelNo(event?: LazyLoadEvent) {
+
+  }
+
+  getReport(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -52,17 +51,13 @@ export class PersonelNoComponent {
 
     const body = {
       pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-      withOutPagination: false,
-      periodId: parseInt(this.pId),
+      pageNumber: pagination.pageNumber
     };
 
-    this.loading = true;
-
     this.first = 0;
-    const url = PersonelNo.apiAddress + 'ListByFilter';
+    const url = AccountReport.apiAddress + 'GetAllAccountReport';
     this.httpService
-      .post<PersonelNo[]>(url, body)
+      .post<AccountReport[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -71,30 +66,32 @@ export class PersonelNoComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new PersonelNo()];
+          } else return [new AccountReport()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(res => {
+        this.data = res;
+      });
   }
 
-  addPersonelNo() {
-    this.modalTitle = 'افزودن بودجه پرسنل جدید';
-    this.addEditData.type = 'insert';
-    this.isOpenAddEditPersonelNo = true;
+  addReport() {
+    this.modalTitle = 'افزودن  گزارش جدید';
+    this.mode = 'insert';
+    this.isOpenAddEditReport = true;
   }
 
-  editRow(data: PersonelNo) {debugger
-    this.modalTitle = 'ویرایش بودجه پرسنل ' + data.periodTitle;
+  editRow(data: AccountReport) {
+    this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
-    this.addEditData.type = 'edit';
-    this.isOpenAddEditPersonelNo = true;
+    this.mode = 'edit';
+    this.isOpenAddEditReport = true;
   }
 
-  deleteRow(period: PersonelNo) {
-    if (period && period.id)
+  deleteRow(item: AccountReport) {
+    if (item && item.id)
       this.confirmationService.confirm({
-        message: 'آیا از حذف بودجه پرسنل اطمینان دارید؟',
-        header: `عنوان ${period.periodTitle}`,
+        message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
+        header: `عنوان "${item.title}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -102,34 +99,35 @@ export class PersonelNoComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deletePersonelNo(period.id, period.periodTitle),
+        accept: () => this.deleteReport(item.id, item.title),
       });
   }
 
-  deletePersonelNo(id: number, title: string) {
+  deleteReport(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .delete<PersonelNo>(
-          UrlBuilder.build(PersonelNo.apiAddress + 'DELETE', '') + `/${id}`
+        .delete<AccountReport>(
+          UrlBuilder.build(AccountReport.apiAddress + 'DeleteAccountReport', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'personelNo',
+              key: 'report',
               life: 8000,
               severity: 'success',
-              detail: `بودجه پرسنل ${title}`,
+              detail: ` گزارش  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getPersonelNo();
+            this.getReport();
           }
         });
     }
   }
 
   reloadData() {
-    this.isOpenAddEditPersonelNo = false;
-    this.getPersonelNo();
+    this.isOpenAddEditReport = false;
+    this.getReport();
   }
 }
+

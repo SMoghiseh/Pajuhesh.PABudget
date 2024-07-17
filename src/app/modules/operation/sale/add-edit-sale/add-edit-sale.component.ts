@@ -47,6 +47,9 @@ export class AddEditSaleComponent implements OnInit {
   get costingUnitCu() {
     return this.addEditSaleForm.get('costingUnitCu');
   }
+  get saleType() {
+    return this.addEditSaleForm.get('saleType');
+  }
 
   constructor(
     private httpService: HttpService,

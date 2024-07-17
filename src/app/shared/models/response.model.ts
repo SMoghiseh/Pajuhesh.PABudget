@@ -591,7 +591,7 @@ export class ProductGroup {
     'api/PABudgetApi/ProductGroup/DeleteProductGroup';
 
   id!: number;
-  parentId!: number;
+  parentId!: number | null;
   productGroupCode!: number;
   productGroupTitle!: string;
   children!: ProductGroup[];
@@ -1187,4 +1187,32 @@ export class Reports {
     'api/PABudgetApi/v1/CSPF/GetRankingManagers';
   static readonly apiAddresslegalCases =
     'api/PABudgetApi/v1/CSPF/GetLegalCases';
+}
+
+export class AccountReportItemPrice {
+  static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItemPrice/';
+  id!: number;
+  priceCu!: number;
+  reportItemCode!: string;
+  reportItemTitle!: string;
+  companyId!: number;
+  companyName!: string;
+  periodId!: number;
+  periodTitle!: string;
+  fromPeriodDetailId!: number;
+  fromPeriodDetailTitle!: string;
+  toPeriodDetailId!: number;
+  toPeriodDetailTitle!: string;
+}
+
+export class AccountReportItem {
+  static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';
+}
+export class AccountReport {
+  static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
+  id!: number;
+  code!: string;
+  title!: string;
+  reportTypeCode!: number;
+  periodTypeCode!: number;
 }

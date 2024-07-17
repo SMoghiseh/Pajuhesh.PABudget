@@ -110,7 +110,7 @@ export class DocumentNeedsComponent implements OnInit {
     };
     this.httpService
       .get<DocumentTypeFileNeeds[]>(
-        `${DocumentTypeFileNeeds.apiAddress}/ListCheck/${GID}`
+        `${DocumentTypeFileNeeds.apiAddress}/list/${GID}`
       )
       .pipe(
         tap(() => (this.loading = false)),
