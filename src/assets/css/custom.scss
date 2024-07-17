@@ -66,3 +66,25 @@
    font-size: 13px;
    font-weight: 600;
  }
+
+ .search-button {
+   display: flex;
+
+   .clear-search {
+     background: #0289d1bb;
+     color: #fff;
+     height: 32px;
+     margin-left: 2px;
+     border-radius: 4px;
+     padding: 7px 8px;
+     cursor: pointer;
+
+     i {
+       font-size: 0.8rem;
+     }
+   }
+ }
+
+ .p-button {
+   width: 110px;
+ }

@@ -1,0 +1,54 @@
+<p-toast key="report" position="bottom-left"></p-toast>
+
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditReport()">
+    <div class="container row">
+        <div class="col-4 mt-2">
+            <label for="code"> کد </label>
+            <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100" value="code"
+                [class.ng-invalid]="code?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && code?.pristine) ||
+          code?.dirty ||
+          code?.touched
+        "/>
+        </div>
+        <div class="col-4 mt-2">
+            <label for="title"> عنوان </label>
+            <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100" value="title"
+                [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+        </div>
+        <div class="col-4 mt-2">
+            <label for="reportTypeCode">  نوع گزارش   </label>
+            <p-dropdown id="reportTypeCode" name="reportTypeCode" formControlName="reportTypeCode"
+                styleClass="w-100 my-1" optionLabel="name" optionValue="id" placeholder="انتخاب کنید"
+                [options]="reportTypeCodeList" [filter]="true" [class.ng-invalid]="reportTypeCode?.invalid"
+                [class.ng-dirty]="
+            (addEditFormSubmitted && reportTypeCode?.pristine) ||
+            reportTypeCode?.dirty ||
+            reportTypeCode?.touched
+          ">
+            </p-dropdown>
+        </div>
+       <div class="col-4 mt-2">
+            <label for="periodTypeCode">   دوره بودجه </label>
+            <p-dropdown id="periodTypeCode" name="periodTypeCode" formControlName="periodTypeCode"
+                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
+                [options]="periodTypeList" [filter]="true" [class.ng-invalid]="periodTypeCode?.invalid"
+                [class.ng-dirty]="
+            (addEditFormSubmitted && periodTypeCode?.pristine) ||
+            periodTypeCode?.dirty ||
+            periodTypeCode?.touched
+          ">
+            </p-dropdown>
+        </div>
+    
+        <div class="col-12 row-btn">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>
