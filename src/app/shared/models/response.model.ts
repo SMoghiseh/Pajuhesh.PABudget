@@ -1169,6 +1169,20 @@ export class Plan {
   /** آدرس سرویس */
   static readonly apiAddressVisionAndMission =
     'api/PABudgetApi/Dashboard/VisionAndMission/Info';
+  static readonly apiAddressValue =
+    'api/PABudgetApi/Dashboard/Value/Info';
+  static readonly apiAddressOrientation =
+    'api/PABudgetApi/Dashboard/Orientation/Info';
+  static readonly apiAddressGoals =
+    'api/PABudgetApi/Dashboard/Goals/Info';
+  static readonly apiAddressStrategyMap =
+    'api/PABudgetApi/Dashboard/StrategyMap/Info';
+  static readonly apiAddressOperationalPlans =
+    'api/PABudgetApi/Dashboard/OperationalPlans/Info';
+  static readonly apiAddressInformations =
+    'api/PABudgetApi/Dashboard/Informations/Info';
+  static readonly apiAddressRisk =
+    'api/PABudgetApi/Dashboard/Risk/Info';
 }
 
 export class Reports {

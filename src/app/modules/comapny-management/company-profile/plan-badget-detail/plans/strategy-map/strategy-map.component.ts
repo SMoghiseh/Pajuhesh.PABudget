@@ -4,16 +4,16 @@ import { Plan, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-vision-and-mission',
-  templateUrl: './vision-and-mission.component.html',
-  styleUrls: ['./vision-and-mission.component.scss'],
+  selector: 'PABudget-strategy-map',
+  templateUrl: './strategy-map.component.html',
+  styleUrls: ['./strategy-map.component.scss']
 })
-export class VisionAndMissionComponent {
+export class StrategyMapComponent {
   @Input() inputData: any;
 
   planDetailData: any;
   selectDateType = 'single';
-  selectedPlanName = 'چشم انداز و ماموریت';
+  selectedPlanName = ' نقشه استراتژی';
 
   constructor(private httpService: HttpService) {}
 
@@ -23,7 +23,7 @@ export class VisionAndMissionComponent {
       staticYearId: yearId,
     };
     this.httpService
-      .post<any>(UrlBuilder.build(Plan.apiAddressVisionAndMission, ''), body)
+      .post<any>(UrlBuilder.build(Plan.apiAddressStrategyMap, ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {

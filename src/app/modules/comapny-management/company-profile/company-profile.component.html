@@ -16,11 +16,7 @@
           <span>{{ infoLst.companyName }}</span>
         </div>
         <div class="inline-flx">
-          <img
-            *ngIf="infoLst.partyLogo"
-            ngSrc="{{ 'holding-logo/' + infoLst.partyLogo }}"
-            width="55"
-            height="55" />
+          <img *ngIf="infoLst.partyLogo" ngSrc="{{ 'holding-logo/' + infoLst.partyLogo }}" width="55" height="55" />
         </div>
         <div class="inline-flx">
           <h5>مدیرعامل :</h5>
@@ -59,10 +55,7 @@
           <span>{{ infoLst.countOfEmployee }}</span>
         </div>
         <div class="inline-flx div-more-btn">
-          <p-button
-            class="pe-2"
-            styleClass="p-button-info"
-            label="جزئیات بیشتر"
+          <p-button class="pe-2" styleClass="p-button-info" label="جزئیات بیشتر"
             (click)="onCoDetail(infoLst.id)"></p-button>
         </div>
       </div>
@@ -71,10 +64,7 @@
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <div class="co-info-box cost-benefit-box">
       <h4>برنامه</h4>
-      <div
-        *ngFor="let item of planLst"
-        class="row sub-co"
-        [class.selected-sub-co]="item.id === selectedPlanId"
+      <div *ngFor="let item of planLst" class="row sub-co" [class.selected-sub-co]="item.id === selectedPlanId"
         (click)="onSelectPlan(item)">
         <i class="{{ item.icon }}"></i>
         <span>{{ item.title }}</span>
@@ -85,20 +75,15 @@
     <div class="co-info-box">
       <h4>بودجه</h4>
       <ng-container *ngFor="let item of budgetLst; index as i">
-        <div
-          *ngIf="i !== budgetLst.length - 1 && i !== budgetLst.length - 2"
-          class="row sub-co"
-          [class.selected-sub-co]="item.id === selectedBudgetId"
-          (click)="onSelectBudget(item.id)">
+        <div *ngIf="i !== budgetLst.length - 1 && i !== budgetLst.length - 2" class="row sub-co"
+          [class.selected-sub-co]="item.id === selectedBudgetId" (click)="onSelectBudget(item.id)">
           <i class="{{ item.icon }}"></i>
           <span>{{ item.title }}</span>
         </div>
       </ng-container>
       <div class="person-box">
         <ng-container *ngFor="let item of budgetLst; index as i">
-          <div
-            *ngIf="i === budgetLst.length - 1 || i === budgetLst.length - 2"
-            class="item"
+          <div *ngIf="i === budgetLst.length - 1 || i === budgetLst.length - 2" class="item"
             (click)="onSelectBudget(item.id)">
             <div class="row sub-co">
               <i class="{{ item.icon }}"></i>
@@ -112,19 +97,28 @@
 </div>
 <div [ngSwitch]="switchPlan">
   <ng-template [ngSwitchCase]="'VisionAndMission'">
-    <app-vision-and-mission
-      [inputData]="planInputData"></app-vision-and-mission>
+    <PABudget-vision-and-mission [inputData]="planInputData"></PABudget-vision-and-mission>
   </ng-template>
-
-  <ng-template [ngSwitchCase]="'6'"> </ng-template>
-  <ng-template [ngSwitchCase]="'3'">
-    <div>Three</div>
+  <ng-template [ngSwitchCase]="'Value'">
+    <PABudget-value [inputData]="planInputData"></PABudget-value>
   </ng-template>
-  <ng-template [ngSwitchCase]="'4'">
-    <div>Four</div>
+  <ng-template [ngSwitchCase]="'Orientation'">
+    <PABudget-orientation [inputData]="planInputData"></PABudget-orientation>
   </ng-template>
-  <ng-template [ngSwitchCase]="'5'">
-    <div>Five</div>
+  <ng-template [ngSwitchCase]="'Goals'">
+    <PABudget-goals [inputData]="planInputData"></PABudget-goals>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'StrategyMap'">
+    <PABudget-strategy-map [inputData]="planInputData"></PABudget-strategy-map>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'OperationalPlans'">
+    <PABudget-operational-plans [inputData]="planInputData"></PABudget-operational-plans>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'Informations'">
+    <PABudget-informations [inputData]="planInputData"></PABudget-informations>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'Risk'">
+    <PABudget-risk [inputData]="planDetailData"></PABudget-risk>
   </ng-template>
 </div>
 

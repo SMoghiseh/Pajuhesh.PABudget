@@ -43,6 +43,13 @@ import { AddEditContractComponent } from './company-profile/company-contract/add
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { SelectDateComponent } from './company-profile/select-date/select-date.component';
 import { VisionAndMissionComponent } from './company-profile/plan-badget-detail/plans/vision-and-mission/vision-and-mission.component';
+import { ValueComponent } from './company-profile/plan-badget-detail/plans/value/value.component';
+import { GoalsComponent } from './company-profile/plan-badget-detail/plans/goals/goals.component';
+import { OperationalPlansComponent } from './company-profile/plan-badget-detail/plans/operational-plans/operational-plans.component';
+import { OrientationComponent } from './company-profile/plan-badget-detail/plans/orientation/orientation.component';
+import { StrategyMapComponent } from './company-profile/plan-badget-detail/plans/strategy-map/strategy-map.component';
+import { InformationsComponent } from './company-profile/plan-badget-detail/plans/informations/informations.component';
+import { RiskComponent } from './company-profile/plan-badget-detail/plans/risk/risk.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +63,13 @@ import { VisionAndMissionComponent } from './company-profile/plan-badget-detail/
     SafeHtmlPipe,
     SelectDateComponent,
     VisionAndMissionComponent,
+    ValueComponent,
+    OrientationComponent,
+    GoalsComponent,
+    StrategyMapComponent,
+    OperationalPlansComponent,
+    InformationsComponent,
+    RiskComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,

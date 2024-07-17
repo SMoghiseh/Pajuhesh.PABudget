@@ -4,16 +4,17 @@ import { Plan, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-vision-and-mission',
-  templateUrl: './vision-and-mission.component.html',
-  styleUrls: ['./vision-and-mission.component.scss'],
+  selector: 'PABudget-informations',
+  templateUrl: './informations.component.html',
+  styleUrls: ['./informations.component.scss']
 })
-export class VisionAndMissionComponent {
+export class InformationsComponent {
+
   @Input() inputData: any;
 
   planDetailData: any;
   selectDateType = 'single';
-  selectedPlanName = 'چشم انداز و ماموریت';
+  selectedPlanName = 'مفروضات';
 
   constructor(private httpService: HttpService) {}
 
@@ -23,7 +24,7 @@ export class VisionAndMissionComponent {
       staticYearId: yearId,
     };
     this.httpService
-      .post<any>(UrlBuilder.build(Plan.apiAddressVisionAndMission, ''), body)
+      .post<any>(UrlBuilder.build(Plan.apiAddressInformations, ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -40,3 +41,4 @@ export class VisionAndMissionComponent {
     this.getPlanDetail(e);
   }
 }
+
