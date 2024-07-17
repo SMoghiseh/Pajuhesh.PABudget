@@ -75,7 +75,7 @@
         *ngFor="let item of planLst"
         class="row sub-co"
         [class.selected-sub-co]="item.id === selectedPlanId"
-        (click)="onSelectPlan(item.id)">
+        (click)="onSelectPlan(item)">
         <i class="{{ item.icon }}"></i>
         <span>{{ item.title }}</span>
       </div>
@@ -110,8 +110,25 @@
     </div>
   </div>
 </div>
+<div [ngSwitch]="switchPlan">
+  <ng-template [ngSwitchCase]="'VisionAndMission'">
+    <app-vision-and-mission
+      [inputData]="planInputData"></app-vision-and-mission>
+  </ng-template>
 
-<div class="row bottom-section">
+  <ng-template [ngSwitchCase]="'6'"> </ng-template>
+  <ng-template [ngSwitchCase]="'3'">
+    <div>Three</div>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'4'">
+    <div>Four</div>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'5'">
+    <div>Five</div>
+  </ng-template>
+</div>
+
+<!-- <div class="row bottom-section">
   <div class="co-info-box">
     <h3>{{ selectedProgramName }}</h3>
     <div class="row row-feature">
@@ -159,6 +176,7 @@
         </div>
       </div>
     </div>
+
     <div class="row desc" *ngFor="let item of planDetailData?.datasDescs">
       <div [innerHTML]="item.desc"></div>
     </div>
@@ -202,41 +220,6 @@
           </tr>
         </ng-template>
       </p-table>
-      <!-- <p-table
-        *ngIf="planDetailData?.data?.length > 0"
-        #dataTable
-        class="data-table d-none d-lg-block"
-        [styleClass]="gridClass"
-        [rowHover]="true"
-        [paginator]="false"
-        [rows]="dataTableRows"
-        [rowsPerPageOptions]="[5, 10, 20, 30]"
-        [value]="planDetailData?.data"
-        [loading]="loading"
-        [tableStyle]="{ 'min-width': '75rem' }"
-        [(selection)]="selectedRows"
-        (onRowSelect)="onRowSelect($event)"
-        (onRowUnselect)="onRowUnselect($event)">
-        <ng-template pTemplate="header">
-          <tr class="data-table__header">
-            <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
-            <th *ngFor="let item of planDetailData?.header">
-              <strong>{{item}}</strong>
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-val let-rowIndex="rowIndex">
-          <tr>
-            <td>
-              <p-tableCheckbox [value]="val.id" />
-            </td>
-            <td>{{ val.desc }}</td>
-            <td>{{ val.reportName }}</td>
-            <td>{{ val.value }}</td>
-            <td></td>
-          </tr>
-        </ng-template>
-      </p-table> -->
     </div>
     <div *ngIf="isShowChart">
       <canvas
@@ -246,4 +229,4 @@
         style="display: unset"></canvas>
     </div>
   </div>
-</div>
+</div> -->

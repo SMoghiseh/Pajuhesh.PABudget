@@ -45,6 +45,8 @@ export class CompanyProfileComponent implements OnInit {
   selectDateType = 'single';
   tableYearSelectedId: any;
   _tableYearSelectedId: any;
+  switchPlan = '';
+  planInputData: any;
 
   products = [
     {
@@ -105,6 +107,9 @@ export class CompanyProfileComponent implements OnInit {
       this.coId = params['id'];
       this.getProfileCoInfo(this.coId);
       this.getCostAndBenefitForProfile(this.coId);
+      this.planInputData = {
+        companyId: this.coId,
+      };
     });
   }
 
@@ -265,8 +270,9 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  onSelectPlan(id: number) {
-    this.selectedPlanId = id;
+  onSelectPlan(data: any) {
+    this.switchPlan = data.enTitle;
+    this.selectedPlanId = data.id;
     this.selectedBudgetId = -1;
     this.isSelectPlan = true;
     this.isSelectBudget = false;
@@ -279,7 +285,7 @@ export class CompanyProfileComponent implements OnInit {
     const body = {
       companyId: this.coId,
       staticYearId: yearId,
-      planId: id,
+      planId: data.id,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Profile.apiAddressGetPlanDetail, ''), body)
@@ -399,12 +405,12 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  returnSelectedDate(e: any) {
-    this.selectedYears = e;
-    if (this.isSelectPlan && this.selectedPlanId > -1)
-      this.onSelectPlan(this.selectedPlanId);
-    if (this.isSelectBudget && this.selectedBudgetId > -1)
-      this.onSelectBudget(this.selectedBudgetId);
-    if (this.isShowChart) this.getChart();
-  }
+  // returnSelectedDate(e: any) {
+  //   this.selectedYears = e;
+  //   if (this.isSelectPlan && this.selectedPlanId > -1)
+  //     this.onSelectPlan(this.selectedPlanId);
+  //   if (this.isSelectBudget && this.selectedBudgetId > -1)
+  //     this.onSelectBudget(this.selectedBudgetId);
+  //   if (this.isShowChart) this.getChart();
+  // }
 }

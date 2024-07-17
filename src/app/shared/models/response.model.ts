@@ -1165,15 +1165,26 @@ export class Profile {
   icon!: string;
 }
 
+export class Plan {
+  /** آدرس سرویس */
+  static readonly apiAddressVisionAndMission =
+    'api/PABudgetApi/Dashboard/VisionAndMission/Info';
+}
+
 export class Reports {
-  static readonly apiAddressBoardmembers = 'api/PABudgetApi/v1/CSPF/GetBoardmembers';
-  static readonly apiAddressCompanyManagerActivity = 'api/PABudgetApi/v1/CSPF/GetCompanyManagerActivity';
-  static readonly apiAddressAllSubCompanyCountWithCompanyType = 'api/PABudgetApi/v1/CSPF/GetAllSubCompanyCountWithCompanyType';
+  static readonly apiAddressBoardmembers =
+    'api/PABudgetApi/v1/CSPF/GetBoardmembers';
+  static readonly apiAddressCompanyManagerActivity =
+    'api/PABudgetApi/v1/CSPF/GetCompanyManagerActivity';
+  static readonly apiAddressAllSubCompanyCountWithCompanyType =
+    'api/PABudgetApi/v1/CSPF/GetAllSubCompanyCountWithCompanyType';
   static readonly apiAddressplan = 'api/PABudgetApi/v1/CSPF/Getplan';
   static readonly apiAddressRanking = 'api/PABudgetApi/v1/CSPF/GetRanking';
   static readonly apiAddressElection = 'api/PABudgetApi/v1/CSPF/GetElection';
-  static readonly apiAddressAssemblies = 'api/PABudgetApi/v1/CSPF/GetAssemblies';
-  static readonly apiAddressRankingManagers = 'api/PABudgetApi/v1/CSPF/GetRankingManagers';
-  static readonly apiAddresslegalCases = 'api/PABudgetApi/v1/CSPF/GetLegalCases';
-
+  static readonly apiAddressAssemblies =
+    'api/PABudgetApi/v1/CSPF/GetAssemblies';
+  static readonly apiAddressRankingManagers =
+    'api/PABudgetApi/v1/CSPF/GetRankingManagers';
+  static readonly apiAddresslegalCases =
+    'api/PABudgetApi/v1/CSPF/GetLegalCases';
 }

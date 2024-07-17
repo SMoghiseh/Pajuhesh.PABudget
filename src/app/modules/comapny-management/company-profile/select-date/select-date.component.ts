@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import { StaticYear, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
@@ -8,8 +8,7 @@ import { map } from 'rxjs';
   templateUrl: './select-date.component.html',
   styleUrls: ['./select-date.component.scss'],
 })
-export class SelectDateComponent implements OnInit {
-  // @Input() selectType = '';
+export class SelectDateComponent {
   @Output() selectedVal = new EventEmitter<any>();
   @Input()
   set selectType(val: string) {
@@ -19,27 +18,15 @@ export class SelectDateComponent implements OnInit {
       this.selectedYears = [];
     }
   }
-  @Input()
-  set tableYearSelected(val: any) {
-    debugger;
-  }
-
-  // get selectType(): string {
-  //   debugger;
-  // }
 
   staticYearLst = [new StaticYear()];
-  selectedYears: Array<number> = [];
+  selectedYears: any;
   selectedYearId!: number;
   oldSelectedId!: number;
   selectTypeOld = '';
   _selectType = '';
 
   constructor(private httpService: HttpService) {}
-
-  ngOnInit(): void {
-    // this.getStaticYear();
-  }
 
   getStaticYear() {
     this.selectTypeOld = this._selectType;
@@ -55,8 +42,12 @@ export class SelectDateComponent implements OnInit {
       .subscribe(res => {
         res.forEach((element, index) => {
           if (index === 0) {
-            this.selectedYears.push(element.id);
-            this.oldSelectedId = element.id;
+            if (this._selectType === 'multiple')
+              this.selectedYears.push(element.id);
+            else {
+              this.selectedYears = element.id;
+              this.oldSelectedId = element.id;
+            }
             this.selectedVal.emit(this.selectedYears);
             element.isSelected = true;
           } else element.isSelected = false;
@@ -71,7 +62,7 @@ export class SelectDateComponent implements OnInit {
 
   selectYearType(id: number) {
     if (this._selectType === 'multiple') {
-      const fltr = this.selectedYears.filter(x => x === id);
+      const fltr = this.selectedYears.filter((x: any) => x === id);
       this.staticYearLst.forEach(element => {
         if (element.id === id) {
           if (fltr.length === 0) {

@@ -42,6 +42,7 @@ import { CompanyContractComponent } from './company-profile/company-contract/com
 import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { SelectDateComponent } from './company-profile/select-date/select-date.component';
+import { VisionAndMissionComponent } from './company-profile/plan-badget-detail/plans/vision-and-mission/vision-and-mission.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { SelectDateComponent } from './company-profile/select-date/select-date.c
     CompanyDetailComponent,
     SafeHtmlPipe,
     SelectDateComponent,
+    VisionAndMissionComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,
