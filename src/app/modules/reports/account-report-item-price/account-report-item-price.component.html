@@ -69,8 +69,8 @@
         <th style="min-width: 10rem"><strong> دوره بودجه </strong></th>
         <th style="min-width: 10rem"><strong> از دوره عملیاتی </strong></th>
         <th style="min-width: 10rem"><strong> تا دوره عملیاتی </strong></th>
-        <th style="min-width: 10rem"><strong> عملیات</strong></th>
         <th style="min-width: 10rem"><strong> مبلغ قرارداد</strong></th>
+        <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
@@ -128,8 +128,8 @@
 
 <p-dialog *ngIf="isOpenAddEditReport" [header]="modalTitle" [(visible)]="isOpenAddEditReport" [modal]="true"
   [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '400px' }">
-  <PABudget-add-edit-account-report-item-price [data]="addEditData" [mode]="mode"
-    (isSuccess)="reloadData()"></PABudget-add-edit-account-report-item-price>
+  <PABudget-add-edit-account-report-to-item [data]="addEditData" [mode]="mode"
+    (isSuccess)="reloadData()"></PABudget-add-edit-account-report-to-item>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
