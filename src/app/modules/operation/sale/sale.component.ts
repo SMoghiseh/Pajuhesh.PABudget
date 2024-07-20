@@ -52,7 +52,8 @@ export class SaleComponent {
 
     const body = {
       pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false
     };
 
     this.loading = true;

@@ -65,7 +65,7 @@ export class AddEditSaleComponent implements OnInit {
       budgetPeriodId: new FormControl('', Validators.required),
       budgetPeriodDetailId: new FormControl('', Validators.required),
       contractId: new FormControl(this.inputData.contractId),
-      saleType: new FormControl(''),
+      saleType: new FormControl(this.inputData.saleType),
       productGroupId: new FormControl('', Validators.required),
       productNumber: new FormControl(this.inputData.productNumber, Validators.required),
       productUnitSalesCu: new FormControl(this.inputData.productUnitSalesCu, Validators.required),
