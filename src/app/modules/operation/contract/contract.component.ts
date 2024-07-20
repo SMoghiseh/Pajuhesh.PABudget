@@ -12,7 +12,7 @@ import {
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { map, tap } from 'rxjs';
+import { debounce, map, tap } from 'rxjs';
 
 @Component({
   selector: 'PABudget-contract',
@@ -21,6 +21,12 @@ import { map, tap } from 'rxjs';
   providers: [ConfirmationService],
 })
 export class ContractComponent {
+  modalTitle = '';
+  isOpenAddEditContractlNo = false;
+  addEditData = new ContractNo();
+  editDataDetails: Contract[] = [];
+  pId!: string;
+  // Form Property
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -28,17 +34,19 @@ export class ContractComponent {
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
-  modalTitle = '';
-  isOpenAddEditContractlNo = false;
-  addEditData = new ContractNo();
-  editDataDetails: Contract[] = [];
-  pId!: string;
+  fullTextSearch = '';
+  pageNumber!: number;
+  pageSize!: number;
+  currentPage!: number;
+  propertyName: string | null = null;
+  isAsc!: boolean;
+
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   addContractlNo() {
     this.modalTitle = 'افزودن قرارداد جدید';
@@ -47,23 +55,26 @@ export class ContractComponent {
   }
   getContractlNo(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
-    const pagination = new Pagination();
+    else
+      this.first = 0
+
+    const searchModel = {
+      pageNumber: this.pageNumber,
+      pageSize: this.pageSize,
+      propertyName: this.propertyName,
+      isAsc: this.isAsc,
+      fullTextSearch: this.fullTextSearch
+    }
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-    pagination.pageNumber = first / rows + 1;
-    pagination.pageSize = rows;
-    const body = {
-      pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-      withOutPagination: false,
-      periodId: parseInt(this.pId),
-    };
-
+    searchModel.pageNumber = first / rows + 1;
+    searchModel.pageSize = rows;
     this.loading = true;
-    this.first = 0;
+
+
     const url = ContractNo.adiAddressList;
     this.httpService
-      .post<ContractNo[]>(url, body)
+      .post<ContractNo[]>(url, searchModel)
 
       .pipe(
         tap(() => (this.loading = false)),
