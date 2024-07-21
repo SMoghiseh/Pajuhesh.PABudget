@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReport, AccountReportItem, AccountReportToItem, Company, Period } from '@shared/models/response.model';
+import { AccountReport, AccountReportItem, AccountReportToItem, Company } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-add-edit-account-report-to-item',
@@ -20,7 +21,9 @@ export class AddEditAccountReportToItemComponent implements OnInit {
   accountReportItemList: any = [];
   companyList: any = [];
   accountReportLst: any = [];
-  
+
+  isInFilteredMode = false;
+
 
   inputData = new AccountReportToItem();
   @Input() set data1(data: AccountReportToItem) {
@@ -29,33 +32,43 @@ export class AddEditAccountReportToItemComponent implements OnInit {
 
   @Output() isSuccess = new EventEmitter<boolean>();
 
-  get accountReportId() {
-    return this.addEditForm.get('accountReportId');
+  get accountRepId() {
+    return this.addEditForm.get('accountRepId');
   }
 
   get companyId() {
     return this.addEditForm.get('companyId');
   }
 
-  get accountReportItemId() {
-    return this.addEditForm.get('accountReportItemId');
+  get accountRepItemId() {
+    return this.addEditForm.get('accountRepItemId');
   }
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    
+
     this.getAccountReportItemLst();
     this.getAccountReportLst();
     this.getCompanyLst();
 
     this.addEditForm = new FormGroup({
-      accountReportId: new FormControl('', Validators.required),
-      companyId: new FormControl('', Validators.required),
-      accountReportItemId: new FormControl('', Validators.required)
+      accountRepId: new FormControl('', Validators.required),
+      companyId: new FormControl(''),
+      accountRepItemId: new FormControl('', Validators.required)
+    });
+
+    this.route.params.subscribe((param: any) => {
+      if (param.id) {
+        this.isInFilteredMode = true;
+        this.addEditForm.patchValue({
+          accountRepId: Number(param.id)
+        })
+      }
     });
   }
 
@@ -63,7 +76,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request: AccountReportToItem = this.addEditForm.value;
-      const url = AccountReportToItem.apiAddress + 'create' ;
+      const url = AccountReportToItem.apiAddress + 'create';
       this.isLoadingSubmit = true;
 
       this.httpService
@@ -76,7 +89,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
               life: 8000,
               severity: 'success',
               detail: ` نوع فروش`,
-              summary:'با موفقیت درج شد'
+              summary: 'با موفقیت درج شد'
             });
             this.isSuccess.emit(true);
           }
@@ -86,8 +99,10 @@ export class AddEditAccountReportToItemComponent implements OnInit {
 
   getAccountReportItemLst() {
     this.httpService
-    .get<AccountReportItem[]>(AccountReportItem.apiAddress + 'GetAllAccountReportItems')
-    .subscribe(response => {
+      .post<AccountReportItem[]>(AccountReportItem.apiAddress + 'list' , {
+        "withOutPagination": true
+      })
+      .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportItemList = response.data.result;
         }
@@ -96,7 +111,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
 
   getAccountReportLst() {
     this.httpService
-      .post<AccountReport[]>(AccountReport.apiAddress + 'GetAllAccountReport' , { 'withOutPagination' : true})
+      .post<AccountReport[]>(AccountReport.apiAddress + 'GetAllAccountReport', { 'withOutPagination': true })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportLst = response.data.result;
@@ -106,7 +121,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List' , { 'withOutPagination' : true})
+      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;

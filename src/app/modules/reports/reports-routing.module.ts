@@ -26,7 +26,17 @@ const routes: Routes = [
             },
           },
           {
-            path: 'AccountReportItem',
+            path: 'AccountReportToItem/:id',
+            component: AccountReportToItemComponent,
+            title: 'برنامه و بودجه |   آیتم های گزارشات مالی   ',
+            data: {
+              reuse: true,
+              title: ' ',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'AccountReportToItem',
             component: AccountReportToItemComponent,
             title: 'برنامه و بودجه |   آیتم های گزارشات مالی   ',
             data: {

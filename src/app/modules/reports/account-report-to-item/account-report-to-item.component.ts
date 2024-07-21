@@ -8,6 +8,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-account-report',
@@ -36,10 +37,13 @@ export class AccountReportToItemComponent implements OnInit {
   companyList: any = [];
   accountReportList: any = [];
 
+  isInFilteredMode = false;
+
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +53,13 @@ export class AccountReportToItemComponent implements OnInit {
     this.searchForm = new FormGroup({
       companyId: new FormControl(0),
       accountReportId: new FormControl(0),
+    });
+
+    this.route.params.subscribe((param: any) => {
+      if (param.id) {
+        this.isInFilteredMode = true;
+        this.searchForm.value.accountReportId = param.id;
+      }
     });
 
   }
@@ -118,11 +129,10 @@ export class AccountReportToItemComponent implements OnInit {
   }
 
   deleteRow(item: AccountReportToItem) {
-    debugger
     if (item && item.id)
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.accountReportTitle} " اطمینان دارید؟`,
-        header: `عنوان "${item.accountReportTitle}"`,
+        message: `آیا از حذف "${item.accountRepTitle} " اطمینان دارید؟`,
+        header: `عنوان "${item.accountRepTitle}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -130,7 +140,7 @@ export class AccountReportToItemComponent implements OnInit {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteReport(item.id, item.accountReportTitle),
+        accept: () => this.deleteReport(item.id, item.accountRepTitle),
       });
   }
 
@@ -138,7 +148,7 @@ export class AccountReportToItemComponent implements OnInit {
     if (id && title) {
       this.httpService
         .get<AccountReportToItem>(
-          UrlBuilder.build(AccountReportToItem.apiAddress + 'DeleteAccountReportItem', '') + `/${id}`
+          UrlBuilder.build(AccountReportToItem.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {

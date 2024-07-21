@@ -8,42 +8,43 @@
   <div class="container row">
   
     <div class="col-6 mt-2">
-      <label for="accountReportId"> نوع گزارش</label>
+      <label for="accountRepId"> نوع گزارش</label>
       <p-dropdown
-        id="accountReportId"
-        name="accountReportId"
-        formControlName="accountReportId"
+        id="accountRepId"
+        name="accountRepId"
+        formControlName="accountRepId"
         styleClass="w-100 my-1"
         optionLabel="title"
         optionValue="id"
         placeholder="انتخاب کنید"
         [options]="accountReportLst"
         [filter]="true"
-        [class.ng-invalid]="accountReportId?.invalid"
+        [readonly]="isInFilteredMode"
+        [class.ng-invalid]="accountRepId?.invalid"
         [class.ng-dirty]="
-          (addEditFormSubmitted && accountReportId?.pristine) ||
-          accountReportId?.dirty ||
-          accountReportId?.touched
+          (addEditFormSubmitted && accountRepId?.pristine) ||
+          accountRepId?.dirty ||
+          accountRepId?.touched
         ">
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
-      <label for="accountReportItemId"> آیتم گزارش </label>
+      <label for="accountRepItemId"> آیتم گزارش </label>
       <p-dropdown
-        id="accountReportItemId"
-        name="accountReportItemId"
-        formControlName="accountReportItemId"
+        id="accountRepItemId"
+        name="accountRepItemId"
+        formControlName="accountRepItemId"
         styleClass="w-100 my-1"
         optionLabel="title"
         optionValue="id"
         placeholder="انتخاب کنید"
         [options]="accountReportItemList"
         [filter]="true"
-        [class.ng-invalid]="accountReportItemId?.invalid"
+        [class.ng-invalid]="accountRepItemId?.invalid"
         [class.ng-dirty]="
-          (addEditFormSubmitted && accountReportItemId?.pristine) ||
-          accountReportItemId?.dirty ||
-          accountReportItemId?.touched
+          (addEditFormSubmitted && accountRepItemId?.pristine) ||
+          accountRepItemId?.dirty ||
+          accountRepItemId?.touched
         ">
       </p-dropdown>
     </div>
@@ -60,13 +61,7 @@
         optionValue="id"
         placeholder="انتخاب کنید"
         [options]="companyList"
-        [filter]="true"
-        [class.ng-invalid]="companyId?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && companyId?.pristine) ||
-          companyId?.dirty ||
-          companyId?.touched
-        ">
+        [filter]="true">
       </p-dropdown>
     </div>
     

@@ -1,9 +1,9 @@
 <p-toast key="report" position="bottom-left"></p-toast>
 
-
 <div class="table-header"> گزارشات مالی</div>
-  <form #formDir="ngForm" [formGroup]="searchForm" (ngSubmit)="getReport()">
-    <div class="row mt-8 pb-3">
+
+  <form *ngIf="!isInFilteredMode"   #formDir="ngForm" [formGroup]="searchForm" (ngSubmit)="getReport()">
+    <div class="row mt-8 pb-3" >
 
       <!--  شرکت -->
       <div class="col-4">
@@ -37,6 +37,14 @@
       
     </div>
   </form>
+
+  <!-- دکمه -->
+  <div *ngIf="isInFilteredMode" class="d-flex justify-content-end text-end mb-8 p-0" style="margin-top: 20px;">
+    <p-button class="mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
+    (click)="addReport()"></p-button>
+  </div>
+  <!-- / دکمه -->
+
 <div class="table-container">
   <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
     [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"

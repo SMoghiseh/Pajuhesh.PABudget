@@ -7,6 +7,7 @@ import {
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-account-report',
@@ -33,7 +34,8 @@ export class AccountReportComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {
 
 
@@ -129,5 +131,10 @@ export class AccountReportComponent {
     this.isOpenAddEditReport = false;
     this.getReport();
   }
+
+  addAccountReportToItem(report:AccountReport) {
+    this.router.navigate(['/Reports/AccountReportToItem/' + report.id]);
+  }
+
 }
 
