@@ -234,7 +234,7 @@ export class DocumentTypeDefinitionComponent implements OnInit {
   deleteDocumentType(id: number, type: string) {
     if (id && type) {
       this.httpService
-        .delete<DocumentType>(
+        .get<DocumentType>(
           UrlBuilder.build(DocumentType.apiAddress, 'REMOVE') + `/${id}`
         )
         .subscribe(response => {

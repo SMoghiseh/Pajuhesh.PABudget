@@ -106,7 +106,7 @@ export class AccountReportComponent {
   deleteReport(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .delete<AccountReport>(
+        .get<AccountReport>(
           UrlBuilder.build(AccountReport.apiAddress + 'DeleteAccountReport', '') + `/${id}`
         )
         .subscribe(response => {

@@ -7,7 +7,6 @@ import {
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sale',
@@ -81,7 +80,7 @@ export class SaleComponent {
   }
 
   editRow(data: Sale) {
-    this.modalTitle = 'ویرایش ' + '"'+ data.budgetPeriodTitle + '-' + data.budgetPeriodDetailTitle + '"';
+    this.modalTitle = 'ویرایش ' + '"' + data.budgetPeriodTitle + '-' + data.budgetPeriodDetailTitle + '"';
     this.getRowDataById(data.id);
 
   }
@@ -117,7 +116,7 @@ export class SaleComponent {
   deleteSale(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .delete<Sale>(
+        .get<Sale>(
           UrlBuilder.build(Sale.apiAddress + 'DeleteSale', '') + `/${id}`
         )
         .subscribe(response => {

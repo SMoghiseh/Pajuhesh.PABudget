@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination, AccountReportToItem, UrlBuilder, Period, Company, AccountReport } from '@shared/models/response.model';
+import { Pagination, AccountReportToItem, UrlBuilder, Company, AccountReport } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {
@@ -66,8 +66,8 @@ export class AccountReportToItemComponent implements OnInit {
 
   getAccountReportLst() {
     this.httpService
-    .post<AccountReport[]>(AccountReport.apiAddress + 'GetAllAccountReport' , { 'withOutPagination' : true})
-    .subscribe(response => {
+      .post<AccountReport[]>(AccountReport.apiAddress + 'GetAllAccountReport', { 'withOutPagination': true })
+      .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportList = response.data.result;
         }
@@ -117,7 +117,8 @@ export class AccountReportToItemComponent implements OnInit {
     this.isOpenAddEditReport = true;
   }
 
-  deleteRow(item: AccountReportToItem) {debugger
+  deleteRow(item: AccountReportToItem) {
+    debugger
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.accountReportTitle} " اطمینان دارید؟`,
@@ -136,7 +137,7 @@ export class AccountReportToItemComponent implements OnInit {
   deleteReport(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .delete<AccountReportToItem>(
+        .get<AccountReportToItem>(
           UrlBuilder.build(AccountReportToItem.apiAddress + 'DeleteAccountReportItem', '') + `/${id}`
         )
         .subscribe(response => {

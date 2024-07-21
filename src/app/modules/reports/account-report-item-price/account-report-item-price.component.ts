@@ -163,7 +163,7 @@ export class AccountReportItemPriceComponent implements OnInit {
   deleteReport(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .delete<AccountReportItemPrice>(
+        .get<AccountReportItemPrice>(
           UrlBuilder.build(AccountReportItemPrice.apiAddress + 'DeleteAccountReportItemPrice', '') + `/${id}`
         )
         .subscribe(response => {
@@ -187,7 +187,7 @@ export class AccountReportItemPriceComponent implements OnInit {
     this.getReport();
   }
 
-  clearSearch(){
+  clearSearch() {
     this.searchForm.reset();
     this.getReport();
   }

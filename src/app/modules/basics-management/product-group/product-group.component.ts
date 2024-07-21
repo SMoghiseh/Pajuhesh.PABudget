@@ -80,7 +80,7 @@ export class ProductGroupComponent {
 
   onAddNewProductGroup(): void {
     this.addNewProductGroupForm.reset();
-    this.addNewProductGroupSubmitted = false ;
+    this.addNewProductGroupSubmitted = false;
     this.isOpenAddProductGroup = true;
     this.modalTitle = 'تعریف گروه محصول';
     this.mode = 'insertGroupPro';
@@ -89,7 +89,7 @@ export class ProductGroupComponent {
   onAddSubGroup() {
     setTimeout(() => {
       this.addNewProductGroupForm.reset();
-      this.addNewProductGroupSubmitted = false ;
+      this.addNewProductGroupSubmitted = false;
       this.isOpenAddProductGroup = true;
       this.modalTitle = 'تعریف زیرگروه محصول';
       this.mode = 'insertSubGroupPro';
@@ -180,7 +180,7 @@ export class ProductGroupComponent {
 
   deleteGroupProduct(id: number, productGroupTitle: string) {
     this.httpService
-      .delete<ProductGroup>(
+      .get<ProductGroup>(
         ProductGroup.deleteApiAddress + `/${id}`
       )
       .subscribe(response => {
