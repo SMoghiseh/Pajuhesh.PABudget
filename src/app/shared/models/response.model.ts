@@ -1127,6 +1127,12 @@ export class EducationTypeCode {
   title!: string;
   isActive!: boolean;
 }
+
+export class ReportItemType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ReportItemType/';
+
+}
+
 export class Sale {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/PABudgetApi/v1/Sale/';

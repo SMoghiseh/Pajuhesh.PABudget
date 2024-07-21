@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReport, AccountReportItem, Period } from '@shared/models/response.model';
+import { AccountReport, Period, ReportItemType } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -113,7 +113,7 @@ export class AddEditAccountReportComponent {
 
   getReportTypeCodeList() {
     this.httpService
-      .get<any[]>(AccountReportItem.apiAddress + 'GetRelatedAccountReportItemSlaves')
+      .get<any[]>(ReportItemType.apiAddress + 'list')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.reportTypeCodeList = response.data.result;
