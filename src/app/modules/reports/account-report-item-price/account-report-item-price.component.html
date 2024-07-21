@@ -128,8 +128,8 @@
 
 <p-dialog *ngIf="isOpenAddEditReport" [header]="modalTitle" [(visible)]="isOpenAddEditReport" [modal]="true"
   [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '400px' }">
-  <PABudget-add-edit-account-report-to-item [data]="addEditData" [mode]="mode"
-    (isSuccess)="reloadData()"></PABudget-add-edit-account-report-to-item>
+  <PABudget-add-edit-account-report-item-price [data]="addEditData" [mode]="mode"
+    (isSuccess)="reloadData()"></PABudget-add-edit-account-report-item-price>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
