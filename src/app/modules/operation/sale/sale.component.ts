@@ -32,9 +32,7 @@ export class SaleComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private route: ActivatedRoute,
-    private router: Router
+    private messageService: MessageService
   ) {
 
 
