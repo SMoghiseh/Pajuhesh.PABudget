@@ -4,6 +4,7 @@ import { authGuard } from '@core/guards/auth/auth.guard';
 import { ReportsComponent } from './reports.component';
 import { AccountReportComponent } from './account-report/account-report.component';
 import { AccountReportItemPriceComponent } from './account-report-item-price/account-report-item-price.component';
+import { AccountReportToItemComponent } from './account-report-to-item/account-report-to-item.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,16 @@ const routes: Routes = [
             path: 'AccountReport',
             component: AccountReportComponent,
             title: 'برنامه و بودجه |  انواع گزارش   ',
+            data: {
+              reuse: true,
+              title: ' ',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'AccountReportItem',
+            component: AccountReportToItemComponent,
+            title: 'برنامه و بودجه |   آیتم های گزارشات مالی   ',
             data: {
               reuse: true,
               title: ' ',

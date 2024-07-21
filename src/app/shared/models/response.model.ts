@@ -1219,9 +1219,20 @@ export class AccountReportItemPrice {
   toPeriodDetailTitle!: string;
 }
 
+export class AccountReportToItem {
+  static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportToItem/';
+  id!: number;
+  accountReportId!: number;
+  accountReportTitle!: string;
+  companyId!: number;
+  companyTitle!: string;
+  accountReportItemId!: number;
+  accountReportItemTitle!: string
+}
 export class AccountReportItem {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';
 }
+
 export class AccountReport {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
   id!: number;

@@ -1,0 +1,83 @@
+<p-toast key="report" position="bottom-left"></p-toast>
+
+
+<form
+  #formDir="ngForm"
+  [formGroup]="addEditForm"
+  (ngSubmit)="addEditReport()">
+  <div class="container row">
+  
+    <div class="col-6 mt-2">
+      <label for="accountReportId"> نوع گزارش</label>
+      <p-dropdown
+        id="accountReportId"
+        name="accountReportId"
+        formControlName="accountReportId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="accountReportLst"
+        [filter]="true"
+        [class.ng-invalid]="accountReportId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && accountReportId?.pristine) ||
+          accountReportId?.dirty ||
+          accountReportId?.touched
+        ">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="accountReportItemId"> آیتم گزارش </label>
+      <p-dropdown
+        id="accountReportItemId"
+        name="accountReportItemId"
+        formControlName="accountReportItemId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="accountReportItemList"
+        [filter]="true"
+        [class.ng-invalid]="accountReportItemId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && accountReportItemId?.pristine) ||
+          accountReportItemId?.dirty ||
+          accountReportItemId?.touched
+        ">
+      </p-dropdown>
+    </div>
+
+    
+    <div class="col-6 mt-2">
+      <label for="companyId"> شرکت</label>
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="companyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true"
+        [class.ng-invalid]="companyId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && companyId?.pristine) ||
+          companyId?.dirty ||
+          companyId?.touched
+        ">
+      </p-dropdown>
+    </div>
+    
+
+    <div class="col-12 row-btn">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>
