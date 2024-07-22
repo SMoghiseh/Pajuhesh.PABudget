@@ -52,6 +52,7 @@ import { InformationsComponent } from './company-profile/plan-badget-detail/plan
 import { RiskComponent } from './company-profile/plan-badget-detail/plans/risk/risk.component';
 import { BalanceSheetComponent } from './company-profile/plan-badget-detail/budget/balance-sheet/balance-sheet.component';
 import { CostAndBenefitComponent } from './company-profile/plan-badget-detail/budget/cost-and-benefit/cost-and-benefit.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { CostAndBenefitComponent } from './company-profile/plan-badget-detail/bu
     CheckboxModule,
     ListboxModule,
     TreeSelectModule,
+    InputNumberModule
   ],
   providers: [
     {
