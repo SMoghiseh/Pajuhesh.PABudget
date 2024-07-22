@@ -159,7 +159,7 @@ export class FileTypeDefinitionComponent implements OnInit {
   deleteFileType(id: number, type: string) {
     if (id && type) {
       this.httpService
-        .delete<FileType>(
+        .get<FileType>(
           UrlBuilder.build(FileType.apiAddress, 'REMOVE') + `/${id}`
         )
         .subscribe(response => {

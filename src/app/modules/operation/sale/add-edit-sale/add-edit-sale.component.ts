@@ -14,6 +14,7 @@ export class AddEditSaleComponent implements OnInit {
   // form property
   addEditSaleForm!: FormGroup;
   addEditSaleSubmitted = false;
+  setValidationconditionally = false;
   isLoadingSubmit = false;
 
   // dropdown data list
@@ -50,11 +51,20 @@ export class AddEditSaleComponent implements OnInit {
   get saleType() {
     return this.addEditSaleForm.get('saleType');
   }
+  get contractId() {
+    return this.addEditSaleForm.get('contractId');
+  }
+  get costingAllCu() {
+    return this.addEditSaleForm.get('costingAllCu');
+  }
+  get benefitLossCu() {
+    return this.addEditSaleForm.get('benefitLossCu');
+  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // this.getRowData();
@@ -62,11 +72,11 @@ export class AddEditSaleComponent implements OnInit {
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
     this.addEditSaleForm = new FormGroup({
-      budgetPeriodId: new FormControl('', Validators.required),
-      budgetPeriodDetailId: new FormControl('', Validators.required),
+      budgetPeriodId: new FormControl(this.inputData.budgetPeriodId, Validators.required),
+      budgetPeriodDetailId: new FormControl(this.inputData.budgetPeriodDetailId, Validators.required),
       contractId: new FormControl(this.inputData.contractId),
-      saleType: new FormControl(''),
-      productGroupId: new FormControl('', Validators.required),
+      saleType: new FormControl(this.inputData.saleType, Validators.required),
+      productGroupId: new FormControl(this.inputData.productGroupId, Validators.required),
       productNumber: new FormControl(this.inputData.productNumber, Validators.required),
       productUnitSalesCu: new FormControl(this.inputData.productUnitSalesCu, Validators.required),
       productAllSalesCu: new FormControl(this.inputData.productAllSalesCu),
@@ -84,11 +94,16 @@ export class AddEditSaleComponent implements OnInit {
   addEditSale() {
     this.addEditSaleSubmitted = true;
     if (this.addEditSaleForm.valid) {
-      const request: Sale = this.addEditSaleForm.value;
+      const request = this.addEditSaleForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       const url = this.mode === 'insert' ? Sale.apiAddress + 'CreateSale' :
         Sale.apiAddress + 'UpdateSale';
       this.isLoadingSubmit = true;
+
+      Object.entries(request).forEach(([key, val]) => {
+        if (!val)
+          request[key] = 0;
+      })
 
       this.httpService
         .post<Sale>(url, request)
@@ -165,5 +180,25 @@ export class AddEditSaleComponent implements OnInit {
             });
         }
       });
+  }
+
+  onChangeSaleType() {
+
+    this.setValidationconditionally = true;
+
+    if (this.addEditSaleForm.value.saleType == 117) {
+
+      this.addEditSaleForm.get('contractId')?.setValidators(Validators.required);
+      this.addEditSaleForm.get('contractId')?.updateValueAndValidity();
+      this.addEditSaleForm.get('costingUnitCu')?.setValidators(Validators.required);
+      this.addEditSaleForm.get('costingUnitCu')?.updateValueAndValidity();
+      this.addEditSaleForm.get('costingAllCu')?.setValidators(Validators.required);
+      this.addEditSaleForm.get('costingAllCu')?.updateValueAndValidity();
+      this.addEditSaleForm.get('benefitLossCu')?.setValidators(Validators.required);
+      this.addEditSaleForm.get('benefitLossCu')?.updateValueAndValidity();
+
+
+    }
+
   }
 }

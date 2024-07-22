@@ -51,7 +51,7 @@ export class SubjectDefinitionComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getSubjects();
@@ -151,7 +151,7 @@ export class SubjectDefinitionComponent implements OnInit {
   deleteSubject(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .delete<Subject>(
+        .get<Subject>(
           UrlBuilder.build(Subject.apiAddress, 'DELETE') + `/${id}`
         )
         .subscribe(response => {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReportItem, AccountReportItemPrice, Company, Period, ProductGroup } from '@shared/models/response.model';
+import { AccountReportItem, AccountReportItemPrice, Company, Period } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -21,7 +21,7 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
   companyList: any = [];
   periodList: any = [];
   periodDetailLst: Period[] = [];
-  
+
 
   inputData = new AccountReportItemPrice();
   @Input() mode = '';
@@ -59,10 +59,10 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    
+
     this.getAccountReportItemLst();
     this.getPeriodLst();
     this.getCompanyLst();
@@ -74,7 +74,7 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
       fromPeriodDetailId: new FormControl('', Validators.required),
       toPeriodDetailId: new FormControl('', Validators.required),
       priceCu: new FormControl(this.inputData.priceCu, Validators.required)
- 
+
     });
 
     if (this.mode === 'edit') {
@@ -115,7 +115,9 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
 
   getAccountReportItemLst() {
     this.httpService
-      .get<AccountReportItem[]>(AccountReportItem.apiAddress + 'GetAllAccountReportItems')
+    .post<AccountReportItem[]>(AccountReportItem.apiAddress + 'list' , {
+      "withOutPagination": true
+    })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportItemList = response.data.result;
@@ -135,7 +137,7 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List' , { 'withOutPagination' : true})
+      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;

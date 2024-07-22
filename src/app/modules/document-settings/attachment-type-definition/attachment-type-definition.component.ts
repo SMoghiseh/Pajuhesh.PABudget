@@ -192,7 +192,7 @@ export class AttachmentTypeDefinitionComponent implements OnInit {
   deleteAttachmentType(id: number, type: string) {
     if (id && type) {
       this.httpService
-        .delete<AttachmentType>(
+        .get<AttachmentType>(
           UrlBuilder.build(AttachmentType.apiAddress, 'REMOVE') + `/${id}`
         )
         .subscribe(response => {

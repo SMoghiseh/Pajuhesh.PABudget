@@ -126,7 +126,7 @@ export class CompanyDefinitionComponent implements OnInit {
   deleteCompany(id: number, companyName: string) {
     if (id && companyName) {
       this.httpService
-        .delete<Company>(
+        .get<Company>(
           UrlBuilder.build(DeleteCompany.apiAddress, 'DELETE') + `/${id}`
         )
         .subscribe(response => {

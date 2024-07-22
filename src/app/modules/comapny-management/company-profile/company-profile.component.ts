@@ -10,7 +10,6 @@ import {
 } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PreviousRouteService } from '@shared/services/previous-route.service';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -46,6 +45,7 @@ export class CompanyProfileComponent implements OnInit {
   tableYearSelectedId: any;
   _tableYearSelectedId: any;
   switchPlan = '';
+  switchBudget = '';
   planInputData: any;
 
   products = [
@@ -301,8 +301,9 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  onSelectBudget(id: number) {
-    this.selectedBudgetId = id;
+  onSelectBudget(data:any) {debugger
+    this.switchBudget = data.enTitle;
+    this.selectedBudgetId = data.id;
     this.selectedPlanId = -1;
     this.isSelectBudget = true;
     this.isSelectPlan = false;
@@ -316,7 +317,7 @@ export class CompanyProfileComponent implements OnInit {
     const body = {
       companyId: this.coId,
       staticYearId: yearId,
-      budgetId: id,
+      budgetId: data.id,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Profile.apiAddressGetBudgetDetail, ''), body)

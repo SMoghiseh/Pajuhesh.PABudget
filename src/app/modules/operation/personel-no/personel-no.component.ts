@@ -38,7 +38,7 @@ export class PersonelNoComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   getPersonelNo(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -109,7 +109,7 @@ export class PersonelNoComponent {
   deletePersonelNo(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .delete<PersonelNo>(
+        .get<PersonelNo>(
           UrlBuilder.build(PersonelNo.apiAddress + 'DELETE', '') + `/${id}`
         )
         .subscribe(response => {

@@ -33,13 +33,13 @@
       <!-- سرمایه ثبت شده -->
       <div class="col-3 mt-2">
         <label for="registeredCapital">سرمایه ثبت شده</label>
-        <input pInputText id="registeredCapital" name="registeredCapital" formControlName="registeredCapital"
-          type="text" pKeyFilter="int" [minlength]="0" class="w-100" [class.ng-invalid]="registeredCapital?.invalid"
+        <p-inputNumber id="registeredCapital" formControlName="registeredCapital" type="text"
+          pKeyFilter="int" [minlength]="0" class="w-100" [class.ng-invalid]="registeredCapital?.invalid"
           [class.ng-dirty]="
             (addNewCompanySubmitted && registeredCapital?.pristine) ||
             registeredCapital?.dirty ||
             registeredCapital?.touched
-          " />
+          "></p-inputNumber>
       </div>
       <!-- / سرمایه ثبت شده -->
 
@@ -108,7 +108,11 @@
       <!-- <div class="col-3 mt-2" *ngIf="this.companySelected.companyTypeId == 1"> -->
       <div class="col-3 mt-2">
         <label for="symbol">نام نماد</label>
-        <input pInputText id="symbol" name="symbol" formControlName="symbol" type="text" class="w-100" />
+        <input pInputText id="symbol" name="symbol" formControlName="symbol" type="text" class="w-100"
+          [class.ng-invalid]="symbol?.invalid" [class.ng-dirty]="
+            (addNewCompanySubmitted && symbol?.pristine) ||
+            symbol?.dirty ||
+            symbol?.touched" />
       </div>
       <!-- / نام نماد -->
       <!-- نام لاتین -->
@@ -268,9 +272,9 @@
       <div class="mt-2 fileUploader">
         <label for="partyLogo"> لوگو </label>
         <div>
-          <p-fileUpload *ngIf="!companySelected.multiMediaId" #form id="partyLogo" mode="basic" class="upload-file-button"
-            chooseLabel=" آپلود فایل" name="attachments[]" [disabled]="isDisableaddAmendmentBtn" [auto]="true"
-            (onSelect)="
+          <p-fileUpload *ngIf="!companySelected.multiMediaId" #form id="partyLogo" mode="basic"
+            class="upload-file-button" chooseLabel=" آپلود فایل" name="attachments[]"
+            [disabled]="isDisableaddAmendmentBtn" [auto]="true" (onSelect)="
   uploadAttachment(
     $event.files,
     form

@@ -76,7 +76,7 @@
       <h4>بودجه</h4>
       <ng-container *ngFor="let item of budgetLst; index as i">
         <div *ngIf="i !== budgetLst.length - 1 && i !== budgetLst.length - 2" class="row sub-co"
-          [class.selected-sub-co]="item.id === selectedBudgetId" (click)="onSelectBudget(item.id)">
+          [class.selected-sub-co]="item.id === selectedBudgetId" (click)="onSelectBudget(item)">
           <i class="{{ item.icon }}"></i>
           <span>{{ item.title }}</span>
         </div>
@@ -84,7 +84,7 @@
       <div class="person-box">
         <ng-container *ngFor="let item of budgetLst; index as i">
           <div *ngIf="i === budgetLst.length - 1 || i === budgetLst.length - 2" class="item"
-            (click)="onSelectBudget(item.id)">
+            (click)="onSelectBudget(item)">
             <div class="row sub-co">
               <i class="{{ item.icon }}"></i>
               <span>{{ item.title }}</span>
@@ -119,6 +119,11 @@
   </ng-template>
   <ng-template [ngSwitchCase]="'Risk'">
     <PABudget-risk [inputData]="planDetailData"></PABudget-risk>
+  </ng-template>
+</div>
+<div [ngSwitch]="switchBudget">
+  <ng-template [ngSwitchCase]="'BalanceSheet'">
+    <PABudget-balance-sheet [inputData]="planInputData"></PABudget-balance-sheet>
   </ng-template>
 </div>
 
