@@ -1,0 +1,122 @@
+<p-toast key="BudgetSourceUse" position="bottom-left"></p-toast>
+<div class="table-header">لیست منابع و مصارف</div>
+<div class="justify-content-between pb-3 w-100" style="text-align: end">
+  <p-button
+    class="pe-2"
+    styleClass="p-button-info"
+    icon="pi pi-plus-circle"
+    label="افزودن منابع و مصارف جدید"
+    (click)="addBudgetSourceUse()"></p-button>
+</div>
+<div class="table-container">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getBudgetSourceUse($event)"
+    [(first)]="first">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <td>
+          <strong>دوره بودجه</strong>
+        </td>
+        <td>
+          <strong>دوره عملیاتی</strong>
+        </td>
+        <td>
+          <strong>شرکت</strong>
+        </td>
+        <td>
+          <strong>شناسه منابع و مصارف</strong>
+        </td>
+        <td>
+          <strong>مبلغ پیش بینی</strong>
+        </td>
+        <td>
+          <strong>مبلغ محقق شده</strong>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-budgetSourceUse let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ budgetSourceUse.periodTitle }}</td>
+        <td>{{ budgetSourceUse.periodDetailTitle }}</td>
+        <td>{{ budgetSourceUse.companyName }}</td>
+        <td>{{ budgetSourceUse.sourceUseTypeTitle }}</td>
+        <td>{{ budgetSourceUse.budgetPriceCu }}</td>
+        <td>{{ budgetSourceUse.realPriceCu }}</td>
+
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(budgetSourceUse)"
+            pTooltip="ویرایش منابع و مصارف">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
+
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(budgetSourceUse)"
+            pTooltip="حذف منابع و مصارف">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="data-list d-block d-lg-none">
+  <ul *ngFor="let budgetSourceUse of data" class="list-group my-1">
+
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عملیات</strong>
+        </div>
+
+        <div class="col my-1 text-center">
+          <div class="d-flex jc-center ai-center">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(budgetSourceUse)"
+              title="ویرایش منابع و مصارف">
+              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+            </button>
+
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(budgetSourceUse)"
+              title="حذف منابع و مصارف">
+              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<p-dialog
+  *ngIf="isOpenAddEditBudgetSourceUse"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditBudgetSourceUse"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '800px', height: '500px' }">
+  <PABudget-add-edit-budget-source-use
+    [data]="addEditData"
+    (isSuccess)="reloadData()"></PABudget-add-edit-budget-source-use>
+</p-dialog>
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

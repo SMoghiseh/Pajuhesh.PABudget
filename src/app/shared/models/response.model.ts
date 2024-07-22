@@ -1101,6 +1101,34 @@ export class ContractNo {
   milContractFromDate!: any;
 }
 
+export class BudgetSourceUse {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BudgetResourceUse/CreateOrUpdate';
+  static readonly apiAddressList = 'api/PABudgetApi/v1/BudgetResourceUse/List';
+  static readonly apiAddressDel = 'api/PABudgetApi/v1/BudgetResourceUse/Delete';
+  static readonly apiAdressResourceUse =
+    'api/PABudgetApi/v1/BaseInfo/ResourceUseType/list';
+  static readonly apiAddressDetail =
+    'api/PABudgetApi/v1/BudgetResourceUse/getById/';
+  id!: number;
+  type!: string;
+  budgetPeriodId!: number;
+  period!: null;
+  budgetPeriodDetailId!: number;
+  periodDetail!: any;
+  companyId!: number;
+  company!: any;
+  sourceUseTypeId!: number;
+  budgetResourceUse_Slave_SourceUseTypeId!: number;
+  budgetPriceCu!: any;
+  realPriceCu!: any;
+  stauseCode!: number;
+  addedDate!: any;
+  modifiedDate!: any;
+  ipAddress!: any;
+  sourceUseTypeTitle!: string;
+}
+
 export class CostCenterType {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/CostCenterType/';
@@ -1169,20 +1197,17 @@ export class Plan {
   /** آدرس سرویس */
   static readonly apiAddressVisionAndMission =
     'api/PABudgetApi/Dashboard/VisionAndMission/Info';
-  static readonly apiAddressValue =
-    'api/PABudgetApi/Dashboard/Value/Info';
+  static readonly apiAddressValue = 'api/PABudgetApi/Dashboard/Value/Info';
   static readonly apiAddressOrientation =
     'api/PABudgetApi/Dashboard/Orientation/Info';
-  static readonly apiAddressGoals =
-    'api/PABudgetApi/Dashboard/Goals/Info';
+  static readonly apiAddressGoals = 'api/PABudgetApi/Dashboard/Goals/Info';
   static readonly apiAddressStrategyMap =
     'api/PABudgetApi/Dashboard/StrategyMap/Info';
   static readonly apiAddressOperationalPlans =
     'api/PABudgetApi/Dashboard/OperationalPlans/Info';
   static readonly apiAddressInformations =
     'api/PABudgetApi/Dashboard/Informations/Info';
-  static readonly apiAddressRisk =
-    'api/PABudgetApi/Dashboard/Risk/Info';
+  static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
 }
 
 export class Reports {

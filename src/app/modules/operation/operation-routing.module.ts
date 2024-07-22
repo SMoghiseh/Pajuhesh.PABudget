@@ -5,6 +5,8 @@ import { authGuard } from '@core/guards/auth/auth.guard';
 import { PersonelNoComponent } from './personel-no/personel-no.component';
 import { SaleComponent } from './sale/sale.component';
 import { ContractComponent } from './contract/contract.component';
+import { BudgetSourceUseComponent } from './budget-source-use/budget-source-use.component';
+
 
 const routes: Routes = [
   {
@@ -34,6 +36,16 @@ const routes: Routes = [
             path: 'Contract',
             component: ContractComponent,
             title: 'برنامه و بودجه | تعریف عناوین',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'BudgetSourceUse',
+            component: BudgetSourceUseComponent,
+            title: 'برنامه و بودجه |  منابع و مصارف',
             data: {
               reuse: true,
               title: 'تعریف عناوین',

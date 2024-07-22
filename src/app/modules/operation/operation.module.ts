@@ -34,6 +34,8 @@ import { SaleComponent } from './sale/sale.component';
 import { AddEditSaleComponent } from './sale/add-edit-sale/add-edit-sale.component';
 import { ContractComponent } from './contract/contract.component';
 import { AddEditContractNoComponent } from './contract/add-edit-contract-no/add-edit-contract-no.component';
+import { BudgetSourceUseComponent } from './budget-source-use/budget-source-use.component';
+import { AddEditBudgetSourceUseComponent } from './budget-source-use/add-edit-budget-source-use/add-edit-budget-source-use.component';
 
 
 @NgModule({
@@ -43,7 +45,10 @@ import { AddEditContractNoComponent } from './contract/add-edit-contract-no/add-
     AddEditPersonelNoComponent,
     ContractComponent,
     AddEditContractNoComponent,
-    SaleComponent, AddEditSaleComponent
+    SaleComponent,
+    AddEditSaleComponent,
+    BudgetSourceUseComponent,
+    AddEditBudgetSourceUseComponent,
   ],
   imports: [
     CommonModule,
@@ -79,4 +84,4 @@ import { AddEditContractNoComponent } from './contract/add-edit-contract-no/add-
     },
   ],
 })
-export class OperationModule { }
+export class OperationModule {}

@@ -111,7 +111,11 @@
   </ul>
 </div>
 
-<p-dialog *ngIf="isOpenAddEditSale" [header]="modalTitle" [(visible)]="isOpenAddEditSale" [modal]="true"
+<p-dialog
+  *ngIf="isOpenAddEditSale"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditSale"
+  [modal]="true"
   [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '400px' }">
   <app-add-edit-sale [data1]="addEditData" [mode]="mode"  (isSuccess)="reloadData()"></app-add-edit-sale>
 </p-dialog>

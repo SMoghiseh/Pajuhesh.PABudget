@@ -6,22 +6,40 @@
   <div class="card-text pt-3"></div>
   <!-- جستجو -->
   <div class="pb-2">
-    <p-panel class="search-panel__secation pb-1" [header]="isFailed ? 'اسناد برگشتی' : 'اسناد من'" iconPos="start"
-      [toggleable]="true" [collapsed]="true">
-      <form #formDir="ngForm" [formGroup]="searchReportForm" (ngSubmit)="getReportList()">
+    <p-panel
+      class="search-panel__secation pb-1"
+      [header]="isFailed ? 'اسناد برگشتی' : 'اسناد من'"
+      iconPos="start"
+      [toggleable]="true"
+      [collapsed]="true">
+      <form
+        #formDir="ngForm"
+        [formGroup]="searchReportForm"
+        (ngSubmit)="getReportList()">
         <div class="form-group container">
           <div class="row row-cols-lg-4 row-cols-1">
             <!-- نام شرکت -->
             <div class="col my-1">
               <label for="company">نام شرکت</label>
-              <input pInputText id="company" name="company" formControlName="company" type="text" class="w-100" />
+              <input
+                pInputText
+                id="company"
+                name="company"
+                formControlName="company"
+                type="text"
+                class="w-100" />
             </div>
             <!-- / نام شرکت -->
 
             <!-- عنوان اسناد -->
             <div class="col my-1">
               <label for="description">عنوان اسناد</label>
-              <input pInputText id="description" name="description" formControlName="description" type="text"
+              <input
+                pInputText
+                id="description"
+                name="description"
+                formControlName="description"
+                type="text"
                 class="w-100" />
             </div>
             <!-- / عنوان اسناد -->
@@ -29,7 +47,13 @@
             <!-- کد -->
             <div class="col my-1">
               <label for="code">کد</label>
-              <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100"
+              <input
+                pInputText
+                id="code"
+                name="code"
+                formControlName="code"
+                type="text"
+                class="w-100"
                 [value]="code?.value | faNum" />
             </div>
             <!-- / کد -->
@@ -37,7 +61,11 @@
             <!-- زمان ارسال -->
             <div class="col my-1">
               <label for="sendDate">زمان ارسال</label>
-              <p-persian-calendar id="sendDate" name="sendDate" formControlName="sendDate" styleClass="w-100 ">
+              <p-persian-calendar
+                id="sendDate"
+                name="sendDate"
+                formControlName="sendDate"
+                styleClass="w-100 ">
               </p-persian-calendar>
             </div>
             <!-- / زمان ارسال -->
@@ -53,7 +81,12 @@
 
             <!-- دکمه -->
             <div class="d-flex justify-content-end my-1 w-100">
-              <p-button class="pe-2" styleClass="p-button-info w-100" label="جستجو" icon="pi pi-search" type="submit">
+              <p-button
+                class="pe-2"
+                styleClass="p-button-info w-100"
+                label="جستجو"
+                icon="pi pi-search"
+                type="submit">
               </p-button>
             </div>
             <!-- / دکمه -->
@@ -64,6 +97,9 @@
   </div>
   <!-- / جستجو -->
 
-  <app-document-tbls [apiUrl]="apiUrl" [accessToActions]="accessToActions" [data]="_searchData"></app-document-tbls>
+  <app-document-tbls
+    [apiUrl]="apiUrl"
+    [accessToActions]="accessToActions"
+    [data]="_searchData"></app-document-tbls>
 </section>
 <!-- / main content -->

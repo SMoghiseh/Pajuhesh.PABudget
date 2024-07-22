@@ -10,10 +10,9 @@ import { map, tap } from 'rxjs';
   selector: 'PABudget-product-group',
   templateUrl: './product-group.component.html',
   styleUrls: ['./product-group.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class ProductGroupComponent {
-
   productGroups: ProductGroup[] = [];
   selectedProductGroups: any;
   isOpenAddProductGroup: boolean = false;
@@ -21,7 +20,11 @@ export class ProductGroupComponent {
   addNewProductGroupLoading = false;
   addNewProductGroupSubmitted = false;
   modalTitle = '';
-  mode!: 'insertGroupPro' | 'insertSubGroupPro' | 'editGroupPro' | 'editSubGroupPro';
+  mode!:
+    | 'insertGroupPro'
+    | 'insertSubGroupPro'
+    | 'editGroupPro'
+    | 'editSubGroupPro';
 
   get productGroupTitle() {
     return this.addNewProductGroupForm.get('productGroupTitle');
@@ -35,31 +38,23 @@ export class ProductGroupComponent {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.addNewProductGroupForm = new FormGroup({
-      productGroupTitle: new FormControl(
-        '',
-        Validators.required
-      ),
-      productGroupCode: new FormControl(
-        0,
-        Validators.required
-      ),
+      productGroupTitle: new FormControl('', Validators.required),
+      productGroupCode: new FormControl(0, Validators.required),
     });
 
     this.getProductGroupList();
   }
-
 
   /*--------------------------
   # GET
   --------------------------*/
   getProductGroupList() {
     this.httpService
-      .get<ProductGroup[]>(ProductGroup.getTreeViewApiAddress,
-      )
+      .get<ProductGroup[]>(ProductGroup.getTreeViewApiAddress)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -70,17 +65,17 @@ export class ProductGroupComponent {
         })
       )
       .subscribe(productGroups => {
-        (this.productGroups = productGroups)
+        this.productGroups = productGroups;
       });
   }
 
   onNodeSelect(e: any) {
-    console.log('node select')
+    console.log('node select');
   }
 
   onAddNewProductGroup(): void {
     this.addNewProductGroupForm.reset();
-    this.addNewProductGroupSubmitted = false ;
+    this.addNewProductGroupSubmitted = false;
     this.isOpenAddProductGroup = true;
     this.modalTitle = 'تعریف گروه محصول';
     this.mode = 'insertGroupPro';
@@ -89,15 +84,14 @@ export class ProductGroupComponent {
   onAddSubGroup() {
     setTimeout(() => {
       this.addNewProductGroupForm.reset();
-      this.addNewProductGroupSubmitted = false ;
+      this.addNewProductGroupSubmitted = false;
       this.isOpenAddProductGroup = true;
       this.modalTitle = 'تعریف زیرگروه محصول';
       this.mode = 'insertSubGroupPro';
-    }, 100)
+    }, 100);
   }
 
   onSubmitNewProductGroup() {
-    debugger
     this.addNewProductGroupSubmitted = true;
     if (this.addNewProductGroupForm.invalid) return;
     let url = '';
@@ -107,18 +101,14 @@ export class ProductGroupComponent {
       url = ProductGroup.editApiAddress;
       request.parentId = this.selectedProductGroups.parentId;
       request.id = this.selectedProductGroups.id;
-    }
-    else if (this.mode == 'editSubGroupPro') {
+    } else if (this.mode == 'editSubGroupPro') {
       url = ProductGroup.editApiAddress;
       request.parentId = this.selectedProductGroups.parentId;
       request.id = this.selectedProductGroups.id;
-    }
-
-    else if (this.mode == 'insertSubGroupPro') {
+    } else if (this.mode == 'insertSubGroupPro') {
       url = ProductGroup.createApiAddress;
       request.parentId = this.selectedProductGroups.id;
-    }
-    else if (this.mode == 'insertGroupPro') {
+    } else if (this.mode == 'insertGroupPro') {
       url = ProductGroup.createApiAddress;
       request.parentId = null;
     }
@@ -144,21 +134,17 @@ export class ProductGroupComponent {
   }
 
   onEditRow() {
-    debugger
     setTimeout(() => {
-      debugger
       this.addNewProductGroupForm.reset();
       this.isOpenAddProductGroup = true;
       this.modalTitle = 'ویرایش گروه محصول';
-      if (!this.selectedProductGroups.parentId)
-        this.mode = 'editGroupPro';
-      else
-        this.mode = 'editSubGroupPro';
+      if (!this.selectedProductGroups.parentId) this.mode = 'editGroupPro';
+      else this.mode = 'editSubGroupPro';
       this.addNewProductGroupForm.patchValue({
         productGroupTitle: this.selectedProductGroups.productGroupTitle,
-        productGroupCode: this.selectedProductGroups.productGroupCode
-      })
-    }, 100)
+        productGroupCode: this.selectedProductGroups.productGroupCode,
+      });
+    }, 100);
   }
 
   onDeleteRow() {
@@ -173,16 +159,18 @@ export class ProductGroupComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteGroupProduct(this.selectedProductGroups.id, this.selectedProductGroups.productGroupTitle),
+        accept: () =>
+          this.deleteGroupProduct(
+            this.selectedProductGroups.id,
+            this.selectedProductGroups.productGroupTitle
+          ),
       });
-    }, 100)
+    }, 100);
   }
 
   deleteGroupProduct(id: number, productGroupTitle: string) {
     this.httpService
-      .delete<ProductGroup>(
-        ProductGroup.deleteApiAddress + `/${id}`
-      )
+      .delete<ProductGroup>(ProductGroup.deleteApiAddress + `/${id}`)
       .subscribe(response => {
         if (response.successed) {
           this.messageService.add({
@@ -196,5 +184,4 @@ export class ProductGroupComponent {
         }
       });
   }
-
 }

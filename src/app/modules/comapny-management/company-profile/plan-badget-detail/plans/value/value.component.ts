@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-value',
   templateUrl: './value.component.html',
-  styleUrls: ['./value.component.scss']
+  styleUrls: ['./value.component.scss'],
 })
 export class ValueComponent {
   @Input() inputData: any;
@@ -17,7 +17,7 @@ export class ValueComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getPlanDetail(yearId: number) {debugger
+  getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
       staticYearId: yearId,

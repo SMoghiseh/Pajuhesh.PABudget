@@ -1,68 +1,71 @@
 import { Component } from '@angular/core';
-import {
-  Pagination,
-  PersonelNo,
-  UrlBuilder,
-} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
-import { map, tap } from 'rxjs';
+import { BudgetSourceUse, Pagination } from '@shared/models/response.model';
 import {
   ConfirmationService,
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-personel-no',
-  templateUrl: './personel-no.component.html',
-  styleUrls: ['./personel-no.component.scss'],
+  selector: 'PABudget-budget-source-use',
+  templateUrl: './budget-source-use.component.html',
+  styleUrls: ['./budget-source-use.component.scss'],
   providers: [ConfirmationService],
 })
-export class PersonelNoComponent {
+export class BudgetSourceUseComponent {
+  modalTitle = '';
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: PersonelNo[] = [];
-  loading = false;
+  isOpenAddEditBudgetSourceUse = false;
   lazyLoadEvent?: LazyLoadEvent;
+  data: BudgetSourceUse[] = [];
   first = 0;
-  modalTitle = '';
-  isOpenAddEditPersonelNo = false;
-  addEditData = new PersonelNo();
-  pId!: string;
-
+  loading = false;
+  budget!: number;
+  budgetDetail!: number;
+  company!: number;
+  title!: string;
+  editDataDetails: BudgetSourceUse[] = [];
+  addEditData = new BudgetSourceUse();
   constructor(
     private httpService: HttpService,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute,
-    private router: Router
+    private confirmationService: ConfirmationService
   ) {}
 
-  getPersonelNo(event?: LazyLoadEvent) {
-    if (event) this.lazyLoadEvent = event;
+  addBudgetSourceUse() {
+    this.modalTitle = 'افزودن منابع و مصارف جدید';
+    this.isOpenAddEditBudgetSourceUse = true;
+    this.addEditData.type = 'insert';
+  }
 
+  reloadData() {
+    this.isOpenAddEditBudgetSourceUse = false;
+    this.getBudgetSourceUse();
+  }
+
+  getBudgetSourceUse(event?: LazyLoadEvent) {
+    if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
 
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
-
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      periodId: parseInt(this.pId),
     };
 
     this.loading = true;
-
     this.first = 0;
-    const url = PersonelNo.apiAddress + 'ListByFilter';
+    const url = BudgetSourceUse.apiAddressList;
     this.httpService
-      .post<PersonelNo[]>(url, body)
+      .post<BudgetSourceUse[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -71,30 +74,23 @@ export class PersonelNoComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new PersonelNo()];
+          } else return [new BudgetSourceUse()];
         })
       )
       .subscribe(res => (this.data = res));
   }
-
-  addPersonelNo() {
-    this.modalTitle = 'افزودن بودجه پرسنل جدید';
-    this.addEditData.type = 'insert';
-    this.isOpenAddEditPersonelNo = true;
-  }
-
-  editRow(data: PersonelNo) {
-    this.modalTitle = 'ویرایش بودجه پرسنل ' + data.periodTitle;
+  editRow(data: BudgetSourceUse) {
+    this.modalTitle = 'ویرایش منابع و مصارف ';
     this.addEditData = data;
     this.addEditData.type = 'edit';
-    this.isOpenAddEditPersonelNo = true;
+    this.isOpenAddEditBudgetSourceUse = true;
+    // this.getResourceUseDetailLst(data.id);
   }
-
-  deleteRow(period: PersonelNo) {
-    if (period && period.id)
+  deleteRow(budgetSourceUse: BudgetSourceUse) {
+    if (budgetSourceUse && budgetSourceUse.id)
       this.confirmationService.confirm({
-        message: 'آیا از حذف بودجه پرسنل اطمینان دارید؟',
-        header: `عنوان ${period.periodTitle}`,
+        message: 'آیا از حذف  منابع و مصارف اطمینان دارید؟',
+        header: `منابع و مصارف ${budgetSourceUse.sourceUseTypeTitle}`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -102,34 +98,27 @@ export class PersonelNoComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deletePersonelNo(period.id, period.periodTitle),
+        accept: () => this.deleteBudgetSourceUse(budgetSourceUse.id),
       });
   }
-
-  deletePersonelNo(id: number, title: string) {
-    if (id && title) {
+  deleteBudgetSourceUse(id: number) {
+    if (id) {
       this.httpService
-        .delete<PersonelNo>(
-          UrlBuilder.build(PersonelNo.apiAddress + 'DELETE', '') + `/${id}`
-        )
+        .get<BudgetSourceUse[]>(`${BudgetSourceUse.apiAddressDel}/${id}`, {})
+
         .subscribe(response => {
           if (response.successed) {
-            this.first = 0;
             this.messageService.add({
-              key: 'personelNo',
+              key: 'BudgetSourceUse',
               life: 8000,
               severity: 'success',
-              detail: `بودجه پرسنل ${title}`,
+              detail: `کد منابع و مصارف ${id}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getPersonelNo();
+
+            this.getBudgetSourceUse();
           }
         });
     }
-  }
-
-  reloadData() {
-    this.isOpenAddEditPersonelNo = false;
-    this.getPersonelNo();
   }
 }

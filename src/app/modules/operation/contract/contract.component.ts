@@ -100,7 +100,7 @@ export class ContractComponent {
   deleteContractNo(id: number) {
     if (id) {
       this.httpService
-        .post<Contract[]>(`${Contract.apiAddressDel}/${id}`, {})
+        .post<ContractNo[]>(`${Contract.apiAddressDel}/${id}`, {})
 
         .subscribe(response => {
           if (response.successed) {

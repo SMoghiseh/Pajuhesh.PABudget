@@ -106,7 +106,7 @@ export class CompanyProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.coId = params['id'];
       this.getProfileCoInfo(this.coId);
-      this.getCostAndBenefitForProfile(this.coId);debugger
+      this.getCostAndBenefitForProfile(this.coId);
       this.planInputData = {
         companyId: this.coId,
       };

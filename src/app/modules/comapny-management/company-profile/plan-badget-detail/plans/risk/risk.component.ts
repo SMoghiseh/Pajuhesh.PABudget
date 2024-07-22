@@ -6,10 +6,9 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-risk',
   templateUrl: './risk.component.html',
-  styleUrls: ['./risk.component.scss']
+  styleUrls: ['./risk.component.scss'],
 })
 export class RiskComponent {
-
   @Input() inputData: any;
 
   planDetailData: any;
@@ -18,7 +17,7 @@ export class RiskComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getPlanDetail(yearId: number) {debugger
+  getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
       staticYearId: yearId,
