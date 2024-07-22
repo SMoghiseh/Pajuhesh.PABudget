@@ -50,6 +50,8 @@ import { OrientationComponent } from './company-profile/plan-badget-detail/plans
 import { StrategyMapComponent } from './company-profile/plan-badget-detail/plans/strategy-map/strategy-map.component';
 import { InformationsComponent } from './company-profile/plan-badget-detail/plans/informations/informations.component';
 import { RiskComponent } from './company-profile/plan-badget-detail/plans/risk/risk.component';
+import { BalanceSheetComponent } from './company-profile/plan-badget-detail/budget/balance-sheet/balance-sheet.component';
+import { CostAndBenefitComponent } from './company-profile/plan-badget-detail/budget/cost-and-benefit/cost-and-benefit.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { RiskComponent } from './company-profile/plan-badget-detail/plans/risk/r
     OperationalPlansComponent,
     InformationsComponent,
     RiskComponent,
+    BalanceSheetComponent,
+    CostAndBenefitComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,

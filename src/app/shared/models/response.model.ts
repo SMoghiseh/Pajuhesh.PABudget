@@ -1191,6 +1191,11 @@ export class Plan {
     'api/PABudgetApi/Dashboard/Risk/Info';
 }
 
+export class Budget {
+  static readonly apiAddressBalanceSheet =
+  'api/PABudgetApi/Dashboard/BalanceSheet/Info';
+}
+
 export class Reports {
   static readonly apiAddressBoardmembers =
     'api/PABudgetApi/v1/CSPF/GetBoardmembers';
