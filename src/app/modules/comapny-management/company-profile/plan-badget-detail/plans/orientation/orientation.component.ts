@@ -20,7 +20,7 @@ export class OrientationComponent {
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      staticYearId: yearId,
+      periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressOrientation, ''), body)

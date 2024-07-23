@@ -17,10 +17,10 @@ export class RiskComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getPlanDetail(yearId: number) {debugger
+  getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      staticYearId: yearId,
+      periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressRisk, ''), body)
