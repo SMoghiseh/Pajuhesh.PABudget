@@ -17,7 +17,7 @@ export class RiskComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getPlanDetail(yearId: number) {
+  getPlanDetail(yearId: number) {debugger
     const body = {
       companyId: this.inputData.companyId,
       staticYearId: yearId,

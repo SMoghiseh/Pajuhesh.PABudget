@@ -1219,6 +1219,8 @@ export class Plan {
 export class Budget {
   static readonly apiAddressBalanceSheet =
   'api/PABudgetApi/Dashboard/BalanceSheet/Info';
+  static readonly apiAddressCostAndBenefit =
+  'api/PABudgetApi/Dashboard/CostAndBenefit/Info';
 }
 
 export class Reports {

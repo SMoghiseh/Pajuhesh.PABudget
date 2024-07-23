@@ -1,1 +1,31 @@
-<p>cost-and-benefit works!</p>
+<div class="row bottom-section">
+    <div class="co-info-box">
+        <h3>{{ selectedPlanName }}</h3>
+        <div class="row row-feature">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+                <div class="row">
+                    <app-select-date [selectType]="selectDateType"
+                        (selectedVal)="returnSelectedDate($event)"></app-select-date>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+                <div class="items select-feature">
+                    <span>شرح</span>
+                </div>
+                <div  class="row">
+                    <table class="c-tbl">
+                        <tr class="c-tr" *ngFor="let item1 of planDetailData?.planType">
+                            <td class="c-td head">{{ item1.planTypeName }}</td>
+                            <td class="c-td" *ngFor="let item2 of item1?.planTypeDetails"
+                                [ngStyle]="{ 'background-color': item2.color }">
+                                <div [innerHTML]="item2.desc | safeHtml"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
