@@ -11,11 +11,11 @@ import { map } from 'rxjs';
 export class OrientationComponent {
   @Input() inputData: any;
 
-  planDetailData: any;
+  dataList: any;
   selectDateType = 'single';
   selectedPlanName = '  جهت گیری';
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   getPlanDetail(yearId: number) {
     const body = {
@@ -27,12 +27,12 @@ export class OrientationComponent {
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )
       .subscribe(res => {
-        this.planDetailData = res;
+        this.dataList = res;debugger
       });
   }
 
