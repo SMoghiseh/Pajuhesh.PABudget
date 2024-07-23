@@ -27,7 +27,7 @@ export class VisionAndMissionComponent {
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )
