@@ -31,7 +31,7 @@ export class SelectDateComponent {
   getStaticYear() {
     this.selectTypeOld = this._selectType;
     this.httpService
-      .get<StaticYear[]>(UrlBuilder.build(StaticYear.apiAddress + 'List', ''))
+      .get<StaticYear[]>(StaticYear.apiAddress)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {

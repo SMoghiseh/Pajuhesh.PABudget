@@ -12,19 +12,31 @@
                 <div class="items select-feature">
                     <span>شرح</span>
                 </div>
-                <div  class="row">
-                    <table class="c-tbl">
-                        <tr class="c-tr" *ngFor="let item1 of planDetailData?.planType">
-                            <td class="c-td head">{{ item1.planTypeName }}</td>
-                            <td class="c-td" *ngFor="let item2 of item1?.planTypeDetails"
-                                [ngStyle]="{ 'background-color': item2.color }">
-                                <div [innerHTML]="item2.desc | safeHtml"></div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
             </div>
-
+            <div class="table-container">
+                <p-table [columns]="planDetailData.headers" [value]="planDetailData.budgetDetails" [(selection)]="selectedRows">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns">
+                          {{ col.headerName }}
+                        </th>
+                        <th></th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                      <tr>
+                        <td>
+                          <p-tableCheckbox [value]="rowData.code" />
+                        </td>
+                        <td *ngFor="let col of columns">
+                          {{ rowData[col.field] }}
+                        </td>
+                        <td></td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+            </div>
+           
         </div>
 
     </div>

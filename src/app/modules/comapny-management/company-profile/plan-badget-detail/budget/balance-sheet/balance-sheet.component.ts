@@ -14,20 +14,21 @@ export class BalanceSheetComponent {
   planDetailData: any;
   selectDateType = 'single';
   selectedPlanName = 'ترازنامه';
+  selectedRows:any = []
 
   constructor(private httpService: HttpService) {}
 
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      staticYearId: yearId,
+      periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Budget.apiAddressBalanceSheet, ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )

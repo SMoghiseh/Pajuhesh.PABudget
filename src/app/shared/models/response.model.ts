@@ -1047,9 +1047,10 @@ export class Period {
 
 export class StaticYear {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/StaticYear/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Period/LastFiveYear';
   id!: number;
-  year!: string;
+  periodTitle!: string;
+  periodCode!: string;
   isSelected!: boolean;
 }
 
@@ -1218,9 +1219,9 @@ export class Plan {
 
 export class Budget {
   static readonly apiAddressBalanceSheet =
-  'api/PABudgetApi/Dashboard/BalanceSheet/Info';
+    'api/PABudgetApi/Dashboard/BalanceSheet/Info';
   static readonly apiAddressCostAndBenefit =
-  'api/PABudgetApi/Dashboard/CostAndBenefit/Info';
+    'api/PABudgetApi/Dashboard/CostAndBenefit';
 }
 
 export class Reports {

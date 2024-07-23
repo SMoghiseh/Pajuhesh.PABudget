@@ -8,6 +8,7 @@
 .return {
     text-align: left;
     font-size: 13px;
+
     .pi-arrow-left {
         color: #3B82F6;
         position: relative;
@@ -56,13 +57,15 @@
     .div-more-btn {
         display: block;
     }
-    .person-box{
+
+    .person-box {
         margin: 0 12px;
         border-radius: 15px;
         background: rgba(60, 81, 148, 0.14);
         box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25);
         padding-bottom: 10px;
-        .item{
+
+        .item {
             padding: 10px 0 0px 0;
         }
     }
@@ -78,7 +81,7 @@
     background-color: #F1F5F9;
     margin: 0 12px;
     font-size: 13px;
-    padding: 5px 0px ;
+    padding: 5px 0px;
     border-radius: 7px;
     color: black;
     cursor: pointer;
@@ -97,7 +100,7 @@
         width: auto;
     }
 
-    i{
+    i {
         width: auto;
         font-size: 18px;
         color: #323232;
@@ -111,7 +114,8 @@
     color: #1E40AF;
     font-weight: 500;
     transition: 0.2s;
-    span{
+
+    span {
         font-size: 1.1rem;
     }
 }
@@ -173,7 +177,7 @@
             margin-right: 13px;
         }
 
-        .desc{
+        .desc {
             font-size: 14px;
             padding: 10px;
         }
@@ -295,25 +299,29 @@
     color: #64748B !important;
 }
 
-.disable-btns{
+.disable-btns {
     opacity: 40%;
 }
 
-.enable-btns{
+.enable-btns {
     opacity: 100%;
 }
 
-.c-tbl, .c-th, .c-td {
+.c-tbl,
+.c-th,
+.c-td {
     border: 1px solid black;
     border-collapse: collapse;
 }
-.c-tr{
-    .c-td{
+
+.c-tr {
+    .c-td {
         padding: 10px;
         text-align: center;
         font-size: 13px;
     }
-    .head{
+
+    .head {
         font-weight: bold;
         font-size: 15px;
     }
@@ -336,7 +344,7 @@
             margin-right: 13px;
         }
 
-        .desc{
+        .desc {
             font-size: 14px;
             padding: 10px;
         }
@@ -362,6 +370,8 @@
         border-radius: 7px;
         cursor: pointer;
         margin-left: 10px;
+        height: min-content;
+        margin-bottom: 10px;
 
         span {
             margin: 13px;
@@ -428,13 +438,15 @@
     .div-more-btn {
         display: block;
     }
-    .person-box{
+
+    .person-box {
         margin: 0 12px;
         border-radius: 15px;
         background: rgba(60, 81, 148, 0.14);
         box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25);
         padding-bottom: 10px;
-        .item{
+
+        .item {
             padding: 10px 0 0px 0;
         }
     }

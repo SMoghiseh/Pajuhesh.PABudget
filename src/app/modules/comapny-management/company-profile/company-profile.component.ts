@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
+  AccountReport,
   Company,
   Dashboard,
   GridBalanceSheet,
@@ -108,7 +109,7 @@ export class CompanyProfileComponent implements OnInit {
       this.getProfileCoInfo(this.coId);
       this.getCostAndBenefitForProfile(this.coId);
       this.planInputData = {
-        companyId: this.coId,
+        companyId: Number(this.coId),
       };
     });
   }
@@ -188,7 +189,7 @@ export class CompanyProfileComponent implements OnInit {
 
   // getStaticYear() {
   //   this.httpService
-  //     .get<StaticYear[]>(UrlBuilder.build(StaticYear.apiAddress + 'List', ''))
+  //     .get<StaticYear[]>(StaticYear.apiAddress)
   //     .pipe(
   //       map(response => {
   //         if (response.data && response.data.result) {
@@ -257,7 +258,9 @@ export class CompanyProfileComponent implements OnInit {
 
   getBudget() {
     this.httpService
-      .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetBudget, ''))
+      .post<Profile[]>(UrlBuilder.build(AccountReport.apiAddress + 'GetAllAccountReport', '') , {
+        withOutPagination: true
+      })
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -271,6 +274,7 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   onSelectPlan(data: any) {
+    this.switchBudget = '';
     this.switchPlan = data.enTitle;
     this.selectedPlanId = data.id;
     this.selectedBudgetId = -1;
@@ -282,27 +286,12 @@ export class CompanyProfileComponent implements OnInit {
       if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
       else yearId = this.selectedYears[0];
     }
-    const body = {
-      companyId: this.coId,
-      staticYearId: yearId,
-      planId: data.id,
-    };
-    this.httpService
-      .post<any>(UrlBuilder.build(Profile.apiAddressGetPlanDetail, ''), body)
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [];
-        })
-      )
-      .subscribe(res => {
-        this.planDetailData = res;
-      });
+
   }
 
-  onSelectBudget(data:any) {debugger
-    this.switchBudget = data.enTitle;
+  onSelectBudget(data:any) {
+    this.switchPlan = '';
+    this.switchBudget = data.componentName;
     this.selectedBudgetId = data.id;
     this.selectedPlanId = -1;
     this.isSelectBudget = true;
@@ -314,23 +303,7 @@ export class CompanyProfileComponent implements OnInit {
       else yearId = this.selectedYears[0];
     }
 
-    const body = {
-      companyId: this.coId,
-      staticYearId: yearId,
-      budgetId: data.id,
-    };
-    this.httpService
-      .post<any>(UrlBuilder.build(Profile.apiAddressGetBudgetDetail, ''), body)
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [];
-        })
-      )
-      .subscribe(res => {
-        this.planDetailData = res;
-      });
+
   }
 
   selectTable() {
