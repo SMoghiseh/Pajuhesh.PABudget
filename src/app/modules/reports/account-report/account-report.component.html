@@ -29,6 +29,10 @@
         <td style="min-width: 15rem">{{ report.periodTypeTitle }}</td>
 
         <td class="jc-left ai-left">
+          <button class="action-image-container edit-button" (click)="addAccountReportToItem(report)" pTooltip="افزودن آیتم های گزارش مالی">
+            <img ngSrc="icons\Group 131.svg" width="24" height="24" />
+          </button>
+
           <button class="action-image-container edit-button" (click)="editRow(report)" pTooltip="ویرایش">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
           </button>
@@ -40,33 +44,6 @@
       </tr>
     </ng-template>
   </p-table>
-</div>
-
-<div class="data-list d-block d-lg-none">
-  <ul *ngFor="let report of data" class="list-group my-1">
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col my-1 text-center">
-          <strong>عنوان</strong>
-        </div>
-        <div class="col my-1 text-center">
-          <strong>عملیات</strong>
-        </div>
-
-        <div class="col my-1 text-center">
-          <div class="d-flex jc-center ai-center">
-            <button class="action-image-container edit-button" (click)="editRow(report)" title="ویرایش">
-              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
-            </button>
-
-            <button class="action-image-container delete-button" (click)="deleteRow(report)" title="حذف بودجه ">
-              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
 </div>
 
 <p-dialog *ngIf="isOpenAddEditReport" [header]="modalTitle" [(visible)]="isOpenAddEditReport" [modal]="true"

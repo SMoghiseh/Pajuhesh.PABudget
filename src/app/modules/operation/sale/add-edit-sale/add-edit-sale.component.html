@@ -59,6 +59,11 @@
         formControlName="contractId"
         type="text"
         class="w-100" 
+        [class.ng-invalid]="contractId?.invalid"
+        [class.ng-dirty]="
+          (setValidationconditionally && contractId?.pristine) ||
+          contractId?.dirty ||
+          contractId?.touched"
        ></p-inputNumber>
     </div>
     <div class="col-4 mt-2">
@@ -78,7 +83,9 @@
           (addEditSaleSubmitted && saleType?.pristine) ||
           saleType?.dirty ||
           saleType?.touched
-        ">
+        "
+        (onChange)="onChangeSaleType()"
+        >
       </p-dropdown>
     </div>
 
@@ -154,7 +161,13 @@
         name="benefitLossCu"
         formControlName="benefitLossCu"
         type="text"
-        class="w-100" ></p-inputNumber>
+        class="w-100"
+        [class.ng-invalid]="benefitLossCu?.invalid"
+        [class.ng-dirty]="
+          (setValidationconditionally && benefitLossCu?.pristine) ||
+          benefitLossCu?.dirty ||
+          benefitLossCu?.touched
+        " ></p-inputNumber>
     </div>
     <div class="col-4 mt-2">
       <label for="costingAllCu">بهای تمام شده</label>
@@ -164,7 +177,12 @@
         name="costingAllCu"
         formControlName="costingAllCu"
         type="text"
-        class="w-100" ></p-inputNumber>
+        class="w-100" 
+        [class.ng-invalid]="costingAllCu?.invalid"
+        [class.ng-dirty]="
+          (setValidationconditionally && costingAllCu?.pristine) ||
+          costingAllCu?.dirty ||
+          costingAllCu?.touched"></p-inputNumber>
     </div>
     <div class="col-4 mt-2">
       <label for="costingUnitCu"> مبلغ قرارداد </label>
@@ -175,7 +193,13 @@
         formControlName="costingUnitCu"
         type="text"
         class="w-100" 
-        value="costingUnitCu"></p-inputNumber>
+        value="costingUnitCu"
+        [class.ng-invalid]="costingUnitCu?.invalid"
+        [class.ng-dirty]="
+          (setValidationconditionally && costingUnitCu?.pristine) ||
+          costingUnitCu?.dirty ||
+          costingUnitCu?.touched
+        "></p-inputNumber>
     </div>
 
     <div class="col-12 row-btn">

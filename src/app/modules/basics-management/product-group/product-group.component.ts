@@ -170,7 +170,9 @@ export class ProductGroupComponent {
 
   deleteGroupProduct(id: number, productGroupTitle: string) {
     this.httpService
-      .delete<ProductGroup>(ProductGroup.deleteApiAddress + `/${id}`)
+      .get<ProductGroup>(
+        ProductGroup.deleteApiAddress + `/${id}`
+      )
       .subscribe(response => {
         if (response.successed) {
           this.messageService.add({

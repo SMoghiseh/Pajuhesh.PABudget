@@ -1155,6 +1155,12 @@ export class EducationTypeCode {
   title!: string;
   isActive!: boolean;
 }
+
+export class ReportItemType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ReportItemType/';
+
+}
+
 export class Sale {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/PABudgetApi/v1/Sale/';
@@ -1210,6 +1216,11 @@ export class Plan {
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
 }
 
+export class Budget {
+  static readonly apiAddressBalanceSheet =
+  'api/PABudgetApi/Dashboard/BalanceSheet/Info';
+}
+
 export class Reports {
   static readonly apiAddressBoardmembers =
     'api/PABudgetApi/v1/CSPF/GetBoardmembers';
@@ -1244,9 +1255,20 @@ export class AccountReportItemPrice {
   toPeriodDetailTitle!: string;
 }
 
+export class AccountReportToItem {
+  static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportToItem/';
+  id!: number;
+  accountReptId!: number;
+  accountRepTitle!: string;
+  companyId!: number;
+  companyTitle!: string;
+  accountRepItemId!: number;
+  accountRepItemTitle!: string
+}
 export class AccountReportItem {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';
 }
+
 export class AccountReport {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
   id!: number;

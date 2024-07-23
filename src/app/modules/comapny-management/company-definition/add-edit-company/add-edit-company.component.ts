@@ -192,7 +192,7 @@ export class AddEditCompanyComponent implements OnInit {
     private jDateCalculatorService: JDateCalculatorService,
     private route: ActivatedRoute,
     private config: AppConfigService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getDropDownData();
@@ -235,7 +235,7 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.nationalID,
         Validators.required
       ),
-      symbol: new FormControl(this.addNewCompanyModel.symbol),
+      symbol: new FormControl(this.addNewCompanyModel.symbol, Validators.required),
       registerDate: new FormControl(
         this.addNewCompanyModel.registerDate,
         Validators.required
@@ -404,13 +404,13 @@ export class AddEditCompanyComponent implements OnInit {
       request.registerNumber = registerNumber;
       request.registerDate = registerDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              registerDate?.getFullYear(),
-              registerDate?.getMonth(),
-              registerDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            registerDate?.getFullYear(),
+            registerDate?.getMonth(),
+            registerDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
       request.periodTypeId = periodTypeId;
       request.companyTypeId = companyTypeId;
@@ -583,13 +583,13 @@ export class AddEditCompanyComponent implements OnInit {
     // convert date
     formValue['meetingDate'] = formValue['meetingDate']
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue['meetingDate']?.getFullYear(),
-            formValue['meetingDate']?.getMonth(),
-            formValue['meetingDate']?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue['meetingDate']?.getFullYear(),
+          formValue['meetingDate']?.getMonth(),
+          formValue['meetingDate']?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     this.sharedHoldersArrayList.push(formValue);
     this.sharedHoldersForm.reset();

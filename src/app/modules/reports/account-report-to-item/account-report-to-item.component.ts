@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination, AccountReportItemPrice, UrlBuilder, Period, Company } from '@shared/models/response.model';
+import { Pagination, AccountReportToItem, UrlBuilder, Company, AccountReport } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {
@@ -8,64 +8,62 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-account-report',
-  templateUrl: './account-report-item-price.component.html',
-  styleUrls: ['./account-report-item-price.component.scss'],
+  templateUrl: './account-report-to-item.component.html',
+  styleUrls: ['./account-report-to-item.component.scss'],
   providers: [ConfirmationService]
 })
 
-export class AccountReportItemPriceComponent implements OnInit {
+export class AccountReportToItemComponent implements OnInit {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: AccountReportItemPrice[] = [];
+  data: AccountReportToItem[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
   isOpenAddEditReport = false;
-  addEditData = new AccountReportItemPrice();
+  addEditData = new AccountReportToItem();
   pId!: string;
-  mode!: string;
 
   // form property
   searchForm!: FormGroup;
 
   // dropdown data list
   companyList: any = [];
-  periodList: any = [];
-  periodDetailLst: Period[] = [];
+  accountReportList: any = [];
+
+  isInFilteredMode = false;
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getPeriodLst();
+    this.getAccountReportLst();
     this.getCompanyLst();
 
     this.searchForm = new FormGroup({
       companyId: new FormControl(0),
-      periodId: new FormControl(0),
-      fromPeriodDetailId: new FormControl(0),
-      toPeriodDetailId: new FormControl(0),
+      accountReportId: new FormControl(0),
+    });
+
+    this.route.params.subscribe((param: any) => {
+      if (param.id) {
+        this.isInFilteredMode = true;
+        this.searchForm.value.accountReportId = param.id;
+      }
     });
 
   }
 
-  getPeriodLst() {
-    this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.periodList = response.data.result;
-        }
-      });
-  }
 
   getCompanyLst() {
     this.httpService
@@ -77,23 +75,17 @@ export class AccountReportItemPriceComponent implements OnInit {
       });
   }
 
-  onChangePeriod(e: any) {
-    this.getPeriodDetailLst(e.value);
-  }
-
-  getPeriodDetailLst(periodId: number) {
+  getAccountReportLst() {
     this.httpService
-      .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
+      .post<AccountReport[]>(AccountReport.apiAddress + 'GetAllAccountReport', { 'withOutPagination': true })
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.periodDetailLst = response.data.result;
+          this.accountReportList = response.data.result;
         }
       });
   }
 
-  search() {
 
-  }
 
   getReport(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -114,9 +106,9 @@ export class AccountReportItemPriceComponent implements OnInit {
     };
 
     this.first = 0;
-    const url = AccountReportItemPrice.apiAddress + 'GetAllAccountReposrtItemPrices';
+    const url = AccountReportToItem.apiAddress + 'GetAccountRepToItemList';
     this.httpService
-      .post<AccountReportItemPrice[]>(url, body)
+      .post<AccountReportToItem[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -125,7 +117,7 @@ export class AccountReportItemPriceComponent implements OnInit {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new AccountReportItemPrice()];
+          } else return [new AccountReportToItem()];
         })
       )
       .subscribe(res => (this.data = res));
@@ -133,22 +125,14 @@ export class AccountReportItemPriceComponent implements OnInit {
 
   addReport() {
     this.modalTitle = 'افزودن  گزارش جدید';
-    this.mode = 'insert';
     this.isOpenAddEditReport = true;
   }
 
-  editRow(data: AccountReportItemPrice) {
-    this.modalTitle = 'ویرایش ' + '"' + data.reportItemTitle + '"';
-    this.addEditData = data;
-    this.mode = 'edit';
-    this.isOpenAddEditReport = true;
-  }
-
-  deleteRow(item: AccountReportItemPrice) {
+  deleteRow(item: AccountReportToItem) {
     if (item && item.id)
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.reportItemTitle} " اطمینان دارید؟`,
-        header: `عنوان "${item.reportItemTitle}"`,
+        message: `آیا از حذف "${item.accountRepTitle} " اطمینان دارید؟`,
+        header: `عنوان "${item.accountRepTitle}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -156,15 +140,15 @@ export class AccountReportItemPriceComponent implements OnInit {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteReport(item.id, item.reportItemTitle),
+        accept: () => this.deleteReport(item.id, item.accountRepTitle),
       });
   }
 
   deleteReport(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<AccountReportItemPrice>(
-          UrlBuilder.build(AccountReportItemPrice.apiAddress + 'DeleteAccountReportItemPrice', '') + `/${id}`
+        .get<AccountReportToItem>(
+          UrlBuilder.build(AccountReportToItem.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {

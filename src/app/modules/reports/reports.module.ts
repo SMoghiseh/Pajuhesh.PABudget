@@ -16,6 +16,8 @@ import { AddEditAccountReportComponent } from './account-report/add-edit-account
 import { AccountReportComponent } from './account-report/account-report.component';
 import { AccountReportItemPriceComponent } from './account-report-item-price/account-report-item-price.component';
 import { AddEditAccountReportItemPriceComponent } from './account-report-item-price/add-edit-account-report/add-edit-account-report-item-price.component';
+import { AccountReportToItemComponent } from './account-report-to-item/account-report-to-item.component';
+import { AddEditAccountReportToItemComponent } from './account-report-to-item/add-edit-account-report-to-item/add-edit-account-report-to-item.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { AddEditAccountReportItemPriceComponent } from './account-report-item-pr
     AddEditAccountReportComponent,
     AccountReportItemPriceComponent,
     AddEditAccountReportItemPriceComponent,
+    AccountReportToItemComponent,
+    AddEditAccountReportToItemComponent
   ],
   imports: [
     CommonModule,
