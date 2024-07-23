@@ -1,215 +1,122 @@
-<!-- pop up messages -->
-<p-toast key="basicsDefinition" position="bottom-left"></p-toast>
-
-<!-- data table -->
 <section class="section">
-  <!-- <div class="card">
-    <div class="card-body"> -->
-  <div class="card-text pt-3"></div>
-  <!-- input group -->
   <div class="pb-2">
-    <p-panel class="search-panel__secation pb-1" header="تعریف اطلاعات پایه">
-      <div class="container">
-        <form
-          #formDir="ngForm"
-          [formGroup]="addNewBasicsForm"
-          (ngSubmit)="addNewBasics()">
-          <div class="row row-cols-lg-3 row-cols-1">
-            <!-- <div class="row row-cols-lg-2 row-cols-1 d-flex ai-center w-100"> -->
-            <div class="col my-1">
-              <!-- عنوان‌ها -->
-              <label for="subjects">عنوان‌ها</label>
-              <p-dropdown
-                id="subjects"
-                class="col"
-                styleClass="w-100"
-                optionLabel="title"
-                [options]="subjects"
-                placeholder="انتخاب کنید"
-                formControlName="selectedSubject"
-                (onChange)="getBasicsList($event)">
-              </p-dropdown>
-              <!-- / عنوان‌ها -->
-            </div>
-            <!-- کد -->
-            <div class="col my-1">
-              <label for="code">کد</label>
-              <input
-                pInputText
-                id="code"
-                name="code"
-                formControlName="code"
-                type="text"
-                class="w-100"
-                [class.ng-invalid]="code?.invalid"
-                [class.ng-dirty]="
-                  (addNewBasicsFormSubmitted && code?.pristine) ||
-                  code?.dirty ||
-                  code?.touched
-                "
-                [value]="code?.value | faNum" />
-
-              <div id="code-help">
-                <small
-                  *ngIf="
-                                  (addNewBasicsFormSubmitted && code?.pristine) || 
-                                  (code?.errors?.['required'] && 
-                                  (code?.dirty || code?.touched))
-                                "
-                  class="p-error">
-                  لطفا این فیلد را خالی نگذارید
-                </small>
-                <small style="visibility: hidden" class="p-error">
-                  error
-                </small>
-              </div>
-            </div>
-            <!-- / کد -->
-
-            <!-- شرح -->
-            <div class="col my-1">
-              <label for="title">شرح</label>
-              <input
-                pInputText
-                id="title"
-                name="title"
-                formControlName="title"
-                type="text"
-                class="w-100"
-                [class.ng-invalid]="title?.invalid"
-                [class.ng-dirty]="
-                  (addNewBasicsFormSubmitted && title?.pristine) ||
-                  title?.dirty ||
-                  title?.touched
-                " />
-
-              <div id="title-help">
-                <small
-                  *ngIf="
-                                    (addNewBasicsFormSubmitted && title?.pristine) || 
-                                    (title?.errors?.['required'] && 
-                                    (title?.dirty || title?.touched))
-                                  "
-                  class="p-error">
-                  لطفا این فیلد را خالی نگذارید
-                </small>
-                <small style="visibility: hidden" class="p-error">
-                  error
-                </small>
-              </div>
-            </div>
-            <!-- / شرح -->
-
-            <!-- دکمه ها -->
-            <div
-              class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
-              <p-button
-                class="pe-2"
-                styleClass="p-button-success"
-                label="افزودن"
-                icon="pi pi-plus"
-                type="submit"></p-button>
-
-              <p-button
-                class="pe-2"
-                styleClass="p-button-warning"
-                label="انصراف"
-                icon="pi pi-times"
-                (click)="resetAddNewBasicsForm()"></p-button>
-            </div>
-            <!-- / دکمه ها -->
-            <!-- </div> -->
+    <div class="table-header">اطلاعات پایه</div>
+    <div class="d-flex justify-content-between pb-3 w-100">
+      <div class="col-4">
+        <form #formDir="ngForm" [formGroup]="addNewBasicsForm" (ngSubmit)="addNewBasics()">
+          <div class="col my-1">
+            <!-- عنوان‌ها -->
+            <label for="subjects">عنوان‌ها</label>
+            <p-dropdown id="subjects" class="col" styleClass="w-100" optionLabel="title" [options]="subjects"
+              placeholder="انتخاب کنید" formControlName="selectedSubject" >
+            </p-dropdown>
+            <!-- / عنوان‌ها -->
           </div>
         </form>
       </div>
-    </p-panel>
+      <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن شرکت جدید"
+        (click)="addNewItem()"></p-button>
+      <!-- / دکمه -->
+    </div>
   </div>
-  <!-- / input group -->
 
   <!-- data table -->
-  <p-table
-    #dataTable
-    dataKey="id"
-    class="data-table d-none d-lg-block"
-    [styleClass]="gridClass"
-    [paginator]="true"
-    [rows]="dataTableRows"
-    [rowsPerPageOptions]="[10, 20, 30]"
-    [rowHover]="true"
-    [totalRecords]="totalCount"
-    [value]="basicsList"
-    [loading]="loading"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [(first)]="first">
-    <!-- table header -->
-    <ng-template pTemplate="header">
-      <tr class="data-table__header">
-        <!-- <th style="min-width: 3rem">
-              <strong>ردیف</strong>
-            </th> -->
-
-        <th style="min-width: 3rem">
-          <strong>کد</strong>
-        </th>
-
-        <th style="min-width: 20rem">
-          <strong>شرح</strong>
-        </th>
-      </tr>
-    </ng-template>
-    <!-- / table header -->
-    <!-- table body -->
-    <ng-template pTemplate="body" let-basics let-rowIndex="rowIndex">
-      <tr>
-        <!-- <td>
-              <strong style="font-size: 17px">
-                {{ rowIndex + 1 | faNum }}
-              </strong>
-            </td> -->
-
-        <td>{{ basics.code | faNum }}</td>
-
-        <td>{{ basics.title }}</td>
-      </tr>
-    </ng-template>
-    <!-- / table body -->
-  </p-table>
-  <!-- data table -->
-
-  <!-- data list -->
-  <div class="data-list d-block d-lg-none">
-    <ul *ngFor="let basics of basicsList" class="list-group my-1">
-      <!-- نماد -->
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
+  <div class="table-container">
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+      [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+      [value]="basicsList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" [(first)]="first">
+      <!-- table header -->
+      <ng-template pTemplate="header">
+        <tr class="data-table__header">
+          <th style="min-width: 20rem">
             <strong>کد</strong>
-          </div>
+          </th>
 
-          <div class="col my-1 text-center">
-            {{ basics.code | faNum }}
-          </div>
+          <th style="min-width: 20rem">
+            <strong>شرح</strong>
+          </th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-basics let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ basics.code | faNum }}</td>
+
+          <td>{{ basics.title }}</td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <!-- / data table -->
+
+</section>
+
+
+<p-dialog *ngIf="isOpenAddEditBasicDefinition" [header]="modalTitle" [(visible)]="isOpenAddEditBasicDefinition"
+  [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '500px' }">
+  <form #formDir="ngForm" [formGroup]="addNewBasicsForm" (ngSubmit)="addNewBasics()">
+    <div class="row row-cols-lg-3 row-cols-1">
+      <!-- <div class="row row-cols-lg-2 row-cols-1 d-flex ai-center w-100"> -->
+
+      <!-- کد -->
+      <div class="col my-1">
+        <label for="code">کد</label>
+        <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100"
+          [class.ng-invalid]="code?.invalid" [class.ng-dirty]="
+        (addNewBasicsFormSubmitted && code?.pristine) ||
+        code?.dirty ||
+        code?.touched
+      " [value]="code?.value | faNum" />
+
+        <div id="code-help">
+          <small *ngIf="
+                        (addNewBasicsFormSubmitted && code?.pristine) || 
+                        (code?.errors?.['required'] && 
+                        (code?.dirty || code?.touched))
+                      " class="p-error">
+            لطفا این فیلد را خالی نگذارید
+          </small>
+          <small style="visibility: hidden" class="p-error">
+            error
+          </small>
         </div>
-      </li>
-      <!-- / نماد -->
+      </div>
+      <!-- / کد -->
 
       <!-- شرح -->
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>شرح</strong>
-          </div>
+      <div class="col my-1">
+        <label for="title">شرح</label>
+        <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100"
+          [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+        (addNewBasicsFormSubmitted && title?.pristine) ||
+        title?.dirty ||
+        title?.touched
+      " />
 
-          <div class="col my-1 text-center">
-            {{ basics.title | faNum }}
-          </div>
+        <div id="title-help">
+          <small *ngIf="
+                          (addNewBasicsFormSubmitted && title?.pristine) || 
+                          (title?.errors?.['required'] && 
+                          (title?.dirty || title?.touched))
+                        " class="p-error">
+            لطفا این فیلد را خالی نگذارید
+          </small>
+          <small style="visibility: hidden" class="p-error">
+            error
+          </small>
         </div>
-      </li>
+      </div>
       <!-- / شرح -->
-    </ul>
-  </div>
-  <!-- / data list -->
-  <!-- </div>
-  </div> -->
-</section>
-<!-- / data table -->
+
+      <!-- دکمه ها -->
+      <div class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
+        <p-button class="pe-2" styleClass="p-button-success" label="ثبت" type="submit"></p-button>
+      </div>
+      <!-- / دکمه ها -->
+      <!-- </div> -->
+    </div>
+  </form>
+
+</p-dialog>
+<!-- <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog> -->

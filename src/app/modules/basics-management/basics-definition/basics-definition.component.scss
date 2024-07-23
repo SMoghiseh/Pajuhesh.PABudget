@@ -3,3 +3,17 @@
 :host ::ng-deep .p-button {
     min-width: 9rem;
 }
+
+
+ /*--------------------------------------------------------------
+# table
+--------------------------------------------------------------*/
+::ng-deep .table-container {
+ .p-datatable {
+      .p-datatable-tbody>tr>td {
+        &:last-child {
+          text-align: center !important;
+        }
+      }
+    }
+  }
