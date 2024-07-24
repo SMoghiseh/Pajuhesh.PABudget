@@ -1,0 +1,26 @@
+.col {
+    padding: 8px;
+    height: 160px;
+    min-height: 160px;
+
+    img {
+        top: 12px;
+        position: relative;
+        right: 43%;
+        width: 20px;
+    }
+
+    div {
+        border-radius: 10px;
+        border: 1px dashed rgba(59, 130, 246, 0.60);
+        background: #FAFAFA;
+        height: 100%;
+        padding: 16px 12px 7px;
+        text-align: start;
+        overflow-y: auto;
+        &::-webkit-scrollbar-thumb{
+            background: #ccc;
+        }
+
+    }
+}

@@ -20,14 +20,14 @@ export class VisionAndMissionComponent {
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      staticYearId: yearId,
+      periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressVisionAndMission, ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )

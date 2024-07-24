@@ -4,10 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
-  Basics,
   CreateBasics,
-  Subject,
+  Basics,
   UrlBuilder,
+  Subject,
 } from '@shared/models/response.model';
 import { PersianNumberService } from '@shared/services/persian-number.service';
 import { MessageService } from 'primeng/api';
@@ -16,32 +16,24 @@ import { map, tap } from 'rxjs';
 @Component({
   selector: 'app-basics-definition',
   templateUrl: './basics-definition.component.html',
-  styleUrls: ['./basics-definition.component.scss'],
+  styleUrls: ['./basics-definition.component.scss']
 })
 export class BasicsDefinitionComponent implements OnInit {
-  /*--------------------------
-  # TABLE
-  --------------------------*/
-  /** Table data total count. */
+  /* Table  */
   totalCount!: number;
-
-  /** Main table data. */
   basicsList: Basics[] = [];
-
-  /** Main table loading. */
   loading = false;
 
-  /** Main table rows */
-  dataTableRows = 10;
-
-  gridClass = 'p-datatable-sm';
-
-  /*--------------------------
-  # CRUD
-  --------------------------*/
+  /*  CRUD  */
   addNewBasicsForm!: FormGroup;
-
   addNewBasicsModel = new Basics();
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  first = 0;
+  modalTitle = '';
+  isOpenAddEditBasicDefinition = false;
+  subjects: Subject[] = [];
+
 
   get code() {
     return this.addNewBasicsForm.get('code');
@@ -54,18 +46,10 @@ export class BasicsDefinitionComponent implements OnInit {
 
   addNewBasicsFormSubmitted = false;
 
-  /*--------------------------
-  # SUBJECT
-  --------------------------*/
-  /** عنوان‌ها  */
-  subjects: Subject[] = [];
-
-  first = 0;
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService  ) { }
 
   ngOnInit(): void {
     // this.getBasicsList();
@@ -107,6 +91,13 @@ export class BasicsDefinitionComponent implements OnInit {
         }
       });
   }
+
+  addNewItem() {
+    this.isOpenAddEditBasicDefinition = true ;
+    this.addNewBasicsForm.controls['title'].reset(); 
+    this.addNewBasicsForm.controls['code'].reset(); 
+  }
+
 
   /** Get basics from server. */
   getBasicsList(data?: any) {
@@ -166,6 +157,7 @@ export class BasicsDefinitionComponent implements OnInit {
             });
 
             this.resetAddNewBasicsForm();
+            this.isOpenAddEditBasicDefinition = false;
           }
         });
     }

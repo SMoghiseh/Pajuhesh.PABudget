@@ -1,20 +1,63 @@
 <div class="row bottom-section">
-    <div class="co-info-box">
-        <h3>{{ selectedPlanName }}</h3>
-        <div class="row row-feature">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-                <div class="row">
-                    <app-select-date [selectType]="selectDateType"
-                        (selectedVal)="returnSelectedDate($event)"></app-select-date>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-                <div class="items select-feature">
-                    <span>شرح</span>
-                </div>
-            </div>
-
+  <div class="co-info-box">
+    <h3>{{ selectedPlanName }}</h3>
+    <div class="row row-feature">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div class="row">
+          <app-select-date
+            [selectType]="selectDateType"
+            (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
-
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div
+          class="items"
+          (click)="selectTable()"
+          [class.select-feature]="isSelectTable">
+          <span>جدول</span>
+        </div>
+        <div
+          class="items disable-btns"
+          [class.enable-btns]="selectedRows?.length > 0"
+          [class.select-feature]="isShowChart"
+          (click)="getChart()">
+          <span>روند</span>
+        </div>
+      </div>
+      <div *ngIf="!isShowChart" class="table-container">
+        <p-table
+          [columns]="planDetailData.headers"
+          [value]="planDetailData.budgetDetails"
+          [(selection)]="selectedRows">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th></th>
+              <th *ngFor="let col of columns">
+                {{ col.headerName }}
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="rowData.code" />
+              </td>
+              <td *ngFor="let col of columns">
+                {{ rowData[col.field] }}
+              </td>
+              <td></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div *ngIf="isShowChart">
+        <canvas
+          id="LineChart"
+          width="900"
+          height="200"
+          style="display: unset"></canvas>
+      </div>
     </div>
+  </div>
 </div>

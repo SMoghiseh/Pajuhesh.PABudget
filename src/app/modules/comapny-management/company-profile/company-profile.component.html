@@ -118,12 +118,15 @@
     <PABudget-informations [inputData]="planInputData"></PABudget-informations>
   </ng-template>
   <ng-template [ngSwitchCase]="'Risk'">
-    <PABudget-risk [inputData]="planDetailData"></PABudget-risk>
+    <PABudget-risk [inputData]="planInputData"></PABudget-risk>
   </ng-template>
 </div>
 <div [ngSwitch]="switchBudget">
   <ng-template [ngSwitchCase]="'BalanceSheet'">
     <PABudget-balance-sheet [inputData]="planInputData"></PABudget-balance-sheet>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'CostAndBenefit'">
+    <PABudget-cost-and-benefit [inputData]="planInputData"></PABudget-cost-and-benefit>
   </ng-template>
 </div>
 

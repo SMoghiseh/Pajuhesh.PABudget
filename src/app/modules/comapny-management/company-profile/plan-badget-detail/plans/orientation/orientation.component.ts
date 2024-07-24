@@ -11,28 +11,28 @@ import { map } from 'rxjs';
 export class OrientationComponent {
   @Input() inputData: any;
 
-  planDetailData: any;
+  dataList: any;
   selectDateType = 'single';
   selectedPlanName = '  جهت گیری';
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      staticYearId: yearId,
+      periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressOrientation, ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )
       .subscribe(res => {
-        this.planDetailData = res;
+        this.dataList = res;debugger
       });
   }
 
