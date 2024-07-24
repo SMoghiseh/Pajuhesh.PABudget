@@ -83,7 +83,8 @@ export class BudgetSourceUseComponent {
       .subscribe(res => (this.data = res));
   }
   editRow(data: BudgetSourceUse) {
-    this.modalTitle = 'ویرایش منابع و مصارف ';
+    this.modalTitle =
+      'ویرایش منابع و مصارف ' + '"' + data.sourceUseTypeTitle + '"';
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditBudgetSourceUse = true;

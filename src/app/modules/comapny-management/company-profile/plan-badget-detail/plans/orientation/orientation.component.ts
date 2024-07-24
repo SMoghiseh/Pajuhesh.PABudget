@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-orientation',
   templateUrl: './orientation.component.html',
-  styleUrls: ['./orientation.component.scss']
+  styleUrls: ['./orientation.component.scss'],
 })
 export class OrientationComponent {
   @Input() inputData: any;
@@ -15,7 +15,7 @@ export class OrientationComponent {
   selectDateType = 'single';
   selectedPlanName = '  جهت گیری';
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   getPlanDetail(yearId: number) {
     const body = {
@@ -32,7 +32,7 @@ export class OrientationComponent {
         })
       )
       .subscribe(res => {
-        this.dataList = res;debugger
+        this.dataList = res;
       });
   }
 

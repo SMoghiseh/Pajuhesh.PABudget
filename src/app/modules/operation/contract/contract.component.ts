@@ -131,7 +131,7 @@ export class ContractComponent {
   }
 
   editRow(data: ContractNo) {
-    this.modalTitle = 'ویرایش قرارداد ';
+    this.modalTitle = '  ویرایش کد قرارداد ' + '"' + data.contractCode + '"';
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditContractlNo = true;
