@@ -38,7 +38,7 @@ export class PersonelNoComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   getPersonelNo(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -89,7 +89,9 @@ export class PersonelNoComponent {
     this.addEditData.type = 'edit';
     this.isOpenAddEditPersonelNo = true;
   }
-
+  closeModal() {
+    this.isOpenAddEditPersonelNo = false;
+  }
   deleteRow(period: PersonelNo) {
     if (period && period.id)
       this.confirmationService.confirm({

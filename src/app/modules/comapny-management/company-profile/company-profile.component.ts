@@ -301,7 +301,7 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  onSelectBudget(data:any) {debugger
+  onSelectBudget(data: any) {
     this.switchBudget = data.enTitle;
     this.selectedBudgetId = data.id;
     this.selectedPlanId = -1;

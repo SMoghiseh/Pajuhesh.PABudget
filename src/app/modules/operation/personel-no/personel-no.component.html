@@ -188,7 +188,8 @@
   [style]="{ width: '800px', height: '400px' }">
   <app-add-edit-personel-no
     [data]="addEditData"
-    (isSuccess)="reloadData()"></app-add-edit-personel-no>
+    (isSuccess)="reloadData()"
+    (isCloseModal)="closeModal()"></app-add-edit-personel-no>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

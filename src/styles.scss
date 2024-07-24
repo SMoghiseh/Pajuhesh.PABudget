@@ -273,12 +273,11 @@
  ::-webkit-scrollbar-thumb:hover {
    background: #8d9b91;
  }
-
-
-
-
-    .p-dialog {
+ .p-confirmDialog {
+  max-width: fit-content !important;
+}
+  //   .p-dialog {
       
-      background-color: #ffff ;
-  }
+  //     background-color: #ffff ;
+  // }
 

@@ -40,6 +40,7 @@ export class AddEditContractNoComponent implements OnInit {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
+  @Output() isCloseModal = new EventEmitter<boolean>();
   get contractCode() {
     return this.addEditContractNoForm.get('contractCode');
   }
@@ -126,6 +127,10 @@ export class AddEditContractNoComponent implements OnInit {
           this.contracTypeLst = response.data.result;
         }
       });
+  }
+
+  closeModal() {
+    this.isCloseModal.emit(false);
   }
 
   getEmployer() {

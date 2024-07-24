@@ -29,7 +29,7 @@ export class AddEditSaleComponent implements OnInit {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
+  @Output() isCloseModal = new EventEmitter<boolean>();
   get budgetPeriodId() {
     return this.addEditSaleForm.get('budgetPeriodId');
   }
@@ -64,7 +64,7 @@ export class AddEditSaleComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // this.getRowData();
@@ -72,17 +72,32 @@ export class AddEditSaleComponent implements OnInit {
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
     this.addEditSaleForm = new FormGroup({
-      budgetPeriodId: new FormControl(this.inputData.budgetPeriodId, Validators.required),
-      budgetPeriodDetailId: new FormControl(this.inputData.budgetPeriodDetailId, Validators.required),
+      budgetPeriodId: new FormControl(
+        this.inputData.budgetPeriodId,
+        Validators.required
+      ),
+      budgetPeriodDetailId: new FormControl(
+        this.inputData.budgetPeriodDetailId,
+        Validators.required
+      ),
       contractId: new FormControl(this.inputData.contractId),
       saleType: new FormControl(this.inputData.saleType, Validators.required),
-      productGroupId: new FormControl(this.inputData.productGroupId, Validators.required),
-      productNumber: new FormControl(this.inputData.productNumber, Validators.required),
-      productUnitSalesCu: new FormControl(this.inputData.productUnitSalesCu, Validators.required),
+      productGroupId: new FormControl(
+        this.inputData.productGroupId,
+        Validators.required
+      ),
+      productNumber: new FormControl(
+        this.inputData.productNumber,
+        Validators.required
+      ),
+      productUnitSalesCu: new FormControl(
+        this.inputData.productUnitSalesCu,
+        Validators.required
+      ),
       productAllSalesCu: new FormControl(this.inputData.productAllSalesCu),
       benefitLossCu: new FormControl(this.inputData.benefitLossCu),
       costingAllCu: new FormControl(this.inputData.costingAllCu),
-      costingUnitCu: new FormControl(this.inputData.costingUnitCu)
+      costingUnitCu: new FormControl(this.inputData.costingUnitCu),
     });
 
     if (this.mode === 'edit') {
@@ -96,14 +111,15 @@ export class AddEditSaleComponent implements OnInit {
     if (this.addEditSaleForm.valid) {
       const request = this.addEditSaleForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url = this.mode === 'insert' ? Sale.apiAddress + 'CreateSale' :
-        Sale.apiAddress + 'UpdateSale';
+      const url =
+        this.mode === 'insert'
+          ? Sale.apiAddress + 'CreateSale'
+          : Sale.apiAddress + 'UpdateSale';
       this.isLoadingSubmit = true;
 
       Object.entries(request).forEach(([key, val]) => {
-        if (!val)
-          request[key] = 0;
-      })
+        if (!val) request[key] = 0;
+      });
 
       this.httpService
         .post<Sale>(url, request)
@@ -164,7 +180,9 @@ export class AddEditSaleComponent implements OnInit {
         }
       });
   }
-
+  closeModal() {
+    this.isCloseModal.emit(false);
+  }
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
   }
@@ -183,22 +201,25 @@ export class AddEditSaleComponent implements OnInit {
   }
 
   onChangeSaleType() {
-
     this.setValidationconditionally = true;
 
     if (this.addEditSaleForm.value.saleType == 117) {
-
-      this.addEditSaleForm.get('contractId')?.setValidators(Validators.required);
+      this.addEditSaleForm
+        .get('contractId')
+        ?.setValidators(Validators.required);
       this.addEditSaleForm.get('contractId')?.updateValueAndValidity();
-      this.addEditSaleForm.get('costingUnitCu')?.setValidators(Validators.required);
+      this.addEditSaleForm
+        .get('costingUnitCu')
+        ?.setValidators(Validators.required);
       this.addEditSaleForm.get('costingUnitCu')?.updateValueAndValidity();
-      this.addEditSaleForm.get('costingAllCu')?.setValidators(Validators.required);
+      this.addEditSaleForm
+        .get('costingAllCu')
+        ?.setValidators(Validators.required);
       this.addEditSaleForm.get('costingAllCu')?.updateValueAndValidity();
-      this.addEditSaleForm.get('benefitLossCu')?.setValidators(Validators.required);
+      this.addEditSaleForm
+        .get('benefitLossCu')
+        ?.setValidators(Validators.required);
       this.addEditSaleForm.get('benefitLossCu')?.updateValueAndValidity();
-
-
     }
-
   }
 }

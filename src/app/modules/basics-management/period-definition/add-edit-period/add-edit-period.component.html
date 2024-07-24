@@ -1,12 +1,10 @@
-<form
-  #formDir="ngForm"
+<form #formDir="ngForm"
   [formGroup]="addEditPeriodForm"
   (ngSubmit)="addEditPeriod()">
   <div class="container row">
-    <div class="w-date">
+    <div class=" ">
       <label for="fromDate">از تاریخ</label>
-      <p-persian-calendar
-        id="fromDate"
+      <p-persian-calendar id="fromDate"
         name="fromDate"
         formControlName="fromDate"
         styleClass="w-100 "
@@ -18,10 +16,9 @@
         ">
       </p-persian-calendar>
     </div>
-    <div class="w-date">
+    <div class=" ">
       <label for="toDate">تا تاریخ</label>
-      <p-persian-calendar
-        id="toDate"
+      <p-persian-calendar id="toDate"
         name="toDate"
         formControlName="toDate"
         styleClass="w-100 "
@@ -33,10 +30,9 @@
         ">
       </p-persian-calendar>
     </div>
-    <div class="w-date">
+    <div class=" ">
       <label for="code">کد</label>
-      <input
-        pInputText
+      <input pInputText
         id="code"
         name="code"
         formControlName="code"
@@ -50,10 +46,9 @@
         "
         [value]="code?.value | faNum" />
     </div>
-    <div class="w-date">
+    <div class=" ">
       <label for="title">عنوان</label>
-      <input
-        pInputText
+      <input pInputText
         id="title"
         name="title"
         formControlName="title"
@@ -69,8 +64,7 @@
     </div>
 
     <div class="col-12">
-      <p-button
-        class="pe-2 p-button-wide"
+      <p-button class="pe-2 p-button-wide"
         styleClass="p-button-success"
         [label]="'ثبت'"
         type="submit"

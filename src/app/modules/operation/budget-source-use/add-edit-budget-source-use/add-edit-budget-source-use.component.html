@@ -1,12 +1,10 @@
-<form
-  #formDir="ngForm"
+<form #formDir="ngForm"
   [formGroup]="addEditBudgetSourceUseForm"
   (ngSubmit)="addEditBudgetSourceUse()">
-  <div class="container row">
-    <div class="col-4 mt-2 w-date">
+  <div class="row">
+    <div class="col-6 mt-2">
       <label for="budgetPeriodId">دوره بودجه</label>
-      <p-dropdown
-        id="budgetPeriodId"
+      <p-dropdown id="budgetPeriodId"
         name="budgetPeriodId"
         formControlName="budgetPeriodId"
         styleClass="w-100 my-1"
@@ -24,10 +22,9 @@
         ">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2 w-date">
+    <div class="col-6 mt-2">
       <label for="budgetPeriodDetailId">دوره عملیاتی</label>
-      <p-dropdown
-        id="budgetPeriodDetailId"
+      <p-dropdown id="budgetPeriodDetailId"
         name="budgetPeriodDetailId"
         formControlName="budgetPeriodDetailId"
         styleClass="w-100 my-1"
@@ -44,10 +41,9 @@
         [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2 w-date">
+    <div class="col-6 mt-2">
       <label for="companyId"> شرکت </label>
-      <p-dropdown
-        id="companyId"
+      <p-dropdown id="companyId"
         name="companyId"
         formControlName="companyId"
         styleClass="w-100 my-1"
@@ -65,10 +61,9 @@
         ">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2 w-date">
+    <div class="col-6 mt-2">
       <label for="sourceUseTypeId">شناسه منابع و مصارف</label>
-      <p-dropdown
-        id="sourceUseTypeId"
+      <p-dropdown id="sourceUseTypeId"
         name="sourceUseTypeId"
         formControlName="sourceUseTypeId"
         styleClass="w-100 my-1"
@@ -80,10 +75,9 @@
         placeholder="انتخاب کنید">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2 w-date">
+    <div class="col-6 mt-2">
       <label for="budgetPriceCu">مبلغ پیش بینی</label>
-      <input
-        pInputText
+      <input pInputText
         pKeyFilter="int"
         id="budgetPriceCu"
         name="budgetPriceCu"
@@ -91,10 +85,9 @@
         type="text"
         class="w-100" />
     </div>
-    <div class="col-4 mt-2 w-date">
+    <div class="col-6 mt-2">
       <label for="realPriceCu">مبلغ محقق شده</label>
-      <input
-        pInputText
+      <input pInputText
         pKeyFilter="int"
         id="realPriceCu"
         name="realPriceCu"
@@ -103,8 +96,12 @@
         class="w-100" />
     </div>
     <div class="col-12 row-btn">
-      <p-button
-        class="pe-2 p-button-wide"
+      <p-button class="pe-2"
+        styleClass="p-button-warning"
+        label="انصراف"
+        icon="pi pi-times"
+        (click)="closeModal()"></p-button>
+      <p-button class="pe-2 p-button-wide"
         styleClass="p-button-success"
         [label]="'ثبت'"
         type="submit"

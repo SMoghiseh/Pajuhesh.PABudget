@@ -46,6 +46,9 @@ export class BudgetSourceUseComponent {
     this.isOpenAddEditBudgetSourceUse = false;
     this.getBudgetSourceUse();
   }
+  closeModal() {
+    this.isOpenAddEditBudgetSourceUse = false;
+  }
 
   getBudgetSourceUse(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;

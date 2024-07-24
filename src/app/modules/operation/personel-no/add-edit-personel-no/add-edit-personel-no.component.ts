@@ -34,7 +34,7 @@ export class AddEditPersonelNoComponent implements OnInit {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
+  @Output() isCloseModal = new EventEmitter<boolean>();
   get periodDetailId() {
     return this.addEditPersonelNoForm.get('periodDetailId');
   }
@@ -80,7 +80,9 @@ export class AddEditPersonelNoComponent implements OnInit {
       this.addEditPersonelNoForm.patchValue(this.inputData);
     }
   }
-
+  closeModal() {
+    this.isCloseModal.emit(false);
+  }
   addEditPersonelNo() {
     this.addEditPersonelNoSubmitted = true;
     if (this.addEditPersonelNoForm.valid) {

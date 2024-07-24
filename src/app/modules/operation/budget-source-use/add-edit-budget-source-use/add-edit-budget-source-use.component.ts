@@ -33,6 +33,7 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
   set data(data: BudgetSourceUse) {
     this.inputData = data;
   }
+  @Output() isCloseModal = new EventEmitter<boolean>();
   // @Input()
   // set dataDetaild(dataDetaild: BudgetSourceUse) {
   //   this.inputDataDetails = dataDetaild;
@@ -131,6 +132,10 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
         });
     }
   }
+  closeModal() {
+    this.isCloseModal.emit(false);
+  }
+
   onChangeResourceUse(e: any) {
     this.getPeriodDetailLst(e.value);
   }

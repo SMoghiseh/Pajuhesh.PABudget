@@ -41,12 +41,11 @@ export class ContractComponent {
   propertyName: string | null = null;
   isAsc!: boolean;
 
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   addContractlNo() {
     this.modalTitle = 'افزودن قرارداد جدید';
@@ -55,22 +54,20 @@ export class ContractComponent {
   }
   getContractlNo(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
-    else
-      this.first = 0
+    else this.first = 0;
 
     const searchModel = {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
       propertyName: this.propertyName,
       isAsc: this.isAsc,
-      fullTextSearch: this.fullTextSearch
-    }
+      fullTextSearch: this.fullTextSearch,
+    };
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
     searchModel.pageNumber = first / rows + 1;
     searchModel.pageSize = rows;
     this.loading = true;
-
 
     const url = ContractNo.adiAddressList;
     this.httpService
@@ -91,6 +88,10 @@ export class ContractComponent {
   reloadData() {
     this.isOpenAddEditContractlNo = false;
     this.getContractlNo();
+  }
+
+  closeModal() {
+    this.isOpenAddEditContractlNo = false;
   }
 
   deleteRow(contractNo: ContractNo) {
@@ -130,7 +131,7 @@ export class ContractComponent {
   }
 
   editRow(data: ContractNo) {
-    this.modalTitle = 'ویرایش بودجه پرسنل ';
+    this.modalTitle = 'ویرایش قرارداد ';
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditContractlNo = true;

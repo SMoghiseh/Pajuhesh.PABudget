@@ -1,14 +1,13 @@
-<p-toast key="personelNo" position="bottom-left"></p-toast>
+<p-toast key="personelNo"
+  position="bottom-left"></p-toast>
 
-<form
-  #formDir="ngForm"
+<form #formDir="ngForm"
   [formGroup]="addEditPersonelNoForm"
   (ngSubmit)="addEditPersonelNo()">
-  <div class="container row">
-    <div class="col-4 mt-2">
+  <div class="row">
+    <div class="col-6 mt-2">
       <label for="periodId">دوره بودجه</label>
-      <p-dropdown
-        id="periodId"
+      <p-dropdown id="periodId"
         name="periodId"
         formControlName="periodId"
         styleClass="w-100 my-1"
@@ -26,10 +25,9 @@
         (onChange)="onChangePeriod($event)">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2">
+    <div class="col-6 mt-2">
       <label for="periodDetailId">دوره عملیاتی</label>
-      <p-dropdown
-        id="periodDetailId"
+      <p-dropdown id="periodDetailId"
         name="periodDetailId"
         formControlName="periodDetailId"
         styleClass="w-100 my-1"
@@ -46,10 +44,9 @@
         [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2">
+    <div class="col-6 mt-2">
       <label for="costCenterTypeId">مرکز هزینه</label>
-      <p-dropdown
-        id="costCenterTypeId"
+      <p-dropdown id="costCenterTypeId"
         name="costCenterTypeId"
         formControlName="costCenterTypeId"
         styleClass="w-100 my-1"
@@ -60,10 +57,9 @@
         [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2">
+    <div class="col-6 mt-2">
       <label for="employmentTypeId">نوع استخدام</label>
-      <p-dropdown
-        id="employmentTypeId"
+      <p-dropdown id="employmentTypeId"
         name="employmentTypeId"
         formControlName="employmentTypeId"
         styleClass="w-100 my-1"
@@ -75,10 +71,9 @@
       </p-dropdown>
     </div>
 
-    <div class="col-4 mt-2">
+    <div class="col-6 mt-2">
       <label for="educationTypeId">تحصیلات</label>
-      <p-dropdown
-        id="educationTypeId"
+      <p-dropdown id="educationTypeId"
         name="educationTypeId"
         formControlName="educationTypeId"
         styleClass="w-100 my-1"
@@ -89,10 +84,9 @@
         [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-4 mt-2">
+    <div class="col-6 mt-2">
       <label for="personelCount">تعداد</label>
-      <input
-        pInputText
+      <input pInputText
         pKeyFilter="int"
         id="personelCount"
         name="personelCount"
@@ -100,10 +94,9 @@
         type="text"
         class="w-100" />
     </div>
-    <div class="col-4 mt-2">
+    <div class="col-6 mt-2">
       <label for="employeewageCU">مبلغ دستمزد</label>
-      <input
-        pInputText
+      <input pInputText
         pKeyFilter="int"
         id="employeewageCU"
         name="employeewageCU"
@@ -112,8 +105,12 @@
         class="w-100" />
     </div>
     <div class="col-12 row-btn">
-      <p-button
-        class="pe-2 p-button-wide"
+      <p-button class="pe-2"
+        styleClass="p-button-warning"
+        label="انصراف"
+        icon="pi pi-times"
+        (click)="closeModal()"></p-button>
+      <p-button class="pe-2 p-button-wide"
         styleClass="p-button-success"
         [label]="'ثبت'"
         type="submit"

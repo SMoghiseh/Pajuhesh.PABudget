@@ -1,20 +1,29 @@
 <p-toast key="contractNo" position="bottom-left"></p-toast>
 
 <section class="section">
-
   <div class="pb-2">
     <div class="table-header">لیست قرارداد ها</div>
     <div class="d-flex justify-content-between pb-3 w-100">
       <div class="col-4">
         <div class="col my-1">
           <label for="searchText"> &nbsp;</label>
-          <input pInputText  id="searchText" name="searchText"
-           type="text" class="w-100" [(ngModel)]="fullTextSearch"
-            placeholder="جستجو..." (keydown)="getContractlNo()"/>
+          <input
+            pInputText
+            id="searchText"
+            name="searchText"
+            type="text"
+            class="w-100"
+            [(ngModel)]="fullTextSearch"
+            placeholder="جستجو..."
+            (keydown)="getContractlNo()" />
         </div>
       </div>
       <!-- دکمه -->
-      <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن قرارداد جدید"
+      <p-button
+        class="pe-2 mt-4"
+        styleClass="p-button-info"
+        icon="pi pi-plus-circle"
+        label="افزودن قرارداد جدید"
         (click)="addContractlNo()"></p-button>
       <!-- / دکمه -->
     </div>
@@ -22,10 +31,22 @@
 
   <!-- data table -->
   <div class="table-container">
-    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-      [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-      [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-      (onLazyLoad)="getContractlNo($event)" [(first)]="first">
+    <p-table
+      #dataTable
+      dataKey="id"
+      class="data-table d-none d-lg-block"
+      [styleClass]="gridClass"
+      [rowHover]="true"
+      [paginator]="true"
+      [rows]="dataTableRows"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [totalRecords]="totalCount"
+      [value]="data"
+      [loading]="loading"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [lazy]="true"
+      (onLazyLoad)="getContractlNo($event)"
+      [(first)]="first">
       <!-- table header -->
       <ng-template pTemplate="header">
         <tr class="data-table__header">
@@ -67,11 +88,17 @@
           <td>{{ contractNo.contractPriceCu }}</td>
 
           <td class="jc-left ai-left">
-            <button class="action-image-container edit-button" (click)="editRow(contractNo)" pTooltip="ویرایش قرارداد">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(contractNo)"
+              pTooltip="ویرایش قرارداد">
               <img ngSrc="icons\Group 116.svg" width="24" height="24" />
             </button>
 
-            <button class="action-image-container delete-button" (click)="deleteRow(contractNo)" pTooltip="حذف قرارداد">
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(contractNo)"
+              pTooltip="حذف قرارداد">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>
           </td>
@@ -184,11 +211,17 @@
 
           <div class="col my-1 text-center">
             <div class="d-flex jc-center ai-center">
-              <button class="action-image-container edit-button" (click)="editRow(contractNo)" title="ویرایش قرارداد">
+              <button
+                class="action-image-container edit-button"
+                (click)="editRow(contractNo)"
+                title="ویرایش قرارداد">
                 <img ngSrc="icons\Group 116.svg" width="24" height="24" />
               </button>
 
-              <button class="action-image-container delete-button" (click)="deleteRow(contractNo)" title="حذف قرارداد">
+              <button
+                class="action-image-container delete-button"
+                (click)="deleteRow(contractNo)"
+                title="حذف قرارداد">
                 <img ngSrc="icons\Group 117.svg" width="24" height="24" />
               </button>
             </div>
@@ -197,13 +230,20 @@
       </li>
     </ul>
   </div>
-
 </section>
 
-
-<p-dialog *ngIf="isOpenAddEditContractlNo" [header]="modalTitle" [(visible)]="isOpenAddEditContractlNo" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '500px' }">
-  <PABudget-add-edit-contract-no [data]="addEditData" (dataDetaild)="(editDataDetails)"
-    (isSuccess)="reloadData()"></PABudget-add-edit-contract-no>
+<p-dialog
+  *ngIf="isOpenAddEditContractlNo"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditContractlNo"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '800px', height: '500px' }">
+  <PABudget-add-edit-contract-no
+    [data]="addEditData"
+    (dataDetaild)="(editDataDetails)"
+    (isSuccess)="reloadData()"
+    (isCloseModal)="closeModal()"></PABudget-add-edit-contract-no>
 </p-dialog>
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

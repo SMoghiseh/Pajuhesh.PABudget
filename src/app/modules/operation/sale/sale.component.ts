@@ -32,10 +32,7 @@ export class SaleComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) {
-
-
-  }
+  ) {}
 
   getSale(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -50,7 +47,7 @@ export class SaleComponent {
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
-      withOutPagination: false
+      withOutPagination: false,
     };
 
     this.loading = true;
@@ -80,9 +77,14 @@ export class SaleComponent {
   }
 
   editRow(data: Sale) {
-    this.modalTitle = 'ویرایش ' + '"' + data.budgetPeriodTitle + '-' + data.budgetPeriodDetailTitle + '"';
+    this.modalTitle =
+      'ویرایش ' +
+      '"' +
+      data.budgetPeriodTitle +
+      '-' +
+      data.budgetPeriodDetailTitle +
+      '"';
     this.getRowDataById(data.id);
-
   }
 
   getRowDataById(id: number) {
@@ -134,7 +136,9 @@ export class SaleComponent {
         });
     }
   }
-
+  closeModal() {
+    this.isOpenAddEditSale = false;
+  }
   reloadData() {
     this.isOpenAddEditSale = false;
     this.getSale();
