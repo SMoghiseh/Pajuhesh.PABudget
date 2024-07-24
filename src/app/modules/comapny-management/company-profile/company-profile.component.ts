@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
-  AccountReport,
   Company,
   Dashboard,
   GridBalanceSheet,
+  PermissionProfile,
   Profile,
   StaticYear,
-  UrlBuilder,
+  UrlBuilder
 } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,8 +31,14 @@ export class CompanyProfileComponent implements OnInit {
   selectedReportId!: number;
   selectedRows: any = [];
   liveSelectionRow = 0;
-  planLst!: Profile[];
-  budgetLst!: Profile[];
+  // planLst!: Profile[];
+  // budgetLst!: Profile[];
+  budgetList: any = [];
+  budgetList_all: any = [];
+  yearlyPlanList: any = [];
+  yearlyPlanList_all: any = [];
+  macroList: any = [];
+  macroList_all: any = [];
   selectedYears: any;
   planDetailData: any;
   budgetDetailData: any;
@@ -98,11 +104,12 @@ export class CompanyProfileComponent implements OnInit {
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getBudget();
-    this.getPlan();
+    this.getList();
+    // this.getBudget();
+    // this.getPlan();
     // this.getStaticYear();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
@@ -137,9 +144,9 @@ export class CompanyProfileComponent implements OnInit {
 
   contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
-      {
-        queryParams: {},
-      };
+    {
+      queryParams: {},
+    };
   }
 
   getCostAndBenefitForProfile(id: string) {
@@ -241,55 +248,82 @@ export class CompanyProfileComponent implements OnInit {
     this.liveSelectionRow--;
   }
 
-  getPlan() {
+  // getPlan() {
+  //   this.httpService
+  //     .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetPlan, ''))
+  //     .pipe(
+  //       map(response => {
+  //         if (response.data && response.data.result) {
+  //           return response.data.result;
+  //         } else return [new Profile()];
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       this.planLst = res;
+  //     });
+  // }
+
+  // getBudget() {
+  //   this.httpService
+  //     .post<Profile[]>(UrlBuilder.build(AccountReport.apiAddress + 'GetAllAccountReport', ''), {
+  //       withOutPagination: true
+  //     })
+  //     .pipe(
+  //       map(response => {
+  //         if (response.data && response.data.result) {
+  //           return response.data.result;
+  //         } else return [new Profile()];
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       this.budgetLst = res;
+  //     });
+  // }
+
+  getList() {
     this.httpService
-      .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetPlan, ''))
+      .get<PermissionProfile[]>(UrlBuilder.build(PermissionProfile.apiAddress + 'list', ''))
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
             return response.data.result;
-          } else return [new Profile()];
+          } else return [new PermissionProfile()];
         })
       )
       .subscribe(res => {
-        this.planLst = res;
+        this.operationOnList(res);
       });
   }
 
-  getBudget() {
-    this.httpService
-      .post<Profile[]>(UrlBuilder.build(AccountReport.apiAddress + 'GetAllAccountReport', '') , {
-        withOutPagination: true
-      })
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [new Profile()];
-        })
-      )
-      .subscribe(res => {
-        this.budgetLst = res;
-      });
-  }
 
-  onSelectPlan(data: any) {
-    this.switchBudget = '';
-    this.switchPlan = data.enTitle;
-    this.selectedPlanId = data.id;
-    this.selectedBudgetId = -1;
-    this.isSelectPlan = true;
-    this.isSelectBudget = false;
-    // this.selectedBudgetId = -1;
-    let yearId = 12;
-    if (this.selectedYears) {
-      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
-      else yearId = this.selectedYears[0];
+  operationOnList(data: any) {
+    this.budgetList = data[0];
+    let arr_budget = this.budgetList.detail;
+    for (let index = 0; index < arr_budget.length; index++) {
+      this.budgetList_all[index] = arr_budget.filter((i: { group: number; }) => i.group == index);
     }
+    this.budgetList_all = this.budgetList_all.filter((i: Array<any>) => i.length != 0);
+
+
+    this.yearlyPlanList = data[1];
+    let arr_yearlyPlan = this.yearlyPlanList.detail;
+    for (let index = 0; index < arr_yearlyPlan.length; index++) {
+      this.yearlyPlanList_all[index] = arr_yearlyPlan.filter((i: { group: number; }) => i.group == index);
+    }
+    this.yearlyPlanList_all = this.yearlyPlanList_all.filter((i: Array<any>) => i.length != 0);
+
+    this.macroList = data[2];
+    let arr_macro = this.macroList.detail;
+    for (let index = 0; index < arr_macro.length; index++) {
+      this.macroList_all[index] = arr_macro.filter((i: { group: number; }) => i.group == index);
+    }
+    this.macroList_all = this.macroList_all.filter((i: Array<any>) => i.length != 0);
 
   }
 
-  onSelectBudget(data:any) {
+
+
+  onSelectBudget(data: any) {
     this.switchPlan = '';
     this.switchBudget = data.componentName;
     this.selectedBudgetId = data.id;
@@ -302,8 +336,21 @@ export class CompanyProfileComponent implements OnInit {
       if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
       else yearId = this.selectedYears[0];
     }
+  }
 
-
+  onSelectPlan(data: any) {
+    this.switchBudget = '';
+    this.switchPlan = data.componentName;
+    this.selectedPlanId = data.id;
+    this.selectedBudgetId = -1;
+    this.isSelectPlan = true;
+    this.isSelectBudget = false;
+    // this.selectedBudgetId = -1;
+    let yearId = 12;
+    if (this.selectedYears) {
+      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+      else yearId = this.selectedYears[0];
+    }
   }
 
   selectTable() {

@@ -1280,3 +1280,8 @@ export class AccountReport {
   reportTypeCode!: number;
   periodTypeCode!: number;
 }
+
+
+export class PermissionProfile{
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PermissionProfile/';
+}

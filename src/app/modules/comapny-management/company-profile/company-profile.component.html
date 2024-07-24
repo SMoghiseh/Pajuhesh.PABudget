@@ -61,39 +61,49 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+
+  <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
     <div class="co-info-box cost-benefit-box">
-      <h4>برنامه</h4>
-      <div *ngFor="let item of planLst" class="row sub-co" [class.selected-sub-co]="item.id === selectedPlanId"
-        (click)="onSelectPlan(item)">
-        <i class="{{ item.icon }}"></i>
-        <span>{{ item.title }}</span>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-    <div class="co-info-box">
-      <h4>بودجه</h4>
-      <ng-container *ngFor="let item of budgetLst; index as i">
-        <div *ngIf="i !== budgetLst.length - 1 && i !== budgetLst.length - 2" class="row sub-co"
-          [class.selected-sub-co]="item.id === selectedBudgetId" (click)="onSelectBudget(item)">
-          <i class="{{ item.icon }}"></i>
-          <span>{{ item.title }}</span>
-        </div>
-      </ng-container>
-      <div class="person-box">
-        <ng-container *ngFor="let item of budgetLst; index as i">
-          <div *ngIf="i === budgetLst.length - 1 || i === budgetLst.length - 2" class="item"
-            (click)="onSelectBudget(item)">
-            <div class="row sub-co">
-              <i class="{{ item.icon }}"></i>
-              <span>{{ item.title }}</span>
-            </div>
+      <h4>{{budgetList.groupTitle}}</h4>
+      <div *ngFor="let group of this.budgetList_all" class="person-box">
+        <div *ngFor="let box of group" class="item" (click)="onSelectBudget(box)">
+          <div class="row sub-co">
+            <i class="{{ box.icon }}"></i>
+            <span>{{ box.title }}</span>
           </div>
-        </ng-container>
+        </div>
       </div>
     </div>
   </div>
+  <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+    <div class="co-info-box cost-benefit-box">
+      <h4>{{yearlyPlanList.groupTitle}}</h4>
+      <div *ngFor="let group of this.yearlyPlanList_all" class="person-box">
+        <div *ngFor="let box of group" class="item" (click)="onSelectPlan(box)">
+          <div class="row sub-co">
+            <i class="{{ box.icon }}"></i>
+            <span>{{ box.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+    <div class="co-info-box cost-benefit-box">
+      <h4>{{macroList.groupTitle}}</h4>
+      <div *ngFor="let group of this.macroList_all" class="person-box">
+        <div *ngFor="let box of group" class="item" (click)="onSelectPlan(box)">
+          <div class="row sub-co">
+            <i class="{{ box.icon }}"></i>
+            <span>{{ box.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 <div [ngSwitch]="switchPlan">
   <ng-template [ngSwitchCase]="'VisionAndMission'">
