@@ -30,7 +30,7 @@ export class BasicsDefinitionComponent implements OnInit {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   first = 0;
-  modalTitle = '';
+  modalTitle = 'افزودن اطلاعات پایه جدید';
   isOpenAddEditBasicDefinition = false;
   subjects: Subject[] = [];
 
@@ -49,7 +49,7 @@ export class BasicsDefinitionComponent implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService  ) { }
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     // this.getBasicsList();
@@ -93,9 +93,9 @@ export class BasicsDefinitionComponent implements OnInit {
   }
 
   addNewItem() {
-    this.isOpenAddEditBasicDefinition = true ;
-    this.addNewBasicsForm.controls['title'].reset(); 
-    this.addNewBasicsForm.controls['code'].reset(); 
+    this.isOpenAddEditBasicDefinition = true;
+    this.addNewBasicsForm.controls['title'].reset();
+    this.addNewBasicsForm.controls['code'].reset();
   }
 
 

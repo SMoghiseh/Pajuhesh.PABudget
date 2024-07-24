@@ -26,7 +26,7 @@ export class SubjectDefinitionComponent implements OnInit {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   first = 0;
-  modalTitle = '';
+  modalTitle = 'افزودن عنوان جدید';
   isOpenAddEditSubjectDefinition = false;
 
   get title() {
@@ -83,8 +83,8 @@ export class SubjectDefinitionComponent implements OnInit {
   }
 
   addNewItem() {
-    this.isOpenAddEditSubjectDefinition = true ;
-    this.addNewSubjectForm.reset(); 
+    this.isOpenAddEditSubjectDefinition = true;
+    this.addNewSubjectForm.reset();
   }
 
   addOrUpdateSubject() {
@@ -128,7 +128,7 @@ export class SubjectDefinitionComponent implements OnInit {
 
   editRow(subject: Subject) {
     if (subject.id) {
-      this.isOpenAddEditSubjectDefinition = true ; 
+      this.isOpenAddEditSubjectDefinition = true;
       this.selectedSubject = subject;
       this.addNewSubjectForm.patchValue(subject);
     }

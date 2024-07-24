@@ -70,10 +70,6 @@
  .search-button {
    display: flex;
 
-  //  .p-button {
-  //    width: 110px;
-  //  }
-
    .clear-search {
      background: #0289d1bb;
      color: #fff;
@@ -90,18 +86,22 @@
  }
 
  label {
-  height: 24px;
-  align-self: stretch;
-  color: #000 ;
-  text-align: right;
-  font-family: Shabnam;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  
-  line-height: normal;
+   height: 24px;
+   align-self: stretch;
+   color: #000;
+   text-align: right;
+   font-family: Shabnam;
+   font-size: 14px;
+   font-style: normal;
+   font-weight: 400;
+
+   line-height: normal;
  }
 
- //  .p-button {
- //    width: 110px;
- //  }
+ .w-100.my-1.p-dropdown.p-component.p-dropdown-clearable {
+   margin: 0px !important;
+ }
+
+ .p-confirmDialog {
+   max-width: fit-content !important;
+ }
