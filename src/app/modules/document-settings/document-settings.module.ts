@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, IMAGE_LOADER, ImageLoaderConfig, NgOptimizedImage } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { DocumentSettingsRoutingModule } from './document-settings-routing.module';
@@ -31,6 +31,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
 import { FieldsetModule } from 'primeng/fieldset';
+import { AddEditDocumentTypeDefinitionComponent } from './document-type-definition/add-edit-document-type-definition/add-edit-document-type-definition.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     OnlineDocumentDefinitionComponent,
     TagTypeDefinitionComponent,
     DocumentTagsComponent,
+    AddEditDocumentTypeDefinitionComponent,
   ],
   imports: [
     CommonModule,
@@ -67,7 +69,16 @@ import { FieldsetModule } from 'primeng/fieldset';
     FileUploadModule,
     TooltipModule,
     FieldsetModule,
+    NgOptimizedImage
   ],
-  providers: [TableModule, FileUpload],
+  providers: [
+    TableModule, FileUpload,
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `assets/images/${config.src}`;
+      },
+    },
+  ],
 })
 export class DocumentSettingsModule { }
