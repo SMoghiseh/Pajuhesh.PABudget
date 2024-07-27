@@ -316,14 +316,14 @@
     opacity: 100%;
 }
 
-.c-tbl,
-.c-th,
-.c-td {
+::ng-deep .c-tbl,
+::ng-deep .c-th,
+::ng-deep .c-td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-.c-tr {
+::ng-deep .c-tr {
     .c-td {
         padding: 10px;
         text-align: center;
