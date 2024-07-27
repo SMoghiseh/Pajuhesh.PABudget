@@ -42,7 +42,8 @@ export class CompanyProfileComponent implements OnInit {
   selectedYears: any;
   planDetailData: any;
   budgetDetailData: any;
-  selectedPlanId!: number;
+  selectedYearlyPlanId!: number;
+  selectedMacroId!: number;
   selectedBudgetId!: number;
   isSelectBudget = false;
   isSelectPlan = false;
@@ -108,9 +109,6 @@ export class CompanyProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getList();
-    // this.getBudget();
-    // this.getPlan();
-    // this.getStaticYear();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
       this.getProfileCoInfo(this.coId);
@@ -184,7 +182,7 @@ export class CompanyProfileComponent implements OnInit {
   //       }
   //     }
   //   });
-  //   if (this.selectedPlanId !== -1) this.onSelectPlan(this.selectedPlanId);
+  //   if (this.selectedYearlyPlanId !== -1) this.onSelectPlan(this.selectedYearlyPlanId);
   //   if (this.selectedBudgetId !== -1)
   //     this.onSelectBudget(this.selectedBudgetId);
   //   if (this.isShowChart) this.getChart();
@@ -297,28 +295,33 @@ export class CompanyProfileComponent implements OnInit {
 
 
   operationOnList(data: any) {
-    this.budgetList = data[0];
-    let arr_budget = this.budgetList.detail;
-    for (let index = 0; index < arr_budget.length; index++) {
-      this.budgetList_all[index] = arr_budget.filter((i: { group: number; }) => i.group == index);
-    }
-    this.budgetList_all = this.budgetList_all.filter((i: Array<any>) => i.length != 0);
 
+    this.budgetList = data[0];
+    this.convertArray(this.budgetList.detail, 'budget');
 
     this.yearlyPlanList = data[1];
-    let arr_yearlyPlan = this.yearlyPlanList.detail;
-    for (let index = 0; index < arr_yearlyPlan.length; index++) {
-      this.yearlyPlanList_all[index] = arr_yearlyPlan.filter((i: { group: number; }) => i.group == index);
-    }
-    this.yearlyPlanList_all = this.yearlyPlanList_all.filter((i: Array<any>) => i.length != 0);
+    this.convertArray(this.yearlyPlanList.detail, 'yearlyPlan');
 
     this.macroList = data[2];
-    let arr_macro = this.macroList.detail;
-    for (let index = 0; index < arr_macro.length; index++) {
-      this.macroList_all[index] = arr_macro.filter((i: { group: number; }) => i.group == index);
-    }
-    this.macroList_all = this.macroList_all.filter((i: Array<any>) => i.length != 0);
+    this.convertArray(this.macroList.detail, 'macro');
 
+  }
+
+  convertArray(data: any, categoryName: string) {
+    let max_level = Math.max(...data.map((x: any) => x.group));
+
+    let arrayToFill = [];
+    for (let index = 0; index < data.length; index++) {
+      arrayToFill[index] = data.filter((i: { group: number; }) => i.group == index);
+      if (index == max_level) break;
+    }
+
+    if (categoryName == 'budget')
+      this.budgetList_all = arrayToFill;
+    if (categoryName == 'yearlyPlan')
+      this.yearlyPlanList_all = arrayToFill;
+    if (categoryName == 'macro')
+      this.macroList_all = arrayToFill;
   }
 
 
@@ -327,10 +330,10 @@ export class CompanyProfileComponent implements OnInit {
     this.switchPlan = '';
     this.switchBudget = data.componentName;
     this.selectedBudgetId = data.id;
-    this.selectedPlanId = -1;
+    this.selectedYearlyPlanId = -1;
+    this.selectedMacroId = -1;
     this.isSelectBudget = true;
     this.isSelectPlan = false;
-    // this.selectedPlanId = -1;
     let yearId = 12;
     if (this.selectedYears) {
       if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
@@ -338,14 +341,28 @@ export class CompanyProfileComponent implements OnInit {
     }
   }
 
-  onSelectPlan(data: any) {
+  onSelectYearlyPlan(data: any) {
     this.switchBudget = '';
     this.switchPlan = data.componentName;
-    this.selectedPlanId = data.id;
+    this.selectedYearlyPlanId = data.id;
+    this.selectedMacroId = -1;
     this.selectedBudgetId = -1;
     this.isSelectPlan = true;
     this.isSelectBudget = false;
-    // this.selectedBudgetId = -1;
+    let yearId = 12;
+    if (this.selectedYears) {
+      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+      else yearId = this.selectedYears[0];
+    }
+  }
+  onSelectMacro(data: any) {
+    this.switchBudget = '';
+    this.switchPlan = data.componentName;
+    this.selectedYearlyPlanId = -1;
+    this.selectedMacroId = data.id;
+    this.selectedBudgetId = -1;
+    this.isSelectPlan = true;
+    this.isSelectBudget = false;
     let yearId = 12;
     if (this.selectedYears) {
       if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
@@ -363,8 +380,6 @@ export class CompanyProfileComponent implements OnInit {
   getChart() {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
-    // this.selectedPlanId = -1;
-    // this.selectedBudgetId = -1;
     const type = typeof this.selectedYears;
     let arr = [];
     if (type === 'number') arr.push(this.selectedYears);
@@ -428,8 +443,8 @@ export class CompanyProfileComponent implements OnInit {
 
   // returnSelectedDate(e: any) {
   //   this.selectedYears = e;
-  //   if (this.isSelectPlan && this.selectedPlanId > -1)
-  //     this.onSelectPlan(this.selectedPlanId);
+  //   if (this.isSelectPlan && this.selectedYearlyPlanId > -1)
+  //     this.onSelectPlan(this.selectedYearlyPlanId);
   //   if (this.isSelectBudget && this.selectedBudgetId > -1)
   //     this.onSelectBudget(this.selectedBudgetId);
   //   if (this.isShowChart) this.getChart();

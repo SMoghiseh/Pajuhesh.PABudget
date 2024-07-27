@@ -67,8 +67,8 @@
     <div class="co-info-box cost-benefit-box">
       <h4>{{budgetList.groupTitle}}</h4>
       <div *ngFor="let group of this.budgetList_all" class="person-box">
-        <div *ngFor="let box of group" class="item" (click)="onSelectBudget(box)">
-          <div class="row sub-co">
+        <div *ngFor="let box of group ; index as i " class="item" (click)="onSelectBudget(box)">
+          <div class="row sub-co"  [class.selected-sub-co]="box.id === selectedBudgetId">
             <i class="{{ box.icon }}"></i>
             <span>{{ box.title }}</span>
           </div>
@@ -80,8 +80,8 @@
     <div class="co-info-box cost-benefit-box">
       <h4>{{yearlyPlanList.groupTitle}}</h4>
       <div *ngFor="let group of this.yearlyPlanList_all" class="person-box">
-        <div *ngFor="let box of group" class="item" (click)="onSelectPlan(box)">
-          <div class="row sub-co">
+        <div *ngFor="let box of group ; index as i" class="item" (click)="onSelectYearlyPlan(box)">
+          <div class="row sub-co" [class.selected-sub-co]="box.id === selectedYearlyPlanId">
             <i class="{{ box.icon }}"></i>
             <span>{{ box.title }}</span>
           </div>
@@ -93,8 +93,8 @@
     <div class="co-info-box cost-benefit-box">
       <h4>{{macroList.groupTitle}}</h4>
       <div *ngFor="let group of this.macroList_all" class="person-box">
-        <div *ngFor="let box of group" class="item" (click)="onSelectPlan(box)">
-          <div class="row sub-co">
+        <div *ngFor="let box of group ; index as i " class="item" (click)="onSelectMacro(box)">
+          <div class="row sub-co" [class.selected-sub-co]="box.id === selectedMacroId">
             <i class="{{ box.icon }}"></i>
             <span>{{ box.title }}</span>
           </div>

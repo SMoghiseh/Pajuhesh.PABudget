@@ -87,6 +87,7 @@
 
 .sub-co {
     background-color: #F1F5F9;
+    border: 1px solid #F1F5F9;
     margin: 0 6px;
     font-size: 13px;
     padding: 5px 0px;
@@ -123,21 +124,8 @@
     color: #1E40AF;
     font-weight: 500;
     transition: 0.2s;
-
-    span {
-        // font-size: 1.1rem;
-    }
+    cursor: pointer;
 }
-
-// .bar-chart2{
-//     padding-top: 18px;
-//     h4{
-//         padding-bottom: 0px !important;
-//     }
-//     span{
-//         margin-right: 15px;
-//     }
-// }
 
 .chart-box {
     height: 280px !important;
@@ -316,14 +304,14 @@
     opacity: 100%;
 }
 
-.c-tbl,
-.c-th,
-.c-td {
+::ng-deep .c-tbl,
+::ng-deep .c-th,
+::ng-deep .c-td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-.c-tr {
+::ng-deep .c-tr {
     .c-td {
         padding: 10px;
         text-align: center;
