@@ -1,0 +1,138 @@
+::ng-deep .bottom-section {
+    margin: 18px 0px;
+
+    .co-info-box {
+        padding: 10px 30px;
+
+        h4 {
+            padding: 10px 15px 0px;
+        }
+
+        span {
+            // margin-right: 13px;
+        }
+
+        .desc {
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+
+    h3 {
+        margin: 12px 0px 12px;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+}
+
+::ng-deep .row-feature {
+    margin: 15px 0 20px;
+
+    div.box {
+        display: inline-flex;
+    }
+
+    div.items {
+        width: fit-content;
+        background-color: #E2E8F0;
+        color: #64748B;
+        padding: 5px;
+        border-radius: 7px;
+        cursor: pointer;
+        margin-left: 10px;
+        height: min-content;
+        margin-bottom: 10px;
+
+        span {
+            margin: 13px;
+        }
+    }
+}
+
+::ng-deep .select-feature {
+    background-color: #3B82F6 !important;
+    color: white !important;
+}
+
+::ng-deep .all-box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
+    padding: 5px;
+}
+
+::ng-deep .co-info-box {
+    @extend .all-box;
+    height: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-evenly;
+
+    .h4 {
+        font-size: 1.35rem;
+        padding: 7px 9px;
+        margin: 0;
+    }
+
+    h4 {
+        @extend .h4;
+    }
+
+    .inline-flx {
+        padding: 10px 20px;
+
+        h5 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        span {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        &:nth-child(odd) {
+            width: 60%;
+        }
+
+        &:nth-child(even) {
+            width: 40%;
+        }
+    }
+
+    .div-more-btn {
+        display: block;
+    }
+
+    .person-box {
+        margin: 0 12px;
+        border-radius: 15px;
+        background: rgba(60, 81, 148, 0.14);
+        box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25);
+        padding-bottom: 10px;
+
+        .item {
+            padding: 10px 0 0px 0;
+        }
+    }
+}
+
+.c-tbl,
+.c-th,
+.c-td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.c-tr {
+    .c-td {
+        padding: 10px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .head {
+        font-weight: bold;
+        font-size: 15px;
+    }
+}
