@@ -135,9 +135,12 @@ export class BasicsDefinitionComponent implements OnInit {
       .post<Basics[]>(url, body)
       .pipe(
         tap(() => (this.loading = false)),
-        map(response => {
-          if (response.data && response.data.result)
+        map(response => {debugger
+          if (response.data && response.data.result) {
+            if(response.data.totalCount)
+            this.totalCount = response.data.totalCount;
             return response.data.result;
+          }
           else return [new Basics()];
         })
       )
