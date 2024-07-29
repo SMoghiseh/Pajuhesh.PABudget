@@ -8,9 +8,10 @@ import {
   Basics,
   UrlBuilder,
   Subject,
+  Pagination,
 } from '@shared/models/response.model';
 import { PersianNumberService } from '@shared/services/persian-number.service';
-import { MessageService } from 'primeng/api';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
@@ -23,6 +24,7 @@ export class BasicsDefinitionComponent implements OnInit {
   totalCount!: number;
   basicsList: Basics[] = [];
   loading = false;
+  lazyLoadEvent?: LazyLoadEvent;
 
   /*  CRUD  */
   addNewBasicsForm!: FormGroup;
@@ -52,11 +54,10 @@ export class BasicsDefinitionComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    // this.getBasicsList();
     this.addNewBasicsForm = new FormGroup({
-      selectedSubject: new FormControl('', Validators.required),
-      code: new FormControl(this.addNewBasicsModel.code, Validators.required),
-      title: new FormControl(this.addNewBasicsModel.title, Validators.required),
+      masterId: new FormControl(''),
+      code: new FormControl(this.addNewBasicsModel.code),
+      title: new FormControl(this.addNewBasicsModel.title),
     });
 
     this.getSubjects();
@@ -83,39 +84,65 @@ export class BasicsDefinitionComponent implements OnInit {
         this.subjects = subjects;
         if (subjects.length) {
           this.addNewBasicsForm.patchValue({
-            selectedSubject: subjects[0],
+            masterId: subjects[0],
           });
-          this.getBasicsList(this.addNewBasicsForm.get('selectedSubject'));
+          this.getBasicsList(this.addNewBasicsForm.get('masterId'));
         }
       });
   }
 
   addNewItem() {
     this.isOpenAddEditBasicDefinition = true;
-    this.addNewBasicsForm.controls['title'].reset();
-    this.addNewBasicsForm.controls['code'].reset();
+    this.addNewBasicsFormSubmitted = false;
+    let masterId = this.addNewBasicsForm.value.masterId;
+    this.addNewBasicsForm.reset();
+    this.addNewBasicsForm.patchValue({
+      masterId: masterId
+    })
+    this.addNewBasicsForm.controls['code'].setValidators(Validators.required);
+    this.addNewBasicsForm.controls['title'].setValidators(Validators.required);
+    this.addNewBasicsForm.controls['masterId'].setValidators(Validators.required);
+
   }
 
 
   /** Get basics from server. */
-  getBasicsList(data?: any) {
-    if (data) {
-      this.loading = true;
-      this.first = 0;
-      this.httpService
-        .get<Basics[]>(
-          UrlBuilder.build(Basics.apiAddress + `/${data.value.id}`, 'DETAIL')
-        )
-        .pipe(
-          tap(() => (this.loading = false)),
-          map(response => {
-            if (response.data && response.data.result)
-              return response.data.result;
-            else return [new Basics()];
-          })
-        )
-        .subscribe(basicsList => (this.basicsList = basicsList));
-    }
+  getBasicsList(event?: any) {
+    if (event) this.lazyLoadEvent = event;
+
+    const pagination = new Pagination();
+    const first = this.lazyLoadEvent?.first || 0;
+    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+    const formValue = this.addNewBasicsForm.value;
+
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+
+    const body = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
+      masterId: formValue.masterId.id,
+      code: PersianNumberService.toEnglish(formValue.code),
+      title: formValue.title ? formValue.title : ''
+    };
+
+    if (!formValue.masterId) return;
+
+    this.first = 0;
+    const url = Basics.apiAddress + `/${formValue.masterId.id}` + '/slave/list'
+    this.httpService
+      .post<Basics[]>(url, body)
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          if (response.data && response.data.result)
+            return response.data.result;
+          else return [new Basics()];
+        })
+      )
+      .subscribe(basicsList => (this.basicsList = basicsList));
+
   }
 
   /*--------------------------
@@ -126,12 +153,13 @@ export class BasicsDefinitionComponent implements OnInit {
     this.addNewBasicsFormSubmitted = true;
 
     if (this.addNewBasicsForm.valid) {
+      debugger
       this.addNewBasicsLoading = true;
 
       const { code, title } = this.addNewBasicsForm.value;
 
       const request = new Basics();
-      request.masterId = this.addNewBasicsForm.get('selectedSubject')?.value.id;
+      request.masterId = this.addNewBasicsForm.get('masterId')?.value.id;
       request.code = PersianNumberService.toEnglish(code);
       request.title = title;
 
@@ -144,7 +172,13 @@ export class BasicsDefinitionComponent implements OnInit {
         )
         .subscribe(response => {
           if (response.successed) {
-            this.getBasicsList(this.addNewBasicsForm.get('selectedSubject'));
+
+            let masterId = this.addNewBasicsForm.value.masterId;
+            this.addNewBasicsForm.reset();
+            this.addNewBasicsForm.patchValue({
+              masterId: masterId
+            })
+            this.getBasicsList();
 
             this.messageService.add({
               key: 'basicsDefinition',
@@ -164,8 +198,21 @@ export class BasicsDefinitionComponent implements OnInit {
   /** Reset add new basics form. */
   resetAddNewBasicsForm() {
     this.addNewBasicsFormSubmitted = false;
-    // this.addNewBasicsForm.reset();
-    this.addNewBasicsForm.controls['code'].reset();
-    this.addNewBasicsForm.controls['title'].reset();
+    let masterId = this.addNewBasicsForm.value.masterId;
+    this.addNewBasicsForm.reset();
+    this.addNewBasicsForm.patchValue({
+      masterId: masterId
+    })
   }
+
+
+  clearSearch() {
+    let masterId = this.addNewBasicsForm.value.masterId;
+    this.addNewBasicsForm.reset();
+    this.addNewBasicsForm.patchValue({
+      masterId: masterId
+    })
+    this.getBasicsList();
+  }
+
 }

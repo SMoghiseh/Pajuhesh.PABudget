@@ -3,21 +3,47 @@
   <div class="pb-2">
     <div class="table-header">اطلاعات پایه</div>
     <div class="d-flex justify-content-between pb-3 w-100">
-      <div class="col-4">
-        <form #formDir="ngForm" [formGroup]="addNewBasicsForm" (ngSubmit)="addNewBasics()">
-          <div class="col my-1">
-            <!-- عنوان‌ها -->
-            <label for="subjects">عنوان‌ها</label>
-            <p-dropdown id="subjects" class="col" styleClass="w-100" optionLabel="title" [options]="subjects"
-              placeholder="انتخاب کنید" formControlName="selectedSubject"  (onChange)="getBasicsList($event)">
-            </p-dropdown>
-            <!-- / عنوان‌ها -->
+      <div class="col">
+        <form #formDir="ngForm" [formGroup]="addNewBasicsForm">
+          <div class="row row-cols-4">
+            <div class="col my-1">
+              <!-- عنوان‌ها -->
+              <label for="subjects">عنوان‌</label>
+              <p-dropdown id="subjects" class="col" styleClass="w-100" optionLabel="title" [options]="subjects"
+                placeholder="انتخاب کنید" formControlName="masterId" (onChange)="getBasicsList($event)">
+              </p-dropdown>
+              <!-- / عنوان‌ها -->
+            </div>
+            <!-- کد -->
+            <div class="col my-1">
+              <label for="code">کد</label>
+              <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100" />
+              <!-- / کد -->
+            </div>
+            <!-- شرح -->
+            <div class="col my-1">
+              <label for="title">شرح</label>
+              <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100" />
+            </div>
           </div>
+          <!-- / شرح -->
         </form>
       </div>
-      <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
-        (click)="addNewItem()"></p-button>
+
+
+      <!-- دکمه -->
+      <div class="d-flex justify-content-end col-4 text-end" style="margin-top: 20px">
+        <div class="search-button">
+          <div class="clear-search" (click)="clearSearch()">
+            <i class="pi pi-filter-slash"></i>
+          </div>
+          <p-button class="pe-2 p-button-wide" styleClass="p-button-info" [label]="'جستجو'" (click)="getBasicsList()"></p-button>
+        </div>
+        <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
+          (click)="addNewItem()"></p-button>
+      </div>
       <!-- / دکمه -->
+
     </div>
   </div>
 
@@ -34,6 +60,9 @@
           </th>
 
           <th style="min-width: 20rem">
+            <strong>عنوان</strong>
+          </th>
+          <th style="min-width: 20rem">
             <strong>شرح</strong>
           </th>
           <th style="min-width: 0rem">
@@ -45,6 +74,8 @@
       <ng-template pTemplate="body" let-basics let-rowIndex="rowIndex">
         <tr>
           <td>{{ basics.code | faNum }}</td>
+
+          <td>{{ basics.masterTitle }}</td>
 
           <td>{{ basics.title }}</td>
           <td></td>
