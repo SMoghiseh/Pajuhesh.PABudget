@@ -1,3 +1,4 @@
+<p-toast key="basicsDefinition" position="bottom-left"></p-toast>
 <section class="section">
   <div class="pb-2">
     <div class="table-header">اطلاعات پایه</div>
@@ -8,7 +9,7 @@
             <!-- عنوان‌ها -->
             <label for="subjects">عنوان‌ها</label>
             <p-dropdown id="subjects" class="col" styleClass="w-100" optionLabel="title" [options]="subjects"
-              placeholder="انتخاب کنید" formControlName="selectedSubject" >
+              placeholder="انتخاب کنید" formControlName="selectedSubject"  (onChange)="getBasicsList($event)">
             </p-dropdown>
             <!-- / عنوان‌ها -->
           </div>

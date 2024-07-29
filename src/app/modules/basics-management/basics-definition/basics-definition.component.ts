@@ -82,12 +82,10 @@ export class BasicsDefinitionComponent implements OnInit {
       .subscribe(subjects => {
         this.subjects = subjects;
         if (subjects.length) {
-          // this.selectedSubject = subjects[0];
           this.addNewBasicsForm.patchValue({
             selectedSubject: subjects[0],
           });
           this.getBasicsList(this.addNewBasicsForm.get('selectedSubject'));
-          // this.getBasicsList(subjects[0].id);
         }
       });
   }
