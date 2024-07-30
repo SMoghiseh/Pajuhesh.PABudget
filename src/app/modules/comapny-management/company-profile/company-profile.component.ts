@@ -33,6 +33,7 @@ export class CompanyProfileComponent implements OnInit {
   liveSelectionRow = 0;
   // planLst!: Profile[];
   // budgetLst!: Profile[];
+  allList: any = [];
   budgetList: any = [];
   budgetList_all: any = [];
   yearlyPlanList: any = [];
@@ -294,46 +295,31 @@ export class CompanyProfileComponent implements OnInit {
   }
 
 
-  operationOnList(data: any) {
-
-    this.budgetList = data[2];
-    this.convertArray(this.budgetList.detail, 'budget');
-
-    this.yearlyPlanList = data[0];
-    this.convertArray(this.yearlyPlanList.detail, 'yearlyPlan');
-
-    this.macroList = data[1];
-    this.convertArray(this.macroList.detail, 'macro');
-
+  operationOnList(data:any) {
+    this.allList = data;
+    data.forEach((list: any) => {
+      list['groupedDetail'] = this.convertArray(list.detail);
+    });
   }
 
-  convertArray(data: any, categoryName: string) {
-    let max_level = Math.max(...data.map((x: any) => x.group));
-
-    let arrayToFill = [];
-    for (let index = 0; index < data.length; index++) {
-      arrayToFill[index] = data.filter((i: { group: number; }) => i.group == index);
-      if (index == max_level) break;
-    }
-
-    if (categoryName == 'budget')
-      this.budgetList_all = arrayToFill;
-    if (categoryName == 'yearlyPlan')
-      this.yearlyPlanList_all = arrayToFill;
-    if (categoryName == 'macro')
-      this.macroList_all = arrayToFill;
+  convertArray(data: any) {
+    let grouped = data.reduce(
+      (result: any, currentValue: any) => {
+        (result[currentValue['group']] = result[currentValue['group']] || []).push(currentValue);
+        return result;
+      }, []);
+    return grouped;
   }
 
 
 
   onSelectBudget(data: any) {
-    this.switchPlan = '';
     this.switchBudget = data.componentName;
-    this.selectedBudgetId = data.id;
-    this.selectedYearlyPlanId = -1;
-    this.selectedMacroId = -1;
-    this.isSelectBudget = true;
-    this.isSelectPlan = false;
+    // this.selectedBudgetId = data.id;
+    // this.selectedYearlyPlanId = -1;
+    // this.selectedMacroId = -1;
+    // this.isSelectBudget = true;
+    // this.isSelectPlan = false;
     let yearId = 12;
     if (this.selectedYears) {
       if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
@@ -341,34 +327,34 @@ export class CompanyProfileComponent implements OnInit {
     }
   }
 
-  onSelectYearlyPlan(data: any) {
-    this.switchBudget = '';
-    this.switchPlan = data.componentName;
-    this.selectedYearlyPlanId = data.id;
-    this.selectedMacroId = -1;
-    this.selectedBudgetId = -1;
-    this.isSelectPlan = true;
-    this.isSelectBudget = false;
-    let yearId = 12;
-    if (this.selectedYears) {
-      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
-      else yearId = this.selectedYears[0];
-    }
-  }
-  onSelectMacro(data: any) {
-    this.switchBudget = '';
-    this.switchPlan = data.componentName;
-    this.selectedYearlyPlanId = -1;
-    this.selectedMacroId = data.id;
-    this.selectedBudgetId = -1;
-    this.isSelectPlan = true;
-    this.isSelectBudget = false;
-    let yearId = 12;
-    if (this.selectedYears) {
-      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
-      else yearId = this.selectedYears[0];
-    }
-  }
+  // onSelectYearlyPlan(data: any) {
+  //   this.switchBudget = '';
+  //   this.switchPlan = data.componentName;
+  //   this.selectedYearlyPlanId = data.id;
+  //   this.selectedMacroId = -1;
+  //   this.selectedBudgetId = -1;
+  //   this.isSelectPlan = true;
+  //   this.isSelectBudget = false;
+  //   let yearId = 12;
+  //   if (this.selectedYears) {
+  //     if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+  //     else yearId = this.selectedYears[0];
+  //   }
+  // }
+  // onSelectMacro(data: any) {debugger
+  //   this.switchBudget = '';
+  //   this.switchPlan = data.componentName;
+  //   this.selectedYearlyPlanId = -1;
+  //   this.selectedMacroId = data.id;
+  //   this.selectedBudgetId = -1;
+  //   this.isSelectPlan = true;
+  //   this.isSelectBudget = false;
+  //   let yearId = 12;
+  //   if (this.selectedYears) {
+  //     if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+  //     else yearId = this.selectedYears[0];
+  //   }
+  // }
 
   selectTable() {
     this.selectDateType = 'single';

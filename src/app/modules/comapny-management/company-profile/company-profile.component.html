@@ -63,50 +63,34 @@
   </div>
 
 
-  <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-    <div class="co-info-box cost-benefit-box">
-      <h4>{{macroList.groupTitle}}</h4>
-      <div *ngFor="let group of this.macroList_all" class="person-box">
-        <div *ngFor="let box of group ; index as i " class="item" (click)="onSelectMacro(box)">
-          <div class="row sub-co"  [class.selected-sub-co]="box.id === selectedBudgetId">
-            <i class="{{ box.icon }}"></i>
-            <span>{{ box.title }}</span>
+  <ng-container *ngFor="let list of allList">
+    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+      <div class="co-info-box cost-benefit-box">
+        <h4>{{list.groupTitle}}</h4>
+        <div *ngFor="let group of list.groupedDetail" class="person-box">
+          <div *ngFor="let box of group ; index as i " class="item" (click)="onSelectBudget(box)">
+            <div class="row sub-co" [class.selected-sub-co]="box.id === selectedBudgetId">
+              <i class="{{ box.icon }}"></i>
+              <span>{{ box.title }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-    <div class="co-info-box cost-benefit-box">
-      <h4>{{yearlyPlanList.groupTitle}}</h4>
-      <div *ngFor="let group of this.yearlyPlanList_all" class="person-box">
-        <div *ngFor="let box of group ; index as i" class="item" (click)="onSelectYearlyPlan(box)">
-          <div class="row sub-co" [class.selected-sub-co]="box.id === selectedYearlyPlanId">
-            <i class="{{ box.icon }}"></i>
-            <span>{{ box.title }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-    <div class="co-info-box cost-benefit-box">
-      <h4>{{budgetList.groupTitle}}</h4>
-      <div *ngFor="let group of this.budgetList_all" class="person-box">
-        <div *ngFor="let box of group ; index as i " class="item" (click)="onSelectBudget(box)">
-          <div class="row sub-co" [class.selected-sub-co]="box.id === selectedMacroId">
-            <i class="{{ box.icon }}"></i>
-            <span>{{ box.title }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </ng-container>
 
 
 </div>
 <div [ngSwitch]="switchPlan">
-  <ng-template [ngSwitchCase]="'VisionAndMission'">
+ 
+</div>
+<div [ngSwitch]="switchBudget">
+  <ng-template [ngSwitchCase]="'BalanceSheet'">
+    <PABudget-balance-sheet [inputData]="planInputData"></PABudget-balance-sheet>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'CostAndBenefit'">
+    <PABudget-cost-and-benefit [inputData]="planInputData"></PABudget-cost-and-benefit>
+  </ng-template> <ng-template [ngSwitchCase]="'VisionAndMission'">
     <PABudget-vision-and-mission [inputData]="planInputData"></PABudget-vision-and-mission>
   </ng-template>
   <ng-template [ngSwitchCase]="'Value'">
@@ -129,14 +113,6 @@
   </ng-template>
   <ng-template [ngSwitchCase]="'Risk'">
     <PABudget-risk [inputData]="planInputData"></PABudget-risk>
-  </ng-template>
-</div>
-<div [ngSwitch]="switchBudget">
-  <ng-template [ngSwitchCase]="'BalanceSheet'">
-    <PABudget-balance-sheet [inputData]="planInputData"></PABudget-balance-sheet>
-  </ng-template>
-  <ng-template [ngSwitchCase]="'CostAndBenefit'">
-    <PABudget-cost-and-benefit [inputData]="planInputData"></PABudget-cost-and-benefit>
   </ng-template>
 </div>
 
