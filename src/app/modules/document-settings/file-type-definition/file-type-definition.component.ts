@@ -14,21 +14,22 @@ import { map, tap } from 'rxjs';
   providers: [ConfirmationService],
 })
 export class FileTypeDefinitionComponent implements OnInit {
-  /** Table data total count. */
+  /* Table  */
   totalCount!: number;
-
-  /** Main table data. */
   fileTypes: FileType[] = [];
-
-  /** Main table loading. */
   loading = false;
 
-  /*--------------------------
-  # CRUD
-  --------------------------*/
+  /*  CRUD   */
   addNewFileTypeForm!: FormGroup;
-
   addNewFileTypeModel = new FileType();
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  first = 0;
+  modalTitle = 'افزودن   ';
+  isOpenAddEditFileType = false;
+  addNewFileTypeLoading = false;
+  addNewFileTypeFormSubmitted = false;
+  selectedFileType = new FileType();
 
   get type() {
     return this.addNewFileTypeForm.get('type');
@@ -41,15 +42,8 @@ export class FileTypeDefinitionComponent implements OnInit {
     return this.addNewFileTypeForm.get('description');
   }
 
-  addNewFileTypeLoading = false;
+ 
 
-  addNewFileTypeFormSubmitted = false;
-
-  selectedFileType = new FileType();
-
-  gridClass = 'p-datatable-sm';
-
-  dataTableRows = 10;
 
   constructor(
     private httpService: HttpService,
@@ -92,6 +86,13 @@ export class FileTypeDefinitionComponent implements OnInit {
       .subscribe(fileTypes => (this.fileTypes = fileTypes));
   }
 
+  addNewItem() {
+    this.isOpenAddEditFileType = true;
+    // this.addNewFileTypeForm.controls['type'].reset();
+    // this.addNewFileTypeForm.controls['extention'].reset();
+    // this.addNewFileTypeForm.controls['description'].reset();
+  }
+
   addOrUpdateFileType() {
     this.addNewFileTypeFormSubmitted = true;
 
@@ -128,6 +129,8 @@ export class FileTypeDefinitionComponent implements OnInit {
             });
 
             this.resetAddNewFileTypeForm();
+            this.isOpenAddEditFileType = false;
+
           }
         });
     }
@@ -135,6 +138,8 @@ export class FileTypeDefinitionComponent implements OnInit {
 
   editRow(fileType: FileType) {
     if (fileType.id) {
+      this.modalTitle = 'ویرایش ' + fileType.type;
+      this.isOpenAddEditFileType = true;
       this.selectedFileType = fileType;
       this.addNewFileTypeForm.patchValue(fileType);
     }

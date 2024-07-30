@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { HttpService } from '@core/http/http.service';
 import {
-  DocumentType,
-  DocumentTypeGroup,
-  PeriodType,
-  UrlBuilder,
+  DocumentType, UrlBuilder
 } from '@shared/models/response.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -19,51 +15,18 @@ import { map, tap } from 'rxjs';
   providers: [ConfirmationService],
 })
 export class DocumentTypeDefinitionComponent implements OnInit {
-  /** Table data total count. */
+
+  /** Table */
   totalCount!: number;
-
-  /** Main table data. */
   documentTypes: DocumentType[] = [];
-  documentTypesTree: DocumentType[] = [];
-
-  /** Main table loading. */
-  loading = false;
-
   gridClass = 'p-datatable-sm';
-
   dataTableRows = 10;
-
-  /*--------------------------
-  # CRUD
-  --------------------------*/
-  addNewDocumentTypeForm!: FormGroup;
-
-  addNewDocumentTypeModel = new DocumentType();
-
-  get title() {
-    return this.addNewDocumentTypeForm.get('title');
-  }
-  get code() {
-    return this.addNewDocumentTypeForm.get('code');
-  }
-
-  get parentId() {
-    return this.addNewDocumentTypeForm.get('parentId');
-  }
-
-  get periodTypeId() {
-    return this.addNewDocumentTypeForm.get('periodTypeId');
-  }
-
-  addNewDocumentTypeLoading = false;
-
-  addNewDocumentTypeFormSubmitted = false;
-
-  selectedDocumentType = new DocumentType();
-
-  groupsLst!: DocumentTypeGroup[];
-
-  periodTypeLst!: PeriodType[];
+  first = 0;
+  addEditData = new DocumentType();
+  isOpenAddEditDocumentType = false;
+  modalTitle = '';
+  type = '';
+  loading = false;
 
   constructor(
     private httpService: HttpService,
@@ -73,23 +36,6 @@ export class DocumentTypeDefinitionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDocumentTypes();
-    this.getDocumentTypesTree();
-    this.getGroups();
-    this.getPeriodType();
-    this.addNewDocumentTypeForm = new FormGroup({
-      title: new FormControl(
-        this.addNewDocumentTypeModel.label,
-        Validators.required
-      ),
-      code: new FormControl(this.addNewDocumentTypeModel.code),
-      parentId: new FormControl(this.addNewDocumentTypeModel.parentId),
-      documentTypeGroupId: new FormControl(
-        this.addNewDocumentTypeModel.documentTypeGroupId
-      ),
-      periodTypeId: new FormControl(
-        this.addNewDocumentTypeModel.periodTypeId
-      ),
-    });
   }
 
   /*--------------------------
@@ -116,85 +62,10 @@ export class DocumentTypeDefinitionComponent implements OnInit {
       );
   }
 
-  getDocumentTypesTree() {
-    this.loading = true;
-    this.httpService
-      .get<DocumentType[]>(
-        UrlBuilder.build(DocumentType.apiAddress, 'TREE')
-      )
-      .pipe(
-        tap(() => (this.loading = false)),
-        map(response => {
-          if (response.data && response.data.result)
-            return response.data.result;
-          else return [new DocumentType()];
-        })
-      )
-      .subscribe(
-        documentTypes => (this.documentTypesTree = documentTypes)
-      );
-  }
-
-  getPeriodType() {
-    this.loading = true;
-    this.httpService
-      .get<PeriodType[]>(UrlBuilder.build(PeriodType.apiAddress, 'LIST'))
-      .pipe(
-        tap(() => (this.loading = false)),
-        map(response => {
-          if (response.data && response.data.result)
-            return response.data.result;
-          else return [new PeriodType()];
-        })
-      )
-      .subscribe(periodTypeLst => (this.periodTypeLst = periodTypeLst));
-  }
-
-  addOrUpdateDocumentType() {
-    this.addNewDocumentTypeFormSubmitted = true;
-
-    if (this.addNewDocumentTypeForm.valid) {
-      this.addNewDocumentTypeLoading = true;
-
-      const { title, code, parentId, documentTypeGroupId, periodTypeId } =
-        this.addNewDocumentTypeForm.value;
-
-      const request = new DocumentType();
-      request.id = this.selectedDocumentType.key || 0;
-      request.title = title;
-      request.code = code;
-      request.parentId = parentId?.key;
-      request.documentTypeGroupId = documentTypeGroupId;
-      request.periodTypeId = periodTypeId;
-
-      const typeOpe = request.key ? 'UPDATE' : 'CREATE';
-
-      this.httpService
-        .post<DocumentType>(
-          UrlBuilder.build(DocumentType.apiAddress, typeOpe),
-          request
-        )
-        .pipe(
-          tap(() => {
-            this.addNewDocumentTypeLoading = false;
-          })
-        )
-        .subscribe(response => {
-          if (response.successed) {
-            this.getDocumentTypes();
-            this.getDocumentTypesTree();
-            this.messageService.add({
-              key: 'documentTypeDefinition',
-              life: 8000,
-              severity: 'success',
-              detail: `نوع اسناد`,
-              summary: 'با موفقیت درج شد',
-            });
-
-            this.resetAddNewDocumentTypeForm();
-          }
-        });
-    }
+  addNewItem() {
+    this.modalTitle = 'افزودن';
+    this.type = 'insert';
+    this.isOpenAddEditDocumentType = true;
   }
 
   editRow(documentType: DocumentType) {
@@ -206,9 +77,11 @@ export class DocumentTypeDefinitionComponent implements OnInit {
         documentType.parentId = fltr[0];
       }
       documentType.title = documentType.label;
-      this.selectedDocumentType = documentType;
-      this.addNewDocumentTypeForm.patchValue(documentType);
+      this.addEditData = documentType;
     }
+    this.modalTitle = 'ویرایش ' + documentType.title;
+    this.type = 'edit';
+    this.isOpenAddEditDocumentType = true;
   }
 
   deleteRow(documentType: DocumentType) {
@@ -249,34 +122,21 @@ export class DocumentTypeDefinitionComponent implements OnInit {
               summary: 'با موفقیت حذف شد',
             });
 
-            this.resetAddNewDocumentTypeForm();
           }
         });
     }
+
+
   }
 
-  resetAddNewDocumentTypeForm() {
-    this.addNewDocumentTypeFormSubmitted = false;
-    this.addNewDocumentTypeForm.reset();
-    this.selectedDocumentType = new DocumentType();
+
+  reloadData() {
+    this.isOpenAddEditDocumentType = false;
+    this.getDocumentTypes();
   }
 
-  getGroups() {
-    const body = {
-      withOutPagination: false,
-    };
-
-    this.httpService
-      .get<DocumentTypeGroup[]>(
-        DocumentTypeGroup.apiAddress
-      )
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result)
-            return response.data.result;
-          else return [new DocumentTypeGroup()];
-        })
-      )
-      .subscribe(groups => (this.groupsLst = groups));
+  closeModal() {
+    this.isOpenAddEditDocumentType = false;
   }
+
 }

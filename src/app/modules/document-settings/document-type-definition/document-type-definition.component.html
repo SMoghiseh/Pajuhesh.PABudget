@@ -1,178 +1,13 @@
-<!-- pop up messages -->
 <p-toast key="documentTypeDefinition" position="bottom-left"></p-toast>
-
-<!-- data table -->
-<section class="section">
-  <!-- <div class="card">
-    <div class="card-body"> -->
-  <div class="card-text pt-3"></div>
-  <!-- input group -->
-  <div class="pb-2">
-    <p-panel class="search-panel__secation pb-1" header="تعریف انواع اسناد">
-      <form
-        #formDir="ngForm"
-        [formGroup]="addNewDocumentTypeForm"
-        (ngSubmit)="addOrUpdateDocumentType()">
-        <div class="container">
-          <div class="row row-cols-lg-4 row-cols-1">
-            <!-- اسناد-->
-            <div class="col my-1">
-              <label for="documentTypes">انتخاب نوع اسناد</label>
-              <p-treeSelect
-                inputId="key"
-                id="documentTypes"
-                class="md:w-20rem w-full"
-                containerStyleClass="w-full"
-                formControlName="parentId"
-                placeholder="انتخاب کنید"
-                [options]="documentTypesTree"
-                [filter]="true"
-                [filterInputAutoFocus]="true"
-                [showClear]="true"></p-treeSelect>
-            </div>
-            <!--/ اسناد-->
-            <!-- نام اسناد -->
-            <div class="col my-1">
-              <label for="title">نام اسناد</label>
-              <input
-                pInputText
-                id="title"
-                name="title"
-                formControlName="title"
-                type="text"
-                class="w-100"
-                [class.ng-invalid]="title?.invalid"
-                [class.ng-dirty]="
-                  (addNewDocumentTypeFormSubmitted && title?.pristine) ||
-                  title?.dirty ||
-                  title?.touched
-                " />
-
-              <div id="title-help">
-                <small
-                  *ngIf="(addNewDocumentTypeFormSubmitted && title?.pristine) || 
-                  (title?.errors?.['required'] && (title?.dirty || title?.touched))"
-                  class="p-error">
-                  لطفا این فیلد را خالی نگذارید
-                </small>
-                <small style="visibility: hidden" class="p-error">
-                  error
-                </small>
-              </div>
-            </div>
-            <!-- / نام اسناد -->
-
-            <!-- کد اسناد -->
-            <div class="col my-1">
-              <label for="code">کد اسناد</label>
-              <input
-                pInputText
-                id="code"
-                name="code"
-                formControlName="code"
-                type="text"
-                class="w-100"
-                [class.ng-invalid]="code?.invalid"
-                [class.ng-dirty]="
-                  (addNewDocumentTypeFormSubmitted && code?.pristine) ||
-                  code?.dirty ||
-                  code?.touched
-                " />
-            </div>
-            <!-- / کد اسناد -->
-
-            <!-- گروه -->
-            <div class="col my-1">
-              <label for="documentTypeGroupId">گروه</label>
-              <p-dropdown
-                id="documentTypeGroupId"
-                class="col"
-                styleClass="w-100 my-1"
-                optionLabel="title"
-                optionValue="id"
-                [options]="groupsLst"
-                placeholder="انتخاب کنید"
-                formControlName="documentTypeGroupId"
-                [showClear]="true">
-              </p-dropdown>
-            </div>
-            <!--/ گروه -->
-          </div>
-          <div class="row row-cols-lg-4 row-cols-1">
-            <div class="col my-1">
-              <label for="periodTypeId">دوره</label>
-              <p-dropdown
-                id="periodTypeId"
-                class="col"
-                styleClass="w-100 my-1"
-                optionLabel="title"
-                optionValue="id"
-                [options]="periodTypeLst"
-                placeholder="انتخاب کنید"
-                formControlName="periodTypeId"
-                [showClear]="true"
-                [class.ng-invalid]="periodTypeId?.invalid"
-                [class.ng-dirty]="
-                  (addNewDocumentTypeFormSubmitted && periodTypeId?.pristine) ||
-                  periodTypeId?.dirty ||
-                  periodTypeId?.touched
-                ">
-              </p-dropdown>
-              <div id="periodTypeId-help">
-                <small
-                  *ngIf="(addNewDocumentTypeFormSubmitted && periodTypeId?.pristine) || 
-                  (periodTypeId?.errors?.['required'] && (periodTypeId?.dirty || periodTypeId?.touched))"
-                  class="p-error">
-                  لطفا این فیلد را خالی نگذارید
-                </small>
-                <small style="visibility: hidden" class="p-error">
-                  error
-                </small>
-              </div>
-            </div>
-            <div class="col my-1"></div>
-            <div class="col my-1"></div>
-            <!-- دکمه ها -->
-            <div class="d-flex jc-center justify-content-lg-end col my-1">
-              <p-button
-                style="align-self: end"
-                class="pe-2 p-button-wide"
-                styleClass="p-button-success"
-                label="تایید"
-                icon="pi pi-check"
-                type="submit"
-                [loading]="addNewDocumentTypeLoading"></p-button>
-
-              <p-button
-                style="align-self: end"
-                class="pe-2 p-button-wide"
-                styleClass="p-button-warning"
-                label="انصراف"
-                icon="pi pi-times"
-                (click)="resetAddNewDocumentTypeForm()"></p-button>
-            </div>
-            <!-- / دکمه ها -->
-          </div>
-        </div>
-      </form>
-    </p-panel>
-  </div>
-  <!-- / input group -->
-
-  <!-- data table -->
-  <p-table
-    #dataTable
-    class="data-table d-none d-lg-block"
-    dataKey="id"
-    [paginator]="true"
-    [rows]="dataTableRows"
-    [rowsPerPageOptions]="[10, 20, 30]"
-    [styleClass]="gridClass"
-    [rowHover]="true"
-    [totalRecords]="totalCount"
-    [value]="documentTypes"
-    [loading]="loading"
-    [tableStyle]="{ 'min-width': '75rem' }">
+<div class="table-header">تعریف انواع اسناد</div>
+<div class="justify-content-between pb-3 w-100" style="text-align: end">
+  <p-button class="pe-2" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
+    (click)="addNewItem()"></p-button>
+</div>
+<div class="table-container">
+  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+    [value]="documentTypes" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -197,16 +32,11 @@
         </th>
       </tr>
     </ng-template>
-    <!-- / table header -->
-    <!-- table body -->
     <ng-template pTemplate="body" let-documentType let-rowIndex="rowIndex">
       <tr>
         <td>{{ documentType.key }}</td>
 
-        <td
-          pTooltip="{{ documentType.label }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ documentType.label }}" tooltipEvent="hover" tooltipPosition="top">
           {{ documentType.label }}
         </td>
 
@@ -214,120 +44,26 @@
 
         <td>{{ documentType.periodTypeName }}</td>
 
-        <!-- actions -->
-        <td class="d-flex jc-center ai-center">
-          <!-- edit -->
-          <p-button
-            pRipple
-            class="pe-2"
-            styleClass="p-button-text p-button-warning p-button-rounded"
-            type="button"
-            icon="pi pi-pencil"
-            (click)="editRow(documentType)">
-          </p-button>
-          <!-- / edit -->
+        <td class="jc-left ai-left">
+          <button class="action-image-container edit-button" (click)="editRow(documentType)" pTooltip="ویرایش  ">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
 
-          <!-- delete -->
-          <p-button
-            pRipple
-            class="pe-2"
-            styleClass="p-button-text p-button-danger p-button-rounded"
-            type="button"
-            icon="pi pi-times"
-            (click)="deleteRow(documentType)">
-          </p-button>
-          <!-- / delete -->
+          <button class="action-image-container delete-button" (click)="deleteRow(documentType)" pTooltip="حذف  ">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
         </td>
-        <!-- actions -->
       </tr>
     </ng-template>
-    <!-- / table body -->
   </p-table>
-  <!-- data table -->
+</div>
 
-  <!-- data list -->
-  <div class="data-list d-block d-lg-none">
-    <ul *ngFor="let documentType of documentTypes" class="list-group my-1">
-      <!-- شناسه -->
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>شناسه</strong>
-          </div>
 
-          <div class="col my-1 text-center">
-            {{ documentType.key }}
-          </div>
-        </div>
-      </li>
-      <!-- / شناسه -->
 
-      <!-- نام اسناد -->
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>نام اسناد</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            {{ documentType.label }}
-          </div>
-        </div>
-      </li>
-      <!-- / نام اسناد -->
-
-      <!--  کد اسناد -->
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>کد اسناد</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            {{ documentType.code }}
-          </div>
-        </div>
-      </li>
-      <!-- /  کد اسناد -->
-      <!-- عملیات -->
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col my-1 text-center">
-            <strong>عملیات</strong>
-          </div>
-
-          <div class="col my-1 text-center">
-            <div class="d-flex jc-center ai-center">
-              <!-- edit -->
-              <p-button
-                pRipple
-                styleClass="p-button-text p-button-warning"
-                type="button"
-                icon="pi pi-pencil"
-                (click)="editRow(documentType)">
-              </p-button>
-              <!-- / edit -->
-
-              <!-- delete -->
-              <p-button
-                pRipple
-                styleClass="p-button-text p-button-danger"
-                type="button"
-                icon="pi pi-times"
-                (click)="deleteRow(documentType)">
-              </p-button>
-              <!-- / delete -->
-            </div>
-          </div>
-        </div>
-      </li>
-      <!-- / عملیات -->
-    </ul>
-  </div>
-  <!-- / data list -->
-  <!-- </div>
-  </div> -->
-</section>
-<!-- / data table -->
+<p-dialog *ngIf="isOpenAddEditDocumentType" [header]="modalTitle" [(visible)]="isOpenAddEditDocumentType" [modal]="true"
+  [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '400px' }">
+  <PABudget-add-edit-document-type-definition [data1]="addEditData" (isSuccess)="reloadData()" [mode]="type"
+    (isCloseModal)="closeModal()"></PABudget-add-edit-document-type-definition>
+</p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

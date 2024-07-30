@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
-  AccountReport,
   Company,
   Dashboard,
   GridBalanceSheet,
+  PermissionProfile,
   Profile,
   StaticYear,
-  UrlBuilder,
+  UrlBuilder
 } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,12 +31,19 @@ export class CompanyProfileComponent implements OnInit {
   selectedReportId!: number;
   selectedRows: any = [];
   liveSelectionRow = 0;
-  planLst!: Profile[];
-  budgetLst!: Profile[];
+  // planLst!: Profile[];
+  // budgetLst!: Profile[];
+  budgetList: any = [];
+  budgetList_all: any = [];
+  yearlyPlanList: any = [];
+  yearlyPlanList_all: any = [];
+  macroList: any = [];
+  macroList_all: any = [];
   selectedYears: any;
   planDetailData: any;
   budgetDetailData: any;
-  selectedPlanId!: number;
+  selectedYearlyPlanId!: number;
+  selectedMacroId!: number;
   selectedBudgetId!: number;
   isSelectBudget = false;
   isSelectPlan = false;
@@ -98,12 +105,10 @@ export class CompanyProfileComponent implements OnInit {
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getBudget();
-    this.getPlan();
-    // this.getStaticYear();
+    this.getList();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
       this.getProfileCoInfo(this.coId);
@@ -137,9 +142,9 @@ export class CompanyProfileComponent implements OnInit {
 
   contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
-      {
-        queryParams: {},
-      };
+    {
+      queryParams: {},
+    };
   }
 
   getCostAndBenefitForProfile(id: string) {
@@ -177,7 +182,7 @@ export class CompanyProfileComponent implements OnInit {
   //       }
   //     }
   //   });
-  //   if (this.selectedPlanId !== -1) this.onSelectPlan(this.selectedPlanId);
+  //   if (this.selectedYearlyPlanId !== -1) this.onSelectPlan(this.selectedYearlyPlanId);
   //   if (this.selectedBudgetId !== -1)
   //     this.onSelectBudget(this.selectedBudgetId);
   //   if (this.isShowChart) this.getChart();
@@ -241,69 +246,128 @@ export class CompanyProfileComponent implements OnInit {
     this.liveSelectionRow--;
   }
 
-  getPlan() {
+  // getPlan() {
+  //   this.httpService
+  //     .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetPlan, ''))
+  //     .pipe(
+  //       map(response => {
+  //         if (response.data && response.data.result) {
+  //           return response.data.result;
+  //         } else return [new Profile()];
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       this.planLst = res;
+  //     });
+  // }
+
+  // getBudget() {
+  //   this.httpService
+  //     .post<Profile[]>(UrlBuilder.build(AccountReport.apiAddress + 'GetAllAccountReport', ''), {
+  //       withOutPagination: true
+  //     })
+  //     .pipe(
+  //       map(response => {
+  //         if (response.data && response.data.result) {
+  //           return response.data.result;
+  //         } else return [new Profile()];
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       this.budgetLst = res;
+  //     });
+  // }
+
+  getList() {
     this.httpService
-      .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetPlan, ''))
+      .get<PermissionProfile[]>(UrlBuilder.build(PermissionProfile.apiAddress + 'list', ''))
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
             return response.data.result;
-          } else return [new Profile()];
+          } else return [new PermissionProfile()];
         })
       )
       .subscribe(res => {
-        this.planLst = res;
+        this.operationOnList(res);
       });
   }
 
-  getBudget() {
-    this.httpService
-      .post<Profile[]>(UrlBuilder.build(AccountReport.apiAddress + 'GetAllAccountReport', '') , {
-        withOutPagination: true
-      })
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [new Profile()];
-        })
-      )
-      .subscribe(res => {
-        this.budgetLst = res;
-      });
+
+  operationOnList(data: any) {
+
+    this.budgetList = data[0];
+    this.convertArray(this.budgetList.detail, 'budget');
+
+    this.yearlyPlanList = data[1];
+    this.convertArray(this.yearlyPlanList.detail, 'yearlyPlan');
+
+    this.macroList = data[2];
+    this.convertArray(this.macroList.detail, 'macro');
+
   }
 
-  onSelectPlan(data: any) {
-    this.switchBudget = '';
-    this.switchPlan = data.enTitle;
-    this.selectedPlanId = data.id;
-    this.selectedBudgetId = -1;
-    this.isSelectPlan = true;
-    this.isSelectBudget = false;
-    // this.selectedBudgetId = -1;
-    let yearId = 12;
-    if (this.selectedYears) {
-      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
-      else yearId = this.selectedYears[0];
+  convertArray(data: any, categoryName: string) {
+    let max_level = Math.max(...data.map((x: any) => x.group));
+
+    let arrayToFill = [];
+    for (let index = 0; index < data.length; index++) {
+      arrayToFill[index] = data.filter((i: { group: number; }) => i.group == index);
+      if (index == max_level) break;
     }
 
+    if (categoryName == 'budget')
+      this.budgetList_all = arrayToFill;
+    if (categoryName == 'yearlyPlan')
+      this.yearlyPlanList_all = arrayToFill;
+    if (categoryName == 'macro')
+      this.macroList_all = arrayToFill;
   }
 
-  onSelectBudget(data:any) {
+
+
+  onSelectBudget(data: any) {
     this.switchPlan = '';
     this.switchBudget = data.componentName;
     this.selectedBudgetId = data.id;
-    this.selectedPlanId = -1;
+    this.selectedYearlyPlanId = -1;
+    this.selectedMacroId = -1;
     this.isSelectBudget = true;
     this.isSelectPlan = false;
-    // this.selectedPlanId = -1;
     let yearId = 12;
     if (this.selectedYears) {
       if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
       else yearId = this.selectedYears[0];
     }
+  }
 
-
+  onSelectYearlyPlan(data: any) {
+    this.switchBudget = '';
+    this.switchPlan = data.componentName;
+    this.selectedYearlyPlanId = data.id;
+    this.selectedMacroId = -1;
+    this.selectedBudgetId = -1;
+    this.isSelectPlan = true;
+    this.isSelectBudget = false;
+    let yearId = 12;
+    if (this.selectedYears) {
+      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+      else yearId = this.selectedYears[0];
+    }
+  }
+  onSelectMacro(data: any) {
+    this.switchBudget = '';
+    this.switchPlan = data.componentName;
+    this.selectedYearlyPlanId = -1;
+    this.selectedMacroId = data.id;
+    this.selectedBudgetId = -1;
+    this.isSelectPlan = true;
+    this.isSelectBudget = false;
+    let yearId = 12;
+    if (this.selectedYears) {
+      if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
+      else yearId = this.selectedYears[0];
+    }
   }
 
   selectTable() {
@@ -316,8 +380,6 @@ export class CompanyProfileComponent implements OnInit {
   getChart() {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
-    // this.selectedPlanId = -1;
-    // this.selectedBudgetId = -1;
     const type = typeof this.selectedYears;
     let arr = [];
     if (type === 'number') arr.push(this.selectedYears);
@@ -381,8 +443,8 @@ export class CompanyProfileComponent implements OnInit {
 
   // returnSelectedDate(e: any) {
   //   this.selectedYears = e;
-  //   if (this.isSelectPlan && this.selectedPlanId > -1)
-  //     this.onSelectPlan(this.selectedPlanId);
+  //   if (this.isSelectPlan && this.selectedYearlyPlanId > -1)
+  //     this.onSelectPlan(this.selectedYearlyPlanId);
   //   if (this.isSelectBudget && this.selectedBudgetId > -1)
   //     this.onSelectBudget(this.selectedBudgetId);
   //   if (this.isShowChart) this.getChart();

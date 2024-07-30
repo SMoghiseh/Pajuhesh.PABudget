@@ -129,6 +129,7 @@ export class SubjectDefinitionComponent implements OnInit {
   editRow(subject: Subject) {
     if (subject.id) {
       this.isOpenAddEditSubjectDefinition = true;
+      this.modalTitle = 'ویرایش ' + subject.title ;
       this.selectedSubject = subject;
       this.addNewSubjectForm.patchValue(subject);
     }
