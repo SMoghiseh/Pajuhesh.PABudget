@@ -296,13 +296,13 @@ export class CompanyProfileComponent implements OnInit {
 
   operationOnList(data: any) {
 
-    this.budgetList = data[0];
+    this.budgetList = data[2];
     this.convertArray(this.budgetList.detail, 'budget');
 
-    this.yearlyPlanList = data[1];
+    this.yearlyPlanList = data[0];
     this.convertArray(this.yearlyPlanList.detail, 'yearlyPlan');
 
-    this.macroList = data[2];
+    this.macroList = data[1];
     this.convertArray(this.macroList.detail, 'macro');
 
   }
