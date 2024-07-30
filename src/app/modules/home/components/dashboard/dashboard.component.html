@@ -10,8 +10,9 @@
     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box"
       *ngFor="let company of mySubCompanies">
       <div class="holding-box"
-        [style.background-image]="'url(../../../../assets/images/dashbord.svg)'"
         [class.select-co-item]="company.isSelected"
+        
+        [style.background-image]="'url(../../../../assets/images/dashbord.svg)'"
         (click)="onSelectCompany(company)">
         <div class="div-img-logo"
           [style.background-image]="
