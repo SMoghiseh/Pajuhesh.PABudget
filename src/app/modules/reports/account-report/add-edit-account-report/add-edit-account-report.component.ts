@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReport, Period, ReportItemType } from '@shared/models/response.model';
+import { AccountReport, Period, PeriodBudgetType, ReportItemType } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -103,7 +103,8 @@ export class AddEditAccountReportComponent {
 
   getPeriodTypeList() {
     this.httpService
-      .get<any[]>(Period.apiAddress + 'ListDropDown')
+      // .get<any[]>(Period.apiAddress + 'ListDropDown')
+      .get<any[]>(PeriodBudgetType.apiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodTypeList = response.data.result;

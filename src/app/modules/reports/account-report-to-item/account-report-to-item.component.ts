@@ -29,6 +29,7 @@ export class AccountReportToItemComponent implements OnInit {
   isOpenAddEditReport = false;
   addEditData = new AccountReportToItem();
   pId!: string;
+  mode!: string;
 
   // form property
   searchForm!: FormGroup;
@@ -126,6 +127,7 @@ export class AccountReportToItemComponent implements OnInit {
   addReport() {
     this.modalTitle = 'افزودن  گزارش جدید';
     this.isOpenAddEditReport = true;
+    this.mode = 'insert';
   }
 
   deleteRow(item: AccountReportToItem) {
