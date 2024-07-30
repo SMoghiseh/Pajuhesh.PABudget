@@ -47,7 +47,7 @@
 </div>
 
 <p-dialog *ngIf="isOpenAddEditReport" [header]="modalTitle" [(visible)]="isOpenAddEditReport" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '400px' }">
+  [draggable]="false" [resizable]="false"  [class.height-size]="mode == 'insert' || mode == 'edit'" [style]="{ width: '800px', height: '400px' }">
   <PABudget-add-edit-account-report [data]="addEditData" [mode]="mode"
     (isSuccess)="reloadData()"></PABudget-add-edit-account-report>
 </p-dialog>
