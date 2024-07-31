@@ -91,10 +91,6 @@ export class AccountReportItemPriceComponent implements OnInit {
       });
   }
 
-  search() {
-
-  }
-
   getReport(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
