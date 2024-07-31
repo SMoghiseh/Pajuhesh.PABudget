@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Period, ProductGroup, Sale } from '@shared/models/response.model';
+import { ContractNo, Period, ProductGroup, Sale } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
-import { tap } from 'rxjs';
+import { pairwise, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -12,9 +12,9 @@ import { MessageService } from 'primeng/api';
 })
 export class AddEditSaleComponent implements OnInit {
   // form property
-  addEditSaleForm!: FormGroup;
+  addEditSaleForm: FormGroup = new FormGroup({});
   addEditSaleSubmitted = false;
-  setValidationconditionally = false;
+  visibleconditionally = false;
   isLoadingSubmit = false;
 
   // dropdown data list
@@ -22,11 +22,15 @@ export class AddEditSaleComponent implements OnInit {
   budgetPeriodDetailList: any = [];
   productGroupList: any = [];
   saleTypeList: any = [];
+  contractList: any = [];
   inputData = new Sale();
+
   @Input() mode = '';
   @Input() set data1(data: Sale) {
     this.inputData = data;
   }
+  isContractValue = false;
+  isChangeSaleType = false;
 
   @Output() isSuccess = new EventEmitter<boolean>();
   @Output() isCloseModal = new EventEmitter<boolean>();
@@ -60,17 +64,21 @@ export class AddEditSaleComponent implements OnInit {
   get benefitLossCu() {
     return this.addEditSaleForm.get('benefitLossCu');
   }
+  get productAllSalesCu() {
+    return this.addEditSaleForm.get('productAllSalesCu');
+  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // this.getRowData();
     this.getPeriodLst();
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
+    this.getContractList();
     this.addEditSaleForm = new FormGroup({
       budgetPeriodId: new FormControl(
         this.inputData.budgetPeriodId,
@@ -94,8 +102,8 @@ export class AddEditSaleComponent implements OnInit {
         this.inputData.productUnitSalesCu,
         Validators.required
       ),
-      productAllSalesCu: new FormControl(this.inputData.productAllSalesCu),
-      benefitLossCu: new FormControl(this.inputData.benefitLossCu),
+      productAllSalesCu: new FormControl(this.inputData.productAllSalesCu, Validators.required),
+      benefitLossCu: new FormControl(this.inputData.benefitLossCu, Validators.required),
       costingAllCu: new FormControl(this.inputData.costingAllCu),
       costingUnitCu: new FormControl(this.inputData.costingUnitCu),
     });
@@ -104,13 +112,16 @@ export class AddEditSaleComponent implements OnInit {
       this.getRowData(this.inputData.id);
       this.getPeriodDetailLst(this.inputData.budgetPeriodId);
     }
+
+    this.calculationOnFields();
   }
 
   addEditSale() {
     this.addEditSaleSubmitted = true;
     if (this.addEditSaleForm.valid) {
-      const request = this.addEditSaleForm.value;
+      let request = this.addEditSaleForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
+      request.saleType = request.saleType.id;
       const url =
         this.mode === 'insert'
           ? Sale.apiAddress + 'CreateSale'
@@ -180,6 +191,15 @@ export class AddEditSaleComponent implements OnInit {
         }
       });
   }
+  getContractList() {
+    this.httpService
+      .post<ContractNo[]>(ContractNo.adiAddressList, { withOutPagination: false })
+      .subscribe(response => {
+        if (response.data) {
+          this.contractList = response.data;
+        }
+      });
+  }
   closeModal() {
     this.isCloseModal.emit(false);
   }
@@ -201,25 +221,88 @@ export class AddEditSaleComponent implements OnInit {
   }
 
   onChangeSaleType() {
-    this.setValidationconditionally = true;
+    this.isChangeSaleType = true;
+    this.isContractValue = this.addEditSaleForm.value.saleType.isContract;
+    let value = this.addEditSaleForm.controls['saleType'].value;
+    this.addEditSaleForm.reset();
+    this.addEditSaleForm.patchValue({
+      saleType: value
+    })
+  }
 
-    if (this.addEditSaleForm.value.saleType == 117) {
-      this.addEditSaleForm
-        .get('contractId')
-        ?.setValidators(Validators.required);
-      this.addEditSaleForm.get('contractId')?.updateValueAndValidity();
-      this.addEditSaleForm
-        .get('costingUnitCu')
-        ?.setValidators(Validators.required);
-      this.addEditSaleForm.get('costingUnitCu')?.updateValueAndValidity();
-      this.addEditSaleForm
-        .get('costingAllCu')
-        ?.setValidators(Validators.required);
-      this.addEditSaleForm.get('costingAllCu')?.updateValueAndValidity();
-      this.addEditSaleForm
-        .get('benefitLossCu')
-        ?.setValidators(Validators.required);
-      this.addEditSaleForm.get('benefitLossCu')?.updateValueAndValidity();
-    }
+  calculationOnFields() {
+    // تغییر فیلد تعداد 
+    this.addEditSaleForm.controls['productNumber']
+      .valueChanges
+      .pipe(pairwise())
+      .subscribe(([prev, next]: [any, any]) => {
+        // محاسبه مبلغ کل فروش
+        if (!this.isContractValue) {
+          let value1 = next *
+            this.addEditSaleForm.controls['productUnitSalesCu'].value
+          this.addEditSaleForm.controls['productAllSalesCu'].setValue(value1);
+        }
+      });
+
+    // تغییر فیلد مبلغ واحد فروش
+    this.addEditSaleForm.controls['productUnitSalesCu']
+      .valueChanges
+      .pipe(pairwise())
+      .subscribe(([prev, next]: [any, any]) => {
+        // محاسبه مبلغ کل فروش
+        if (!this.isContractValue) {
+          let value1 = this.addEditSaleForm.controls['productNumber'].value *
+            next;
+          this.addEditSaleForm.controls['productAllSalesCu'].setValue(value1);
+        }
+      });
+
+    // تغییر فیلد مبلغ کل فروش
+    this.addEditSaleForm.controls['productAllSalesCu']
+      .valueChanges
+      .pipe(pairwise())
+      .subscribe(([prev, next]: [any, any]) => {
+        // محاسبه مبلغ  سود و زیان
+        if (!this.isContractValue) {
+          let value2 = next -
+            this.addEditSaleForm.controls['costingAllCu'].value;
+          this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
+        }
+      });
+    // تغییر فیلد  بهای تمام شده 
+    this.addEditSaleForm.controls['costingAllCu']
+      .valueChanges
+      .pipe(pairwise())
+      .subscribe(([prev, next]: [any, any]) => {
+        // محاسبه مبلغ  سود و زیان
+        if (!this.isContractValue) {
+          let value2 = this.addEditSaleForm.controls['productAllSalesCu'].value -
+            next;
+          this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
+        }
+        if (this.isContractValue) {
+          let value2 = this.addEditSaleForm.controls['costingUnitCu'].value -
+            next;
+          this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
+        }
+      });
+    // تغییر فیلد  مبلغ قرارداد 
+    this.addEditSaleForm.controls['costingUnitCu']
+      .valueChanges
+      .pipe(pairwise())
+      .subscribe(([prev, next]: [any, any]) => {
+        // محاسبه مبلغ  سود و زیان
+        if (!this.isContractValue) {
+          let value2 = this.addEditSaleForm.controls['productAllSalesCu'].value -
+            next;
+          this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
+        }
+        if (this.isContractValue) {
+          let value2 = next -
+            this.addEditSaleForm.controls['costingAllCu'].value;
+          this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
+        }
+      });
+
   }
 }

@@ -1,23 +1,42 @@
-<p-toast key="sale"
-  position="bottom-left"></p-toast>
+<p-toast key="sale" position="bottom-left"></p-toast>
 
-<form #formDir="ngForm"
-  [formGroup]="addEditSaleForm"
-  (ngSubmit)="addEditSale()">
+<form #formDir="ngForm" [formGroup]="addEditSaleForm" (ngSubmit)="addEditSale()">
   <div class="row">
     <div class="col-6 mt-2">
+      <label for="saleType">نوع فروش </label>
+      <p-dropdown id="saleType" name="saleType" formControlName="saleType" styleClass="w-100 my-1" optionLabel="title"
+        placeholder="انتخاب کنید" [options]="saleTypeList" [filter]="true" [class.ng-invalid]="saleType?.invalid"
+        [class.ng-dirty]="
+          (addEditSaleSubmitted && saleType?.pristine) ||
+          saleType?.dirty ||
+          saleType?.touched
+        " (onChange)="onChangeSaleType()">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2" *ngIf="isContractValue && isChangeSaleType">
+      <label for="contractId">قرارداد</label>
+      <p-dropdown id="contractId" name="contractId" formControlName="contractId" styleClass="w-100 my-1"
+        optionLabel="contractor" optionValue="id" placeholder="انتخاب کنید" [options]="contractList" [filter]="true"
+        [class.ng-invalid]="contractId?.invalid" [class.ng-dirty]="
+        (addEditSaleSubmitted && contractId?.pristine) ||
+        contractId?.dirty ||
+        contractId?.touched">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2" *ngIf="isContractValue && isChangeSaleType">
+      <label for="costingUnitCu"> مبلغ قرارداد </label>
+      <p-inputNumber pKeyFilter="int" id="costingUnitCu" name="costingUnitCu" formControlName="costingUnitCu"
+        type="text" class="w-100" value="costingUnitCu" [class.ng-invalid]="costingUnitCu?.invalid" [class.ng-dirty]="
+          (addEditSaleSubmitted && addEditSaleSubmitted && costingUnitCu?.pristine) ||
+          costingUnitCu?.dirty ||
+          costingUnitCu?.touched
+        "></p-inputNumber>
+    </div>
+    <div class="col-6 mt-2" *ngIf=" isChangeSaleType">
       <label for="budgetPeriodId">دوره بودجه</label>
-      <p-dropdown id="budgetPeriodId"
-        name="budgetPeriodId"
-        formControlName="budgetPeriodId"
-        styleClass="w-100 my-1"
-        optionLabel="periodTitle"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="budgetPeriodList"
-        [filter]="true"
-        (onChange)="onChangePeriod($event)"
-        [class.ng-invalid]="budgetPeriodId?.invalid"
+      <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId" styleClass="w-100 my-1"
+        optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="budgetPeriodList"
+        [filter]="true" (onChange)="onChangePeriod($event)" [class.ng-invalid]="budgetPeriodId?.invalid"
         [class.ng-dirty]="
           (addEditSaleSubmitted && budgetPeriodId?.pristine) ||
           budgetPeriodId?.dirty ||
@@ -25,18 +44,11 @@
         ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" *ngIf="isChangeSaleType">
       <label for="budgetPeriodDetailId">دوره عملیاتی</label>
-      <p-dropdown id="budgetPeriodDetailId"
-        name="budgetPeriodDetailId"
-        formControlName="budgetPeriodDetailId"
-        styleClass="w-100 my-1"
-        optionLabel="periodDetailTitle"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="budgetPeriodDetailList"
-        [filter]="true"
-        [class.ng-invalid]="budgetPeriodDetailId?.invalid"
+      <p-dropdown id="budgetPeriodDetailId" name="budgetPeriodDetailId" formControlName="budgetPeriodDetailId"
+        styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
+        [options]="budgetPeriodDetailList" [filter]="true" [class.ng-invalid]="budgetPeriodDetailId?.invalid"
         [class.ng-dirty]="
           (addEditSaleSubmitted && budgetPeriodDetailId?.pristine) ||
           budgetPeriodDetailId?.dirty ||
@@ -45,55 +57,11 @@
       </p-dropdown>
     </div>
 
-    <div class="col-6 mt-2">
-      <label for="contractId">شماره قرارداد</label>
-      <p-inputNumber pKeyFilter="int"
-        id="contractId"
-        name="contractId"
-        formControlName="contractId"
-        type="text"
-        class="w-100"
-        [class.ng-invalid]="contractId?.invalid"
-        [class.ng-dirty]="
-          (setValidationconditionally && contractId?.pristine) ||
-          contractId?.dirty ||
-          contractId?.touched
-        "></p-inputNumber>
-    </div>
-    <div class="col-6 mt-2">
-      <label for="saleType">نوع فروش </label>
-      <p-dropdown id="saleType"
-        name="saleType"
-        formControlName="saleType"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="saleTypeList"
-        [filter]="true"
-        [class.ng-invalid]="saleType?.invalid"
-        [class.ng-dirty]="
-          (addEditSaleSubmitted && saleType?.pristine) ||
-          saleType?.dirty ||
-          saleType?.touched
-        "
-        (onChange)="onChangeSaleType()">
-      </p-dropdown>
-    </div>
-
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" *ngIf="!isContractValue && isChangeSaleType">
       <label for="productGroupId">گروه محصول </label>
-      <p-dropdown id="productGroupId"
-        name="productGroupId"
-        formControlName="productGroupId"
-        styleClass="w-100 my-1"
-        optionLabel="productGroupTitle"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="productGroupList"
-        [filter]="true"
-        [class.ng-invalid]="productGroupId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="productGroupId" name="productGroupId" formControlName="productGroupId" styleClass="w-100 my-1"
+        optionLabel="productGroupTitle" optionValue="id" placeholder="انتخاب کنید" [options]="productGroupList"
+        [filter]="true" [class.ng-invalid]="productGroupId?.invalid" [class.ng-dirty]="
           (addEditSaleSubmitted && productGroupId?.pristine) ||
           productGroupId?.dirty ||
           productGroupId?.touched
@@ -101,103 +69,60 @@
       </p-dropdown>
     </div>
 
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" *ngIf="!isContractValue && isChangeSaleType">
       <label for="productNumber">تعداد </label>
-      <p-inputNumber pKeyFilter="int"
-        id="productNumber"
-        name="productNumber"
-        formControlName="productNumber"
-        type="text"
-        class="w-100"
-        [class.ng-invalid]="productNumber?.invalid"
-        [class.ng-dirty]="
+      <p-inputNumber pKeyFilter="int" id="productNumber" name="productNumber" formControlName="productNumber"
+        type="text" class="w-100" [class.ng-invalid]="productNumber?.invalid" [class.ng-dirty]="
           (addEditSaleSubmitted && productNumber?.pristine) ||
           productNumber?.dirty ||
           productNumber?.touched
         "></p-inputNumber>
     </div>
 
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" *ngIf="!isContractValue && isChangeSaleType">
       <label for="productUnitSalesCu">مبلغ واحد فروش </label>
-      <p-inputNumber pKeyFilter="int"
-        id="productUnitSalesCu"
-        name="productUnitSalesCu"
-        formControlName="productUnitSalesCu"
-        type="text"
-        class="w-100"
-        [class.ng-invalid]="productUnitSalesCu?.invalid"
+      <p-inputNumber pKeyFilter="int" id="productUnitSalesCu" name="productUnitSalesCu"
+        formControlName="productUnitSalesCu" type="text" class="w-100" [class.ng-invalid]="productUnitSalesCu?.invalid"
         [class.ng-dirty]="
           (addEditSaleSubmitted && productUnitSalesCu?.pristine) ||
           productUnitSalesCu?.dirty ||
           productUnitSalesCu?.touched
         "></p-inputNumber>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" *ngIf="!isContractValue && isChangeSaleType">
       <label for="productAllSalesCu">مبلغ کل فروش </label>
-      <p-inputNumber pKeyFilter="int"
-        id="productAllSalesCu"
-        name="productAllSalesCu"
-        formControlName="productAllSalesCu"
-        type="text"
-        class="w-100"></p-inputNumber>
-    </div>
-    <div class="col-6 mt-2">
-      <label for="benefitLossCu">مبلغ سود و زیان </label>
-      <p-inputNumber pKeyFilter="int"
-        id="benefitLossCu"
-        name="benefitLossCu"
-        formControlName="benefitLossCu"
-        type="text"
-        class="w-100"
-        [class.ng-invalid]="benefitLossCu?.invalid"
+      <p-inputNumber pKeyFilter="int" id="productAllSalesCu" name="productAllSalesCu"
+        formControlName="productAllSalesCu" type="text" class="w-100" [class.ng-invalid]="productAllSalesCu?.invalid"
         [class.ng-dirty]="
-          (setValidationconditionally && benefitLossCu?.pristine) ||
+          ( addEditSaleSubmitted && productAllSalesCu?.pristine) ||
+          productAllSalesCu?.dirty ||
+          productAllSalesCu?.touched
+        "></p-inputNumber>
+    </div>
+    <div class="col-6 mt-2" *ngIf="isChangeSaleType">
+      <label for="benefitLossCu">مبلغ سود و زیان </label>
+      <p-inputNumber pKeyFilter="int" id="benefitLossCu" name="benefitLossCu" formControlName="benefitLossCu"
+        type="text" class="w-100" [class.ng-invalid]="benefitLossCu?.invalid" [class.ng-dirty]="
+          ( addEditSaleSubmitted && benefitLossCu?.pristine) ||
           benefitLossCu?.dirty ||
           benefitLossCu?.touched
         "></p-inputNumber>
     </div>
-    <div class="col-6 mt-2">
+
+    <div class="col-6 mt-2" *ngIf="isChangeSaleType">
       <label for="costingAllCu">بهای تمام شده</label>
-      <p-inputNumber pKeyFilter="int"
-        id="costingAllCu"
-        name="costingAllCu"
-        formControlName="costingAllCu"
-        type="text"
-        class="w-100"
-        [class.ng-invalid]="costingAllCu?.invalid"
-        [class.ng-dirty]="
-          (setValidationconditionally && costingAllCu?.pristine) ||
+      <p-inputNumber pKeyFilter="int" id="costingAllCu" name="costingAllCu" formControlName="costingAllCu" type="text"
+        class="w-100" [class.ng-invalid]="costingAllCu?.invalid" [class.ng-dirty]="
+          ( addEditSaleSubmitted && costingAllCu?.pristine) ||
           costingAllCu?.dirty ||
           costingAllCu?.touched
         "></p-inputNumber>
     </div>
-    <div class="col-6 mt-2">
-      <label for="costingUnitCu"> مبلغ قرارداد </label>
-      <p-inputNumber pKeyFilter="int"
-        id="costingUnitCu"
-        name="costingUnitCu"
-        formControlName="costingUnitCu"
-        type="text"
-        class="w-100"
-        value="costingUnitCu"
-        [class.ng-invalid]="costingUnitCu?.invalid"
-        [class.ng-dirty]="
-          (setValidationconditionally && costingUnitCu?.pristine) ||
-          costingUnitCu?.dirty ||
-          costingUnitCu?.touched
-        "></p-inputNumber>
-    </div>
 
-    <div class="col-12 row-btn">
-      <p-button class="pe-2"
-        styleClass="p-button-warning"
-        label="انصراف"
-        icon="pi pi-times"
+    <div class="col-12 row-btn" [ngClass]="{'row-btn-fixed-bottom': !isChangeSaleType }">
+      <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
         (click)="closeModal()"></p-button>
-      <p-button class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>
