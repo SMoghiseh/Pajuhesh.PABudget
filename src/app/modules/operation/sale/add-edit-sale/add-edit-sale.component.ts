@@ -195,8 +195,8 @@ export class AddEditSaleComponent implements OnInit {
     this.httpService
       .post<ContractNo[]>(ContractNo.adiAddressList, { withOutPagination: false })
       .subscribe(response => {
-        if (response.data) {
-          this.contractList = response.data;
+        if (response.data && response.data.result) {
+          this.contractList = response.data.result;
         }
       });
   }
