@@ -7,7 +7,7 @@
 <div class="table-container">
   <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
     [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-    [value]="fileTypes" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" [(first)]="first">
+    [value]="fileTypes" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">

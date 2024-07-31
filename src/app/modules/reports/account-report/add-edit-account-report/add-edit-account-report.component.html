@@ -36,7 +36,7 @@
         <div class="col-4 mt-2">
             <label for="periodTypeCode"> دوره بودجه </label>
             <p-dropdown id="periodTypeCode" name="periodTypeCode" formControlName="periodTypeCode"
-                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
+                styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
                 [options]="periodTypeList" [filter]="true" [class.ng-invalid]="periodTypeCode?.invalid"
                 [class.ng-dirty]="
             (addEditFormSubmitted && periodTypeCode?.pristine) ||

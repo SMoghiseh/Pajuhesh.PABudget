@@ -192,6 +192,7 @@
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
+  [class.height-size]="mode == 'insert' || mode == 'edit'" 
   [style]="{ width: '800px', height: '400px' }">
   <PABudget-add-edit-account-report-item-price
     [data]="addEditData"

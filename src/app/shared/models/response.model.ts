@@ -788,6 +788,11 @@ export class PeriodType {
   name!: string;
   valueType!: number;
 }
+export class PeriodBudgetType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PeriodBudgetType/';
+
+
+}
 
 export class AttachmentType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AttachmentFileType';
