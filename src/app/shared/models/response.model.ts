@@ -1128,6 +1128,7 @@ export class BudgetSourceUse {
   modifiedDate!: any;
   ipAddress!: any;
   sourceUseTypeTitle!: string;
+  SourceUseTypeTitle!: string;
 }
 
 export class CostCenterType {
