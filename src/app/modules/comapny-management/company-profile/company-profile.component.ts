@@ -54,7 +54,7 @@ export class CompanyProfileComponent implements OnInit {
   tableYearSelectedId: any;
   _tableYearSelectedId: any;
   switchPlan = '';
-  switchBudget = '';
+  switchItem = '';
   planInputData: any;
 
   products = [
@@ -295,7 +295,7 @@ export class CompanyProfileComponent implements OnInit {
   }
 
 
-  operationOnList(data:any) {
+  operationOnList(data: any) {
     this.allList = data;
     data.forEach((list: any) => {
       list['groupedDetail'] = this.convertArray(list.detail);
@@ -314,7 +314,7 @@ export class CompanyProfileComponent implements OnInit {
 
 
   onSelectBudget(data: any) {
-    this.switchBudget = data.componentName;
+    this.switchItem = data.componentName;
     // this.selectedBudgetId = data.id;
     // this.selectedYearlyPlanId = -1;
     // this.selectedMacroId = -1;
@@ -328,7 +328,7 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   // onSelectYearlyPlan(data: any) {
-  //   this.switchBudget = '';
+  //   this.switchItem = '';
   //   this.switchPlan = data.componentName;
   //   this.selectedYearlyPlanId = data.id;
   //   this.selectedMacroId = -1;
@@ -342,7 +342,7 @@ export class CompanyProfileComponent implements OnInit {
   //   }
   // }
   // onSelectMacro(data: any) {debugger
-  //   this.switchBudget = '';
+  //   this.switchItem = '';
   //   this.switchPlan = data.componentName;
   //   this.selectedYearlyPlanId = -1;
   //   this.selectedMacroId = data.id;

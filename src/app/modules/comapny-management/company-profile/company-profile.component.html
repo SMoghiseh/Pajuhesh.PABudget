@@ -81,10 +81,8 @@
 
 
 </div>
-<div [ngSwitch]="switchPlan">
- 
-</div>
-<div [ngSwitch]="switchBudget">
+
+<div [ngSwitch]="switchItem">
   <ng-template [ngSwitchCase]="'BalanceSheet'">
     <PABudget-balance-sheet [inputData]="planInputData"></PABudget-balance-sheet>
   </ng-template>
