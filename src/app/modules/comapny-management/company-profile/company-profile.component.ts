@@ -7,7 +7,7 @@ import {
   PermissionProfile,
   Profile,
   StaticYear,
-  UrlBuilder
+  UrlBuilder,
 } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -106,7 +106,7 @@ export class CompanyProfileComponent implements OnInit {
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getList();
@@ -143,9 +143,9 @@ export class CompanyProfileComponent implements OnInit {
 
   contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
-    {
-      queryParams: {},
-    };
+      {
+        queryParams: {},
+      };
   }
 
   getCostAndBenefitForProfile(id: string) {
@@ -281,7 +281,9 @@ export class CompanyProfileComponent implements OnInit {
 
   getList() {
     this.httpService
-      .get<PermissionProfile[]>(UrlBuilder.build(PermissionProfile.apiAddress + 'list', ''))
+      .get<PermissionProfile[]>(
+        UrlBuilder.build(PermissionProfile.apiAddress + 'list', '')
+      )
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -294,7 +296,6 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-
   operationOnList(data: any) {
     this.allList = data;
     data.forEach((list: any) => {
@@ -303,15 +304,13 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   convertArray(data: any) {
-    let grouped = data.reduce(
-      (result: any, currentValue: any) => {
-        (result[currentValue['group']] = result[currentValue['group']] || []).push(currentValue);
-        return result;
-      }, []);
+    const grouped = data.reduce((result: any, currentValue: any) => {
+      (result[currentValue['group']] =
+        result[currentValue['group']] || []).push(currentValue);
+      return result;
+    }, []);
     return grouped;
   }
-
-
 
   onSelectBudget(data: any) {
     this.switchItem = data.componentName;
@@ -341,7 +340,7 @@ export class CompanyProfileComponent implements OnInit {
   //     else yearId = this.selectedYears[0];
   //   }
   // }
-  // onSelectMacro(data: any) {debugger
+  // onSelectMacro(data: any) {
   //   this.switchItem = '';
   //   this.switchPlan = data.componentName;
   //   this.selectedYearlyPlanId = -1;

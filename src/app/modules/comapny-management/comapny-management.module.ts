@@ -53,6 +53,7 @@ import { RiskComponent } from './company-profile/plan-badget-detail/plans/risk/r
 import { BalanceSheetComponent } from './company-profile/plan-badget-detail/budget/balance-sheet/balance-sheet.component';
 import { CostAndBenefitComponent } from './company-profile/plan-badget-detail/budget/cost-and-benefit/cost-and-benefit.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { BudgetResourceUseComponent } from './company-profile/plan-badget-detail/budget/budget-resource-use/budget-resource-use.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     RiskComponent,
     BalanceSheetComponent,
     CostAndBenefitComponent,
+    BudgetResourceUseComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,

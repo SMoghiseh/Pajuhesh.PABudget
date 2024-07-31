@@ -790,8 +790,6 @@ export class PeriodType {
 }
 export class PeriodBudgetType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PeriodBudgetType/';
-
-
 }
 
 export class AttachmentType {
@@ -1052,7 +1050,8 @@ export class Period {
 
 export class StaticYear {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Period/LastFiveYear';
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/Period/LastFiveYear';
   id!: number;
   periodTitle!: string;
   periodCode!: string;
@@ -1165,7 +1164,6 @@ export class EducationTypeCode {
 
 export class ReportItemType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ReportItemType/';
-
 }
 
 export class Sale {
@@ -1228,6 +1226,10 @@ export class Budget {
     'api/PABudgetApi/Dashboard/BalanceSheet/Info';
   static readonly apiAddressCostAndBenefit =
     'api/PABudgetApi/Dashboard/CostAndBenefit';
+  static readonly apiAddresBudgetResourceUse =
+    'api/PABudgetApi/Dashboard/BudgetResourceUse';
+  static readonly apiAddresBudgetResourceUseChart =
+    'api/PABudgetApi/Dashboard/BudgetResourceUseChart';
 }
 
 export class Reports {
@@ -1272,7 +1274,7 @@ export class AccountReportToItem {
   companyId!: number;
   companyTitle!: string;
   accountRepItemId!: number;
-  accountRepItemTitle!: string
+  accountRepItemTitle!: string;
 }
 export class AccountReportItem {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';
@@ -1287,7 +1289,6 @@ export class AccountReport {
   periodTypeCode!: number;
 }
 
-
-export class PermissionProfile{
+export class PermissionProfile {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PermissionProfile/';
 }
