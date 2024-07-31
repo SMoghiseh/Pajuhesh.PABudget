@@ -50,7 +50,6 @@ export class BudgetSourceUseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
     this.getPeriodLst();
     this.getCompanyLst();
     this.getResourceUseType();
@@ -68,7 +67,6 @@ export class BudgetSourceUseComponent implements OnInit {
     });
   }
   getBudgetSourceList(event?: any) {
-    debugger;
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
@@ -94,7 +92,6 @@ export class BudgetSourceUseComponent implements OnInit {
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
-          debugger;
           if (response.data && response.data.result) {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
@@ -127,7 +124,6 @@ export class BudgetSourceUseComponent implements OnInit {
     this.isOpenAddEditBudgetSourceUse = false;
   }
   onChangeResourceUse(e: any) {
-    debugger;
     this.getPeriodDetailLst(e.value);
   }
   getPeriodLst() {
@@ -151,7 +147,6 @@ export class BudgetSourceUseComponent implements OnInit {
       });
   }
   getPeriodDetailLst(periodId: number) {
-    debugger;
     this.httpService
       .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
       .subscribe(response => {
@@ -243,5 +238,4 @@ export class BudgetSourceUseComponent implements OnInit {
     this.addNewBudgetSourceUseForm.reset();
     this.getBudgetSourceList();
   }
-
 }
