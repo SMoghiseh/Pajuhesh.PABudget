@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import { BudgetSourceUse, Pagination } from '@shared/models/response.model';
+import {
+  BudgetSourceUse,
+  Company,
+  Pagination,
+  Period,
+} from '@shared/models/response.model';
 import {
   ConfirmationService,
   LazyLoadEvent,
@@ -14,7 +20,8 @@ import { map, tap } from 'rxjs';
   styleUrls: ['./budget-source-use.component.scss'],
   providers: [ConfirmationService],
 })
-export class BudgetSourceUseComponent {
+export class BudgetSourceUseComponent implements OnInit {
+  addNewBudgetSourceUseForm!: FormGroup;
   modalTitle = '';
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -23,11 +30,17 @@ export class BudgetSourceUseComponent {
   lazyLoadEvent?: LazyLoadEvent;
   data: BudgetSourceUse[] = [];
   first = 0;
+  periodLst: Period[] = [];
+  inputData = new BudgetSourceUse();
   loading = false;
+  periodDetailLst: Period[] = [];
   budget!: number;
+  companyList: any = [];
   budgetDetail!: number;
   company!: number;
   title!: string;
+  sourceUseTypeList: BudgetSourceUse[] = [];
+  addEditBudgetSourceUseModel = new BudgetSourceUse();
   editDataDetails: BudgetSourceUse[] = [];
   addEditData = new BudgetSourceUse();
   constructor(
@@ -36,6 +49,58 @@ export class BudgetSourceUseComponent {
     private confirmationService: ConfirmationService
   ) {}
 
+  ngOnInit(): void {
+    this.getPeriodLst();
+    this.getCompanyLst();
+    this.getResourceUseType();
+    this.addNewBudgetSourceUseForm = new FormGroup({
+      budgetPeriodId: new FormControl(
+        this.addEditBudgetSourceUseModel.budgetPeriodId
+      ),
+      budgetPeriodDetailId: new FormControl(
+        this.addEditBudgetSourceUseModel.budgetPeriodDetailId
+      ),
+      companyId: new FormControl(this.addEditBudgetSourceUseModel.companyId),
+      sourceUseTypeTitle: new FormControl(
+        this.addEditBudgetSourceUseModel.sourceUseTypeTitle
+      ),
+    });
+  }
+  getBudgetSourceList(event?: any) {
+    if (event) this.lazyLoadEvent = event;
+    const pagination = new Pagination();
+    const first = this.lazyLoadEvent?.first || 0;
+    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+    const formValue = this.addNewBudgetSourceUseForm.value;
+
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+    const body = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
+      budgetPeriodId: formValue.budgetPeriodId,
+      budgetPeriodDetailId: formValue.budgetPeriodDetailId,
+      companyId: formValue.companyId,
+      title: formValue.sourceUseTypeTitle,
+    };
+    // if (!formValue.budgetPeriodId) return;
+    this.first = 0;
+    const url = BudgetSourceUse.apiAddressList;
+    this.httpService
+      .post<BudgetSourceUse[]>(url, body)
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          if (response.data && response.data.result) {
+            if (response.data.totalCount)
+              this.totalCount = response.data.totalCount;
+            return response.data.result;
+          } else return [new BudgetSourceUse()];
+        })
+      )
+      .subscribe(res => (this.data = res));
+  }
   addBudgetSourceUse() {
     this.modalTitle = 'افزودن منابع و مصارف جدید';
     this.isOpenAddEditBudgetSourceUse = true;
@@ -46,10 +111,54 @@ export class BudgetSourceUseComponent {
     this.isOpenAddEditBudgetSourceUse = false;
     this.getBudgetSourceUse();
   }
+  getResourceUseType() {
+    this.httpService
+      .get<BudgetSourceUse[]>(BudgetSourceUse.apiAdressResourceUse)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.sourceUseTypeList = response.data.result;
+        }
+      });
+  }
   closeModal() {
     this.isOpenAddEditBudgetSourceUse = false;
   }
-
+  onChangeResourceUse(e: any) {
+    this.getPeriodDetailLst(e.value);
+  }
+  getPeriodLst() {
+    this.httpService
+      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodLst = response.data.result;
+        }
+      });
+  }
+  getCompanyLst() {
+    this.httpService
+      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
+        withOutPagination: true,
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
+  }
+  getPeriodDetailLst(periodId: number) {
+    this.httpService
+      .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodDetailLst = response.data.result;
+          if (this.inputData.id)
+            this.addNewBudgetSourceUseForm.patchValue({
+              budgetPeriodDetailId: this.inputData.budgetPeriodDetailId,
+            });
+        }
+      });
+  }
   getBudgetSourceUse(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
@@ -124,5 +233,9 @@ export class BudgetSourceUseComponent {
           }
         });
     }
+  }
+  clearSearch() {
+    this.addNewBudgetSourceUseForm.reset();
+    this.getBudgetSourceList();
   }
 }

@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
@@ -17,7 +15,7 @@ import { map, tap } from 'rxjs';
 @Component({
   selector: 'app-basics-definition',
   templateUrl: './basics-definition.component.html',
-  styleUrls: ['./basics-definition.component.scss']
+  styleUrls: ['./basics-definition.component.scss'],
 })
 export class BasicsDefinitionComponent implements OnInit {
   /* Table  */
@@ -36,7 +34,6 @@ export class BasicsDefinitionComponent implements OnInit {
   isOpenAddEditBasicDefinition = false;
   subjects: Subject[] = [];
 
-
   get code() {
     return this.addNewBasicsForm.get('code');
   }
@@ -48,10 +45,10 @@ export class BasicsDefinitionComponent implements OnInit {
 
   addNewBasicsFormSubmitted = false;
 
-
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService) { }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.addNewBasicsForm = new FormGroup({
@@ -94,17 +91,17 @@ export class BasicsDefinitionComponent implements OnInit {
   addNewItem() {
     this.isOpenAddEditBasicDefinition = true;
     this.addNewBasicsFormSubmitted = false;
-    let masterId = this.addNewBasicsForm.value.masterId;
+    const masterId = this.addNewBasicsForm.value.masterId;
     this.addNewBasicsForm.reset();
     this.addNewBasicsForm.patchValue({
-      masterId: masterId
-    })
+      masterId: masterId,
+    });
     this.addNewBasicsForm.controls['code'].setValidators(Validators.required);
     this.addNewBasicsForm.controls['title'].setValidators(Validators.required);
-    this.addNewBasicsForm.controls['masterId'].setValidators(Validators.required);
-
+    this.addNewBasicsForm.controls['masterId'].setValidators(
+      Validators.required
+    );
   }
-
 
   /** Get basics from server. */
   getBasicsList(event?: any) {
@@ -124,28 +121,26 @@ export class BasicsDefinitionComponent implements OnInit {
       withOutPagination: false,
       masterId: formValue.masterId.id,
       code: PersianNumberService.toEnglish(formValue.code),
-      title: formValue.title ? formValue.title : ''
+      title: formValue.title ? formValue.title : '',
     };
 
     if (!formValue.masterId) return;
 
     this.first = 0;
-    const url = Basics.apiAddress + `/${formValue.masterId.id}` + '/slave/list'
+    const url = Basics.apiAddress + `/${formValue.masterId.id}` + '/slave/list';
     this.httpService
       .post<Basics[]>(url, body)
       .pipe(
         tap(() => (this.loading = false)),
-        map(response => {debugger
+        map(response => {
           if (response.data && response.data.result) {
-            if(response.data.totalCount)
-            this.totalCount = response.data.totalCount;
+            if (response.data.totalCount)
+              this.totalCount = response.data.totalCount;
             return response.data.result;
-          }
-          else return [new Basics()];
+          } else return [new Basics()];
         })
       )
       .subscribe(basicsList => (this.basicsList = basicsList));
-
   }
 
   /*--------------------------
@@ -156,7 +151,6 @@ export class BasicsDefinitionComponent implements OnInit {
     this.addNewBasicsFormSubmitted = true;
 
     if (this.addNewBasicsForm.valid) {
-      debugger
       this.addNewBasicsLoading = true;
 
       const { code, title } = this.addNewBasicsForm.value;
@@ -175,12 +169,11 @@ export class BasicsDefinitionComponent implements OnInit {
         )
         .subscribe(response => {
           if (response.successed) {
-
-            let masterId = this.addNewBasicsForm.value.masterId;
+            const masterId = this.addNewBasicsForm.value.masterId;
             this.addNewBasicsForm.reset();
             this.addNewBasicsForm.patchValue({
-              masterId: masterId
-            })
+              masterId: masterId,
+            });
             this.getBasicsList();
 
             this.messageService.add({
@@ -201,21 +194,19 @@ export class BasicsDefinitionComponent implements OnInit {
   /** Reset add new basics form. */
   resetAddNewBasicsForm() {
     this.addNewBasicsFormSubmitted = false;
-    let masterId = this.addNewBasicsForm.value.masterId;
+    const masterId = this.addNewBasicsForm.value.masterId;
     this.addNewBasicsForm.reset();
     this.addNewBasicsForm.patchValue({
-      masterId: masterId
-    })
+      masterId: masterId,
+    });
   }
-
 
   clearSearch() {
-    let masterId = this.addNewBasicsForm.value.masterId;
+    const masterId = this.addNewBasicsForm.value.masterId;
     this.addNewBasicsForm.reset();
     this.addNewBasicsForm.patchValue({
-      masterId: masterId
-    })
+      masterId: masterId,
+    });
     this.getBasicsList();
   }
-
 }

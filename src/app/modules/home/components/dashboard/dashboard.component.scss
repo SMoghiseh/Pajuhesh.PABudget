@@ -9,7 +9,7 @@ body {
 }
 
 .select-co-item {
-    background-color: #E2E8F0 !important;
+    background-color:rgb(0 0 0 / 0%) !important;
 }
 
 
@@ -21,6 +21,7 @@ body {
     bottom: 15px;
     width: 100vw;
     right: -16px;
+    // background-image: url('/src/assets/images/dashbord.svg');
 
     ul {
         list-style-type: none;
@@ -46,13 +47,36 @@ body {
     border-radius: 8px;
 }
 
+
+// .sandogh-box{
+//     @extend.all-box;
+//     align-content: center;
+//     text-align: -webkit-center;
+//     height: 140px;
+//     margin: 5px 10px 0px 10px;
+//     cursor: pointer;
+//     width: 188.5px;
+//     height: 180px;
+//     flex-shrink: 0;
+//     .count {
+//         color: #3B82F6;
+//         position: relative;
+//         top: 3px;
+//     }
+// }
 .holding-box {
+    
     @extend.all-box;
     align-content: center;
     text-align: -webkit-center;
     height: 140px;
     margin: 5px 10px 0px 10px;
     cursor: pointer;
+    width: 188.5px;
+    height: 180px;
+    flex-shrink: 0;
+    fill: var(--Base-White, #FFF);
+    filter: drop-shadow(0px 0px 6px rgba(182, 194, 211, 0.25));
 
     .count {
         color: #3B82F6;
