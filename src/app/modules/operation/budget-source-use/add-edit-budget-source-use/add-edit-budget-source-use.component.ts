@@ -55,7 +55,7 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -175,6 +175,8 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodDetailLst = response.data.result;
+          console.log(this.periodDetailLst)
+          console.log(this.inputData.budgetPeriodDetailId)
           if (this.inputData.id)
             this.addEditBudgetSourceUseForm.patchValue({
               budgetPeriodDetailId: this.inputData.budgetPeriodDetailId,
