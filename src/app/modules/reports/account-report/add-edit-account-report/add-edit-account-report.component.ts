@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReport, Period, PeriodBudgetType, ReportItemType } from '@shared/models/response.model';
+import {
+  AccountReport,
+  Period,
+  PeriodBudgetType,
+  ReportItemType,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -8,7 +13,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'PABudget-add-edit-account-report',
   templateUrl: './add-edit-account-report.component.html',
-  styleUrls: ['./add-edit-account-report.component.scss']
+  styleUrls: ['./add-edit-account-report.component.scss'],
 })
 export class AddEditAccountReportComponent {
   // form property
@@ -19,8 +24,6 @@ export class AddEditAccountReportComponent {
   // dropdown data list
   periodTypeList: any = [];
   reportTypeCodeList: any = [];
-
-
 
   inputData = new AccountReport();
   @Input() mode = '';
@@ -43,27 +46,22 @@ export class AddEditAccountReportComponent {
     return this.addEditForm.get('reportTypeCode');
   }
 
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getPeriodTypeList();
     this.getReportTypeCodeList();
-
 
     this.addEditForm = new FormGroup({
       title: new FormControl(this.inputData.title, Validators.required),
       code: new FormControl(this.inputData.code, Validators.required),
       periodTypeCode: new FormControl('', Validators.required),
-      reportTypeCode: new FormControl('', Validators.required)
+      reportTypeCode: new FormControl('', Validators.required),
     });
     this.addEditForm.patchValue(this.inputData);
-
 
     //  if (this.mode === 'edit') {
     //    this.getRowData(this.inputData.id);
@@ -75,8 +73,10 @@ export class AddEditAccountReportComponent {
     if (this.addEditForm.valid) {
       const request: AccountReport = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url = this.mode === 'insert' ? AccountReport.apiAddress + 'CreateAccountReport' :
-        AccountReport.apiAddress + 'UpdateAccountReport';
+      const url =
+        this.mode === 'insert'
+          ? AccountReport.apiAddress + 'CreateAccountReport'
+          : AccountReport.apiAddress + 'UpdateAccountReport';
       this.isLoadingSubmit = true;
 
       this.httpService
@@ -100,7 +100,6 @@ export class AddEditAccountReportComponent {
     }
   }
 
-
   getPeriodTypeList() {
     this.httpService
       // .get<any[]>(Period.apiAddress + 'ListDropDown')
@@ -122,7 +121,6 @@ export class AddEditAccountReportComponent {
       });
   }
 
-
   getRowData(id: number) {
     this.httpService
       .get<any>(AccountReport.apiAddress + 'GetAccountReportById/' + id)
@@ -133,6 +131,4 @@ export class AddEditAccountReportComponent {
         }
       });
   }
-
-
 }

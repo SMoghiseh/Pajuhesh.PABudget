@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination, AccountReportItemPrice, UrlBuilder, Period, Company } from '@shared/models/response.model';
+import {
+  Pagination,
+  AccountReportItemPrice,
+  UrlBuilder,
+  Period,
+  Company,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {
@@ -13,9 +19,8 @@ import { FormControl, FormGroup } from '@angular/forms';
   selector: 'PABudget-account-report',
   templateUrl: './account-report-item-price.component.html',
   styleUrls: ['./account-report-item-price.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
-
 export class AccountReportItemPriceComponent implements OnInit {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -42,7 +47,7 @@ export class AccountReportItemPriceComponent implements OnInit {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -54,7 +59,6 @@ export class AccountReportItemPriceComponent implements OnInit {
       fromPeriodDetailId: new FormControl(0),
       toPeriodDetailId: new FormControl(0),
     });
-
   }
 
   getPeriodLst() {
@@ -69,7 +73,9 @@ export class AccountReportItemPriceComponent implements OnInit {
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
+      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
@@ -106,11 +112,12 @@ export class AccountReportItemPriceComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      ...formValue
+      ...formValue,
     };
 
     this.first = 0;
-    const url = AccountReportItemPrice.apiAddress + 'GetAllAccountReposrtItemPrices';
+    const url =
+      AccountReportItemPrice.apiAddress + 'GetAllAccountReposrtItemPrices';
     this.httpService
       .post<AccountReportItemPrice[]>(url, body)
 
@@ -160,7 +167,10 @@ export class AccountReportItemPriceComponent implements OnInit {
     if (id && title) {
       this.httpService
         .get<AccountReportItemPrice>(
-          UrlBuilder.build(AccountReportItemPrice.apiAddress + 'DeleteAccountReportItemPrice', '') + `/${id}`
+          UrlBuilder.build(
+            AccountReportItemPrice.apiAddress + 'DeleteAccountReportItemPrice',
+            ''
+          ) + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
