@@ -1282,6 +1282,8 @@ export class AccountReportItem {
 
 export class AccountReport {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
+  static readonly apiAddressList =
+    'api/PABudgetApi/v1/AccountReport/GetAllAccountReport';
   id!: number;
   code!: string;
   title!: string;

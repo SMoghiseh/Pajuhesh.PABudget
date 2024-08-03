@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { Pagination, AccountReport, UrlBuilder } from '@shared/models/response.model';
+import {
+  Pagination,
+  AccountReport,
+  UrlBuilder,
+  PeriodBudgetType,
+  ReportItemType,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {
@@ -8,16 +14,16 @@ import {
   MessageService,
 } from 'primeng/api';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'PABudget-account-report',
   templateUrl: './account-report.component.html',
   styleUrls: ['./account-report.component.scss'],
-  providers: [ConfirmationService]
-
+  providers: [ConfirmationService],
 })
 export class AccountReportComponent {
-
+  addNewAccountReportForm!: FormGroup;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -30,15 +36,48 @@ export class AccountReportComponent {
   addEditData = new AccountReport();
   pId!: string;
   mode!: string;
+  periodTypeList: any = [];
+  reportTypeCodeList: any = [];
 
+  get reportTypeCode() {
+    return this.addNewAccountReportForm.get('reportTypeCode');
+  }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router
-  ) {
+  ) {}
 
+  ngOnInit(): void {
+    this.getPeriodTypeList();
+    this.getReportTypeCodeList();
+    this.addNewAccountReportForm = new FormGroup({
+      code: new FormControl(null),
+      title: new FormControl(null),
+      reportTypeCode: new FormControl(0),
+      periodTypeCode: new FormControl(0),
+    });
+  }
 
+  getPeriodTypeList() {
+    this.httpService
+      // .get<any[]>(Period.apiAddress + 'ListDropDown')
+      .get<any[]>(PeriodBudgetType.apiAddress + 'List')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodTypeList = response.data.result;
+        }
+      });
+  }
+  getReportTypeCodeList() {
+    this.httpService
+      .get<any[]>(ReportItemType.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.reportTypeCodeList = response.data.result;
+        }
+      });
   }
 
   getReport(event?: LazyLoadEvent) {
@@ -53,7 +92,7 @@ export class AccountReportComponent {
 
     const body = {
       pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber
+      pageNumber: pagination.pageNumber,
     };
 
     this.first = 0;
@@ -76,6 +115,44 @@ export class AccountReportComponent {
       });
   }
 
+  getAccountReportList(event?: any) {
+    if (event) this.lazyLoadEvent = event;
+    const pagination = new Pagination();
+    const first = this.lazyLoadEvent?.first || 0;
+    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+    const formValue = this.addNewAccountReportForm.value;
+
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+    const body = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
+      code: formValue.code,
+      title: formValue.title,
+      reportTypeCode: formValue.reportTypeCode,
+      periodTypeCode: formValue.periodTypeCode,
+    };
+    this.first = 0;
+    const url = AccountReport.apiAddressList;
+    this.httpService
+      .post<AccountReport[]>(url, body)
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          if (response.data && response.data.result) {
+            if (response.data.totalCount)
+              this.totalCount = response.data.totalCount;
+            return response.data.result;
+          } else return [new AccountReport()];
+        })
+      )
+      .subscribe(res => (this.data = res));
+  }
+  clearSearch() {
+    this.addNewAccountReportForm.reset();
+    this.getAccountReportList();
+  }
   addReport() {
     this.modalTitle = 'افزودن  گزارش جدید';
     this.mode = 'insert';
@@ -109,7 +186,10 @@ export class AccountReportComponent {
     if (id && title) {
       this.httpService
         .get<AccountReport>(
-          UrlBuilder.build(AccountReport.apiAddress + 'DeleteAccountReport', '') + `/${id}`
+          UrlBuilder.build(
+            AccountReport.apiAddress + 'DeleteAccountReport',
+            ''
+          ) + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -132,9 +212,7 @@ export class AccountReportComponent {
     this.getReport();
   }
 
-  addAccountReportToItem(report:AccountReport) {
+  addAccountReportToItem(report: AccountReport) {
     this.router.navigate(['/Reports/AccountReportToItem/' + report.id]);
   }
-
 }
-
