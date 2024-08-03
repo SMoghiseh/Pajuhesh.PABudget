@@ -1,18 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
   Contract,
   ContractNo,
-  Pagination,
-  UrlBuilder,
+  ContractType,
+  Employers,
+  Pagination
 } from '@shared/models/response.model';
+import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import {
   ConfirmationService,
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { debounce, map, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'PABudget-contract',
@@ -20,13 +23,12 @@ import { debounce, map, tap } from 'rxjs';
   styleUrls: ['./contract.component.scss'],
   providers: [ConfirmationService],
 })
-export class ContractComponent {
+export class ContractComponent implements OnInit {
   modalTitle = '';
   isOpenAddEditContractlNo = false;
   addEditData = new ContractNo();
   editDataDetails: Contract[] = [];
   pId!: string;
-  // Form Property
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -34,19 +36,63 @@ export class ContractComponent {
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
-  fullTextSearch = '';
-  pageNumber!: number;
-  pageSize!: number;
-  currentPage!: number;
-  propertyName: string | null = null;
-  isAsc!: boolean;
+  public datePipe = new DatePipe('en-US');
+
+  // form property
+  searchForm!: FormGroup;
+
+  // dropdown data list
+  contracTypeLst: ContractType[] = [];
+  employerLst: Employers[] = [];
+  contractorLst: Employers[] = [];
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
-  ) {}
+    private confirmationService: ConfirmationService,
+    private jDateCalculatorService: JDateCalculatorService
 
+  ) { }
+
+  ngOnInit(): void {
+    this.getContracType();
+    this.getEmployer();
+    this.getContractor();
+    this.searchForm = new FormGroup({
+      contractDate: new FormControl(null),
+      contractFromDate: new FormControl(null),
+      contractToDate: new FormControl(null),
+      employerID: new FormControl(0),
+      contractorID: new FormControl(0),
+    });
+  }
+  getContracType() {
+    this.httpService
+      .get<ContractType[]>(ContractType.apiAddress + '/list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.contracTypeLst = response.data.result;
+        }
+      });
+  }
+  getEmployer() {
+    this.httpService
+      .get<Employers[]>(Employers.apiAddress)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.employerLst = response.data.result;
+        }
+      });
+  }
+  getContractor() {
+    this.httpService
+      .get<Employers[]>(Employers.apiAddress)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.contractorLst = response.data.result;
+        }
+      });
+  }
   addContractlNo() {
     this.modalTitle = 'افزودن قرارداد جدید';
     this.isOpenAddEditContractlNo = true;
@@ -54,20 +100,57 @@ export class ContractComponent {
   }
   getContractlNo(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
-    else this.first = 0;
 
-    const searchModel = {
-      pageNumber: this.pageNumber,
-      pageSize: this.pageSize,
-      propertyName: this.propertyName,
-      isAsc: this.isAsc,
-      fullTextSearch: this.fullTextSearch,
-    };
+    const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-    searchModel.pageNumber = first / rows + 1;
-    searchModel.pageSize = rows;
+    const formValue = this.searchForm.value;
+    formValue.contractDate = formValue.contractDate
+      ? this.datePipe.transform(
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.contractDate?.getFullYear(),
+          formValue.contractDate?.getMonth(),
+          formValue.contractDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
+      : null;
+    formValue.contractFromDate = formValue.contractFromDate
+      ? this.datePipe.transform(
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.contractFromDate?.getFullYear(),
+          formValue.contractFromDate?.getMonth(),
+          formValue.contractFromDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
+      : null;
+    formValue.contractToDate = formValue.contractToDate
+      ? this.datePipe.transform(
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.contractToDate?.getFullYear(),
+          formValue.contractToDate?.getMonth(),
+          formValue.contractToDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
+      : null;
+
+
+
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+
+
+    const searchModel = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
+      ...formValue
+    };
+
     this.loading = true;
+    this.first = 0;
 
     const url = ContractNo.adiAddressList;
     this.httpService
@@ -135,6 +218,11 @@ export class ContractComponent {
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditContractlNo = true;
-    // this.getContractDetails(data.id);
   }
+
+  clearSearch() {
+    this.searchForm.reset();
+    this.getContractlNo();
+  }
+
 }
