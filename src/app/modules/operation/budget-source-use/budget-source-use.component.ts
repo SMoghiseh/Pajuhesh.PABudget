@@ -66,7 +66,7 @@ export class BudgetSourceUseComponent implements OnInit {
       ),
     });
   }
-  getBudgetSourceList(event?: any) {
+  getBudgetSourceList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
@@ -109,7 +109,7 @@ export class BudgetSourceUseComponent implements OnInit {
 
   reloadData() {
     this.isOpenAddEditBudgetSourceUse = false;
-    this.getBudgetSourceUse();
+    this.getBudgetSourceList();
   }
   getResourceUseType() {
     this.httpService
@@ -159,38 +159,7 @@ export class BudgetSourceUseComponent implements OnInit {
         }
       });
   }
-  getBudgetSourceUse(event?: LazyLoadEvent) {
-    if (event) this.lazyLoadEvent = event;
-    const pagination = new Pagination();
-    const first = this.lazyLoadEvent?.first || 0;
-    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
 
-    pagination.pageNumber = first / rows + 1;
-    pagination.pageSize = rows;
-    const body = {
-      pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-      withOutPagination: false,
-    };
-
-    this.loading = true;
-    this.first = 0;
-    const url = BudgetSourceUse.apiAddressList;
-    this.httpService
-      .post<BudgetSourceUse[]>(url, body)
-
-      .pipe(
-        tap(() => (this.loading = false)),
-        map(response => {
-          if (response.data && response.data.result) {
-            if (response.data.totalCount)
-              this.totalCount = response.data.totalCount;
-            return response.data.result;
-          } else return [new BudgetSourceUse()];
-        })
-      )
-      .subscribe(res => (this.data = res));
-  }
   editRow(data: BudgetSourceUse) {
     this.modalTitle =
       'ویرایش منابع و مصارف ' + '"' + data.sourceUseTypeTitle + '"';
@@ -229,7 +198,7 @@ export class BudgetSourceUseComponent implements OnInit {
               summary: 'با موفقیت حذف شد',
             });
 
-            this.getBudgetSourceUse();
+            this.getBudgetSourceList();
           }
         });
     }
