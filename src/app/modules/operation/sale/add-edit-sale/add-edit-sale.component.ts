@@ -23,8 +23,7 @@ export class AddEditSaleComponent implements OnInit {
   productGroupList: any = [];
   saleTypeList: any = [];
   contractList: any = [];
-  // inputData = new Sale();
-  inputData!: any;
+  inputData = new Sale();
 
   @Input() mode = '';
   @Input() set data1(data: Sale) {
@@ -104,8 +103,8 @@ export class AddEditSaleComponent implements OnInit {
     });
 
     if (this.mode === 'edit') {
-      this.addEditSaleForm.patchValue(this.inputData[0]);
-      this.getPeriodDetailLst(this.inputData[0].budgetPeriodId);
+      this.addEditSaleForm.patchValue(this.inputData);
+      this.getPeriodDetailLst(this.inputData.budgetPeriodId);
     }
 
     this.calculationOnFields();
@@ -163,7 +162,7 @@ export class AddEditSaleComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
-          this.addEditSaleForm.patchValue(response.data.result[0]);
+          this.addEditSaleForm.patchValue(response.data.result);
 
 
         }
@@ -187,7 +186,7 @@ export class AddEditSaleComponent implements OnInit {
           this.saleTypeList = response.data;
           if (this.mode == 'edit') {
             this.addEditSaleForm.patchValue({
-              saleType: this.saleTypeList.find((i: any) => i.id === this.inputData[0]['saleType'])
+              saleType: this.saleTypeList.find((i: any) => i.id === this.inputData['saleType'])
             });
             this.onChangeSaleType();
           }
