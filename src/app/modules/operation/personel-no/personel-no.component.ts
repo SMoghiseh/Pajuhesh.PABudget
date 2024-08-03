@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import {
+  BudgetSourceUse,
+  CostCenterType,
+  EducationTypeCode,
+  EmploymentType,
   Pagination,
+  Period,
   PersonelNo,
   UrlBuilder,
 } from '@shared/models/response.model';
@@ -12,6 +17,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-personel-no',
@@ -21,16 +27,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PersonelNoComponent {
   gridClass = 'p-datatable-sm';
+  searchPersonelNoForm!: FormGroup;
   dataTableRows = 10;
   totalCount!: number;
   data: PersonelNo[] = [];
+  periodLst: Period[] = [];
+  periodDetailLst: Period[] = [];
+  employmentTypeLst: EmploymentType[] = [];
+  CostCenterLst: CostCenterType[] = [];
+  educationTypeCodeLst: EducationTypeCode[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
+  inputData = new BudgetSourceUse();
   modalTitle = '';
   isOpenAddEditPersonelNo = false;
   addEditData = new PersonelNo();
   pId!: string;
+  addEditPersonelNoModel = new PersonelNo();
 
   constructor(
     private httpService: HttpService,
@@ -40,27 +54,120 @@ export class PersonelNoComponent {
     private router: Router
   ) {}
 
-  getPersonelNo(event?: LazyLoadEvent) {
-    if (event) this.lazyLoadEvent = event;
+  ngOnInit(): void {
+    this.getPeriodLst();
+    this.getCostCenterType();
+    this.getEmploymentType();
+    this.getEducationTypeCode();
+    this.searchPersonelNoForm = new FormGroup({
+      periodId: new FormControl(this.addEditPersonelNoModel.periodId),
+      periodDetailId: new FormControl(
+        this.addEditPersonelNoModel.periodDetailId
+      ),
+      employmentTypeId: new FormControl(
+        this.addEditPersonelNoModel.employmentTypeId
+      ),
+      costCenterTypeId: new FormControl(
+        this.addEditPersonelNoModel.costCenterTypeId
+      ),
+      educationTypeId: new FormControl(
+        this.addEditPersonelNoModel.educationTypeId
+      ),
+    });
+  }
 
+  // getPersonelNo(event?: LazyLoadEvent) {
+  //   if (event) this.lazyLoadEvent = event;
+
+  //   const pagination = new Pagination();
+  //   const first = this.lazyLoadEvent?.first || 0;
+  //   const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+
+  //   pagination.pageNumber = first / rows + 1;
+  //   pagination.pageSize = rows;
+
+  //   const body = {
+  //     pageSize: pagination.pageSize,
+  //     pageNumber: pagination.pageNumber,
+  //     withOutPagination: false,
+  //     periodId: parseInt(this.pId),
+  //   };
+
+  //   this.loading = true;
+
+  //   this.first = 0;
+  //   const url = PersonelNo.apiAddress + 'ListByFilter';
+  //   this.httpService
+  //     .post<PersonelNo[]>(url, body)
+
+  //     .pipe(
+  //       tap(() => (this.loading = false)),
+  //       map(response => {
+  //         if (response.data && response.data.result) {
+  //           if (response.data.totalCount)
+  //             this.totalCount = response.data.totalCount;
+  //           return response.data.result;
+  //         } else return [new PersonelNo()];
+  //       })
+  //     )
+  //     .subscribe(res => (this.data = res));
+  // }
+  getEmploymentType() {
+    this.httpService
+      .get<EmploymentType[]>(EmploymentType.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.employmentTypeLst = response.data.result;
+        }
+      });
+  }
+  getEducationTypeCode() {
+    this.httpService
+      .get<EducationTypeCode[]>(EducationTypeCode.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.educationTypeCodeLst = response.data.result;
+        }
+      });
+  }
+  getCostCenterType() {
+    this.httpService
+      .get<CostCenterType[]>(CostCenterType.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.CostCenterLst = response.data.result;
+        }
+      });
+  }
+  getPeriodLst() {
+    this.httpService
+      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodLst = response.data.result;
+        }
+      });
+  }
+  getPersonalNumberList(event?: any) {
+    if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-
+    const formValue = this.searchPersonelNoForm.value;
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
-
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      periodId: parseInt(this.pId),
+      periodId: formValue.periodId,
+      periodDetailId: formValue.periodDetailId,
+      employmentTypeId: formValue.employmentTypeId,
+      costCenterTypeId: formValue.costCenterTypeId,
+      educationTypeId: formValue.educationTypeId,
     };
-
-    this.loading = true;
-
     this.first = 0;
-    const url = PersonelNo.apiAddress + 'ListByFilter';
+    const url =  PersonelNo.apiAddress + 'ListByFilter';
     this.httpService
       .post<PersonelNo[]>(url, body)
 
@@ -76,7 +183,10 @@ export class PersonelNoComponent {
       )
       .subscribe(res => (this.data = res));
   }
-
+  clearSearch() {
+    this.searchPersonelNoForm.reset();
+    this.getPersonalNumberList();
+  }
   addPersonelNo() {
     this.modalTitle = 'افزودن بودجه پرسنل جدید';
     this.addEditData.type = 'insert';
@@ -88,6 +198,22 @@ export class PersonelNoComponent {
     this.addEditData = data;
     this.addEditData.type = 'edit';
     this.isOpenAddEditPersonelNo = true;
+  }
+  onChangePeriod(e: any) {
+    this.getPeriodDetailLst(e.value);
+  }
+  getPeriodDetailLst(periodId: number) {
+    this.httpService
+      .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodDetailLst = response.data.result;
+          if (this.inputData.id)
+            this.searchPersonelNoForm.patchValue({
+              periodDetailId: this.inputData.periodId,
+            });
+        }
+      });
   }
   closeModal() {
     this.isOpenAddEditPersonelNo = false;
@@ -104,7 +230,7 @@ export class PersonelNoComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deletePersonelNo(period.id, period.periodTitle),
+        accept: () => this.getPersonalNumberList(period.id),
       });
   }
 
@@ -124,7 +250,7 @@ export class PersonelNoComponent {
               detail: `بودجه پرسنل ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getPersonelNo();
+            this.getPersonalNumberList();
           }
         });
     }
@@ -132,6 +258,6 @@ export class PersonelNoComponent {
 
   reloadData() {
     this.isOpenAddEditPersonelNo = false;
-    this.getPersonelNo();
+    this.getPersonalNumberList();
   }
 }
