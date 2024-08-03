@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ContractNo, Period, ProductGroup, Sale } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { pairwise, tap } from 'rxjs';
@@ -23,7 +23,8 @@ export class AddEditSaleComponent implements OnInit {
   productGroupList: any = [];
   saleTypeList: any = [];
   contractList: any = [];
-  inputData = new Sale();
+  // inputData = new Sale();
+  inputData!: any;
 
   @Input() mode = '';
   @Input() set data1(data: Sale) {
@@ -74,43 +75,37 @@ export class AddEditSaleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.getRowData();
     this.getPeriodLst();
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
     this.getContractList();
     this.addEditSaleForm = new FormGroup({
       budgetPeriodId: new FormControl(
-        this.inputData.budgetPeriodId,
-        Validators.required
+        this.inputData.budgetPeriodId
       ),
       budgetPeriodDetailId: new FormControl(
-        this.inputData.budgetPeriodDetailId,
-        Validators.required
+        this.inputData.budgetPeriodDetailId
       ),
       contractId: new FormControl(this.inputData.contractId),
-      saleType: new FormControl(this.inputData.saleType, Validators.required),
+      saleType: new FormControl(this.inputData.saleType),
       productGroupId: new FormControl(
-        this.inputData.productGroupId,
-        Validators.required
+        this.inputData.productGroupId
       ),
       productNumber: new FormControl(
-        this.inputData.productNumber,
-        Validators.required
+        this.inputData.productNumber
       ),
       productUnitSalesCu: new FormControl(
-        this.inputData.productUnitSalesCu,
-        Validators.required
+        this.inputData.productUnitSalesCu
       ),
-      productAllSalesCu: new FormControl(this.inputData.productAllSalesCu, Validators.required),
-      benefitLossCu: new FormControl(this.inputData.benefitLossCu, Validators.required),
+      productAllSalesCu: new FormControl(this.inputData.productAllSalesCu),
+      benefitLossCu: new FormControl(this.inputData.benefitLossCu),
       costingAllCu: new FormControl(this.inputData.costingAllCu),
       costingUnitCu: new FormControl(this.inputData.costingUnitCu),
     });
 
     if (this.mode === 'edit') {
-      this.getRowData(this.inputData.id);
-      this.getPeriodDetailLst(this.inputData.budgetPeriodId);
+      this.addEditSaleForm.patchValue(this.inputData[0]);
+      this.getPeriodDetailLst(this.inputData[0].budgetPeriodId);
     }
 
     this.calculationOnFields();
@@ -168,7 +163,9 @@ export class AddEditSaleComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
-          this.addEditSaleForm.patchValue(response.data.result);
+          this.addEditSaleForm.patchValue(response.data.result[0]);
+
+
         }
       });
   }
@@ -188,6 +185,12 @@ export class AddEditSaleComponent implements OnInit {
       .subscribe(response => {
         if (response.data) {
           this.saleTypeList = response.data;
+          if (this.mode == 'edit') {
+            this.addEditSaleForm.patchValue({
+              saleType: this.saleTypeList.find((i: any) => i.id === this.inputData[0]['saleType'])
+            });
+            this.onChangeSaleType();
+          }
         }
       });
   }
@@ -223,11 +226,14 @@ export class AddEditSaleComponent implements OnInit {
   onChangeSaleType() {
     this.isChangeSaleType = true;
     this.isContractValue = this.addEditSaleForm.value.saleType.isContract;
-    let value = this.addEditSaleForm.controls['saleType'].value;
-    this.addEditSaleForm.reset();
-    this.addEditSaleForm.patchValue({
-      saleType: value
-    })
+
+    if (this.mode != 'edit') {
+      let value = this.addEditSaleForm.controls['saleType'].value;
+      this.addEditSaleForm.reset();
+      this.addEditSaleForm.patchValue({
+        saleType: value
+      })
+    }
   }
 
   calculationOnFields() {

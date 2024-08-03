@@ -175,8 +175,6 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodDetailLst = response.data.result;
-          console.log(this.periodDetailLst)
-          console.log(this.inputData.budgetPeriodDetailId)
           if (this.inputData.id)
             this.addEditBudgetSourceUseForm.patchValue({
               budgetPeriodDetailId: this.inputData.budgetPeriodDetailId,
