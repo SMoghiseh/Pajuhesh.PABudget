@@ -1,5 +1,6 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
+import { AppConfigService } from '@core/services/app-config.service';
 import { Reports } from '@shared/models/response.model';
 import { map } from 'rxjs';
 
@@ -9,23 +10,33 @@ import { map } from 'rxjs';
   styleUrls: ['./all-company-reports.component.scss'],
 })
 export class AllCompanyReportsComponent implements OnInit {
-
   // reports list
-  boardmembersList = { names: [], average: '' }
+  boardmembersList = { names: [], average: '' };
   companyManagerActivity: any;
   planList: any;
-  service: any
-
+  service: any;
   selectedTab = 0;
   tabContent = 'tab_1';
-  tabList = [
-    { id: 1, title: 'بنگاه داری' },
-    { id: 2, title: 'تامین اجتماعی ' },
-    { id: 3, title: ' سازمانی' },
-  ];
+  tabList: any;
 
-
-  constructor( private httpService: HttpService) {
+  constructor(
+    private httpService: HttpService,
+    private config: AppConfigService
+  ) {
+    const prjType = this.config.getAddress('type');
+    if (prjType === 'sandogh') {
+      this.tabList = [
+        { id: 1, title: 'بنگاه داری' },
+        { id: 2, title: 'تامین اجتماعی ' },
+        { id: 3, title: ' سازمانی' },
+      ];
+    } else {
+      this.tabList = [
+        { id: 1, title: 'شرکت ها' },
+        { id: 2, title: 'تامین فرهنگیان ' },
+        { id: 3, title: ' سازمانی' },
+      ];
+    }
   }
 
   ngOnInit(): void {
@@ -34,14 +45,12 @@ export class AllCompanyReportsComponent implements OnInit {
     this.Getplan();
   }
 
-
   /*--------------------------
   # GET
   --------------------------*/
   GetBoardmembers() {
     this.httpService
-      .get<any>(Reports.apiAddressBoardmembers,
-      )
+      .get<any>(Reports.apiAddressBoardmembers)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -60,8 +69,7 @@ export class AllCompanyReportsComponent implements OnInit {
   --------------------------*/
   GetCompanyManagerActivity() {
     this.httpService
-      .get<any>(Reports.apiAddressCompanyManagerActivity,
-      )
+      .get<any>(Reports.apiAddressCompanyManagerActivity)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -79,8 +87,7 @@ export class AllCompanyReportsComponent implements OnInit {
   --------------------------*/
   Getplan() {
     this.httpService
-      .get<any>(Reports.apiAddressplan,
-      )
+      .get<any>(Reports.apiAddressplan)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -92,8 +99,6 @@ export class AllCompanyReportsComponent implements OnInit {
         this.planList = result;
       });
   }
-
-
 
   showTemplate(id: number, index: number) {
     this.selectedTab = index;
