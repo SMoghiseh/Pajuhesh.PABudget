@@ -503,6 +503,7 @@ export class Company {
   static readonly apiAddressSubCompanies =
     'api/PABudgetApi/v1/Company/SubCompanies/';
   static readonly apiAddressDetailCo = 'api/PABudgetApi/v1/Company/';
+  static readonly apiAddressUserCompany = 'api/PABudgetApi/v1/Company/UserCompany/';
 
   static readonly apiAddressReportParentCo =
     'api/PABudgetApi/Dashboard/ReportParentCompany';
@@ -1294,4 +1295,28 @@ export class AccountReport {
 
 export class PermissionProfile {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PermissionProfile/';
+}
+
+export class CompanyManager {
+  static readonly apiAddress = 'api/PABudgetApi/v1/CompanyManager/';
+  id!: number;
+  companyId!: number;
+  companyTitle!: string;
+  personId!: number;
+  registerDate!: string;
+  dismissalDate!: string;
+  meetingManagmentNumber!: string;
+  meetingManagementDate!: string;
+  managerTypeId!: number;
+  managerTypeTitle!: string;
+  name!: string;
+  lastName!: string;
+}
+
+export class ManagerType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ManagerType/';
+}
+
+export class Persons {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/GetPerson';
 }
