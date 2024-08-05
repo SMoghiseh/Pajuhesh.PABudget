@@ -31,19 +31,21 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="box  directors-chart">
-                <p class="text-center">اعضای هیئت مدیره</p>
-                <div class="chart">
+                <p class="text-center" style="margin-bottom: 0.5rem;">اعضای هیئت مدیره</p>
+                <div class="chart members-column">
                     <div class="text-center"></div>
                     <div>
                         <div></div>
                         <div></div>
                         <div></div>
-                        <div></div>
                     </div>
-                    <div>
-                        <span *ngFor="let item of this.boardmembersList.names">
-                            {{item}}
-                        </span>
+                    <div class="d-flex justify-content-center flex-wrap row-cols-3">
+                        <div *ngFor="let item of this.boardmembersList.names" class="text-center">
+                            <div class="border-dashed"></div>
+                            <span>
+                                {{item}}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="box-detail mt-2"> <span><span class="font-bold">{{boardmembersList.average}}</span> میانگین
