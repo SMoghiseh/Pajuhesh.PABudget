@@ -61,9 +61,8 @@
     <div class="col-6 mt-2" *ngIf="!isContractValue && isChangeSaleType">
       <label for="productGroupId">گروه محصول </label>
       <p-dropdown id="productGroupId" name="productGroupId" formControlName="productGroupId" styleClass="w-100 my-1"
-        optionLabel="productGroupTitle" [required]="!isContractValue" optionValue="id" placeholder="انتخاب کنید"
-        [required]="isChangeSaleType" [options]="productGroupList" [filter]="true"
-        [class.ng-invalid]="productGroupId?.invalid" [class.ng-dirty]="
+        optionLabel="productGroupTitle" optionValue="id" placeholder="انتخاب کنید" [required]="isChangeSaleType"
+        [options]="productGroupList" [filter]="true" [class.ng-invalid]="productGroupId?.invalid" [class.ng-dirty]="
           (addEditSaleSubmitted && productGroupId?.pristine) ||
           productGroupId?.dirty ||
           productGroupId?.touched

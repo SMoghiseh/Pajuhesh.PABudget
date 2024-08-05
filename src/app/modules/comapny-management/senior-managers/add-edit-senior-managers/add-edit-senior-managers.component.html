@@ -1,0 +1,68 @@
+<p-toast key="manager" position="bottom-left"></p-toast>
+
+<form #formDir="ngForm" [formGroup]="addEditManagerForm" (ngSubmit)="addEditManager()">
+    <div class="row">
+
+        <div class="col-6 mt-2">
+            <label for="personId">نام فرد</label>
+            <p-dropdown id="personId" name="personId" formControlName="personId" styleClass="w-100 my-1"
+                optionLabel="personInfo" optionValue="id" placeholder="انتخاب کنید" [options]="personList"
+                [filter]="true" [class.ng-invalid]="personId?.invalid" [class.ng-dirty]="
+        (addEditManagerSubmitted && personId?.pristine) ||
+        personId?.dirty ||
+        personId?.touched">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="managerTypeId"> نقش </label>
+            <p-dropdown id="managerTypeId" name="managerTypeId" formControlName="managerTypeId" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="managerTypeList"
+                [filter]="true" [class.ng-invalid]="managerTypeId?.invalid" [class.ng-dirty]="
+          (addEditManagerSubmitted && managerTypeId?.pristine) ||
+          managerTypeId?.dirty ||
+          managerTypeId?.touched
+        ">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="registerDate">تاریخ انتصاب</label>
+            <p-persian-calendar id="registerDate" name="registerDate" formControlName="registerDate" styleClass="w-100 "
+                [class.ng-invalid]="registerDate?.invalid" [class.ng-dirty]="
+                (addEditManagerSubmitted && registerDate?.pristine) ||
+                registerDate?.dirty ||
+                registerDate?.touched
+              ">
+            </p-persian-calendar>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="dismissalDate">تاریخ عزل</label>
+            <p-persian-calendar id="dismissalDate" name="dismissalDate" formControlName="dismissalDate"
+                styleClass="w-100 ">
+            </p-persian-calendar>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="meetingManagementDate">تاریخ صورتجلسه</label>
+            <p-persian-calendar id="meetingManagementDate" name="meetingManagementDate"
+                formControlName="meetingManagementDate" styleClass="w-100 ">
+            </p-persian-calendar>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="meetingManagmentNumber">شماره صورتجلسه</label>
+            <input pInputText pKeyFilter="int" id="meetingManagmentNumber" name="meetingManagmentNumber"
+                formControlName="meetingManagmentNumber" type="text" class="w-100" />
+        </div>
+
+
+
+
+
+
+
+        <div class="col-12 row-btn row-btn-fixed-bottom">
+            <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
+                (click)="closeModal()"></p-button>
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>
