@@ -36,6 +36,9 @@ import { ContractComponent } from './contract/contract.component';
 import { AddEditContractNoComponent } from './contract/add-edit-contract-no/add-edit-contract-no.component';
 import { BudgetSourceUseComponent } from './budget-source-use/budget-source-use.component';
 import { AddEditBudgetSourceUseComponent } from './budget-source-use/add-edit-budget-source-use/add-edit-budget-source-use.component';
+import { PlanningComponent } from './planning/planning.component';
+import { AddEditPlanningComponent } from './planning/add-edit-planning/add-edit-planning.component';
+import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
@@ -49,6 +52,8 @@ import { AddEditBudgetSourceUseComponent } from './budget-source-use/add-edit-bu
     AddEditSaleComponent,
     BudgetSourceUseComponent,
     AddEditBudgetSourceUseComponent,
+    PlanningComponent,
+    AddEditPlanningComponent,
   ],
   imports: [
     CommonModule,
@@ -74,6 +79,7 @@ import { AddEditBudgetSourceUseComponent } from './budget-source-use/add-edit-bu
     InputNumberModule,
     KeyFilterModule,
     TooltipModule,
+    MenuModule
   ],
   providers: [
     {
@@ -84,4 +90,4 @@ import { AddEditBudgetSourceUseComponent } from './budget-source-use/add-edit-bu
     },
   ],
 })
-export class OperationModule {}
+export class OperationModule { }

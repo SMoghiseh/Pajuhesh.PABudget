@@ -6,6 +6,7 @@ import { PersonelNoComponent } from './personel-no/personel-no.component';
 import { SaleComponent } from './sale/sale.component';
 import { ContractComponent } from './contract/contract.component';
 import { BudgetSourceUseComponent } from './budget-source-use/budget-source-use.component';
+import { PlanningComponent } from './planning/planning.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,16 @@ const routes: Routes = [
             path: 'BudgetSourceUse',
             component: BudgetSourceUseComponent,
             title: 'برنامه و بودجه |  منابع و مصارف',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Planning',
+            component: PlanningComponent,
+            title: 'برنامه و بودجه |  برنامه های کلان',
             data: {
               reuse: true,
               title: 'تعریف عناوین',

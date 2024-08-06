@@ -1221,6 +1221,30 @@ export class Plan {
   static readonly apiAddressInformations =
     'api/PABudgetApi/Dashboard/Informations/Info';
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/';
+}
+
+export class Planning {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Planning/';
+  id!: number;
+  planingCode!: number;
+  title!: string;
+  planingDate!: string;
+  companyId!: number;
+  meetingId!: number;
+  startDate!: string;
+  endDate!: string;
+}
+export class PlanningValue {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/PlanningValue/';
+  id!: number;
+  planingCode!: number;
+  title!: string;
+  planingDate!: string;
+  companyId!: number;
+  meetingId!: number;
+  startDate!: string;
+  endDate!: string;
 }
 
 export class Budget {
