@@ -9,7 +9,7 @@ import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate
 import { JDate } from '@shared/utilities/JDate/jdate';
 
 @Component({
-  selector: 'PABudget-add-edit-planning-value',
+  selector: 'PABudget-add-edit-planning',
   templateUrl: './add-edit-planning.component.html',
   styleUrls: ['./add-edit-planning.component.scss']
 })

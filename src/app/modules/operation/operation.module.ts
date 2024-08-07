@@ -39,6 +39,8 @@ import { AddEditBudgetSourceUseComponent } from './budget-source-use/add-edit-bu
 import { PlanningComponent } from './planning/planning.component';
 import { AddEditPlanningComponent } from './planning/add-edit-planning/add-edit-planning.component';
 import { MenuModule } from 'primeng/menu';
+import { PlanningValueComponent } from './planning-value/planning-value.component';
+import { AddEditPlanningValueComponent } from './planning-value/add-edit-planning/add-edit-planning-value.component';
 
 
 @NgModule({
@@ -54,6 +56,8 @@ import { MenuModule } from 'primeng/menu';
     AddEditBudgetSourceUseComponent,
     PlanningComponent,
     AddEditPlanningComponent,
+    PlanningValueComponent,
+    AddEditPlanningValueComponent,
   ],
   imports: [
     CommonModule,

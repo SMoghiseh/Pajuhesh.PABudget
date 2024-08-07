@@ -1246,6 +1246,20 @@ export class PlanningValue {
   startDate!: string;
   endDate!: string;
 }
+export class Vision {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Vision/';
+  planningId!: number;
+  title!: string;
+  visionCode!: string;
+  keyTypeCode!: number;
+  planningValueId!: number;
+}
+
+export class KeyTypecode {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';
+  id!: number;
+  title!: string;
+}
 
 export class Budget {
   static readonly apiAddressBalanceSheet =
