@@ -142,33 +142,11 @@
 <p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
     [draggable]="false" [resizable]="false" [class.height-size]="mode === 'insert' || mode === 'edit'"
     [style]="{ width: '800px', height: '400px' }">
-    <PABudget-add-edit-planning-value [data]="addEditData" [mode]="mode"
-        (isSuccess)="reloadData()"></PABudget-add-edit-planning-value>
+    <PABudget-add-edit-vision [data]="addEditData" [mode]="mode"
+        (isSuccess)="reloadData()"></PABudget-add-edit-vision>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
 
-<!-- <p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true" [model]="subComponentList">
-    <ng-template pTemplate="item" let-item>
-        <a [routerLink]="item.route" class="p-menuitem-link">
-            <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.route }}</span>
-        </a>
-    </ng-template>
-</p-menu> -->
-<p-menu [model]="subComponentList" #menu [popup]="true">
-    <ng-template pTemplate="item" let-item>
-        <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-menuitem-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.route }}</span>
-            </a>
-        </ng-container>
-        <ng-template #elseBlock>
-            <a [href]="item.url" class="p-menuitem-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-template>
-    </ng-template>
-</p-menu>
+<p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true"
+    [model]="subComponentList"></p-menu>

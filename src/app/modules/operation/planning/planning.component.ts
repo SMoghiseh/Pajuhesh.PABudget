@@ -38,11 +38,11 @@ export class PlanningComponent {
   pId!: string;
   mode!: string;
   subComponentList = [
-    { label: 'ارزش ها', icon: 'pi pi-fw pi-plus', route: 'Comapny/createCompany' },
-    { label: 'چشم انداز ', icon: 'pi pi-fw pi-download' },
-    { label: 'ماموریت ', icon: 'pi pi-fw pi-download' },
-    { label: 'مستندات ', icon: 'pi pi-fw pi-download' },
-    { label: 'SWOT', icon: 'pi pi-fw pi-download' },
+    { label: 'ارزش ها', icon: 'pi pi-fw pi-plus', routerLink: ['/Operation/PlanningValue'] },
+    { label: 'چشم انداز ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/Vision'] },
+    { label: 'ماموریت ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/'] },
+    { label: 'مستندات ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/'] },
+    { label: 'SWOT', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/'] },
   ];
   // form property
   searchForm!: FormGroup;
