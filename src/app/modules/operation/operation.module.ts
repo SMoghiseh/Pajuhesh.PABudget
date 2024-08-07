@@ -41,6 +41,8 @@ import { AddEditPlanningComponent } from './planning/add-edit-planning/add-edit-
 import { MenuModule } from 'primeng/menu';
 import { PlanningValueComponent } from './planning-value/planning-value.component';
 import { AddEditPlanningValueComponent } from './planning-value/add-edit-planning/add-edit-planning-value.component';
+import { VisionComponent } from './vision/vision.component';
+import { AddEditVisionComponent } from './vision/add-edit-vision/add-edit-vision.component';
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import { AddEditPlanningValueComponent } from './planning-value/add-edit-plannin
     AddEditPlanningComponent,
     PlanningValueComponent,
     AddEditPlanningValueComponent,
+    VisionComponent,
+    AddEditVisionComponent,
   ],
   imports: [
     CommonModule,

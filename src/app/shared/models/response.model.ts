@@ -1248,6 +1248,7 @@ export class PlanningValue {
 }
 export class Vision {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Vision/';
+  id!: number;
   planningId!: number;
   title!: string;
   visionCode!: string;

@@ -8,6 +8,7 @@ import { ContractComponent } from './contract/contract.component';
 import { BudgetSourceUseComponent } from './budget-source-use/budget-source-use.component';
 import { PlanningComponent } from './planning/planning.component';
 import { PlanningValueComponent } from './planning-value/planning-value.component';
+import { VisionComponent } from './vision/vision.component';
 
 
 const routes: Routes = [
@@ -68,6 +69,16 @@ const routes: Routes = [
             path: 'PlanningValue',
             component: PlanningValueComponent,
             title: 'برنامه و بودجه | ارزش ها',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Vision',
+            component: VisionComponent,
+            title: 'برنامه و بودجه | چشم انداز',
             data: {
               reuse: true,
               title: 'تعریف عناوین',
