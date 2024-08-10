@@ -1255,6 +1255,14 @@ export class Vision {
   keyTypeCode!: number;
   planningValueId!: number;
 }
+export class Mission {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Mission/';
+  id!: number;
+  planningId!: number;
+  title!: string;
+  missionCode!: string;
+  typeCode!: number;
+}
 
 export class KeyTypecode {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';

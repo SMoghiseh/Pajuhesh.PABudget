@@ -40,7 +40,7 @@ export class PlanningComponent {
   subComponentList = [
     { label: 'ارزش ها', icon: 'pi pi-fw pi-plus', routerLink: ['/Operation/PlanningValue'] },
     { label: 'چشم انداز ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/Vision'] },
-    { label: 'ماموریت ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/'] },
+    { label: 'ماموریت ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/Mission'] },
     { label: 'مستندات ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/'] },
     { label: 'SWOT', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/'] },
   ];

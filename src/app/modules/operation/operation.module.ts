@@ -43,6 +43,8 @@ import { PlanningValueComponent } from './planning-value/planning-value.componen
 import { AddEditPlanningValueComponent } from './planning-value/add-edit-planning/add-edit-planning-value.component';
 import { VisionComponent } from './vision/vision.component';
 import { AddEditVisionComponent } from './vision/add-edit-vision/add-edit-vision.component';
+import { MissionComponent } from './mission/mission.component';
+import { AddEditMissionComponent } from './mission/add-edit-mission/add-edit-mission.component';
 
 
 @NgModule({
@@ -62,6 +64,8 @@ import { AddEditVisionComponent } from './vision/add-edit-vision/add-edit-vision
     AddEditPlanningValueComponent,
     VisionComponent,
     AddEditVisionComponent,
+    MissionComponent,
+    AddEditMissionComponent,
   ],
   imports: [
     CommonModule,

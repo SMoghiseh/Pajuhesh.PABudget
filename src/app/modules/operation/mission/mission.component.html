@@ -1,7 +1,7 @@
-<p-toast key="vision" position="bottom-left"></p-toast>
+<p-toast key="mission" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-    <div class="table-header">ارزش ها</div>
+    <div class="table-header">ماموریت ها</div>
     <div>
         <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
             (click)="addPlan()"></p-button>
@@ -11,25 +11,26 @@
 <div class="panel-search mt-8 mb-8">
     <form #formDir="ngForm" [formGroup]="searchForm">
         <div class="row mt-8 pb-3">
-            <div class="col-3 mt-2">
-                <label for="visionCode"> کد چشم انداز </label>
-                <input pInputText id="visionCode" name="visionCode" formControlName="visionCode" class="w-100 my-1" />
+            <div class="col-2 mt-2">
+                <label for="missionCode"> کد ماموریت </label>
+                <input pInputText id="missionCode" name="missionCode" formControlName="missionCode"
+                    class="w-100 my-1" />
             </div>
-            <div class="col-3 mt-2">
-                <label for="title"> متن چشم انداز </label>
+            <div class="col-2 mt-2">
+                <label for="title"> متن ماموریت </label>
                 <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
             </div>
-            <div class="col-3 mt-2">
-                <label for="planningValueId"> ارزش</label>
-                <p-dropdown id="planningValueId" name="planningValueId" formControlName="planningValueId"
-                    styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-                    [options]="planningValueList" [filter]="true">
+            <div class="col-2 mt-2">
+                <label for="typeCode"> کلید واژه</label>
+                <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
+                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList"
+                    [filter]="true">
                 </p-dropdown>
             </div>
-            <div class="col-3 mt-2">
-                <label for="keyTypeCode"> کلید واژه</label>
-                <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList"
+            <div class="col-2 mt-2">
+                <label for="planningId"> شناسه برنامه </label>
+                <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
+                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList"
                     [filter]="true">
                 </p-dropdown>
             </div>
@@ -59,19 +60,17 @@
                 <th style="min-width: 10rem"><strong> کد </strong></th>
                 <th style="min-width: 10rem"><strong> عنوان </strong></th>
                 <th style="min-width: 10rem"><strong> برنامه </strong></th>
-                <th style="min-width: 10rem"><strong> کلیدواژه </strong></th>
-                <th style="min-width: 10rem"><strong> ارزش </strong></th>
+                <th style="min-width: 10rem"><strong> نوع ماموریت </strong></th>
 
                 <th style="min-width: 10rem"><strong> عملیات</strong></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
             <tr>
-                <td>{{ item.code }}</td>
+                <td>{{ item.missionCode }}</td>
                 <td>{{ item.title }}</td>
                 <td>{{ item.planningTitle }}</td>
-                <td>{{ item.keyTypeTitle }}</td>
-                <td>{{ item.planningValueTitle }}</td>
+                <td>{{ item.typeTitle }}</td>
 
                 <td class="jc-left ai-left">
                     <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
@@ -80,9 +79,6 @@
 
                     <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
                         <img ngSrc="icons\Group 117.svg" width="24" height="24" />
-                    </button>
-                    <button class="action-image-container delete-button" (click)="menu.toggle($event)" pTooltip="">
-                        <img ngSrc="icons\Group 109.svg" width="24" height="24" />
                     </button>
                 </td>
             </tr>
@@ -111,10 +107,6 @@
                             title="حذف بودجه ">
                             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
                         </button>
-
-                        <button class="action-image-container delete-button" (click)="menu.toggle($event)" pTooltip="">
-                            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-                        </button>
                     </div>
                 </div>
             </div>
@@ -123,12 +115,9 @@
 </div>
 
 <p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
-    [draggable]="false" [resizable]="false" [class.height-size]="mode === 'insert' || mode === 'edit'"
-    [style]="{ width: '800px', height: '400px' }">
-    <PABudget-add-edit-vision [data1]="addEditData" [mode]="mode" (isSuccess)="reloadData()"></PABudget-add-edit-vision>
+    [draggable]="false" [resizable]="false" [style]="{ width: '400px' }">
+    <PABudget-add-edit-mission [data1]="addEditData" [mode]="mode"
+        (isSuccess)="reloadData()"></PABudget-add-edit-mission>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-
-<p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true"
-    [model]="subComponentList"></p-menu>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, Vision, KeyTypecode, PlanningValue
+  UrlBuilder, Mission, KeyTypecode, PlanningValue
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -13,24 +13,24 @@ import {
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'PABudget-vision',
-  templateUrl: './vision.component.html',
-  styleUrls: ['./vision.component.scss'],
+  selector: 'PABudget-mission',
+  templateUrl: './mission.component.html',
+  styleUrls: ['./mission.component.scss'],
   providers: [ConfirmationService]
 
 })
-export class VisionComponent {
+export class MissionComponent {
 
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: Vision[] = [];
+  data: Mission[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
   isOpenAddEditPlan = false;
-  addEditData = new Vision();
+  addEditData = new Mission();
   pId!: string;
   mode!: string;
 
@@ -41,10 +41,6 @@ export class VisionComponent {
   planningValueList: any = [];
   planingList: any = [];
   KeyTypeList: any = [];
-
-  subComponentList = [
-    { label: 'اهداف ', icon: 'pi pi-fw pi-plus', routerLink: ['/Operation/BigGoal'] }
-  ];
 
   constructor(
     private httpService: HttpService,
@@ -58,10 +54,10 @@ export class VisionComponent {
     this.getkeyTypeCodeLst();
 
     this.searchForm = new FormGroup({
-      planningValueId: new FormControl(null),
       title: new FormControl(null),
-      visionCode: new FormControl(null),
-      keyTypeCode: new FormControl(null),
+      missionCode: new FormControl(null),
+      typeCode: new FormControl(null),
+      planningId: new FormControl(null),
     });
   }
 
@@ -105,9 +101,9 @@ export class VisionComponent {
 
     this.first = 0;
     const url =
-      Vision.apiAddress + 'List';
+      Mission.apiAddress + 'List';
     this.httpService
-      .post<Vision[]>(url, body)
+      .post<Mission[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -116,26 +112,26 @@ export class VisionComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new Vision()];
+          } else return [new Mission()];
         })
       )
       .subscribe(res => (this.data = res));
   }
 
   addPlan() {
-    this.modalTitle = 'افزودن چشم انداز  ';
+    this.modalTitle = 'افزودن ماموریت  ';
     this.mode = 'insert';
     this.isOpenAddEditPlan = true;
   }
 
-  editRow(data: Vision) {
+  editRow(data: Mission) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
   }
 
-  deleteRow(item: Vision) {
+  deleteRow(item: Mission) {
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -154,9 +150,9 @@ export class VisionComponent {
   deletePlan(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<Vision>(
+        .get<Mission>(
           UrlBuilder.build(
-            Vision.apiAddress + 'Delete',
+            Mission.apiAddress + 'Delete',
             ''
           ) + `/${id}`
         )
@@ -164,7 +160,7 @@ export class VisionComponent {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'vision',
+              key: 'mission',
               life: 8000,
               severity: 'success',
               detail: ` چشم انداز  ${title}`,
