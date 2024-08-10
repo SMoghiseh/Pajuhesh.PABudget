@@ -1367,3 +1367,16 @@ export class ManagerType {
 export class Persons {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/GetPerson';
 }
+
+export class Aspect {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AspectCode/';
+}
+
+export class BigGoal {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/BigGoal/';
+  id!: number;
+  visionId!: number;
+  title!: string;
+  bigGoalCode!: string;
+  aspectCode!: number;
+}

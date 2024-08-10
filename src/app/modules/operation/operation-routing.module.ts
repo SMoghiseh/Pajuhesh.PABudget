@@ -10,6 +10,7 @@ import { PlanningComponent } from './planning/planning.component';
 import { PlanningValueComponent } from './planning-value/planning-value.component';
 import { VisionComponent } from './vision/vision.component';
 import { MissionComponent } from './mission/mission.component';
+import { BigGoalComponent } from './big-goal/big-goal.component';
 
 
 const routes: Routes = [
@@ -90,6 +91,16 @@ const routes: Routes = [
             path: 'Mission',
             component: MissionComponent,
             title: 'برنامه و بودجه |  ماموریت',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'BigGoal',
+            component: BigGoalComponent,
+            title: 'برنامه و بودجه |  اهداف',
             data: {
               reuse: true,
               title: 'تعریف عناوین',
