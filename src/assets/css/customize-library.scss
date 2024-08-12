@@ -584,6 +584,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   text-overflow: ellipsis;
   max-width: 200px;
 }
+.p-datatable .p-datatable-tbody > tr > td {
+  // border-width : 0px 0px 0px 1px #e9ecef !important;
+  border : 0px 0px    #e9ecef !important;
+}
 
 .p-panel .p-panel-icons-start {
   margin-left: 7px;
