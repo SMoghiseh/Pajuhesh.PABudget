@@ -81,7 +81,8 @@
                     <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
                         <img ngSrc="icons\Group 117.svg" width="24" height="24" />
                     </button>
-                    <button class="action-image-container delete-button" (click)="menu.toggle($event)" pTooltip="">
+                    <button class="action-image-container delete-button"
+                        (click)="menu.toggle($event) ; setActiveComponentRoute(item)" pTooltip="">
                         <img ngSrc="icons\Group 109.svg" width="24" height="24" />
                     </button>
                 </td>

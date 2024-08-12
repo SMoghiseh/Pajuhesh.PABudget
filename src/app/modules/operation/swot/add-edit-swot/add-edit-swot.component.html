@@ -3,7 +3,13 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
     <div class="container row">
-
+        <div class="col-6 mt-2">
+            <label for="planningId"> برنامه </label>
+            <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
+                [readonly]="true">
+            </p-dropdown>
+        </div>
         <div class="col-6 mt-2">
             <label for="title"> عنوان </label>
             <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
@@ -21,12 +27,6 @@
           swotCode?.dirty ||
           swotCode?.touched
         " />
-        </div>
-        <div class="col-6 mt-2">
-            <label for="planningId"> برنامه </label>
-            <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true">
-            </p-dropdown>
         </div>
         <div class="col-6 mt-2">
             <label for="typeCode"> نوع </label>

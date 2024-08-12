@@ -80,7 +80,7 @@ export class AddEditPlanningValueComponent {
     }
 
     this.addEditForm.patchValue({
-      planingId: this.route.snapshot.paramMap.get('id')
+      planingId: Number(this.route.snapshot.paramMap.get('id'))
     })
   }
 

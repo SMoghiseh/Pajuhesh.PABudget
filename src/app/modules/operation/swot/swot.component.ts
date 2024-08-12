@@ -54,7 +54,6 @@ export class SwotComponent {
 
     this.searchForm = new FormGroup({
       title: new FormControl(null),
-      planningId: new FormControl(null),
       typeCode: new FormControl(null),
       swotRank: new FormControl(null),
       swotCode: new FormControl(null),
