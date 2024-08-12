@@ -193,7 +193,7 @@ export class AccountReportItemComponent {
             key: 'report',
             life: 8000,
             severity: 'success',
-            detail: `اطلاعات شرکت`,
+            detail: `آیتم های گزارش `,
             summary: 'با موفقیت درج شد',
           });
         }
