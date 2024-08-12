@@ -1,0 +1,36 @@
+.pickListStyle{
+    .h1{
+         font-size: 1px !important;
+    }
+
+}
+:host ::ng-deep .p-picklist-source{
+    font-size: 5px !important;
+}
+:host ::ng-deep .cdk-drop-list{
+    font-size: 5px !important;
+}
+
+// @media (min-width: 1200px) {
+//     .h1{ font-size: 5px;}
+// }
+
+.font-bold{
+    font-size: 14px !important;
+}
+
+
+::ng-deep .p-picklist-target{
+ display: none !important;
+}
+::ng-deep .p-picklist-target-controls{
+    display: none !important;
+}
+
+::ng-deep .p-picklist-transfer-buttons{
+    display: none !important;
+}
+::ng-deep .p-picklist .p-picklist-list .p-picklist-item {
+   background-color: rgb(175, 201, 240);
+
+}

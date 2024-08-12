@@ -1288,6 +1288,10 @@ export class AccountReport {
   static readonly apiAddressTree = 'api/PABudgetApi/v1/AccountReportItem/Tree';
   static readonly apiAddressItemCreate =
     'api/PABudgetApi/v1/AccountReportToItem/create';
+  static readonly apiAddressDragDrop =
+    'api/PABudgetApi/v1/AccountReportToItem/GetAccountRepToItemListByOrder';
+  static readonly apiAddressDragDropUpdate =
+    'api/PABudgetApi/v1/AccountReportToItem/UpdateOrder';
 
   id!: number;
   code!: string;
@@ -1299,6 +1303,10 @@ export class AccountReport {
   companyId!: number;
   accountReportId!: number;
   isUsedInAccountReportToItem!: boolean;
+  accountRepItemTitle!: string;
+  accountRepTitle!: string;
+  upId!: number;
+  subId!: number;
 }
 
 export class PermissionProfile {

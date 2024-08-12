@@ -1,15 +1,16 @@
-<p-toast key="report" position="bottom-left"></p-toast>
+<p-toast key="report"
+  position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
   <div class="table-header">آیتم های گزارشات مالی</div>
 </div>
 <div class="panel-search mt-8 mb-8">
-  <form #formDir="ngForm" [formGroup]="accountReportItemForm">
-    <div class="row mt-8 pb-3">
+  <form #formDir="ngForm"
+    [formGroup]="accountReportItemForm">
+    <div class="row">
       <div class="col-6">
         <label for="accountRepId"> نوع گزارش </label>
-        <p-dropdown
-          id="accountRepId"
+        <p-dropdown id="accountRepId"
           name="accountRepId"
           formControlName="accountRepId"
           styleClass="w-100 my-1"
@@ -22,8 +23,7 @@
         </p-dropdown>
         <div class="col my-1">
           <label for="title">آیتم گزارش</label>
-          <p-treeSelect
-            formControlName="accountRepItemId"
+          <p-treeSelect formControlName="accountRepItemId"
             id="accountRepItemId"
             [options]="accountReportTree"
             containerStyleClass="w-full"
@@ -38,19 +38,31 @@
             placeholder="انتخاب کنید"
             [filter]="true"></p-treeSelect>
         </div>
-        <div>
-          <!-- <p-pickList></p-pickList> -->
-       
-
-        </div>
+      </div>
+      <div class="col-6">
+        <p-pickList class="pickListStyle"
+          [source]="sourceAccountReport"
+          [dragdrop]="true"
+          (onSourceReorder)="reorderAccountReport($event)"
+          [sourceStyle]="{ height: 'auto', width: '42rem' }"
+          breakpoint="1400px">
+          <ng-template let-item
+            pTemplate="item">
+            <div class="flex-1 flex flex-column gap-2">
+              <h1 class="font-bold">
+                {{ item.accountRepItemTitle }}
+              </h1>
+            </div>
+          </ng-template>
+        </p-pickList>
       </div>
     </div>
   </form>
 </div>
-<div class="justify-content-between pb-3 w-100" style="text-align: end">
+<div class="justify-content-between pb-3 w-100"
+  style="text-align: end">
   <div>
-    <p-button
-      class="pe-2"
+    <p-button class="pe-2"
       (click)="updateAccountRepItem()"
       styleClass="p-button-info"
       icon="pi pi-plus-circle"

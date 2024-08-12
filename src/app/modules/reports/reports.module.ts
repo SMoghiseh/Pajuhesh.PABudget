@@ -1,4 +1,4 @@
-import { NgModule  } from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   CommonModule,
   IMAGE_LOADER,
@@ -27,8 +27,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeModule } from 'primeng/tree';
-
-
+import { PickListModule } from 'primeng/picklist';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -57,7 +56,7 @@ import { TreeModule } from 'primeng/tree';
     InputTextareaModule,
     TreeModule,
     TreeSelectModule,
-    
+    PickListModule,
   ],
   providers: [
     {
