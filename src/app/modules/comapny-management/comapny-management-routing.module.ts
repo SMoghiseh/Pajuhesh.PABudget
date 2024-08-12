@@ -9,6 +9,7 @@ import { CompanyContractComponent } from './company-profile/company-contract/com
 import { AddEditContractComponent } from './company-profile/company-contract/add-edit-contract/add-edit-contract.component';
 import { PersonsCompanyComponent } from './persons-company/persons-company.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { SeniorManagersComponent } from './senior-managers/senior-managers.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,16 @@ const routes: Routes = [
               reuse: true,
               title: 'تعریف سازمان',
               animation: 'createCompany',
+            },
+          },
+          {
+            path: 'SeniorManagers',
+            component: SeniorManagersComponent,
+            title: 'برنامه و بودجه |  مدیران ارشد',
+            data: {
+              reuse: true,
+              title: ' مدیران ارشد',
+              animation: '',
             },
           },
           {
@@ -95,4 +106,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ComapnyManagementRoutingModule {}
+export class ComapnyManagementRoutingModule { }

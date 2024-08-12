@@ -54,6 +54,8 @@ import { BalanceSheetComponent } from './company-profile/plan-badget-detail/budg
 import { CostAndBenefitComponent } from './company-profile/plan-badget-detail/budget/cost-and-benefit/cost-and-benefit.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { BudgetResourceUseComponent } from './company-profile/plan-badget-detail/budget/budget-resource-use/budget-resource-use.component';
+import { SeniorManagersComponent } from './senior-managers/senior-managers.component';
+import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senior-managers/add-edit-senior-managers.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { BudgetResourceUseComponent } from './company-profile/plan-badget-detail
     BalanceSheetComponent,
     CostAndBenefitComponent,
     BudgetResourceUseComponent,
+    SeniorManagersComponent,
+    AddEditSeniorManagersComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,

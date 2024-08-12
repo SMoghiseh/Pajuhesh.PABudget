@@ -6,6 +6,13 @@ import { PersonelNoComponent } from './personel-no/personel-no.component';
 import { SaleComponent } from './sale/sale.component';
 import { ContractComponent } from './contract/contract.component';
 import { BudgetSourceUseComponent } from './budget-source-use/budget-source-use.component';
+import { PlanningComponent } from './planning/planning.component';
+import { PlanningValueComponent } from './planning-value/planning-value.component';
+import { VisionComponent } from './vision/vision.component';
+import { MissionComponent } from './mission/mission.component';
+import { BigGoalComponent } from './big-goal/big-goal.component';
+import { SwotComponent } from './swot/swot.component';
+import { StrategyComponent } from './strategy/strategy.component';
 
 
 const routes: Routes = [
@@ -46,6 +53,76 @@ const routes: Routes = [
             path: 'BudgetSourceUse',
             component: BudgetSourceUseComponent,
             title: 'برنامه و بودجه |  منابع و مصارف',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Planning',
+            component: PlanningComponent,
+            title: 'برنامه و بودجه |  برنامه های کلان',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'PlanningValue',
+            component: PlanningValueComponent,
+            title: 'برنامه و بودجه | ارزش ها',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Vision',
+            component: VisionComponent,
+            title: 'برنامه و بودجه | چشم انداز',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Mission',
+            component: MissionComponent,
+            title: 'برنامه و بودجه |  ماموریت',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'BigGoal',
+            component: BigGoalComponent,
+            title: 'برنامه و بودجه |  اهداف',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'SWOT',
+            component: SwotComponent,
+            title: 'برنامه و بودجه |  SWOT',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Strategy',
+            component: StrategyComponent,
+            title: 'برنامه و بودجه |  استراتژی',
             data: {
               reuse: true,
               title: 'تعریف عناوین',
