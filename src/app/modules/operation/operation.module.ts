@@ -49,6 +49,8 @@ import { BigGoalComponent } from './big-goal/big-goal.component';
 import { AddEditBigGoalComponent } from './big-goal/add-edit-big-goal/add-edit-big-goal.component';
 import { AddEditSwotComponent } from './swot/add-edit-swot/add-edit-swot.component';
 import { SwotComponent } from './swot/swot.component';
+import { StrategyComponent } from './strategy/strategy.component';
+import { AddEditStrategyComponent } from './strategy/add-edit-swot/add-edit-strategy.component';
 
 
 @NgModule({
@@ -73,7 +75,9 @@ import { SwotComponent } from './swot/swot.component';
     BigGoalComponent,
     AddEditBigGoalComponent,
     SwotComponent,
-    AddEditSwotComponent
+    AddEditSwotComponent,
+    StrategyComponent,
+    AddEditStrategyComponent
   ],
   imports: [
     CommonModule,

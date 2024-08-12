@@ -12,6 +12,7 @@ import { VisionComponent } from './vision/vision.component';
 import { MissionComponent } from './mission/mission.component';
 import { BigGoalComponent } from './big-goal/big-goal.component';
 import { SwotComponent } from './swot/swot.component';
+import { StrategyComponent } from './strategy/strategy.component';
 
 
 const routes: Routes = [
@@ -111,7 +112,17 @@ const routes: Routes = [
           {
             path: 'SWOT',
             component: SwotComponent,
-            title: 'برنامه و بودجه |  اهداف',
+            title: 'برنامه و بودجه |  SWOT',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Strategy',
+            component: StrategyComponent,
+            title: 'برنامه و بودجه |  استراتژی',
             data: {
               reuse: true,
               title: 'تعریف عناوین',

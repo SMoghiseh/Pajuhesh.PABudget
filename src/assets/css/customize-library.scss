@@ -15,17 +15,19 @@
   height: var(--Sizes-40, 40px);
   flex-shrink: 0;
 }
+
 .p-button-warning {
   border-radius: 5px;
-  background: #F1F5F9 !important ;
+  background: #F1F5F9 !important;
   border-color: #F1F5F9 !important;
   width: 120px;
   height: var(--Sizes-40, 40px);
 
-flex-shrink: 0;
+  flex-shrink: 0;
 }
+
 .p-button {
-  
+
   .p-button-icon-left {
     margin-right: 0 !important;
     margin-left: 7px;
@@ -177,7 +179,7 @@ flex-shrink: 0;
 
 /* dialog */
 .p-dialog {
-  background-color: #ffff ;
+  background-color: #ffff;
   border-radius: 15px !important;
   background: #ffffff !important;
   box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25) !important;
@@ -186,22 +188,24 @@ flex-shrink: 0;
   // max-width: 600px;
   padding-left: 0px !important;
   padding-right: 12px !important;
- 
+
 
   .p-dialog-footer {
     text-align: left !important;
     border-radius: 15px !important;
   }
+
   .p-dialog-header {
     border-radius: 15px;
   }
+
   .p-dialog-content {
     background: center;
   }
 
 }
 
-.p-confirm-dialog{
+.p-confirm-dialog {
   max-width: none !important;
   border-radius: 15px !important;
 }
@@ -330,12 +334,14 @@ flex-shrink: 0;
         border-right: 1px solid #dee2e6 !important;
       }
     }
-    .p-datepicker-header{
+
+    .p-datepicker-header {
       padding: 0px !important;
       height: 30px;
     }
-    table{
-      td{
+
+    table {
+      td {
         padding: 0px !important;
       }
     }
@@ -345,24 +351,24 @@ flex-shrink: 0;
 /* dropdown */
 .p-dropdown {
   .p-dropdown-label.p-placeholder {
-color: #ABABAB;
-text-align: right;
-font-family: Shabnam !important;
-font-size: 14px;
-font-style: normal;
-font-weight: 400 !important;
-line-height: normal;
+    color: #ABABAB;
+    text-align: right;
+    font-family: Shabnam !important;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400 !important;
+    line-height: normal;
   }
 
   .p-inputtext {
-text-align: start !important;
-color: #ABABAB !important;
-text-align: right !important;
-font-family: Shabnam !important;
-font-size: 14px;
-font-style: normal;
-font-weight: 400 !important;
-line-height: normal;
+    text-align: start !important;
+    color: #ABABAB !important;
+    text-align: right !important;
+    font-family: Shabnam !important;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400 !important;
+    line-height: normal;
   }
 
   .p-dropdown-panel {
@@ -636,5 +642,15 @@ p-organizationchart-nodes:host ::ng-deep .p-organizationchart-nodes {
 
   .card-img-overlay {
     background-color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.p-menu .p-menuitem-link {
+  .p-menuitem-icon {
+    margin-right: unset;
+  }
+
+  .p-menuitem-text {
+    margin-right: 9px;
   }
 }

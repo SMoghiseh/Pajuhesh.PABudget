@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, Company, Planning
+  UrlBuilder, STRATEGY, BigGoal
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -11,124 +11,72 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 
 @Component({
-  selector: 'PABudget-planning',
-  templateUrl: './planning.component.html',
-  styleUrls: ['./planning.component.scss'],
+  selector: 'PABudget-strategy',
+  templateUrl: './strategy.component.html',
+  styleUrls: ['./strategy.component.scss'],
   providers: [ConfirmationService]
 
 })
-export class PlanningComponent {
-
-  public datePipe = new DatePipe('en-US');
+export class StrategyComponent {
 
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: Planning[] = [];
+  data: STRATEGY[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
   isOpenAddEditPlan = false;
-  addEditData = new Planning();
+  addEditData = new STRATEGY();
   pId!: string;
   mode!: string;
-  subComponentList = [
-    { label: 'ارزش ها', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/PlanningValue'] },
-    { label: 'چشم انداز ', icon: 'pi pi-fw pi-eye', routerLink: ['/Operation/Vision'] },
-    { label: 'ماموریت ', icon: 'pi pi-fw pi-briefcase', routerLink: ['/Operation/Mission'] },
-    { label: 'SWOT', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/SWOT'] },
-    { label: 'استراتژی', icon: 'pi pi-fw pi-book', routerLink: ['/Operation/Strategy'] },
-  ];
+
   // form property
   searchForm!: FormGroup;
 
   // dropdown data list
-  meetingList: any = [];
-  companyList: any = [];
+  bigGoalList: any = [];
+
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private jDateCalculatorService: JDateCalculatorService
   ) { }
 
   ngOnInit(): void {
-    this.getMeetingLst();
-    this.getCompanyLst();
+
+    this.getBigGoalList();
 
     this.searchForm = new FormGroup({
-      planingCode: new FormControl(null),
       title: new FormControl(null),
-      companyId: new FormControl(null),
-      meetingId: new FormControl(null),
-      startDate: new FormControl(null),
-      endDate: new FormControl(null)
+      bigGoalId: new FormControl(null),
+      strategyCode: new FormControl(null),
+      strategyPriority: new FormControl(null),
     });
   }
 
-  getCompanyLst() {
+  getBigGoalList() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
+      .post<BigGoal[]>(BigGoal.apiAddress + 'List', { withOutPagination: true })
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.companyList = response.data.result;
+          this.bigGoalList = response.data.result;
         }
       });
   }
 
-  getMeetingLst() {
-    // this.httpService
-    //   .get<any[]>('')
-    //   .subscribe(response => {
-    //     if (response.data && response.data.result) {
-    //       this.meetingList = response.data.result;
-    //     }
-    //   });
-  }
 
-  getPlan(event?: LazyLoadEvent) {
+  getData(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
     const formValue = this.searchForm.value;
-    formValue.planingDate = formValue.planingDate
-      ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.planingDate?.getFullYear(),
-          formValue.planingDate?.getMonth(),
-          formValue.planingDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
-      : null;
-    formValue.startDate = formValue.startDate
-      ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.startDate?.getFullYear(),
-          formValue.startDate?.getMonth(),
-          formValue.startDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
-      : null;
-    formValue.endDate = formValue.endDate
-      ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.endDate?.getFullYear(),
-          formValue.endDate?.getMonth(),
-          formValue.endDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
-      : null;
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
 
@@ -141,9 +89,9 @@ export class PlanningComponent {
 
     this.first = 0;
     const url =
-      Planning.apiAddress + 'List';
+      STRATEGY.apiAddress + 'List';
     this.httpService
-      .post<Planning[]>(url, body)
+      .post<STRATEGY[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -152,26 +100,26 @@ export class PlanningComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new Planning()];
+          } else return [new STRATEGY()];
         })
       )
       .subscribe(res => (this.data = res));
   }
 
   addPlan() {
-    this.modalTitle = 'افزودن برنامه راهبردی ';
+    this.modalTitle = 'افزودن استراتژی  ';
     this.mode = 'insert';
     this.isOpenAddEditPlan = true;
   }
 
-  editRow(data: Planning) {
+  editRow(data: STRATEGY) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
   }
 
-  deleteRow(item: Planning) {
+  deleteRow(item: STRATEGY) {
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -190,9 +138,9 @@ export class PlanningComponent {
   deletePlan(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<Planning>(
+        .get<STRATEGY>(
           UrlBuilder.build(
-            Planning.apiAddress + 'Delete',
+            STRATEGY.apiAddress + 'Delete',
             ''
           ) + `/${id}`
         )
@@ -200,13 +148,13 @@ export class PlanningComponent {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'plan',
+              key: 'strategy',
               life: 8000,
               severity: 'success',
-              detail: ` برنامه  ${title}`,
+              detail: ` مورد   ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getPlan();
+            this.getData();
           }
         });
     }
@@ -214,16 +162,12 @@ export class PlanningComponent {
 
   reloadData() {
     this.isOpenAddEditPlan = false;
-    this.getPlan();
+    this.getData();
   }
 
   clearSearch() {
     this.searchForm.reset();
-    this.getPlan();
-  }
-
-  navigateToComponent(data: any) {
-    console.log(data)
+    this.getData();
   }
 
 }

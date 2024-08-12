@@ -1386,3 +1386,9 @@ export class SWTO {
   id!: number;
   title!: string;
 }
+
+export class STRATEGY {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Strategy/';
+  id!: number;
+  title!: string;
+}
