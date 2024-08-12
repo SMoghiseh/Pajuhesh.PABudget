@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, Company, Planning
+  UrlBuilder, SWTO, KeyTypecode, Planning
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -11,124 +11,85 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 
 @Component({
-  selector: 'PABudget-planning',
-  templateUrl: './planning.component.html',
-  styleUrls: ['./planning.component.scss'],
+  selector: 'PABudget-swot',
+  templateUrl: './swot.component.html',
+  styleUrls: ['./swot.component.scss'],
   providers: [ConfirmationService]
 
 })
-export class PlanningComponent {
-
-  public datePipe = new DatePipe('en-US');
+export class SwotComponent {
 
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: Planning[] = [];
+  data: SWTO[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
   isOpenAddEditPlan = false;
-  addEditData = new Planning();
+  addEditData = new SWTO();
   pId!: string;
   mode!: string;
-  subComponentList = [
-    { label: 'ارزش ها', icon: 'pi pi-fw pi-plus', routerLink: ['/Operation/PlanningValue'] },
-    { label: 'چشم انداز ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/Vision'] },
-    { label: 'ماموریت ', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/Mission'] },
-    { label: 'SWOT', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/SWOT'] },
-    { label: 'استراتژی', icon: 'pi pi-fw pi-download', routerLink: ['/Operation/Strategy'] },
-  ];
+
   // form property
   searchForm!: FormGroup;
 
   // dropdown data list
-  meetingList: any = [];
-  companyList: any = [];
+  planingList: any = [];
+  typeCodeList: any = [];
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private jDateCalculatorService: JDateCalculatorService
   ) { }
 
   ngOnInit(): void {
-    this.getMeetingLst();
-    this.getCompanyLst();
+
+    this.getPlaningList();
+    this.getTypeCodeList();
 
     this.searchForm = new FormGroup({
-      planingCode: new FormControl(null),
       title: new FormControl(null),
-      companyId: new FormControl(null),
-      meetingId: new FormControl(null),
-      startDate: new FormControl(null),
-      endDate: new FormControl(null)
+      planningId: new FormControl(null),
+      typeCode: new FormControl(null),
+      swotRank: new FormControl(null),
+      swotCode: new FormControl(null),
+      swoPriority: new FormControl(null)
     });
   }
 
-  getCompanyLst() {
+  getPlaningList() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
+      .post<Planning[]>(Planning.apiAddress + 'List', { "withOutPagination": true })
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.companyList = response.data.result;
+          this.planingList = response.data.result;
         }
       });
   }
 
-  getMeetingLst() {
-    // this.httpService
-    //   .get<any[]>('')
-    //   .subscribe(response => {
-    //     if (response.data && response.data.result) {
-    //       this.meetingList = response.data.result;
-    //     }
-    //   });
+  getTypeCodeList() {
+    this.httpService
+      .get<KeyTypecode[]>(KeyTypecode.apiAddress + 'List')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.typeCodeList = response.data.result;
+        }
+      });
   }
 
-  getPlan(event?: LazyLoadEvent) {
+
+  getData(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
     const formValue = this.searchForm.value;
-    formValue.planingDate = formValue.planingDate
-      ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.planingDate?.getFullYear(),
-          formValue.planingDate?.getMonth(),
-          formValue.planingDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
-      : null;
-    formValue.startDate = formValue.startDate
-      ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.startDate?.getFullYear(),
-          formValue.startDate?.getMonth(),
-          formValue.startDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
-      : null;
-    formValue.endDate = formValue.endDate
-      ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.endDate?.getFullYear(),
-          formValue.endDate?.getMonth(),
-          formValue.endDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
-      : null;
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
 
@@ -141,9 +102,9 @@ export class PlanningComponent {
 
     this.first = 0;
     const url =
-      Planning.apiAddress + 'List';
+      SWTO.apiAddress + 'List';
     this.httpService
-      .post<Planning[]>(url, body)
+      .post<SWTO[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -152,26 +113,26 @@ export class PlanningComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new Planning()];
+          } else return [new SWTO()];
         })
       )
       .subscribe(res => (this.data = res));
   }
 
   addPlan() {
-    this.modalTitle = 'افزودن برنامه راهبردی ';
+    this.modalTitle = 'افزودن swto  ';
     this.mode = 'insert';
     this.isOpenAddEditPlan = true;
   }
 
-  editRow(data: Planning) {
+  editRow(data: SWTO) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
   }
 
-  deleteRow(item: Planning) {
+  deleteRow(item: SWTO) {
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -190,9 +151,9 @@ export class PlanningComponent {
   deletePlan(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<Planning>(
+        .get<SWTO>(
           UrlBuilder.build(
-            Planning.apiAddress + 'Delete',
+            SWTO.apiAddress + 'Delete',
             ''
           ) + `/${id}`
         )
@@ -200,13 +161,13 @@ export class PlanningComponent {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'plan',
+              key: 'swot',
               life: 8000,
               severity: 'success',
-              detail: ` برنامه  ${title}`,
+              detail: ` مورد   ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getPlan();
+            this.getData();
           }
         });
     }
@@ -214,16 +175,12 @@ export class PlanningComponent {
 
   reloadData() {
     this.isOpenAddEditPlan = false;
-    this.getPlan();
+    this.getData();
   }
 
   clearSearch() {
     this.searchForm.reset();
-    this.getPlan();
-  }
-
-  navigateToComponent(data: any) {
-    console.log(data)
+    this.getData();
   }
 
 }

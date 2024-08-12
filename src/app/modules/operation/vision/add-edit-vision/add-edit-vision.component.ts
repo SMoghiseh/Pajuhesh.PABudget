@@ -92,7 +92,7 @@ export class AddEditVisionComponent {
         .subscribe(response => {
           if (response.successed) {
             this.messageService.add({
-              key: 'plan',
+              key: 'vision',
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,

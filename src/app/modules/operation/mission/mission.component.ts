@@ -163,7 +163,7 @@ export class MissionComponent {
               key: 'mission',
               life: 8000,
               severity: 'success',
-              detail: ` چشم انداز  ${title}`,
+              detail: `  مورد  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
             this.getVision();

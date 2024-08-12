@@ -46,7 +46,9 @@ import { AddEditVisionComponent } from './vision/add-edit-vision/add-edit-vision
 import { MissionComponent } from './mission/mission.component';
 import { AddEditMissionComponent } from './mission/add-edit-mission/add-edit-mission.component';
 import { BigGoalComponent } from './big-goal/big-goal.component';
-import { AddEditBigGoalComponent } from './big-goal/add-edit-vision/add-edit-big-goal.component';
+import { AddEditBigGoalComponent } from './big-goal/add-edit-big-goal/add-edit-big-goal.component';
+import { AddEditSwotComponent } from './swot/add-edit-swot/add-edit-swot.component';
+import { SwotComponent } from './swot/swot.component';
 
 
 @NgModule({
@@ -69,7 +71,9 @@ import { AddEditBigGoalComponent } from './big-goal/add-edit-vision/add-edit-big
     MissionComponent,
     AddEditMissionComponent,
     BigGoalComponent,
-    AddEditBigGoalComponent
+    AddEditBigGoalComponent,
+    SwotComponent,
+    AddEditSwotComponent
   ],
   imports: [
     CommonModule,

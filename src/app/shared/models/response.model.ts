@@ -1380,3 +1380,9 @@ export class BigGoal {
   bigGoalCode!: string;
   aspectCode!: number;
 }
+
+export class SWTO {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/SWTO/';
+  id!: number;
+  title!: string;
+}
