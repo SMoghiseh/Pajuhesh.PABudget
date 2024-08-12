@@ -66,7 +66,7 @@ export class DocumentNeedsComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     public sidemenuService: SidemenuService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.offcanvasModeDetection(window.innerWidth);
@@ -83,9 +83,7 @@ export class DocumentNeedsComponent implements OnInit {
     this.loading = true;
 
     this.httpService
-      .get<DocumentType[]>(
-        UrlBuilder.build(DocumentType.apiAddress, 'TREE')
-      )
+      .get<DocumentType[]>(UrlBuilder.build(DocumentType.apiAddress, 'TREE'))
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {

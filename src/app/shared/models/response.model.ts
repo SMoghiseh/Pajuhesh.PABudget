@@ -1333,11 +1333,28 @@ export class AccountReport {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
   static readonly apiAddressList =
     'api/PABudgetApi/v1/AccountReport/GetAllAccountReport';
+  static readonly apiAddressTree = 'api/PABudgetApi/v1/AccountReportItem/Tree';
+  static readonly apiAddressItemCreate =
+    'api/PABudgetApi/v1/AccountReportToItem/create';
+  static readonly apiAddressDragDrop =
+    'api/PABudgetApi/v1/AccountReportToItem/GetAccountRepToItemListByOrder';
+  static readonly apiAddressDragDropUpdate =
+    'api/PABudgetApi/v1/AccountReportToItem/UpdateOrder';
+
   id!: number;
   code!: string;
   title!: string;
   reportTypeCode!: number;
   periodTypeCode!: number;
+  accountRepId!: number;
+  accountRepItemId!: number;
+  companyId!: number;
+  accountReportId!: number;
+  isUsedInAccountReportToItem!: boolean;
+  accountRepItemTitle!: string;
+  accountRepTitle!: string;
+  upId!: number;
+  subId!: number;
 }
 
 export class PermissionProfile {

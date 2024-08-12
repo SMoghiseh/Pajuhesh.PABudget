@@ -9,35 +9,77 @@
   <!-- input group -->
   <div class="pb-2">
     <p-panel class="search-panel__secation pb-1" header="نیازمندیهای اسناد">
-      <form #formDir="ngForm" [formGroup]="needsFilterForm" (ngSubmit)="getDocumentTypeFileNeeds(selectedNodes?.key)">
+      <form
+        #formDir="ngForm"
+        [formGroup]="needsFilterForm"
+        (ngSubmit)="getDocumentTypeFileNeeds(selectedNodes?.key)">
         <div class="row">
           <div class="col-4">
             <label for="docType">نوع اسناد</label>
-            <p-treeSelect id="docType" class="md:w-20rem w-full" containerStyleClass="w-full"
-              formControlName="selectedNodes" placeholder="انتخاب کنید" [options]="nodes" [filter]="true"
-              [filterInputAutoFocus]="true" (onNodeSelect)="onNodeSelect()" [showClear]="true"></p-treeSelect>
+            <p-treeSelect
+              id="docType"
+              class="md:w-20rem w-full"
+              containerStyleClass="w-full"
+              formControlName="selectedNodes"
+              placeholder="انتخاب کنید"
+              [options]="nodes"
+              [filter]="true"
+              [filterInputAutoFocus]="true"
+              (onNodeSelect)="onNodeSelect()"
+              [showClear]="true"></p-treeSelect>
           </div>
           <div class="col-3">
             <label for="NeedTitle">نام نیازمندی</label>
-            <input pInputText id="NeedTitle" name="NeedTitle" formControlName="NeedTitle" type="text" class="w-100" />
+            <input
+              pInputText
+              id="NeedTitle"
+              name="NeedTitle"
+              formControlName="NeedTitle"
+              type="text"
+              class="w-100" />
           </div>
           <div class="col-3">
             <label for="HasAdded">وضعیت</label>
-            <p-dropdown id="HasAdded" class="col" styleClass="w-100 my-1" optionLabel="title" optionValue="id"
-              [options]="HasAddedLst" placeholder="انتخاب کنید" formControlName="HasAdded" [showClear]="true">
+            <p-dropdown
+              id="HasAdded"
+              class="col"
+              styleClass="w-100 my-1"
+              optionLabel="title"
+              optionValue="id"
+              [options]="HasAddedLst"
+              placeholder="انتخاب کنید"
+              formControlName="HasAdded"
+              [showClear]="true">
             </p-dropdown>
           </div>
           <div class="col-2 div-search-btn">
-            <p-button *ngIf="needs?.length > 0" class="pe-2 p-button-wide" styleClass="p-button-success" label="جستجو"
-              icon="pi pi-search" type="submit"></p-button>
+            <p-button
+              *ngIf="needs?.length > 0"
+              class="pe-2 p-button-wide"
+              styleClass="p-button-success"
+              label="جستجو"
+              icon="pi pi-search"
+              type="submit"></p-button>
           </div>
         </div>
       </form>
     </p-panel>
   </div>
-  <p-table #dataTable class="data-table" dataKey="id" [paginator]="true" [rows]="dataTableRows"
-    [rowsPerPageOptions]="[10, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [value]="needs" [loading]="loading"
-    [responsive]="true" [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedNeeds" [(first)]="first">
+  <p-table
+    #dataTable
+    class="data-table"
+    dataKey="id"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [value]="needs"
+    [loading]="loading"
+    [responsive]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedNeeds"
+    [(first)]="first">
     <ng-template pTemplate="header">
       <tr class="data-table__header">
         <th>
@@ -66,13 +108,21 @@
 
         <td>{{ need.extention }}</td>
 
-        <td [pEditableColumn]="need.isRequired" pEditableColumnField="isRequired">
+        <td
+          [pEditableColumn]="need.isRequired"
+          pEditableColumnField="isRequired">
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <p-checkbox [(ngModel)]="need.isRequired" [binary]="true" inputId="binary"></p-checkbox>
+              <p-checkbox
+                [(ngModel)]="need.isRequired"
+                [binary]="true"
+                inputId="binary"></p-checkbox>
             </ng-template>
             <ng-template pTemplate="output">
-              <p-checkbox [(ngModel)]="need.isRequired" [binary]="true" inputId="binary"></p-checkbox>
+              <p-checkbox
+                [(ngModel)]="need.isRequired"
+                [binary]="true"
+                inputId="binary"></p-checkbox>
             </ng-template>
           </p-cellEditor>
         </td>
@@ -80,6 +130,11 @@
     </ng-template>
   </p-table>
 
-  <p-button class="pe-2 p-button-wide submit-btn" styleClass="p-button-success" label="ثبت" icon="pi pi-check"
-    (click)="onSubmit()" [loading]="onSubmitLoading"></p-button>
+  <p-button
+    class="pe-2 p-button-wide submit-btn"
+    styleClass="p-button-success"
+    label="ثبت"
+    icon="pi pi-check"
+    (click)="onSubmit()"
+    [loading]="onSubmitLoading"></p-button>
 </section>
