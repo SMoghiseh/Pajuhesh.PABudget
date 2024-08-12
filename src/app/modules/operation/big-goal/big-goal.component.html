@@ -77,9 +77,11 @@
                     <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
                         <img ngSrc="icons\Group 116.svg" width="24" height="24" />
                     </button>
-
                     <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
                         <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+                    </button>
+                    <button class="action-image-container delete-button" (click)="menu.toggle($event)" pTooltip="">
+                        <img ngSrc="icons\Group 109.svg" width="24" height="24" />
                     </button>
                 </td>
             </tr>
@@ -123,3 +125,5 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
+<p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true"
+    [model]="subComponentList"></p-menu>
