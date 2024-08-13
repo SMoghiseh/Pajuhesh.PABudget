@@ -161,14 +161,14 @@ export class AccountReportItemComponent {
       )
       .subscribe(response => {
         this.getAccountReporDragDrop(item.items[0].accountRepId);
-        if (response.successed) {
-          this.messageService.add({
-            key: 'report',
-            life: 8000,
-            severity: 'success',
-            summary: ' آیتم های گزارش با موفقیت بروزرسانی شد',
-          });
-        }
+        // if (response.successed) {
+        //   this.messageService.add({
+        //     key: 'report',
+        //     life: 8000,
+        //     severity: 'success',
+        //     summary: ' آیتم های گزارش با موفقیت بروزرسانی شد',
+        //   });
+        // }
       });
   }
 
