@@ -201,6 +201,7 @@
 
   .p-dialog-content {
     background: center;
+    padding: 0 0.5rem 2rem 0.5rem;
   }
 
 }
@@ -584,9 +585,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   text-overflow: ellipsis;
   max-width: 200px;
 }
-.p-datatable .p-datatable-tbody > tr > td {
+
+.p-datatable .p-datatable-tbody>tr>td {
   // border-width : 0px 0px 0px 1px #e9ecef !important;
-  border : 0px 0px    #e9ecef !important;
+  border: 0px 0px #e9ecef !important;
 }
 
 .p-panel .p-panel-icons-start {

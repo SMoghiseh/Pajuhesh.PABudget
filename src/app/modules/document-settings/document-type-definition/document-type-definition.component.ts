@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { HttpService } from '@core/http/http.service';
 import {
-  DocumentType, UrlBuilder
+  DocumentType, Pagination, UrlBuilder
 } from '@shared/models/response.model';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 
 import { map, tap } from 'rxjs';
 
@@ -21,12 +22,16 @@ export class DocumentTypeDefinitionComponent implements OnInit {
   documentTypes: DocumentType[] = [];
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
+  lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   addEditData = new DocumentType();
   isOpenAddEditDocumentType = false;
   modalTitle = '';
   type = '';
   loading = false;
+
+  // form property
+  searchForm!: FormGroup;
 
   constructor(
     private httpService: HttpService,
@@ -35,26 +40,47 @@ export class DocumentTypeDefinitionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getDocumentTypes();
+    this.searchForm = new FormGroup({
+      code: new FormControl(null),
+      title: new FormControl(null),
+    });
   }
 
   /*--------------------------
   # Data
   --------------------------*/
   /** Get documentTypes from server. */
-  getDocumentTypes() {
-    this.loading = true;
+  getDocumentTypes(event?: LazyLoadEvent) {
+    if (event) this.lazyLoadEvent = event;
 
+    const pagination = new Pagination();
+    const first = this.lazyLoadEvent?.first || 0;
+    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+    const formValue = this.searchForm.value;
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+
+    const body = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
+      ...formValue,
+    };
+
+    this.first = 0;
+    const url =
+      DocumentType.apiAddress + '/List';
     this.httpService
-      .get<DocumentType[]>(
-        UrlBuilder.build(DocumentType.apiAddress, 'LIST')
-      )
+      .post<DocumentType[]>(
+        url, body)
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
-          if (response.data && response.data.result)
+          if (response.data && response.data.result) {
+            if (response.data.totalCount)
+              this.totalCount = response.data.totalCount;
             return response.data.result;
-          else return [new DocumentType()];
+          } else return [new DocumentType()];
         })
       )
       .subscribe(
@@ -137,6 +163,10 @@ export class DocumentTypeDefinitionComponent implements OnInit {
 
   closeModal() {
     this.isOpenAddEditDocumentType = false;
+  }
+  clearSearch() {
+    this.searchForm.reset();
+    this.getDocumentTypes();
   }
 
 }

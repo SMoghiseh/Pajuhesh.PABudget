@@ -1,21 +1,10 @@
-<form #formDir="ngForm"
-  [formGroup]="addEditBudgetSourceUseForm"
-  (ngSubmit)="addEditBudgetSourceUse()">
-  <div class="row">
+<form #formDir="ngForm" [formGroup]="addEditBudgetSourceUseForm" (ngSubmit)="addEditBudgetSourceUse()">
+  <div class="container row">
     <div class="col-6 mt-2">
       <label for="budgetPeriodId">دوره بودجه</label>
-      <p-dropdown id="budgetPeriodId"
-        name="budgetPeriodId"
-        formControlName="budgetPeriodId"
-        styleClass="w-100 my-1"
-        optionLabel="periodTitle"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="periodLst"
-        [filter]="true"
-        (onChange)="onChangeResourceUse($event)"
-        [class.ng-invalid]="budgetPeriodId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId" styleClass="w-100 my-1"
+        optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="periodLst" [filter]="true"
+        (onChange)="onChangeResourceUse($event)" [class.ng-invalid]="budgetPeriodId?.invalid" [class.ng-dirty]="
           (addEditBudgetSourceUseSubmitted && budgetPeriodId?.pristine) ||
           budgetPeriodId?.dirty ||
           budgetPeriodId?.touched
@@ -24,37 +13,20 @@
     </div>
     <div class="col-6 mt-2">
       <label for="budgetPeriodDetailId">دوره عملیاتی</label>
-      <p-dropdown id="budgetPeriodDetailId"
-        name="budgetPeriodDetailId"
-        formControlName="budgetPeriodDetailId"
-        styleClass="w-100 my-1"
-        optionLabel="periodDetailTitle"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [class.ng-invalid]="budgetPeriodDetailId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="budgetPeriodDetailId" name="budgetPeriodDetailId" formControlName="budgetPeriodDetailId"
+        styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
+        [class.ng-invalid]="budgetPeriodDetailId?.invalid" [class.ng-dirty]="
           (addEditBudgetSourceUseSubmitted && budgetPeriodDetailId?.pristine) ||
           budgetPeriodDetailId?.dirty ||
           budgetPeriodDetailId?.touched
-        "
-        [options]="periodDetailLst"
-        [filter]="true">
+        " [options]="periodDetailLst" [filter]="true">
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
       <label for="companyId"> شرکت </label>
-      <p-dropdown id="companyId"
-        name="companyId"
-        formControlName="companyId"
-        styleClass="w-100 my-1"
-        optionLabel="companyName"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="companyList"
-        [filter]="true"
-        placeholder="انتخاب کنید"
-        [class.ng-invalid]="companyId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+        optionLabel="companyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+        placeholder="انتخاب کنید" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
           (addEditBudgetSourceUseSubmitted && companyId?.pristine) ||
           companyId?.dirty ||
           companyId?.touched
@@ -63,48 +35,25 @@
     </div>
     <div class="col-6 mt-2">
       <label for="sourceUseTypeId">شناسه منابع و مصارف</label>
-      <p-dropdown id="sourceUseTypeId"
-        name="sourceUseTypeId"
-        formControlName="sourceUseTypeId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="sourceUseTypeList"
-        [filter]="true"
+      <p-dropdown id="sourceUseTypeId" name="sourceUseTypeId" formControlName="sourceUseTypeId" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="sourceUseTypeList" [filter]="true"
         placeholder="انتخاب کنید">
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
       <label for="budgetPriceCu">مبلغ پیش بینی</label>
-      <input pInputText
-        pKeyFilter="int"
-        id="budgetPriceCu"
-        name="budgetPriceCu"
-        formControlName="budgetPriceCu"
-        type="text"
-        class="w-100" />
+      <input pInputText pKeyFilter="int" id="budgetPriceCu" name="budgetPriceCu" formControlName="budgetPriceCu"
+        type="text" class="w-100" />
     </div>
     <div class="col-6 mt-2">
       <label for="realPriceCu">مبلغ محقق شده</label>
-      <input pInputText
-        pKeyFilter="int"
-        id="realPriceCu"
-        name="realPriceCu"
-        formControlName="realPriceCu"
-        type="text"
+      <input pInputText pKeyFilter="int" id="realPriceCu" name="realPriceCu" formControlName="realPriceCu" type="text"
         class="w-100" />
     </div>
-    <div class="col-12 row-btn">
-      <p-button class="pe-2"
-        styleClass="p-button-warning"
-        label="انصراف"
-        icon="pi pi-times"
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
         (click)="closeModal()"></p-button>
-      <p-button class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>

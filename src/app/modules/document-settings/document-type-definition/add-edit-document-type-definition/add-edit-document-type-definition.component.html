@@ -1,137 +1,75 @@
-<form
-  #formDir="ngForm"
-  [formGroup]="addNewDocumentTypeForm"
-  (ngSubmit)="addOrUpdateDocumentType()">
-  <div class="container">
-    <div class="row row-cols-lg-4 row-cols-1">
-      <!-- اسناد-->
-      <div class="col my-1">
-        <label for="documentTypes">انتخاب نوع اسناد</label>
-        <p-treeSelect
-          inputId="key"
-          id="documentTypes"
-          class="md:w-20rem w-full"
-          containerStyleClass="w-full"
-          formControlName="parentId"
-          placeholder="انتخاب کنید"
-          [options]="documentTypesTree"
-          [filter]="true"
-          [filterInputAutoFocus]="true"
-          [showClear]="true"></p-treeSelect>
-      </div>
-      <!--/ اسناد-->
-      <!-- نام اسناد -->
-      <div class="col my-1">
-        <label for="title">نام اسناد</label>
-        <input
-          pInputText
-          id="title"
-          name="title"
-          formControlName="title"
-          type="text"
-          class="w-100"
-          [class.ng-invalid]="title?.invalid"
-          [class.ng-dirty]="
+<form #formDir="ngForm" [formGroup]="addNewDocumentTypeForm" (ngSubmit)="addOrUpdateDocumentType()">
+  <div class="container row">
+    <!-- اسناد-->
+    <div class="col-6 my-1">
+      <label for="documentTypes">انتخاب نوع اسناد</label>
+      <p-treeSelect inputId="key" id="documentTypes" class="md:w-20rem w-full" containerStyleClass="w-full"
+        formControlName="parentId" placeholder="انتخاب کنید" [options]="documentTypesTree" [filter]="true"
+        [filterInputAutoFocus]="true" [showClear]="true"></p-treeSelect>
+    </div>
+    <!--/ اسناد-->
+    <!-- نام اسناد -->
+    <div class="col-6 my-1">
+      <label for="title">نام اسناد</label>
+      <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100"
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
             (addNewDocumentTypeFormSubmitted && title?.pristine) ||
             title?.dirty ||
             title?.touched
           " />
 
-        <div id="title-help">
-          <small
-            *ngIf="(addNewDocumentTypeFormSubmitted && title?.pristine) || 
-          (title?.errors?.['required'] && (title?.dirty || title?.touched))"
-            class="p-error">
-            لطفا این فیلد را خالی نگذارید
-          </small>
-          <small style="visibility: hidden" class="p-error"> error </small>
-        </div>
+      <div id="title-help">
+        <small *ngIf="(addNewDocumentTypeFormSubmitted && title?.pristine) || 
+          (title?.errors?.['required'] && (title?.dirty || title?.touched))" class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
       </div>
-      <!-- / نام اسناد -->
+    </div>
+    <!-- / نام اسناد -->
 
-      <!-- کد اسناد -->
-      <div class="col my-1">
-        <label for="code">کد اسناد</label>
-        <input
-          pInputText
-          id="code"
-          name="code"
-          formControlName="code"
-          type="text"
-          class="w-100"
-          [class.ng-invalid]="code?.invalid"
-          [class.ng-dirty]="
+    <!-- کد اسناد -->
+    <div class="col-6 my-1">
+      <label for="code">کد اسناد</label>
+      <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100"
+        [class.ng-invalid]="code?.invalid" [class.ng-dirty]="
             (addNewDocumentTypeFormSubmitted && code?.pristine) ||
             code?.dirty ||
             code?.touched
           " />
-      </div>
-      <!-- / کد اسناد -->
-
-      <!-- گروه -->
-      <div class="col my-1">
-        <label for="documentTypeGroupId">گروه</label>
-        <p-dropdown
-          id="documentTypeGroupId"
-          class="col"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          [options]="groupsLst"
-          placeholder="انتخاب کنید"
-          formControlName="documentTypeGroupId"
-          [showClear]="true">
-        </p-dropdown>
-      </div>
-      <!--/ گروه -->
     </div>
-    <div class="row row-cols-lg-4 row-cols-1">
-      <div class="col my-1">
-        <label for="periodTypeId">دوره</label>
-        <p-dropdown
-          id="periodTypeId"
-          class="col"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          [options]="periodTypeLst"
-          placeholder="انتخاب کنید"
-          formControlName="periodTypeId"
-          [showClear]="true"
-          [class.ng-invalid]="periodTypeId?.invalid"
-          [class.ng-dirty]="
+    <!-- / کد اسناد -->
+
+    <!-- گروه -->
+    <div class="col-6 my-1">
+      <label for="documentTypeGroupId">گروه</label>
+      <p-dropdown id="documentTypeGroupId" class="col" styleClass="w-100 my-1" optionLabel="title" optionValue="id"
+        [options]="groupsLst" placeholder="انتخاب کنید" formControlName="documentTypeGroupId" [showClear]="true">
+      </p-dropdown>
+    </div>
+    <!--/ گروه -->
+    <div class="col-6 my-1">
+      <label for="periodTypeId">دوره</label>
+      <p-dropdown id="periodTypeId" class="col" styleClass="w-100 my-1" optionLabel="title" optionValue="id"
+        [options]="periodTypeLst" placeholder="انتخاب کنید" formControlName="periodTypeId" [showClear]="true"
+        [class.ng-invalid]="periodTypeId?.invalid" [class.ng-dirty]="
             (addNewDocumentTypeFormSubmitted && periodTypeId?.pristine) ||
             periodTypeId?.dirty ||
             periodTypeId?.touched
           ">
-        </p-dropdown>
-        <div id="periodTypeId-help">
-          <small
-            *ngIf="(addNewDocumentTypeFormSubmitted && periodTypeId?.pristine) || 
-          (periodTypeId?.errors?.['required'] && (periodTypeId?.dirty || periodTypeId?.touched))"
-            class="p-error">
-            لطفا این فیلد را خالی نگذارید
-          </small>
-          <small style="visibility: hidden" class="p-error"> error </small>
-        </div>
+      </p-dropdown>
+      <div id="periodTypeId-help">
+        <small *ngIf="(addNewDocumentTypeFormSubmitted && periodTypeId?.pristine) || 
+          (periodTypeId?.errors?.['required'] && (periodTypeId?.dirty || periodTypeId?.touched))" class="p-error">
+          لطفا این فیلد را خالی نگذارید
+        </small>
+        <small style="visibility: hidden" class="p-error"> error </small>
       </div>
-      <div class="col my-1"></div>
-      <div class="col my-1"></div>
-      <!-- دکمه ها -->
-      <div class="d-flex jc-center justify-content-lg-end col my-1">
-        <p-button
-          style="align-self: end"
-          class="pe-2 p-button-wide"
-          styleClass="p-button-success"
-          label="تایید"
-          icon="pi pi-check"
-          type="submit"
-          [loading]="addNewDocumentTypeLoading"></p-button>
-
-        <!-- <p-button style="align-self: end" class="pe-2 p-button-wide" styleClass="p-button-warning"
-                    label="انصراف" icon="pi pi-times" (click)="resetAddNewDocumentTypeForm()"></p-button> -->
-      </div>
-      <!-- / دکمه ها -->
+    </div>
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+        [loading]="addNewDocumentTypeLoading"></p-button>
     </div>
   </div>
+
 </form>
