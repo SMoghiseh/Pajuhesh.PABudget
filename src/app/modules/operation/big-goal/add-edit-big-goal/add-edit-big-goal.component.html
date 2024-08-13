@@ -4,15 +4,13 @@
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
     <div class="container row">
         <div class="col-6 mt-2">
-            <label for="aspectCode">منظر </label>
-            <p-dropdown id="aspectCode" name="aspectCode" formControlName="aspectCode" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="aspectCodeList"
-                [filter]="true" [readonly]="true" [class.ng-invalid]="aspectCode?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && aspectCode?.pristine) ||
-                aspectCode?.dirty ||
-                aspectCode?.touched
-              ">
-            </p-dropdown>
+            <label for="bigGoalCode"> کد </label>
+            <input pInputText id="bigGoalCode" name="bigGoalCode" formControlName="bigGoalCode" class="w-100 my-1"
+                [class.ng-invalid]="bigGoalCode?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && bigGoalCode?.pristine) ||
+          bigGoalCode?.dirty ||
+          bigGoalCode?.touched
+        " />
         </div>
         <div class="col-6 mt-2">
             <label for="title"> عنوان </label>
@@ -24,19 +22,21 @@
         " />
         </div>
         <div class="col-6 mt-2">
-            <label for="bigGoalCode"> کد </label>
-            <input pInputText id="bigGoalCode" name="bigGoalCode" formControlName="bigGoalCode" class="w-100 my-1"
-                [class.ng-invalid]="bigGoalCode?.invalid" [class.ng-dirty]="
-          (addEditFormSubmitted && bigGoalCode?.pristine) ||
-          bigGoalCode?.dirty ||
-          bigGoalCode?.touched
-        " />
+            <label for="aspectCode">منظر </label>
+            <p-dropdown id="aspectCode" name="aspectCode" formControlName="aspectCode" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="aspectCodeList"
+                [filter]="true" [class.ng-invalid]="aspectCode?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && aspectCode?.pristine) ||
+                aspectCode?.dirty ||
+                aspectCode?.touched
+              ">
+            </p-dropdown>
         </div>
         <div class="col-6 mt-2">
-            <label for="visionId"> ارزش </label>
+            <label for="visionId"> چشم انداز </label>
             <p-dropdown id="visionId" name="visionId" formControlName="visionId" styleClass="w-100 my-1"
                 optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="visionList" [filter]="true"
-                [class.ng-invalid]="visionId?.invalid" [class.ng-dirty]="
+                [readonly]="true" [class.ng-invalid]="visionId?.invalid" [class.ng-dirty]="
                 (addEditFormSubmitted && visionId?.pristine) ||
                 visionId?.dirty ||
                 visionId?.touched

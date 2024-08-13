@@ -73,7 +73,7 @@ export class AddEditBigGoalComponent {
       this.getRowData(this.inputData.id);
     }
     this.addEditForm.patchValue({
-      aspectCode: Number(this.route.snapshot.paramMap.get('id'))
+      visionId: Number(this.route.snapshot.paramMap.get('id'))
     })
 
   }

@@ -61,7 +61,6 @@ export class BigGoalComponent {
       bigGoalCode: new FormControl(null),
       title: new FormControl(null),
       aspectCode: new FormControl(null),
-      visionId: new FormControl(null),
     });
   }
 
