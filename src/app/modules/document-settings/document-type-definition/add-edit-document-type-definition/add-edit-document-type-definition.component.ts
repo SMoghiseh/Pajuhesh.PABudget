@@ -51,7 +51,7 @@ export class AddEditDocumentTypeDefinitionComponent {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getDocumentTypesTree();
