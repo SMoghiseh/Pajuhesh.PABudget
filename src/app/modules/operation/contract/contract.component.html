@@ -241,7 +241,7 @@
 </div>
 
 <p-dialog *ngIf="isOpenAddEditContractlNo" [header]="modalTitle" [(visible)]="isOpenAddEditContractlNo" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '800px', height: '500px' }">
+  [draggable]="false" [resizable]="false" class="height-size" [style]="{ width: '700px' }">
   <PABudget-add-edit-contract-no [data]="addEditData" (dataDetaild)="(editDataDetails)" (isSuccess)="reloadData()"
     (isCloseModal)="closeModal()"></PABudget-add-edit-contract-no>
 </p-dialog>

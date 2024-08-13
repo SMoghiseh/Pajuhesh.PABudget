@@ -14,7 +14,7 @@
               ">
             </p-dropdown>
         </div>
-        <div class="col-12 mt-2">
+        <div class="col-6 mt-2">
             <label for="missionCode"> کد ماموریت </label>
             <input pInputText id="missionCode" name="missionCode" formControlName="missionCode" class="w-100 my-1"
                 [class.ng-invalid]="missionCode?.invalid" [class.ng-dirty]="
@@ -23,7 +23,7 @@
           missionCode?.touched
         " />
         </div>
-        <div class="col-12 mt-2">
+        <div class="col-6 mt-2">
             <label for="typeCode"> کلید واژه</label>
             <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
                 optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList" [filter]="true">
@@ -38,7 +38,7 @@
                 title?.touched
               "></textarea>
         </div>
-        <div class="col-12 row-btn">
+        <div class="col-12 row-btn  row-btn-fixed-bottom">
             <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
                 [loading]="isLoadingSubmit"></p-button>
         </div>
