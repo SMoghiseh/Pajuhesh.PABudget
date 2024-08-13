@@ -1,9 +1,9 @@
-:host ::ng-deep  .row-btn {
+:host ::ng-deep .row-btn.row-btn-fixed-bottom {
     bottom: 22px;
     position: absolute;
     left: 23px;
 }
 
-:host ::ng-deep .height-size .p-dialog{
-    height: 400px !important;
+:host ::ng-deep .height-size .p-dialog {
+    height: 500px !important;
 }

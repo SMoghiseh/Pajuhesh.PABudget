@@ -53,8 +53,7 @@ export class PlanningValueComponent {
 
     this.searchForm = new FormGroup({
       keyTypeCode: new FormControl(null),
-      title: new FormControl(null),
-      planingId: new FormControl(null),
+      title: new FormControl(null)
     });
   }
 

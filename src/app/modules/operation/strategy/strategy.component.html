@@ -115,7 +115,7 @@
 </div>
 
 <p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
-    [draggable]="false" [resizable]="false" [style]="{ width: '600px' }"
+    [draggable]="false" [resizable]="false" [style]="{ width: '700px' }"
     [class.height-size]="mode == 'insert' || mode == 'edit'">
     <PABudget-add-edit-strategy [data1]="addEditData" [mode]="mode"
         (isSuccess)="reloadData()"></PABudget-add-edit-strategy>

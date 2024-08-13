@@ -4,6 +4,7 @@ import { BigGoal, Aspect, Vision } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-add-edit-big-goal',
@@ -52,7 +53,8 @@ export class AddEditBigGoalComponent {
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +72,10 @@ export class AddEditBigGoalComponent {
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
+    this.addEditForm.patchValue({
+      visionId: Number(this.route.snapshot.paramMap.get('id'))
+    })
+
   }
 
   addEditPlan() {

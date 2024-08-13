@@ -4,6 +4,7 @@ import { STRATEGY, Planning, BigGoal } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-add-edit-strategy',
@@ -54,7 +55,8 @@ export class AddEditStrategyComponent {
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +75,10 @@ export class AddEditStrategyComponent {
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
+
+    this.addEditForm.patchValue({
+      planningId: Number(this.route.snapshot.paramMap.get('id'))
+    })
   }
 
   addEditPlan() {

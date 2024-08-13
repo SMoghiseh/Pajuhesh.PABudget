@@ -11,22 +11,22 @@
 <div class="panel-search mt-8 mb-8">
     <form #formDir="ngForm" [formGroup]="searchForm">
         <div class="row mt-8 pb-3">
-            <div class="col-3 mt-2">
+            <div class="col-2 mt-2">
                 <label for="visionCode"> کد چشم انداز </label>
                 <input pInputText id="visionCode" name="visionCode" formControlName="visionCode" class="w-100 my-1" />
             </div>
-            <div class="col-3 mt-2">
+            <div class="col-2 mt-2">
                 <label for="title"> متن چشم انداز </label>
                 <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
             </div>
-            <div class="col-3 mt-2">
+            <div class="col-2 mt-2">
                 <label for="planningValueId"> ارزش</label>
                 <p-dropdown id="planningValueId" name="planningValueId" formControlName="planningValueId"
                     styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
                     [options]="planningValueList" [filter]="true">
                 </p-dropdown>
             </div>
-            <div class="col-3 mt-2">
+            <div class="col-2 mt-2">
                 <label for="keyTypeCode"> کلید واژه</label>
                 <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
                     optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList"
@@ -67,7 +67,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
             <tr>
-                <td>{{ item.code }}</td>
+                <td>{{ item.visionCode }}</td>
                 <td>{{ item.title }}</td>
                 <td>{{ item.planningTitle }}</td>
                 <td>{{ item.keyTypeTitle }}</td>
@@ -81,7 +81,8 @@
                     <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
                         <img ngSrc="icons\Group 117.svg" width="24" height="24" />
                     </button>
-                    <button class="action-image-container delete-button" (click)="menu.toggle($event)" pTooltip="">
+                    <button class="action-image-container delete-button"
+                        (click)="menu.toggle($event) ; setActiveComponentRoute(item)" pTooltip="">
                         <img ngSrc="icons\Group 109.svg" width="24" height="24" />
                     </button>
                 </td>
@@ -124,7 +125,7 @@
 
 <p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
     [draggable]="false" [resizable]="false" [class.height-size]="mode === 'insert' || mode === 'edit'"
-    [style]="{ width: '800px', height: '400px' }">
+    [class.height-size]="mode == 'insert' || mode == 'edit'" [style]="{ width: '600px' }">
     <PABudget-add-edit-vision [data1]="addEditData" [mode]="mode" (isSuccess)="reloadData()"></PABudget-add-edit-vision>
 </p-dialog>
 

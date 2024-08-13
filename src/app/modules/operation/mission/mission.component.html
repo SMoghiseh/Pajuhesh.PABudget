@@ -27,13 +27,6 @@
                     [filter]="true">
                 </p-dropdown>
             </div>
-            <div class="col-2 mt-2">
-                <label for="planningId"> شناسه برنامه </label>
-                <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList"
-                    [filter]="true">
-                </p-dropdown>
-            </div>
             <!-- دکمه -->
             <div class="d-flex justify-content-end col text-end" style="margin-top: 20px">
                 <div class="search-button mt-12">
@@ -115,7 +108,8 @@
 </div>
 
 <p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
-    [draggable]="false" [resizable]="false" [style]="{ width: '400px' }">
+    [draggable]="false" [resizable]="false" [style]="{ width: '600px' }"
+    [class.height-size]="mode == 'insert' || mode == 'edit'">
     <PABudget-add-edit-mission [data1]="addEditData" [mode]="mode"
         (isSuccess)="reloadData()"></PABudget-add-edit-mission>
 </p-dialog>

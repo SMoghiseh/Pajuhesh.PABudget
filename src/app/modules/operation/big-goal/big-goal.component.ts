@@ -41,7 +41,10 @@ export class BigGoalComponent {
   visionList: any = [];
   aspectCodeList: any = [];
 
-
+  subComponentList = [
+    { label: ' ارتباط اهداف ', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/'] },
+    { label: ' شاخص ارزیابی ', icon: 'pi pi-fw pi-eye', routerLink: ['/Operation/'] },
+  ];
 
   constructor(
     private httpService: HttpService,
@@ -58,7 +61,6 @@ export class BigGoalComponent {
       bigGoalCode: new FormControl(null),
       title: new FormControl(null),
       aspectCode: new FormControl(null),
-      visionId: new FormControl(null),
     });
   }
 

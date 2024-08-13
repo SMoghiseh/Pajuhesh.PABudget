@@ -3,8 +3,18 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
     <div class="container row">
-
-        <div class="col-4 mt-2">
+        <div class="col-6 mt-2">
+            <label for="planningId"> برنامه </label>
+            <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
+                [readonly]="true" [class.ng-invalid]="planningId?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && planningId?.pristine) ||
+                planningId?.dirty ||
+                planningId?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
             <label for="visionCode"> کد چشم انداز </label>
             <input pInputText id="visionCode" name="visionCode" formControlName="visionCode" class="w-100 my-1"
                 [class.ng-invalid]="visionCode?.invalid" [class.ng-dirty]="
@@ -14,31 +24,20 @@
         " />
         </div>
 
-        <div class="col-4 mt-2">
+        <div class="col-6 mt-2">
             <label for="planningValueId"> ارزش</label>
             <p-dropdown id="planningValueId" name="planningValueId" formControlName="planningValueId"
                 styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
                 [options]="planningValueList" [filter]="true">
             </p-dropdown>
         </div>
-        <div class="col-4 mt-2">
+        <div class="col-6 mt-2">
             <label for="keyTypeCode"> کلید واژه</label>
             <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
                 optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList" [filter]="true">
             </p-dropdown>
         </div>
-        <div class="col-4 mt-2">
-            <label for="planningId"> شناسه برنامه </label>
-            <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
-                [class.ng-invalid]="planningId?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && planningId?.pristine) ||
-                planningId?.dirty ||
-                planningId?.touched
-              ">
-            </p-dropdown>
-        </div>
-        <div class="col-4 mt-2">
+        <div class="col-12 mt-2">
             <label for="title"> متن چشم انداز </label>
             <textarea pInputTextarea id="title" name="title" formControlName="title" class="w-100 my-1" rows="3"
                 cols="10" [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
