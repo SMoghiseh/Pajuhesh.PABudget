@@ -39,7 +39,7 @@ export class PlanningComponent {
   mode!: string;
   subComponentList = [
     { label: 'ارزش ها', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/PlanningValue'] },
-    { label: 'چشم انداز ', icon: 'pi pi-fw pi-eye', routerLink: ['/Operation/Vision'] },
+    { label: 'چشم انداز ', icon: 'pi pi-fw pi-eye', routerLink: ['/Operation/Vision'], },
     { label: 'ماموریت ', icon: 'pi pi-fw pi-briefcase', routerLink: ['/Operation/Mission'] },
     { label: 'SWOT', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/SWOT'] },
     { label: 'استراتژی', icon: 'pi pi-fw pi-book', routerLink: ['/Operation/Strategy'] },
@@ -222,8 +222,11 @@ export class PlanningComponent {
     this.getPlan();
   }
 
-  navigateToComponent(data: any) {
-    console.log(data)
+  // Set PlanningId On Active Component Route
+  setActiveComponentRoute(item: Planning) {
+    this.subComponentList.forEach((componentInfo: any) => {
+      componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
+    })
   }
 
 }

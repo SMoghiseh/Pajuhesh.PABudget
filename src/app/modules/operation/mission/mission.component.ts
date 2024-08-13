@@ -56,8 +56,7 @@ export class MissionComponent {
     this.searchForm = new FormGroup({
       title: new FormControl(null),
       missionCode: new FormControl(null),
-      typeCode: new FormControl(null),
-      planningId: new FormControl(null),
+      typeCode: new FormControl(null)
     });
   }
 

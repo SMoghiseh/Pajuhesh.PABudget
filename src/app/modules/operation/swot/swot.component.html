@@ -20,13 +20,6 @@
                 <input pInputText id="swotCode" name="swotCode" formControlName="swotCode" class="w-100 my-1" />
             </div>
             <div class="col-2 mt-2">
-                <label for="planningId"> برنامه </label>
-                <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList"
-                    [filter]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-2 mt-2">
                 <label for="typeCode"> نوع </label>
                 <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
                     optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList"
@@ -68,6 +61,7 @@
                 <th style="min-width: 10rem"><strong> کد </strong></th>
                 <th style="min-width: 10rem"><strong> عنوان</strong></th>
                 <th style="min-width: 10rem"><strong> نوع </strong></th>
+                <th style="min-width: 10rem"><strong> برنامه </strong></th>
                 <th style="min-width: 10rem"><strong> الویت </strong></th>
                 <th style="min-width: 10rem"><strong> ضریب </strong></th>
 
@@ -79,6 +73,7 @@
                 <td>{{ item.swotCode }}</td>
                 <td>{{ item.title }}</td>
                 <td>{{ item.aspectCodeTitle }}</td>
+                <td>{{ item.planningTitle }}</td>
                 <td>{{ item.swoPriority }}</td>
                 <td>{{ item.swotRank }}</td>
 

@@ -3,7 +3,13 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
     <div class="container row">
-
+        <div class="col-4 mt-2">
+            <label for="planingId"> برنامه</label>
+            <p-dropdown id="planingId" name="planingId" formControlName="planingId" styleClass="w-100 my-1"
+                [readonly]="true" optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList"
+                [filter]="true">
+            </p-dropdown>
+        </div>
         <div class="col-4 mt-2">
             <label for="planningValueCode"> کد </label>
             <input pInputText id="planningValueCode" name="planningValueCode" formControlName="planningValueCode"
@@ -33,12 +39,6 @@
             <label for="keyTypeCode"> کلید واژه</label>
             <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
                 optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList" [filter]="true">
-            </p-dropdown>
-        </div>
-        <div class="col-4 mt-2">
-            <label for="planingId"> برنامه</label>
-            <p-dropdown id="planingId" name="planingId" formControlName="planingId" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true">
             </p-dropdown>
         </div>
         <div class="col-12 row-btn row-btn-fixed-bottom">

@@ -70,7 +70,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'PlanningValue',
+            path: 'PlanningValue/:id',
             component: PlanningValueComponent,
             title: 'برنامه و بودجه | ارزش ها',
             data: {
@@ -80,7 +80,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Vision',
+            path: 'Vision/:id',
             component: VisionComponent,
             title: 'برنامه و بودجه | چشم انداز',
             data: {
@@ -90,17 +90,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Mission',
-            component: MissionComponent,
-            title: 'برنامه و بودجه |  ماموریت',
-            data: {
-              reuse: true,
-              title: 'تعریف عناوین',
-              animation: 'SubjectDefinitionPage',
-            },
-          },
-          {
-            path: 'BigGoal',
+            path: 'BigGoal/:id',
             component: BigGoalComponent,
             title: 'برنامه و بودجه |  اهداف',
             data: {
@@ -110,7 +100,17 @@ const routes: Routes = [
             },
           },
           {
-            path: 'SWOT',
+            path: 'Mission/:id',
+            component: MissionComponent,
+            title: 'برنامه و بودجه |  ماموریت',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'SWOT/:id',
             component: SwotComponent,
             title: 'برنامه و بودجه |  SWOT',
             data: {
@@ -120,7 +120,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Strategy',
+            path: 'Strategy/:id',
             component: StrategyComponent,
             title: 'برنامه و بودجه |  استراتژی',
             data: {
