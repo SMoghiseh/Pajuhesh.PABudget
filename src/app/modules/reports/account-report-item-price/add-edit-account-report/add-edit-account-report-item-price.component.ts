@@ -120,7 +120,11 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
 
   getAccountReportItemLst(data: any) {
     this.httpService
-      .get<AccountReportToItem[]>(AccountReportToItem.apiAddress + 'GetAccountRepToItemListByOrder/' + data.value)
+      .post<AccountReportToItem[]>(AccountReportToItem.apiAddress + 'GetAccountRepToItemListByOrder',
+        {
+          withOutPagination: true,
+          reportId: data.value
+        })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportItemList = response.data.result;

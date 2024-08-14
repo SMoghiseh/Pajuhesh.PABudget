@@ -18,9 +18,9 @@
     <div class="col-6 mt-2">
       <label for="accountReportItemId">عنوان آیتم </label>
       <p-dropdown id="accountReportItemId" name="accountReportItemId" formControlName="accountReportItemId"
-        styleClass="w-100 my-1" optionLabel="accountRepItemTitle" optionValue="id" placeholder="انتخاب کنید"
-        [options]="accountReportItemList" [filter]="true" [class.ng-invalid]="accountReportItemId?.invalid"
-        [class.ng-dirty]="
+        styleClass="w-100 my-1" optionLabel="accountRepItemTitle" optionValue="accountRepItemId"
+        placeholder="انتخاب کنید" [options]="accountReportItemList" [filter]="true"
+        [class.ng-invalid]="accountReportItemId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && accountReportItemId?.pristine) ||
           accountReportItemId?.dirty ||
           accountReportItemId?.touched
