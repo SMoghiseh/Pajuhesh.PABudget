@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReportItem, AccountReportItemPrice, Company, Period } from '@shared/models/response.model';
+import { AccountReport, AccountReportItemPrice, AccountReportToItem, Company, Period } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -21,6 +21,7 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
   companyList: any = [];
   periodList: any = [];
   periodDetailLst: Period[] = [];
+  accountReportList: any[] = [];
 
 
   inputData = new AccountReportItemPrice();
@@ -55,6 +56,9 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
   get priceCu() {
     return this.addEditForm.get('priceCu');
   }
+  get accountRepId() {
+    return this.addEditForm.get('accountRepId');
+  }
 
   constructor(
     private httpService: HttpService,
@@ -63,9 +67,9 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getAccountReportItemLst();
     this.getPeriodLst();
     this.getCompanyLst();
+    this.getAccountRepLst();
 
     this.addEditForm = new FormGroup({
       accountReportItemId: new FormControl('', Validators.required),
@@ -73,7 +77,8 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
       periodId: new FormControl('', Validators.required),
       fromPeriodDetailId: new FormControl('', Validators.required),
       toPeriodDetailId: new FormControl('', Validators.required),
-      priceCu: new FormControl(this.inputData.priceCu, Validators.required)
+      priceCu: new FormControl(this.inputData.priceCu, Validators.required),
+      accountRepId: new FormControl(this.inputData.accountRepId),
 
     });
 
@@ -113,11 +118,9 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
     }
   }
 
-  getAccountReportItemLst() {
+  getAccountReportItemLst(data: any) {
     this.httpService
-    .post<AccountReportItem[]>(AccountReportItem.apiAddress + 'list' , {
-      "withOutPagination": true
-    })
+      .get<AccountReportToItem[]>(AccountReportToItem.apiAddress + 'GetAccountRepToItemListByOrder/' + data.value)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportItemList = response.data.result;
@@ -141,6 +144,15 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
+        }
+      });
+  }
+  getAccountRepLst() {
+    this.httpService
+      .post<AccountReport[]>(AccountReport.apiAddressList, { 'withOutPagination': true })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.accountReportList = response.data.result;
         }
       });
   }

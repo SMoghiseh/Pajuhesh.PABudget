@@ -1312,6 +1312,7 @@ export class AccountReportItemPrice {
   fromPeriodDetailId!: number;
   fromPeriodDetailTitle!: string;
   toPeriodDetailId!: number;
+  accountRepId!: number;
   toPeriodDetailTitle!: string;
 }
 
