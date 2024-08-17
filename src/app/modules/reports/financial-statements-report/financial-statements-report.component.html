@@ -1,0 +1,87 @@
+<form #formDir="ngForm" [formGroup]="financialStatementsReportForm">
+  <div class="col-4">
+    <label for="companyId"> شرکت </label>
+    <p-dropdown
+      id="companyId"
+      name="companyId"
+      formControlName="companyId"
+      styleClass="w-100 my-1"
+      optionLabel="companyName"
+      optionValue="id"
+      placeholder="انتخاب کنید"
+      [options]="companyList"
+      (onChange)="onCompanySelected($event)"
+      [filter]="true">
+    </p-dropdown>
+  </div>
+</form>
+<!-- data table -->
+<p-table
+  #dataTable
+  class="data-table d-none d-lg-block"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="dataTableRows"
+  [rowsPerPageOptions]="[15, 20, 30]"
+  [styleClass]="gridClass"
+  [rowHover]="true"
+  [totalRecords]="totalCount"
+  [value]="financialStatementsReport"
+  [loading]="loading"
+  selectionMode="single"
+  [(selection)]="selectedRow"
+  [tableStyle]="{ 'min-width': '75rem' }">
+  <!-- table header -->
+  <ng-template pTemplate="header">
+    <tr class="data-table__header">
+      <!-- <th style="min-width: 3rem">
+                  <strong>ردیف</strong>
+                </th> -->
+      <!-- <th>
+        <strong> نوع اسناد </strong>
+      </th>
+      <th>
+        <strong>تاریخ فعالسازی</strong>
+      </th>
+
+      <th>
+        <strong> تاریخ انقضا </strong>
+      </th>
+
+      <th>
+        <strong>توضیحات</strong>
+      </th>
+
+      <th>
+        <strong>عملیات</strong>
+      </th> -->
+    </tr>
+  </ng-template>
+  <!-- / table header -->
+  <!-- table body -->
+  <ng-template
+    pTemplate="body"
+    let-financialStatements
+    let-financialStatementsValue
+    let-rowIndex="rowIndex">
+    <tr
+      [pSelectableRow]="financialStatements"
+      [pSelectableRow]="financialStatementsValue">
+      <th>
+        <strong> {{ financialStatementsHeader }} </strong>
+      </th>
+      <td>{{ financialStatementsDetails }}</td>
+      <td>{{ financialStatementsDetails }}</td>
+
+      <!-- <td
+        pTooltip="{{ financialStatements.description }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
+        {{ financialStatements.description }}
+      </td> -->
+      <td></td>
+    </tr>
+  </ng-template>
+  <!-- / table body -->
+</p-table>
+<!-- data table -->

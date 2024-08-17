@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, Company, Planning
+  UrlBuilder,
+  Company,
+  Planning,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -18,11 +20,9 @@ import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate
   selector: 'PABudget-planning',
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.scss'],
-  providers: [ConfirmationService]
-
+  providers: [ConfirmationService],
 })
 export class PlanningComponent {
-
   public datePipe = new DatePipe('en-US');
 
   gridClass = 'p-datatable-sm';
@@ -38,11 +38,31 @@ export class PlanningComponent {
   pId!: string;
   mode!: string;
   subComponentList = [
-    { label: 'ارزش ها', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/PlanningValue'] },
-    { label: 'چشم انداز ', icon: 'pi pi-fw pi-eye', routerLink: ['/Operation/Vision'], },
-    { label: 'ماموریت ', icon: 'pi pi-fw pi-briefcase', routerLink: ['/Operation/Mission'] },
-    { label: 'SWOT', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/SWOT'] },
-    { label: 'استراتژی', icon: 'pi pi-fw pi-book', routerLink: ['/Operation/Strategy'] },
+    {
+      label: 'ارزش ها',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Operation/PlanningValue'],
+    },
+    {
+      label: 'چشم انداز ',
+      icon: 'pi pi-fw pi-eye',
+      routerLink: ['/Operation/Vision'],
+    },
+    {
+      label: 'ماموریت ',
+      icon: 'pi pi-fw pi-briefcase',
+      routerLink: ['/Operation/Mission'],
+    },
+    {
+      label: 'SWOT',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Operation/SWOT'],
+    },
+    {
+      label: 'استراتژی',
+      icon: 'pi pi-fw pi-book',
+      routerLink: ['/Operation/Strategy'],
+    },
   ];
   // form property
   searchForm!: FormGroup;
@@ -56,7 +76,7 @@ export class PlanningComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getMeetingLst();
@@ -68,13 +88,15 @@ export class PlanningComponent {
       companyId: new FormControl(null),
       meetingId: new FormControl(null),
       startDate: new FormControl(null),
-      endDate: new FormControl(null)
+      endDate: new FormControl(null),
     });
   }
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
+      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
@@ -101,33 +123,33 @@ export class PlanningComponent {
     const formValue = this.searchForm.value;
     formValue.planingDate = formValue.planingDate
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.planingDate?.getFullYear(),
-          formValue.planingDate?.getMonth(),
-          formValue.planingDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue.planingDate?.getFullYear(),
+            formValue.planingDate?.getMonth(),
+            formValue.planingDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
     formValue.startDate = formValue.startDate
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.startDate?.getFullYear(),
-          formValue.startDate?.getMonth(),
-          formValue.startDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue.startDate?.getFullYear(),
+            formValue.startDate?.getMonth(),
+            formValue.startDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
     formValue.endDate = formValue.endDate
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.endDate?.getFullYear(),
-          formValue.endDate?.getMonth(),
-          formValue.endDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue.endDate?.getFullYear(),
+            formValue.endDate?.getMonth(),
+            formValue.endDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
@@ -140,8 +162,7 @@ export class PlanningComponent {
     };
 
     this.first = 0;
-    const url =
-      Planning.apiAddress + 'List';
+    const url = Planning.apiAddress + 'List';
     this.httpService
       .post<Planning[]>(url, body)
 
@@ -191,10 +212,7 @@ export class PlanningComponent {
     if (id && title) {
       this.httpService
         .get<Planning>(
-          UrlBuilder.build(
-            Planning.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(Planning.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -225,9 +243,8 @@ export class PlanningComponent {
   // Set PlanningId On Active Component Route
   setActiveComponentRoute(item: Planning) {
     this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
-    })
+      componentInfo['routerLink'][0] =
+        componentInfo['routerLink'][0] + '/' + item.id;
+    });
   }
-
 }
-

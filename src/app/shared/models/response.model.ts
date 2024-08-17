@@ -503,7 +503,8 @@ export class Company {
   static readonly apiAddressSubCompanies =
     'api/PABudgetApi/v1/Company/SubCompanies/';
   static readonly apiAddressDetailCo = 'api/PABudgetApi/v1/Company/';
-  static readonly apiAddressUserCompany = 'api/PABudgetApi/v1/Company/UserCompany/';
+  static readonly apiAddressUserCompany =
+    'api/PABudgetApi/v1/Company/UserCompany/';
 
   static readonly apiAddressReportParentCo =
     'api/PABudgetApi/Dashboard/ReportParentCompany';
@@ -577,6 +578,7 @@ export class Company {
   companyInspectionInstituteTitle!: string;
   companyManagerName!: string;
   registerDatePc!: any;
+
 }
 
 export class ProductGroup {
@@ -1327,6 +1329,14 @@ export class AccountReportToItem {
 }
 export class AccountReportItem {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';
+}
+
+export class FinancialStatementsReport {
+  static readonly apiAddress =
+    'api/PABudgetApi/Report/GetFinancialStatementsReport/';
+  periodCode!: number;
+  priceCu!: number;
+  title!: string;
 }
 
 export class AccountReport {

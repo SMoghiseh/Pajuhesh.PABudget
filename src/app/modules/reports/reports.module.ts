@@ -28,6 +28,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeModule } from 'primeng/tree';
 import { PickListModule } from 'primeng/picklist';
+import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -38,6 +39,7 @@ import { PickListModule } from 'primeng/picklist';
     AccountReportToItemComponent,
     AddEditAccountReportToItemComponent,
     AccountReportItemComponent,
+    FinancialStatementsReportComponent,
   ],
   imports: [
     CommonModule,

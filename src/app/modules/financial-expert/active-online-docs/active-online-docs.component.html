@@ -9,28 +9,50 @@
   <!-- input group -->
   <div class="pb-2">
     <p-panel class="search-panel__secation pb-1" header="اسناد برخط فعال">
-      <form #formDir="ngForm" [formGroup]="activeOnlineAdvertForm" (ngSubmit)="getOnlineDocument()">
+      <form
+        #formDir="ngForm"
+        [formGroup]="activeOnlineAdvertForm"
+        (ngSubmit)="getOnlineDocument()">
         <div class="form-group container">
           <div class="row row-cols-lg-3 row-cols-1">
             <!-- نوع اسناد -->
             <div class="col my-1">
               <label for="documentType">نوع اسناد</label>
-              <p-treeSelect id="documentType" class="md:w-20rem w-full" containerStyleClass="w-full"
-                formControlName="documentType" placeholder="انتخاب کنید" [options]="nodes" [filter]="true"
-                [filterInputAutoFocus]="true" [showClear]="true">
+              <p-treeSelect
+                id="documentType"
+                class="md:w-20rem w-full"
+                containerStyleClass="w-full"
+                formControlName="documentType"
+                placeholder="انتخاب کنید"
+                [options]="nodes"
+                [filter]="true"
+                [filterInputAutoFocus]="true"
+                [showClear]="true">
               </p-treeSelect>
             </div>
             <!-- / نوع اسناد-->
 
             <!-- در حال انقضا -->
             <div class="col my-1 div-expired">
-              <label for="isExpired" style="margin-left: 10px; font-size: 13px">در حال انقضا</label>
-              <p-checkbox id="isExpired" name="isExpired" formControlName="isExpired" [binary]="true" inputId="binary">
+              <label for="isExpired" style="margin-left: 10px; font-size: 13px"
+                >در حال انقضا</label
+              >
+              <p-checkbox
+                id="isExpired"
+                name="isExpired"
+                formControlName="isExpired"
+                [binary]="true"
+                inputId="binary">
               </p-checkbox>
             </div>
             <!-- / در حال انقضا -->
             <div class="col my-1 div-search-btn">
-              <p-button class="pe-2" styleClass="p-button-info w-100" label="جستجو" icon="pi pi-search" type="submit">
+              <p-button
+                class="pe-2"
+                styleClass="p-button-info w-100"
+                label="جستجو"
+                icon="pi pi-search"
+                type="submit">
               </p-button>
             </div>
           </div>
@@ -39,10 +61,23 @@
     </p-panel>
   </div>
   <!-- data table -->
-  <p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="true" [rows]="dataTableRows"
-    [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [totalRecords]="totalCount"
-    [value]="onlineDocument" [loading]="loading" selectionMode="single" [(selection)]="selectedRow"
-    [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" (onLazyLoad)="getOnlineDocument($event)">
+  <p-table
+    #dataTable
+    class="data-table d-none d-lg-block"
+    dataKey="id"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[15, 20, 30]"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [totalRecords]="totalCount"
+    [value]="onlineDocument"
+    [loading]="loading"
+    selectionMode="single"
+    [(selection)]="selectedRow"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getOnlineDocument($event)">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -76,12 +111,22 @@
         <td>{{ onlineDocument.docTypeName }}</td>
         <td>{{ onlineDocument.activeDatePersian }}</td>
         <td>{{ onlineDocument.expiredDatePersian }}</td>
-        <td pTooltip="{{ onlineDocument.description }}" tooltipEvent="hover" tooltipPosition="top">
+        <td
+          pTooltip="{{ onlineDocument.description }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
           {{ onlineDocument.description }}
         </td>
         <td>
-          <p-button pRipple class="pe-2" styleClass="p-button-text p-button-rounded" type="button"
-            icon="pi pi-plus-circle" pTooltip="ثبت سند" tooltipEvent="hover" tooltipPosition="top"
+          <p-button
+            pRipple
+            class="pe-2"
+            styleClass="p-button-text p-button-rounded"
+            type="button"
+            icon="pi pi-plus-circle"
+            pTooltip="ثبت سند"
+            tooltipEvent="hover"
+            tooltipPosition="top"
             (click)="onAddAdvert(onlineDocument)">
           </p-button>
         </td>
