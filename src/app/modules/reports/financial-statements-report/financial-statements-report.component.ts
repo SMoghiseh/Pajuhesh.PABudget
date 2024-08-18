@@ -6,7 +6,7 @@ import {
   FinancialStatementsReport,
 } from '@shared/models/response.model';
 import { LazyLoadEvent } from 'primeng/api';
-import { map } from 'rxjs';
+import { map, reduce } from 'rxjs';
 
 @Component({
   selector: 'PABudget-financial-statements-report',
@@ -23,15 +23,15 @@ export class FinancialStatementsReportComponent implements OnInit {
   companyList: Company[] = [];
   selectedCompany: any = {};
   selectedRow = new FinancialStatementsReport();
-  financialStatementsReport: any;
-  financialStatementsHeader: FinancialStatementsReport[] = [];
-  financialStatementsDetails: FinancialStatementsReport[] = [];
+  financialStatementsReportsTable: FinancialStatementsReport[] = [];
+  cols: any = [];
+  isMinus = true;
+  isPositive = true;
   resultValue: any = [];
   // tableData = { this.financialStatementsHeader, this.financialStatementsDetails };
 
   constructor(private httpService: HttpService) {}
   ngOnInit(): void {
-    debugger;
     this.getCompanyLst();
     this.financialStatementsReportForm = new FormGroup({
       companyId: new FormControl(null),
@@ -39,7 +39,6 @@ export class FinancialStatementsReportComponent implements OnInit {
   }
 
   getCompanyLst() {
-    debugger;
     this.httpService
       .post<Company[]>(Company.apiAddressDetailCo + 'List', {
         withOutPagination: true,
@@ -51,28 +50,30 @@ export class FinancialStatementsReportComponent implements OnInit {
       });
   }
   onCompanySelected(e: any) {
-    debugger;
-    // this.selectedCompany = event?.value;
     this.getFinancialStatementsReport(e.value);
   }
   getFinancialStatementsReport(companyId: any) {
-    debugger;
     this.httpService
       .get<any>(FinancialStatementsReport.apiAddress + companyId)
       .pipe(
         map(response => {
-          debugger;
           if (response.data && response.data.result) {
             return response.data.result;
           } else return {};
         })
       )
       .subscribe(result => {
-        this.financialStatementsHeader = result;
-        // for (let i = 0; i < result.length; i++) {
-        //   this.resultValue = result[i];
-        //   this.financialStatementsDetails = this.resultValue.value[i];
-        // }
+        this.financialStatementsReportsTable =
+          result.financialStatementsReports;
+        this.cols = result.headers;
       });
+  }
+  minusAmount(amount: any) {
+    if (amount < 0) {
+      const removeMinus = Math.abs(amount);
+      const getAmount = '(' + removeMinus + ')';
+      console.log(getAmount);
+      return getAmount;
+    } else return amount;
   }
 }
