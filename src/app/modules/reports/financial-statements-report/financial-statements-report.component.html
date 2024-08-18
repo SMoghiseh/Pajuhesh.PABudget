@@ -18,7 +18,7 @@
 <!-- data table -->
 <p-table
   #dataTable
-  class="data-table d-none d-lg-block"
+  style="text-align: right"
   dataKey="id"
   [columns]="cols"
   [value]="financialStatementsReportsTable"
@@ -32,9 +32,7 @@
   selectionMode="single"
   [tableStyle]="{ 'min-width': '75rem' }">
   <!-- table header -->
-  <!-- <ng-template pTemplate="header">
-    <tr class="data-table__header"></tr>
-  </ng-template> -->
+
   <!--  table header -->
 
   <ng-template pTemplate="header" let-columns>

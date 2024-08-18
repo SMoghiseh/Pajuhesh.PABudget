@@ -69,7 +69,6 @@ export class FinancialStatementsReportComponent implements OnInit {
       });
   }
   minusAmount(amount: any) {
-    debugger;
     if (amount < 0) {
       const removeMinus = Math.abs(amount);
       const getAmount = '(' + removeMinus + ')';
