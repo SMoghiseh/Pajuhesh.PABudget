@@ -28,6 +28,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeModule } from 'primeng/tree';
 import { PickListModule } from 'primeng/picklist';
+import { AggregateComponent } from './aggregate/aggregate.component';
+import { PaginatorModule } from 'primeng/paginator';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -38,6 +40,7 @@ import { PickListModule } from 'primeng/picklist';
     AccountReportToItemComponent,
     AddEditAccountReportToItemComponent,
     AccountReportItemComponent,
+    AggregateComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ import { PickListModule } from 'primeng/picklist';
     TreeModule,
     TreeSelectModule,
     PickListModule,
+    PaginatorModule
   ],
   providers: [
     {
@@ -67,4 +71,4 @@ import { PickListModule } from 'primeng/picklist';
     },
   ],
 })
-export class ReportsModule {}
+export class ReportsModule { }

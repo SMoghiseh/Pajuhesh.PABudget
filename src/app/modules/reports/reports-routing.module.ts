@@ -6,6 +6,7 @@ import { AccountReportComponent } from './account-report/account-report.componen
 import { AccountReportItemPriceComponent } from './account-report-item-price/account-report-item-price.component';
 import { AccountReportToItemComponent } from './account-report-to-item/account-report-to-item.component';
 import { AccountReportItemComponent } from './account-report-item/account-report-item.component';
+import { AggregateComponent } from './aggregate/aggregate.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,16 @@ const routes: Routes = [
               animation: 'SubjectDefinitionPage',
             },
           },
+          {
+            path: 'AggregateCreate/:id',
+            component: AggregateComponent,
+            title: 'برنامه و بودجه | گزارش ',
+            data: {
+              reuse: true,
+              title: ' ',
+              animation: 'SubjectDefinitionPage',
+            },
+          }
         ],
       },
     ],
@@ -76,4 +87,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ReportsRoutingModule {}
+export class ReportsRoutingModule { }
