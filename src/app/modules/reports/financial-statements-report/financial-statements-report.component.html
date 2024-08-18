@@ -20,68 +20,46 @@
   #dataTable
   class="data-table d-none d-lg-block"
   dataKey="id"
+  [columns]="cols"
+  [value]="financialStatementsReportsTable"
   [paginator]="true"
   [rows]="dataTableRows"
   [rowsPerPageOptions]="[15, 20, 30]"
   [styleClass]="gridClass"
   [rowHover]="true"
   [totalRecords]="totalCount"
-  [value]="financialStatementsReport"
   [loading]="loading"
   selectionMode="single"
-  [(selection)]="selectedRow"
   [tableStyle]="{ 'min-width': '75rem' }">
   <!-- table header -->
-  <ng-template pTemplate="header">
-    <tr class="data-table__header">
-      <!-- <th style="min-width: 3rem">
-                  <strong>ردیف</strong>
-                </th> -->
-      <!-- <th>
-        <strong> نوع اسناد </strong>
-      </th>
-      <th>
-        <strong>تاریخ فعالسازی</strong>
-      </th>
+  <!-- <ng-template pTemplate="header">
+    <tr class="data-table__header"></tr>
+  </ng-template> -->
+  <!--  table header -->
 
-      <th>
-        <strong> تاریخ انقضا </strong>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        <span> {{ col }} </span>
       </th>
-
-      <th>
-        <strong>توضیحات</strong>
-      </th>
-
-      <th>
-        <strong>عملیات</strong>
-      </th> -->
     </tr>
   </ng-template>
   <!-- / table header -->
   <!-- table body -->
-  <ng-template
-    pTemplate="body"
-    let-financialStatements
-    let-financialStatementsValue
-    let-rowIndex="rowIndex">
-    <tr
-      [pSelectableRow]="financialStatements"
-      [pSelectableRow]="financialStatementsValue">
-      <th>
-        <strong> {{ financialStatementsHeader }} </strong>
-      </th>
-      <td>{{ financialStatementsDetails }}</td>
-      <td>{{ financialStatementsDetails }}</td>
 
-      <!-- <td
-        pTooltip="{{ financialStatements.description }}"
-        tooltipEvent="hover"
-        tooltipPosition="top">
-        {{ financialStatements.description }}
-      </td> -->
-      <td></td>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td>
+        {{ rowData['title'] }}
+      </td>
+
+      <td
+        *ngFor="let col of rowData['priceCu']"
+        [ngStyle]="col < 0 ? { color: 'red' } : { color: 'black' }">
+        {{ minusAmount(col) }}
+      </td>
     </tr>
   </ng-template>
-  <!-- / table body -->
 </p-table>
+<!-- / table body -->
 <!-- data table -->
