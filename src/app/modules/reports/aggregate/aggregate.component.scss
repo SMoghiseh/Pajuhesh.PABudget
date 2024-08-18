@@ -12,3 +12,29 @@
     width: 70%;
     margin: 0 auto;
 }
+
+p-celleditor {
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    width: 46%;
+    display: inline-block;
+    text-align: center;
+
+    input.p-inputtext {
+        background: none;
+        border: unset;
+        outline: unset;
+        padding: unset;
+        text-align: center !important;
+        color: inherit;
+        width: 100%;
+        direction: ltr;
+        font-size: 1.2rem;
+
+        &:focus {
+            box-shadow: unset;
+            border-color: unset;
+        }
+    }
+}

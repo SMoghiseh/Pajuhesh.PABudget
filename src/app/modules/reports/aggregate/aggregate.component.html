@@ -58,14 +58,13 @@
   <!-- <form #formDir="ngForm" [formGroup]="dynamicControls"> -->
   <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
     [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[5 , 10, 15]" [totalRecords]="totalCount"
-    [value]="accountReportItemList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first"
-    (onPage)="onPage($event)">
+    [value]="accountReportItemList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
         <th><strong> ردیف </strong></th>
         <th><strong> نام آیتم </strong></th>
-        <th><strong> مبلغ </strong></th>
+        <th><strong> مبلغ (ریال)</strong></th>
         <th><strong> </strong></th>
       </tr>
     </ng-template>
@@ -73,13 +72,6 @@
       <tr>
         <td style="min-width: 15rem">{{ rowIndex + 1 }}</td>
         <td style="min-width: 15rem">{{ item.accountRepItemTitle }}</td>
-
-        <!-- <td class="jc-left ai-left">
-            <div class="input-container">
-              <input pInputText name="{{item.id + '_control'}}" formControlName="{{'control_'+item.id}}"
-                class="w-100 my-1" [placeholder]="'مبلغ'" (change)="updateValue($event, item)" />
-            </div>
-          </td> -->
         <td pEditableColumn style="min-width: 15rem">
           <p-cellEditor>
             <ng-template pTemplate="input">
@@ -88,7 +80,7 @@
             <ng-template pTemplate="output">
               {{ item.priceCu }}
             </ng-template>
-          </p-cellEditor>
+          </p-cellEditor> &nbsp;
         </td>
         <td></td>
       </tr>

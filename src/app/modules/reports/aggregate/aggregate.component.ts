@@ -32,18 +32,9 @@ export class AggregateComponent implements OnInit {
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
-  // periodTypeList: any = [];
-  // reportTypeCodeList: any = [];
   accountReportList: any[] = [];
-  accountReportItemPriceModels: any[] = [];
   selectedReport: any;
   isLoadingSubmit = false;
-  value: any;
-  updateAtLeastOneInputValue = false;
-  cols = [
-    { field: "accountRepTitle", header: "عنوان آیتم" },
-    { field: "priceCu", header: "مبلغ" },
-  ];
 
 
   // dropdown data list
@@ -56,7 +47,6 @@ export class AggregateComponent implements OnInit {
   }
   constructor(
     private httpService: HttpService,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute
@@ -71,7 +61,7 @@ export class AggregateComponent implements OnInit {
     this.getAccountRepLst();
 
     this.accountReportPriceForm = new FormGroup({
-      companyId: new FormControl(null),
+      companyId: new FormControl(0),
       periodId: new FormControl(null),
       fromPeriodDetailId: new FormControl(null),
       toPeriodDetailId: new FormControl(null),
@@ -120,7 +110,6 @@ export class AggregateComponent implements OnInit {
         if (response.data && response.data.result) {
           this.accountReportList = response.data.result;
 
-
           // set selected report 
           this.selectedReport = this.accountReportList.find((item) =>
             item.id == Number(this.route.snapshot.paramMap.get('id'))
@@ -134,7 +123,6 @@ export class AggregateComponent implements OnInit {
 
 
   getAccountReportItemLst(event?: LazyLoadEvent) {
-    debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -149,7 +137,7 @@ export class AggregateComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      // ...formValue,
+      ...formValue,
       reportId: this.selectedReport?.id
     };
 
@@ -162,8 +150,6 @@ export class AggregateComponent implements OnInit {
         tap(() => (this.loading = false)),
         map(response => {
           if (response.data && response.data.result) {
-            // if (response.data.totalCount)
-            //   this.totalCount = response.data.totalCount;
             this.totalCount = response.data.result.length;
             return response.data.result;
           } else return [new AccountReportToItem()];
@@ -171,14 +157,6 @@ export class AggregateComponent implements OnInit {
       )
       .subscribe(res => {
         this.accountReportItemList = res;
-        // this.accountReportItemList = [
-        //   {
-        //     accountRepItemTitle: 'title',
-        //     priceCu: 1000
-        //   }
-        // ]
-        // this.createFormControls(this.accountReportItemList);
-        // this.updateFormControlValue(this.accountReportItemList);
       });
   }
 
@@ -201,13 +179,24 @@ export class AggregateComponent implements OnInit {
     this.getAccountReportItemLst();
   }
 
+  convertData() {
+    let data = this.accountReportItemList.filter(item => item.updated);
+    return data.map(item => ({ accountRepItemId: item.accountRepItemId, priceCu: item.priceCu }))
+  }
+
 
   addList() {
     const url = AccountReportItemPrice.apiAddress + 'AggregateCreate';
     const request = this.accountReportPriceForm.value;
+
+    // data to post
     request.id = 0;
     request.accountRepId = this.selectedReport.id;
-    request['accountReportItemPriceModels'] = this.accountReportItemList;  // filter data on updatedstatus 
+    request.companyId = request.companyId ? request.companyId : 0;
+    request.fromPeriodDetailId = request.fromPeriodDetailId ? request.fromPeriodDetailId : 0;
+    request.toPeriodDetailId = request.toPeriodDetailId ? request.toPeriodDetailId : 0;
+    request.periodId = request.periodId ? request.periodId : 0;
+    request['accountReportItemPriceModels'] = this.convertData();
 
 
     this.isLoadingSubmit = true;
@@ -229,57 +218,32 @@ export class AggregateComponent implements OnInit {
   }
 
   onChangePrice(item: any) {
-    debugger
     // find item selected from list 
+    let object = this.accountReportItemList.find(record => record.accountRepItemId == item.accountRepItemId);
     // add property updated to it
+    object['updated'] = true;
   }
-
-
-  updateValue(event: Event, item: any) {
-    // event.stopPropagation()
-    // event.preventDefault();
-
-    this.updateAtLeastOneInputValue = true;
-
-    let inputValue = Number(this.dynamicControls.controls[`control_${item.id}`].value);
-    let indexOfObj = this.accountReportItemPriceModels.findIndex(recored => item.accountReportItemId
-      == recored.accountReportItemId
-    );
-    // update
-    if (indexOfObj != -1) {
-      this.accountReportItemPriceModels[indexOfObj].accountReportItemId = inputValue;
-    } else {
-
-      // add 
-      this.accountReportItemPriceModels.push({
-        accountReportItemId: item.accountRepItemId,
-        priceCu: inputValue
-      })
-    }
-
-  }
-
 
   addAccountReportToItem(report: AccountReport) {
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
   }
 
-  onPage($event: any) {
-    if (!this.updateAtLeastOneInputValue) return;
-    this.confirmationService.confirm({
-      message: 'لطفا تغییرات خود را ذخیره نمایید . آیا مایل به ادامه هستید ؟  ',
-      header: `تغییراتی اعمال شده است`,
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'تایید',
-      acceptButtonStyleClass: 'p-button-danger',
-      acceptIcon: 'pi pi-check',
-      rejectLabel: 'انصراف',
-      rejectButtonStyleClass: 'p-button-secondary',
-      defaultFocus: 'reject',
-      accept: () => { this.addList() },
-      reject: () => {
-        this.first = 0
-      }
-    });
-  }
+  // onPage($event: any) {
+  //   if (!this.updateAtLeastOneInputValue) return;
+  //   this.confirmationService.confirm({
+  //     message: 'لطفا تغییرات خود را ذخیره نمایید . آیا مایل به ادامه هستید ؟  ',
+  //     header: `تغییراتی اعمال شده است`,
+  //     icon: 'pi pi-exclamation-triangle',
+  //     acceptLabel: 'تایید',
+  //     acceptButtonStyleClass: 'p-button-danger',
+  //     acceptIcon: 'pi pi-check',
+  //     rejectLabel: 'انصراف',
+  //     rejectButtonStyleClass: 'p-button-secondary',
+  //     defaultFocus: 'reject',
+  //     accept: () => { this.addList() },
+  //     reject: () => {
+  //       this.first = 0
+  //     }
+  //   });
+  // }
 }
