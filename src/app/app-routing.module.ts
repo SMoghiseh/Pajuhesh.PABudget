@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth/auth.guard';
 import { AccountModule } from './modules/account/account.module';
@@ -45,6 +45,16 @@ const routes: Routes = [
             loadChildren: () =>
               import('./modules/operation/operation.module').then(
                 m => m.OperationModule
+              ),
+          },
+          {
+            path: 'Period',
+
+            title: 'برنامه و بودجه | دوره',
+
+            loadChildren: () =>
+              import('./modules/budgets/budgets.module').then(
+                m => m.BudgetsModule
               ),
           },
           {
@@ -155,4 +165,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

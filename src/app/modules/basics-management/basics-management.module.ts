@@ -32,6 +32,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
 import { AddEditPeriodComponent } from './period-definition/add-edit-period/add-edit-period.component';
 import { ProductGroupComponent } from './product-group/product-group.component';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ProductGroupComponent } from './product-group/product-group.component';
     InputNumberModule,
     KeyFilterModule,
     TooltipModule,
+    MenuModule
   ],
   providers: [
     {
@@ -75,4 +77,4 @@ import { ProductGroupComponent } from './product-group/product-group.component';
     },
   ],
 })
-export class BasicsManagementModule {}
+export class BasicsManagementModule { }

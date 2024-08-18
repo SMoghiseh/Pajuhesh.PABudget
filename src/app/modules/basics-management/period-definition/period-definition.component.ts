@@ -28,14 +28,20 @@ export class PeriodDefinitionComponent implements OnInit {
   addEditData = new Period();
   isDetail = false;
   pId!: string;
-
+  subComponentList = [
+    {
+      label: ' اهداف سالیانه',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/YearGoal'],
+    }
+  ];
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((param: any) => {
@@ -154,5 +160,12 @@ export class PeriodDefinitionComponent implements OnInit {
   reloadData() {
     this.isOpenAddEditPeriod = false;
     this.getPeriod();
+  }
+  // Set PeriodId On Active Component Route
+  setActiveComponentRoute(item: Period) {
+    this.subComponentList.forEach((componentInfo: any) => {
+      componentInfo['routerLink'][0] =
+        componentInfo['routerLink'][0] + '/' + item.id;
+    });
   }
 }
