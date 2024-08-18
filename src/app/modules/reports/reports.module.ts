@@ -29,6 +29,8 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeModule } from 'primeng/tree';
 import { PickListModule } from 'primeng/picklist';
 import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
+import { AggregateComponent } from './aggregate/aggregate.component';
+import { PaginatorModule } from 'primeng/paginator';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -40,6 +42,7 @@ import { FinancialStatementsReportComponent } from './financial-statements-repor
     AddEditAccountReportToItemComponent,
     AccountReportItemComponent,
     FinancialStatementsReportComponent,
+    AggregateComponent
   ],
   imports: [
     CommonModule,
@@ -59,6 +62,7 @@ import { FinancialStatementsReportComponent } from './financial-statements-repor
     TreeModule,
     TreeSelectModule,
     PickListModule,
+    PaginatorModule
   ],
   providers: [
     {
@@ -69,4 +73,4 @@ import { FinancialStatementsReportComponent } from './financial-statements-repor
     },
   ],
 })
-export class ReportsModule {}
+export class ReportsModule { }
