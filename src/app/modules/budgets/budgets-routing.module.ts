@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BudgetsComponent } from './budgets.component';
 import { authGuard } from '@core/guards/auth/auth.guard';
+import { YearGoalComponent } from './yearGoal/year-goal.component';
 
 const routes: Routes = [
   {
@@ -12,11 +13,11 @@ const routes: Routes = [
         path: '',
         canMatch: [authGuard],
         children: [
-          // {
-          //   path: '',
-          //   component: ,
-          //   title: 'برنامه و بودجه |   اهداف سالیانه'
-          // }
+          {
+            path: 'YearGoal/:id',
+            component: YearGoalComponent,
+            title: 'برنامه و بودجه |   اهداف سالیانه'
+          }
         ],
       },
     ],
