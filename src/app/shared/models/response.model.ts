@@ -578,7 +578,6 @@ export class Company {
   companyInspectionInstituteTitle!: string;
   companyManagerName!: string;
   registerDatePc!: any;
-
 }
 
 export class ProductGroup {
@@ -1272,6 +1271,12 @@ export class KeyTypecode {
   title!: string;
 }
 
+export class AssemblyAssignments {
+  static apiAddressMeetingTopic =
+    'api/PABudgetApi/v1/BaseInfo/YearUnionMeetingTopic/list';
+  type!: string;
+  mode!: string;
+}
 export class Budget {
   static readonly apiAddressBalanceSheet =
     'api/PABudgetApi/Dashboard/BalanceSheet/Info';

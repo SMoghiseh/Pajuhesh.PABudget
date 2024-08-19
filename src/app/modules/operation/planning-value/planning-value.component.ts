@@ -47,7 +47,7 @@ export class PlanningValueComponent {
     private messageService: MessageService,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { debugger
     this.getkeyTypeCodeLst();
     this.getPlaningList();
 
@@ -78,7 +78,7 @@ export class PlanningValueComponent {
       });
   }
 
-  getPlan(event?: LazyLoadEvent) {
+  getPlan(event?: LazyLoadEvent) { debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();

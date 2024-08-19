@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { BudgetsComponent } from './budgets.component';
 import { authGuard } from '@core/guards/auth/auth.guard';
 import { YearGoalComponent } from './yearGoal/year-goal.component';
+import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments/assembly-assignments.component';
 
 const routes: Routes = [
-  {
+  { 
     path: '',
     component: BudgetsComponent,
     children: [
@@ -16,8 +17,13 @@ const routes: Routes = [
           {
             path: 'YearGoal/:id',
             component: YearGoalComponent,
-            title: 'برنامه و بودجه |   اهداف سالیانه'
-          }
+            title: 'برنامه و بودجه |   اهداف سالیانه',
+          },
+          { 
+            path: 'YearUnion/:id',
+            component: AssemblyAssignmentsComponent,
+            title: 'برنامه و بودجه |  تکالیف مجمع',
+          },
         ],
       },
     ],
@@ -26,6 +32,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class BudgetsRoutingModule { }
+export class BudgetsRoutingModule {}
