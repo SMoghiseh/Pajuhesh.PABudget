@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearGoal, KeyTypecode, PlanningValue
+  UrlBuilder, YearGoal, Aspect, BigGoal, Company
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -37,9 +37,10 @@ export class YearGoalComponent {
   searchForm!: FormGroup;
 
   // dropdown data list
-  planningValueList: any = [];
-  planingList: any = [];
-  KeyTypeList: any = [];
+  aspectCodeList: any = [];
+  companyList: any = [];
+  bigGoalList: any = [];
+
 
   constructor(
     private httpService: HttpService,
@@ -49,38 +50,55 @@ export class YearGoalComponent {
 
   ngOnInit(): void {
 
-    this.getplanningValueLst();
-    this.getkeyTypeCodeLst();
+    this.getAspectCodeLst();
+    this.getCompanyLst();
+    this.getBigGoalList();
 
     this.searchForm = new FormGroup({
       title: new FormControl(null),
-      missionCode: new FormControl(null),
-      typeCode: new FormControl(null)
+      yearGoalCode: new FormControl(null),
+      companyId: new FormControl(null),
+      bigGoalId: new FormControl(null),
+      aspectCode: new FormControl(null)
     });
+
   }
 
-  getplanningValueLst() {
+
+  getCompanyLst() {
     this.httpService
-      .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', { 'withOutPagination': true })
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.planningValueList = response.data.result;
+          this.companyList = response.data.result;
+        }
+      });
+  }
+
+  getBigGoalList() {
+    this.httpService
+      .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
+        withOutPagination: true
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.bigGoalList = response.data.result;
+        }
+      });
+  }
+
+  getAspectCodeLst() {
+    this.httpService
+      .get<Aspect[]>(Aspect.apiAddress + 'List')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.aspectCodeList = response.data.result;
         }
       });
   }
 
 
-  getkeyTypeCodeLst() {
-    this.httpService
-      .get<KeyTypecode[]>(KeyTypecode.apiAddress + 'List')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.KeyTypeList = response.data.result;
-        }
-      });
-  }
-
-  getVision(event?: LazyLoadEvent) {
+  getList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -158,13 +176,13 @@ export class YearGoalComponent {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'mission',
+              key: 'yearGoal',
               life: 8000,
               severity: 'success',
               detail: `  مورد  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getVision();
+            this.getList();
           }
         });
     }
@@ -172,12 +190,12 @@ export class YearGoalComponent {
 
   reloadData() {
     this.isOpenAddEditPlan = false;
-    this.getVision();
+    this.getList();
   }
 
   clearSearch() {
     this.searchForm.reset();
-    this.getVision();
+    this.getList();
   }
 
 }

@@ -1421,7 +1421,7 @@ export class STRATEGY {
   title!: string;
 }
 export class YearGoal {
-  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Strategy/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearGoal/';
   id!: number;
   title!: string;
 }

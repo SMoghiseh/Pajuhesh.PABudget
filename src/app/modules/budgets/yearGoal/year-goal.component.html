@@ -1,4 +1,4 @@
-<p-toast key="mission" position="bottom-left"></p-toast>
+<p-toast key="yearGoal" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
     <div class="table-header">ماموریت ها</div>
@@ -12,18 +12,32 @@
     <form #formDir="ngForm" [formGroup]="searchForm">
         <div class="row mt-8 pb-3">
             <div class="col-2 mt-2">
-                <label for="missionCode"> کد ماموریت </label>
-                <input pInputText id="missionCode" name="missionCode" formControlName="missionCode"
+                <label for="companyId"> شرکت </label>
+                <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+                    optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
+                    [filter]="true">
+                </p-dropdown>
+            </div>
+            <div class="col-2 mt-2">
+                <label for="yearGoalCode"> کد </label>
+                <input pInputText id="yearGoalCode" name="yearGoalCode" formControlName="yearGoalCode"
                     class="w-100 my-1" />
             </div>
             <div class="col-2 mt-2">
-                <label for="title"> متن ماموریت </label>
+                <label for="bigGoalId"> شناسه هدف کلان </label>
+                <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1"
+                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="bigGoalList"
+                    [filter]="true">
+                </p-dropdown>
+            </div>
+            <div class="col-2 mt-2">
+                <label for="title"> هدف </label>
                 <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
             </div>
             <div class="col-2 mt-2">
-                <label for="typeCode"> کلید واژه</label>
-                <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList"
+                <label for="aspectCode"> منظر</label>
+                <p-dropdown id="aspectCode" name="aspectCode" formControlName="aspectCode" styleClass="w-100 my-1"
+                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="aspectCodeList"
                     [filter]="true">
                 </p-dropdown>
             </div>
@@ -34,7 +48,7 @@
                         <i class="pi pi-filter-slash"></i>
                     </div>
                     <p-button class="pe-2 p-button-wide" styleClass="p-button-info" [label]="'جستجو'"
-                        (click)="getVision()"></p-button>
+                        (click)="getList()"></p-button>
                 </div>
             </div>
             <!-- / دکمه -->
@@ -46,24 +60,27 @@
     <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
         [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
         [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-        (onLazyLoad)="getVision($event)" [(first)]="first">
+        (onLazyLoad)="getList($event)" [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
             <tr class="data-table__header">
                 <th style="min-width: 10rem"><strong> کد </strong></th>
                 <th style="min-width: 10rem"><strong> عنوان </strong></th>
-                <th style="min-width: 10rem"><strong> برنامه </strong></th>
-                <th style="min-width: 10rem"><strong> نوع ماموریت </strong></th>
+                <th style="min-width: 10rem"><strong> شرکت </strong></th>
+                <th style="min-width: 10rem"><strong> هدف کلان </strong></th>
+                <th style="min-width: 10rem"><strong> منظر </strong></th>
 
                 <th style="min-width: 10rem"><strong> عملیات</strong></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
             <tr>
-                <td>{{ item.missionCode }}</td>
+                <td>{{ item.yearGoalCode }}</td>
                 <td>{{ item.title }}</td>
-                <td>{{ item.planningTitle }}</td>
-                <td>{{ item.typeTitle }}</td>
+                <td>{{ item.symbol }}</td>
+                <td>{{ item.bigGoalTitle }}</td>
+                <td>{{ item.aspectCodeTitle }}</td>
+
 
                 <td class="jc-left ai-left">
                     <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
