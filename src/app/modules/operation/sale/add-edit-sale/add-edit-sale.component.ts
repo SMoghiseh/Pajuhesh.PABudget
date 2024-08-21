@@ -1,6 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ContractNo, Period, ProductGroup, Sale } from '@shared/models/response.model';
+import {
+  ContractNo,
+  Period,
+  ProductGroup,
+  Sale,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { pairwise, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -71,7 +76,7 @@ export class AddEditSaleComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -79,23 +84,15 @@ export class AddEditSaleComponent implements OnInit {
     this.getAllSaleTypeLst();
     this.getContractList();
     this.addEditSaleForm = new FormGroup({
-      budgetPeriodId: new FormControl(
-        this.inputData.budgetPeriodId
-      ),
+      budgetPeriodId: new FormControl(this.inputData.budgetPeriodId),
       budgetPeriodDetailId: new FormControl(
         this.inputData.budgetPeriodDetailId
       ),
       contractId: new FormControl(this.inputData.contractId),
       saleType: new FormControl(this.inputData.saleType),
-      productGroupId: new FormControl(
-        this.inputData.productGroupId
-      ),
-      productNumber: new FormControl(
-        this.inputData.productNumber
-      ),
-      productUnitSalesCu: new FormControl(
-        this.inputData.productUnitSalesCu
-      ),
+      productGroupId: new FormControl(this.inputData.productGroupId),
+      productNumber: new FormControl(this.inputData.productNumber),
+      productUnitSalesCu: new FormControl(this.inputData.productUnitSalesCu),
       productAllSalesCu: new FormControl(this.inputData.productAllSalesCu),
       benefitLossCu: new FormControl(this.inputData.benefitLossCu),
       costingAllCu: new FormControl(this.inputData.costingAllCu),
@@ -113,7 +110,7 @@ export class AddEditSaleComponent implements OnInit {
   addEditSale() {
     this.addEditSaleSubmitted = true;
     if (this.addEditSaleForm.valid) {
-      let request = this.addEditSaleForm.value;
+      const request = this.addEditSaleForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       request.saleType = request.saleType.id;
       const url =
@@ -163,8 +160,6 @@ export class AddEditSaleComponent implements OnInit {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
           this.addEditSaleForm.patchValue(response.data.result);
-
-
         }
       });
   }
@@ -186,7 +181,9 @@ export class AddEditSaleComponent implements OnInit {
           this.saleTypeList = response.data;
           if (this.mode == 'edit') {
             this.addEditSaleForm.patchValue({
-              saleType: this.saleTypeList.find((i: any) => i.id === this.inputData['saleType'])
+              saleType: this.saleTypeList.find(
+                (i: any) => i.id === this.inputData['saleType']
+              ),
             });
             this.onChangeSaleType();
           }
@@ -195,7 +192,9 @@ export class AddEditSaleComponent implements OnInit {
   }
   getContractList() {
     this.httpService
-      .post<ContractNo[]>(ContractNo.adiAddressList, { withOutPagination: false })
+      .post<ContractNo[]>(ContractNo.adiAddressList, {
+        withOutPagination: false,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.contractList = response.data.result;
@@ -227,87 +226,81 @@ export class AddEditSaleComponent implements OnInit {
     this.isContractValue = this.addEditSaleForm.value.saleType.isContract;
 
     if (this.mode != 'edit') {
-      let value = this.addEditSaleForm.controls['saleType'].value;
+      const value = this.addEditSaleForm.controls['saleType'].value;
       this.addEditSaleForm.reset();
       this.addEditSaleForm.patchValue({
-        saleType: value
-      })
+        saleType: value,
+      });
     }
   }
 
   calculationOnFields() {
-    // تغییر فیلد تعداد 
-    this.addEditSaleForm.controls['productNumber']
-      .valueChanges
+    // تغییر فیلد تعداد
+    this.addEditSaleForm.controls['productNumber'].valueChanges
       .pipe(pairwise())
       .subscribe(([prev, next]: [any, any]) => {
         // محاسبه مبلغ کل فروش
         if (!this.isContractValue) {
-          let value1 = next *
-            this.addEditSaleForm.controls['productUnitSalesCu'].value
+          const value1 =
+            next * this.addEditSaleForm.controls['productUnitSalesCu'].value;
           this.addEditSaleForm.controls['productAllSalesCu'].setValue(value1);
         }
       });
 
     // تغییر فیلد مبلغ واحد فروش
-    this.addEditSaleForm.controls['productUnitSalesCu']
-      .valueChanges
+    this.addEditSaleForm.controls['productUnitSalesCu'].valueChanges
       .pipe(pairwise())
       .subscribe(([prev, next]: [any, any]) => {
         // محاسبه مبلغ کل فروش
         if (!this.isContractValue) {
-          let value1 = this.addEditSaleForm.controls['productNumber'].value *
-            next;
+          const value1 =
+            this.addEditSaleForm.controls['productNumber'].value * next;
           this.addEditSaleForm.controls['productAllSalesCu'].setValue(value1);
         }
       });
 
     // تغییر فیلد مبلغ کل فروش
-    this.addEditSaleForm.controls['productAllSalesCu']
-      .valueChanges
+    this.addEditSaleForm.controls['productAllSalesCu'].valueChanges
       .pipe(pairwise())
       .subscribe(([prev, next]: [any, any]) => {
         // محاسبه مبلغ  سود و زیان
         if (!this.isContractValue) {
-          let value2 = next -
-            this.addEditSaleForm.controls['costingAllCu'].value;
+          const value2 =
+            next - this.addEditSaleForm.controls['costingAllCu'].value;
           this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
         }
       });
-    // تغییر فیلد  بهای تمام شده 
-    this.addEditSaleForm.controls['costingAllCu']
-      .valueChanges
+    // تغییر فیلد  بهای تمام شده
+    this.addEditSaleForm.controls['costingAllCu'].valueChanges
       .pipe(pairwise())
       .subscribe(([prev, next]: [any, any]) => {
         // محاسبه مبلغ  سود و زیان
         if (!this.isContractValue) {
-          let value2 = this.addEditSaleForm.controls['productAllSalesCu'].value -
-            next;
+          const value2 =
+            this.addEditSaleForm.controls['productAllSalesCu'].value - next;
           this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
         }
         if (this.isContractValue) {
-          let value2 = this.addEditSaleForm.controls['costingUnitCu'].value -
-            next;
+          const value2 =
+            this.addEditSaleForm.controls['costingUnitCu'].value - next;
           this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
         }
       });
-    // تغییر فیلد  مبلغ قرارداد 
-    this.addEditSaleForm.controls['costingUnitCu']
-      .valueChanges
+    // تغییر فیلد  مبلغ قرارداد
+    this.addEditSaleForm.controls['costingUnitCu'].valueChanges
       .pipe(pairwise())
       .subscribe(([prev, next]: [any, any]) => {
         // محاسبه مبلغ  سود و زیان
         if (!this.isContractValue) {
-          let value2 = this.addEditSaleForm.controls['productAllSalesCu'].value -
-            next;
+          const value2 =
+            this.addEditSaleForm.controls['productAllSalesCu'].value - next;
           this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
         }
         if (this.isContractValue) {
-          let value2 = next -
-            this.addEditSaleForm.controls['costingAllCu'].value;
+          const value2 =
+            next - this.addEditSaleForm.controls['costingAllCu'].value;
           this.addEditSaleForm.controls['benefitLossCu'].setValue(value2);
         }
       });
-
   }
 }

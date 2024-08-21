@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, PlanningValue, Planning, KeyTypecode
+  UrlBuilder,
+  PlanningValue,
+  Planning,
+  KeyTypecode,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -16,11 +19,9 @@ import { FormControl, FormGroup } from '@angular/forms';
   selector: 'PABudget-planning-Value',
   templateUrl: './planning-value.component.html',
   styleUrls: ['./planning-value.component.scss'],
-  providers: [ConfirmationService]
-
+  providers: [ConfirmationService],
 })
 export class PlanningValueComponent {
-
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -44,8 +45,8 @@ export class PlanningValueComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-  ) { }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getkeyTypeCodeLst();
@@ -53,14 +54,15 @@ export class PlanningValueComponent {
 
     this.searchForm = new FormGroup({
       keyTypeCode: new FormControl(null),
-      title: new FormControl(null)
+      title: new FormControl(null),
     });
   }
 
-
   getPlaningList() {
     this.httpService
-      .post<Planning[]>(Planning.apiAddress + 'List', { "withOutPagination": true })
+      .post<Planning[]>(Planning.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.planingList = response.data.result;
@@ -96,8 +98,7 @@ export class PlanningValueComponent {
     };
 
     this.first = 0;
-    const url =
-      PlanningValue.apiAddress + 'List';
+    const url = PlanningValue.apiAddress + 'List';
     this.httpService
       .post<PlanningValue[]>(url, body)
 
@@ -147,10 +148,7 @@ export class PlanningValueComponent {
     if (id && title) {
       this.httpService
         .get<PlanningValue>(
-          UrlBuilder.build(
-            PlanningValue.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(PlanningValue.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -177,6 +175,4 @@ export class PlanningValueComponent {
     this.searchForm.reset();
     this.getPlan();
   }
-
 }
-

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, Vision, KeyTypecode, PlanningValue
+  UrlBuilder,
+  Vision,
+  KeyTypecode,
+  PlanningValue,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -16,11 +19,9 @@ import { FormControl, FormGroup } from '@angular/forms';
   selector: 'PABudget-vision',
   templateUrl: './vision.component.html',
   styleUrls: ['./vision.component.scss'],
-  providers: [ConfirmationService]
-
+  providers: [ConfirmationService],
 })
 export class VisionComponent {
-
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -43,17 +44,20 @@ export class VisionComponent {
   KeyTypeList: any = [];
 
   subComponentList = [
-    { label: 'اهداف ', icon: 'pi pi-fw pi-plus', routerLink: ['/Operation/BigGoal'] }
+    {
+      label: 'اهداف ',
+      icon: 'pi pi-fw pi-plus',
+      routerLink: ['/Operation/BigGoal'],
+    },
   ];
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-  ) { }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
-
     this.getplanningValueLst();
     this.getkeyTypeCodeLst();
 
@@ -67,14 +71,15 @@ export class VisionComponent {
 
   getplanningValueLst() {
     this.httpService
-      .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', { 'withOutPagination': true })
+      .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.planningValueList = response.data.result;
         }
       });
   }
-
 
   getkeyTypeCodeLst() {
     this.httpService
@@ -104,8 +109,7 @@ export class VisionComponent {
     };
 
     this.first = 0;
-    const url =
-      Vision.apiAddress + 'List';
+    const url = Vision.apiAddress + 'List';
     this.httpService
       .post<Vision[]>(url, body)
 
@@ -155,10 +159,7 @@ export class VisionComponent {
     if (id && title) {
       this.httpService
         .get<Vision>(
-          UrlBuilder.build(
-            Vision.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(Vision.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -189,9 +190,8 @@ export class VisionComponent {
   // Set PlanningId On Active Component Route
   setActiveComponentRoute(item: Vision) {
     this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
-    })
+      componentInfo['routerLink'][0] =
+        componentInfo['routerLink'][0] + '/' + item.id;
+    });
   }
-
 }
-

@@ -1,0 +1,80 @@
+<p-toast key="AssemblyAssignmen"
+  position="bottom-left"></p-toast>
+
+<form #formDir="ngForm"
+  [formGroup]="addEditForm"
+  (ngSubmit)="addEditAssemblyAssignment()">
+  <div class="container row">
+    <div class="col-6 mt-2">
+      <label for="budgetPeriodId"> شناسه دوره بودجه </label>
+      <input pInputText
+        id="budgetPeriodId"
+        name="budgetPeriodId"
+        formControlName="budgetPeriodId"
+        class="w-100 my-1" />
+    </div>
+    <div class="col-6 mt-2">
+      <label for="title"> شرح </label>
+      <input pInputText
+        id="title"
+        name="title"
+        formControlName="title"
+        class="w-100 my-1" />
+    </div>
+    <div class="col-6 mt-2">
+      <label for="meetingId"> شناسه جلسه </label>
+      <p-dropdown id="meetingId"
+        name="meetingId"
+        formControlName="meetingId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="typeCode"> نوع صورتجلسه </label>
+      <p-dropdown id="typeCode"
+        name="typeCode"
+        formControlName="typeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        [options]="MeetingTopicList"
+        placeholder="انتخاب کنید"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="companyId"> شناسه شرکت </label>
+      <p-dropdown id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="companyName"
+        optionValue="id"
+        [options]="companyList"
+        placeholder="انتخاب کنید"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <!-- <div class="col-3 mt-2">
+      <label for="meetingDate">تاریخ صورتجلسه</label>
+      <p-persian-calendar
+        id="meetingDate"
+        name="meetingDate"
+        formControlName="meetingDate"
+        styleClass="w-100 ">
+      </p-persian-calendar>
+    </div> -->
+
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>

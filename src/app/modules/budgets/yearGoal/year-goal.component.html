@@ -53,7 +53,10 @@
             </div>
             <!-- / دکمه -->
         </div>
-    </form>
+      </div>
+      <!-- / دکمه -->
+    </div>
+  </form>
 </div>
 
 <div class="table-container">
@@ -82,53 +85,72 @@
                 <td>{{ item.aspectCodeTitle }}</td>
 
 
-                <td class="jc-left ai-left">
-                    <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
-                        <img ngSrc="icons\Group 116.svg" width="24" height="24" />
-                    </button>
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(item)"
+            pTooltip="ویرایش">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
 
-                    <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
-                        <img ngSrc="icons\Group 117.svg" width="24" height="24" />
-                    </button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(item)"
+            pTooltip="حذف">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
 <div class="data-list d-block d-lg-none">
-    <ul *ngFor="let report of data" class="list-group my-1">
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col my-1 text-center">
-                    <strong>عنوان</strong>
-                </div>
-                <div class="col my-1 text-center">
-                    <strong>عملیات</strong>
-                </div>
+  <ul *ngFor="let report of data" class="list-group my-1">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col my-1 text-center">
+          <strong>عنوان</strong>
+        </div>
+        <div class="col my-1 text-center">
+          <strong>عملیات</strong>
+        </div>
 
-                <div class="col my-1 text-center">
-                    <div class="d-flex jc-center ai-center">
-                        <button class="action-image-container edit-button" (click)="editRow(report)" title="ویرایش">
-                            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
-                        </button>
+        <div class="col my-1 text-center">
+          <div class="d-flex jc-center ai-center">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(report)"
+              title="ویرایش">
+              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+            </button>
 
-                        <button class="action-image-container delete-button" (click)="deleteRow(report)"
-                            title="حذف بودجه ">
-                            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(report)"
+              title="حذف بودجه ">
+              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
 
-<p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
-    [draggable]="false" [resizable]="false" [style]="{ width: '600px' }"
-    [class.height-size]="mode == 'insert' || mode == 'edit'">
-    <PABudget-add-edit-year-goal [data1]="addEditData" [mode]="mode"
-        (isSuccess)="reloadData()"></PABudget-add-edit-year-goal>
+<p-dialog
+  *ngIf="isOpenAddEditPlan"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditPlan"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '600px' }"
+  [class.height-size]="mode === 'insert' || mode === 'edit'">
+  <PABudget-add-edit-year-goal
+    [data1]="addEditData"
+    [mode]="mode"
+    (isSuccess)="reloadData()"></PABudget-add-edit-year-goal>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

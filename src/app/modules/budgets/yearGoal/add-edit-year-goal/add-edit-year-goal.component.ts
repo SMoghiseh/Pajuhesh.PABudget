@@ -9,10 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-year-goal',
   templateUrl: './add-edit-year-goal.component.html',
-  styleUrls: ['./add-edit-year-goal.component.scss']
+  styleUrls: ['./add-edit-year-goal.component.scss'],
 })
 export class AddEditYearGoalComponent {
-
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -24,8 +23,6 @@ export class AddEditYearGoalComponent {
   companyList: any = [];
   bigGoalList: any = [];
 
-
-
   inputData = new YearGoal();
   @Input() mode = '';
   @Input() set data1(data: YearGoal) {
@@ -33,7 +30,6 @@ export class AddEditYearGoalComponent {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
 
   get title() {
     return this.addEditForm.get('title');
@@ -56,13 +52,11 @@ export class AddEditYearGoalComponent {
     return this.addEditForm.get('aspectCode');
   }
 
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
 
@@ -108,9 +102,10 @@ export class AddEditYearGoalComponent {
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -170,5 +165,4 @@ export class AddEditYearGoalComponent {
         }
       });
   }
-
 }
