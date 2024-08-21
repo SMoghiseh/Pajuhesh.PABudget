@@ -1,86 +1,80 @@
 import { Component } from '@angular/core';
-import {
-  Pagination,
-  UrlBuilder,
-  PlanningValue,
-  Planning,
-  KeyTypecode,
-} from '@shared/models/response.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { map, tap } from 'rxjs';
+import {
+  AssemblyAssignments,
+  Company,
+  Pagination,
+  PlanningValue,
+  UrlBuilder,
+} from '@shared/models/response.model';
 import {
   ConfirmationService,
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { FormControl, FormGroup } from '@angular/forms';
+import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-planning-Value',
-  templateUrl: './planning-value.component.html',
-  styleUrls: ['./planning-value.component.scss'],
+  selector: 'PABudget-assembly-assignments',
+  templateUrl: './assembly-assignments.component.html',
+  styleUrls: ['./assembly-assignments.component.scss'],
   providers: [ConfirmationService],
 })
-export class PlanningValueComponent {
-  gridClass = 'p-datatable-sm';
-  dataTableRows = 10;
-  totalCount!: number;
-  data: PlanningValue[] = [];
-  loading = false;
-  lazyLoadEvent?: LazyLoadEvent;
-  first = 0;
-  modalTitle = '';
-  isOpenAddEditPlan = false;
-  addEditData = new PlanningValue();
-  pId!: string;
-  mode!: string;
-
+export class AssemblyAssignmentsComponent {
   // form property
   searchForm!: FormGroup;
+  MeetingTopicList: any = [];
+  mode!: string;
+  modalTitle = '';
+  addEditData = new AssemblyAssignments();
+  companyList: any = [];
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  lazyLoadEvent?: LazyLoadEvent;
+  totalCount!: number;
+  loading = false;
+  first = 0;
+  data: AssemblyAssignments[] = [];
 
-  // dropdown data list
-  planingList: any = [];
-  KeyTypeList: any = [];
-
+  isOpenAddEditAssemblyAssignment = false;
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {}
-
   ngOnInit(): void {
-    this.getkeyTypeCodeLst();
-    this.getPlaningList();
-
+    // this.getAssemblyAssignmentsLst();
+    this.getMeetingTopicList();
+    this.getCompanyLst();
     this.searchForm = new FormGroup({
-      keyTypeCode: new FormControl(null),
+      budgetPeriodId: new FormControl(),
+      meetingId: new FormControl(null),
+      typeCode: new FormControl(null),
+      companyId: new FormControl(null),
       title: new FormControl(null),
+      // meetingDate: new FormControl(),
     });
   }
 
-  getPlaningList() {
+  getMeetingTopicList() {
     this.httpService
-      .post<Planning[]>(Planning.apiAddress + 'List', {
-        withOutPagination: true,
-      })
+      .get<AssemblyAssignments[]>(
+        AssemblyAssignments.apiAddressMeetingTopic + 'List',
+        {
+          withOutPagination: true,
+        }
+      )
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.planingList = response.data.result;
+          this.MeetingTopicList = response.data.result;
         }
       });
   }
 
-  getkeyTypeCodeLst() {
-    this.httpService
-      .get<KeyTypecode[]>(KeyTypecode.apiAddress + 'List')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.KeyTypeList = response.data.result;
-        }
-      });
-  }
-
-  getPlan(event?: LazyLoadEvent) {
+  getAssemblyAssignmentList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -98,9 +92,9 @@ export class PlanningValueComponent {
     };
 
     this.first = 0;
-    const url = PlanningValue.apiAddress + 'List';
+    const url = AssemblyAssignments.apiAddress + 'List';
     this.httpService
-      .post<PlanningValue[]>(url, body)
+      .post<AssemblyAssignments[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -109,26 +103,25 @@ export class PlanningValueComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new PlanningValue()];
+          } else return [new AssemblyAssignments()];
         })
       )
       .subscribe(res => (this.data = res));
   }
 
-  addPlan() {
-    this.modalTitle = 'افزودن ارزش ها  ';
+  addAssemblyAssignment(data: string) {
+    this.modalTitle = 'افزودن تکالیف مجمع';
+    this.addEditData.type = 'insert';
     this.mode = 'insert';
-    this.isOpenAddEditPlan = true;
+    this.isOpenAddEditAssemblyAssignment = true;
   }
-
-  editRow(data: PlanningValue) {
+  editRow(data: AssemblyAssignments) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
-    this.isOpenAddEditPlan = true;
+    this.isOpenAddEditAssemblyAssignment = true;
   }
-
-  deleteRow(item: PlanningValue) {
+  deleteRow(item: AssemblyAssignments) {
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -140,39 +133,49 @@ export class PlanningValueComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deletePlan(item.id, item.title),
+        accept: () => this.deleteAssemblyAssignment(item.id, item.title),
       });
   }
-
-  deletePlan(id: number, title: string) {
+  deleteAssemblyAssignment(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<PlanningValue>(
-          UrlBuilder.build(PlanningValue.apiAddress + 'Delete', '') + `/${id}`
+        .get<AssemblyAssignments>(
+          UrlBuilder.build(AssemblyAssignments.apiAddress + 'Delete', '') +
+            `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'plan',
+              key: 'AssemblyAssignmen',
               life: 8000,
               severity: 'success',
-              detail: ` ارزش ها  ${title}`,
+              detail: `  مورد  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getPlan();
+            this.getAssemblyAssignmentList();
           }
         });
     }
   }
 
-  reloadData() {
-    this.isOpenAddEditPlan = false;
-    this.getPlan();
+  getCompanyLst() {
+    this.httpService
+      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
+        withOutPagination: true,
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
   }
-
+  reloadData() {
+    this.isOpenAddEditAssemblyAssignment = false;
+    this.getAssemblyAssignmentList();
+  }
   clearSearch() {
     this.searchForm.reset();
-    this.getPlan();
+    this.getAssemblyAssignmentList();
   }
 }

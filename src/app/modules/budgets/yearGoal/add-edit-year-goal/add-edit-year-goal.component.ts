@@ -9,10 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-year-goal',
   templateUrl: './add-edit-year-goal.component.html',
-  styleUrls: ['./add-edit-year-goal.component.scss']
+  styleUrls: ['./add-edit-year-goal.component.scss'],
 })
 export class AddEditYearGoalComponent {
-
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -23,8 +22,6 @@ export class AddEditYearGoalComponent {
   planingList: any = [];
   KeyTypeList: any = [];
 
-
-
   inputData = new YearGoal();
   @Input() mode = '';
   @Input() set data1(data: YearGoal) {
@@ -32,7 +29,6 @@ export class AddEditYearGoalComponent {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
 
   get title() {
     return this.addEditForm.get('title');
@@ -50,16 +46,13 @@ export class AddEditYearGoalComponent {
     return this.addEditForm.get('typeCode');
   }
 
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getPlaningList();
     this.getkeyTypeCodeLst();
 
@@ -75,8 +68,8 @@ export class AddEditYearGoalComponent {
     }
 
     this.addEditForm.patchValue({
-      planningId: Number(this.route.snapshot.paramMap.get('id'))
-    })
+      planningId: Number(this.route.snapshot.paramMap.get('id')),
+    });
   }
 
   addEditPlan() {
@@ -84,8 +77,10 @@ export class AddEditYearGoalComponent {
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url = this.mode === 'insert' ? YearGoal.apiAddress + 'Create' :
-        YearGoal.apiAddress + 'Update';
+      const url =
+        this.mode === 'insert'
+          ? YearGoal.apiAddress + 'Create'
+          : YearGoal.apiAddress + 'Update';
 
       this.isLoadingSubmit = true;
       this.httpService
@@ -98,9 +93,10 @@ export class AddEditYearGoalComponent {
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -110,7 +106,9 @@ export class AddEditYearGoalComponent {
 
   getPlaningList() {
     this.httpService
-      .post<Planning[]>(Planning.apiAddress + 'List', { "withOutPagination": true })
+      .post<Planning[]>(Planning.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.planingList = response.data.result;
@@ -138,8 +136,4 @@ export class AddEditYearGoalComponent {
         }
       });
   }
-
-
-
-
 }

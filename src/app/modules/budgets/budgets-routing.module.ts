@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { BudgetsComponent } from './budgets.component';
 import { authGuard } from '@core/guards/auth/auth.guard';
 import { YearGoalComponent } from './yearGoal/year-goal.component';
-import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments/assembly-assignments.component';
+import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
+
 
 const routes: Routes = [
   { 

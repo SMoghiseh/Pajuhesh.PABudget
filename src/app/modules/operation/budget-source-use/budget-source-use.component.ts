@@ -47,7 +47,7 @@ export class BudgetSourceUseComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -93,7 +93,6 @@ export class BudgetSourceUseComponent implements OnInit {
         tap(() => (this.loading = false)),
         map(response => {
           if (response.data && response.data.result) {
-            debugger
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;

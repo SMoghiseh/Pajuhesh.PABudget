@@ -1272,10 +1272,18 @@ export class KeyTypecode {
 }
 
 export class AssemblyAssignments {
+  static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearUnion/';
   static apiAddressMeetingTopic =
-    'api/PABudgetApi/v1/BaseInfo/YearUnionMeetingTopic/list';
+    'api/PABudgetApi/v1/BaseInfo/YearUnionMeetingTopic/';
+
+  id!: number;
+  budgetPeriodId!: number;
+  meetingId!: number;
+  typeCode!: number;
+  companyId!: number;
+  title!: string;
+  meetingDate!: string;
   type!: string;
-  mode!: string;
 }
 export class Budget {
   static readonly apiAddressBalanceSheet =

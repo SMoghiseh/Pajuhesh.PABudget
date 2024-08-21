@@ -21,7 +21,7 @@ import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import { AddEditYearGoalComponent } from './yearGoal/add-edit-year-goal/add-edit-year-goal.component';
 import { AddEditAssumptionsComponent } from './assumptions/add-edit-assumptions/add-edit-assumptions.component';
-import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments/assembly-assignments.component';
+import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-edit-assembly-assignments/add-edit-assembly-assignments.component';
 
 

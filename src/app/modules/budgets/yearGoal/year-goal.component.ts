@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearGoal, KeyTypecode, PlanningValue
+  UrlBuilder,
+  YearGoal,
+  KeyTypecode,
+  PlanningValue,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -16,8 +19,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   selector: 'PABudget-year-goal',
   templateUrl: './year-goal.component.html',
   styleUrls: ['./year-goal.component.scss'],
-  providers: [ConfirmationService]
-
+  providers: [ConfirmationService],
 })
 export class YearGoalComponent {
   gridClass = 'p-datatable-sm';
@@ -44,31 +46,31 @@ export class YearGoalComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-  ) { }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
-
     this.getplanningValueLst();
     this.getkeyTypeCodeLst();
 
     this.searchForm = new FormGroup({
       title: new FormControl(null),
       missionCode: new FormControl(null),
-      typeCode: new FormControl(null)
+      typeCode: new FormControl(null),
     });
   }
 
   getplanningValueLst() {
     this.httpService
-      .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', { 'withOutPagination': true })
+      .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.planningValueList = response.data.result;
         }
       });
   }
-
 
   getkeyTypeCodeLst() {
     this.httpService
@@ -98,8 +100,7 @@ export class YearGoalComponent {
     };
 
     this.first = 0;
-    const url =
-      YearGoal.apiAddress + 'List';
+    const url = YearGoal.apiAddress + 'List';
     this.httpService
       .post<YearGoal[]>(url, body)
 
@@ -149,10 +150,7 @@ export class YearGoalComponent {
     if (id && title) {
       this.httpService
         .get<YearGoal>(
-          UrlBuilder.build(
-            YearGoal.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(YearGoal.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -179,5 +177,4 @@ export class YearGoalComponent {
     this.searchForm.reset();
     this.getVision();
   }
-
 }

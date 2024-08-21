@@ -5,7 +5,7 @@ import { Route, Router, UrlSegment } from '@angular/router';
 
 import { AuthService } from '../../authentication/auth.service';
 
-export const authGuard = (route: Route, path: UrlSegment[]) => { debugger
+export const authGuard = (route: Route, path: UrlSegment[]) => { 
   const router = inject(Router);
   const authService = inject(AuthService);
 

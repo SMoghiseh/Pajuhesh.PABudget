@@ -1,24 +1,24 @@
-<p-toast key="plan" position="bottom-left"></p-toast>
+<p-toast key="AssemblyAssignmen"
+  position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
   <div class="table-header">تکالیف مجمع</div>
   <div>
-    <p-button
-      class="pe-2 mr-8"
+    <p-button class="pe-2 mr-8"
       styleClass="p-button-info"
       icon="pi pi-plus-circle"
       label="افزودن"
-      (click)="getAssemblyAssignmentList()"></p-button>
+      (click)="addAssemblyAssignment(mode)"></p-button>
   </div>
 </div>
 
 <div class="panel-search mt-8 mb-8">
-  <form #formDir="ngForm" [formGroup]="searchForm">
+  <form #formDir="ngForm"
+    [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
       <div class="col-3 mt-2">
-        <label for="title"> title </label>
-        <input
-          pInputText
+        <label for="title"> شرح </label>
+        <input pInputText
           id="title"
           name="title"
           formControlName="title"
@@ -26,21 +26,15 @@
       </div>
       <div class="col-3 mt-2">
         <label for="budgetPeriodId"> شناسه دوره بودجه</label>
-        <p-dropdown
+        <input pInputText
           id="budgetPeriodId"
           name="budgetPeriodId"
           formControlName="budgetPeriodId"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [filter]="true">
-        </p-dropdown>
+          class="w-100 my-1" />
       </div>
       <div class="col-3 mt-2">
         <label for="meetingId"> شناسه جلسه</label>
-        <p-dropdown
-          id="meetingId"
+        <p-dropdown id="meetingId"
           name="meetingId"
           formControlName="meetingId"
           styleClass="w-100 my-1"
@@ -52,8 +46,7 @@
       </div>
       <div class="col-3 mt-2">
         <label for="typeCode"> نوع صورتجلسه</label>
-        <p-dropdown
-          id="typeCode"
+        <p-dropdown id="typeCode"
           name="typeCode"
           formControlName="typeCode"
           styleClass="w-100 my-1"
@@ -66,8 +59,7 @@
       </div>
       <div class="col-3 mt-2">
         <label for="companyId">شناسه شرکت</label>
-        <p-dropdown
-          id="companyId"
+        <p-dropdown id="companyId"
           name="companyId"
           formControlName="companyId"
           styleClass="w-100 my-1"
@@ -79,26 +71,25 @@
           placeholder="انتخاب کنید">
         </p-dropdown>
       </div>
-      <div class="col-3 mt-2">
-        <label for="meetingDate">تاریخ صورت جلسه</label>
+      <!-- <div class="col-3 mt-2">
+        <label for="meetingDate">تاریخ صورتجلسه</label>
         <p-persian-calendar
-          id="meetingDate	"
+          id="meetingDate"
           name="meetingDate"
           formControlName="meetingDate"
-          styleClass="w-100">
+          styleClass="w-100 ">
         </p-persian-calendar>
-      </div>
+      </div> -->
 
       <!-- دکمه -->
-      <div
-        class="d-flex justify-content-end col text-end"
+      <div class="d-flex justify-content-end col text-end"
         style="margin-top: 20px">
         <div class="search-button mt-12">
-          <div class="clear-search" (click)="clearSearch()">
+          <div class="clear-search"
+            (click)="clearSearch()">
             <i class="pi pi-filter-slash"></i>
           </div>
-          <p-button
-            class="pe-2 p-button-wide"
+          <p-button class="pe-2 p-button-wide"
             styleClass="p-button-info"
             [label]="'جستجو'"
             (click)="getAssemblyAssignmentList()"></p-button>
@@ -110,8 +101,7 @@
 </div>
 
 <div class="table-container">
-  <p-table
-    #dataTable
+  <p-table #dataTable
     dataKey="id"
     class="data-table d-none d-lg-block"
     [styleClass]="gridClass"
@@ -129,36 +119,43 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <th style="min-width: 10rem"><strong> کد </strong></th>
-        <th style="min-width: 10rem"><strong> عنوان </strong></th>
-        <th style="min-width: 10rem"><strong> برنامه </strong></th>
-        <th style="min-width: 10rem"><strong> شرکت </strong></th>
-        <th style="min-width: 10rem"><strong> کلیدواژه </strong></th>
+        <th style="min-width: 10rem"><strong> شناسه دوره بودجه </strong></th>
+        <th style="min-width: 10rem"><strong> شناسه جلسه </strong></th>
+        <th style="min-width: 10rem"><strong> نوع صورتجلسه </strong></th>
+        <th style="min-width: 10rem"><strong> شناسه شرکت </strong></th>
+        <th style="min-width: 10rem"><strong> شرح </strong></th>
+        <!-- <th style="min-width: 10rem"><strong> تاریخ صورتجلسه </strong></th> -->
 
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
+    <ng-template pTemplate="body"
+      let-item
+      item
+      let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.planningValueCode }}</td>
+        <td>{{ item.budgetPeriodTitle }}</td>
+        <td>{{ item.meetingId }}</td>
+        <td>{{ item.typeCodeTitle }}</td>
+        <td>{{ item.companyName }}</td>
         <td>{{ item.title }}</td>
-        <td>{{ item.planningTitle }}</td>
-        <td>{{ item.companyTitle }}</td>
-        <td>{{ item.keyTypeTitle }}</td>
+        <!-- <td>{{ item.meetingDate }}</td> -->
 
         <td class="jc-left ai-left">
-          <button
-            class="action-image-container edit-button"
-            (click)="editRow()"
+          <button class="action-image-container edit-button"
+            (click)="editRow(item)"
             pTooltip="ویرایش">
-            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+            <img ngSrc="icons\Group 116.svg"
+              width="24"
+              height="24" />
           </button>
 
-          <button
-            class="action-image-container delete-button"
-            (click)="deleteRow()"
+          <button class="action-image-container delete-button"
+            (click)="deleteRow(item)"
             pTooltip="حذف">
-            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            <img ngSrc="icons\Group 117.svg"
+              width="24"
+              height="24" />
           </button>
         </td>
       </tr>
@@ -167,7 +164,8 @@
 </div>
 
 <div class="data-list d-block d-lg-none">
-  <ul *ngFor="let report of data" class="list-group my-1">
+  <ul *ngFor="let report of data"
+    class="list-group my-1">
     <li class="list-group-item">
       <div class="row">
         <div class="col my-1 text-center">
@@ -179,18 +177,20 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button
-              class="action-image-container edit-button"
-              (click)="editRow()"
+            <button class="action-image-container edit-button"
+              (click)="editRow(report)"
               title="ویرایش">
-              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+              <img ngSrc="icons\Group 116.svg"
+                width="24"
+                height="24" />
             </button>
 
-            <button
-              class="action-image-container delete-button"
-              (click)="deleteRow()"
-              title="حذف بودجه ">
-              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            <button class="action-image-container delete-button"
+              (click)="deleteRow(report)"
+              title="حذف  ">
+              <img ngSrc="icons\Group 117.svg"
+                width="24"
+                height="24" />
             </button>
           </div>
         </div>
@@ -199,18 +199,18 @@
   </ul>
 </div>
 
-<p-dialog
-  *ngIf="isOpenAddEditAssemblyAssignment"
+<p-dialog *ngIf="isOpenAddEditAssemblyAssignment"
   [header]="modalTitle"
   [(visible)]="isOpenAddEditAssemblyAssignment"
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
-  [class.height-size]="mode === 'insert' || mode === 'edit'"
-  [style]="{ width: '800px', height: '400px' }">
-  <PABudget-add-edit-assembly-assignments
-    [data]="addEditData"
+  [style]="{ width: '600px' }"
+  [class.height-size]="mode === 'insert' || mode === 'edit'">
+  <PABudget-add-edit-assembly-assignments [data1]="addEditData"
+    [mode]="mode"
     (isSuccess)="reloadData()"></PABudget-add-edit-assembly-assignments>
 </p-dialog>
 
-<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
+<p-confirmDialog [style]="{ width: '450px' }"
+  [rtl]="true"></p-confirmDialog>
