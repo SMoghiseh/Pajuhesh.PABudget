@@ -38,7 +38,12 @@ export class PeriodDefinitionComponent implements OnInit {
       label: ' تکالیف مجمع',
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/YearUnion'],
-    }
+    },
+    {
+      label: '  مفروضات',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/Assumptions'],
+    },
   ];
   constructor(
     private httpService: HttpService,
@@ -46,7 +51,7 @@ export class PeriodDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((param: any) => {

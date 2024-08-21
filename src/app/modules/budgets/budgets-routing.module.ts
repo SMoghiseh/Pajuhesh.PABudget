@@ -5,9 +5,10 @@ import { authGuard } from '@core/guards/auth/auth.guard';
 import { YearGoalComponent } from './yearGoal/year-goal.component';
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 
+import { AssumptionsComponent } from './assumptions/assumptions.component';
 
 const routes: Routes = [
-  { 
+  {
     path: '',
     component: BudgetsComponent,
     children: [
@@ -20,10 +21,15 @@ const routes: Routes = [
             component: YearGoalComponent,
             title: 'برنامه و بودجه |   اهداف سالیانه',
           },
-          { 
+          {
             path: 'YearUnion/:id',
             component: AssemblyAssignmentsComponent,
             title: 'برنامه و بودجه |  تکالیف مجمع',
+          },
+          {
+            path: 'Assumptions/:id',
+            component: AssumptionsComponent,
+            title: 'برنامه و بودجه | مفروضات',
           },
         ],
       },

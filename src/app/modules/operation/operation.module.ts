@@ -50,7 +50,7 @@ import { AddEditBigGoalComponent } from './big-goal/add-edit-big-goal/add-edit-b
 import { AddEditSwotComponent } from './swot/add-edit-swot/add-edit-swot.component';
 import { SwotComponent } from './swot/swot.component';
 import { StrategyComponent } from './strategy/strategy.component';
-import { AddEditStrategyComponent } from './strategy/add-edit-swot/add-edit-strategy.component';
+import { AddEditStrategyComponent } from './strategy/add-edit-strategy/add-edit-strategy.component';
 
 
 @NgModule({

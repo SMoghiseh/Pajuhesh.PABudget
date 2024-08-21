@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, IMAGE_LOADER, ImageLoaderConfig, NgOptimizedImage } from '@angular/common';
+import {
+  CommonModule,
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+  NgOptimizedImage,
+} from '@angular/common';
 
 import { BudgetsRoutingModule } from './budgets-routing.module';
 import { BudgetsComponent } from './budgets.component';
@@ -23,7 +28,7 @@ import { AddEditYearGoalComponent } from './yearGoal/add-edit-year-goal/add-edit
 import { AddEditAssumptionsComponent } from './assumptions/add-edit-assumptions/add-edit-assumptions.component';
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-edit-assembly-assignments/add-edit-assembly-assignments.component';
-
+import { AssumptionsComponent } from './assumptions/assumptions.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,8 @@ import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-e
     AddEditYearGoalComponent,
     AddEditAssumptionsComponent,
     AssemblyAssignmentsComponent,
-    AddEditAssemblyAssignmentsComponent
+    AddEditAssemblyAssignmentsComponent,
+    AssumptionsComponent,
   ],
   imports: [
     CommonModule,
@@ -53,7 +59,7 @@ import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-e
     ConfirmDialogModule,
     DialogModule,
     MenuModule,
-    NgOptimizedImage
+    NgOptimizedImage,
   ],
   providers: [
     {
@@ -64,4 +70,4 @@ import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-e
     },
   ],
 })
-export class BudgetsModule { }
+export class BudgetsModule {}
