@@ -21,6 +21,7 @@ import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import { AddEditYearGoalComponent } from './yearGoal/add-edit-year-goal/add-edit-year-goal.component';
 import { AddEditAssumptionsComponent } from './assumptions/add-edit-assumptions/add-edit-assumptions.component';
+import { AssumptionsComponent } from './assumptions/assumptions.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AddEditAssumptionsComponent } from './assumptions/add-edit-assumptions/
     BudgetsComponent,
     YearGoalComponent,
     AddEditYearGoalComponent,
-    AddEditAssumptionsComponent
+    AddEditAssumptionsComponent,
+    AssumptionsComponent,
   ],
   imports: [
     CommonModule,

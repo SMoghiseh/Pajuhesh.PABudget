@@ -1425,3 +1425,14 @@ export class YearGoal {
   id!: number;
   title!: string;
 }
+
+export class TypeCodeAssumptions {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/TypeCodeAssumptions/';
+  id!: number;
+  title!: string;
+}
+export class Assumptions {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/Assumptions/';
+  id!: number;
+  title!: string;
+}

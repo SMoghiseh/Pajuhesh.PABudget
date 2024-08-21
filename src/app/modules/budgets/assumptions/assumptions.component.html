@@ -1,10 +1,10 @@
-<p-toast key="yearGoal" position="bottom-left"></p-toast>
+<p-toast key="Assumptions" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-    <div class="table-header">اهداف سالیانه</div>
+    <div class="table-header"> مفروضات</div>
     <div>
         <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
-            (click)="addYearGoal()"></p-button>
+            (click)="addAssumptions()"></p-button>
     </div>
 </div>
 
@@ -19,25 +19,18 @@
                 </p-dropdown>
             </div>
             <div class="col-2 mt-2">
-                <label for="yearGoalCode"> کد </label>
-                <input pInputText id="yearGoalCode" name="yearGoalCode" formControlName="yearGoalCode"
-                    class="w-100 my-1" />
+                <label for="assumptionsCode"> کد </label>
+                <input pInputText id="assumptionsCode" name="assumptionsCode" formControlName="assumptionsCode"
+                    class="w-100 my-1">
             </div>
             <div class="col-2 mt-2">
-                <label for="bigGoalId"> شناسه هدف کلان </label>
-                <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="bigGoalList"
-                    [filter]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-2 mt-2">
-                <label for="title"> هدف </label>
+                <label for="title"> عنوان </label>
                 <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
             </div>
             <div class="col-2 mt-2">
-                <label for="aspectCode"> منظر</label>
-                <p-dropdown id="aspectCode" name="aspectCode" formControlName="aspectCode" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="aspectCodeList"
+                <label for="typeCode"> شناسه نوع </label>
+                <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
+                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList"
                     [filter]="true">
                 </p-dropdown>
             </div>
@@ -67,19 +60,17 @@
                 <th style="min-width: 10rem"><strong> کد </strong></th>
                 <th style="min-width: 10rem"><strong> عنوان </strong></th>
                 <th style="min-width: 10rem"><strong> شرکت </strong></th>
-                <th style="min-width: 10rem"><strong> هدف کلان </strong></th>
-                <th style="min-width: 10rem"><strong> منظر </strong></th>
+                <th style="min-width: 10rem"><strong> عنوان نوع</strong></th>
 
                 <th style="min-width: 10rem"><strong> عملیات</strong></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
             <tr>
-                <td>{{ item.yearGoalCode }}</td>
+                <td>{{ item.assumptionsCode }}</td>
                 <td>{{ item.title }}</td>
-                <td>{{ item.symbol }}</td>
-                <td>{{ item.bigGoalTitle }}</td>
-                <td>{{ item.aspectCodeTitle }}</td>
+                <td>{{ item.companyTitle }}</td>
+                <td>{{ item.typeCodeTitle }}</td>
 
 
                 <td class="jc-left ai-left">
@@ -124,11 +115,11 @@
     </ul>
 </div>
 
-<p-dialog *ngIf="isOpenAddEditYearGoal" [header]="modalTitle" [(visible)]="isOpenAddEditYearGoal" [modal]="true"
+<p-dialog *ngIf="isOpenAddEditAssumptions" [header]="modalTitle" [(visible)]="isOpenAddEditAssumptions" [modal]="true"
     [draggable]="false" [resizable]="false" [style]="{ width: '600px' }"
     [class.height-size]="mode == 'insert' || mode == 'edit'">
-    <PABudget-add-edit-year-goal [data1]="addEditData" [mode]="mode"
-        (isSuccess)="reloadData()"></PABudget-add-edit-year-goal>
+    <PABudget-add-edit-assumptions [data1]="addEditData" [mode]="mode"
+        (isSuccess)="reloadData()"></PABudget-add-edit-assumptions>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

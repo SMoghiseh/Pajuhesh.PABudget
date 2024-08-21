@@ -33,6 +33,11 @@ export class PeriodDefinitionComponent implements OnInit {
       label: ' اهداف سالیانه',
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/YearGoal'],
+    },
+    {
+      label: '  مفروضات',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/Assumptions'],
     }
   ];
   constructor(
