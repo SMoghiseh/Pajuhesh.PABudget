@@ -36,7 +36,7 @@ export class PermissionRoleAssignmentComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getRoles();
@@ -47,12 +47,14 @@ export class PermissionRoleAssignmentComponent implements OnInit {
   # Role
   --------------------------*/
   getRoles() {
-    this.httpService.post<Role[]>(Role.apiAddress, { withOutPagination: true }).subscribe(response => {
-      if (response.data.result && response.data.result.length) {
-        this.roles = response.data.result;
-        this.selectedRole = response.data.result[0];
-      }
-    });
+    this.httpService
+      .post<Role[]>(Role.apiAddress, { withOutPagination: true })
+      .subscribe(response => {
+        if (response.data.result && response.data.result.length) {
+          this.roles = response.data.result;
+          this.selectedRole = response.data.result[0];
+        }
+      });
   }
 
   /*--------------------------
@@ -83,10 +85,7 @@ export class PermissionRoleAssignmentComponent implements OnInit {
     }
   }
 
-  returnSelectedItems(
-    permissions: AllRoleDocumentTypeTree[],
-    parent = null
-  ) {
+  returnSelectedItems(permissions: AllRoleDocumentTypeTree[], parent = null) {
     permissions.forEach((p: any) => {
       if (p.hasPermission) {
         this.isExistAndPush(p);

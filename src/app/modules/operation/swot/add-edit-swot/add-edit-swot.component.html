@@ -1,0 +1,61 @@
+<p-toast key="swot" position="bottom-left"></p-toast>
+
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
+    <div class="container row">
+        <div class="col-6 mt-2">
+            <label for="planningId"> برنامه </label>
+            <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
+                [readonly]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="title"> عنوان </label>
+            <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
+                [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="swotCode"> کد </label>
+            <input pInputText id="swotCode" name="swotCode" formControlName="swotCode" class="w-100 my-1"
+                [class.ng-invalid]="swotCode?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && swotCode?.pristine) ||
+          swotCode?.dirty ||
+          swotCode?.touched
+        " />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="typeCode"> نوع </label>
+            <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList" [filter]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="swotRank"> ضریب </label>
+            <input pInputText id="swotRank" name="swotRank" formControlName="swotRank" class="w-100 my-1"
+                [class.ng-invalid]="swotRank?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && swotRank?.pristine) ||
+          swotRank?.dirty ||
+          swotRank?.touched
+        " />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="swoPriority"> اولویت </label>
+            <input pInputText id="swoPriority" name="swoPriority" formControlName="swoPriority" class="w-100 my-1"
+                [class.ng-invalid]="swoPriority?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && swoPriority?.pristine) ||
+          swoPriority?.dirty ||
+          swoPriority?.touched
+        " />
+        </div>
+
+        <div class="col-12 row-btn row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>

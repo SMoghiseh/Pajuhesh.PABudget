@@ -1,17 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import { DocumentType, DocumentTypeGroup, PeriodType, UrlBuilder } from '@shared/models/response.model';
+import {
+  DocumentType,
+  DocumentTypeGroup,
+  PeriodType,
+  UrlBuilder,
+} from '@shared/models/response.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'PABudget-add-edit-document-type-definition',
   templateUrl: './add-edit-document-type-definition.component.html',
-  styleUrls: ['./add-edit-document-type-definition.component.scss']
+  styleUrls: ['./add-edit-document-type-definition.component.scss'],
 })
 export class AddEditDocumentTypeDefinitionComponent {
-
   addNewDocumentTypeForm!: FormGroup;
   addNewDocumentTypeModel = new DocumentType();
   addNewDocumentTypeFormSubmitted = false;
@@ -63,9 +67,7 @@ export class AddEditDocumentTypeDefinitionComponent {
       documentTypeGroupId: new FormControl(
         this.addNewDocumentTypeModel.documentTypeGroupId
       ),
-      periodTypeId: new FormControl(
-        this.addNewDocumentTypeModel.periodTypeId
-      ),
+      periodTypeId: new FormControl(this.addNewDocumentTypeModel.periodTypeId),
     });
     if (this.mode === 'edit') {
       this.addNewDocumentTypeForm.patchValue(this.inputData);
@@ -75,9 +77,7 @@ export class AddEditDocumentTypeDefinitionComponent {
   getDocumentTypesTree() {
     this.loading = true;
     this.httpService
-      .get<DocumentType[]>(
-        UrlBuilder.build(DocumentType.apiAddress, 'TREE')
-      )
+      .get<DocumentType[]>(UrlBuilder.build(DocumentType.apiAddress, 'TREE'))
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
@@ -86,9 +86,7 @@ export class AddEditDocumentTypeDefinitionComponent {
           else return [new DocumentType()];
         })
       )
-      .subscribe(
-        documentTypes => (this.documentTypesTree = documentTypes)
-      );
+      .subscribe(documentTypes => (this.documentTypesTree = documentTypes));
   }
 
   getPeriodType() {
@@ -143,9 +141,10 @@ export class AddEditDocumentTypeDefinitionComponent {
               life: 8000,
               severity: 'success',
               detail: `نوع اسناد`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
 
             this.isSuccess.emit(true);
@@ -165,9 +164,7 @@ export class AddEditDocumentTypeDefinitionComponent {
     };
 
     this.httpService
-      .get<DocumentTypeGroup[]>(
-        DocumentTypeGroup.apiAddress
-      )
+      .get<DocumentTypeGroup[]>(DocumentTypeGroup.apiAddress)
       .pipe(
         map(response => {
           if (response.data && response.data.result)

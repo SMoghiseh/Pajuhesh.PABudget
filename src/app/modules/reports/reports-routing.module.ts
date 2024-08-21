@@ -5,6 +5,9 @@ import { ReportsComponent } from './reports.component';
 import { AccountReportComponent } from './account-report/account-report.component';
 import { AccountReportItemPriceComponent } from './account-report-item-price/account-report-item-price.component';
 import { AccountReportToItemComponent } from './account-report-to-item/account-report-to-item.component';
+import { AccountReportItemComponent } from './account-report-item/account-report-item.component';
+import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
+import { AggregateComponent } from './aggregate/aggregate.component';
 
 const routes: Routes = [
   {
@@ -54,15 +57,41 @@ const routes: Routes = [
               title: ' ',
               animation: 'SubjectDefinitionPage',
             },
-          }
+          },
+          {
+            path: 'AccountReportItem',
+            component: AccountReportItemComponent,
+            title: 'برنامه و بودجه |  آیتم های گزارشات مالی ',
+            data: {
+              reuse: true,
+              title: ' ',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'FinancialStatementsReport',
+            component: FinancialStatementsReportComponent,
+            title: 'برنامه و بودجه |  گزارش صورت وضعیت مالی ',
+          },
+          {
+            path: 'AggregateCreate/:id',
+            component: AggregateComponent,
+            title: 'برنامه و بودجه | گزارش ',
+            data: {
+              reuse: true,
+              title: ' ',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+
         ],
       },
     ],
   },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ReportsRoutingModule { }

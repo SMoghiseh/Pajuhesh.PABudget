@@ -1,0 +1,107 @@
+<p-toast key="manager" position="bottom-left"></p-toast>
+
+<div class="pb-2">
+  <div class="table-header">لیست مدیران ارشد</div>
+  <div class="d-flex justify-content-between pb-3 w-100">
+    <!-- / نام شرکت -->
+    <div class="col-4">
+      <label for="companyName"> شرکت </label>
+      <p-dropdown
+        id="companyName"
+        class="col"
+        styleClass="w-100"
+        optionLabel="partyName"
+        [options]="companyList"
+        placeholder="انتخاب کنید"
+        [(ngModel)]="selectedCompany"
+        (onChange)="onCompanySelected($event)">
+      </p-dropdown>
+    </div>
+    <!-- دکمه -->
+    <p-button
+      class="pe-2 mt-4"
+      styleClass="p-button-info"
+      icon="pi pi-plus-circle"
+      label="افزودن  مدیر ارشد جدید"
+      (click)="addManager()"></p-button>
+    <!-- / دکمه -->
+  </div>
+  <!-- </p-panel> -->
+</div>
+
+<div class="table-container">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getManagerList($event)"
+    [(first)]="first">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <th><strong> سمت</strong></th>
+        <th><strong> نام</strong></th>
+        <th><strong> نام خانوادگی</strong></th>
+        <th><strong> تاریخ انتصاب </strong></th>
+        <th><strong> تاریخ صورتجلسه </strong></th>
+        <th><strong> شماره صورتجلسه </strong></th>
+        <th><strong> عملیات </strong></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-manager let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ manager.managerTypeTitle }}</td>
+        <td>{{ manager.name }}</td>
+        <td>{{ manager.lastName }}</td>
+        <td>{{ manager.registerDate }}</td>
+        <td>{{ manager.meetingManagementDate }}</td>
+        <td>{{ manager.meetingManagmentNumber }}</td>
+
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(manager)"
+            pTooltip="ویرایش  ">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
+
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(manager)"
+            pTooltip="حذف  ">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  *ngIf="isOpenAddEditManager"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditManager"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [class.height-size]="mode === 'insert' || mode === 'edit'"
+  [style]="{ width: '800px', height: '400px' }">
+  <PABudget-add-edit-senior-managers
+    [data1]="addEditData"
+    [data2]="selectedCompany"
+    [mode]="mode"
+    (isSuccess)="reloadData()"
+    (isCloseModal)="closeModal()"></PABudget-add-edit-senior-managers>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

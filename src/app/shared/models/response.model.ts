@@ -503,6 +503,8 @@ export class Company {
   static readonly apiAddressSubCompanies =
     'api/PABudgetApi/v1/Company/SubCompanies/';
   static readonly apiAddressDetailCo = 'api/PABudgetApi/v1/Company/';
+  static readonly apiAddressUserCompany =
+    'api/PABudgetApi/v1/Company/UserCompany/';
 
   static readonly apiAddressReportParentCo =
     'api/PABudgetApi/Dashboard/ReportParentCompany';
@@ -576,6 +578,7 @@ export class Company {
   companyInspectionInstituteTitle!: string;
   companyManagerName!: string;
   registerDatePc!: any;
+
 }
 
 export class ProductGroup {
@@ -1220,6 +1223,53 @@ export class Plan {
   static readonly apiAddressInformations =
     'api/PABudgetApi/Dashboard/Informations/Info';
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/';
+}
+
+export class Planning {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Planning/';
+  id!: number;
+  planingCode!: number;
+  title!: string;
+  planingDate!: string;
+  companyId!: number;
+  meetingId!: number;
+  startDate!: string;
+  endDate!: string;
+}
+export class PlanningValue {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/PlanningValue/';
+  id!: number;
+  planingCode!: number;
+  title!: string;
+  planingDate!: string;
+  companyId!: number;
+  meetingId!: number;
+  startDate!: string;
+  endDate!: string;
+}
+export class Vision {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Vision/';
+  id!: number;
+  planningId!: number;
+  title!: string;
+  visionCode!: string;
+  keyTypeCode!: number;
+  planningValueId!: number;
+}
+export class Mission {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Mission/';
+  id!: number;
+  planningId!: number;
+  title!: string;
+  missionCode!: string;
+  typeCode!: number;
+}
+
+export class KeyTypecode {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';
+  id!: number;
+  title!: string;
 }
 
 export class Budget {
@@ -1264,6 +1314,7 @@ export class AccountReportItemPrice {
   fromPeriodDetailId!: number;
   fromPeriodDetailTitle!: string;
   toPeriodDetailId!: number;
+  accountRepId!: number;
   toPeriodDetailTitle!: string;
 }
 
@@ -1281,17 +1332,96 @@ export class AccountReportItem {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';
 }
 
+export class FinancialStatementsReport {
+  static readonly apiAddress =
+    'api/PABudgetApi/Report/GetFinancialStatementsReport/';
+  periodCode!: number;
+  priceCu!: number;
+  title!: string;
+}
+
 export class AccountReport {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
   static readonly apiAddressList =
     'api/PABudgetApi/v1/AccountReport/GetAllAccountReport';
+  static readonly apiAddressTree = 'api/PABudgetApi/v1/AccountReportItem/Tree';
+  static readonly apiAddressItemCreate =
+    'api/PABudgetApi/v1/AccountReportToItem/create';
+  static readonly apiAddressDragDrop =
+    'api/PABudgetApi/v1/AccountReportToItem/GetAccountRepToItemListByOrder';
+  static readonly apiAddressDragDropUpdate =
+    'api/PABudgetApi/v1/AccountReportToItem/UpdateOrder';
+
   id!: number;
   code!: string;
   title!: string;
   reportTypeCode!: number;
   periodTypeCode!: number;
+  accountRepId!: number;
+  accountRepItemId!: number;
+  companyId!: number;
+  accountReportId!: number;
+  isUsedInAccountReportToItem!: boolean;
+  accountRepItemTitle!: string;
+  accountRepTitle!: string;
+  upId!: number;
+  subId!: number;
 }
 
 export class PermissionProfile {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PermissionProfile/';
+}
+
+export class CompanyManager {
+  static readonly apiAddress = 'api/PABudgetApi/v1/CompanyManager/';
+  id!: number;
+  companyId!: number;
+  companyTitle!: string;
+  personId!: number;
+  registerDate!: string;
+  dismissalDate!: string;
+  meetingManagmentNumber!: string;
+  meetingManagementDate!: string;
+  managerTypeId!: number;
+  managerTypeTitle!: string;
+  name!: string;
+  lastName!: string;
+}
+
+export class ManagerType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ManagerType/';
+}
+
+export class Persons {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/GetPerson';
+}
+
+export class Aspect {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AspectCode/';
+}
+
+export class BigGoal {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/BigGoal/';
+  id!: number;
+  visionId!: number;
+  title!: string;
+  bigGoalCode!: string;
+  aspectCode!: number;
+}
+
+export class SWTO {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/SWTO/';
+  id!: number;
+  title!: string;
+}
+
+export class STRATEGY {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/Strategy/';
+  id!: number;
+  title!: string;
+}
+export class YearGoal {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearGoal/';
+  id!: number;
+  title!: string;
 }

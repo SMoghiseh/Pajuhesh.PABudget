@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, IMAGE_LOADER, ImageLoaderConfig, NgOptimizedImage } from '@angular/common';
+import {
+  CommonModule,
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+  NgOptimizedImage,
+} from '@angular/common';
 
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from '@shared/shared.module';
@@ -18,8 +22,15 @@ import { AccountReportItemPriceComponent } from './account-report-item-price/acc
 import { AddEditAccountReportItemPriceComponent } from './account-report-item-price/add-edit-account-report/add-edit-account-report-item-price.component';
 import { AccountReportToItemComponent } from './account-report-to-item/account-report-to-item.component';
 import { AddEditAccountReportToItemComponent } from './account-report-to-item/add-edit-account-report-to-item/add-edit-account-report-to-item.component';
-
-
+import { AccountReportItemComponent } from './account-report-item/account-report-item.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeModule } from 'primeng/tree';
+import { PickListModule } from 'primeng/picklist';
+import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
+import { AggregateComponent } from './aggregate/aggregate.component';
+import { PaginatorModule } from 'primeng/paginator';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -28,7 +39,10 @@ import { AddEditAccountReportToItemComponent } from './account-report-to-item/ad
     AccountReportItemPriceComponent,
     AddEditAccountReportItemPriceComponent,
     AccountReportToItemComponent,
-    AddEditAccountReportToItemComponent
+    AddEditAccountReportToItemComponent,
+    AccountReportItemComponent,
+    FinancialStatementsReportComponent,
+    AggregateComponent
   ],
   imports: [
     CommonModule,
@@ -42,9 +56,13 @@ import { AddEditAccountReportToItemComponent } from './account-report-to-item/ad
     DialogModule,
     ConfirmDialogModule,
     ToastModule,
-    DropdownModule,
     NgOptimizedImage,
-    InputNumberModule
+    InputNumberModule,
+    InputTextareaModule,
+    TreeModule,
+    TreeSelectModule,
+    PickListModule,
+    PaginatorModule
   ],
   providers: [
     {

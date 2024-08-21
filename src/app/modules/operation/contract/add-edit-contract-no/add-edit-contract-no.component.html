@@ -1,5 +1,5 @@
 <form #formDir="ngForm" [formGroup]="addEditContractNoForm" (ngSubmit)="addEditContractNo()">
-  <div class="row">
+  <div class="container row">
     <div class="col-6 mt-2">
       <label for="contractCode">شماره قرارداد</label>
       <input pInputText pKeyFilter="int" id="contractCode" name="contractCode" formControlName="contractCode"
@@ -47,7 +47,7 @@
       <input pInputText pKeyFilter="int" id="contractPriceCu" name="contractPriceCu" formControlName="contractPriceCu"
         type="text" class="w-100" />
     </div>
-    <div class="col-12 row-btn">
+    <div class="col-12 row-btn row-btn-fixed-bottom">
       <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
         (click)="closeModal()"></p-button>
       <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"

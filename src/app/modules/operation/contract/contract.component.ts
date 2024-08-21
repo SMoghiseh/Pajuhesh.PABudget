@@ -180,7 +180,7 @@ export class ContractComponent implements OnInit {
   deleteRow(contractNo: ContractNo) {
     if (contractNo && contractNo.id)
       this.confirmationService.confirm({
-        message: 'آیا از حذف  قرارداد اطمینان دارید؟',
+        message: `آیا از حذف "${contractNo.id} " اطمینان دارید؟`,
         header: `قرارداد ${contractNo.id}`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
