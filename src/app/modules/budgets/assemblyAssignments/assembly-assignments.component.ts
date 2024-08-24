@@ -37,6 +37,13 @@ export class AssemblyAssignmentsComponent {
   loading = false;
   first = 0;
   data: AssemblyAssignments[] = [];
+  subComponentList = [
+    {
+      label: 'مفاد ',
+      icon: 'pi pi-fw pi-plus',
+      routerLink: ['/Operation/YearUnionDetail'],
+    },
+  ];
 
   isOpenAddEditAssemblyAssignment = false;
   constructor(
@@ -177,5 +184,12 @@ export class AssemblyAssignmentsComponent {
   clearSearch() {
     this.searchForm.reset();
     this.getAssemblyAssignmentList();
+  }
+  // Set PlanningId On Active Component Route
+  setActiveComponentRoute(item: AssemblyAssignments) { debugger
+    this.subComponentList.forEach((componentInfo: any) => {
+      componentInfo['routerLink'][0] =
+        componentInfo['routerLink'][0] + '/' + item.id;
+    });
   }
 }

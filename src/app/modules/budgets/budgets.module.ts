@@ -29,6 +29,8 @@ import { AddEditAssumptionsComponent } from './assumptions/add-edit-assumptions/
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-edit-assembly-assignments/add-edit-assembly-assignments.component';
 import { AssumptionsComponent } from './assumptions/assumptions.component';
+import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/assembly-assignments-details.component';
+import { AddEditAssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/add-edit-assembly-assignments-details/add-edit-assembly-assignments-details.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AssumptionsComponent } from './assumptions/assumptions.component';
     AssemblyAssignmentsComponent,
     AddEditAssemblyAssignmentsComponent,
     AssumptionsComponent,
+    AssemblyAssignmentsDetailsComponent,
+    AddEditAssemblyAssignmentsDetailsComponent,
   ],
   imports: [
     CommonModule,

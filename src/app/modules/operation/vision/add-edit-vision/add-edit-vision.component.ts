@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Vision, KeyTypecode, Planning, PlanningValue } from '@shared/models/response.model';
+import {
+  Vision,
+  KeyTypecode,
+  Planning,
+  PlanningValue,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -9,10 +14,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-vision',
   templateUrl: './add-edit-vision.component.html',
-  styleUrls: ['./add-edit-vision.component.scss']
+  styleUrls: ['./add-edit-vision.component.scss'],
 })
 export class AddEditVisionComponent {
-
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -22,8 +26,6 @@ export class AddEditVisionComponent {
   planningValueList: any = [];
   planingList: any = [];
   KeyTypeList: any = [];
-
-
 
   inputData = new Vision();
   @Input() mode = '';
@@ -52,16 +54,13 @@ export class AddEditVisionComponent {
     return this.addEditForm.get('keyTypeCode');
   }
 
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getPlaningList();
     this.getplanningValueLst();
     this.getkeyTypeCodeLst();
@@ -79,8 +78,8 @@ export class AddEditVisionComponent {
     }
 
     this.addEditForm.patchValue({
-      planningId: Number(this.route.snapshot.paramMap.get('id'))
-    })
+      planningId: Number(this.route.snapshot.paramMap.get('id')),
+    });
   }
 
   addEditPlan() {
@@ -88,8 +87,10 @@ export class AddEditVisionComponent {
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url = this.mode === 'insert' ? Vision.apiAddress + 'Create' :
-        Vision.apiAddress + 'Update';
+      const url =
+        this.mode === 'insert'
+          ? Vision.apiAddress + 'Create'
+          : Vision.apiAddress + 'Update';
 
       this.isLoadingSubmit = true;
       this.httpService
@@ -102,9 +103,10 @@ export class AddEditVisionComponent {
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -114,7 +116,9 @@ export class AddEditVisionComponent {
 
   getplanningValueLst() {
     this.httpService
-      .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', { 'withOutPagination': true })
+      .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.planningValueList = response.data.result;
@@ -124,7 +128,9 @@ export class AddEditVisionComponent {
 
   getPlaningList() {
     this.httpService
-      .post<Planning[]>(Planning.apiAddress + 'List', { "withOutPagination": true })
+      .post<Planning[]>(Planning.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.planingList = response.data.result;
@@ -152,10 +158,4 @@ export class AddEditVisionComponent {
         }
       });
   }
-
-
-
-
-
 }
-

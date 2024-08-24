@@ -6,6 +6,7 @@ import { YearGoalComponent } from './yearGoal/year-goal.component';
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 
 import { AssumptionsComponent } from './assumptions/assumptions.component';
+import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/assembly-assignments-details.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
             path: 'Assumptions/:id',
             component: AssumptionsComponent,
             title: 'برنامه و بودجه | مفروضات',
+          },
+          {
+            path: 'YearUnionDetail',
+            component: AssemblyAssignmentsDetailsComponent,
+            title: 'برنامه و بودجه | مفاد',
           },
         ],
       },
