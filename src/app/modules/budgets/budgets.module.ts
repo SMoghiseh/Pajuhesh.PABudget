@@ -32,6 +32,8 @@ import { AssumptionsComponent } from './assumptions/assumptions.component';
 import { YearActivityComponent } from './year-activity/year-activity.component';
 import { AddEditYearActivityComponent } from './year-activity/add-edit-year-activity/add-edit-year-activity.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/assembly-assignments-details.component';
+import { AddEditAssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/add-edit-assembly-assignments-details/add-edit-assembly-assignments-details.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     AssumptionsComponent,
     YearActivityComponent,
     AddEditYearActivityComponent,
+    AssemblyAssignmentsDetailsComponent,
+    AddEditAssemblyAssignmentsDetailsComponent,
   ],
   imports: [
     CommonModule,

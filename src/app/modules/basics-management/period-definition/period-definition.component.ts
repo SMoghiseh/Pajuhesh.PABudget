@@ -44,6 +44,7 @@ export class PeriodDefinitionComponent implements OnInit {
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/Assumptions'],
     },
+
   ];
   constructor(
     private httpService: HttpService,

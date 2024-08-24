@@ -1,0 +1,56 @@
+<p-toast
+  key="addEditAssemblyAssignmentDetails"
+  position="bottom-left"></p-toast>
+
+<form
+  #formDir="ngForm"
+  [formGroup]="addEditForm"
+  (ngSubmit)="addEditAssemblyAssignmentDetails()">
+  <div class="container row">
+    <!-- <div class="col-6 mt-2">
+      <label for="yearUnionId">  تکالیف مجمع </label>
+      <div class="col-6 mt-2">
+        <input
+          pInputText
+          id="yearUnionId"
+          name="yearUnionId"
+          formControlName="yearUnionId"
+          class="w-100 my-1" />
+      </div>
+    </div> -->
+    <div class="col-6 mt-2">
+      <label for="typeCode"> نوع مفاد </label>
+      <p-dropdown
+        id="typeCode"
+        name="typeCode"
+        formControlName="typeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="TypeCodeList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+
+    <div class="col-12 mt-2">
+      <label for="title"> شرح </label>
+      <textarea
+        pInputTextarea
+        id="title"
+        name="title"
+        formControlName="title"
+        class="w-100 my-1"
+        rows="3"
+        cols="10"></textarea>
+    </div>
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>

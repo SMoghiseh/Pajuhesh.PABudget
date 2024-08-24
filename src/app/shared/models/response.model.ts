@@ -1275,6 +1275,9 @@ export class AssemblyAssignments {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearUnion/';
   static apiAddressMeetingTopic =
     'api/PABudgetApi/v1/BaseInfo/YearUnionMeetingTopic/';
+  static apiAddressTypeCode =
+    'api/PABudgetApi/v1/BaseInfo/UnionDetail/TypeCode/';
+  static apiAddressDetails = 'api/PABudgetApi/v1/BudgetPeriod/YearUnionDetail/';
 
   id!: number;
   budgetPeriodId!: number;
@@ -1440,7 +1443,8 @@ export class YearGoal {
 }
 
 export class TypeCodeAssumptions {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/TypeCodeAssumptions/';
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/TypeCodeAssumptions/';
   id!: number;
   title!: string;
 }

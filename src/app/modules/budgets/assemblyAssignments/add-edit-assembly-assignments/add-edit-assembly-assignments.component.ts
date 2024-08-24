@@ -72,7 +72,7 @@ export class AddEditAssemblyAssignmentsComponent {
     }
   }
 
-  getRowData(id: number) {
+  getRowData(id: number) { debugger
     this.httpService
       .get<any>(AssemblyAssignments.apiAddress + id)
       .subscribe(response => {
