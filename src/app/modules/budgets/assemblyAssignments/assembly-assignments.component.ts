@@ -81,7 +81,7 @@ export class AssemblyAssignmentsComponent {
       });
   }
 
-  getAssemblyAssignmentList(event?: LazyLoadEvent) { debugger
+  getAssemblyAssignmentList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -122,7 +122,7 @@ export class AssemblyAssignmentsComponent {
     this.mode = 'insert';
     this.isOpenAddEditAssemblyAssignment = true;
   }
-  editRow(data: AssemblyAssignments) { debugger
+  editRow(data: AssemblyAssignments) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
@@ -186,7 +186,7 @@ export class AssemblyAssignmentsComponent {
     this.getAssemblyAssignmentList();
   }
   // Set PlanningId On Active Component Route
-  setActiveComponentRoute(item: AssemblyAssignments) { debugger
+  setActiveComponentRoute(item: AssemblyAssignments) {
     this.subComponentList.forEach((componentInfo: any) => {
       componentInfo['routerLink'][0] =
         componentInfo['routerLink'][0] + '/' + item.id;

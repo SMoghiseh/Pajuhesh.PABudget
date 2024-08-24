@@ -48,7 +48,6 @@ export class AssemblyAssignmentsDetailsComponent {
 
   ngOnInit(): void {
     this.getTypeCodeList();
-    debugger;
     this.searchForm = new FormGroup({
       yearUnionId: new FormControl(),
       typeCode: new FormControl(null),
@@ -56,7 +55,6 @@ export class AssemblyAssignmentsDetailsComponent {
     });
 
     this.route.params.subscribe((param: any) => {
-      debugger;
       if (param.id) {
         this.searchForm.patchValue({
           yearUnionId: param.id,
@@ -72,15 +70,12 @@ export class AssemblyAssignmentsDetailsComponent {
   }
 
   editRow(data: AssemblyAssignments) {
-    debugger;
-
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditAssemblyAssignmentsDetails = true;
   }
   deleteRow(item: AssemblyAssignments) {
-    debugger;
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -112,7 +107,6 @@ export class AssemblyAssignmentsDetailsComponent {
       });
   }
   getRowData(id: number) {
-    debugger;
     this.httpService
       .get<any>(AssemblyAssignments.apiAddress + id)
       .subscribe(response => {
@@ -124,7 +118,6 @@ export class AssemblyAssignmentsDetailsComponent {
   }
 
   deleteAssemblyAssignmentsDetails(id: number, title: string) {
-    debugger;
     if (id && title) {
       this.httpService
         .get<AssemblyAssignments>(
@@ -149,7 +142,6 @@ export class AssemblyAssignmentsDetailsComponent {
     }
   }
   getAssemblyAssignmentsDetails(event?: LazyLoadEvent) {
-    debugger;
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -184,7 +176,6 @@ export class AssemblyAssignmentsDetailsComponent {
       .subscribe(res => (this.data = res));
   }
   reloadData() {
-    debugger;
     this.isOpenAddEditAssemblyAssignmentsDetails = false;
     this.getAssemblyAssignmentsDetails();
   }

@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearGoal, Aspect, BigGoal, Company
+  UrlBuilder,
+  YearGoal,
+  Aspect,
+  BigGoal,
+  Company,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -45,7 +49,7 @@ export class YearGoalComponent {
       label: ' برنامه عملیاتی ',
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/YearActivity'],
-    }
+    },
   ];
 
   constructor(
@@ -53,10 +57,9 @@ export class YearGoalComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getAspectCodeLst();
     this.getCompanyLst();
     this.getBigGoalList();
@@ -66,11 +69,9 @@ export class YearGoalComponent {
       yearGoalCode: new FormControl(null),
       companyId: new FormControl(null),
       bigGoalId: new FormControl(null),
-      aspectCode: new FormControl(null)
+      aspectCode: new FormControl(null),
     });
-
   }
-
 
   getCompanyLst() {
     this.httpService
@@ -85,7 +86,7 @@ export class YearGoalComponent {
   getBigGoalList() {
     this.httpService
       .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
-        withOutPagination: true
+        withOutPagination: true,
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -103,7 +104,6 @@ export class YearGoalComponent {
         }
       });
   }
-
 
   getList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -202,15 +202,15 @@ export class YearGoalComponent {
   }
 
   setActiveComponentRoute(item: YearGoal) {
-    debugger
     this.subComponentList.forEach((componentInfo: any) => {
       componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] + '/'
+        componentInfo['routerLink'][0] +
+        '/' +
         // budgetPeriodId
-        + Number(this.route.snapshot.paramMap.get('id'))
-        + '/' +
+        Number(this.route.snapshot.paramMap.get('id')) +
+        '/' +
         // yearGoalId
-        + item.id;
+        +item.id;
     });
   }
 }

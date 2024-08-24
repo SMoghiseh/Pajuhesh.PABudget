@@ -35,20 +35,17 @@ export class AddEditAssemblyAssignmentsDetailsComponent {
     });
 
     if (this.mode === 'edit') {
-      debugger;
       this.getRowData(this.inputData.id);
     }
     this.route.params.subscribe((param: any) => {
       if (param.id) {
         this.addEditForm.patchValue({
           yearUnionId: param.id,
-         
         });
       }
     });
   }
   getRowData(id: number) {
-    debugger;
     this.httpService
       .get<any>(AssemblyAssignments.apiAddressDetails + id)
       .subscribe(response => {
@@ -74,7 +71,6 @@ export class AddEditAssemblyAssignmentsDetailsComponent {
   }
 
   addEditAssemblyAssignmentDetails() {
-    debugger;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
