@@ -41,7 +41,7 @@ export class AssemblyAssignmentsComponent {
     {
       label: 'مفاد ',
       icon: 'pi pi-fw pi-plus',
-      routerLink: ['/Operation/YearUnionDetail'],
+      routerLink: ['/Period/YearUnionDetail'],
     },
   ];
 
@@ -81,7 +81,7 @@ export class AssemblyAssignmentsComponent {
       });
   }
 
-  getAssemblyAssignmentList(event?: LazyLoadEvent) {
+  getAssemblyAssignmentList(event?: LazyLoadEvent) { debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -122,7 +122,7 @@ export class AssemblyAssignmentsComponent {
     this.mode = 'insert';
     this.isOpenAddEditAssemblyAssignment = true;
   }
-  editRow(data: AssemblyAssignments) {
+  editRow(data: AssemblyAssignments) { debugger
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';

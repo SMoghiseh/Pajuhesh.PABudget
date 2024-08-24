@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
   AssemblyAssignments,
@@ -17,6 +18,7 @@ import { map, tap } from 'rxjs';
   selector: 'PABudget-assembly-assignments-details',
   templateUrl: './assembly-assignments-details.component.html',
   styleUrls: ['./assembly-assignments-details.component.scss'],
+  providers: [ConfirmationService],
 })
 export class AssemblyAssignmentsDetailsComponent {
   gridClass = 'p-datatable-sm';
@@ -31,23 +33,35 @@ export class AssemblyAssignmentsDetailsComponent {
   addEditData = new AssemblyAssignments();
   pId!: string;
   mode!: string;
+  inputData = new AssemblyAssignments();
   isOpenAddEditAssemblyAssignmentsDetails = false;
-  MeetingTopicList: any = [];
+  TypeCodeList: any = [];
   // form property
   searchForm!: FormGroup;
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.getTypeCodeList();
     debugger;
     this.searchForm = new FormGroup({
-      yearUnionId: new FormControl(null),
+      yearUnionId: new FormControl(),
       typeCode: new FormControl(null),
       title: new FormControl(null),
+    });
+
+    this.route.params.subscribe((param: any) => {
+      debugger;
+      if (param.id) {
+        this.searchForm.patchValue({
+          yearUnionId: param.id,
+        });
+      }
     });
   }
 
@@ -58,12 +72,15 @@ export class AssemblyAssignmentsDetailsComponent {
   }
 
   editRow(data: AssemblyAssignments) {
+    debugger;
+
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
-    this.isOpenAddEditPlan = true;
+    this.isOpenAddEditAssemblyAssignmentsDetails = true;
   }
   deleteRow(item: AssemblyAssignments) {
+    debugger;
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -80,35 +97,50 @@ export class AssemblyAssignmentsDetailsComponent {
       });
   }
 
-  getMeetingTopicList() {
+  getTypeCodeList() {
     this.httpService
       .get<AssemblyAssignments[]>(
-        AssemblyAssignments.apiAddressMeetingTopic + 'List',
+        AssemblyAssignments.apiAddressTypeCode + 'List',
         {
           withOutPagination: true,
         }
       )
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.MeetingTopicList = response.data.result;
+          this.TypeCodeList = response.data.result;
         }
       });
   }
+  getRowData(id: number) {
+    debugger;
+    this.httpService
+      .get<any>(AssemblyAssignments.apiAddress + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.inputData = response.data.result;
+          this.searchForm.patchValue(response.data.result);
+        }
+      });
+  }
+
   deleteAssemblyAssignmentsDetails(id: number, title: string) {
+    debugger;
     if (id && title) {
       this.httpService
         .get<AssemblyAssignments>(
-          UrlBuilder.build(AssemblyAssignments.apiAddress + 'Delete', '') +
-            `/${id}`
+          UrlBuilder.build(
+            AssemblyAssignments.apiAddressDetails + 'Delete',
+            ''
+          ) + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'vision',
+              key: 'assemblyAssignmentDetails',
               life: 8000,
               severity: 'success',
-              detail: ` چشم انداز  ${title}`,
+              detail: ` مفاد  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
             this.getAssemblyAssignmentsDetails();
@@ -117,6 +149,7 @@ export class AssemblyAssignmentsDetailsComponent {
     }
   }
   getAssemblyAssignmentsDetails(event?: LazyLoadEvent) {
+    debugger;
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -134,7 +167,7 @@ export class AssemblyAssignmentsDetailsComponent {
     };
 
     this.first = 0;
-    const url = AssemblyAssignments.apiAddress + 'List';
+    const url = AssemblyAssignments.apiAddressDetails + 'List';
     this.httpService
       .post<AssemblyAssignments[]>(url, body)
 
@@ -151,7 +184,8 @@ export class AssemblyAssignmentsDetailsComponent {
       .subscribe(res => (this.data = res));
   }
   reloadData() {
-    this.isOpenAddEditPlan = false;
+    debugger;
+    this.isOpenAddEditAssemblyAssignmentsDetails = false;
     this.getAssemblyAssignmentsDetails();
   }
   clearSearch() {

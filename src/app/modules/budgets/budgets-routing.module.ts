@@ -33,7 +33,7 @@ const routes: Routes = [
             title: 'برنامه و بودجه | مفروضات',
           },
           {
-            path: 'YearUnionDetail',
+            path: 'YearUnionDetail/:id',
             component: AssemblyAssignmentsDetailsComponent,
             title: 'برنامه و بودجه | مفاد',
           },

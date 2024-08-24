@@ -1,4 +1,4 @@
-<p-toast key="vision" position="bottom-left"></p-toast>
+<p-toast key="assemblyAssignmentDetails" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
   <div class="table-header">مفاد</div>
@@ -15,17 +15,8 @@
 <div class="panel-search mt-8 mb-8">
   <form #formDir="ngForm" [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
-      <div class="col-2 mt-2">
-        <label for="yearUnionId"> آیدی تکالیف مجمع </label>
-        <input
-          pInputText
-          id="yearUnionId"
-          name="yearUnionId"
-          formControlName="yearUnionId"
-          class="w-100 my-1" />
-      </div>
       <div class="col-3 mt-2">
-        <label for="typeCode">نوع نوع مفاد </label>
+        <label for="typeCode"> نوع مفاد </label>
         <p-dropdown
           id="typeCode"
           name="typeCode"
@@ -34,7 +25,7 @@
           optionLabel="title"
           optionValue="id"
           placeholder="انتخاب کنید"
-          [options]="MeetingTopicList"
+          [options]="TypeCodeList"
           [filter]="true">
         </p-dropdown>
       </div>
@@ -44,7 +35,7 @@
           pInputText
           id="title"
           name="title"
-          formControlName="yearUnionId"
+          formControlName="title"
           class="w-100 my-1" />
       </div>
       <!-- دکمه -->
@@ -87,22 +78,18 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <th style="min-width: 10rem"><strong> کد </strong></th>
-        <th style="min-width: 10rem"><strong> عنوان </strong></th>
-        <th style="min-width: 10rem"><strong> برنامه </strong></th>
-        <th style="min-width: 10rem"><strong> کلیدواژه </strong></th>
-        <th style="min-width: 10rem"><strong> ارزش </strong></th>
+        <th style="min-width: 10rem"><strong>  تکالیف مجمع </strong></th>
+        <th style="min-width: 10rem"><strong> نوع مفاد </strong></th>
+        <th style="min-width: 10rem"><strong> شرح </strong></th>
 
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.visionCode }}</td>
         <td>{{ item.title }}</td>
-        <td>{{ item.planningTitle }}</td>
-        <td>{{ item.keyTypeTitle }}</td>
-        <td>{{ item.planningValueTitle }}</td>
+        <td>{{ item.typeCodeTitle }}</td>
+        <td>{{ item.title }}</td>
 
         <td class="jc-left ai-left">
           <button
@@ -158,9 +145,9 @@
 </div>
 
 <p-dialog
-  *ngIf="isOpenAddEditPlan"
+  *ngIf="isOpenAddEditAssemblyAssignmentsDetails"
   [header]="modalTitle"
-  [(visible)]="isOpenAddEditPlan"
+  [(visible)]="isOpenAddEditAssemblyAssignmentsDetails"
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
