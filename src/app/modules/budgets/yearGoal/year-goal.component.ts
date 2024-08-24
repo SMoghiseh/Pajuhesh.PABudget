@@ -11,6 +11,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-year-goal',
@@ -39,13 +40,20 @@ export class YearGoalComponent {
   aspectCodeList: any = [];
   companyList: any = [];
   bigGoalList: any = [];
-
+  subComponentList = [
+    {
+      label: ' برنامه عملیاتی ',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/YearActivity'],
+    }
+  ];
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
 
@@ -191,5 +199,18 @@ export class YearGoalComponent {
   clearSearch() {
     this.searchForm.reset();
     this.getList();
+  }
+
+  setActiveComponentRoute(item: YearGoal) {
+    debugger
+    this.subComponentList.forEach((componentInfo: any) => {
+      componentInfo['routerLink'][0] =
+        componentInfo['routerLink'][0] + '/'
+        // budgetPeriodId
+        + Number(this.route.snapshot.paramMap.get('id'))
+        + '/' +
+        // yearGoalId
+        + item.id;
+    });
   }
 }

@@ -29,6 +29,9 @@ import { AddEditAssumptionsComponent } from './assumptions/add-edit-assumptions/
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-edit-assembly-assignments/add-edit-assembly-assignments.component';
 import { AssumptionsComponent } from './assumptions/assumptions.component';
+import { YearActivityComponent } from './year-activity/year-activity.component';
+import { AddEditYearActivityComponent } from './year-activity/add-edit-year-activity/add-edit-year-activity.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ import { AssumptionsComponent } from './assumptions/assumptions.component';
     AssemblyAssignmentsComponent,
     AddEditAssemblyAssignmentsComponent,
     AssumptionsComponent,
+    YearActivityComponent,
+    AddEditYearActivityComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +65,7 @@ import { AssumptionsComponent } from './assumptions/assumptions.component';
     DialogModule,
     MenuModule,
     NgOptimizedImage,
+    InputNumberModule
   ],
   providers: [
     {
@@ -70,4 +76,4 @@ import { AssumptionsComponent } from './assumptions/assumptions.component';
     },
   ],
 })
-export class BudgetsModule {}
+export class BudgetsModule { }

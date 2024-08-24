@@ -1,0 +1,144 @@
+<p-toast key="yearGoal" position="bottom-left"></p-toast>
+
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
+    <div class="container row">
+        <div class="col-4">
+            <label for="budgetPeriodId"> دوره </label>
+            <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId"
+                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
+                [options]="budgetPeriodList" [filter]="true" [readonly]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-4">
+            <label for="yearGoalId"> هدف سالیانه </label>
+            <p-dropdown id="yearGoalId" name="yearGoalId" formControlName="yearGoalId" styleClass="w-100 my-1"
+                [readonly]="true" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+                [options]="yearGoalList" [filter]="true">
+            </p-dropdown>
+        </div>
+        <!--  دوره عملیاتی -->
+        <div class="col-4">
+            <label for="fromPeriodDetailId"> از دوره عملیاتی </label>
+            <p-dropdown id="fromPeriodDetailId" name="fromPeriodDetailId" formControlName="fromPeriodDetailId"
+                styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
+                [options]="periodDetailList" [filter]="true" [class.ng-invalid]="fromPeriodDetailId?.invalid"
+                [class.ng-dirty]="
+                (addEditFormSubmitted && fromPeriodDetailId?.pristine) ||
+                fromPeriodDetailId?.dirty ||
+                fromPeriodDetailId?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <div class="col-4">
+            <label for="toPeriodDetailId">تا دوره عملیاتی </label>
+            <p-dropdown id="toPeriodDetailId" name="toPeriodDetailId" formControlName="toPeriodDetailId"
+                styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
+                [options]="periodDetailList" [filter]="true" [class.ng-invalid]="toPeriodDetailId?.invalid"
+                [class.ng-dirty]="
+                (addEditFormSubmitted && toPeriodDetailId?.pristine) ||
+                toPeriodDetailId?.dirty ||
+                toPeriodDetailId?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <!--  دوره عملیاتی -->
+
+        <div class="col-4">
+            <label for="rollId"> مسئول</label>
+            <p-dropdown id="rollId" name="rollId" formControlName="rollId" styleClass="w-100 my-1" optionLabel="title"
+                optionValue="id" placeholder="انتخاب کنید" [options]="rollList" [filter]="true"
+                [class.ng-invalid]="rollId?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && rollId?.pristine) ||
+                rollId?.dirty ||
+                rollId?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <div class="col-4">
+            <label for="operatingId"> شناسه طرح</label>
+            <p-dropdown id="operatingId" name="operatingId" formControlName="operatingId" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="operationList"
+                [filter]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-4">
+            <label for="weightCode"> وزن</label>
+            <p-dropdown id="weightCode" name="weightCode" formControlName="weightCode" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="weightCodeList"
+                [filter]="true" [class.ng-invalid]="weightCode?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && weightCode?.pristine) ||
+                weightCode?.dirty ||
+                weightCode?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <div class="col-4">
+            <label for="priorityCode"> اولویت</label>
+            <p-dropdown id="priorityCode" name="priorityCode" formControlName="priorityCode" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="priorityCodeList"
+                [filter]="true" [class.ng-invalid]="priorityCode?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && priorityCode?.pristine) ||
+                priorityCode?.dirty ||
+                priorityCode?.touched
+              ">
+            </p-dropdown>
+        </div>
+
+        <div class="col-4">
+            <label for="code"> کد </label>
+            <input pInputText id="code" name="code" formControlName="code" class="w-100 my-1"
+                [class.ng-invalid]="code?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && code?.pristine) ||
+          code?.dirty ||
+          code?.touched
+        " />
+        </div>
+        <div class="col-4">
+            <label for="title"> عنوان </label>
+            <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
+                [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+        </div>
+        <div class="col-4">
+            <label for="description"> شرح </label>
+            <input pInputText id="description" name="description" formControlName="description" class="w-100 my-1"
+                [class.ng-invalid]="description?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && description?.pristine) ||
+          description?.dirty ||
+          description?.touched
+        " />
+        </div>
+        <div class="col-4">
+            <label for="priceCu"> تاثیر مالی </label>
+            <p-inputNumber id="priceCu" formControlName="priceCu" type="text" pKeyFilter="int" [minlength]="0"
+                class="w-100" [class.ng-invalid]="priceCu?.invalid" [class.ng-dirty]="
+              (addEditFormSubmitted && priceCu?.pristine) ||
+              priceCu?.dirty ||
+              priceCu?.touched
+            "></p-inputNumber>
+        </div>
+
+        <div class="col-4">
+            <label for="costCenterId"> مرکز هزینه</label>
+            <p-dropdown id="costCenterId" name="costCenterId" formControlName="costCenterId" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="costCenterList"
+                [filter]="true" [class.ng-invalid]="costCenterId?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && costCenterId?.pristine) ||
+                costCenterId?.dirty ||
+                costCenterId?.touched
+              ">
+            </p-dropdown>
+        </div>
+
+
+
+        <div class="col-12 row-btn  row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>

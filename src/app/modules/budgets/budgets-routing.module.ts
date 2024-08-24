@@ -6,6 +6,7 @@ import { YearGoalComponent } from './yearGoal/year-goal.component';
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 
 import { AssumptionsComponent } from './assumptions/assumptions.component';
+import { YearActivityComponent } from './year-activity/year-activity.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
             component: AssumptionsComponent,
             title: 'برنامه و بودجه | مفروضات',
           },
+          {
+            path: 'YearActivity/:budgetPeriodId/:yearGoalId',
+            component: YearActivityComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
         ],
       },
     ],
@@ -41,4 +47,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BudgetsRoutingModule {}
+export class BudgetsRoutingModule { }

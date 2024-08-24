@@ -1449,3 +1449,16 @@ export class Assumptions {
   id!: number;
   title!: string;
 }
+export class YearActivity {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearActivity/';
+  static readonly apiAddressWeight = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Weight/';
+  static readonly apiAddressPriority = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Priority/';
+  static readonly apiAddressCostCenter = 'api/PABudgetApi/v1/BaseInfo/YearActivity/CostCenter/';
+  id!: number;
+  title!: string;
+}
+export class Operating {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/Operating/';
+  id!: number;
+  title!: string;
+}
