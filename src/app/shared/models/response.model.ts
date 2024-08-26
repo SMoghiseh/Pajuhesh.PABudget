@@ -1444,6 +1444,11 @@ export class TypeCodeAssumptions {
   id!: number;
   title!: string;
 }
+export class TypeCode {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/YearPolicyKeyWord/';
+  id!: number;
+  title!: string;
+}
 export class Assumptions {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/Assumptions/';
   id!: number;
@@ -1467,6 +1472,12 @@ export class Operating {
 
 export class RelationType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/RelatedActivity/RelationType/';
+  id!: number;
+  title!: string;
+}
+
+export class YearPolicy {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearPolicy/';
   id!: number;
   title!: string;
 }
