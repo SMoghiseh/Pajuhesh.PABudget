@@ -7,6 +7,7 @@ import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-ass
 
 import { AssumptionsComponent } from './assumptions/assumptions.component';
 import { YearActivityComponent } from './year-activity/year-activity.component';
+import { RelatedActivityComponent } from './related-activity/related-activity.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
           {
             path: 'YearActivity/:budgetPeriodId/:yearGoalId',
             component: YearActivityComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
+          {
+            path: 'RelatedActivity/:yearActivityId',
+            component: RelatedActivityComponent,
             title: 'برنامه و بودجه | برنامه عملیاتی',
           },
         ],

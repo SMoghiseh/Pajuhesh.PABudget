@@ -1454,11 +1454,19 @@ export class YearActivity {
   static readonly apiAddressWeight = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Weight/';
   static readonly apiAddressPriority = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Priority/';
   static readonly apiAddressCostCenter = 'api/PABudgetApi/v1/BaseInfo/YearActivity/CostCenter/';
+  static readonly apiAddressExceptedYearActivities = 'api/PABudgetApi/v1/BudgetPeriod/GetExceptedYearActivities/';
   id!: number;
   title!: string;
 }
+
 export class Operating {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/Operating/';
+  id!: number;
+  title!: string;
+}
+
+export class RelationType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/RelatedActivity/RelationType/';
   id!: number;
   title!: string;
 }
