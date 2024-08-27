@@ -15,19 +15,60 @@
         </div>
       </div>
     </div>
-
     <div class="row">
-      <table class="c-tbl">
-        <tr class="c-tr" *ngFor="let item1 of planDetailData?.planType">
-          <td class="c-td head">{{ item1.planTypeName }}</td>
-          <td
-            class="c-td"
-            *ngFor="let item2 of item1?.planTypeDetails"
-            [ngStyle]="{ 'background-color': item2.color }">
-            <div [innerHTML]="item2.desc | safeHtml"></div>
-          </td>
-        </tr>
-      </table>
+      <p-table
+        #dataTable
+        dataKey="id"
+        class="data-table d-none d-lg-block"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [totalRecords]="totalCount"
+        [value]="planDetailData"
+        [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [lazy]="true"
+        [(first)]="first">
+        <!-- table header -->
+        <ng-template pTemplate="header">
+          <tr class="data-table__header">
+            <div class="headerStyle">
+              <th style="min-width: 45rem">
+                <strong> عنوان ریسک </strong>
+              </th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> احتمال </strong></th>
+              <th style="min-width: 7rem"><strong> شدت اثر </strong></th>
+              <th style="min-width: 7rem"><strong> سطح ریسک </strong></th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem">
+                <strong> پیامد ریسک در بودجه </strong>
+              </th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> بدبینانه </strong></th>
+              <th style="min-width: 7rem"><strong> خوش بینانه </strong></th>
+            </div>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-risk let-rowIndex="rowIndex">
+          <tr [ngStyle]="{ 'background-color': risk.color }">
+            <div class="detailStyle Width: auto">
+              <td style="min-width: 45rem">{{ risk.title }}</td>
+              <td style="min-width: 7rem">{{ risk.possibility }}</td>
+              <td style="min-width: 7rem">{{ risk.riskIntensity }}</td>
+              <td style="min-width: 7rem">{{ risk.riskLevel }}</td>
+              <td style="min-width: 7rem">{{ risk.effectBudget }}</td>
+              <td style="min-width: 7rem">{{ risk.possimistically }}</td>
+              <td style="min-width: 7rem">{{ risk.optimistically }}</td>
+            </div>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </div>

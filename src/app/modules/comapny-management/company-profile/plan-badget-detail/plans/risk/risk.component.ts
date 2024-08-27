@@ -10,8 +10,13 @@ import { map } from 'rxjs';
 })
 export class RiskComponent {
   @Input() inputData: any;
-
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  first = 0;
+  totalCount!: number;
   planDetailData: any;
+  // data: Plan[] = [];
+  loading = false;
   selectDateType = 'single';
   selectedPlanName = 'ریسک ها';
 
