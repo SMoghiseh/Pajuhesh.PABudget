@@ -1448,6 +1448,11 @@ export class TypeCodeAssumptions {
   id!: number;
   title!: string;
 }
+export class TypeCode {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/YearPolicyKeyWord/';
+  id!: number;
+  title!: string;
+}
 export class Assumptions {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/Assumptions/';
   id!: number;
@@ -1458,11 +1463,42 @@ export class YearActivity {
   static readonly apiAddressWeight = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Weight/';
   static readonly apiAddressPriority = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Priority/';
   static readonly apiAddressCostCenter = 'api/PABudgetApi/v1/BaseInfo/YearActivity/CostCenter/';
+  static readonly apiAddressExceptedYearActivities = 'api/PABudgetApi/v1/BudgetPeriod/GetExceptedYearActivities/';
   id!: number;
   title!: string;
 }
+
 export class Operating {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/Operating/';
+  id!: number;
+  title!: string;
+}
+
+export class RelationType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/RelatedActivity/RelationType/';
+  id!: number;
+  title!: string;
+}
+
+export class YearPolicy {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearPolicy/';
+  id!: number;
+  title!: string;
+}
+
+export class YearRisk {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearRisk/';
+  id!: number;
+  title!: string;
+}
+
+export class EvaluateIndex {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/EvaluateIndex/';
+  id!: number;
+  title!: string;
+}
+export class KeyTypeCode {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Risk/keyTypeCode/';
   id!: number;
   title!: string;
 }

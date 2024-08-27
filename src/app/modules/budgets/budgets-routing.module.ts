@@ -8,6 +8,9 @@ import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-ass
 import { AssumptionsComponent } from './assumptions/assumptions.component';
 import { YearActivityComponent } from './year-activity/year-activity.component';
 import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/assembly-assignments-details.component';
+import { RelatedActivityComponent } from './related-activity/related-activity.component';
+import { YearPolicyComponent } from './year-policy/year-policy.component';
+import { YearRiskComponent } from './year-risk/year-risk.component';
 
 const routes: Routes = [
   {
@@ -42,6 +45,20 @@ const routes: Routes = [
             path: 'YearUnionDetail/:id',
             component: AssemblyAssignmentsDetailsComponent,
             title: 'برنامه و بودجه | مفاد',
+          }, {
+            path: 'RelatedActivity/:yearActivityId',
+            component: RelatedActivityComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
+          {
+            path: 'YearPolicy/:id',
+            component: YearPolicyComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
+          {
+            path: 'YearRisk/:id',
+            component: YearRiskComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
           },
         ],
       },

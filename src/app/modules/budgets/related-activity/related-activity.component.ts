@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearActivity, ManagerType, YearGoal, Period, Operating
+  UrlBuilder, YearActivity, RelationType
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -14,12 +14,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'PABudget-year-activity',
-  templateUrl: './year-activity.component.html',
-  styleUrls: ['./year-activity.component.scss'],
+  selector: 'PABudget-related-activity',
+  templateUrl: './related-activity.component.html',
+  styleUrls: ['./related-activity.component.scss'],
   providers: [ConfirmationService]
 })
-export class YearActivityComponent {
+export class RelatedActivityComponent {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -37,21 +37,11 @@ export class YearActivityComponent {
   searchForm!: FormGroup;
 
   // dropdown data list
-  budgetPeriodList: any = [];
-  periodDetailList: any = [];
-  yearGoalList: any = [];
-  rollList: any = [];
-  operationList: any = [];
-  weightCodeList: any = [];
-  priorityCodeList: any = [];
-  costCenterList: any = [];
-  subComponentList = [
-    {
-      label: ' پیش نیاز  ',
-      icon: 'pi pi-fw pi-star',
-      routerLink: ['/Period/RelatedActivity'],
-    }
-  ];
+  yearActivityList: any = [];
+  relatedYearActivityList: any = [];
+  relationTypeList: any = [];
+
+
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -61,123 +51,53 @@ export class YearActivityComponent {
 
   ngOnInit(): void {
 
-    this.getBudgetPeriodList();
-    this.getYearGoalList();
-    this.getManagerTypeList();
-    this.getOperationList();
-    this.getWeightCodeList();
-    this.getPriorityCodeList();
-    this.getCostCenterList();
+    this.getYearActivityList();
+
 
     this.searchForm = new FormGroup({
-      budgetPeriodId: new FormControl(null),
-      yearGoalId: new FormControl(null),
-      fromPeriodDetailId: new FormControl(null),
-      toPeriodDetailId: new FormControl(null),
-      rollId: new FormControl(null),
-      operatingId: new FormControl(null),
-      weightCode: new FormControl(null),
-      priorityCode: new FormControl(null),
-      code: new FormControl(null),
-      title: new FormControl(null),
-      description: new FormControl(null),
-      priceCu: new FormControl(null),
-      costCenterId: new FormControl(null)
-
+      budgetPeriodId: new FormControl(''),
+      relatedYearActivityId: new FormControl(''),
+      relationType: new FormControl(''),
     });
 
-    this.searchForm.patchValue({
-      budgetPeriodId: Number(this.route.snapshot.paramMap.get('budgetPeriodId')),
-      yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId'))
-    })
-
-    this.getPeriodDetailList(Number(this.route.snapshot.paramMap.get('budgetPeriodId')));
+    this.getRelatedYearActivityList(Number(this.route.snapshot.paramMap.get('yearActivityId')));
 
   }
 
 
-  getBudgetPeriodList() {
+  getYearActivityList() {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.budgetPeriodList = response.data.result;
-        }
-      });
-  }
-
-  getPeriodDetailList(periodId: number) {
-    this.httpService
-      .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.periodDetailList = response.data.result;
-        }
-      });
-  }
-
-  getYearGoalList() {
-    this.httpService
-      .post<YearGoal[]>(YearGoal.apiAddress + 'List', {
+      .get<YearActivity[]>(YearActivity.apiAddress + 'List', {
         withOutPagination: true
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.yearGoalList = response.data.result;
+          this.yearActivityList = response.data.result;
         }
       });
   }
 
-  getManagerTypeList() {
+  getRelatedYearActivityList(yearActivityId: number) {
     this.httpService
-      .get<ManagerType[]>(ManagerType.apiAddress + 'List')
+      .get<YearActivity[]>(YearActivity.apiAddressExceptedYearActivities + 'List', + yearActivityId)
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.rollList = response.data.result;
+          this.relatedYearActivityList = response.data.result;
         }
       });
   }
 
-  getOperationList() {
+  getRelationTypeList() {
     this.httpService
-      .post<Operating[]>(Operating.apiAddress + 'List', {
-        withOutPagination: true
-      })
+      .get<RelationType[]>(RelationType.apiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.operationList = response.data.result;
+          this.relationTypeList = response.data.result;
         }
       });
   }
 
-  getWeightCodeList() {
-    this.httpService
-      .get<YearActivity[]>(YearActivity.apiAddressWeight + 'List')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.weightCodeList = response.data.result;
-        }
-      });
-  }
 
-  getPriorityCodeList() {
-    this.httpService
-      .get<YearActivity[]>(YearActivity.apiAddressPriority + 'List')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.priorityCodeList = response.data.result;
-        }
-      });
-  }
-  getCostCenterList() {
-    this.httpService
-      .get<YearActivity[]>(YearActivity.apiAddressCostCenter + 'List')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.costCenterList = response.data.result;
-        }
-      });
-  }
 
   getList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -278,13 +198,4 @@ export class YearActivityComponent {
     this.searchForm.reset();
     this.getList();
   }
-
-  setActiveComponentRoute(item: YearActivity) {
-    debugger
-    this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] + '/' + item.id;
-    });
-  }
-
 }

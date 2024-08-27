@@ -44,7 +44,16 @@ export class PeriodDefinitionComponent implements OnInit {
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/Assumptions'],
     },
-
+    {
+      label: '  سیاست ها',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/YearPolicy'],
+    },
+    {
+      label: '  ریسک ها',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/YearRisk'],
+    },
   ];
   constructor(
     private httpService: HttpService,
@@ -52,7 +61,7 @@ export class PeriodDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((param: any) => {

@@ -34,6 +34,12 @@ import { AddEditYearActivityComponent } from './year-activity/add-edit-year-acti
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/assembly-assignments-details.component';
 import { AddEditAssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/add-edit-assembly-assignments-details/add-edit-assembly-assignments-details.component';
+import { RelatedActivityComponent } from './related-activity/related-activity.component';
+import { AddEditRelatedActivityComponent } from './related-activity/add-edit-related-activity/add-edit-related-activity.component';
+import { YearPolicyComponent } from './year-policy/year-policy.component';
+import { AddEditYearPolicyComponent } from './year-policy/add-edit-year-policy/add-edit-year-policy.component';
+import { YearRiskComponent } from './year-risk/year-risk.component';
+import { AddEditYearRiskComponent } from './year-risk/add-edit-year-risk/add-edit-year-risk.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +54,12 @@ import { AddEditAssemblyAssignmentsDetailsComponent } from './assembly-assignmen
     AddEditYearActivityComponent,
     AssemblyAssignmentsDetailsComponent,
     AddEditAssemblyAssignmentsDetailsComponent,
+    RelatedActivityComponent,
+    AddEditRelatedActivityComponent,
+    YearPolicyComponent,
+    AddEditYearPolicyComponent,
+    YearRiskComponent,
+    AddEditYearRiskComponent
   ],
   imports: [
     CommonModule,

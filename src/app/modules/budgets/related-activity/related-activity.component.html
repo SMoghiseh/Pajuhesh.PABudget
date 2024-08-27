@@ -1,7 +1,7 @@
 <p-toast key="YearActivity" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-    <div class="table-header"> برنامه عملیاتی</div>
+    <div class="table-header"> پیش نیاز</div>
     <div>
         <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
             (click)="addYearActivity()"></p-button>
@@ -12,87 +12,23 @@
     <form #formDir="ngForm" [formGroup]="searchForm">
         <div class="row mt-8 pb-3">
             <div class="col-2">
-                <label for="budgetPeriodId"> دوره </label>
-                <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId"
+                <label for="yearActivityId"> برنامه </label>
+                <p-dropdown id="yearActivityId" name="yearActivityId" formControlName="yearActivityId"
                     styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
-                    [options]="budgetPeriodList" [filter]="true" [readonly]="true">
+                    [options]="yearActivityList" [filter]="true" [readonly]="true">
                 </p-dropdown>
             </div>
             <div class="col-2">
-                <label for="yearGoalId"> هدف سالیانه </label>
-                <p-dropdown id="yearGoalId" name="yearGoalId" formControlName="yearGoalId" styleClass="w-100 my-1"
-                    [readonly]="true" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-                    [options]="yearGoalList" [filter]="true">
-                </p-dropdown>
-            </div>
-            <!--  دوره عملیاتی -->
-            <div class="col-2">
-                <label for="fromPeriodDetailId"> از دوره عملیاتی </label>
-                <p-dropdown id="fromPeriodDetailId" name="fromPeriodDetailId" formControlName="fromPeriodDetailId"
-                    styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-                    [options]="periodDetailList" [filter]="true">
+                <label for="relatedYearActivityId"> برنامه مرتبط </label>
+                <p-dropdown id="relatedYearActivityId" name="relatedYearActivityId"
+                    formControlName="relatedYearActivityId" styleClass="w-100 my-1" optionLabel="periodTitle"
+                    optionValue="id" placeholder="انتخاب کنید" [options]="relatedYearActivityList" [filter]="true">
                 </p-dropdown>
             </div>
             <div class="col-2">
-                <label for="toPeriodDetailId">تا دوره عملیاتی </label>
-                <p-dropdown id="toPeriodDetailId" name="toPeriodDetailId" formControlName="toPeriodDetailId"
-                    styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-                    [options]="periodDetailList" [filter]="true">
-                </p-dropdown>
-            </div>
-            <!--  دوره عملیاتی -->
-
-            <div class="col-2">
-                <label for="rollId"> مسئول</label>
-                <p-dropdown id="rollId" name="rollId" formControlName="rollId" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="rollList" [filter]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-2">
-                <label for="operatingId"> شناسه طرح</label>
-                <p-dropdown id="operatingId" name="operatingId" formControlName="operatingId" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="operationList"
-                    [filter]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-2">
-                <label for="weightCode"> وزن</label>
-                <p-dropdown id="weightCode" name="weightCode" formControlName="weightCode" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="weightCodeList"
-                    [filter]="true">
-                </p-dropdown>
-            </div>
-            <div class="col-2">
-                <label for="priorityCode"> اولویت</label>
-                <p-dropdown id="priorityCode" name="priorityCode" formControlName="priorityCode" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="priorityCodeList"
-                    [filter]="true">
-                </p-dropdown>
-            </div>
-
-            <div class="col-2">
-                <label for="code"> کد </label>
-                <input pInputText id="code" name="code" formControlName="code" class="w-100 my-1" />
-            </div>
-            <div class="col-2">
-                <label for="title"> عنوان </label>
-                <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
-            </div>
-            <div class="col-2">
-                <label for="description"> شرح </label>
-                <input pInputText id="description" name="description" formControlName="description"
-                    class="w-100 my-1" />
-            </div>
-            <div class="col-2">
-                <label for="priceCu"> تاثیر مالی </label>
-                <p-inputNumber id="priceCu" formControlName="priceCu" type="text" pKeyFilter="int" [minlength]="0"
-                    class="w-100"></p-inputNumber>
-            </div>
-
-            <div class="col-2">
-                <label for="costCenterId"> مرکز هزینه</label>
-                <p-dropdown id="costCenterId" name="costCenterId" formControlName="costCenterId" styleClass="w-100 my-1"
-                    optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="costCenterList"
+                <label for="relationType"> نوع ارتباط </label>
+                <p-dropdown id="relationType" name="relationType" formControlName="relationType" styleClass="w-100 my-1"
+                    optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="relationTypeList"
                     [filter]="true">
                 </p-dropdown>
             </div>
@@ -161,11 +97,6 @@
                     <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
                         <img ngSrc="icons\Group 117.svg" width="24" height="24" />
                     </button>
-
-                    <button class="action-image-container delete-button"
-                        (click)="menu.toggle($event); setActiveComponentRoute(item)" pTooltip="">
-                        <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-                    </button>
                 </td>
             </tr>
         </ng-template>
@@ -201,13 +132,10 @@
 </div>
 
 <p-dialog *ngIf="isOpenAddEditYearActivity" [header]="modalTitle" [(visible)]="isOpenAddEditYearActivity" [modal]="true"
-    [draggable]="false" [resizable]="false" [style]="{ width: '900px' }"
+    [draggable]="false" [resizable]="false" [style]="{ width: '500px' }"
     [class.height-size]="mode == 'insert' || mode == 'edit'">
-    <PABudget-add-edit-year-activity [data1]="addEditData" [mode]="mode"
-        (isSuccess)="reloadData()"></PABudget-add-edit-year-activity>
+    <PABudget-add-edit-related-activity [data1]="addEditData" [mode]="mode"
+        (isSuccess)="reloadData()"></PABudget-add-edit-related-activity>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-
-<p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true"
-    [model]="subComponentList"></p-menu>

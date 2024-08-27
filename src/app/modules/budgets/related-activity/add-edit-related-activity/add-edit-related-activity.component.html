@@ -1,0 +1,32 @@
+<p-toast key="yearGoal" position="bottom-left"></p-toast>
+
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
+    <div class="container row">
+        <div class="col-12">
+            <label for="yearActivityId"> برنامه </label>
+            <p-dropdown id="yearActivityId" name="yearActivityId" formControlName="yearActivityId"
+                styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+                [options]="yearActivityList" [filter]="true" [readonly]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-12">
+            <label for="relatedYearActivityId"> برنامه مرتبط </label>
+            <p-dropdown id="relatedYearActivityId" name="relatedYearActivityId" formControlName="relatedYearActivityId"
+                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
+                [options]="relatedYearActivityList" [filter]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-12">
+            <label for="relationType"> نوع ارتباط </label>
+            <p-dropdown id="relationType" name="relationType" formControlName="relationType" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="relationTypeList"
+                [filter]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-12 row-btn  row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>
