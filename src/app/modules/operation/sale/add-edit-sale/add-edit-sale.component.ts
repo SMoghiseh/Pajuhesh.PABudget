@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
+  Company,
   ContractNo,
   Period,
   ProductGroup,
@@ -29,6 +30,7 @@ export class AddEditSaleComponent implements OnInit {
   saleTypeList: any = [];
   contractList: any = [];
   inputData = new Sale();
+  companyList: any = [];
 
   @Input() mode = '';
   @Input() set data1(data: Sale) {
@@ -72,17 +74,21 @@ export class AddEditSaleComponent implements OnInit {
   get productAllSalesCu() {
     return this.addEditSaleForm.get('productAllSalesCu');
   }
+  get companyId() {
+    return this.addEditSaleForm.get('companyId');
+  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
     this.getContractList();
+    this.getCompanyLst();
     this.addEditSaleForm = new FormGroup({
       budgetPeriodId: new FormControl(this.inputData.budgetPeriodId),
       budgetPeriodDetailId: new FormControl(
@@ -97,6 +103,7 @@ export class AddEditSaleComponent implements OnInit {
       benefitLossCu: new FormControl(this.inputData.benefitLossCu),
       costingAllCu: new FormControl(this.inputData.costingAllCu),
       costingUnitCu: new FormControl(this.inputData.costingUnitCu),
+      companyId: new FormControl(this.inputData.companyId),
     });
 
     if (this.mode === 'edit') {
@@ -198,6 +205,15 @@ export class AddEditSaleComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.contractList = response.data.result;
+        }
+      });
+  }
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
         }
       });
   }

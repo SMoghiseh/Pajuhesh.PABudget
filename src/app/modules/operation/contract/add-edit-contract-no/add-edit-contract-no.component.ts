@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
+  Company,
   Contract,
   ContractNo,
   ContractType,
@@ -10,7 +11,7 @@ import {
 } from '@shared/models/response.model';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import { JDate } from '@shared/utilities/JDate/jdate';
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
 
 @Component({
@@ -29,6 +30,7 @@ export class AddEditContractNoComponent implements OnInit {
   employerLst: Employers[] = [];
   contractorLst: Employers[] = [];
   selectedContract: Contract[] = [];
+  companyList: any = [];
 
   @Input()
   set data(data: ContractNo) {
@@ -62,26 +64,33 @@ export class AddEditContractNoComponent implements OnInit {
   get contracTypeID() {
     return this.addEditContractNoForm.get('contracTypeID');
   }
-
+  get companyId() {
+    return this.addEditContractNoForm.get('companyId');
+  }
   get contractPriceCu() {
     return this.addEditContractNoForm.get('contractPriceCu');
   }
+
+
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getContracType();
     this.getEmployer();
     this.getContractor();
+    this.getCompanyLst();
+
     this.addEditContractNoForm = new FormGroup({
       contractCode: new FormControl(this.addEditContractNoModel.contractCode),
       contractDate: new FormControl(this.addEditContractNoModel.contractDate),
       contractFromDate: new FormControl(
         this.addEditContractNoModel.contractFromDate
       ),
+      companyId: new FormControl(this.addEditContractNoModel.companyId),
       contractToDate: new FormControl(
         this.addEditContractNoModel.contractToDate
       ),
@@ -91,11 +100,22 @@ export class AddEditContractNoComponent implements OnInit {
       contractPriceCu: new FormControl(
         this.addEditContractNoModel.contractPriceCu
       ),
+
     });
 
     if (this.inputData.id && this.inputData.type == 'edit') {
       this.getContractDetails(this.inputData.id);
     }
+  }
+
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
   }
 
   getContractDetails(id: number) {
@@ -179,33 +199,33 @@ export class AddEditContractNoComponent implements OnInit {
       // request.contractCode = contractCode;
       request.contractDate = contractDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.contractDate?.getFullYear(),
-              request.contractDate?.getMonth(),
-              request.contractDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.contractDate?.getFullYear(),
+            request.contractDate?.getMonth(),
+            request.contractDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
       request.contractFromDate = contractFromDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.contractFromDate?.getFullYear(),
-              request.contractFromDate?.getMonth(),
-              request.contractFromDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.contractFromDate?.getFullYear(),
+            request.contractFromDate?.getMonth(),
+            request.contractFromDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
       request.contractToDate = contractToDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.contractToDate?.getFullYear(),
-              request.contractToDate?.getMonth(),
-              request.contractToDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.contractToDate?.getFullYear(),
+            request.contractToDate?.getMonth(),
+            request.contractToDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
 
       this.httpService

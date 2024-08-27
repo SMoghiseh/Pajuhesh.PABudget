@@ -13,6 +13,17 @@
         " (onChange)="onChangeSaleType()">
       </p-dropdown>
     </div>
+    <div class="col-6 mt-2">
+      <label for="companyId"> شرکت</label>
+      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [required]="true"
+        [filter]="true" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+    (addEditSaleSubmitted && companyId?.pristine) ||
+    companyId?.dirty ||
+    companyId?.touched
+  ">
+      </p-dropdown>
+    </div>
     <div class="col-6 mt-2" *ngIf="isContractValue && isChangeSaleType">
       <label for="contractId">قرارداد</label>
       <p-dropdown id="contractId" name="contractId" formControlName="contractId" styleClass="w-100 my-1"

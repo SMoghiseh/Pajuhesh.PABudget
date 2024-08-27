@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  Company,
   CostCenterType,
   EducationTypeCode,
   EmploymentType,
@@ -27,6 +28,7 @@ export class AddEditPersonelNoComponent implements OnInit {
   CostCenterLst: CostCenterType[] = [];
   employmentTypeLst: EmploymentType[] = [];
   educationTypeCodeLst: EducationTypeCode[] = [];
+  companyList: any = [];
 
   @Input()
   set data(data: PersonelNo) {
@@ -41,17 +43,22 @@ export class AddEditPersonelNoComponent implements OnInit {
   get periodId() {
     return this.addEditPersonelNoForm.get('periodId');
   }
+  get companyId() {
+    return this.addEditPersonelNoForm.get('companyId');
+  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
     this.getCostCenterType();
     this.getEmploymentType();
     this.getEducationTypeCode();
+    this.getCompanyLst();
+
     this.addEditPersonelNoForm = new FormGroup({
       periodDetailId: new FormControl(
         this.addEditPersonelNoModel.periodDetailId,
@@ -74,6 +81,8 @@ export class AddEditPersonelNoComponent implements OnInit {
       employeewageCU: new FormControl(
         this.addEditPersonelNoModel.employeewageCU
       ),
+      companyId: new FormControl(null, Validators.required),
+
     });
     if (this.inputData.type === 'edit') {
       this.getPeriodDetailLst(this.inputData.periodId);
@@ -123,7 +132,15 @@ export class AddEditPersonelNoComponent implements OnInit {
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
   }
-
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
+  }
   getPeriodDetailLst(periodId: number) {
     this.httpService
       .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)

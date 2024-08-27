@@ -1106,6 +1106,7 @@ export class ContractNo {
   milContractToDate!: any;
   milContractDate!: any;
   milContractFromDate!: any;
+  companyId!: any;
 }
 
 export class BudgetSourceUse {
@@ -1190,6 +1191,7 @@ export class Sale {
   costingUnitCu!: number;
   costingAllCu!: number;
   benefitLossCu!: number;
+  companyId!: number;
 }
 
 export class Profile {
