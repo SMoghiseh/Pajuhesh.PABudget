@@ -1481,3 +1481,20 @@ export class YearPolicy {
   id!: number;
   title!: string;
 }
+
+export class YearRisk {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearRisk/';
+  id!: number;
+  title!: string;
+}
+
+export class EvaluateIndex {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/EvaluateIndex/';
+  id!: number;
+  title!: string;
+}
+export class KeyTypeCode {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Risk/keyTypeCode/';
+  id!: number;
+  title!: string;
+}

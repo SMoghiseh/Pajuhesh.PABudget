@@ -1,0 +1,100 @@
+<p-toast key="YearRisk" position="bottom-left"></p-toast>
+
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
+    <div class="container row">
+        <div class="col-6 mt-2">
+            <label for="budgetPeriodId"> دوره </label>
+            <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId"
+                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
+                [options]="budgetPeriodList" [filter]="true" [readonly]="true"
+                [class.ng-invalid]="budgetPeriodId?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && budgetPeriodId?.pristine) ||
+                budgetPeriodId?.dirty ||
+                budgetPeriodId?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="companyId"> شرکت </label>
+            <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+                optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
+                [filter]="true" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && companyId?.pristine) ||
+                companyId?.dirty ||
+                companyId?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="keyTypeCode"> نوع ریسک </label>
+            <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList" [filter]="true"
+                [class.ng-invalid]="keyTypeCode?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && keyTypeCode?.pristine) ||
+                keyTypeCode?.dirty ||
+                keyTypeCode?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="evaluateIndexId"> شاخص ارزیابی </label>
+            <p-dropdown id="evaluateIndexId" name="evaluateIndexId" formControlName="evaluateIndexId"
+                styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+                [options]="evaluateIndexList" [filter]="true">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="yearRiskCode"> کد</label>
+            <input pInputText id="yearRiskCode" name="yearRiskCode" formControlName="yearRiskCode" class="w-100 my-1"
+                [class.ng-invalid]="yearRiskCode?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && yearRiskCode?.pristine) ||
+          yearRiskCode?.dirty ||
+          yearRiskCode?.touched
+        " />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="title"> عنوان </label>
+            <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
+                [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="riskIntensity"> شدت </label>
+            <p-inputNumber id="riskIntensity" formControlName="riskIntensity" type="text" pKeyFilter="int"
+                [minlength]="0" class="w-100"></p-inputNumber>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="riskLevel"> سطح </label>
+            <p-inputNumber id="riskLevel" formControlName="riskLevel" type="text" pKeyFilter="int" [minlength]="0"
+                class="w-100"></p-inputNumber>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="possibility"> احتمال </label>
+            <p-inputNumber id="possibility" formControlName="possibility" type="text" pKeyFilter="int" [minlength]="0"
+                class="w-100"></p-inputNumber>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="effectBudget"> پیامد های وقوع ریسک در بودجه </label>
+            <p-inputNumber id="effectBudget" formControlName="effectBudget" type="text" pKeyFilter="int" [minlength]="0"
+                class="w-100"></p-inputNumber>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="possimistically"> برنامه شرکت در قبال ریسک خوشبینانه</label>
+            <p-inputNumber id="possimistically" formControlName="possimistically" type="text" pKeyFilter="int"
+                [minlength]="0" class="w-100"></p-inputNumber>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="optimistically"> برنامه شرکت در قبال ریسک بدبینانه</label>
+            <p-inputNumber id="optimistically" formControlName="optimistically" type="text" pKeyFilter="int"
+                [minlength]="0" class="w-100"></p-inputNumber>
+        </div>
+        <div class="col-12 row-btn  row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>

@@ -9,6 +9,7 @@ import { AssumptionsComponent } from './assumptions/assumptions.component';
 import { YearActivityComponent } from './year-activity/year-activity.component';
 import { RelatedActivityComponent } from './related-activity/related-activity.component';
 import { YearPolicyComponent } from './year-policy/year-policy.component';
+import { YearRiskComponent } from './year-risk/year-risk.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
           {
             path: 'YearPolicy/:id',
             component: YearPolicyComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
+          {
+            path: 'YearRisk/:id',
+            component: YearRiskComponent,
             title: 'برنامه و بودجه | برنامه عملیاتی',
           },
         ],

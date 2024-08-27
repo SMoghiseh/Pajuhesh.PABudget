@@ -36,6 +36,8 @@ import { RelatedActivityComponent } from './related-activity/related-activity.co
 import { AddEditRelatedActivityComponent } from './related-activity/add-edit-related-activity/add-edit-related-activity.component';
 import { YearPolicyComponent } from './year-policy/year-policy.component';
 import { AddEditYearPolicyComponent } from './year-policy/add-edit-year-policy/add-edit-year-policy.component';
+import { YearRiskComponent } from './year-risk/year-risk.component';
+import { AddEditYearRiskComponent } from './year-risk/add-edit-year-risk/add-edit-year-risk.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { AddEditYearPolicyComponent } from './year-policy/add-edit-year-policy/a
     RelatedActivityComponent,
     AddEditRelatedActivityComponent,
     YearPolicyComponent,
-    AddEditYearPolicyComponent
+    AddEditYearPolicyComponent,
+    YearRiskComponent,
+    AddEditYearRiskComponent
   ],
   imports: [
     CommonModule,
