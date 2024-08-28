@@ -26,14 +26,14 @@ export class AllCompanyReportsComponent implements OnInit {
     const prjType = this.config.getAddress('type');
     if (prjType === 'sandogh') {
       this.tabList = [
-        { id: 1, title: 'بنگاه داری' },
-        { id: 2, title: 'تامین اجتماعی ' },
+        { id: 1, title: 'شرکت ها' },
+        { id: 2, title: 'تامین فرهنگیان ' },
         { id: 3, title: ' سازمانی' },
       ];
     } else {
       this.tabList = [
-        { id: 1, title: 'شرکت ها' },
-        { id: 2, title: 'تامین فرهنگیان ' },
+        { id: 1, title: 'بنگاه داری' },
+        { id: 2, title: 'تامین اجتماعی ' },
         { id: 3, title: ' سازمانی' },
       ];
     }

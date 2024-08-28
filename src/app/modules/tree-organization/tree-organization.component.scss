@@ -45,7 +45,11 @@
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
+    cursor: pointer;
 
+    &:hover{
+        background-color: #DBEAFE;
+    }
 
     .company-logo {
         width: 60px;
@@ -73,6 +77,8 @@
         position: absolute;
         bottom: 13px;
         display: flex;
+        width: 100%;
+        left: 0px;
 
         .status-tooltip {
             // display: none;
@@ -85,12 +91,14 @@
         p {
             padding: 0 11px;
             color: #777;
-            width: 77px;
+            width: 100%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             cursor: pointer;
             position: relative;
+            font-size: 13px;
+            font-weight: bold;
 
         }
 
@@ -116,9 +124,9 @@
             border-left: 1px solid #BDC3CB;
         }
 
-        .status {
-            border-left: 1px solid #BDC3CB;
-        }
+        // .status {
+        //     border-left: 1px solid #BDC3CB;
+        // }
 
         .detail-link {
             color: #3B82F6;
@@ -272,6 +280,11 @@
                 height: 120px;
                 position: relative;
                 height: 104px;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: #DBEAFE;
+                }
 
                 .company-header {
                     // margin-top: 15px;
@@ -306,6 +319,10 @@
                     height: 80px;
                     margin: 20px auto 0;
                     width: 93%;
+                    cursor: pointer;
+                    &:hover{
+                        background-color: #DBEAFE;
+                    }
 
                     .company-logo {
                         display: none;
@@ -486,7 +503,7 @@
         border-radius: 7px;
         color: black;
         cursor: pointer;
-        width: 144px;
+        width: 80%;
         transition: all 0.2s ease-in-out;
 
         &:hover {

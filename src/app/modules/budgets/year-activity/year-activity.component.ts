@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearActivity, ManagerType, YearGoal, Period, Operating
+  UrlBuilder,
+  YearActivity,
+  ManagerType,
+  YearGoal,
+  Period,
+  Operating,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -17,7 +22,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'PABudget-year-activity',
   templateUrl: './year-activity.component.html',
   styleUrls: ['./year-activity.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class YearActivityComponent {
   gridClass = 'p-datatable-sm';
@@ -50,17 +55,16 @@ export class YearActivityComponent {
       label: ' پیش نیاز  ',
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/RelatedActivity'],
-    }
+    },
   ];
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getBudgetPeriodList();
     this.getYearGoalList();
     this.getManagerTypeList();
@@ -82,19 +86,20 @@ export class YearActivityComponent {
       title: new FormControl(null),
       description: new FormControl(null),
       priceCu: new FormControl(null),
-      costCenterId: new FormControl(null)
-
+      costCenterId: new FormControl(null),
     });
 
     this.searchForm.patchValue({
-      budgetPeriodId: Number(this.route.snapshot.paramMap.get('budgetPeriodId')),
-      yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId'))
-    })
+      budgetPeriodId: Number(
+        this.route.snapshot.paramMap.get('budgetPeriodId')
+      ),
+      yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId')),
+    });
 
-    this.getPeriodDetailList(Number(this.route.snapshot.paramMap.get('budgetPeriodId')));
-
+    this.getPeriodDetailList(
+      Number(this.route.snapshot.paramMap.get('budgetPeriodId'))
+    );
   }
-
 
   getBudgetPeriodList() {
     this.httpService
@@ -119,7 +124,7 @@ export class YearActivityComponent {
   getYearGoalList() {
     this.httpService
       .post<YearGoal[]>(YearGoal.apiAddress + 'List', {
-        withOutPagination: true
+        withOutPagination: true,
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -141,7 +146,7 @@ export class YearActivityComponent {
   getOperationList() {
     this.httpService
       .post<Operating[]>(Operating.apiAddress + 'List', {
-        withOutPagination: true
+        withOutPagination: true,
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -197,8 +202,7 @@ export class YearActivityComponent {
     };
 
     this.first = 0;
-    const url =
-      YearActivity.apiAddress + 'List';
+    const url = YearActivity.apiAddress + 'List';
     this.httpService
       .post<YearActivity[]>(url, body)
 
@@ -248,10 +252,7 @@ export class YearActivityComponent {
     if (id && title) {
       this.httpService
         .get<YearActivity>(
-          UrlBuilder.build(
-            YearActivity.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(YearActivity.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -280,11 +281,9 @@ export class YearActivityComponent {
   }
 
   setActiveComponentRoute(item: YearActivity) {
-    debugger
     this.subComponentList.forEach((componentInfo: any) => {
       componentInfo['routerLink'][0] =
         componentInfo['routerLink'][0] + '/' + item.id;
     });
   }
-
 }

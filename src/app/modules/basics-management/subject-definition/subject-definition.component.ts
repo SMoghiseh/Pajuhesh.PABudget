@@ -14,7 +14,6 @@ import { map, tap } from 'rxjs';
   providers: [ConfirmationService],
 })
 export class SubjectDefinitionComponent implements OnInit {
-
   /* Table  */
   totalCount!: number;
   subjects: Subject[] = [];
@@ -46,7 +45,7 @@ export class SubjectDefinitionComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getSubjects();
@@ -129,7 +128,7 @@ export class SubjectDefinitionComponent implements OnInit {
   editRow(subject: Subject) {
     if (subject.id) {
       this.isOpenAddEditSubjectDefinition = true;
-      this.modalTitle = 'ویرایش ' + subject.title ;
+      this.modalTitle = 'ویرایش ' + subject.title;
       this.selectedSubject = subject;
       this.addNewSubjectForm.patchValue(subject);
     }
@@ -154,9 +153,7 @@ export class SubjectDefinitionComponent implements OnInit {
   deleteSubject(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<Subject>(
-          UrlBuilder.build(Subject.apiAddress, 'DELETE') + `/${id}`
-        )
+        .get<Subject>(UrlBuilder.build(Subject.apiAddress, 'DELETE') + `/${id}`)
         .subscribe(response => {
           if (response.successed) {
             this.getSubjects();
