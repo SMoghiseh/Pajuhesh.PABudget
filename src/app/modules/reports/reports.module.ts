@@ -33,7 +33,6 @@ import { PickListModule } from 'primeng/picklist';
 import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
 import { AggregateComponent } from './aggregate/aggregate.component';
 import { PaginatorModule } from 'primeng/paginator';
-import { TooltipModule } from 'primeng/tooltip';
 @NgModule({
   declarations: [
     ReportsComponent,
