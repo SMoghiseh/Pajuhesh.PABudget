@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReport, AccountReportItem, AccountReportToItem, Company } from '@shared/models/response.model';
+import { AccountReportItem, ReportItemType } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
-import { tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-add-edit-account-report-to-item',
@@ -12,137 +11,115 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-edit-account-report-to-item.component.scss'],
 })
 export class AddEditAccountReportToItemComponent implements OnInit {
+
   // form property
-  addEditForm!: FormGroup;
-  addEditFormSubmitted = false;
-  isLoadingSubmit = false;
+  addNewAccountReportSubmitted = false;
+  addNewAccountReportForm!: FormGroup;
+  addNewAccountReportLoading = false;
+
 
   // dropdown data list
-  accountReportItemList: any = [];
-  companyList: any = [];
-  accountReportLst: any = [];
-
-  isInFilteredMode = false;
+  itemReportTypeCodeList: any[] = [];
 
 
-  inputData = new AccountReportToItem();
-  @Input() set data1(data: AccountReportToItem) {
+  inputData = new AccountReportItem();
+  @Input() mode = '';
+  @Input() set data(data: AccountReportItem) {
+    debugger
     this.inputData = data;
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
 
-  get accountRepId() {
-    return this.addEditForm.get('accountRepId');
+
+  get title() {
+    return this.addNewAccountReportForm.get('title');
+  }
+  get itemReportTypeCode() {
+    return this.addNewAccountReportForm.get('itemReportTypeCode');
+  }
+  get code() {
+    return this.addNewAccountReportForm.get('code');
   }
 
-  get companyId() {
-    return this.addEditForm.get('companyId');
-  }
-
-  get accountRepItemId() {
-    return this.addEditForm.get('accountRepItemId');
-  }
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService,
-    private route: ActivatedRoute
-  ) { }
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this.getItemReportTypeCodeList();
 
-    this.getAccountReportItemLst();
-    this.getAccountReportLst();
-    this.getCompanyLst();
-
-    this.addEditForm = new FormGroup({
-      accountRepId: new FormControl('', Validators.required),
-      companyId: new FormControl(''),
-      accountRepItemId: new FormControl('', Validators.required)
+    this.addNewAccountReportForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      itemReportTypeCode: new FormControl(0, Validators.required),
+      code: new FormControl(0, Validators.required),
+      order: new FormControl(0),
     });
 
-    this.route.params.subscribe((param: any) => {
-      if (param.id) {
-        this.isInFilteredMode = true;
-        this.addEditForm.patchValue({
-          accountRepId: Number(param.id)
-        })
-      }
-    });
-  }
 
-  addEditReport() {
-    this.addEditFormSubmitted = true;
-    if (this.addEditForm.valid) {
-      const request: AccountReportToItem = this.addEditForm.value;
-      const url = AccountReportToItem.apiAddress + 'create';
-      this.isLoadingSubmit = true;
 
-      this.httpService
-        .post<AccountReportToItem>(url, request)
-        .pipe(tap(() => (this.isLoadingSubmit = false)))
-        .subscribe(response => {
-          if (response.successed) {
-            this.messageService.add({
-              key: 'report',
-              life: 8000,
-              severity: 'success',
-              detail: ` نوع فروش`,
-              summary: 'با موفقیت درج شد'
-            });
-            this.isSuccess.emit(true);
-          }
-        });
+    if (this.mode == 'editSubGroupPro' || this.mode == 'editGroupPro') {
+      debugger
+      this.addNewAccountReportForm.patchValue(this.inputData);
     }
+
   }
 
-  getAccountReportItemLst() {
+  /*--------------------------
+# GET
+--------------------------*/
+
+  getItemReportTypeCodeList() {
     this.httpService
-      .post<AccountReportItem[]>(AccountReportItem.apiAddress + 'list' , {
-        "withOutPagination": true
-      })
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.accountReportItemList = response.data.result;
-        }
+      .get<ReportItemType[]>(ReportItemType.apiAddress + 'List')
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [new ReportItemType()];
+        })
+      )
+      .subscribe(data => {
+        this.itemReportTypeCodeList = data;
       });
   }
 
-  getAccountReportLst() {
+  onSubmitNewAccountReport() {
+    this.addNewAccountReportSubmitted = true;
+    if (this.addNewAccountReportForm.invalid) return;
+    const url = AccountReportItem.apiAddress + 'Create';
+    const request: AccountReportItem = this.addNewAccountReportForm.value;
+
+    if (this.mode == 'editGroupPro') {
+      request.parentId = this.inputData.parentId;
+      request.id = this.inputData.id;
+    } else if (this.mode == 'editSubGroupPro') {
+      request.parentId = this.inputData.parentId;
+      request.id = this.inputData.id;
+    } else if (this.mode == 'insertSubGroupPro') {
+      request.parentId = this.inputData.id;
+    } else if (this.mode == 'insertGroupPro') {
+      request.parentId = null;
+    }
+
+    request.itemReportTypeCode = Number(request.itemReportTypeCode);
+
     this.httpService
-      .post<AccountReport[]>(AccountReport.apiAddress + 'GetAllAccountReport', { 'withOutPagination': true })
+      .post<AccountReportItem>(url, request)
+      .pipe(tap(() => (this.addNewAccountReportLoading = false)))
       .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.accountReportLst = response.data.result;
+        if (response.successed) {
+          this.messageService.add({
+            key: 'accountReportMessage',
+            life: 8000,
+            severity: 'success',
+            detail: `اطلاعات زیرگروه`,
+            summary: 'با موفقیت انجام شد',
+          });
+          this.isSuccess.emit(true);
         }
       });
   }
-
-  getCompanyLst() {
-    this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.companyList = response.data.result;
-        }
-      });
-  }
-
-
-  getRowData(id: number) {
-    this.httpService
-      .get<any>(AccountReportToItem.apiAddress + 'GetAccountReportItemById/' + id)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.inputData = response.data.result;
-          this.addEditForm.patchValue(response.data.result);
-        }
-      });
-  }
-
-
-
-
 
 }

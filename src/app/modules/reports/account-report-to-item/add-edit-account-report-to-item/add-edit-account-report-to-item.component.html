@@ -1,78 +1,54 @@
-<p-toast key="report" position="bottom-left"></p-toast>
-
-
-<form
-  #formDir="ngForm"
-  [formGroup]="addEditForm"
-  (ngSubmit)="addEditReport()">
+<form [formGroup]="addNewAccountReportForm" (ngSubmit)="onSubmitNewAccountReport()">
   <div class="container row">
-  
+    <!-- کد  -->
     <div class="col-6 mt-2">
-      <label for="accountRepId"> نوع گزارش</label>
-      <p-dropdown
-        id="accountRepId"
-        name="accountRepId"
-        formControlName="accountRepId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="accountReportLst"
-        [filter]="true"
-        [readonly]="isInFilteredMode"
-        [class.ng-invalid]="accountRepId?.invalid"
+      <label for="code"> کد</label>
+      <input pInputText id="code" name="code" formControlName="code" type="int" pKeyFilter="int" [minlength]="0"
+        class="w-100" [class.ng-invalid]="itemReportTypeCode?.invalid" [class.ng-dirty]="
+          (addNewAccountReportSubmitted && code?.pristine) ||
+          code?.dirty ||
+          code?.touched
+        " />
+    </div>
+    <!-- / کد  -->
+    <!-- عنوان  -->
+    <div class="col-6 mt-2">
+      <label for="title"> عنوان</label>
+      <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100"
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+          (addNewAccountReportSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+    </div>
+    <!-- / عنوان  -->
+    <!-- نوع  -->
+    <div class="col-6 mt-2">
+      <label for="itemReportTypeCode"> نوع</label>
+      <p-dropdown id="itemReportTypeCode" name="itemReportTypeCode" formControlName="itemReportTypeCode"
+        styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+        [options]="itemReportTypeCodeList" [filter]="true" [class.ng-invalid]="itemReportTypeCode?.invalid"
         [class.ng-dirty]="
-          (addEditFormSubmitted && accountRepId?.pristine) ||
-          accountRepId?.dirty ||
-          accountRepId?.touched
+          (addNewAccountReportSubmitted && itemReportTypeCode?.pristine) ||
+          itemReportTypeCode?.dirty ||
+          itemReportTypeCode?.touched
         ">
       </p-dropdown>
     </div>
+    <!-- / نوع  -->
+    <!-- ترتیب  -->
     <div class="col-6 mt-2">
-      <label for="accountRepItemId"> آیتم گزارش </label>
-      <p-dropdown
-        id="accountRepItemId"
-        name="accountRepItemId"
-        formControlName="accountRepItemId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="accountReportItemList"
-        [filter]="true"
-        [class.ng-invalid]="accountRepItemId?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && accountRepItemId?.pristine) ||
-          accountRepItemId?.dirty ||
-          accountRepItemId?.touched
-        ">
-      </p-dropdown>
+      <label for="order"> ترتیب</label>
+      <p-inputNumber id="order" formControlName="order" type="text" pKeyFilter="int" [minlength]="0"
+        class="w-100"></p-inputNumber>
     </div>
+    <!-- / ترتیب  -->
 
-    
-    <div class="col-6 mt-2">
-      <label for="companyId"> شرکت</label>
-      <p-dropdown
-        id="companyId"
-        name="companyId"
-        formControlName="companyId"
-        styleClass="w-100 my-1"
-        optionLabel="companyName"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="companyList"
-        [filter]="true">
-      </p-dropdown>
+    <!-- دکمه ها -->
+    <div class=" row-btn row-btn-fixed-bottom">
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+        [loading]="addNewAccountReportLoading"></p-button>
     </div>
-    
-
-    <div class="col-12 row-btn">
-      <p-button
-        class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
-        [loading]="isLoadingSubmit"></p-button>
-    </div>
+    <!-- / دکمه ها -->
   </div>
 </form>
