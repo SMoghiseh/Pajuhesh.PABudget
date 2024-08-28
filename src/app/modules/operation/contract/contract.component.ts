@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
+  Company,
   Contract,
   ContractNo,
   ContractType,
@@ -33,6 +34,7 @@ export class ContractComponent implements OnInit {
   dataTableRows = 10;
   totalCount!: number;
   data: ContractNo[] = [];
+  companyList: any = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
@@ -58,13 +60,24 @@ export class ContractComponent implements OnInit {
     this.getContracType();
     this.getEmployer();
     this.getContractor();
+    this.getCompanyLst();
     this.searchForm = new FormGroup({
       contractDate: new FormControl(null),
       contractFromDate: new FormControl(null),
       contractToDate: new FormControl(null),
+      companyId: new FormControl(null),
       employerID: new FormControl(0),
       contractorID: new FormControl(0),
     });
+  }
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
   }
   getContracType() {
     this.httpService

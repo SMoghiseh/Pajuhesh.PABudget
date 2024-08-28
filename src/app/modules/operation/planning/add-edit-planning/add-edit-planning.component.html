@@ -35,7 +35,7 @@
         <div class="col-6 mt-2">
             <label for="companyId"> شرکت</label>
             <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-                optionLabel="companyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
+                optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
                 [filter]="true" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && companyId?.pristine) ||
           companyId?.dirty ||

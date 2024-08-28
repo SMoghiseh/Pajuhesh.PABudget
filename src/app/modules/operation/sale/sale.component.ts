@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContractNo, Pagination, Period, ProductGroup, Sale, UrlBuilder } from '@shared/models/response.model';
+import { Company, ContractNo, Pagination, Period, ProductGroup, Sale, UrlBuilder } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {
@@ -38,6 +38,8 @@ export class SaleComponent implements OnInit {
   productGroupList: any = [];
   saleTypeList: any = [];
   contractList: any = [];
+  companyList: any = [];
+
 
   constructor(
     private httpService: HttpService,
@@ -47,13 +49,15 @@ export class SaleComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
+    this.getCompanyLst();
     this.searchForm = new FormGroup({
-      budgetPeriodId: new FormControl(0),
-      periodId: new FormControl(0),
-      budgetPeriodDetailId: new FormControl(0),
-      contractId: new FormControl(0),
-      saleType: new FormControl(0),
-      productGroupId: new FormControl(0),
+      budgetPeriodId: new FormControl(null),
+      periodId: new FormControl(null),
+      budgetPeriodDetailId: new FormControl(null),
+      contractId: new FormControl(null),
+      saleType: new FormControl(null),
+      productGroupId: new FormControl(null),
+      companyId: new FormControl(null)
     });
   }
 
@@ -62,6 +66,15 @@ export class SaleComponent implements OnInit {
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
     this.getContractList();
+  }
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
   }
   getPeriodLst() {
     this.httpService

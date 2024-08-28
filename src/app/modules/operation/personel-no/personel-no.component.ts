@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
   BudgetSourceUse,
+  Company,
   CostCenterType,
   EducationTypeCode,
   EmploymentType,
@@ -17,7 +18,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-personel-no',
@@ -45,6 +46,7 @@ export class PersonelNoComponent {
   addEditData = new PersonelNo();
   pId!: string;
   addEditPersonelNoModel = new PersonelNo();
+  companyList: any = [];
 
   constructor(
     private httpService: HttpService,
@@ -52,13 +54,15 @@ export class PersonelNoComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
     this.getCostCenterType();
     this.getEmploymentType();
     this.getEducationTypeCode();
+    this.getCompanyLst();
+
     this.searchPersonelNoForm = new FormGroup({
       periodId: new FormControl(this.addEditPersonelNoModel.periodId),
       periodDetailId: new FormControl(
@@ -73,6 +77,7 @@ export class PersonelNoComponent {
       educationTypeId: new FormControl(
         this.addEditPersonelNoModel.educationTypeId
       ),
+      companyId: new FormControl(null)
     });
   }
 
@@ -130,6 +135,15 @@ export class PersonelNoComponent {
         }
       });
   }
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
+  }
   getCostCenterType() {
     this.httpService
       .get<CostCenterType[]>(CostCenterType.apiAddress + 'list')
@@ -167,7 +181,7 @@ export class PersonelNoComponent {
       educationTypeId: formValue.educationTypeId,
     };
     this.first = 0;
-    const url =  PersonelNo.apiAddress + 'ListByFilter';
+    const url = PersonelNo.apiAddress + 'ListByFilter';
     this.httpService
       .post<PersonelNo[]>(url, body)
 

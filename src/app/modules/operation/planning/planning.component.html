@@ -3,11 +3,7 @@
 <div class="d-flex justify-content-between">
   <div class="table-header">برنامه</div>
   <div>
-    <p-button
-      class="pe-2 mr-8"
-      styleClass="p-button-info"
-      icon="pi pi-plus-circle"
-      label="افزودن"
+    <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
       (click)="addPlan()"></p-button>
   </div>
 </div>
@@ -17,90 +13,47 @@
     <div class="row mt-8 pb-3">
       <div class="col-2 mt-2">
         <label for="planingCode"> کد </label>
-        <input
-          pInputText
-          id="planingCode"
-          name="planingCode"
-          formControlName="planingCode"
-          class="w-100 my-1" />
+        <input pInputText id="planingCode" name="planingCode" formControlName="planingCode" class="w-100 my-1" />
       </div>
       <div class="col-2 mt-2">
         <label for="title">عنوان آیتم </label>
-        <input
-          pInputText
-          id="title"
-          name="title"
-          formControlName="title"
-          class="w-100 my-1" />
+        <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
       </div>
       <div class="col-2 mt-2">
         <label for="planingDate">تاریخ تنظیم</label>
-        <p-persian-calendar
-          id="planingDate"
-          name="planingDate"
-          formControlName="planingDate"
-          styleClass="w-100">
+        <p-persian-calendar id="planingDate" name="planingDate" formControlName="planingDate" styleClass="w-100">
         </p-persian-calendar>
       </div>
       <div class="col-3 mt-2">
         <label for="companyId"> شرکت</label>
-        <p-dropdown
-          id="companyId"
-          name="companyId"
-          formControlName="companyId"
-          styleClass="w-100 my-1"
-          optionLabel="companyName"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="companyList"
-          [filter]="true">
+        <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true">
         </p-dropdown>
       </div>
       <div class="col-3 mt-2">
         <label for="meetingId"> صورتجلسه</label>
-        <p-dropdown
-          id="meetingId"
-          name="meetingId"
-          formControlName="meetingId"
-          styleClass="w-100 my-1"
-          optionLabel="companyName"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="meetingList"
-          [filter]="true">
+        <p-dropdown id="meetingId" name="meetingId" formControlName="meetingId" styleClass="w-100 my-1"
+          optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="meetingList" [filter]="true">
         </p-dropdown>
       </div>
       <div class="col-2 mt-2">
         <label for="startDate"> از تاریخ</label>
-        <p-persian-calendar
-          id="startDate"
-          name="startDate"
-          formControlName="startDate"
-          styleClass="w-100">
+        <p-persian-calendar id="startDate" name="startDate" formControlName="startDate" styleClass="w-100">
         </p-persian-calendar>
       </div>
       <div class="col-2 mt-2">
         <label for="endDate">تا تاریخ </label>
-        <p-persian-calendar
-          id="endDate"
-          name="endDate"
-          formControlName="endDate"
-          styleClass="w-100">
+        <p-persian-calendar id="endDate" name="endDate" formControlName="endDate" styleClass="w-100">
         </p-persian-calendar>
       </div>
 
       <!-- دکمه -->
-      <div
-        class="d-flex justify-content-end col text-end"
-        style="margin-top: 20px">
+      <div class="d-flex justify-content-end col text-end" style="margin-top: 20px">
         <div class="search-button mt-12">
           <div class="clear-search" (click)="clearSearch()">
             <i class="pi pi-filter-slash"></i>
           </div>
-          <p-button
-            class="pe-2 p-button-wide"
-            styleClass="p-button-info"
-            [label]="'جستجو'"
+          <p-button class="pe-2 p-button-wide" styleClass="p-button-info" [label]="'جستجو'"
             (click)="getPlan()"></p-button>
         </div>
       </div>
@@ -110,22 +63,10 @@
 </div>
 
 <div class="table-container">
-  <p-table
-    #dataTable
-    dataKey="id"
-    class="data-table d-none d-lg-block"
-    [styleClass]="gridClass"
-    [rowHover]="true"
-    [paginator]="true"
-    [rows]="dataTableRows"
-    [rowsPerPageOptions]="[10, 20, 30]"
-    [totalRecords]="totalCount"
-    [value]="data"
-    [loading]="loading"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [lazy]="true"
-    (onLazyLoad)="getPlan($event)"
-    [(first)]="first">
+  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+    (onLazyLoad)="getPlan($event)" [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -149,24 +90,16 @@
         <td>{{ item.endDate }}</td>
         <td>{{ item.planingDate }}</td>
         <td class="jc-left ai-left">
-          <button
-            class="action-image-container edit-button"
-            (click)="editRow(item)"
-            pTooltip="ویرایش">
+          <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
           </button>
 
-          <button
-            class="action-image-container delete-button"
-            (click)="deleteRow(item)"
-            pTooltip="حذف">
+          <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
           </button>
 
-          <button
-            class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(item)"
-            pTooltip="">
+          <button class="action-image-container delete-button"
+            (click)="menu.toggle($event); setActiveComponentRoute(item)" pTooltip="">
             <img ngSrc="icons\Group 109.svg" width="24" height="24" />
           </button>
         </td>
@@ -188,17 +121,11 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button
-              class="action-image-container edit-button"
-              (click)="editRow(report)"
-              title="ویرایش">
+            <button class="action-image-container edit-button" (click)="editRow(report)" title="ویرایش">
               <img ngSrc="icons\Group 116.svg" width="24" height="24" />
             </button>
 
-            <button
-              class="action-image-container delete-button"
-              (click)="deleteRow(report)"
-              title="حذف بودجه ">
+            <button class="action-image-container delete-button" (click)="deleteRow(report)" title="حذف بودجه ">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>
           </div>
@@ -208,26 +135,14 @@
   </ul>
 </div>
 
-<p-dialog
-  *ngIf="isOpenAddEditPlan"
-  [header]="modalTitle"
-  [(visible)]="isOpenAddEditPlan"
-  [modal]="true"
-  [draggable]="false"
-  [resizable]="false"
-  [class.height-size]="mode === 'insert' || mode === 'edit'"
+<p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
+  [draggable]="false" [resizable]="false" [class.height-size]="mode === 'insert' || mode === 'edit'"
   [style]="{ width: '800px', height: '400px' }">
-  <PABudget-add-edit-planning
-    [data]="addEditData"
-    [mode]="mode"
+  <PABudget-add-edit-planning [data]="addEditData" [mode]="mode"
     (isSuccess)="reloadData()"></PABudget-add-edit-planning>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
 
-<p-menu
-  [showTransitionOptions]="'0ms'"
-  [hideTransitionOptions]="'0ms'"
-  #menu
-  [popup]="true"
+<p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true"
   [model]="subComponentList"></p-menu>

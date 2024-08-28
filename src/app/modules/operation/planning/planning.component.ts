@@ -76,7 +76,7 @@ export class PlanningComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getMeetingLst();
@@ -94,9 +94,7 @@ export class PlanningComponent {
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
-        withOutPagination: true,
-      })
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
@@ -123,33 +121,33 @@ export class PlanningComponent {
     const formValue = this.searchForm.value;
     formValue.planingDate = formValue.planingDate
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue.planingDate?.getFullYear(),
-            formValue.planingDate?.getMonth(),
-            formValue.planingDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.planingDate?.getFullYear(),
+          formValue.planingDate?.getMonth(),
+          formValue.planingDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     formValue.startDate = formValue.startDate
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue.startDate?.getFullYear(),
-            formValue.startDate?.getMonth(),
-            formValue.startDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.startDate?.getFullYear(),
+          formValue.startDate?.getMonth(),
+          formValue.startDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     formValue.endDate = formValue.endDate
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue.endDate?.getFullYear(),
-            formValue.endDate?.getMonth(),
-            formValue.endDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.endDate?.getFullYear(),
+          formValue.endDate?.getMonth(),
+          formValue.endDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
