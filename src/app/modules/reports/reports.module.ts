@@ -16,6 +16,8 @@ import { SharedModule } from '@shared/shared.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TooltipModule } from 'primeng/tooltip';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { AddEditAccountReportComponent } from './account-report/add-edit-account-report/add-edit-account-report.component';
 import { AccountReportComponent } from './account-report/account-report.component';
 import { AccountReportItemPriceComponent } from './account-report-item-price/account-report-item-price.component';
@@ -43,7 +45,7 @@ import { TooltipModule } from 'primeng/tooltip';
     AddEditAccountReportToItemComponent,
     AccountReportItemComponent,
     FinancialStatementsReportComponent,
-    AggregateComponent
+    AggregateComponent,
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ import { TooltipModule } from 'primeng/tooltip';
     TreeSelectModule,
     PickListModule,
     PaginatorModule,
-    TooltipModule
+    TooltipModule,
+    RadioButtonModule,
   ],
   providers: [
     {
@@ -75,4 +78,4 @@ import { TooltipModule } from 'primeng/tooltip';
     },
   ],
 })
-export class ReportsModule { }
+export class ReportsModule {}

@@ -4,12 +4,14 @@
 <div class="content-page">
   <div class="filter-box">
     <div class="menu-shortcut" (click)="routeToDashboard()">
-      <img src="../../../assets/images/icons/Vector.svg">
+      <img src="../../../assets/images/icons/Vector.svg" />
       <span>داشبورد</span>
     </div>
     <h6 class="filter-tab-title">فیلتر نتایج بر اساس</h6>
     <ng-container *ngFor="let filter of filterList">
-      <div [ngClass]="isSelectedItem(filter) ? 'selected-filter-tab' : ''" (click)="onSelectFilterTab(filter)"
+      <div
+        [ngClass]="isSelectedItem(filter) ? 'selected-filter-tab' : ''"
+        (click)="onSelectFilterTab(filter)"
         class="filter-tab">
         {{ filter.reportName }}
       </div>
@@ -20,7 +22,9 @@
       <a (click)="backClicked()">بازگشت</a>
       <i class="pi pi-arrow-left"></i>
     </p>
-    <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{ $implicit: companyList }">
+    <ng-container
+      [ngTemplateOutlet]="companyInfoItem"
+      [ngTemplateOutletContext]="{ $implicit: companyList }">
     </ng-container>
   </div>
 </div>
@@ -30,36 +34,51 @@
   <ng-container *ngFor="let company of companyList">
     <!-- company item -->
     <div class="company">
-      <div class="company-item">
-        <div class="company-logo" [style.background-image]="
+      <div
+        class="company-item"
+        [routerLink]="['/Comapny/companyProfile', company.id]">
+        <div
+          class="company-logo"
+          [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
         <div class="company-header">
           {{ company.shortName }}
         </div>
         <div class="company-detail">
-          <p class="status" *ngIf="company.isPositive != false " pTooltip="{{ company.valus }}"> {{
-            company.valus }}
+          <p *ngIf="company.isPositive != false" pTooltip="{{ company.valus }}">
+            {{ company.valus }}
           </p>
-          <p class="status" *ngIf="company.isPositive == false" [ngClass]="{'red' : company.isPositive == false }"
-            pTooltip="{{returnTooltip(company.valus)}}">{{
-            company.valus }}
+          <p
+            *ngIf="company.isPositive == false"
+            [ngClass]="{ red: company.isPositive == false }"
+            pTooltip="{{ returnTooltip(company.valus) }}">
+            {{ company.valus }}
           </p>
 
-          <p class="detail-link"><a [routerLink]="['/Comapny/companyProfile', company.id]">جزئیات
-            </a></p>
+          <!-- <p class="detail-link">
+            <a [routerLink]="['/Comapny/companyProfile', company.id]"
+              >جزئیات
+            </a>
+          </p> -->
         </div>
       </div>
       <div *ngIf="company.children" class="company-list" #content>
         <div class="collapsed-down" #downIcon>
           <div></div>
-          <i (click)="toggleList(content, downIcon, upIcon)" class="pi pi-chevron-down"></i>
+          <i
+            (click)="toggleList(content, downIcon, upIcon)"
+            class="pi pi-chevron-down"></i>
           <div></div>
         </div>
-        <ng-container [ngTemplateOutlet]="companyInfoItem" [ngTemplateOutletContext]="{ $implicit: company.children }">
+        <ng-container
+          [ngTemplateOutlet]="companyInfoItem"
+          [ngTemplateOutletContext]="{ $implicit: company.children }">
         </ng-container>
         <div class="collapsed-up hide" #upIcon>
-          <i (click)="toggleList2(content, downIcon, upIcon)" class="pi pi-chevron-up"></i>
+          <i
+            (click)="toggleList2(content, downIcon, upIcon)"
+            class="pi pi-chevron-up"></i>
         </div>
       </div>
     </div>
