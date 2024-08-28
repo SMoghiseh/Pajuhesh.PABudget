@@ -12,14 +12,34 @@
       *ngFor="let company of mySubCompanies">
       <div
         class="holding-box"
+        *ngIf="company.id !== 5"
         [class.select-co-item]="company.isSelected"
-        [style.background-image]="'url(../../../../assets/images/dashbord.svg)'"
         (click)="onSelectCompany(company)">
         <div
           class="div-img-logo"
           [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
+        <div style="height: 36px">
+          <span style="color: black">{{ company.companyName }}</span>
+        </div>
+        <span class="count">{{ company.count }}</span>
+      </div>
+      <div
+        class="holdingBox-arrow"
+        *ngIf="company.id === 5"
+        [class.select-co-item]="company.isSelected"
+        (click)="onSelectCompany(company)">
+        <div
+          class="div-img-logo"
+          [style.background-image]="
+            'url(../../../../assets/images/holding-logo/' + company.logo + ')'
+          "></div>
+        <!-- <div
+        *ngIf="company.id === 5"
+        [style.background-image]="
+          'url(../../../../assets/images/dashbord-arrow.svg)'
+        "></div> -->
         <div style="height: 36px">
           <span style="color: black">{{ company.companyName }}</span>
         </div>
