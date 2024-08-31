@@ -4,12 +4,14 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [selectType]="selectDateType"
+          <app-select-date
+            [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div *ngFor="let item of priceTypeList"
+        <div
+          *ngFor="let item of priceTypeList"
           class="items"
           (click)="onSelectPriceType(item.id)"
           [class.select-feature]="item.isSelected">
@@ -17,12 +19,14 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div class="items"
+        <div
+          class="items"
           (click)="selectTable()"
           [class.select-feature]="isSelectTable">
           <span>جدول</span>
         </div>
-        <div class="items disable-btns"
+        <div
+          class="items disable-btns"
           [class.enable-btns]="selectedRows?.length > 0"
           [class.select-feature]="isShowChart"
           (click)="getChart()">
@@ -30,34 +34,29 @@
         </div>
       </div>
 
-      <div *ngIf="!isShowChart"
-        class="table-container">
-        <p-table [columns]="planDetailData?.headers"
+      <div *ngIf="!isShowChart" class="table-container">
+        <p-table
+          [columns]="planDetailData?.headers"
           [value]="planDetailData?.budgetDetails"
           [(selection)]="selectedRows">
-          <ng-template pTemplate="header"
-            let-columns>
+          <ng-template pTemplate="header" let-columns>
             <tr>
               <th></th>
               <div style="display: flex; margin-right: -28rem">
-                <th class="headerStyle"
-                  *ngFor="let col of columns">
+                <th class="headerStyle" *ngFor="let col of columns">
                   {{ col.headerName }}
                 </th>
               </div>
               <th></th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body"
-            let-rowData
-            let-columns="columns">
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr class="detailStyle">
               <td style="min-width: 7rem">
                 <p-tableCheckbox [value]="rowData.code" />
               </td>
 
-              <td style="min-width: 38rem"
-                *ngFor="let col of columns">
+              <td style="min-width: 38rem" *ngFor="let col of columns">
                 {{ rowData[col.field] }}
               </td>
             </tr>
@@ -66,17 +65,20 @@
       </div>
       <div *ngIf="isShowChart">
         <div *ngIf="allChartsData?.length === 1">
-          <canvas id="LineChart0"
+          <canvas
+            id="LineChart0"
             width="900"
             height="200"
             style="display: unset"></canvas>
         </div>
         <div *ngIf="allChartsData?.length === 2">
-          <canvas id="LineChart0"
+          <canvas
+            id="LineChart0"
             width="900"
             height="200"
             style="display: unset"></canvas>
-          <canvas id="LineChart1"
+          <canvas
+            id="LineChart1"
             width="900"
             height="200"
             style="display: unset"></canvas>
