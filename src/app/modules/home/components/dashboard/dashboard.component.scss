@@ -9,7 +9,10 @@ body {
 }
 
 .select-co-item {
-    background-color:rgb(0 0 0 / 0%) !important;
+    background-color: #E2E8F0 !important;
+}
+.select-co-item-arrow{
+    background-color: (0,0,0,0) !important;
 }
 
 
@@ -70,10 +73,10 @@ body {
     align-content: center;
     text-align: -webkit-center;
     height: 140px;
-    margin: 5px 10px 0px 10px;
+    margin: 22px 10px 0px 10px;
     cursor: pointer;
-    width: 188.5px;
-    height: 180px;
+    width: 160px;
+    height: 150px;
     flex-shrink: 0;
     fill: var(--Base-White, #FFF);
     filter: drop-shadow(0px 0px 6px rgba(182, 194, 211, 0.25));
@@ -85,6 +88,7 @@ body {
     }
 }
 .holdingBox-arrow {
+    
     background-image:  url(../../../../../assets/images/dashbord-arrow.svg);
     background-repeat: no-repeat;
     background-position: center-top;
@@ -96,7 +100,7 @@ body {
     align-content: center;
     flex-shrink: 0;
     fill: var(--Base-White, #FFF);
-    filter: drop-shadow(0px 0px 6px rgba(182, 194, 211, 0.25));
+    filter: drop-shadow(0px 0px 6px rgba(118, 121, 124, 0.25));
     .count {
         color: #3B82F6;
         position: relative;

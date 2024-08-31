@@ -28,18 +28,14 @@
       <div
         class="holdingBox-arrow"
         *ngIf="company.id === 5"
-        [class.select-co-item]="company.isSelected"
+        [class.select-co-item-arrow]="company.isSelected"
         (click)="onSelectCompany(company)">
         <div
           class="div-img-logo"
           [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
-        <!-- <div
-        *ngIf="company.id === 5"
-        [style.background-image]="
-          'url(../../../../assets/images/dashbord-arrow.svg)'
-        "></div> -->
+
         <div style="height: 36px">
           <span style="color: black">{{ company.companyName }}</span>
         </div>
