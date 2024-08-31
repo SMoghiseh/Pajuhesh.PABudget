@@ -18,13 +18,15 @@ export class CostAndBenefitComponent implements OnInit {
   selectedRows: any = [];
   isShowChart = false;
   lineChart1: any;
+  lineChart2: any;
   isSelectTable = true;
+  isSelectAllChart = false;
   selectedYerId: any;
   priceTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
     this.getPriceType();
@@ -53,7 +55,13 @@ export class CostAndBenefitComponent implements OnInit {
   returnSelectedDate(e: any) {
     this.selectedYerId = e;
     if (this.isSelectTable) this.getPlanDetail(e);
-    else this.getChart();
+    else {
+      if (this.selectedPriceTypeId == 0) {
+        this.getChart(1, 1);
+        this.getChart(2, 2);
+      } else this.getChart(this.selectedPriceTypeId);
+    }
+
   }
 
   selectTable() {
@@ -63,21 +71,31 @@ export class CostAndBenefitComponent implements OnInit {
     this.selectedRows = [];
   }
 
-  getChart() {
+  createRequestBody(priceTypeId: number) {
+    this.selectDateType = 'multiple';
+    this.isShowChart = true;
+    this.isSelectTable = false;
+    const type = typeof this.selectedYerId;
+    let arr = [];
+    if (type === 'number') arr.push(this.selectedYerId);
+    else arr = this.selectedYerId;
+
+    return {
+      companyId: this.inputData.companyId,
+      reportTypeId: this.selectedRows,
+      yearId: arr,
+      priceType: priceTypeId,
+    };
+
+  }
+
+  getChart(chartId?: number, priceType?: number) {
+    if (!chartId) chartId = 2;    // انتخاب پیش فرض عملکرد
+    if (!priceType) priceType = this.selectedPriceTypeId;
+
     if (this.selectedRows?.length > 0) {
-      this.selectDateType = 'multiple';
-      this.isShowChart = true;
-      this.isSelectTable = false;
-      const type = typeof this.selectedYerId;
-      let arr = [];
-      if (type === 'number') arr.push(this.selectedYerId);
-      else arr = this.selectedYerId;
-      const body = {
-        companyId: this.inputData.companyId,
-        reportTypeId: this.selectedRows,
-        yearId: arr,
-        priceType: this.selectedPriceTypeId,
-      };
+      let body = this.createRequestBody(priceType);
+
       this.httpService
         .post<any>(UrlBuilder.build(Profile.apiAddressGetChart, ''), body)
         .pipe(
@@ -88,21 +106,35 @@ export class CostAndBenefitComponent implements OnInit {
           })
         )
         .subscribe(res => {
-          if (this.lineChart1) this.lineChart1.destroy();
           this.allChartsData = res;
-          for (let i = 0; i < res.length; i++) {
-            this.createLineChart(res[i], i);
-          }
+          this.createLineChart(res[0], chartId);
+
         });
     }
   }
 
-  createLineChart(data: any, indx: number) {
-    this.lineChart1 = new Chart('LineChart' + indx, {
+  createLineChart(data: any, indx: any) {
+    if (indx == 1) {
+      this.lineChart1?.destroy();
+    }
+    if (indx == 2) {
+      this.lineChart2?.destroy();
+    }
+
+    let chart;
+    chart = new Chart('LineChart' + indx, {
       type: 'line',
       data: data,
       options: {
         plugins: {
+          title: {
+            display: true,
+            text: data.title,
+            padding: {
+              top: 10,
+              bottom: 30
+            }
+          },
           legend: {
             labels: {
               font: {
@@ -131,6 +163,14 @@ export class CostAndBenefitComponent implements OnInit {
         },
       },
     });
+
+    if (indx == 1) {
+      this.lineChart1 = chart;
+    }
+    if (indx == 2) {
+      this.lineChart2 = chart;
+    }
+
   }
 
   getPriceType() {
@@ -154,12 +194,28 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   onSelectPriceType(id: number) {
+
     this.selectedPriceTypeId = id;
     this.priceTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
       else element.isSelected = false;
     });
+
+
+    // نمایش جدول
     if (!this.isShowChart) this.getPlanDetail(this.selectedYerId);
-    else this.getChart();
+
+    // نمایش چارت 
+    if (id == 1 || id == 2) {
+      this.getChart(id, id);
+    }
+    else if (id == 0) {
+      // عملکرد و بودجه
+      // نمایش هر دو چارت
+      this.getChart(2, 2);
+      this.getChart(1, 1);
+    }
+
   }
+
 }

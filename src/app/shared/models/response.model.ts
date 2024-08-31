@@ -1350,6 +1350,11 @@ export class AccountReportToItem {
 }
 export class AccountReportItem {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';
+  id!: number;
+  parentId!: number | null;
+  itemReportTypeCode!: number;
+  itemReportTypeTitle!: string;
+  children!: ProductGroup[];
 }
 
 export class FinancialStatementsReport {

@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination, AccountReportToItem, UrlBuilder, Company, AccountReport } from '@shared/models/response.model';
+import { FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import { map, tap } from 'rxjs';
-import {
-  ConfirmationService,
-  LazyLoadEvent,
-  MessageService,
-} from 'primeng/api';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AccountReportItem } from '@shared/models/response.model';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'PABudget-account-report',
@@ -18,123 +13,92 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class AccountReportToItemComponent implements OnInit {
-  gridClass = 'p-datatable-sm';
-  dataTableRows = 10;
-  totalCount!: number;
-  data: AccountReportToItem[] = [];
-  loading = false;
-  lazyLoadEvent?: LazyLoadEvent;
-  first = 0;
+  accountReports: AccountReportItem[] = [];
+  addEditData = new AccountReportItem();
+  selectedAccountReports: any;
+  isOpenAddAccountReport: boolean = false;
+  addNewAccountReportForm!: FormGroup;
   modalTitle = '';
-  isOpenAddEditReport = false;
-  addEditData = new AccountReportToItem();
-  pId!: string;
-  mode!: string;
+  mode!:
+    | 'insertGroupPro'
+    | 'insertSubGroupPro'
+    | 'editGroupPro'
+    | 'editSubGroupPro';
 
-  // form property
-  searchForm!: FormGroup;
-
-  // dropdown data list
-  companyList: any = [];
-  accountReportList: any = [];
-
-  isInFilteredMode = false;
 
   constructor(
     private httpService: HttpService,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
-    this.getAccountReportLst();
-    this.getCompanyLst();
-
-    this.searchForm = new FormGroup({
-      companyId: new FormControl(0),
-      accountReportId: new FormControl(0),
-    });
-
-    this.route.params.subscribe((param: any) => {
-      if (param.id) {
-        this.isInFilteredMode = true;
-        this.searchForm.value.accountReportId = param.id;
-      }
-    });
-
+    this.getAccountReportList();
   }
 
-
-  getCompanyLst() {
+  /*--------------------------
+  # GET
+  --------------------------*/
+  getAccountReportList() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.companyList = response.data.result;
-        }
-      });
-  }
-
-  getAccountReportLst() {
-    this.httpService
-      .post<AccountReport[]>(AccountReport.apiAddress + 'GetAllAccountReport', { 'withOutPagination': true })
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.accountReportList = response.data.result;
-        }
-      });
-  }
-
-
-
-  getReport(event?: LazyLoadEvent) {
-    if (event) this.lazyLoadEvent = event;
-
-    const pagination = new Pagination();
-    const first = this.lazyLoadEvent?.first || 0;
-    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-    const formValue = this.searchForm.value;
-
-    pagination.pageNumber = first / rows + 1;
-    pagination.pageSize = rows;
-
-    const body = {
-      pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-      withOutPagination: false,
-      ...formValue
-    };
-
-    this.first = 0;
-    const url = AccountReportToItem.apiAddress + 'GetAccountRepToItemList';
-    this.httpService
-      .post<AccountReportToItem[]>(url, body)
-
+      .get<AccountReportItem[]>(AccountReportItem.apiAddress + 'Tree')
       .pipe(
-        tap(() => (this.loading = false)),
         map(response => {
           if (response.data && response.data.result) {
-            if (response.data.totalCount)
-              this.totalCount = response.data.totalCount;
+            this.selectedAccountReports = new AccountReportItem();
+            this.accountReports = [];
             return response.data.result;
-          } else return [new AccountReportToItem()];
+          } else return [new AccountReportItem()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(accountReports => {
+        this.accountReports = accountReports;
+      });
   }
 
-  addReport() {
-    this.modalTitle = 'افزودن  گزارش جدید';
-    this.isOpenAddEditReport = true;
-    this.mode = 'insert';
+
+  onNodeSelect(e: any) {
+    console.log('node select');
   }
 
-  deleteRow(item: AccountReportToItem) {
-    if (item && item.id)
+  onAddNewAccountReport(): void {
+    this.isOpenAddAccountReport = true;
+    this.modalTitle = 'تعریف  آیتم';
+    this.mode = 'insertGroupPro';
+  }
+
+  onAddSubGroup() {
+    this.isOpenAddAccountReport = true;
+    this.modalTitle = 'تعریف زیرگروه';
+    this.mode = 'insertSubGroupPro';
+  }
+
+
+  onEditRow() {
+    this.modalTitle = 'ویرایش گروه';
+    if (!this.selectedAccountReports.parentId)
+      this.mode = 'editGroupPro';
+    else this.mode = 'editSubGroupPro';
+    this.getRowDataById(this.selectedAccountReports.id);
+
+  }
+
+  getRowDataById(id: number) {
+    this.httpService
+      .get<AccountReportItem>(AccountReportItem.apiAddress + 'GetById/' + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.addEditData = response.data.result;
+          this.isOpenAddAccountReport = true;
+        }
+      });
+  }
+
+  onDeleteRow() {
+    setTimeout(() => {
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.accountRepTitle} " اطمینان دارید؟`,
-        header: `عنوان "${item.accountRepTitle}"`,
+        message: 'آیا از حذف گزارش مالی اطمینان دارید؟',
+        header: `عنوان ${this.selectedAccountReports.title}`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -142,39 +106,40 @@ export class AccountReportToItemComponent implements OnInit {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteReport(item.id, item.accountRepTitle),
+        accept: () =>
+          this.deleteAccountReports(
+            this.selectedAccountReports.id,
+            this.selectedAccountReports.title
+          ),
+      });
+    }, 100);
+  }
+
+  deleteAccountReports(id: number, title: string) {
+    this.httpService
+      .get<AccountReportItem>(
+        AccountReportItem.apiAddress + '/Delete' + `/${id}`
+      )
+      .subscribe(response => {
+        if (response.successed) {
+          this.messageService.add({
+            key: 'accountReportMessage',
+            life: 8000,
+            severity: 'success',
+            detail: `آیتم ${title}`,
+            summary: 'با موفقیت حذف شد',
+          });
+          this.getAccountReportList();
+        }
       });
   }
 
-  deleteReport(id: number, title: string) {
-    if (id && title) {
-      this.httpService
-        .get<AccountReportToItem>(
-          UrlBuilder.build(AccountReportToItem.apiAddress + 'Delete', '') + `/${id}`
-        )
-        .subscribe(response => {
-          if (response.successed) {
-            this.first = 0;
-            this.messageService.add({
-              key: 'report',
-              life: 8000,
-              severity: 'success',
-              detail: ` گزارش  ${title}`,
-              summary: 'با موفقیت حذف شد',
-            });
-            this.getReport();
-          }
-        });
-    }
-  }
-
   reloadData() {
-    this.isOpenAddEditReport = false;
-    this.getReport();
+    this.isOpenAddAccountReport = false;
+    this.getAccountReportList();
   }
 
-  clearSearch() {
-    this.searchForm.reset();
-    this.getReport();
+  closeModal() {
+    this.isOpenAddAccountReport = false;
   }
 }
