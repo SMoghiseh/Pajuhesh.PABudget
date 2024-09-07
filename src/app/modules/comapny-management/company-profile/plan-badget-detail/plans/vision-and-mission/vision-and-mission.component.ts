@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import { Plan, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
@@ -8,19 +8,22 @@ import { map } from 'rxjs';
   templateUrl: './vision-and-mission.component.html',
   styleUrls: ['./vision-and-mission.component.scss'],
 })
-export class VisionAndMissionComponent {
+export class VisionAndMissionComponent implements OnInit {
   @Input() inputData: any;
 
   planDetailData: any;
   selectDateType = 'single';
   selectedPlanName = 'چشم انداز و ماموریت';
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
-  getPlanDetail(yearId: number) {
+  ngOnInit(): void {
+    this.getPlanDetail();
+  }
+
+  getPlanDetail() {
     const body = {
-      companyId: this.inputData.companyId,
-      periodId: yearId,
+      companyId: this.inputData.companyId
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressVisionAndMission, ''), body)
@@ -36,7 +39,4 @@ export class VisionAndMissionComponent {
       });
   }
 
-  returnSelectedDate(e: any) {
-    this.getPlanDetail(e);
-  }
 }

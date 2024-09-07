@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import { Plan, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
@@ -8,19 +8,20 @@ import { map } from 'rxjs';
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.scss']
 })
-export class GoalsComponent {
+export class GoalsComponent implements OnInit {
   @Input() inputData: any;
 
   planDetailData: any;
   selectDateType = 'single';
   selectedPlanName = 'اهداف';
 
-  constructor(private httpService: HttpService) {}
-
-  getPlanDetail(yearId: number) {
+  constructor(private httpService: HttpService) { }
+  ngOnInit(): void {
+    this.getPlanDetail();
+  }
+  getPlanDetail() {
     const body = {
-      companyId: this.inputData.companyId,
-      periodId: yearId,
+      companyId: this.inputData.companyId
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressGoals, ''), body)
@@ -34,9 +35,5 @@ export class GoalsComponent {
       .subscribe(res => {
         this.planDetailData = res;
       });
-  }
-
-  returnSelectedDate(e: any) {
-    this.getPlanDetail(e);
   }
 }
