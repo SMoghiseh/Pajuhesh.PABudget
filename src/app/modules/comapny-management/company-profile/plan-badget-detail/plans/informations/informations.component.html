@@ -1,23 +1,29 @@
 <div class="row bottom-section">
-    <div class="co-info-box">
-      <h3>{{ selectedPlanName }}</h3>
-      <div class="row row-feature">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-          <div class="row">
-            <app-select-date
-              [selectType]="selectDateType"
-              (selectedVal)="returnSelectedDate($event)"></app-select-date>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-          <div class="items select-feature">
-            <span>شرح</span>
-          </div>
+  <div class="co-info-box">
+    <h3>{{ selectedPlanName }}</h3>
+    <div class="row row-feature">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div class="row">
+          <app-select-date [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
-      <div class="row desc" *ngFor="let item of planDetailData">
-        <div [innerHTML]="item.desc"></div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div class="items select-feature">
+          <span>شرح</span>
+        </div>
+      </div>
+    </div>
+    <div class="row desc" *ngFor="let item of planDetailData">
+      <div class="box-data h-100">
+        <div class="row">
+          <i [class]="item.icon"></i>
+          <h5>{{ item.title }}</h5>
+        </div>
+        <div class="row d-inline lh-lg">
+          <i class="pi pi-angle-left"></i>
+          <span>{{ item.desc }}</span>
+        </div>
       </div>
     </div>
   </div>
-  
+</div>

@@ -9,15 +9,11 @@
       </div>
     </div>
     <div class="row row-cols-lg-1 row-cols-md-1 row-cols-sm-1">
-      <div class="col my-1" *ngFor="let item of planDetailData">
+      <div class="col my-1" *ngFor="let item of planDetailData.desc">
         <div class="box-data h-100">
-          <div class="row">
-            <i [class]="item.icon"></i>
-            <h5>{{ item.title }}</h5>
-          </div>
           <div class="row d-inline lh-lg">
             <i class="pi pi-angle-left"></i>
-            <span>{{ item.desc }}</span>
+            <span>{{ item }}</span>
           </div>
         </div>
       </div>

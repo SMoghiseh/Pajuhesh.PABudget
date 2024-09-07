@@ -11,7 +11,7 @@ import { map } from 'rxjs';
 export class StrategyMapComponent implements OnInit {
   @Input() inputData: any;
 
-  planDetailData: any;
+  planDetailData: any = {};
   selectDateType = 'single';
   selectedPlanName = ' نقشه استراتژی';
 
@@ -30,7 +30,7 @@ export class StrategyMapComponent implements OnInit {
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )

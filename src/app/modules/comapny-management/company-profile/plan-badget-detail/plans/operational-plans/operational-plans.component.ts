@@ -16,7 +16,7 @@ export class OperationalPlansComponent {
   selectDateType = 'single';
   selectedPlanName = 'برنامه های عملیاتی';
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   getPlanDetail(yearId: number) {
     const body = {
@@ -28,7 +28,7 @@ export class OperationalPlansComponent {
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )

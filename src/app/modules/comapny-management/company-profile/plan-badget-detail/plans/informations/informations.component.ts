@@ -16,7 +16,7 @@ export class InformationsComponent {
   selectDateType = 'single';
   selectedPlanName = 'مفروضات';
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   getPlanDetail(yearId: number) {
     const body = {
@@ -28,7 +28,7 @@ export class InformationsComponent {
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
-            return response.data.result.datasDescs;
+            return response.data.result;
           } else return [];
         })
       )

@@ -12,21 +12,13 @@
           <span>شرح</span>
         </div>
       </div>
-      <ng-container *ngFor="let item of dataList">
-        <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-          <div class="">
-            <span>{{item.title}}</span>
+      <ng-container *ngFor="let item of dataList.desc">
+        <div class="col">
+          <img src="../../../../../../../assets/images/icons/target.svg" />
+          <div>
+            {{item}}
           </div>
-        </div> -->
-          <div class="mt-4 col-lg-12 col-md-12 col-sm-12 col-xs-12
-           d-flex flex-wrap row-cols-5  p-0">
-           <div *ngFor="let data of item.desc"  class="col">
-            <img src="../../../../../../../assets/images/icons/target.svg" />
-              <div>
-                {{data}}
-              </div>
-            </div>
-          </div>
+        </div>
       </ng-container>
     </div>
 
