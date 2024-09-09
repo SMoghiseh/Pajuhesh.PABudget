@@ -87,6 +87,7 @@ export class BaseResponse<type> {
 
   /** نتیجه عملیات */
   data!: {
+    headers: Profile[];
     /** فهرست فیلدها */
     result?: type;
 
@@ -1206,9 +1207,14 @@ export class Profile {
   static readonly apiAddressGetChart = 'api/PABudgetApi/Dashboard/GetChart';
   static readonly apiAddressGetPriceType =
     'api/PABudgetApi/Dashboard/GetPriceType';
+
   id!: number;
   title!: string;
   icon!: string;
+  companyId!: number;
+  firstPeriodId!: number;
+  secondPeriodId!: number;
+  accountReportCode!: string;
 }
 
 export class Plan {
@@ -1301,6 +1307,12 @@ export class Budget {
     'api/PABudgetApi/Dashboard/BudgetResourceUse';
   static readonly apiAddresBudgetResourceUseChart =
     'api/PABudgetApi/Dashboard/BudgetResourceUseChart';
+  static readonly apiAddressCompareBudgetWithReal =
+    'api/PABudgetApi/Dashboard/CompareBudgetWithReal/CostAndBenefit';
+  static readonly apiAddressCompareBudgetWithBudget =
+    'api/Dashboard/CompareBudgetWithBudget/CostAndBenefit';
+  static readonly apiAddressCompareRealWithBudget =
+    'api/PABudgetApi/Dashboard/CompareRealWithBudget/CostAndBenefit';
 }
 
 export class Reports {
@@ -1469,10 +1481,14 @@ export class Assumptions {
 }
 export class YearActivity {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearActivity/';
-  static readonly apiAddressWeight = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Weight/';
-  static readonly apiAddressPriority = 'api/PABudgetApi/v1/BaseInfo/YearActivity/Priority/';
-  static readonly apiAddressCostCenter = 'api/PABudgetApi/v1/BaseInfo/YearActivity/CostCenter/';
-  static readonly apiAddressExceptedYearActivities = 'api/PABudgetApi/v1/BudgetPeriod/GetExceptedYearActivities/';
+  static readonly apiAddressWeight =
+    'api/PABudgetApi/v1/BaseInfo/YearActivity/Weight/';
+  static readonly apiAddressPriority =
+    'api/PABudgetApi/v1/BaseInfo/YearActivity/Priority/';
+  static readonly apiAddressCostCenter =
+    'api/PABudgetApi/v1/BaseInfo/YearActivity/CostCenter/';
+  static readonly apiAddressExceptedYearActivities =
+    'api/PABudgetApi/v1/BudgetPeriod/GetExceptedYearActivities/';
   id!: number;
   title!: string;
 }
@@ -1484,7 +1500,8 @@ export class Operating {
 }
 
 export class RelationType {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/RelatedActivity/RelationType/';
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/RelatedActivity/RelationType/';
   id!: number;
   title!: string;
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReportItem, ReportItemType } from '@shared/models/response.model';
+import {
+  AccountReportItem,
+  ReportItemType,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -11,26 +14,21 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./add-edit-account-report-to-item.component.scss'],
 })
 export class AddEditAccountReportToItemComponent implements OnInit {
-
   // form property
   addNewAccountReportSubmitted = false;
   addNewAccountReportForm!: FormGroup;
   addNewAccountReportLoading = false;
 
-
   // dropdown data list
   itemReportTypeCodeList: any[] = [];
-
 
   inputData = new AccountReportItem();
   @Input() mode = '';
   @Input() set data(data: AccountReportItem) {
-    debugger
     this.inputData = data;
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
 
   get title() {
     return this.addNewAccountReportForm.get('title');
@@ -42,10 +40,10 @@ export class AddEditAccountReportToItemComponent implements OnInit {
     return this.addNewAccountReportForm.get('code');
   }
 
-
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService) { }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getItemReportTypeCodeList();
@@ -57,13 +55,9 @@ export class AddEditAccountReportToItemComponent implements OnInit {
       order: new FormControl(0),
     });
 
-
-
     if (this.mode == 'editSubGroupPro' || this.mode == 'editGroupPro') {
-      debugger
       this.addNewAccountReportForm.patchValue(this.inputData);
     }
-
   }
 
   /*--------------------------
@@ -121,5 +115,4 @@ export class AddEditAccountReportToItemComponent implements OnInit {
         }
       });
   }
-
 }

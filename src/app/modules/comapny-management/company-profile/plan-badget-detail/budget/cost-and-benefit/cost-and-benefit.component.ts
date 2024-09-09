@@ -3,6 +3,7 @@ import { HttpService } from '@core/http/http.service';
 import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
   selector: 'PABudget-cost-and-benefit',
@@ -16,17 +17,27 @@ export class CostAndBenefitComponent implements OnInit {
   selectDateType = 'single';
   selectedPlanName = 'سود و زیان';
   selectedRows: any = [];
+  lazyLoadEvent?: LazyLoadEvent;
   isShowChart = false;
+  dataTableRows = 15;
+  gridClass = 'p-datatable-sm';
+  loading = false;
+  cols: any = [];
+  totalCount!: number;
   lineChart1: any;
   lineChart2: any;
   isSelectTable = true;
   isSelectAllChart = false;
+  isSelectedCompareBudgetWithReal = false;
+  isSelectedCompareBudgetWithBudget = false;
+  isSelectedCompareRealWithBudget = false;
   selectedYerId: any;
   priceTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
+  compareBudgetWithRealTable: Budget[] = [];
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getPriceType();
@@ -61,11 +72,12 @@ export class CostAndBenefitComponent implements OnInit {
         this.getChart(2, 2);
       } else this.getChart(this.selectedPriceTypeId);
     }
-
+    if (this.isSelectedCompareBudgetWithReal) this.getCompareBudgetWithReal(e);
   }
 
   selectTable() {
     this.isSelectTable = true;
+    this.isSelectedCompareBudgetWithReal = false;
     this.selectDateType = 'single';
     this.isShowChart = false;
     this.selectedRows = [];
@@ -75,6 +87,7 @@ export class CostAndBenefitComponent implements OnInit {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
     this.isSelectTable = false;
+
     const type = typeof this.selectedYerId;
     let arr = [];
     if (type === 'number') arr.push(this.selectedYerId);
@@ -86,15 +99,14 @@ export class CostAndBenefitComponent implements OnInit {
       yearId: arr,
       priceType: priceTypeId,
     };
-
   }
 
   getChart(chartId?: number, priceType?: number) {
-    if (!chartId) chartId = 2;    // انتخاب پیش فرض عملکرد
+    if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
 
     if (this.selectedRows?.length > 0) {
-      let body = this.createRequestBody(priceType);
+      const body = this.createRequestBody(priceType);
 
       this.httpService
         .post<any>(UrlBuilder.build(Profile.apiAddressGetChart, ''), body)
@@ -108,10 +120,52 @@ export class CostAndBenefitComponent implements OnInit {
         .subscribe(res => {
           this.allChartsData = res;
           this.createLineChart(res[0], chartId);
-
         });
     }
   }
+
+  compareBudgetWithReal() {
+    this.planDetailData = '';
+    this.priceTypeList = [];
+    this.isSelectTable = false;
+    this.isShowChart = false;
+    this.isSelectedCompareBudgetWithReal = true;
+    this.selectDateType = 'double';
+  }
+  getCompareBudgetWithReal(yearId?: any) {
+    const type = typeof this.selectedYerId;
+    const lastYear = this.selectedYerId;
+    let arr = [];
+    if (type === 'number') {
+      arr.push(this.selectedYerId);
+      arr.push(lastYear);
+    } else arr = this.selectedYerId;
+
+    const body = {
+      companyId: this.inputData.companyId,
+      firstPeriodId: arr[0],
+      secondPeriodId: arr[1],
+      accountReportCode: null,
+    };
+    this.httpService
+      .post<any>(
+        UrlBuilder.build(Budget.apiAddressCompareBudgetWithReal, ''),
+        body
+      )
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(result => {
+        this.compareBudgetWithRealTable = result.compareReportDetail;
+        this.cols = result.headers;
+      });
+  }
+  getCompareBudgetWithBudget() {}
+  getCompareRealWithBudget() {}
 
   createLineChart(data: any, indx: any) {
     if (indx == 1) {
@@ -132,8 +186,8 @@ export class CostAndBenefitComponent implements OnInit {
             text: data.title,
             padding: {
               top: 10,
-              bottom: 30
-            }
+              bottom: 30,
+            },
           },
           legend: {
             labels: {
@@ -170,7 +224,6 @@ export class CostAndBenefitComponent implements OnInit {
     if (indx == 2) {
       this.lineChart2 = chart;
     }
-
   }
 
   getPriceType() {
@@ -194,28 +247,23 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   onSelectPriceType(id: number) {
-
     this.selectedPriceTypeId = id;
     this.priceTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
       else element.isSelected = false;
     });
 
-
     // نمایش جدول
     if (!this.isShowChart) this.getPlanDetail(this.selectedYerId);
 
-    // نمایش چارت 
+    // نمایش چارت
     if (id == 1 || id == 2) {
       this.getChart(id, id);
-    }
-    else if (id == 0) {
+    } else if (id == 0) {
       // عملکرد و بودجه
       // نمایش هر دو چارت
       this.getChart(2, 2);
       this.getChart(1, 1);
     }
-
   }
-
 }
