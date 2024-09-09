@@ -64,6 +64,7 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   returnSelectedDate(e: any) {
+    debugger;
     this.selectedYerId = e;
     if (this.isSelectTable) this.getPlanDetail(e);
     else {
@@ -73,14 +74,20 @@ export class CostAndBenefitComponent implements OnInit {
       } else this.getChart(this.selectedPriceTypeId);
     }
     if (this.isSelectedCompareBudgetWithReal) this.getCompareBudgetWithReal(e);
+    if (this.isSelectedCompareBudgetWithBudget)
+      this.getCompareBudgetWithBudget(e);
+    if (this.isSelectedCompareRealWithBudget) this.getCompareRealWithBudget(e);
   }
 
   selectTable() {
     this.isSelectTable = true;
     this.isSelectedCompareBudgetWithReal = false;
+    this.isSelectedCompareBudgetWithBudget = false;
+    this.isSelectedCompareRealWithBudget = false;
     this.selectDateType = 'single';
     this.isShowChart = false;
     this.selectedRows = [];
+    this.compareBudgetWithRealTable = [];
   }
 
   createRequestBody(priceTypeId: number) {
@@ -125,14 +132,43 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   compareBudgetWithReal() {
+    debugger;
     this.planDetailData = '';
     this.priceTypeList = [];
     this.isSelectTable = false;
     this.isShowChart = false;
     this.isSelectedCompareBudgetWithReal = true;
+    this.isSelectedCompareBudgetWithBudget = false;
+    this.isSelectedCompareRealWithBudget = false;
+
+    this.selectDateType = 'double';
+  }
+  compareBudgetWithBudget() {
+    debugger;
+    this.planDetailData = '';
+    this.compareBudgetWithRealTable = [];
+    this.priceTypeList = [];
+    this.isSelectTable = false;
+    this.isShowChart = false;
+    this.isSelectedCompareBudgetWithBudget = true;
+    this.isSelectedCompareBudgetWithReal = false;
+    this.isSelectedCompareRealWithBudget = false;
+    this.selectDateType = 'double';
+  }
+
+  compareRealWithBudget() {
+    debugger;
+    this.planDetailData = '';
+    this.priceTypeList = [];
+    this.isSelectTable = false;
+    this.isShowChart = false;
+    this.isSelectedCompareRealWithBudget = true;
+    this.isSelectedCompareBudgetWithReal = false;
+    this.isSelectedCompareBudgetWithBudget = false;
     this.selectDateType = 'double';
   }
   getCompareBudgetWithReal(yearId?: any) {
+    debugger;
     const type = typeof this.selectedYerId;
     const lastYear = this.selectedYerId;
     let arr = [];
@@ -164,8 +200,12 @@ export class CostAndBenefitComponent implements OnInit {
         this.cols = result.headers;
       });
   }
-  getCompareBudgetWithBudget() {}
-  getCompareRealWithBudget() {}
+  getCompareBudgetWithBudget(yearId?: any) {
+    debugger;
+  }
+  getCompareRealWithBudget(yearId?: any) {
+    debugger;
+  }
 
   createLineChart(data: any, indx: any) {
     if (indx == 1) {

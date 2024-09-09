@@ -11,7 +11,7 @@ import { map } from 'rxjs';
 export class SelectDateComponent {
   @Output() selectedVal = new EventEmitter<any>();
   @Input()
-  set selectType(val: string) {
+  set selectType(val: string) { debugger
     this._selectType = val;
     if (this.selectTypeOld !== val) {
       this.getStaticYear();
@@ -28,7 +28,7 @@ export class SelectDateComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getStaticYear() {
+  getStaticYear() { debugger
     this.selectTypeOld = this._selectType;
     this.httpService
       .get<StaticYear[]>(StaticYear.apiAddress)
@@ -68,11 +68,11 @@ export class SelectDateComponent {
       });
   }
 
-  onSelectYear(id: number) {
+  onSelectYear(id: number) { debugger
     this.selectYearType(id);
   }
 
-  selectYearType(id: number) {
+  selectYearType(id: number) { debugger
     if (this._selectType === 'multiple') {
       const fltr = this.selectedYears.filter((x: any) => x === id);
       this.staticYearLst.forEach(element => {
@@ -89,7 +89,7 @@ export class SelectDateComponent {
         }
       });
       this.selectedVal.emit(this.selectedYears);
-    } else if (this._selectType === 'double') {
+    } else if (this._selectType === 'double') { debugger
       this.selectedYears = [];
       const yearIndex = this.staticYearLst.findIndex((x: any) => x.id == id);
       const isSelectedValue = this.staticYearLst[yearIndex].isSelected;
