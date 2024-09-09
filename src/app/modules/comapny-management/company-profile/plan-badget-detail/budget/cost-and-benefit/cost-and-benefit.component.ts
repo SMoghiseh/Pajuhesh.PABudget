@@ -83,6 +83,10 @@ export class CostAndBenefitComponent implements OnInit {
     this.selectedRows = [];
   }
 
+  getSelectedRowsId(data: any[]) {
+    return data.map(item => item.data.code);
+  }
+
   createRequestBody(priceTypeId: number) {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
@@ -95,7 +99,7 @@ export class CostAndBenefitComponent implements OnInit {
 
     return {
       companyId: this.inputData.companyId,
-      reportTypeId: this.selectedRows,
+      reportTypeId: this.getSelectedRowsId(this.selectedRows),
       yearId: arr,
       priceType: priceTypeId,
     };

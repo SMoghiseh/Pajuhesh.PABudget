@@ -34,6 +34,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ListboxModule } from 'primeng/listbox';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { FileUploadModule } from 'primeng/fileupload';
+import { TreeTableModule } from 'primeng/treetable';
 
 import { CompanyDefinitionComponent } from './company-definition/company-definition.component';
 import { AddEditCompanyComponent } from './company-definition/add-edit-company/add-edit-company.component';
@@ -109,7 +110,8 @@ import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senio
     CheckboxModule,
     ListboxModule,
     TreeSelectModule,
-    InputNumberModule
+    InputNumberModule,
+    TreeTableModule
   ],
   providers: [
     {
@@ -121,4 +123,4 @@ import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senio
     TableCheckbox,
   ],
 })
-export class ComapnyManagementModule {}
+export class ComapnyManagementModule { }
