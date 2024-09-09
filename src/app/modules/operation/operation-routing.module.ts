@@ -13,6 +13,7 @@ import { MissionComponent } from './mission/mission.component';
 import { BigGoalComponent } from './big-goal/big-goal.component';
 import { SwotComponent } from './swot/swot.component';
 import { StrategyComponent } from './strategy/strategy.component';
+import { BudgetSourceUseListComponent } from './budget-source-use-list-component/budget-source-use-list-component';
 
 
 const routes: Routes = [
@@ -52,6 +53,16 @@ const routes: Routes = [
           {
             path: 'BudgetSourceUse',
             component: BudgetSourceUseComponent,
+            title: 'برنامه و بودجه |  منابع و مصارف',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'BudgetSourceList',
+            component: BudgetSourceUseListComponent,
             title: 'برنامه و بودجه |  منابع و مصارف',
             data: {
               reuse: true,
