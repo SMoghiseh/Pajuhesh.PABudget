@@ -4,38 +4,24 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date
-            [selectType]="selectDateType"
-            (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div
-          *ngFor="let item of priceTypeList"
-          class="items"
-          (click)="onSelectPriceType(item.id)"
+        <div *ngFor="let item of priceTypeList" class="items" (click)="onSelectPriceType(item.id)"
           [class.select-feature]="item.isSelected">
           <span>{{ item.title }}</span>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div
-          class="items"
-          (click)="selectTable()"
-          [class.select-feature]="isSelectTable">
+        <div class="items" (click)="selectTable()" [class.select-feature]="isSelectTable">
           <span>جدول</span>
         </div>
-        <div
-          class="items disable-btns"
-          [class.enable-btns]="selectedRows?.length > 0"
-          [class.select-feature]="isShowChart"
-          (click)="getChart()">
+        <div class="items disable-btns" [class.enable-btns]="selectedRows?.length > 0"
+          [class.select-feature]="isShowChart" (click)="getChart()">
           <span>روند</span>
         </div>
-        <div
-          class="items"
-          [class.select-feature]="isSelectedCompareBudgetWithReal"
-          (click)="compareBudgetWithReal()">
+        <div class="items" [class.select-feature]="isSelectedCompareBudgetWithReal" (click)="compareBudgetWithReal()">
           <span> جاری مقایسه بودجه با عملکرد</span>
         </div>
         <div
@@ -55,63 +41,40 @@
       </div>
 
       <div *ngIf="!isShowChart" class="table-container">
-        <p-table
-          [columns]="planDetailData?.headers"
-          [value]="planDetailData?.budgetDetails"
-          [(selection)]="selectedRows">
+
+        <p-treeTable class="treeTable-container" [value]="planDetailData?.budgetDetails"
+          [columns]="planDetailData?.headers" selectionMode="checkbox" [(selection)]="selectedRows" [scrollable]="true"
+          [tableStyle]="{'min-width':'50rem'}">
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th style="width: 54px;
-              display: inline-block;">کد</th>
-              <th style="width: 30rem;" class="headerStyle" *ngFor="let col of columns">
+              <th *ngFor="let col of columns">
                 {{ col.headerName }}
               </th>
-              <th></th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr class="detailStyle">
-              <td style="min-width: 7rem">
-                <p-tableCheckbox [value]="rowData.code" />
-              </td>
-
-              <td style="min-width: 30rem" *ngFor="let col of columns">
+          <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttRow]="rowNode">
+              <td *ngFor="let col of columns; let i = index">
+                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
               </td>
+              <td></td>
             </tr>
           </ng-template>
-        </p-table>
+        </p-treeTable>
       </div>
       <div *ngIf="isShowChart">
         <div *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
-          <canvas
-            id="LineChart1"
-            width="900"
-            height="200"
-            style="display: unset"></canvas>
+          <canvas id="LineChart1" width="900" height="200" style="display: unset"></canvas>
         </div>
         <div *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
-          <canvas
-            id="LineChart2"
-            width="900"
-            height="200"
-            style="display: unset"></canvas>
+          <canvas id="LineChart2" width="900" height="200" style="display: unset"></canvas>
         </div>
       </div>
-      <p-table
-        #dataTable
-        style="text-align: right"
-        dataKey="id"
-        [columns]="cols"
-        [value]="compareBudgetWithRealTable"
-        [paginator]="true"
-        [rows]="dataTableRows"
-        [rowsPerPageOptions]="[15, 20, 30]"
-        [styleClass]="gridClass"
-        [rowHover]="true"
-        [totalRecords]="totalCount"
-        [loading]="loading"
-        selectionMode="single"
+      <p-table #dataTable style="text-align: right" dataKey="id" [columns]="cols" [value]="compareBudgetWithRealTable"
+        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass"
+        [rowHover]="true" [totalRecords]="totalCount" [loading]="loading" selectionMode="single"
         [tableStyle]="{ 'min-width': '75rem' }">
         <!-- table header -->
 

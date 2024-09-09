@@ -660,3 +660,38 @@ p-organizationchart-nodes:host ::ng-deep .p-organizationchart-nodes {
     margin-right: 9px;
   }
 }
+
+p-treetable.treeTable-container {
+  .p-treetable-thead>tr {
+    display: inline-flex;
+
+    >th {
+      text-align: center !important;
+      background-color: #EEF2FF !important;
+      height: 38px;
+      border-radius: 8px;
+      padding-top: 8px !important;
+      margin-left: 22px !important;
+      width: 310px;
+    }
+  }
+
+  .p-treetable-tbody {
+    >tr {
+      // display: flex;
+
+      >td {
+        &:nth-child(1) {
+          text-align: right !important;
+        }
+
+        text-align: center !important;
+        width: 310px;
+
+        .pi-chevron-right {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
