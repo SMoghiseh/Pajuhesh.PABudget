@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
   BudgetSourceUse,
@@ -46,7 +47,8 @@ export class BudgetSourceUseComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -105,6 +107,10 @@ export class BudgetSourceUseComponent implements OnInit {
     this.modalTitle = 'افزودن منابع و مصارف جدید';
     this.isOpenAddEditBudgetSourceUse = true;
     this.addEditData.type = 'insert';
+  }
+
+  addBudgetSourceList() {
+    this.router.navigate(['/Operation/BudgetSourceList']);
   }
 
   reloadData() {

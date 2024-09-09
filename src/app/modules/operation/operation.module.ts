@@ -51,6 +51,7 @@ import { AddEditSwotComponent } from './swot/add-edit-swot/add-edit-swot.compone
 import { SwotComponent } from './swot/swot.component';
 import { StrategyComponent } from './strategy/strategy.component';
 import { AddEditStrategyComponent } from './strategy/add-edit-strategy/add-edit-strategy.component';
+import { BudgetSourceUseListComponent } from './budget-source-use-list-component/budget-source-use-list-component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { AddEditStrategyComponent } from './strategy/add-edit-strategy/add-edit-
     SwotComponent,
     AddEditSwotComponent,
     StrategyComponent,
-    AddEditStrategyComponent
+    AddEditStrategyComponent,
+    BudgetSourceUseListComponent
   ],
   imports: [
     CommonModule,
@@ -103,7 +105,8 @@ import { AddEditStrategyComponent } from './strategy/add-edit-strategy/add-edit-
     InputNumberModule,
     KeyFilterModule,
     TooltipModule,
-    MenuModule
+    MenuModule,
+    InputNumberModule
   ],
   providers: [
     {

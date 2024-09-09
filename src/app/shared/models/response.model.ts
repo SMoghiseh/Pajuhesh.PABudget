@@ -1118,6 +1118,10 @@ export class BudgetSourceUse {
     'api/PABudgetApi/v1/BaseInfo/ResourceUseType/list';
   static readonly apiAddressDetail =
     'api/PABudgetApi/v1/BudgetResourceUse/getById/';
+  static readonly apiAddressGroupList =
+    'api/PABudgetApi/v1/BudgetResourceUse/SourceUseTypesForCreate/List';
+  static readonly apiAddressGroupAddOrUpdate =
+    'api/PABudgetApi/v1/BudgetResourceUse/InsertOrUpdateBudgetResourceUsesBySourceUseTypes/Create';
   id!: number;
   type!: string;
   budgetPeriodId!: number;
@@ -1137,6 +1141,10 @@ export class BudgetSourceUse {
   sourceUseTypeTitle!: string;
   SourceUseTypeTitle!: string;
   periodId!: string;
+  title!: string;
+  priceRealCu!: string;
+  budgetPricelCu!: string;
+  code!: any;
 }
 
 export class CostCenterType {
