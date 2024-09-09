@@ -20,7 +20,7 @@ export class SelectDateComponent {
   }
 
   staticYearLst = [new StaticYear()];
-  selectedYears: any;
+  selectedYears: any = [];
   selectedYearId!: number;
   oldSelectedId!: number;
   selectTypeOld = '';
@@ -48,9 +48,21 @@ export class SelectDateComponent {
               this.selectedYears = element.id;
               this.oldSelectedId = element.id;
             }
+            if (this._selectType === 'double') {
+              this.selectedYears = [];
+              const lastYearIndex = this.staticYearLst.findIndex(x => x.id);
+              const Year = this.staticYearLst[lastYearIndex];
+              const lastYear = this.staticYearLst[lastYearIndex + 1];
+              lastYear.isSelected = true;
+              this.selectedYears.push(Year.id);
+              this.selectedYears.push(lastYear.id);
+            }
             this.selectedVal.emit(this.selectedYears);
             element.isSelected = true;
-          } else element.isSelected = false;
+          }
+          if (index === 1 && this._selectType === 'double') {
+            element.isSelected = true;
+          }
         });
         this.staticYearLst = res;
       });
@@ -77,6 +89,29 @@ export class SelectDateComponent {
         }
       });
       this.selectedVal.emit(this.selectedYears);
+    } else if (this._selectType === 'double') {
+      this.selectedYears = [];
+      const yearIndex = this.staticYearLst.findIndex((x: any) => x.id == id);
+      const isSelectedValue = this.staticYearLst[yearIndex].isSelected;
+      if (isSelectedValue == true) {
+        this.staticYearLst[yearIndex].isSelected = false;
+      } else {
+        for (let i = 0; i < this.staticYearLst.length; i++) {
+          if (this.staticYearLst[i].isSelected === true)
+            this.selectedYears.push(this.staticYearLst[i].id);
+        }
+        this.staticYearLst.forEach((element, index) => {
+          const idIndex = this.staticYearLst.findIndex((x: any) => x.id == id);
+          if (element.id === id && this.selectedYears.length < 2) {
+            if (idIndex === index) {
+              this.staticYearLst[idIndex].isSelected = true;
+            } else false;
+            this.selectedYears.push(element.id);
+            console.log(this.selectedYears);
+          }
+        });
+        this.selectedVal.emit(this.selectedYears);
+      }
     } else {
       this.staticYearLst.forEach(element => {
         if (this.oldSelectedId && this.oldSelectedId === element.id)

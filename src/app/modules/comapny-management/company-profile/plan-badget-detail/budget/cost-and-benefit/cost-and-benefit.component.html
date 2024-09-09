@@ -4,27 +4,60 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date
+            [selectType]="selectDateType"
+            (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div *ngFor="let item of priceTypeList" class="items" (click)="onSelectPriceType(item.id)"
+        <div
+          *ngFor="let item of priceTypeList"
+          class="items"
+          (click)="onSelectPriceType(item.id)"
           [class.select-feature]="item.isSelected">
           <span>{{ item.title }}</span>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div class="items" (click)="selectTable()" [class.select-feature]="isSelectTable">
+        <div
+          class="items"
+          (click)="selectTable()"
+          [class.select-feature]="isSelectTable">
           <span>جدول</span>
         </div>
-        <div class="items disable-btns" [class.enable-btns]="selectedRows?.length > 0"
-          [class.select-feature]="isShowChart" (click)="getChart()">
+        <div
+          class="items disable-btns"
+          [class.enable-btns]="selectedRows?.length > 0"
+          [class.select-feature]="isShowChart"
+          (click)="getChart()">
           <span>روند</span>
+        </div>
+        <div
+          class="items"
+          [class.select-feature]="isSelectedCompareBudgetWithReal"
+          (click)="compareBudgetWithReal()">
+          <span> جاری مقایسه بودجه با عملکرد</span>
+        </div>
+        <div
+          class="items"
+          [class.enable-btns]="selectedRows?.length > 0"
+          [class.select-feature]="isSelectedCompareBudgetWithBudget"
+          (click)="getCompareBudgetWithBudget()">
+          <span> مقایسه بودجه با بودجه</span>
+        </div>
+        <div
+          class="items"
+          [class.enable-btns]="selectedRows?.length > 0"
+          [class.select-feature]="isSelectedCompareRealWithBudget"
+          (click)="getCompareRealWithBudget()">
+          <span>مقایسه بودجه با عملکرد سال قبل </span>
         </div>
       </div>
 
       <div *ngIf="!isShowChart" class="table-container">
-        <p-table [columns]="planDetailData?.headers" [value]="planDetailData?.budgetDetails"
+        <p-table
+          [columns]="planDetailData?.headers"
+          [value]="planDetailData?.budgetDetails"
           [(selection)]="selectedRows">
           <ng-template pTemplate="header" let-columns>
             <tr>
@@ -50,13 +83,62 @@
         </p-table>
       </div>
       <div *ngIf="isShowChart">
-        <div *ngIf="selectedPriceTypeId == 1 || selectedPriceTypeId == 0 ">
-          <canvas id="LineChart1" width="900" height="200" style="display: unset"></canvas>
+        <div *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
+          <canvas
+            id="LineChart1"
+            width="900"
+            height="200"
+            style="display: unset"></canvas>
         </div>
-        <div *ngIf="selectedPriceTypeId == 2 || selectedPriceTypeId == 0">
-          <canvas id="LineChart2" width="900" height="200" style="display: unset"></canvas>
+        <div *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
+          <canvas
+            id="LineChart2"
+            width="900"
+            height="200"
+            style="display: unset"></canvas>
         </div>
       </div>
+      <p-table
+        #dataTable
+        style="text-align: right"
+        dataKey="id"
+        [columns]="cols"
+        [value]="compareBudgetWithRealTable"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[15, 20, 30]"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [totalRecords]="totalCount"
+        [loading]="loading"
+        selectionMode="single"
+        [tableStyle]="{ 'min-width': '75rem' }">
+        <!-- table header -->
+
+        <!--  table header -->
+
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              <span> {{ col.headerName }} </span>
+            </th>
+          </tr>
+        </ng-template>
+        <!-- / table header -->
+        <!-- table body -->
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td>
+              {{ rowData['accountReportItemTitle'] }}
+            </td>
+
+            <td>
+              {{ rowData['value'] }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </div>
