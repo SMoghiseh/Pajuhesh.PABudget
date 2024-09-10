@@ -1318,7 +1318,7 @@ export class Budget {
   static readonly apiAddressCompareBudgetWithReal =
     'api/PABudgetApi/Dashboard/CompareBudgetWithReal/CostAndBenefit';
   static readonly apiAddressCompareBudgetWithBudget =
-    'api/Dashboard/CompareBudgetWithBudget/CostAndBenefit';
+    'api/PABudgetApi/Dashboard/CompareBudgetWithBudget/CostAndBenefit';
   static readonly apiAddressCompareRealWithBudget =
     'api/PABudgetApi/Dashboard/CompareRealWithBudget/CostAndBenefit';
 }
