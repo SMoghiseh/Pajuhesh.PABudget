@@ -8,34 +8,36 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div *ngFor="let item of priceTypeList" class="items" (click)="onSelectPriceType(item.id)"
-          [class.select-feature]="item.isSelected">
-          <span>{{ item.title }}</span>
-        </div>
+        <ng-container *ngIf="viewMode != 'table' ">
+          <div *ngFor="let item of priceTypeList" class="items" (click)="onSelectPriceType(item.id)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.title }}</span>
+          </div>
+        </ng-container>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div class="items" (click)="selectTable()" [class.select-feature]="isSelectTable">
+        <div class="items" (click)="tabChange('treeTable' , 'single')" [class.select-feature]="viewMode == 'treeTable'">
           <span>جدول</span>
         </div>
         <div class="items disable-btns" [class.enable-btns]="selectedRows?.length > 0"
-          [class.select-feature]="isShowChart" (click)="getChart()">
+          [class.select-feature]="viewMode == 'chart'" (click)="tabChange('chart' , 'multiple')">
           <span>روند</span>
         </div>
-        <div class="items" [class.select-feature]="isSelectedCompareBudgetWithReal" (click)="compareBudgetWithReal()">
-          <span> جاری مقایسه بودجه با عملکرد</span>
+        <div class="items" [class.select-feature]="viewMode == 'table' && comparisonTableId == 1"
+          (click)="tabChange('table' , 'double', 1)">
+          <span> مقایسه جاری بودجه با عملکرد</span>
         </div>
-        <div class="items" [class.enable-btns]="selectedRows?.length > 0"
-          [class.select-feature]="isSelectedCompareBudgetWithBudget" (click)="getCompareBudgetWithBudget()">
+        <div class="items" [class.select-feature]="viewMode == 'table' && comparisonTableId == 2"
+          (click)="tabChange('table' , 'double', 2)">
           <span> مقایسه بودجه با بودجه</span>
         </div>
-        <div class="items" [class.enable-btns]="selectedRows?.length > 0"
-          [class.select-feature]="isSelectedCompareRealWithBudget" (click)="getCompareRealWithBudget()">
+        <div class="items" [class.select-feature]="viewMode == 'table' && comparisonTableId == 3"
+          (click)="tabChange('table', 'double', 3)">
           <span>مقایسه بودجه با عملکرد سال قبل </span>
         </div>
       </div>
 
-      <div *ngIf="!isShowChart" class="table-container">
-
+      <div *ngIf="viewMode =='treeTable' " class="table-container">
         <p-treeTable class="treeTable-container" [value]="planDetailData?.budgetDetails"
           [columns]="planDetailData?.headers" selectionMode="checkbox" [(selection)]="selectedRows" [scrollable]="true"
           [tableStyle]="{'min-width':'50rem'}">
@@ -58,7 +60,8 @@
           </ng-template>
         </p-treeTable>
       </div>
-      <div *ngIf="isShowChart">
+
+      <div *ngIf="viewMode == 'chart'">
         <div *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
           <canvas id="LineChart1" width="900" height="200" style="display: unset"></canvas>
         </div>
@@ -66,36 +69,41 @@
           <canvas id="LineChart2" width="900" height="200" style="display: unset"></canvas>
         </div>
       </div>
-      <p-table #dataTable style="text-align: right" dataKey="id" [columns]="cols" [value]="compareBudgetWithRealTable"
-        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass"
-        [rowHover]="true" [totalRecords]="totalCount" [loading]="loading" selectionMode="single"
-        [tableStyle]="{ 'min-width': '75rem' }">
-        <!-- table header -->
 
-        <!--  table header -->
+      <div *ngIf="viewMode == 'table'">
+        <p-table #dataTable style="text-align: right" dataKey="id" [columns]="cols" [value]="tableData"
+          [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass"
+          [rowHover]="true" [totalRecords]="totalCount" [loading]="loading" selectionMode="single"
+          [tableStyle]="{ 'min-width': '75rem' }">
+          <!-- table header -->
 
-        <ng-template pTemplate="header" let-columns>
-          <tr>
-            <th *ngFor="let col of columns">
-              <span> {{ col.headerName }} </span>
-            </th>
-          </tr>
-        </ng-template>
-        <!-- / table header -->
-        <!-- table body -->
+          <!--  table header -->
 
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-          <tr>
-            <td>
-              {{ rowData['accountReportItemTitle'] }}
-            </td>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                <span> {{ col.headerName }} </span>
+              </th>
+            </tr>
+          </ng-template>
+          <!-- / table header -->
+          <!-- table body -->
 
-            <td>
-              {{ rowData['value'] }}
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td>
+                {{ rowData['accountReportItemTitle'] }}
+              </td>
+
+              <td>
+                {{ rowData['value'] }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+
     </div>
   </div>
 </div>
