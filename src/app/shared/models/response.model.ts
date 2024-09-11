@@ -1313,14 +1313,15 @@ export class Budget {
     'api/PABudgetApi/Dashboard/CostAndBenefit';
   static readonly apiAddresBudgetResourceUse =
     'api/PABudgetApi/Dashboard/BudgetResourceUse';
-  static readonly apiAddresBudgetResourceUseChart =
-    'api/PABudgetApi/Dashboard/BudgetResourceUseChart';
+  static readonly apiAddresOwnershipValue =
+    'api/PABudgetApi/Dashboard/OwnershipValue';
+
   static readonly apiAddressCompareBudgetWithReal =
-    'api/PABudgetApi/Dashboard/CompareBudgetWithReal/CostAndBenefit';
+    'api/PABudgetApi/Dashboard/CompareBudgetWithReal/';
   static readonly apiAddressCompareBudgetWithBudget =
-    'api/PABudgetApi/Dashboard/CompareBudgetWithBudget/CostAndBenefit';
+    'api/PABudgetApi/Dashboard/CompareBudgetWithBudget/';
   static readonly apiAddressCompareRealWithBudget =
-    'api/PABudgetApi/Dashboard/CompareRealWithBudget/CostAndBenefit';
+    'api/PABudgetApi/Dashboard/CompareRealWithBudget/';
 }
 
 export class Reports {

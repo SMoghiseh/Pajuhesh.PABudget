@@ -57,6 +57,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { BudgetResourceUseComponent } from './company-profile/plan-badget-detail/budget/budget-resource-use/budget-resource-use.component';
 import { SeniorManagersComponent } from './senior-managers/senior-managers.component';
 import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senior-managers/add-edit-senior-managers.component';
+import { OwnerShipValueComponent } from './company-profile/plan-badget-detail/budget/owner-ship-value/owner-ship-value.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senio
     BudgetResourceUseComponent,
     SeniorManagersComponent,
     AddEditSeniorManagersComponent,
+    OwnerShipValueComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,

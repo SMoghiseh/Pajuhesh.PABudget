@@ -6,18 +6,18 @@ import Chart from 'chart.js/auto';
 import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
-  selector: 'PABudget-cost-and-benefit',
-  templateUrl: './cost-and-benefit.component.html',
-  styleUrls: ['./cost-and-benefit.component.scss'],
+  selector: 'PABudget-owner-ship-value',
+  templateUrl: './owner-ship-value.component.html',
+  styleUrls: ['./owner-ship-value.component.scss'],
 })
-export class CostAndBenefitComponent implements OnInit {
+export class OwnerShipValueComponent implements OnInit {
 
   @Input() inputData: any;
 
   treeTableData: any;
   tableData: any = [];
   selectDateType: "single" | "double" | "multiple" = 'single';
-  selectedPlanName = 'سود و زیان';
+  selectedPlanName = ' ارزش مالکانه ';
   selectedRows: any = [];
   lazyLoadEvent?: LazyLoadEvent;
   isShowChart = false;
@@ -34,7 +34,7 @@ export class CostAndBenefitComponent implements OnInit {
   selectedPriceTypeId!: number;
   allChartsData: any;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) { debugger }
 
   ngOnInit(): void {
     this.getPriceType();
@@ -100,7 +100,7 @@ export class CostAndBenefitComponent implements OnInit {
       priceType: this.selectedPriceTypeId,
     };
     this.httpService
-      .post<any>(Budget.apiAddressCostAndBenefit, body)
+      .post<any>(Budget.apiAddresOwnershipValue, body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -153,7 +153,7 @@ export class CostAndBenefitComponent implements OnInit {
     };
     this.httpService
       .post<any>(
-        UrlBuilder.build(url + 'CostAndBenefit', ''),
+        UrlBuilder.build(url + 'OwnershipValue', ''),
         body
       )
       .pipe(

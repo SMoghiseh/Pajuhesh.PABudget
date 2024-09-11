@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
-import { Budget, UrlBuilder } from '@shared/models/response.model';
-import { Chart } from 'chart.js';
+import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
+import Chart from 'chart.js/auto';
+import { LazyLoadEvent } from 'primeng/api';
+
 
 @Component({
   selector: 'PABudget-budget-resource-use',
@@ -10,25 +12,96 @@ import { map } from 'rxjs';
   styleUrls: ['./budget-resource-use.component.scss'],
 })
 export class BudgetResourceUseComponent {
+
   @Input() inputData: any;
-  planDetailData: any;
+
+  treeTableData: any;
+  tableData: any = [];
+  selectDateType: "single" | "double" | "multiple" = 'single';
   selectedPlanName = 'منابع و مصارف';
-  selectDateType = 'single';
   selectedRows: any = [];
+  lazyLoadEvent?: LazyLoadEvent;
   isShowChart = false;
+  dataTableRows = 15;
+  gridClass = 'p-datatable-sm';
+  loading = false;
+  cols: any = [];
   lineChart1: any;
-  isSelectTable = true;
+  lineChart2: any;
+  viewMode: "table" | "chart" | "treeTable" = "treeTable";
+  comparisonTableId = 0;
   selectedYerId: any;
+  priceTypeList: any;
+  selectedPriceTypeId!: number;
+  allChartsData: any;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
-  getPlanDetail(yearId: number) {
+  ngOnInit(): void {
+    this.getPriceType();
+    this.getTreeTableData()
+  }
+
+  returnSelectedDate(e: any) {
+    this.selectedYerId = e;
+    this.reloadFilteredData();
+  }
+
+  reloadFilteredData() {
+    if (this.viewMode == 'treeTable') this.getTreeTableData();
+    if (this.viewMode == 'table') this.getTableData(this.comparisonTableId);
+    if (this.viewMode == 'chart') this.loadChart();
+  }
+
+  loadChart() {
+    if (this.selectedPriceTypeId == 0) {
+      // حالت نمایش چارت ها در تب "عملکردو بودجه"
+      this.getChart(1, 1);
+      this.getChart(2, 2);
+    } else this.getChart(this.selectedPriceTypeId);
+  }
+
+  getSelectedRowsId(data: any[]) {
+    return data.map(item => item.data.code);
+  }
+
+  createRequestBody(priceTypeId: number) {
+    this.selectDateType = 'multiple';
+    this.isShowChart = true;
+
+    const type = typeof this.selectedYerId;
+    let arr = [];
+    if (type === 'number') arr.push(this.selectedYerId);
+    else arr = this.selectedYerId;
+
+    return {
+      companyId: this.inputData.companyId,
+      reportTypeId: this.getSelectedRowsId(this.selectedRows),
+      yearId: arr,
+      priceType: priceTypeId,
+    };
+  }
+
+  tabChange(viewMode: "table" | "chart" | "treeTable",
+    yearTypeSelection: "single" | "double" | "multiple", tableId?: number) {
+    this.viewMode = viewMode;
+
+    this.selectDateType = yearTypeSelection;
+    if (tableId) this.comparisonTableId = tableId;
+
+    if (viewMode == 'table' && viewMode == this.viewMode) this.getTableData(this.comparisonTableId);
+  }
+
+  getTreeTableData() {
+    this.selectedRows = [];
+    if (!this.selectedYerId) return;
     const body = {
       companyId: this.inputData.companyId,
-      periodId: yearId,
+      periodId: this.selectedYerId,
+      priceType: this.selectedPriceTypeId,
     };
     this.httpService
-      .post<any>(UrlBuilder.build(Budget.apiAddresBudgetResourceUse, ''), body)
+      .post<any>(Budget.apiAddresBudgetResourceUse, body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -37,42 +110,20 @@ export class BudgetResourceUseComponent {
         })
       )
       .subscribe(res => {
-        this.planDetailData = res;
+        this.treeTableData = res;
       });
   }
 
-  returnSelectedDate(e: any) {
-    this.selectedYerId = e;
-    if (this.isSelectTable) this.getPlanDetail(e);
-    else this.getChart();
-  }
+  getChart(chartId?: number, priceType?: number) {
 
-  selectTable() {
-    this.isSelectTable = true;
-    this.selectDateType = 'single';
-    this.isShowChart = false;
-    this.selectedRows = [];
-  }
+    if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
+    if (!priceType) priceType = this.selectedPriceTypeId;
 
-  getChart() {
     if (this.selectedRows?.length > 0) {
-      this.selectDateType = 'multiple';
-      this.isShowChart = true;
-      this.isSelectTable = false;
-      const type = typeof this.selectedYerId;
-      let arr = [];
-      if (type === 'number') arr.push(this.selectedYerId);
-      else arr = this.selectedYerId;
-      const body = {
-        companyId: this.inputData.companyId,
-        reportTypeId: this.selectedRows,
-        yearId: arr,
-      };
+      const body = this.createRequestBody(priceType);
+
       this.httpService
-        .post<any>(
-          UrlBuilder.build(Budget.apiAddresBudgetResourceUseChart, ''),
-          body
-        )
+        .post<any>(UrlBuilder.build(Profile.apiAddressGetChart, ''), body)
         .pipe(
           map(response => {
             if (response.data && response.data.result) {
@@ -81,18 +132,66 @@ export class BudgetResourceUseComponent {
           })
         )
         .subscribe(res => {
-          if (this.lineChart1) this.lineChart1.destroy();
-          this.createLineChart(res);
+          this.allChartsData = res;
+          this.createLineChart(res[0], chartId);
         });
     }
   }
 
-  createLineChart(data: any) {
-    this.lineChart1 = new Chart('LineChart', {
+  getTableData(comparison: number) {
+
+    let url = '';
+    if (this.viewMode == 'table') {
+      if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
+      if (comparison == 2) url = Budget.apiAddressCompareBudgetWithBudget;
+      if (comparison == 3) url = Budget.apiAddressCompareRealWithBudget;
+    }
+    const body = {
+      accountReportCode: null,
+      companyId: this.inputData.companyId,
+      firstPeriodId: this.selectedYerId[0] < this.selectedYerId[1] ? this.selectedYerId[0] : this.selectedYerId[1],
+      secondPeriodId: this.selectedYerId[0] > this.selectedYerId[1] ? this.selectedYerId[0] : this.selectedYerId[1],
+    };
+    this.httpService
+      .post<any>(
+        UrlBuilder.build(url + 'BudgetResourceUse', ''),
+        body
+      )
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(result => {
+        this.tableData = result.compareReportDetail;
+        this.cols = result.headers;
+      });
+  }
+
+  createLineChart(data: any, indx: any) {
+    if (indx == 1) {
+      this.lineChart1?.destroy();
+    }
+    if (indx == 2) {
+      this.lineChart2?.destroy();
+    }
+
+    let chart;
+    chart = new Chart('LineChart' + indx, {
       type: 'line',
       data: data,
       options: {
         plugins: {
+          title: {
+            display: true,
+            text: data.title,
+            padding: {
+              top: 10,
+              bottom: 30,
+            },
+          },
           legend: {
             labels: {
               font: {
@@ -121,5 +220,55 @@ export class BudgetResourceUseComponent {
         },
       },
     });
+
+    if (indx == 1) {
+      this.lineChart1 = chart;
+    }
+    if (indx == 2) {
+      this.lineChart2 = chart;
+    }
+  }
+
+  getPriceType() {
+    this.httpService
+      .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        res.forEach((element: any) => {
+          if (element.id === 2) element.isSelected = true;
+          else element.isSelected = false;
+        });
+        this.priceTypeList = res;
+        this.selectedPriceTypeId = 2;
+      });
+  }
+
+  onSelectPriceType(id: number) {
+    this.selectedPriceTypeId = id;
+
+    this.priceTypeList.forEach((element: any) => {
+      if (element.id === id) element.isSelected = true;
+      else element.isSelected = false;
+    });
+
+    if (this.viewMode == 'treeTable') this.getTreeTableData();
+
+    if (this.viewMode == 'chart') {
+      // نمایش چارت
+      if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
+        this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
+      } else if (this.selectedPriceTypeId == 0) {
+        // عملکرد و بودجه
+        // نمایش هر دو چارت
+        this.getChart(2, 2);
+        this.getChart(1, 1);
+      }
+    }
   }
 }
