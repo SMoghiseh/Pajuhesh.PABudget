@@ -154,7 +154,7 @@ export class BudgetResourceUseComponent {
     };
     this.httpService
       .post<any>(
-        UrlBuilder.build(url + 'BudgetResourceUse', ''),
+        UrlBuilder.build(url + 'ResourceUse', ''),
         body
       )
       .pipe(
