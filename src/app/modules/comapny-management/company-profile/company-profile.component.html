@@ -99,6 +99,9 @@
   <ng-template [ngSwitchCase]="'Value'">
     <PABudget-value [inputData]="planInputData"></PABudget-value>
   </ng-template>
+  <ng-template [ngSwitchCase]="'AssemblyAssignments'">
+    <PABudget-assembly-assignments-plan [inputData]="planInputData"></PABudget-assembly-assignments-plan>
+  </ng-template>
   <ng-template [ngSwitchCase]="'Orientation'">
     <PABudget-orientation [inputData]="planInputData"></PABudget-orientation>
   </ng-template>

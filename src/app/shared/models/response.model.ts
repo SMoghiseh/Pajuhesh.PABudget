@@ -1230,6 +1230,7 @@ export class Plan {
   static readonly apiAddressVisionAndMission =
     'api/PABudgetApi/Dashboard/VisionAndMission/Info';
   static readonly apiAddressValue = 'api/PABudgetApi/Dashboard/Value/Info';
+  static readonly apiAddressYearUnion = 'api/PABudgetApi/Dashboard/YearUnion/Info';
   static readonly apiAddressOrientation =
     'api/PABudgetApi/Dashboard/Orientation/Info';
   static readonly apiAddressGoals = 'api/PABudgetApi/Dashboard/Goals/Info';

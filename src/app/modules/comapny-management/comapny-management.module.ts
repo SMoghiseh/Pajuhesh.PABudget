@@ -60,6 +60,7 @@ import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senio
 import { OwnerShipValueComponent } from './company-profile/plan-badget-detail/budget/owner-ship-value/owner-ship-value.component';
 import { MatrixSwotComponent } from './company-profile/plan-badget-detail/plans/matrix-swot/matrix-swot.component';
 import { StrategyPlanComponent } from './company-profile/plan-badget-detail/plans/strategy-plan/strategy-plan.component';
+import { AssemblyAssignmentsPlanComponent } from './company-profile/plan-badget-detail/plans/assembly-assignments-plan/assembly-assignments-plan.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { StrategyPlanComponent } from './company-profile/plan-badget-detail/plan
     SeniorManagersComponent,
     AddEditSeniorManagersComponent,
     OwnerShipValueComponent,
-    MatrixSwotComponent
+    MatrixSwotComponent,
+    AssemblyAssignmentsPlanComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,
