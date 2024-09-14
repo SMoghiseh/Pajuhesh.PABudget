@@ -1235,6 +1235,8 @@ export class Plan {
   static readonly apiAddressGoals = 'api/PABudgetApi/Dashboard/Goals/Info';
   static readonly apiAddressStrategyMap =
     'api/PABudgetApi/Dashboard/StrategyMap/Info';
+  static readonly apiAddressStrategyPlan =
+    'api/PABudgetApi/Dashboard/Strategy/List';
   static readonly apiAddressOperationalPlans =
     'api/PABudgetApi/Dashboard/OperationalPlans/Info';
   static readonly apiAddressSWOT =

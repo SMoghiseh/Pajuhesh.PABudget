@@ -108,6 +108,9 @@
   <ng-template [ngSwitchCase]="'StrategyMap'">
     <PABudget-strategy-map [inputData]="planInputData"></PABudget-strategy-map>
   </ng-template>
+  <ng-template [ngSwitchCase]="'Strategy'">
+    <PABudget-strategy-plan [inputData]="planInputData"></PABudget-strategy-plan>
+  </ng-template>
   <ng-template [ngSwitchCase]="'OperationalPlans'">
     <PABudget-operational-plans [inputData]="planInputData"></PABudget-operational-plans>
   </ng-template>

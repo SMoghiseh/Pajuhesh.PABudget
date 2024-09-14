@@ -59,6 +59,7 @@ import { SeniorManagersComponent } from './senior-managers/senior-managers.compo
 import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senior-managers/add-edit-senior-managers.component';
 import { OwnerShipValueComponent } from './company-profile/plan-badget-detail/budget/owner-ship-value/owner-ship-value.component';
 import { MatrixSwotComponent } from './company-profile/plan-badget-detail/plans/matrix-swot/matrix-swot.component';
+import { StrategyPlanComponent } from './company-profile/plan-badget-detail/plans/strategy-plan/strategy-plan.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MatrixSwotComponent } from './company-profile/plan-badget-detail/plans/
     OrientationComponent,
     GoalsComponent,
     StrategyMapComponent,
+    StrategyPlanComponent,
     OperationalPlansComponent,
     InformationsComponent,
     RiskComponent,
