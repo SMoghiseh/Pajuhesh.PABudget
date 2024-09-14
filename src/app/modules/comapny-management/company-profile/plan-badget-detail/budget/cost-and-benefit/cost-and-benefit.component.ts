@@ -11,10 +11,12 @@ import { LazyLoadEvent } from 'primeng/api';
   styleUrls: ['./cost-and-benefit.component.scss'],
 })
 export class CostAndBenefitComponent implements OnInit {
+
   @Input() inputData: any;
 
-  planDetailData: any;
-  selectDateType = 'single';
+  treeTableData: any;
+  tableData: any = [];
+  selectDateType: "single" | "double" | "multiple" = 'single';
   selectedPlanName = 'سود و زیان';
   selectedRows: any = [];
   lazyLoadEvent?: LazyLoadEvent;
@@ -23,20 +25,14 @@ export class CostAndBenefitComponent implements OnInit {
   gridClass = 'p-datatable-sm';
   loading = false;
   cols: any = [];
-  tableData: any = [];
-  totalCount!: number;
   lineChart1: any;
   lineChart2: any;
   viewMode: "table" | "chart" | "treeTable" = "treeTable";
   comparisonTableId = 0;
-
-
-
   selectedYerId: any;
   priceTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
-  compareBudgetWithRealTable: Budget[] = [];
 
   constructor(private httpService: HttpService) { }
 
@@ -50,7 +46,6 @@ export class CostAndBenefitComponent implements OnInit {
     this.selectedYerId = e;
     this.reloadFilteredData();
   }
-
 
   reloadFilteredData() {
     if (this.viewMode == 'treeTable') this.getTreeTableData();
@@ -73,7 +68,6 @@ export class CostAndBenefitComponent implements OnInit {
   createRequestBody(priceTypeId: number) {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
-    // this.isSelectTreeTable = false;
 
     const type = typeof this.selectedYerId;
     let arr = [];
@@ -116,7 +110,7 @@ export class CostAndBenefitComponent implements OnInit {
         })
       )
       .subscribe(res => {
-        this.planDetailData = res;
+        this.treeTableData = res;
       });
   }
 
@@ -160,7 +154,7 @@ export class CostAndBenefitComponent implements OnInit {
     };
     this.httpService
       .post<any>(
-        UrlBuilder.build(url, ''),
+        UrlBuilder.build(url + 'CostAndBenefit', ''),
         body
       )
       .pipe(
@@ -174,7 +168,6 @@ export class CostAndBenefitComponent implements OnInit {
         this.tableData = result.compareReportDetail;
         this.cols = result.headers;
       });
-
   }
 
   createLineChart(data: any, indx: any) {
@@ -253,10 +246,6 @@ export class CostAndBenefitComponent implements OnInit {
         });
         this.priceTypeList = res;
         this.selectedPriceTypeId = 2;
-
-
-
-
       });
   }
 
@@ -281,7 +270,6 @@ export class CostAndBenefitComponent implements OnInit {
         this.getChart(1, 1);
       }
     }
-
   }
 
 }

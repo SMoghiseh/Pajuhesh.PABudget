@@ -1,24 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
 import { LazyLoadEvent } from 'primeng/api';
 
-
 @Component({
-  selector: 'PABudget-budget-resource-use',
-  templateUrl: './budget-resource-use.component.html',
-  styleUrls: ['./budget-resource-use.component.scss'],
+  selector: 'PABudget-owner-ship-value',
+  templateUrl: './owner-ship-value.component.html',
+  styleUrls: ['./owner-ship-value.component.scss'],
 })
-export class BudgetResourceUseComponent {
+export class OwnerShipValueComponent implements OnInit {
 
   @Input() inputData: any;
 
   treeTableData: any;
   tableData: any = [];
   selectDateType: "single" | "double" | "multiple" = 'single';
-  selectedPlanName = 'منابع و مصارف';
+  selectedPlanName = ' ارزش مالکانه ';
   selectedRows: any = [];
   lazyLoadEvent?: LazyLoadEvent;
   isShowChart = false;
@@ -35,7 +34,7 @@ export class BudgetResourceUseComponent {
   selectedPriceTypeId!: number;
   allChartsData: any;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) { debugger }
 
   ngOnInit(): void {
     this.getPriceType();
@@ -101,7 +100,7 @@ export class BudgetResourceUseComponent {
       priceType: this.selectedPriceTypeId,
     };
     this.httpService
-      .post<any>(Budget.apiAddresBudgetResourceUse, body)
+      .post<any>(Budget.apiAddresOwnershipValue, body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -154,7 +153,7 @@ export class BudgetResourceUseComponent {
     };
     this.httpService
       .post<any>(
-        UrlBuilder.build(url + 'BudgetResourceUse', ''),
+        UrlBuilder.build(url + 'OwnershipValue', ''),
         body
       )
       .pipe(
@@ -271,4 +270,5 @@ export class BudgetResourceUseComponent {
       }
     }
   }
+
 }

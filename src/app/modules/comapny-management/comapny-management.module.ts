@@ -57,6 +57,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { BudgetResourceUseComponent } from './company-profile/plan-badget-detail/budget/budget-resource-use/budget-resource-use.component';
 import { SeniorManagersComponent } from './senior-managers/senior-managers.component';
 import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senior-managers/add-edit-senior-managers.component';
+import { OwnerShipValueComponent } from './company-profile/plan-badget-detail/budget/owner-ship-value/owner-ship-value.component';
+import { MatrixSwotComponent } from './company-profile/plan-badget-detail/plans/matrix-swot/matrix-swot.component';
+import { StrategyPlanComponent } from './company-profile/plan-badget-detail/plans/strategy-plan/strategy-plan.component';
+import { AssemblyAssignmentsPlanComponent } from './company-profile/plan-badget-detail/plans/assembly-assignments-plan/assembly-assignments-plan.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +78,7 @@ import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senio
     OrientationComponent,
     GoalsComponent,
     StrategyMapComponent,
+    StrategyPlanComponent,
     OperationalPlansComponent,
     InformationsComponent,
     RiskComponent,
@@ -82,6 +87,9 @@ import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senio
     BudgetResourceUseComponent,
     SeniorManagersComponent,
     AddEditSeniorManagersComponent,
+    OwnerShipValueComponent,
+    MatrixSwotComponent,
+    AssemblyAssignmentsPlanComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,

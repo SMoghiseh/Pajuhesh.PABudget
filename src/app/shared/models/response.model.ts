@@ -1230,13 +1230,18 @@ export class Plan {
   static readonly apiAddressVisionAndMission =
     'api/PABudgetApi/Dashboard/VisionAndMission/Info';
   static readonly apiAddressValue = 'api/PABudgetApi/Dashboard/Value/Info';
+  static readonly apiAddressYearUnion = 'api/PABudgetApi/Dashboard/YearUnion/Info';
   static readonly apiAddressOrientation =
     'api/PABudgetApi/Dashboard/Orientation/Info';
   static readonly apiAddressGoals = 'api/PABudgetApi/Dashboard/Goals/Info';
   static readonly apiAddressStrategyMap =
     'api/PABudgetApi/Dashboard/StrategyMap/Info';
+  static readonly apiAddressStrategyPlan =
+    'api/PABudgetApi/Dashboard/Strategy/List';
   static readonly apiAddressOperationalPlans =
     'api/PABudgetApi/Dashboard/OperationalPlans/Info';
+  static readonly apiAddressSWOT =
+    'api/PABudgetApi/Dashboard/SWOT/List';
   static readonly apiAddressInformations =
     'api/PABudgetApi/Dashboard/Informations/Info';
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
@@ -1313,14 +1318,15 @@ export class Budget {
     'api/PABudgetApi/Dashboard/CostAndBenefit';
   static readonly apiAddresBudgetResourceUse =
     'api/PABudgetApi/Dashboard/BudgetResourceUse';
-  static readonly apiAddresBudgetResourceUseChart =
-    'api/PABudgetApi/Dashboard/BudgetResourceUseChart';
+  static readonly apiAddresOwnershipValue =
+    'api/PABudgetApi/Dashboard/OwnershipValue';
+
   static readonly apiAddressCompareBudgetWithReal =
-    'api/PABudgetApi/Dashboard/CompareBudgetWithReal/CostAndBenefit';
+    'api/PABudgetApi/Dashboard/CompareBudgetWithReal/';
   static readonly apiAddressCompareBudgetWithBudget =
-    'api/PABudgetApi/Dashboard/CompareBudgetWithBudget/CostAndBenefit';
+    'api/PABudgetApi/Dashboard/CompareBudgetWithBudget/';
   static readonly apiAddressCompareRealWithBudget =
-    'api/PABudgetApi/Dashboard/CompareRealWithBudget/CostAndBenefit';
+    'api/PABudgetApi/Dashboard/CompareRealWithBudget/';
 }
 
 export class Reports {

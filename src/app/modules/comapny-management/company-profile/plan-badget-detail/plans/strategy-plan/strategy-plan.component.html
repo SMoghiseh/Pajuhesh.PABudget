@@ -1,0 +1,23 @@
+<div class="row bottom-section">
+  <div class="co-info-box">
+    <h3>{{ selectedPlanName }}</h3>
+    <div class="row row-feature">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div class="items select-feature">
+          <span>شرح</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <ng-container *ngFor="let item of planDetailData.desc">
+        <div class="col-3 section">
+          <div>
+            <img src="../../../../../../../assets/images/icons/stra.svg" />
+            <p> {{item}}
+            </p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

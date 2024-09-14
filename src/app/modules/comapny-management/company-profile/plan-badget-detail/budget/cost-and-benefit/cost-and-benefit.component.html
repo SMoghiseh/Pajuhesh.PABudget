@@ -38,8 +38,8 @@
       </div>
 
       <div *ngIf="viewMode =='treeTable' " class="table-container">
-        <p-treeTable class="treeTable-container" [value]="planDetailData?.budgetDetails"
-          [columns]="planDetailData?.headers" selectionMode="checkbox" [(selection)]="selectedRows" [scrollable]="true"
+        <p-treeTable class="treeTable-container" [value]="treeTableData?.budgetDetails"
+          [columns]="treeTableData?.headers" selectionMode="checkbox" [(selection)]="selectedRows" [scrollable]="true"
           [tableStyle]="{'min-width':'50rem'}">
           <ng-template pTemplate="header" let-columns>
             <tr>
@@ -73,8 +73,7 @@
       <div *ngIf="viewMode == 'table'">
         <p-table #dataTable style="text-align: right" dataKey="id" [columns]="cols" [value]="tableData"
           [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass"
-          [rowHover]="true" [totalRecords]="totalCount" [loading]="loading" selectionMode="single"
-          [tableStyle]="{ 'min-width': '75rem' }">
+          [rowHover]="true" [loading]="loading" selectionMode="single" [tableStyle]="{ 'min-width': '75rem' }">
           <!-- table header -->
 
           <!--  table header -->

@@ -16,11 +16,7 @@
           <span>{{ infoLst.companyName }}</span>
         </div>
         <div class="inline-flx">
-          <img
-            *ngIf="infoLst.partyLogo"
-            ngSrc="{{ 'holding-logo/' + infoLst.partyLogo }}"
-            width="55"
-            height="55" />
+          <img *ngIf="infoLst.partyLogo" ngSrc="{{ 'holding-logo/' + infoLst.partyLogo }}" width="55" height="55" />
         </div>
         <div class="inline-flx">
           <h5>مدیرعامل :</h5>
@@ -59,10 +55,7 @@
           <span>{{ infoLst.countOfEmployee }}</span>
         </div>
         <div class="inline-flx div-more-btn">
-          <p-button
-            class="pe-2"
-            styleClass="p-button-info"
-            label="جزئیات بیشتر"
+          <p-button class="pe-2" styleClass="p-button-info" label="جزئیات بیشتر"
             (click)="onCoDetail(infoLst.id)"></p-button>
         </div>
       </div>
@@ -74,13 +67,8 @@
       <div class="co-info-box cost-benefit-box">
         <h4>{{ list.groupTitle }}</h4>
         <div *ngFor="let group of list.groupedDetail" class="person-box">
-          <div
-            *ngFor="let box of group; index as i"
-            class="item"
-            (click)="onSelectBudget(box)">
-            <div
-              class="row sub-co"
-              [class.selected-sub-co]="box.id === selectedBudgetId">
+          <div *ngFor="let box of group; index as i" class="item" (click)="onSelectBudget(box)">
+            <div class="row sub-co" [class.selected-sub-co]="box.id === selectedBudgetId">
               <i class="{{ box.icon }}"></i>
               <span>{{ box.title }}</span>
             </div>
@@ -93,24 +81,26 @@
 
 <div [ngSwitch]="switchItem">
   <ng-template [ngSwitchCase]="'BalanceSheet'">
-    <PABudget-balance-sheet
-      [inputData]="planInputData"></PABudget-balance-sheet>
+    <PABudget-balance-sheet [inputData]="planInputData"></PABudget-balance-sheet>
   </ng-template>
   <ng-template [ngSwitchCase]="'CostAndBenefit'">
-    <PABudget-cost-and-benefit
-      [inputData]="planInputData"></PABudget-cost-and-benefit>
+    <PABudget-cost-and-benefit [inputData]="planInputData"></PABudget-cost-and-benefit>
   </ng-template>
   <ng-template [ngSwitchCase]="'ResourcesAndExpenses'">
-    <PABudget-budget-resource-use
-      [inputData]="planInputData"></PABudget-budget-resource-use>
+    <PABudget-budget-resource-use [inputData]="planInputData"></PABudget-budget-resource-use>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'OwnershipValue'">
+    <PABudget-owner-ship-value [inputData]="planInputData"></PABudget-owner-ship-value>
   </ng-template>
   <ng-template [ngSwitchCase]="'VisionAndMission'">
-    <PABudget-vision-and-mission
-      [inputData]="planInputData"></PABudget-vision-and-mission>
+    <PABudget-vision-and-mission [inputData]="planInputData"></PABudget-vision-and-mission>
   </ng-template>
 
   <ng-template [ngSwitchCase]="'Value'">
     <PABudget-value [inputData]="planInputData"></PABudget-value>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'AssemblyAssignments'">
+    <PABudget-assembly-assignments-plan [inputData]="planInputData"></PABudget-assembly-assignments-plan>
   </ng-template>
   <ng-template [ngSwitchCase]="'Orientation'">
     <PABudget-orientation [inputData]="planInputData"></PABudget-orientation>
@@ -121,9 +111,14 @@
   <ng-template [ngSwitchCase]="'StrategyMap'">
     <PABudget-strategy-map [inputData]="planInputData"></PABudget-strategy-map>
   </ng-template>
+  <ng-template [ngSwitchCase]="'Strategy'">
+    <PABudget-strategy-plan [inputData]="planInputData"></PABudget-strategy-plan>
+  </ng-template>
   <ng-template [ngSwitchCase]="'OperationalPlans'">
-    <PABudget-operational-plans
-      [inputData]="planInputData"></PABudget-operational-plans>
+    <PABudget-operational-plans [inputData]="planInputData"></PABudget-operational-plans>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'SWOT'">
+    <PABudget-matrix-swot [inputData]="planInputData"></PABudget-matrix-swot>
   </ng-template>
   <ng-template [ngSwitchCase]="'Informations'">
     <PABudget-informations [inputData]="planInputData"></PABudget-informations>
