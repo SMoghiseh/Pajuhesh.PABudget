@@ -58,6 +58,7 @@ import { BudgetResourceUseComponent } from './company-profile/plan-badget-detail
 import { SeniorManagersComponent } from './senior-managers/senior-managers.component';
 import { AddEditSeniorManagersComponent } from './senior-managers/add-edit-senior-managers/add-edit-senior-managers.component';
 import { OwnerShipValueComponent } from './company-profile/plan-badget-detail/budget/owner-ship-value/owner-ship-value.component';
+import { MatrixSwotComponent } from './company-profile/plan-badget-detail/plans/matrix-swot/matrix-swot.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { OwnerShipValueComponent } from './company-profile/plan-badget-detail/bu
     BudgetResourceUseComponent,
     SeniorManagersComponent,
     AddEditSeniorManagersComponent,
-    OwnerShipValueComponent
+    OwnerShipValueComponent,
+    MatrixSwotComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,

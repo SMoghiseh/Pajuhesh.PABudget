@@ -111,6 +111,9 @@
   <ng-template [ngSwitchCase]="'OperationalPlans'">
     <PABudget-operational-plans [inputData]="planInputData"></PABudget-operational-plans>
   </ng-template>
+  <ng-template [ngSwitchCase]="'SWOT'">
+    <PABudget-matrix-swot [inputData]="planInputData"></PABudget-matrix-swot>
+  </ng-template>
   <ng-template [ngSwitchCase]="'Informations'">
     <PABudget-informations [inputData]="planInputData"></PABudget-informations>
   </ng-template>
