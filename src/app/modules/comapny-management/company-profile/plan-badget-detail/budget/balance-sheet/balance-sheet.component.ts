@@ -17,7 +17,7 @@ export class BalanceSheetComponent {
   treeTableData: any;
   tableData: any = [];
   selectDateType: "single" | "double" | "multiple" = 'single';
-  selectedPlanName = 'ترازنامه';
+  selectedPlanName = 'صورت وضعیت مالی';
   selectedRows: any = [];
   lazyLoadEvent?: LazyLoadEvent;
   isShowChart = false;
