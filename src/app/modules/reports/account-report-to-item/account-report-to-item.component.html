@@ -25,19 +25,19 @@
           <span>{{ node.label }}</span>
           <div class="command-list">
             <!-- edit -->
-            <button class="action-image-container" pTooltip="ویرایش" (click)="onEditRow()">
+            <button class="action-image-container" pTooltip="ویرایش" (click)="onEditRow(node)">
               <img ngSrc="icons\Group 116.svg" width="22" height="22" />
             </button>
             <!-- / edit -->
 
             <!-- insert -->
-            <button class="action-image-container" pTooltip="افزودن" (click)="onAddSubGroup()">
+            <button class="action-image-container" pTooltip="افزودن" (click)="onAddSubGroup(node)">
               <img ngSrc="icons\Group 187.svg" width="22" height="22" />
             </button>
             <!-- / insert -->
 
             <!-- delete -->
-            <button class="action-image-container" pTooltip="حذف" (click)="onDeleteRow()">
+            <button class="action-image-container" pTooltip="حذف" (click)="onDeleteRow(node)">
               <img ngSrc="icons\Group 117.svg" width="22" height="22" />
             </button>
             <!-- / delete -->

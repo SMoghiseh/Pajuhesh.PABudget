@@ -67,19 +67,21 @@ export class AccountReportToItemComponent implements OnInit {
     this.mode = 'insertGroupPro';
   }
 
-  onAddSubGroup() {
+  onAddSubGroup(node: any) {
+    debugger
     this.isOpenAddAccountReport = true;
     this.modalTitle = 'تعریف زیرگروه';
     this.mode = 'insertSubGroupPro';
+    this.getRowDataById(node.id);
   }
 
 
-  onEditRow() {
+  onEditRow(node: any) {
     this.modalTitle = 'ویرایش گروه';
-    if (!this.selectedAccountReports.parentId)
+    if (!node.parentId)
       this.mode = 'editGroupPro';
     else this.mode = 'editSubGroupPro';
-    this.getRowDataById(this.selectedAccountReports.id);
+    this.getRowDataById(node.id);
 
   }
 
@@ -88,17 +90,17 @@ export class AccountReportToItemComponent implements OnInit {
       .get<AccountReportItem>(AccountReportItem.apiAddress + 'GetById/' + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.addEditData = response.data.result;
+          this.addEditData = response.data.result; debugger
           this.isOpenAddAccountReport = true;
         }
       });
   }
 
-  onDeleteRow() {
+  onDeleteRow(node: any) {
     setTimeout(() => {
       this.confirmationService.confirm({
         message: 'آیا از حذف گزارش مالی اطمینان دارید؟',
-        header: `عنوان ${this.selectedAccountReports.title}`,
+        header: `عنوان ${node.title}`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -108,8 +110,8 @@ export class AccountReportToItemComponent implements OnInit {
         defaultFocus: 'reject',
         accept: () =>
           this.deleteAccountReports(
-            this.selectedAccountReports.id,
-            this.selectedAccountReports.title
+            node.id,
+            node.title
           ),
       });
     }, 100);

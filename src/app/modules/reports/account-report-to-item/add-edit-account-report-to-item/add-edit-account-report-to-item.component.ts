@@ -43,7 +43,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getItemReportTypeCodeList();
@@ -80,6 +80,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
   }
 
   onSubmitNewAccountReport() {
+    debugger
     this.addNewAccountReportSubmitted = true;
     if (this.addNewAccountReportForm.invalid) return;
     const url = AccountReportItem.apiAddress + 'Create';
