@@ -42,7 +42,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   returnSelectedDate(e: any) {
-    debugger;
     this.selectedYerId = e;
     this.reloadFilteredData();
   }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
-import { StaticYear, UrlBuilder } from '@shared/models/response.model';
+import { StaticYear } from '@shared/models/response.model';
 import { map } from 'rxjs';
 
 @Component({
@@ -11,7 +11,7 @@ import { map } from 'rxjs';
 export class SelectDateComponent {
   @Output() selectedVal = new EventEmitter<any>();
   @Input()
-  set selectType(val: string) { debugger
+  set selectType(val: string) {
     this._selectType = val;
     if (this.selectTypeOld !== val) {
       this.getStaticYear();
@@ -26,9 +26,9 @@ export class SelectDateComponent {
   selectTypeOld = '';
   _selectType = '';
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
-  getStaticYear() { debugger
+  getStaticYear() {
     this.selectTypeOld = this._selectType;
     this.httpService
       .get<StaticYear[]>(StaticYear.apiAddress)
@@ -68,11 +68,11 @@ export class SelectDateComponent {
       });
   }
 
-  onSelectYear(id: number) { debugger
+  onSelectYear(id: number) {
     this.selectYearType(id);
   }
 
-  selectYearType(id: number) { debugger
+  selectYearType(id: number) {
     if (this._selectType === 'multiple') {
       const fltr = this.selectedYears.filter((x: any) => x === id);
       this.staticYearLst.forEach(element => {
@@ -89,7 +89,7 @@ export class SelectDateComponent {
         }
       });
       this.selectedVal.emit(this.selectedYears);
-    } else if (this._selectType === 'double') { debugger
+    } else if (this._selectType === 'double') {
       this.selectedYears = [];
       const yearIndex = this.staticYearLst.findIndex((x: any) => x.id == id);
       const isSelectedValue = this.staticYearLst[yearIndex].isSelected;

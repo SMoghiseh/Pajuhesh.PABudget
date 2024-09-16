@@ -34,7 +34,7 @@ export class OwnerShipValueComponent implements OnInit {
   selectedPriceTypeId!: number;
   allChartsData: any;
 
-  constructor(private httpService: HttpService) { debugger }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
     this.getPriceType();

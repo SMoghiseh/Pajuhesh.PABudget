@@ -68,7 +68,6 @@ export class AccountReportToItemComponent implements OnInit {
   }
 
   onAddSubGroup(node: any) {
-    debugger
     this.isOpenAddAccountReport = true;
     this.modalTitle = 'تعریف زیرگروه';
     this.mode = 'insertSubGroupPro';
@@ -90,7 +89,7 @@ export class AccountReportToItemComponent implements OnInit {
       .get<AccountReportItem>(AccountReportItem.apiAddress + 'GetById/' + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.addEditData = response.data.result; debugger
+          this.addEditData = response.data.result;
           this.isOpenAddAccountReport = true;
         }
       });
