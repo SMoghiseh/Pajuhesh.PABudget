@@ -44,3 +44,14 @@
 .p-fluid {
     max-width: min-content !important;
 }
+
+:host ::ng-deep .row-btn.row-btn-fixed-bottom {
+    bottom: 22px;
+    position: absolute;
+    left: 23px;
+}
+
+:host ::ng-deep .height-size .p-dialog {
+    min-height: 500px !important;
+    height: auto !important;
+}

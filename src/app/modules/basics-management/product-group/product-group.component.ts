@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { ProductGroup } from '@shared/models/response.model';
+import { Company, ProductGroup } from '@shared/models/response.model';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { map, tap } from 'rxjs';
 
@@ -14,6 +14,7 @@ import { map, tap } from 'rxjs';
 })
 export class ProductGroupComponent {
   productGroups: ProductGroup[] = [];
+  companyList: any = [];
   selectedProductGroups: any;
   isOpenAddProductGroup: boolean = false;
   addNewProductGroupForm!: FormGroup;
@@ -32,21 +33,26 @@ export class ProductGroupComponent {
   get productGroupCode() {
     return this.addNewProductGroupForm.get('productGroupCode');
   }
+  get companyId() {
+    return this.addNewProductGroupForm.get('companyId');
+  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.addNewProductGroupForm = new FormGroup({
       productGroupTitle: new FormControl('', Validators.required),
       productGroupCode: new FormControl(0, Validators.required),
+      companyId: new FormControl(0, Validators.required),
     });
 
     this.getProductGroupList();
+    this.getCompanyLst();
   }
 
   /*--------------------------
@@ -66,6 +72,16 @@ export class ProductGroupComponent {
       )
       .subscribe(productGroups => {
         this.productGroups = productGroups;
+      });
+  }
+
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
       });
   }
 
