@@ -1038,6 +1038,8 @@ export class Period {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Period/';
   static readonly apiAddressDetail =
     'api/PABudgetApi/v1/BaseInfo/PeriodDetail/';
+  static readonly apiAddressUnits =
+    'api/PABudgetApi/v1/BudgetPeriod/GetAllUnits/';
   id!: number;
   title!: string;
   periodTitle!: string;
@@ -1287,7 +1289,51 @@ export class Mission {
   missionCode!: string;
   typeCode!: number;
 }
+export class Project {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Project/Project/';
+  static readonly apiAddressProjectTypeCode =
+    'api/PABudgetApi/v1/BaseInfo/ProjectTypeCode/';
+  static readonly apiAddressCreate =
+    'api/PABudgetApi/v1/Project/Project/Create';
+  static readonly apiAddressUpdate =
+    'api/PABudgetApi/v1/Project/Project/Update';
 
+  static readonly apiAddressSourceType =
+    'api/PABudgetApi/v1/BaseInfo/ProjectSourceType/';
+  id!: number;
+  title!: string;
+  budgetPeriodId!: number;
+  fromBudgetPeriodId!: number;
+  toBudgetPeriodId!: number;
+  code!: string;
+  companyId!: number;
+  address!: string;
+  typeCode!: number;
+  internalRateOfReturn!: number;
+  netPersentValue!: number;
+  payBackPeriod!: number;
+}
+export class ProjectIncome {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Project/ProjectIncome/';
+  id!: number;
+  periodId!: number;
+  periodDetailId!: string;
+  projectId!: number;
+  unitId!: number;
+  sourceType!: number;
+  priceCu!: number;
+  realPriceCu!: number;
+  title!: string;
+  periodTitle!: string;
+  
+}
+export class ProjectCost {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Project/ProjectCost/';
+  id!: number;
+  title!: string;
+  periodTitle!: string;
+  periodId!: number;
+}
 export class KeyTypecode {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';
   id!: number;

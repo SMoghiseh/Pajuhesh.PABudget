@@ -61,6 +61,7 @@ export class AddEditPlanningValueComponent {
     private route: ActivatedRoute
   ) { }
 
+  
   ngOnInit(): void {
 
     this.getPlaningList();

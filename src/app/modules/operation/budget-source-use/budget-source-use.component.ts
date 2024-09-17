@@ -49,7 +49,7 @@ export class BudgetSourceUseComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();

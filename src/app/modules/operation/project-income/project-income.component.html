@@ -1,14 +1,14 @@
 <p-toast key="plan" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-  <div class="table-header">برنامه های کلان</div>
+  <div class="table-header">برآورد هزینه های پروژه</div>
   <div>
     <p-button
       class="pe-2 mr-8"
       styleClass="p-button-info"
       icon="pi pi-plus-circle"
       label="افزودن"
-      (click)="addPlan()"></p-button>
+      (click)="addProjectIncome()"></p-button>
   </div>
 </div>
 
@@ -16,80 +16,108 @@
   <form #formDir="ngForm" [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
       <div class="col-2 mt-2">
-        <label for="planingCode"> کد </label>
-        <input
-          pInputText
-          id="planingCode"
-          name="planingCode"
-          formControlName="planingCode"
-          class="w-100 my-1" />
-      </div>
-      <div class="col-2 mt-2">
-        <label for="title">عنوان آیتم </label>
-        <input
-          pInputText
-          id="title"
-          name="title"
-          formControlName="title"
-          class="w-100 my-1" />
-      </div>
-      <div class="col-2 mt-2">
-        <label for="planingDate">تاریخ تنظیم</label>
-        <p-persian-calendar
-          id="planingDate"
-          name="planingDate"
-          formControlName="planingDate"
-          styleClass="w-100">
-        </p-persian-calendar>
-      </div>
-      <div class="col-3 mt-2">
-        <label for="companyId"> شرکت</label>
+        <label for="periodId"> دوره بودجه</label>
         <p-dropdown
-          id="companyId"
-          name="companyId"
-          formControlName="companyId"
+          id="periodId"
+          name="periodId"
+          formControlName="periodId"
           styleClass="w-100 my-1"
-          optionLabel="partyName"
+          optionLabel="periodTitle"
           optionValue="id"
           placeholder="انتخاب کنید"
-          [options]="companyList"
+          [options]="budgetPeriodList"
+          (onChange)="onChangBudgetPeriod($event)"
           [filter]="true">
         </p-dropdown>
       </div>
-      <div class="col-3 mt-2">
-        <label for="meetingId"> صورتجلسه</label>
+      <div class="col-2 mt-2">
+        <label for="fromBudgetPeriodId"> دوره عملیاتی</label>
         <p-dropdown
-          id="meetingId"
-          name="meetingId"
-          formControlName="meetingId"
+          id="periodDetailId"
+          name="periodDetailId"
+          formControlName="periodDetailId"
+          styleClass="w-100 my-1"
+          optionLabel="periodDetailTitle"
+          optionValue="id"
+          [options]="OperationPeriodList"
+          placeholder="انتخاب کنید"
+          [filter]="true">
+        </p-dropdown>
+      </div>
+      <!-- <div class="col-2 mt-2">
+        <label for="projectId">شناسه پروژه </label>
+        <p-inputNumber
+          id="projectId"
+          name="projectId"
+          formControlName="projectId"
+          mode="decimal"
+          [readonly]="true"
+          inputId="withoutgrouping"
+          [useGrouping]="false"
+          class="w-100"></p-inputNumber>
+      </div> -->
+
+      <div class="col-2 mt-2">
+        <label for="unitId"> واحد</label>
+        <p-dropdown
+          id="unitId"
+          name="unitId"
+          formControlName="unitId"
           styleClass="w-100 my-1"
           optionLabel="title"
           optionValue="id"
           placeholder="انتخاب کنید"
-          [options]="meetingList"
+          [options]="unitList"
           [filter]="true">
         </p-dropdown>
       </div>
       <div class="col-2 mt-2">
-        <label for="startDate"> از تاریخ</label>
-        <p-persian-calendar
-          id="startDate"
-          name="startDate"
-          formControlName="startDate"
-          styleClass="w-100">
-        </p-persian-calendar>
+        <label for="sourceType"> منبع</label>
+        <p-dropdown
+          id="sourceType"
+          name="sourceType"
+          formControlName="sourceType"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="sourceTypeList"
+          [filter]="true">
+        </p-dropdown>
       </div>
+<!-- 
+      <div class="col-2 my-1">
+        <label for="percentGrow">درصد پیشرفت فیزیکی</label>
+        <input
+          pInputText
+          id="percentGrow"
+          name="percentGrow"
+          formControlName="percentGrow"
+          type="text"
+          class="w-100" />
+      </div> -->
+      <!-- <div class="col-2 my-1">
+        <label for="estimatePriceCu">برآورد هزینه</label>
+        <input
+          pInputText
+          id="estimatePriceCu"
+          name="estimatePriceCu"
+          formControlName="estimatePriceCu"
+          type="text"
+          class="w-100" />
+      </div> -->
+
       <div class="col-2 mt-2">
-        <label for="endDate">تا تاریخ </label>
-        <p-persian-calendar
-          id="endDate"
-          name="endDate"
-          formControlName="endDate"
-          styleClass="w-100">
-        </p-persian-calendar>
+        <label for="realPriceCu">هزینه فعلی</label>
+        <input
+          pInputText
+          id="realPriceCu"
+          name="realPriceCu"
+          formControlName="realPriceCu"
+          type="number"
+          class="w-100" />
       </div>
 
-      <!-- دکمه -->
       <div
         class="d-flex justify-content-end col text-end"
         style="margin-top: 20px">
@@ -101,7 +129,7 @@
             class="pe-2 p-button-wide"
             styleClass="p-button-info"
             [label]="'جستجو'"
-            (click)="getPlan()"></p-button>
+            (click)="getProjectIncome()"></p-button>
         </div>
       </div>
       <!-- / دکمه -->
@@ -124,30 +152,34 @@
     [loading]="loading"
     [tableStyle]="{ 'min-width': '75rem' }"
     [lazy]="true"
-    (onLazyLoad)="getPlan($event)"
+    (onLazyLoad)="getProjectIncome($event)"
     [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <th style="min-width: 10rem"><strong> کد </strong></th>
-        <th style="min-width: 10rem"><strong> عنوان </strong></th>
-        <th style="min-width: 10rem"><strong> شرکت </strong></th>
-        <th style="min-width: 10rem"><strong> صورتجلسه </strong></th>
-        <th style="min-width: 10rem"><strong> از تاریخ </strong></th>
-        <th style="min-width: 10rem"><strong> تا تاریخ </strong></th>
-        <th style="min-width: 10rem"><strong> تاریخ تنظیم </strong></th>
+        <th style="min-width: 10rem"><strong> دوره بودجه </strong></th>
+        <th style="min-width: 10rem"><strong> دوره عملیاتی </strong></th>
+        <!-- <th style="min-width: 10rem"><strong> شناسه پروژه </strong></th> -->
+        <th style="min-width: 10rem"><strong> واحد </strong></th>
+        <th style="min-width: 10rem"><strong> منبع </strong></th>
+        <!-- <th style="min-width: 10rem"><strong> درصد پیشرفت فیزیکی </strong></th>
+        <th style="min-width: 10rem"><strong> برآورد هزینه </strong></th> -->
+        <th style="min-width: 10rem"><strong> هزینه فعلی </strong></th>
+
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.planingCode }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.companyTitle }}</td>
-        <td>{{ item.meetingTitle }}</td>
-        <td>{{ item.startDate }}</td>
-        <td>{{ item.endDate }}</td>
-        <td>{{ item.planingDate }}</td>
+        <td>{{ item.periodTitle }}</td>
+        <td>{{ item.periodDetailTitle }}</td>
+        <!-- <td>{{ item.projectTitle }}</td> -->
+        <td>{{ item.unitTitle }}</td>
+        <td>{{ item.sourceTypeTitle }}</td>
+        <!-- <td>{{ item.percentGrow }}</td>
+        <td>{{ item.estimatePriceCu }}</td> -->
+        <td>{{ item.realPriceCu }}</td>
+
         <td class="jc-left ai-left">
           <button
             class="action-image-container edit-button"
@@ -161,13 +193,6 @@
             (click)="deleteRow(item)"
             pTooltip="حذف">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
-          </button>
-
-          <button
-            class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(item)"
-            pTooltip="">
-            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
           </button>
         </td>
       </tr>
@@ -209,25 +234,18 @@
 </div>
 
 <p-dialog
-  *ngIf="isOpenAddEditPlan"
+  *ngIf="isOpenAddEditProjectIncome"
   [header]="modalTitle"
-  [(visible)]="isOpenAddEditPlan"
+  [(visible)]="isOpenAddEditProjectIncome"
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
   [class.height-size]="mode === 'insert' || mode === 'edit'"
   [style]="{ width: '800px', height: '400px' }">
-  <PABudget-add-edit-planning
+  <PABudget-add-edit-project-income
     [data]="addEditData"
     [mode]="mode"
-    (isSuccess)="reloadData()"></PABudget-add-edit-planning>
+    (isSuccess)="reloadData()"></PABudget-add-edit-project-income>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-
-<p-menu
-  [showTransitionOptions]="'0ms'"
-  [hideTransitionOptions]="'0ms'"
-  #menu
-  [popup]="true"
-  [model]="subComponentList"></p-menu>

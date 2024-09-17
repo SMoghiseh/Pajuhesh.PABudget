@@ -11,10 +11,9 @@ import { JDate } from '@shared/utilities/JDate/jdate';
 @Component({
   selector: 'PABudget-add-edit-planning',
   templateUrl: './add-edit-planning.component.html',
-  styleUrls: ['./add-edit-planning.component.scss']
+  styleUrls: ['./add-edit-planning.component.scss'],
 })
 export class AddEditPlanningComponent {
-
   public datePipe = new DatePipe('en-US');
 
   // form property
@@ -26,8 +25,6 @@ export class AddEditPlanningComponent {
   accountPlanItemList: any = [];
   companyList: any = [];
   meetingList: any = [];
-
-
 
   inputData = new Planning();
   @Input() mode = '';
@@ -62,15 +59,13 @@ export class AddEditPlanningComponent {
     return this.addEditForm.get('endDate');
   }
 
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getMeetingLst();
     this.getCompanyLst();
 
@@ -81,7 +76,7 @@ export class AddEditPlanningComponent {
       companyId: new FormControl(null, Validators.required),
       meetingId: new FormControl(0),
       startDate: new FormControl('', Validators.required),
-      endDate: new FormControl('', Validators.required)
+      endDate: new FormControl('', Validators.required),
     });
 
     if (this.mode === 'edit') {
@@ -96,33 +91,33 @@ export class AddEditPlanningComponent {
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       request.planingDate = request.planingDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            request.planingDate?.getFullYear(),
-            request.planingDate?.getMonth(),
-            request.planingDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              request.planingDate?.getFullYear(),
+              request.planingDate?.getMonth(),
+              request.planingDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
       request.startDate = request.startDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            request.startDate?.getFullYear(),
-            request.startDate?.getMonth(),
-            request.startDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              request.startDate?.getFullYear(),
+              request.startDate?.getMonth(),
+              request.startDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
       request.endDate = request.endDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            request.endDate?.getFullYear(),
-            request.endDate?.getMonth(),
-            request.endDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              request.endDate?.getFullYear(),
+              request.endDate?.getMonth(),
+              request.endDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
 
       const url = Planning.apiAddress + 'Create';
@@ -138,9 +133,10 @@ export class AddEditPlanningComponent {
               life: 8000,
               severity: 'success',
               detail: ` برنامه  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -176,23 +172,11 @@ export class AddEditPlanningComponent {
           this.inputData = response.data.result;
           this.addEditForm.patchValue(response.data.result);
           this.addEditForm.patchValue({
-            startDate: new JDate(
-              new Date(this.inputData.startDate)
-            ),
-            endDate: new JDate(
-              new Date(this.inputData.endDate)
-            ),
-            planingDate: new JDate(
-              new Date(this.inputData.planingDate)
-            )
-          })
+            startDate: new JDate(new Date(this.inputData.startDate)),
+            endDate: new JDate(new Date(this.inputData.endDate)),
+            planingDate: new JDate(new Date(this.inputData.planingDate)),
+          });
         }
       });
   }
-
-
-
-
-
 }
-
