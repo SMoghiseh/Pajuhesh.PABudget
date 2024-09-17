@@ -27,10 +27,8 @@ export class CostAndBenefitComponent implements OnInit {
   totalCount!: number;
   lineChart1: any;
   lineChart2: any;
-  viewMode: "table" | "chart" | "treeTable" = "treeTable";
+  viewMode: 'table' | 'chart' | 'treeTable' = 'treeTable';
   comparisonTableId = 0;
-
-
 
   selectedYerId: any;
   priceTypeList: any;
@@ -38,19 +36,17 @@ export class CostAndBenefitComponent implements OnInit {
   allChartsData: any;
   compareBudgetWithRealTable: Budget[] = [];
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getPriceType();
-    this.getTreeTableData()
+    this.getTreeTableData();
   }
 
   returnSelectedDate(e: any) {
-    debugger;
     this.selectedYerId = e;
     this.reloadFilteredData();
   }
-
 
   reloadFilteredData() {
     if (this.viewMode == 'treeTable') this.getTreeTableData();
@@ -88,14 +84,18 @@ export class CostAndBenefitComponent implements OnInit {
     };
   }
 
-  tabChange(viewMode: "table" | "chart" | "treeTable",
-    yearTypeSelection: "single" | "double" | "multiple", tableId?: number) {
+  tabChange(
+    viewMode: 'table' | 'chart' | 'treeTable',
+    yearTypeSelection: 'single' | 'double' | 'multiple',
+    tableId?: number
+  ) {
     this.viewMode = viewMode;
 
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
 
-    if (viewMode == 'table' && viewMode == this.viewMode) this.getTableData(this.comparisonTableId);
+    if (viewMode == 'table' && viewMode == this.viewMode)
+      this.getTableData(this.comparisonTableId);
   }
 
   getTreeTableData() {
@@ -121,7 +121,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getChart(chartId?: number, priceType?: number) {
-
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
 
@@ -145,7 +144,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getTableData(comparison: number) {
-
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
@@ -155,14 +153,17 @@ export class CostAndBenefitComponent implements OnInit {
     const body = {
       accountReportCode: null,
       companyId: this.inputData.companyId,
-      firstPeriodId: this.selectedYerId[0] < this.selectedYerId[1] ? this.selectedYerId[0] : this.selectedYerId[1],
-      secondPeriodId: this.selectedYerId[0] > this.selectedYerId[1] ? this.selectedYerId[0] : this.selectedYerId[1],
+      firstPeriodId:
+        this.selectedYerId[0] < this.selectedYerId[1]
+          ? this.selectedYerId[0]
+          : this.selectedYerId[1],
+      secondPeriodId:
+        this.selectedYerId[0] > this.selectedYerId[1]
+          ? this.selectedYerId[0]
+          : this.selectedYerId[1],
     };
     this.httpService
-      .post<any>(
-        UrlBuilder.build(url, ''),
-        body
-      )
+      .post<any>(UrlBuilder.build(url, ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -174,7 +175,6 @@ export class CostAndBenefitComponent implements OnInit {
         this.tableData = result.compareReportDetail;
         this.cols = result.headers;
       });
-
   }
 
   createLineChart(data: any, indx: any) {
@@ -253,10 +253,6 @@ export class CostAndBenefitComponent implements OnInit {
         });
         this.priceTypeList = res;
         this.selectedPriceTypeId = 2;
-
-
-
-
       });
   }
 
@@ -281,7 +277,5 @@ export class CostAndBenefitComponent implements OnInit {
         this.getChart(1, 1);
       }
     }
-
   }
-
 }
