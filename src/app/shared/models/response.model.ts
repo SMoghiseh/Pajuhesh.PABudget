@@ -1232,7 +1232,8 @@ export class Plan {
   static readonly apiAddressVisionAndMission =
     'api/PABudgetApi/Dashboard/VisionAndMission/Info';
   static readonly apiAddressValue = 'api/PABudgetApi/Dashboard/Value/Info';
-  static readonly apiAddressYearUnion = 'api/PABudgetApi/Dashboard/YearUnion/Info';
+  static readonly apiAddressYearUnion =
+    'api/PABudgetApi/Dashboard/YearUnion/Info';
   static readonly apiAddressOrientation =
     'api/PABudgetApi/Dashboard/Orientation/Info';
   static readonly apiAddressGoals = 'api/PABudgetApi/Dashboard/Goals/Info';
@@ -1242,8 +1243,7 @@ export class Plan {
     'api/PABudgetApi/Dashboard/Strategy/List';
   static readonly apiAddressOperationalPlans =
     'api/PABudgetApi/Dashboard/OperationalPlans/Info';
-  static readonly apiAddressSWOT =
-    'api/PABudgetApi/Dashboard/SWOT/List';
+  static readonly apiAddressSWOT = 'api/PABudgetApi/Dashboard/SWOT/List';
   static readonly apiAddressInformations =
     'api/PABudgetApi/Dashboard/Informations/Info';
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
@@ -1325,7 +1325,6 @@ export class ProjectIncome {
   realPriceCu!: number;
   title!: string;
   periodTitle!: string;
-  
 }
 export class ProjectCost {
   static readonly apiAddress = 'api/PABudgetApi/v1/Project/ProjectCost/';
@@ -1375,6 +1374,18 @@ export class Budget {
     'api/PABudgetApi/Dashboard/CompareRealWithBudget/';
 }
 
+export class StatementCashFlows {
+  static readonly apiAddressStatementCashFlows =
+    'api/PABudgetApi/Dashboard/StatementCashFlows';
+}
+export class ReconciliationStatementOperating {
+  static readonly apiAddressReconciliationStatementOperating =
+    'api/PABudgetApi/Dashboard/ReconciliationStatementOperating';
+}
+export class ReceiveAndPay {
+  static readonly apiAddressReceiveAndPay =
+    'api/PABudgetApi/Dashboard/ReceiveAndPay';
+}
 export class Reports {
   static readonly apiAddressBoardmembers =
     'api/PABudgetApi/v1/CSPF/GetBoardmembers';

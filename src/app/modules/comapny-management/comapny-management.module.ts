@@ -61,6 +61,9 @@ import { OwnerShipValueComponent } from './company-profile/plan-badget-detail/bu
 import { MatrixSwotComponent } from './company-profile/plan-badget-detail/plans/matrix-swot/matrix-swot.component';
 import { StrategyPlanComponent } from './company-profile/plan-badget-detail/plans/strategy-plan/strategy-plan.component';
 import { AssemblyAssignmentsPlanComponent } from './company-profile/plan-badget-detail/plans/assembly-assignments-plan/assembly-assignments-plan.component';
+import { StatementCashFlowsComponent } from './company-profile/plan-badget-detail/plans/statement-cash-flows/statement-cash-flows.component';
+import { ReconciliationStatementOperatingComponent } from './company-profile/plan-badget-detail/plans/reconciliation-statement-operating/reconciliation-statement-operating.component';
+import { ReceiveAndPayComponent } from './company-profile/plan-badget-detail/plans/receive-and-pay/receive-and-pay.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +92,10 @@ import { AssemblyAssignmentsPlanComponent } from './company-profile/plan-badget-
     AddEditSeniorManagersComponent,
     OwnerShipValueComponent,
     MatrixSwotComponent,
-    AssemblyAssignmentsPlanComponent
+    AssemblyAssignmentsPlanComponent,
+    StatementCashFlowsComponent,
+    ReconciliationStatementOperatingComponent,
+    ReceiveAndPayComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,

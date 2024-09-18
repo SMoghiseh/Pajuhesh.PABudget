@@ -1,22 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
-import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
-import { map } from 'rxjs';
-import Chart from 'chart.js/auto';
+import {
+  Profile,
+  ReconciliationStatementOperating,
+  StatementCashFlows,
+  UrlBuilder,
+} from '@shared/models/response.model';
 import { LazyLoadEvent } from 'primeng/api';
+import { map } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-cost-and-benefit',
-  templateUrl: './cost-and-benefit.component.html',
-  styleUrls: ['./cost-and-benefit.component.scss'],
+  selector: 'PABudget-reconciliation-statement-operating',
+  templateUrl: './reconciliation-statement-operating.component.html',
+  styleUrls: ['./reconciliation-statement-operating.component.scss'],
 })
-export class CostAndBenefitComponent implements OnInit {
+export class ReconciliationStatementOperatingComponent {
   @Input() inputData: any;
 
   treeTableData: any;
   tableData: any = [];
   selectDateType: 'single' | 'double' | 'multiple' = 'single';
-  selectedPlanName = 'سود و زیان';
+  selectedPlanName = 'تطبیق سودعملیاتی';
   selectedRows: any = [];
   lazyLoadEvent?: LazyLoadEvent;
   isShowChart = false;
@@ -32,38 +36,23 @@ export class CostAndBenefitComponent implements OnInit {
   priceTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
-
   constructor(private httpService: HttpService) {}
-
   ngOnInit(): void {
     this.getPriceType();
     this.getTreeTableData();
   }
-
-  returnSelectedDate(e: any) {debugger
+  returnSelectedDate(e: any) {
     this.selectedYerId = e;
     this.reloadFilteredData();
   }
-
-  reloadFilteredData() { debugger
+  reloadFilteredData() {
     if (this.viewMode == 'treeTable') this.getTreeTableData();
     if (this.viewMode == 'table') this.getTableData(this.comparisonTableId);
-    if (this.viewMode == 'chart') this.loadChart();
   }
-
-  loadChart() {debugger
-    if (this.selectedPriceTypeId == 0) {
-      // حالت نمایش چارت ها در تب "عملکردو بودجه"
-      this.getChart(1, 1);
-      this.getChart(2, 2);
-    } else this.getChart(this.selectedPriceTypeId);
-  }
-
-  getSelectedRowsId(data: any[]) {debugger
+  getSelectedRowsId(data: any[]) {
     return data.map(item => item.data.code);
   }
-
-  createRequestBody(priceTypeId: number) {debugger
+  createRequestBody(priceTypeId: number) {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
 
@@ -94,7 +83,7 @@ export class CostAndBenefitComponent implements OnInit {
       this.getTableData(this.comparisonTableId);
   }
 
-  getTreeTableData() {debugger
+  getTreeTableData() {
     this.selectedRows = [];
     if (!this.selectedYerId) return;
     const body = {
@@ -103,7 +92,10 @@ export class CostAndBenefitComponent implements OnInit {
       priceType: this.selectedPriceTypeId,
     };
     this.httpService
-      .post<any>(Budget.apiAddressCostAndBenefit, body)
+      .post<any>(
+        ReconciliationStatementOperating.apiAddressReconciliationStatementOperating,
+        body
+      )
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -116,35 +108,14 @@ export class CostAndBenefitComponent implements OnInit {
       });
   }
 
-  getChart(chartId?: number, priceType?: number) {debugger
-    if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
-    if (!priceType) priceType = this.selectedPriceTypeId;
-
-    if (this.selectedRows?.length > 0) {
-      const body = this.createRequestBody(priceType);
-
-      this.httpService
-        .post<any>(UrlBuilder.build(Profile.apiAddressGetChart, ''), body)
-        .pipe(
-          map(response => {
-            if (response.data && response.data.result) {
-              return response.data.result;
-            } else return [];
-          })
-        )
-        .subscribe(res => {
-          this.allChartsData = res;
-          this.createLineChart(res[0], chartId);
-        });
-    }
-  }
-
-  getTableData(comparison: number) {debugger
+  getTableData(comparison: number) {
     let url = '';
     if (this.viewMode == 'table') {
-      if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
-      if (comparison == 2) url = Budget.apiAddressCompareBudgetWithBudget;
-      if (comparison == 3) url = Budget.apiAddressCompareRealWithBudget;
+      if (comparison == 1)
+        url =
+          ReconciliationStatementOperating.apiAddressReconciliationStatementOperating;
+      // if (comparison == 2) url = StatementCashFlows.apiAddressCompareBudgetWithBudget;
+      // if (comparison == 3) url = StatementCashFlows.apiAddressCompareRealWithBudget;
     }
     const body = {
       accountReportCode: null,
@@ -172,67 +143,7 @@ export class CostAndBenefitComponent implements OnInit {
         this.cols = result.headers;
       });
   }
-
-  createLineChart(data: any, indx: any) {
-    if (indx == 1) {
-      this.lineChart1?.destroy();
-    }
-    if (indx == 2) {
-      this.lineChart2?.destroy();
-    }
-
-    let chart;
-    chart = new Chart('LineChart' + indx, {
-      type: 'line',
-      data: data,
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: data.title,
-            padding: {
-              top: 10,
-              bottom: 30,
-            },
-          },
-          legend: {
-            labels: {
-              font: {
-                family: 'shabnam',
-              },
-            },
-          },
-          tooltip: {
-            titleFont: {
-              family: 'shabnam',
-            },
-            bodyFont: {
-              family: 'shabnam',
-            },
-          },
-        },
-
-        responsive: true,
-        scales: {
-          x: {
-            stacked: false,
-          },
-          y: {
-            stacked: false,
-          },
-        },
-      },
-    });
-
-    if (indx == 1) {
-      this.lineChart1 = chart;
-    }
-    if (indx == 2) {
-      this.lineChart2 = chart;
-    }
-  }
-
-  getPriceType() {debugger
+  getPriceType() {
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
       .pipe(
@@ -252,7 +163,7 @@ export class CostAndBenefitComponent implements OnInit {
       });
   }
 
-  onSelectPriceType(id: number) {debugger
+  onSelectPriceType(id: number) {
     this.selectedPriceTypeId = id;
 
     this.priceTypeList.forEach((element: any) => {
@@ -261,17 +172,5 @@ export class CostAndBenefitComponent implements OnInit {
     });
 
     if (this.viewMode == 'treeTable') this.getTreeTableData();
-
-    if (this.viewMode == 'chart') {
-      // نمایش چارت
-      if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
-        this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
-      } else if (this.selectedPriceTypeId == 0) {
-        // عملکرد و بودجه
-        // نمایش هر دو چارت
-        this.getChart(2, 2);
-        this.getChart(1, 1);
-      }
-    }
   }
 }
