@@ -30,9 +30,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeModule } from 'primeng/tree';
 import { PickListModule } from 'primeng/picklist';
-import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
 import { AggregateComponent } from './aggregate/aggregate.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
+import { BenefitCostReportComponent } from './benefit-cost-report/benefit-cost-report.component';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -45,6 +46,7 @@ import { PaginatorModule } from 'primeng/paginator';
     AccountReportItemComponent,
     FinancialStatementsReportComponent,
     AggregateComponent,
+    BenefitCostReportComponent,
   ],
   imports: [
     CommonModule,
@@ -77,4 +79,4 @@ import { PaginatorModule } from 'primeng/paginator';
     },
   ],
 })
-export class ReportsModule {}
+export class ReportsModule { }

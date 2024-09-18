@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
   Company,
-  FinancialStatementsReport,
+  BenefitCostsReport,
 } from '@shared/models/response.model';
 import { LazyLoadEvent } from 'primeng/api';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-financial-statements-report',
-  templateUrl: './financial-statements-report.component.html',
-  styleUrls: ['./financial-statements-report.component.scss'],
+  selector: 'PABudget-benefit-cost-report',
+  templateUrl: './benefit-cost-report.component.html',
+  styleUrls: ['./benefit-cost-report.component.scss']
 })
-export class FinancialStatementsReportComponent implements OnInit {
-  financialStatementsReportForm!: FormGroup;
+export class BenefitCostReportComponent {
+  benefitCostReportForm!: FormGroup;
   dataTableRows = 15;
   gridClass = 'p-datatable-sm';
   totalCount!: number;
@@ -22,18 +22,18 @@ export class FinancialStatementsReportComponent implements OnInit {
   lazyLoadEvent?: LazyLoadEvent;
   companyList: Company[] = [];
   selectedCompany: any = {};
-  selectedRow = new FinancialStatementsReport();
-  financialStatementsReportsTable: FinancialStatementsReport[] = [];
+  selectedRow = new BenefitCostsReport();
+  benefitCostReportsTable: BenefitCostsReport[] = [];
   cols: any = [];
   isMinus = true;
   isPositive = true;
   resultValue: any = [];
-  // tableData = { this.financialStatementsHeader, this.financialStatementsDetails };
+  // tableData = { this.benefitCostHeader, this.benefitCostDetails };
 
   constructor(private httpService: HttpService) { }
   ngOnInit(): void {
     this.getCompanyLst();
-    this.financialStatementsReportForm = new FormGroup({
+    this.benefitCostReportForm = new FormGroup({
       companyId: new FormControl(null),
     });
   }
@@ -46,19 +46,19 @@ export class FinancialStatementsReportComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
-          this.financialStatementsReportForm.patchValue({
+          this.benefitCostReportForm.patchValue({
             companyId: this.companyList[0].id
           })
-          this.getFinancialStatementsReport(this.companyList[0].id)
+          this.getBenefitCostsReport(this.companyList[0].id)
         }
       });
   }
   onCompanySelected(e: any) {
-    this.getFinancialStatementsReport(e.value);
+    this.getBenefitCostsReport(e.value);
   }
-  getFinancialStatementsReport(companyId: any) {
+  getBenefitCostsReport(companyId: any) {
     this.httpService
-      .get<any>(FinancialStatementsReport.apiAddress + companyId)
+      .get<any>(BenefitCostsReport.apiAddress + companyId)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -67,8 +67,8 @@ export class FinancialStatementsReportComponent implements OnInit {
         })
       )
       .subscribe(result => {
-        this.financialStatementsReportsTable =
-          result.financialStatementsReports;
+        this.benefitCostReportsTable =
+          result.benefitCostReports;
         this.cols = result.headers;
       });
   }

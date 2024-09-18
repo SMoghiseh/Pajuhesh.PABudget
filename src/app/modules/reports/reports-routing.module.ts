@@ -6,8 +6,9 @@ import { AccountReportComponent } from './account-report/account-report.componen
 import { AccountReportItemPriceComponent } from './account-report-item-price/account-report-item-price.component';
 import { AccountReportToItemComponent } from './account-report-to-item/account-report-to-item.component';
 import { AccountReportItemComponent } from './account-report-item/account-report-item.component';
-import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
 import { AggregateComponent } from './aggregate/aggregate.component';
+import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
+import { BenefitCostReportComponent } from './benefit-cost-report/benefit-cost-report.component';
 
 const routes: Routes = [
   {
@@ -72,6 +73,11 @@ const routes: Routes = [
             path: 'FinancialStatementsReport',
             component: FinancialStatementsReportComponent,
             title: 'برنامه و بودجه |  گزارش صورت وضعیت مالی ',
+          },
+          {
+            path: 'BenefitCostReport',
+            component: BenefitCostReportComponent,
+            title: 'برنامه و بودجه |  گزارش سود و زیان   ',
           },
           {
             path: 'AggregateCreate/:id',

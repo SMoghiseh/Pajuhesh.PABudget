@@ -1049,6 +1049,7 @@ export class Period {
   type1!: string;
   type2!: string;
   periodId!: number;
+  list!: Period[];
 }
 
 export class StaticYear {
@@ -1386,6 +1387,14 @@ export class AccountReportItem {
 export class FinancialStatementsReport {
   static readonly apiAddress =
     'api/PABudgetApi/Report/GetFinancialStatementsReport/';
+  periodCode!: number;
+  priceCu!: number;
+  title!: string;
+}
+
+export class BenefitCostsReport {
+  static readonly apiAddress =
+    'api/PABudgetApi/Report/GetBenefitCostReport/';
   periodCode!: number;
   priceCu!: number;
   title!: string;
