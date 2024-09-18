@@ -52,6 +52,12 @@ import { SwotComponent } from './swot/swot.component';
 import { StrategyComponent } from './strategy/strategy.component';
 import { AddEditStrategyComponent } from './strategy/add-edit-strategy/add-edit-strategy.component';
 import { BudgetSourceUseListComponent } from './budget-source-use-list-component/budget-source-use-list-component';
+import { ProjectComponent } from './project/project.component';
+import { AddEditProjectComponent } from './project/add-edit-project/add-edit-project.component';
+import { ProjectIncomeComponent } from './project-income/project-income.component';
+import { ProjectCostComponent } from './project-cost/project-cost.component';
+import { AddEditProjectIncomeComponent } from './project-income/add-edit-project-income/add-edit-project-income.component';
+import { AddEditProjectCostComponent } from './project-cost/add-edit-project-cost/add-edit-project-cost.component';
 
 
 @NgModule({
@@ -79,7 +85,13 @@ import { BudgetSourceUseListComponent } from './budget-source-use-list-component
     AddEditSwotComponent,
     StrategyComponent,
     AddEditStrategyComponent,
-    BudgetSourceUseListComponent
+    BudgetSourceUseListComponent,
+    ProjectComponent,
+    AddEditProjectComponent,
+    ProjectIncomeComponent,
+    ProjectCostComponent,
+    AddEditProjectIncomeComponent,
+    AddEditProjectCostComponent
   ],
   imports: [
     CommonModule,

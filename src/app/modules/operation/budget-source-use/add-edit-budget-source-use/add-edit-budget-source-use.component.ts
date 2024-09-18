@@ -55,7 +55,7 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();

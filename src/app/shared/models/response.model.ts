@@ -1038,6 +1038,8 @@ export class Period {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Period/';
   static readonly apiAddressDetail =
     'api/PABudgetApi/v1/BaseInfo/PeriodDetail/';
+  static readonly apiAddressUnits =
+    'api/PABudgetApi/v1/BudgetPeriod/GetAllUnits/';
   id!: number;
   title!: string;
   periodTitle!: string;
@@ -1231,7 +1233,8 @@ export class Plan {
   static readonly apiAddressVisionAndMission =
     'api/PABudgetApi/Dashboard/VisionAndMission/Info';
   static readonly apiAddressValue = 'api/PABudgetApi/Dashboard/Value/Info';
-  static readonly apiAddressYearUnion = 'api/PABudgetApi/Dashboard/YearUnion/Info';
+  static readonly apiAddressYearUnion =
+    'api/PABudgetApi/Dashboard/YearUnion/Info';
   static readonly apiAddressOrientation =
     'api/PABudgetApi/Dashboard/Orientation/Info';
   static readonly apiAddressGoals = 'api/PABudgetApi/Dashboard/Goals/Info';
@@ -1241,8 +1244,7 @@ export class Plan {
     'api/PABudgetApi/Dashboard/Strategy/List';
   static readonly apiAddressOperationalPlans =
     'api/PABudgetApi/Dashboard/OperationalPlans/Info';
-  static readonly apiAddressSWOT =
-    'api/PABudgetApi/Dashboard/SWOT/List';
+  static readonly apiAddressSWOT = 'api/PABudgetApi/Dashboard/SWOT/List';
   static readonly apiAddressInformations =
     'api/PABudgetApi/Dashboard/Informations/Info';
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
@@ -1288,7 +1290,50 @@ export class Mission {
   missionCode!: string;
   typeCode!: number;
 }
+export class Project {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Project/Project/';
+  static readonly apiAddressProjectTypeCode =
+    'api/PABudgetApi/v1/BaseInfo/ProjectTypeCode/';
+  static readonly apiAddressCreate =
+    'api/PABudgetApi/v1/Project/Project/Create';
+  static readonly apiAddressUpdate =
+    'api/PABudgetApi/v1/Project/Project/Update';
 
+  static readonly apiAddressSourceType =
+    'api/PABudgetApi/v1/BaseInfo/ProjectSourceType/';
+  id!: number;
+  title!: string;
+  budgetPeriodId!: number;
+  fromBudgetPeriodId!: number;
+  toBudgetPeriodId!: number;
+  code!: string;
+  companyId!: number;
+  address!: string;
+  typeCode!: number;
+  internalRateOfReturn!: number;
+  netPersentValue!: number;
+  payBackPeriod!: number;
+}
+export class ProjectIncome {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Project/ProjectIncome/';
+  id!: number;
+  periodId!: number;
+  periodDetailId!: string;
+  projectId!: number;
+  unitId!: number;
+  sourceType!: number;
+  priceCu!: number;
+  realPriceCu!: number;
+  title!: string;
+  periodTitle!: string;
+}
+export class ProjectCost {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Project/ProjectCost/';
+  id!: number;
+  title!: string;
+  periodTitle!: string;
+  periodId!: number;
+}
 export class KeyTypecode {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';
   id!: number;
@@ -1330,6 +1375,18 @@ export class Budget {
     'api/PABudgetApi/Dashboard/CompareRealWithBudget/';
 }
 
+export class StatementCashFlows {
+  static readonly apiAddressStatementCashFlows =
+    'api/PABudgetApi/Dashboard/StatementCashFlows';
+}
+export class ReconciliationStatementOperating {
+  static readonly apiAddressReconciliationStatementOperating =
+    'api/PABudgetApi/Dashboard/ReconciliationStatementOperating';
+}
+export class ReceiveAndPay {
+  static readonly apiAddressReceiveAndPay =
+    'api/PABudgetApi/Dashboard/ReceiveAndPay';
+}
 export class Reports {
   static readonly apiAddressBoardmembers =
     'api/PABudgetApi/v1/CSPF/GetBoardmembers';

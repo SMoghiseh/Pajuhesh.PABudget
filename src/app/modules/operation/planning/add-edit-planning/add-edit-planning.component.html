@@ -1,78 +1,123 @@
 <p-toast key="plan" position="bottom-left"></p-toast>
 
-
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
-    <div class="container row">
-
-        <div class="col-4 mt-2">
-            <label for="planingCode"> کد </label>
-            <input pInputText id="planingCode" name="planingCode" formControlName="planingCode" class="w-100 my-1"
-                [class.ng-invalid]="planingCode?.invalid" [class.ng-dirty]="
+  <div class="container row">
+    <div class="col-4 mt-2">
+      <label for="planingCode"> کد </label>
+      <input
+        pInputText
+        id="planingCode"
+        name="planingCode"
+        formControlName="planingCode"
+        class="w-100 my-1"
+        [class.ng-invalid]="planingCode?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && planingCode?.pristine) ||
           planingCode?.dirty ||
           planingCode?.touched
         " />
-        </div>
-        <div class="col-4 mt-2">
-            <label for="title">عنوان آیتم </label>
-            <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
-                [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+    </div>
+    <div class="col-4 mt-2">
+      <label for="title">عنوان آیتم </label>
+      <input
+        pInputText
+        id="title"
+        name="title"
+        formControlName="title"
+        class="w-100 my-1"
+        [class.ng-invalid]="title?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
         " />
-        </div>
-        <div class="col-4 mt-2">
-            <label for="planingDate">تاریخ تنظیم</label>
-            <p-persian-calendar id="planingDate" name="planingDate" formControlName="planingDate" styleClass="w-100"
-                [class.ng-invalid]="planingDate?.invalid" [class.ng-dirty]="
-              (addEditFormSubmitted && planingDate?.pristine) ||
-              planingDate?.dirty ||
-              planingDate?.touched
-            ">
-            </p-persian-calendar>
-        </div>
-        <div class="col-6 mt-2">
-            <label for="companyId"> شرکت</label>
-            <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-                optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
-                [filter]="true" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+    </div>
+    <div class="col-4 mt-2">
+      <label for="planingDate">تاریخ تنظیم</label>
+      <p-persian-calendar
+        id="planingDate"
+        name="planingDate"
+        formControlName="planingDate"
+        styleClass="w-100"
+        [class.ng-invalid]="planingDate?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && planingDate?.pristine) ||
+          planingDate?.dirty ||
+          planingDate?.touched
+        ">
+      </p-persian-calendar>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="companyId"> شرکت</label>
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true"
+        [class.ng-invalid]="companyId?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && companyId?.pristine) ||
           companyId?.dirty ||
           companyId?.touched
         ">
-            </p-dropdown>
-        </div>
-        <div class="col-6 mt-2">
-            <label for="meetingId"> صورتجلسه</label>
-            <p-dropdown id="meetingId" name="meetingId" formControlName="meetingId" styleClass="w-100 my-1"
-                optionLabel="companyName" optionValue="id" placeholder="انتخاب کنید" [options]="meetingList"
-                [filter]="true">
-            </p-dropdown>
-        </div>
-        <div class="col-6 mt-2">
-            <label for="startDate"> از تاریخ</label>
-            <p-persian-calendar id="startDate" name="startDate" formControlName="startDate" styleClass="w-100"
-                [class.ng-invalid]="startDate?.invalid" [class.ng-dirty]="
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="meetingId"> صورتجلسه</label>
+      <p-dropdown
+        id="meetingId"
+        name="meetingId"
+        formControlName="meetingId"
+        styleClass="w-100 my-1"
+        optionLabel="companyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="meetingList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="startDate"> از تاریخ</label>
+      <p-persian-calendar
+        id="startDate"
+        name="startDate"
+        formControlName="startDate"
+        styleClass="w-100"
+        [class.ng-invalid]="startDate?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && startDate?.pristine) ||
           startDate?.dirty ||
           startDate?.touched
         ">
-            </p-persian-calendar>
-        </div>
-        <div class="col-6 mt-2">
-            <label for="endDate">تا تاریخ </label>
-            <p-persian-calendar id="endDate" name="endDate" formControlName="endDate" styleClass="w-100"
-                [class.ng-invalid]="endDate?.invalid" [class.ng-dirty]="
+      </p-persian-calendar>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="endDate">تا تاریخ </label>
+      <p-persian-calendar
+        id="endDate"
+        name="endDate"
+        formControlName="endDate"
+        styleClass="w-100"
+        [class.ng-invalid]="endDate?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && endDate?.pristine) ||
           endDate?.dirty ||
           endDate?.touched
         ">
-            </p-persian-calendar>
-        </div>
-        <div class="col-12 row-btn row-btn-fixed-bottom">
-            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
-                [loading]="isLoadingSubmit"></p-button>
-        </div>
+      </p-persian-calendar>
     </div>
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
 </form>

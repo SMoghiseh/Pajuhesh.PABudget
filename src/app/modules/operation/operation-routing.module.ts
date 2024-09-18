@@ -14,6 +14,9 @@ import { BigGoalComponent } from './big-goal/big-goal.component';
 import { SwotComponent } from './swot/swot.component';
 import { StrategyComponent } from './strategy/strategy.component';
 import { BudgetSourceUseListComponent } from './budget-source-use-list-component/budget-source-use-list-component';
+import { ProjectComponent } from './project/project.component';
+import { ProjectIncomeComponent } from './project-income/project-income.component';
+import { ProjectCostComponent } from './project-cost/project-cost.component';
 
 
 const routes: Routes = [
@@ -134,6 +137,36 @@ const routes: Routes = [
             path: 'Strategy/:id',
             component: StrategyComponent,
             title: 'برنامه و بودجه |  استراتژی',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'Project',
+            component: ProjectComponent,
+            title: 'برنامه و بودجه |  پروژه',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'ProjectIncome/:id',
+            component: ProjectIncomeComponent,
+            title: 'برنامه و بودجه |  برآورد هزینه های پروژه',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'ProjectCost/:id',
+            component: ProjectCostComponent,
+            title: 'برنامه و بودجه |  هزینه های پروژه',
             data: {
               reuse: true,
               title: 'تعریف عناوین',
