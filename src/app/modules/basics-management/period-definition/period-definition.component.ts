@@ -24,6 +24,7 @@ export class PeriodDefinitionComponent implements OnInit {
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
+  pageTitle = '';
   isOpenAddEditPeriod = false;
   addEditData = new Period();
   isDetail = false;
@@ -68,7 +69,10 @@ export class PeriodDefinitionComponent implements OnInit {
       if (param.id) {
         this.isDetail = true;
         this.pId = param.id;
+        this.getPeriodSelectedData(param.id);
       }
+      else
+        this.pageTitle = 'لیست دوره ها';
     });
   }
 
@@ -109,6 +113,16 @@ export class PeriodDefinitionComponent implements OnInit {
         })
       )
       .subscribe(res => (this.data = res));
+  }
+
+  getPeriodSelectedData(id: number) {
+    this.httpService
+      .get<any>(Period.apiAddress + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.pageTitle = response.data.result.periodTitle;
+        }
+      });
   }
 
   addPeriod() {
