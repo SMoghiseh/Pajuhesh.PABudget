@@ -40,9 +40,7 @@ export class BenefitCostReportComponent {
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
-        withOutPagination: true,
-      })
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
