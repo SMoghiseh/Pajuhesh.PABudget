@@ -33,25 +33,26 @@ export class CostAndBenefitComponent implements OnInit {
   selectedPriceTypeId!: number;
   allChartsData: any;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
     this.getPriceType();
     this.getTreeTableData();
   }
 
-  returnSelectedDate(e: any) {debugger
+  returnSelectedDate(e: any) {
     this.selectedYerId = e;
     this.reloadFilteredData();
   }
 
-  reloadFilteredData() { debugger
+  reloadFilteredData() {
     if (this.viewMode == 'treeTable') this.getTreeTableData();
     if (this.viewMode == 'table') this.getTableData(this.comparisonTableId);
     if (this.viewMode == 'chart') this.loadChart();
   }
 
-  loadChart() {debugger
+  loadChart() {
+    debugger
     if (this.selectedPriceTypeId == 0) {
       // حالت نمایش چارت ها در تب "عملکردو بودجه"
       this.getChart(1, 1);
@@ -59,11 +60,13 @@ export class CostAndBenefitComponent implements OnInit {
     } else this.getChart(this.selectedPriceTypeId);
   }
 
-  getSelectedRowsId(data: any[]) {debugger
+  getSelectedRowsId(data: any[]) {
+    debugger
     return data.map(item => item.data.code);
   }
 
-  createRequestBody(priceTypeId: number) {debugger
+  createRequestBody(priceTypeId: number) {
+    debugger
     this.selectDateType = 'multiple';
     this.isShowChart = true;
 
@@ -94,7 +97,8 @@ export class CostAndBenefitComponent implements OnInit {
       this.getTableData(this.comparisonTableId);
   }
 
-  getTreeTableData() {debugger
+  getTreeTableData() {
+    debugger
     this.selectedRows = [];
     if (!this.selectedYerId) return;
     const body = {
@@ -116,7 +120,8 @@ export class CostAndBenefitComponent implements OnInit {
       });
   }
 
-  getChart(chartId?: number, priceType?: number) {debugger
+  getChart(chartId?: number, priceType?: number) {
+    debugger
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
 
@@ -139,7 +144,8 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getTableData(comparison: number) {debugger
+  getTableData(comparison: number) {
+    debugger
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
@@ -232,7 +238,8 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getPriceType() {debugger
+  getPriceType() {
+    debugger
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
       .pipe(
@@ -252,7 +259,8 @@ export class CostAndBenefitComponent implements OnInit {
       });
   }
 
-  onSelectPriceType(id: number) {debugger
+  onSelectPriceType(id: number) {
+    debugger
     this.selectedPriceTypeId = id;
 
     this.priceTypeList.forEach((element: any) => {
