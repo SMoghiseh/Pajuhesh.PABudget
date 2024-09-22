@@ -33,6 +33,8 @@ import { PeriodDefinitionComponent } from './period-definition/period-definition
 import { AddEditPeriodComponent } from './period-definition/add-edit-period/add-edit-period.component';
 import { ProductGroupComponent } from './product-group/product-group.component';
 import { MenuModule } from 'primeng/menu';
+import { FinancialRatioComponent } from './financial-ratio/financial-ratio.component';
+import { AddEditFinancialRatioComponent } from './financial-ratio/add-edit-financial-ratio/add-edit-financial-ratio.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MenuModule } from 'primeng/menu';
     PeriodDefinitionComponent,
     AddEditPeriodComponent,
     ProductGroupComponent,
+    FinancialRatioComponent,
+    AddEditFinancialRatioComponent,
   ],
   imports: [
     NgOptimizedImage,

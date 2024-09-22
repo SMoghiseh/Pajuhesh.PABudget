@@ -10,6 +10,7 @@ import { SubjectDefinitionComponent } from './subject-definition/subject-definit
 import { BasicsDefinitionComponent } from './basics-definition/basics-definition.component';
 import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
 import { ProductGroupComponent } from './product-group/product-group.component';
+import { FinancialRatioComponent } from './financial-ratio/financial-ratio.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,15 @@ const routes: Routes = [
             data: {
               reuse: true,
               title: 'تعریف دوره',
+            },
+          },
+          {
+            path: 'FinancialRatio',
+            component: FinancialRatioComponent,
+            title: 'برنامه و بودجه | تعریف نسبت های مالی',
+            data: {
+              reuse: true,
+              title: 'تعریف نسبت های مالی',
             },
           },
           {

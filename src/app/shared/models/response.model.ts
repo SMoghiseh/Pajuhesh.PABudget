@@ -1608,3 +1608,9 @@ export class KeyTypeCode {
   id!: number;
   title!: string;
 }
+export class FinancialRatio {
+  static readonly apiAddressTypeCode = 'api/PABudgetApi/v1/BaseInfo/GetFinancialRatioTypeCode/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/';
+  id!: number;
+  title!: string;
+}
