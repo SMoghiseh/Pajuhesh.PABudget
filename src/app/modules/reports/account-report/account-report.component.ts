@@ -213,6 +213,7 @@ export class AccountReportComponent {
   }
 
   addAccountReportToItem(report: AccountReport) {
+    debugger
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
   }
 }

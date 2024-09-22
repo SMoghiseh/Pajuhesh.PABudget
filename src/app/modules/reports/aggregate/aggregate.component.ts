@@ -34,7 +34,7 @@ export class AggregateComponent implements OnInit {
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   accountReportList: any[] = [];
-  selectedReport: any;
+  selectedReport: any = {};
   isLoadingSubmit = false;
 
   // dropdown data list
@@ -55,7 +55,7 @@ export class AggregateComponent implements OnInit {
   ngOnInit(): void {
     this.getPeriodLst();
     this.getCompanyLst();
-    // this.getAccountRepLst();
+    this.getAccountRepLst();
 
     this.accountReportPriceForm = new FormGroup({
       companyId: new FormControl(0),
@@ -112,8 +112,6 @@ export class AggregateComponent implements OnInit {
           this.selectedReport = this.accountReportList.find(
             item => item.id == Number(this.route.snapshot.paramMap.get('id'))
           );
-          // get AccountReportItemLst
-          this.getAccountReportItemLst();
         }
       });
   }
@@ -130,9 +128,6 @@ export class AggregateComponent implements OnInit {
     pagination.pageSize = rows;
 
     const body = {
-      pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-      withOutPagination: false,
       ...formValue,
       reportId: this.selectedReport?.id,
     };
