@@ -55,7 +55,7 @@ export class AggregateComponent implements OnInit {
   ngOnInit(): void {
     this.getPeriodLst();
     this.getCompanyLst();
-    this.getAccountRepLst();
+    // this.getAccountRepLst();
 
     this.accountReportPriceForm = new FormGroup({
       companyId: new FormControl(0),

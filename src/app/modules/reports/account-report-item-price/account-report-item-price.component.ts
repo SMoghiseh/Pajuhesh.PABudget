@@ -47,7 +47,7 @@ export class AccountReportItemPriceComponent implements OnInit {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -73,9 +73,7 @@ export class AccountReportItemPriceComponent implements OnInit {
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
-        withOutPagination: true,
-      })
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;

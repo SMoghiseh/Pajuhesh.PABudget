@@ -15,7 +15,7 @@
       <div class="col-2">
         <label for="companyId"> شرکت </label>
         <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-          optionLabel="companyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true">
+          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true">
         </p-dropdown>
       </div>
       <!--  شرکت -->
@@ -63,8 +63,7 @@
 <div class="table-container">
   <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
     [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-    (onLazyLoad)="getReport($event)" [(first)]="first">
+    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
