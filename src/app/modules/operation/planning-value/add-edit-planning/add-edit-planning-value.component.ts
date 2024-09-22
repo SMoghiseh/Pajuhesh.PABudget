@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PlanningValue, Company, KeyTypecode, Planning } from '@shared/models/response.model';
+import { PlanningValue, KeyTypecode, Planning } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -41,10 +41,6 @@ export class AddEditPlanningValueComponent {
     return this.addEditForm.get('title');
   }
 
-  get companyId() {
-    return this.addEditForm.get('companyId');
-  }
-
   get planingId() {
     return this.addEditForm.get('planingId');
   }
@@ -61,17 +57,15 @@ export class AddEditPlanningValueComponent {
     private route: ActivatedRoute
   ) { }
 
-  
+
   ngOnInit(): void {
 
     this.getPlaningList();
-    this.getCompanyLst();
     this.getkeyTypeCodeLst();
 
     this.addEditForm = new FormGroup({
       planningValueCode: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
-      companyId: new FormControl(0),
       keyTypeCode: new FormControl(0),
       planingId: new FormControl('', Validators.required),
     });
@@ -112,16 +106,6 @@ export class AddEditPlanningValueComponent {
           }
         });
     }
-  }
-
-  getCompanyLst() {
-    this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.companyList = response.data.result;
-        }
-      });
   }
 
   getPlaningList() {
