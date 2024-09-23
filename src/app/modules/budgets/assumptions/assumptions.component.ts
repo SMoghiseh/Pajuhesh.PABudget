@@ -84,7 +84,7 @@ export class AssumptionsComponent {
   }
 
 
-  getList(event?: LazyLoadEvent) {
+  getList(event?: LazyLoadEvent) {debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -120,13 +120,13 @@ export class AssumptionsComponent {
       .subscribe(res => (this.data = res));
   }
 
-  addAssumptions() {
+  addAssumptions() {debugger
     this.modalTitle = 'افزودن ماموریت  ';
     this.mode = 'insert';
     this.isOpenAddEditAssumptions = true;
   }
 
-  editRow(data: Assumptions) {
+  editRow(data: Assumptions) {debugger
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
@@ -174,7 +174,7 @@ export class AssumptionsComponent {
     }
   }
 
-  reloadData() {
+  reloadData() {debugger
     this.isOpenAddEditAssumptions = false;
     this.getList();
   }

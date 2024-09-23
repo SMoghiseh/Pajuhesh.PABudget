@@ -2,69 +2,58 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { AssemblyAssignments, Company } from '@shared/models/response.model';
+import {
+  Company,
+  FinancialRatiosPrice,
+  UrlBuilder,
+} from '@shared/models/response.model';
 import { MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-add-edit-assembly-assignments',
-  templateUrl: './add-edit-assembly-assignments.component.html',
-  styleUrls: ['./add-edit-assembly-assignments.component.scss'],
+  selector: 'PABudget-add-edit-financial-ratios-price',
+  templateUrl: './add-edit-financial-ratios-price.component.html',
+  styleUrls: ['./add-edit-financial-ratios-price.component.scss'],
 })
-export class AddEditAssemblyAssignmentsComponent {
+export class AddEditFinancialRatiosPriceComponent {
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
   MeetingTopicList: any = [];
   companyList: any = [];
-  inputData = new AssemblyAssignments();
+  financialRatioList: any = [];
+  inputData = new FinancialRatiosPrice();
   @Input() mode = '';
-  @Input() set data1(data: AssemblyAssignments) {
+  @Input() set data1(data: FinancialRatiosPrice) {
     this.inputData = data;
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-  // get budgetPeriodId() {
-  //   return this.addEditForm.get('budgetPeriodId');
-  // }
-  // get meetingId() {
-  //   return this.addEditForm.get('meetingId');
-  // }
-  // get typeCode() {
-  //   return this.addEditForm.get('typeCode');
-  // }
-  // get companyId() {
-  //   return this.addEditForm.get('companyId');
-  // }
-  // get title() {
-  //   return this.addEditForm.get('title');
-  // }
-  // get meetingDate() {
-  //   return this.addEditForm.get('meetingDate');
-  // }
+
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
+    this.getFinancialRatioLst();
+    debugger;
     this.getCompanyLst();
     this.addEditForm = new FormGroup({
-      budgetPeriodId: new FormControl(),
-      meetingId: new FormControl(0),
-      typeCode: new FormControl(null),
+      financialRatioId: new FormControl(),
       companyId: new FormControl(null),
-      title: new FormControl(null),
-      // meetingDate: new FormControl(),
+      periodId: new FormControl(null),
+      price: new FormControl(null),
+      code: new FormControl('02'),
     });
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
-    if (this.mode === 'insert') {
+    if (this.mode === 'insert' || this.mode === 'edit') {
       this.route.params.subscribe((param: any) => {
         if (param.id) {
           this.addEditForm.patchValue({
-            budgetPeriodId: param.id,
+            periodId: param.id,
           });
         }
       });
@@ -72,8 +61,9 @@ export class AddEditAssemblyAssignmentsComponent {
   }
 
   getRowData(id: number) {
+    debugger;
     this.httpService
-      .get<any>(AssemblyAssignments.apiAddress + id)
+      .get<any>(FinancialRatiosPrice.apiAddress + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
@@ -81,27 +71,26 @@ export class AddEditAssemblyAssignmentsComponent {
         }
       });
   }
-  addEditAssemblyAssignment() {
+  addEditFinancialRatiosPrice() {
+    debugger;
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url =
-        this.mode === 'insert'
-          ? AssemblyAssignments.apiAddress + 'Create'
-          : AssemblyAssignments.apiAddress + 'Update';
+      const url = FinancialRatiosPrice.apiAddress + 'Create';
+
 
       this.isLoadingSubmit = true;
       this.httpService
-        .post<AssemblyAssignments>(url, request)
+        .post<any>(UrlBuilder.build(url, ''), request)
         .pipe(tap(() => (this.isLoadingSubmit = false)))
         .subscribe(response => {
           if (response.successed) {
             this.messageService.add({
-              key: 'AssemblyAssignmen',
+              key: 'FinancialRatiosPrice',
               life: 8000,
               severity: 'success',
-              detail: ` عنوان  ${request.title}`,
+              detail: ` عنوان  ${this.inputData.title}`,
               summary:
                 this.mode === 'insert'
                   ? 'با موفقیت درج شد'
@@ -111,6 +100,20 @@ export class AddEditAssemblyAssignmentsComponent {
           }
         });
     }
+  }
+  getFinancialRatioLst() {
+    this.httpService
+      .post<FinancialRatiosPrice[]>(
+        FinancialRatiosPrice.apiAddressFinancialRatio,
+        {
+          withOutPagination: true,
+        }
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.financialRatioList = response.data.result;
+        }
+      });
   }
 
   getCompanyLst() {

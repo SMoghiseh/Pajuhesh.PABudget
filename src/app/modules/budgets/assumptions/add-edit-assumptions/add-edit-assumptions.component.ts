@@ -78,7 +78,7 @@ export class AddEditAssumptionsComponent {
       aspectCode: new FormControl(0)
     });
 
-    if (this.mode === 'edit') {
+    if (this.mode === 'edit') {debugger
       this.getRowData(this.inputData.id);
     }
 

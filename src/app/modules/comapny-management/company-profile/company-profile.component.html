@@ -158,6 +158,9 @@
     <PABudget-receive-and-pay
       [inputData]="planInputData"></PABudget-receive-and-pay>
   </ng-template>
+  <ng-template [ngSwitchCase]="'ShareHolder'">
+    <PABudget-shareholder [inputData]="planInputData"></PABudget-shareholder>
+  </ng-template>
 </div>
 
 <!-- <div class="row bottom-section">

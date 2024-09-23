@@ -11,6 +11,8 @@ import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-deta
 import { RelatedActivityComponent } from './related-activity/related-activity.component';
 import { YearPolicyComponent } from './year-policy/year-policy.component';
 import { YearRiskComponent } from './year-risk/year-risk.component';
+import { FinancialRatiosPriceComponent } from './financial-ratios-price/financial-ratios-price.component';
+import { FinancialRatiosIndustryComponent } from './financial-ratios-industry/financial-ratios-industry.component';
 
 const routes: Routes = [
   {
@@ -45,7 +47,8 @@ const routes: Routes = [
             path: 'YearUnionDetail/:id',
             component: AssemblyAssignmentsDetailsComponent,
             title: 'برنامه و بودجه | مفاد',
-          }, {
+          },
+          {
             path: 'RelatedActivity/:yearActivityId',
             component: RelatedActivityComponent,
             title: 'برنامه و بودجه | برنامه عملیاتی',
@@ -60,6 +63,16 @@ const routes: Routes = [
             component: YearRiskComponent,
             title: 'برنامه و بودجه | برنامه عملیاتی',
           },
+          {
+            path: 'FinancialRatiosPrice/:id',
+            component: FinancialRatiosPriceComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
+          {
+            path: 'FinancialRatiosIndustry/:id',
+            component: FinancialRatiosIndustryComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
         ],
       },
     ],
@@ -70,4 +83,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BudgetsRoutingModule { }
+export class BudgetsRoutingModule {}

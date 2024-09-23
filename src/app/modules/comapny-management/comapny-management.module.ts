@@ -64,6 +64,7 @@ import { AssemblyAssignmentsPlanComponent } from './company-profile/plan-badget-
 import { StatementCashFlowsComponent } from './company-profile/plan-badget-detail/plans/statement-cash-flows/statement-cash-flows.component';
 import { ReconciliationStatementOperatingComponent } from './company-profile/plan-badget-detail/plans/reconciliation-statement-operating/reconciliation-statement-operating.component';
 import { ReceiveAndPayComponent } from './company-profile/plan-badget-detail/plans/receive-and-pay/receive-and-pay.component';
+import { ShareholderComponent } from './company-profile/plan-badget-detail/plans/shareholder/shareholder.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { ReceiveAndPayComponent } from './company-profile/plan-badget-detail/pla
     AssemblyAssignmentsPlanComponent,
     StatementCashFlowsComponent,
     ReconciliationStatementOperatingComponent,
-    ReceiveAndPayComponent
+    ReceiveAndPayComponent,
+    ShareholderComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,

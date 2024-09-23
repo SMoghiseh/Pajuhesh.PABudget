@@ -1,80 +1,77 @@
-<p-toast key="yearGoal" position="bottom-left"></p-toast>
+<p-toast key="FinancialRatiosPrice" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-  <div class="table-header">اهداف سالیانه</div>
+  <div class="table-header">نسبت های مالی</div>
   <div>
     <p-button
       class="pe-2 mr-8"
       styleClass="p-button-info"
       icon="pi pi-plus-circle"
       label="افزودن"
-      (click)="addYearGoal()"></p-button>
+      (click)="addFinancialRatiosPrice(mode)"></p-button>
   </div>
 </div>
 
 <div class="panel-search mt-8 mb-8">
   <form #formDir="ngForm" [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
-      <div class="col-2 mt-2">
-        <label for="companyId"> شرکت </label>
+      <div class="col-3 mt-2">
+        <label for="financialRatioId"> نسبت مالی</label>
+        <p-dropdown
+          id="financialRatioId"
+          name="financialRatioId"
+          formControlName="financialRatioId"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="financialRatioList"
+          [filter]="true">
+        </p-dropdown>
+      </div>
+
+      <div class="col-3 mt-2">
+        <label for="companyId"> شرکت</label>
         <p-dropdown
           id="companyId"
           name="companyId"
           formControlName="companyId"
           styleClass="w-100 my-1"
-          optionLabel="partyName"
+          optionLabel="companyName"
           optionValue="id"
           placeholder="انتخاب کنید"
           [options]="companyList"
-          [filter]="true">
+          [filter]="true"
+          placeholder="انتخاب کنید">
         </p-dropdown>
       </div>
-      <div class="col-2 mt-2">
-        <label for="yearGoalCode"> کد </label>
+      <!-- <div class="col-3 mt-2">
+        <label for="periodId"> دوره بودجه </label>
         <input
           pInputText
-          id="yearGoalCode"
-          name="yearGoalCode"
-          formControlName="yearGoalCode"
+          id="periodId"
+          name="periodId"
+          formControlName="periodId"
           class="w-100 my-1" />
-      </div>
-      <div class="col-2 mt-2">
-        <label for="bigGoalId"> شناسه هدف کلان </label>
-        <p-dropdown
-          id="bigGoalId"
-          name="bigGoalId"
-          formControlName="bigGoalId"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="bigGoalList"
-          [filter]="true">
-        </p-dropdown>
-      </div>
-      <div class="col-2 mt-2">
-        <label for="title"> هدف </label>
+      </div> -->
+      <!-- <div class="col-3 mt-2">
+        <label for="price"> مبلغ </label>
         <input
           pInputText
-          id="title"
-          name="title"
-          formControlName="title"
+          id="price"
+          name="price"
+          formControlName="price"
           class="w-100 my-1" />
-      </div>
-      <div class="col-2 mt-2">
-        <label for="aspectCode"> منظر</label>
-        <p-dropdown
-          id="aspectCode"
-          name="aspectCode"
-          formControlName="aspectCode"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="aspectCodeList"
-          [filter]="true">
-        </p-dropdown>
-      </div>
+      </div> -->
+      <!-- <div class="col-3 mt-2">
+        <label for="periodId"> واحد مبلغ </label>
+        <input
+          pInputText
+          id="code"
+          name="code"
+          formControlName="code"
+          class="w-100 my-1" />
+      </div> -->
       <!-- دکمه -->
       <div
         class="d-flex justify-content-end col text-end"
@@ -87,14 +84,11 @@
             class="pe-2 p-button-wide"
             styleClass="p-button-info"
             [label]="'جستجو'"
-            (click)="getList()"></p-button>
+            (click)="getFinancialRatiosPriceList()"></p-button>
         </div>
       </div>
       <!-- / دکمه -->
     </div>
-    <!-- </div> -->
-    <!-- / دکمه -->
-    <!-- </div> -->
   </form>
 </div>
 
@@ -113,27 +107,31 @@
     [loading]="loading"
     [tableStyle]="{ 'min-width': '75rem' }"
     [lazy]="true"
-    (onLazyLoad)="getList($event)"
+    (onLazyLoad)="getFinancialRatiosPriceList($event)"
     [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <th style="min-width: 10rem"><strong> کد </strong></th>
-        <th style="min-width: 10rem"><strong> عنوان </strong></th>
+        <!-- <th style="min-width: 10rem"><strong> شناسه دوره بودجه </strong></th> -->
+        <th style="min-width: 10rem"><strong> نسبت مالی </strong></th>
         <th style="min-width: 10rem"><strong> شرکت </strong></th>
-        <th style="min-width: 10rem"><strong> هدف کلان </strong></th>
-        <th style="min-width: 10rem"><strong> منظر </strong></th>
+        <!-- <th style="min-width: 10rem"><strong> دوره بودجه </strong></th> -->
+        <th style="min-width: 10rem"><strong> مبلغ </strong></th>
+        <th style="min-width: 10rem"><strong> واحد مبلغ </strong></th>
+        <!-- <th style="min-width: 10rem"><strong> تاریخ صورتجلسه </strong></th> -->
 
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.yearGoalCode }}</td>
+        <!-- <td>{{ item.budgetPeriodTitle }}</td> -->
         <td>{{ item.title }}</td>
-        <td>{{ item.symbol }}</td>
-        <td>{{ item.bigGoalTitle }}</td>
-        <td>{{ item.aspectCodeTitle }}</td>
+        <td>{{ item.companyName }}</td>
+        <!-- <td>{{ item.periodId }}</td> -->
+        <td>{{ item.price }}</td>
+        <td>{{ item.code }}</td>
+        <!-- <td>{{ item.meetingDate }}</td> -->
 
         <td class="jc-left ai-left">
           <button
@@ -148,12 +146,6 @@
             (click)="deleteRow(item)"
             pTooltip="حذف">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
-          </button>
-          <button
-            class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(item)"
-            pTooltip="">
-            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
           </button>
         </td>
       </tr>
@@ -184,7 +176,7 @@
             <button
               class="action-image-container delete-button"
               (click)="deleteRow(report)"
-              title="حذف بودجه ">
+              title="حذف  ">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>
           </div>
@@ -195,24 +187,24 @@
 </div>
 
 <p-dialog
-  *ngIf="isOpenAddEditYearGoal"
+  *ngIf="isOpenAddEditFinancialRatiosPrice"
   [header]="modalTitle"
-  [(visible)]="isOpenAddEditYearGoal"
+  [(visible)]="isOpenAddEditFinancialRatiosPrice"
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
   [style]="{ width: '600px' }"
   [class.height-size]="mode === 'insert' || mode === 'edit'">
-  <PABudget-add-edit-year-goal
+  <PABudget-add-edit-financial-ratios-price
     [data1]="addEditData"
     [mode]="mode"
-    (isSuccess)="reloadData()"></PABudget-add-edit-year-goal>
+    (isSuccess)="reloadData()"></PABudget-add-edit-financial-ratios-price>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-<p-menu
+<!-- <p-menu
   [showTransitionOptions]="'0ms'"
   [hideTransitionOptions]="'0ms'"
   #menu
   [popup]="true"
-  [model]="subComponentList"></p-menu>
+  [model]="subComponentList"></p-menu> -->

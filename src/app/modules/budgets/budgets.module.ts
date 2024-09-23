@@ -40,6 +40,10 @@ import { YearPolicyComponent } from './year-policy/year-policy.component';
 import { AddEditYearPolicyComponent } from './year-policy/add-edit-year-policy/add-edit-year-policy.component';
 import { YearRiskComponent } from './year-risk/year-risk.component';
 import { AddEditYearRiskComponent } from './year-risk/add-edit-year-risk/add-edit-year-risk.component';
+import { FinancialRatiosPriceComponent } from './financial-ratios-price/financial-ratios-price.component';
+import { AddEditFinancialRatiosPriceComponent } from './financial-ratios-price/add-edit-financial-ratios-price/add-edit-financial-ratios-price.component';
+import { FinancialRatiosIndustryComponent } from './financial-ratios-industry/financial-ratios-industry.component';
+import { AddEditFinancialRatiosIndustryComponent } from './financial-ratios-industry/add-edit-financial-ratios-industry/add-edit-financial-ratios-industry.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { AddEditYearRiskComponent } from './year-risk/add-edit-year-risk/add-edi
     YearPolicyComponent,
     AddEditYearPolicyComponent,
     YearRiskComponent,
-    AddEditYearRiskComponent
+    AddEditYearRiskComponent,
+    FinancialRatiosPriceComponent,
+    AddEditFinancialRatiosPriceComponent,
+    FinancialRatiosIndustryComponent,
+    AddEditFinancialRatiosIndustryComponent
   ],
   imports: [
     CommonModule,

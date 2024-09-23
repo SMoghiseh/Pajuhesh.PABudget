@@ -1357,6 +1357,37 @@ export class AssemblyAssignments {
   meetingDate!: string;
   type!: string;
 }
+
+export class FinancialRatiosPrice {
+  static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/FinancialRatiosPrice/';
+  static apiAddressFinancialRatio =
+    'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/List';
+  id!: number;
+  financialRatioId!: number;
+  companyId!: number;
+  periodId!: number;
+  price!: number;
+  code!: string;
+  type!: string;
+  title!: string;
+}
+
+export class FinancialRatiosIndustry {
+  static apiAddress =
+    'api/PABudgetApi/v1/BudgetPeriod/FinancialRatiosIndustry/';
+  static apiAddressFinancialRatio =
+    'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/List';
+  static apiAddressIndustryLst =
+    'api/PABudgetApi/v1/BaseInfo/ReportingType/list';
+  id!: number;
+  financialRatioId!: number;
+  industryId!: number;
+  periodId!: number;
+  price!: number;
+  code!: string;
+  type!: string;
+  title!: string;
+}
 export class Budget {
   static readonly apiAddressBalanceSheet =
     'api/PABudgetApi/Dashboard/BalanceSheet/Info';
@@ -1450,8 +1481,7 @@ export class FinancialStatementsReport {
 }
 
 export class BenefitCostsReport {
-  static readonly apiAddress =
-    'api/PABudgetApi/Report/GetBenefitCostReport/';
+  static readonly apiAddress = 'api/PABudgetApi/Report/GetBenefitCostReport/';
   periodCode!: number;
   priceCu!: number;
   title!: string;

@@ -55,6 +55,16 @@ export class PeriodDefinitionComponent implements OnInit {
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/YearRisk'],
     },
+    {
+      label: ' نسبت های مالی',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/FinancialRatiosPrice'],
+    },
+    {
+      label: '  نسبت های مالی صنعت',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/FinancialRatiosIndustry'],
+    },
   ];
   constructor(
     private httpService: HttpService,
@@ -64,7 +74,7 @@ export class PeriodDefinitionComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {debugger
     this.route.params.subscribe((param: any) => {
       if (param.id) {
         this.isDetail = true;
@@ -76,7 +86,7 @@ export class PeriodDefinitionComponent implements OnInit {
     });
   }
 
-  getPeriod(event?: LazyLoadEvent) {
+  getPeriod(event?: LazyLoadEvent) {debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -115,7 +125,7 @@ export class PeriodDefinitionComponent implements OnInit {
       .subscribe(res => (this.data = res));
   }
 
-  getPeriodSelectedData(id: number) {
+  getPeriodSelectedData(id: number) {debugger
     this.httpService
       .get<any>(Period.apiAddress + id)
       .subscribe(response => {
@@ -191,12 +201,12 @@ export class PeriodDefinitionComponent implements OnInit {
     this.router.navigate(['/baseinfo/period/' + data.id]);
   }
 
-  reloadData() {
+  reloadData() {debugger
     this.isOpenAddEditPeriod = false;
     this.getPeriod();
   }
   // Set PeriodId On Active Component Route
-  setActiveComponentRoute(item: Period) {
+  setActiveComponentRoute(item: Period) {debugger
     this.subComponentList.forEach((componentInfo: any) => {
       componentInfo['routerLink'][0] =
         componentInfo['routerLink'][0] + '/' + item.id;

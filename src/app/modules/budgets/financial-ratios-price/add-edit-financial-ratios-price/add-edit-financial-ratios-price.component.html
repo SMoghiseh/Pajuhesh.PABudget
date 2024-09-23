@@ -1,0 +1,75 @@
+<p-toast key="FinancialRatiosPrice" position="bottom-left"></p-toast>
+
+<form
+  #formDir="ngForm"
+  [formGroup]="addEditForm"
+  (ngSubmit)="addEditFinancialRatiosPrice()">
+  <div class="container row">
+    <div class="col-3 mt-2">
+      <label for="financialRatioId"> نسبت مالی</label>
+      <p-dropdown
+        id="financialRatioId"
+        name="financialRatioId"
+        formControlName="financialRatioId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="financialRatioList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+
+    <div class="col-3 mt-2">
+      <label for="companyId"> شرکت</label>
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="companyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true"
+        placeholder="انتخاب کنید">
+      </p-dropdown>
+    </div>
+    <!-- <div class="col-3 mt-2">
+      <label for="periodId"> دوره بودجه </label>
+      <input
+        pInputText
+        id="periodId"
+        name="periodId"
+        formControlName="periodId"
+        class="w-100 my-1" />
+    </div> -->
+    <div class="col-3 mt-2">
+      <label for="price"> مبلغ </label>
+      <input
+        pInputText
+        id="price"
+        name="price"
+        formControlName="price"
+        class="w-100 my-1" />
+    </div>
+    <div class="col-3 mt-2">
+      <label for="periodId"> واحد مبلغ </label>
+      <input
+        pInputText
+        id="code"
+        name="code"
+        formControlName="code"
+        class="w-100 my-1" />
+    </div>
+
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>

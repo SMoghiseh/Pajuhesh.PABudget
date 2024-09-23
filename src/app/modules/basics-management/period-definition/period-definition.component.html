@@ -2,14 +2,30 @@
 
 <div class="table-header">{{ pageTitle }}</div>
 <div class="justify-content-between pb-3 w-100" style="text-align: end">
-  <p-button class="pe-2" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن دوره جدید"
+  <p-button
+    class="pe-2"
+    styleClass="p-button-info"
+    icon="pi pi-plus-circle"
+    label="افزودن دوره جدید"
     (click)="addPeriod()"></p-button>
 </div>
 <div class="table-container">
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-    (onLazyLoad)="getPeriod($event)" [(first)]="first">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getPeriod($event)"
+    [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -42,19 +58,31 @@
         <td>{{ period.statusTitle }}</td>
 
         <td class="jc-left ai-left">
-          <button class="action-image-container add-button" (click)="periodDetail(period)" pTooltip="دوره عملیاتی">
+          <button
+            class="action-image-container add-button"
+            (click)="periodDetail(period)"
+            pTooltip="دوره عملیاتی">
             <img ngSrc="icons\Group 131.svg" width="24" height="24" />
           </button>
 
-          <button class="action-image-container edit-button" (click)="editRow(period)" pTooltip="ویرایش دوره">
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(period)"
+            pTooltip="ویرایش دوره">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
           </button>
 
-          <button class="action-image-container delete-button" (click)="deleteRow(period)" pTooltip="حذف دوره">
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(period)"
+            pTooltip="حذف دوره">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
           </button>
-          <button *ngIf="!isDetail" class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(period)" pTooltip="">
+          <button
+            *ngIf="!isDetail"
+            class="action-image-container delete-button"
+            (click)="menu.toggle($event); setActiveComponentRoute(period)"
+            pTooltip="">
             <img ngSrc="icons\Group 109.svg" width="24" height="24" />
           </button>
         </td>
@@ -133,15 +161,24 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button class="action-image-container edit-button" (click)="editRow(period)" title="ویرایش دوره">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(period)"
+              title="ویرایش دوره">
               <img ngSrc="icons\Group 116.svg" width="24" height="24" />
             </button>
 
-            <button class="action-image-container delete-button" (click)="deleteRow(period)" title="حذف دوره">
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(period)"
+              title="حذف دوره">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>
 
-            <button class="action-image-container add-button" (click)="periodDetail(period)" title="دوره عملیاتی">
+            <button
+              class="action-image-container add-button"
+              (click)="periodDetail(period)"
+              title="دوره عملیاتی">
               <img ngSrc="icons\remaind.svg" width="24" height="24" />
             </button>
           </div>
@@ -151,11 +188,23 @@
   </ul>
 </div>
 
-<p-dialog *ngIf="isOpenAddEditPeriod" [header]="modalTitle" [(visible)]="isOpenAddEditPeriod" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ height: '420px', width: '430px' }">
-  <app-add-edit-period [data]="addEditData" (isSuccess)="reloadData()"></app-add-edit-period>
+<p-dialog
+  *ngIf="isOpenAddEditPeriod"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditPeriod"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ height: '420px', width: '430px' }">
+  <app-add-edit-period
+    [data]="addEditData"
+    (isSuccess)="reloadData()"></app-add-edit-period>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-<p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true"
+<p-menu
+  [showTransitionOptions]="'0ms'"
+  [hideTransitionOptions]="'0ms'"
+  #menu
+  [popup]="true"
   [model]="subComponentList"></p-menu>

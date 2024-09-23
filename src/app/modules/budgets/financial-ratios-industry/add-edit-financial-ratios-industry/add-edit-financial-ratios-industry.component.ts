@@ -2,78 +2,92 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { AssemblyAssignments, Company } from '@shared/models/response.model';
+import {
+  Company,
+  FinancialRatiosIndustry,
+} from '@shared/models/response.model';
 import { MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-add-edit-assembly-assignments',
-  templateUrl: './add-edit-assembly-assignments.component.html',
-  styleUrls: ['./add-edit-assembly-assignments.component.scss'],
+  selector: 'PABudget-add-edit-financial-ratios-industry',
+  templateUrl: './add-edit-financial-ratios-industry.component.html',
+  styleUrls: ['./add-edit-financial-ratios-industry.component.scss'],
 })
-export class AddEditAssemblyAssignmentsComponent {
+export class AddEditFinancialRatiosIndustryComponent {
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
-  MeetingTopicList: any = [];
-  companyList: any = [];
-  inputData = new AssemblyAssignments();
+  financialRatioList: any = [];
+  industryList: any = [];
+  inputData = new FinancialRatiosIndustry();
   @Input() mode = '';
-  @Input() set data1(data: AssemblyAssignments) {
+  @Input() set data1(data: FinancialRatiosIndustry) {
     this.inputData = data;
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-  // get budgetPeriodId() {
-  //   return this.addEditForm.get('budgetPeriodId');
-  // }
-  // get meetingId() {
-  //   return this.addEditForm.get('meetingId');
-  // }
-  // get typeCode() {
-  //   return this.addEditForm.get('typeCode');
-  // }
-  // get companyId() {
-  //   return this.addEditForm.get('companyId');
-  // }
-  // get title() {
-  //   return this.addEditForm.get('title');
-  // }
-  // get meetingDate() {
-  //   return this.addEditForm.get('meetingDate');
-  // }
+
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.getCompanyLst();
+    debugger;
+    this.getFinancialRatioLst();
+    this.getIndustryLst();
     this.addEditForm = new FormGroup({
-      budgetPeriodId: new FormControl(),
-      meetingId: new FormControl(0),
-      typeCode: new FormControl(null),
-      companyId: new FormControl(null),
-      title: new FormControl(null),
+      financialRatioId: new FormControl(),
+      industryId: new FormControl(null),
+      periodId: new FormControl(null),
+      price: new FormControl(null),
+      code: new FormControl('02'),
       // meetingDate: new FormControl(),
     });
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
-    if (this.mode === 'insert') {
+    if (this.mode === 'insert' || this.mode === 'edit') {
       this.route.params.subscribe((param: any) => {
         if (param.id) {
           this.addEditForm.patchValue({
-            budgetPeriodId: param.id,
+            periodId: param.id,
           });
         }
       });
     }
   }
 
-  getRowData(id: number) {
+  getFinancialRatioLst() {
     this.httpService
-      .get<any>(AssemblyAssignments.apiAddress + id)
+      .post<FinancialRatiosIndustry[]>(
+        FinancialRatiosIndustry.apiAddressFinancialRatio,
+        { withOutPagination: true }
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.financialRatioList = response.data.result;
+        }
+      });
+  }
+
+  getIndustryLst() {
+    this.httpService
+      .get<FinancialRatiosIndustry[]>(
+        FinancialRatiosIndustry.apiAddressIndustryLst
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.industryList = response.data.result;
+        }
+      });
+  }
+
+  getRowData(id: number) {
+    debugger;
+    this.httpService
+      .get<any>(FinancialRatiosIndustry.apiAddress + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
@@ -81,27 +95,25 @@ export class AddEditAssemblyAssignmentsComponent {
         }
       });
   }
-  addEditAssemblyAssignment() {
+  addEditFinancialRatiosIndustry() {
     this.addEditFormSubmitted = true;
+    debugger;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url =
-        this.mode === 'insert'
-          ? AssemblyAssignments.apiAddress + 'Create'
-          : AssemblyAssignments.apiAddress + 'Update';
+      const url = FinancialRatiosIndustry.apiAddress + 'Create';
 
       this.isLoadingSubmit = true;
       this.httpService
-        .post<AssemblyAssignments>(url, request)
+        .post<FinancialRatiosIndustry>(url, request)
         .pipe(tap(() => (this.isLoadingSubmit = false)))
         .subscribe(response => {
           if (response.successed) {
             this.messageService.add({
-              key: 'AssemblyAssignmen',
+              key: 'FinancialRatiosIndustry',
               life: 8000,
               severity: 'success',
-              detail: ` عنوان  ${request.title}`,
+              detail: ` عنوان  ${this.inputData.title}`,
               summary:
                 this.mode === 'insert'
                   ? 'با موفقیت درج شد'
@@ -111,17 +123,5 @@ export class AddEditAssemblyAssignmentsComponent {
           }
         });
     }
-  }
-
-  getCompanyLst() {
-    this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
-        withOutPagination: true,
-      })
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.companyList = response.data.result;
-        }
-      });
   }
 }
