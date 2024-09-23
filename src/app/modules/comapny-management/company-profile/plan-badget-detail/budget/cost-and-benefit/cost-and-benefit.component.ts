@@ -196,6 +196,9 @@ export class CostAndBenefitComponent implements OnInit {
           title: {
             display: true,
             text: data.title,
+            font: {
+              family: 'shabnam',
+            },
             padding: {
               top: 10,
               bottom: 30,
