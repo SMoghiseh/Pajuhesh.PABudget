@@ -99,7 +99,7 @@ export class AccountReportToItemComponent implements OnInit {
     setTimeout(() => {
       this.confirmationService.confirm({
         message: 'آیا از حذف گزارش مالی اطمینان دارید؟',
-        header: `عنوان ${node.title}`,
+        header: `عنوان ${node.label}`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -110,7 +110,7 @@ export class AccountReportToItemComponent implements OnInit {
         accept: () =>
           this.deleteAccountReports(
             node.id,
-            node.title
+            node.label
           ),
       });
     }, 100);
@@ -119,7 +119,7 @@ export class AccountReportToItemComponent implements OnInit {
   deleteAccountReports(id: number, title: string) {
     this.httpService
       .get<AccountReportItem>(
-        AccountReportItem.apiAddress + '/Delete' + `/${id}`
+        AccountReportItem.apiAddress + 'Delete' + `/${id}`
       )
       .subscribe(response => {
         if (response.successed) {
