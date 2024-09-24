@@ -55,6 +55,16 @@ export class PeriodDefinitionComponent implements OnInit {
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/YearRisk'],
     },
+    {
+      label: ' نسبت های مالی',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/FinancialRatiosPrice'],
+    },
+    {
+      label: '  نسبت های مالی صنعت',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/FinancialRatiosIndustry'],
+    },
   ];
   constructor(
     private httpService: HttpService,
@@ -62,7 +72,7 @@ export class PeriodDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((param: any) => {
@@ -70,9 +80,7 @@ export class PeriodDefinitionComponent implements OnInit {
         this.isDetail = true;
         this.pId = param.id;
         this.getPeriodSelectedData(param.id);
-      }
-      else
-        this.pageTitle = 'لیست دوره ها';
+      } else this.pageTitle = 'لیست دوره ها';
     });
   }
 
@@ -116,13 +124,11 @@ export class PeriodDefinitionComponent implements OnInit {
   }
 
   getPeriodSelectedData(id: number) {
-    this.httpService
-      .get<any>(Period.apiAddress + id)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.pageTitle = response.data.result.periodTitle;
-        }
-      });
+    this.httpService.get<any>(Period.apiAddress + id).subscribe(response => {
+      if (response.data && response.data.result) {
+        this.pageTitle = response.data.result.periodTitle;
+      }
+    });
   }
 
   addPeriod() {

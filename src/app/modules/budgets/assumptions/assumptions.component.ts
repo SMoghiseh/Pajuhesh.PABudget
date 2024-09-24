@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, Assumptions, Company, TypeCodeAssumptions
+  UrlBuilder,
+  Assumptions,
+  Company,
+  TypeCodeAssumptions,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -16,7 +19,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   selector: 'PABudget-assumptions',
   templateUrl: './assumptions.component.html',
   styleUrls: ['./assumptions.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class AssumptionsComponent {
   gridClass = 'p-datatable-sm';
@@ -44,11 +47,10 @@ export class AssumptionsComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-  ) { }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
-
     this.getCompanyLst();
     this.getTypeCodeList();
 
@@ -57,11 +59,9 @@ export class AssumptionsComponent {
       assumptionsCode: new FormControl(null),
       companyId: new FormControl(null),
       typeCode: new FormControl(null),
-      aspectCode: new FormControl(null)
+      aspectCode: new FormControl(null),
     });
-
   }
-
 
   getCompanyLst() {
     this.httpService
@@ -83,7 +83,6 @@ export class AssumptionsComponent {
       });
   }
 
-
   getList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
@@ -102,8 +101,7 @@ export class AssumptionsComponent {
     };
 
     this.first = 0;
-    const url =
-      Assumptions.apiAddress + 'List';
+    const url = Assumptions.apiAddress + 'List';
     this.httpService
       .post<Assumptions[]>(url, body)
 
@@ -153,10 +151,7 @@ export class AssumptionsComponent {
     if (id && title) {
       this.httpService
         .get<Assumptions>(
-          UrlBuilder.build(
-            Assumptions.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(Assumptions.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {

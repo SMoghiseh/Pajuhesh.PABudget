@@ -33,7 +33,7 @@ export class CostAndBenefitComponent implements OnInit {
   selectedPriceTypeId!: number;
   allChartsData: any;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getPriceType();
@@ -52,7 +52,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   loadChart() {
-    debugger
     if (this.selectedPriceTypeId == 0) {
       // حالت نمایش چارت ها در تب "عملکردو بودجه"
       this.getChart(1, 1);
@@ -61,12 +60,10 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getSelectedRowsId(data: any[]) {
-    debugger
     return data.map(item => item.data.code);
   }
 
   createRequestBody(priceTypeId: number) {
-    debugger
     this.selectDateType = 'multiple';
     this.isShowChart = true;
 
@@ -98,7 +95,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getTreeTableData() {
-    debugger
     this.selectedRows = [];
     if (!this.selectedYerId) return;
     const body = {
@@ -121,7 +117,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getChart(chartId?: number, priceType?: number) {
-    debugger
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
 
@@ -145,7 +140,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getTableData(comparison: number) {
-    debugger
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
@@ -210,6 +204,7 @@ export class CostAndBenefitComponent implements OnInit {
                 family: 'shabnam',
               },
             },
+            // maxHeight: 2,
           },
           tooltip: {
             titleFont: {
@@ -242,7 +237,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getPriceType() {
-    debugger
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
       .pipe(
@@ -263,7 +257,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   onSelectPriceType(id: number) {
-    debugger
     this.selectedPriceTypeId = id;
 
     this.priceTypeList.forEach((element: any) => {

@@ -1249,6 +1249,7 @@ export class Plan {
     'api/PABudgetApi/Dashboard/Informations/Info';
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/';
+  static readonly apiAddressShareHolder = 'api/PABudgetApi/Dashboard/GetShareHolder';
 }
 
 export class Planning {
@@ -1340,6 +1341,7 @@ export class KeyTypecode {
   title!: string;
 }
 
+
 export class AssemblyAssignments {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearUnion/';
   static apiAddressMeetingTopic =
@@ -1356,6 +1358,37 @@ export class AssemblyAssignments {
   title!: string;
   meetingDate!: string;
   type!: string;
+}
+
+export class FinancialRatiosPrice {
+  static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/FinancialRatiosPrice/';
+  static apiAddressFinancialRatio =
+    'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/List';
+  id!: number;
+  financialRatioId!: number;
+  companyId!: number;
+  periodId!: number;
+  price!: number;
+  code!: string;
+  type!: string;
+  title!: string;
+}
+
+export class FinancialRatiosIndustry {
+  static apiAddress =
+    'api/PABudgetApi/v1/BudgetPeriod/FinancialRatiosIndustry/';
+  static apiAddressFinancialRatio =
+    'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/List';
+  static apiAddressIndustryLst =
+    'api/PABudgetApi/v1/BaseInfo/ReportingType/list';
+  id!: number;
+  financialRatioId!: number;
+  industryId!: number;
+  periodId!: number;
+  price!: number;
+  code!: string;
+  type!: string;
+  title!: string;
 }
 export class Budget {
   static readonly apiAddressBalanceSheet =
@@ -1450,8 +1483,7 @@ export class FinancialStatementsReport {
 }
 
 export class BenefitCostsReport {
-  static readonly apiAddress =
-    'api/PABudgetApi/Report/GetBenefitCostReport/';
+  static readonly apiAddress = 'api/PABudgetApi/Report/GetBenefitCostReport/';
   periodCode!: number;
   priceCu!: number;
   title!: string;

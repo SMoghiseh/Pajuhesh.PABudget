@@ -1,0 +1,77 @@
+<div class="row bottom-section">
+  <div class="co-info-box">
+    <h3>{{ selectedPlanName }}</h3>
+    <div class="row row-feature">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div class="row">
+          <app-select-date
+            [selectType]="selectDateType"
+            (selectedVal)="returnSelectedDate($event)"></app-select-date>
+        </div>
+      </div>
+      <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+        <div class="items select-feature">
+          <span>شرح</span>
+        </div>
+      </div> -->
+    </div>
+    <div class="row row-cols-lg-1 row-cols-md-1 row-cols-sm-1">
+      <div class="col my-1" *ngFor="let item of planDetailData">
+        <div class="box-data h-100">
+          <div class="row d-inline lh-lg">
+            <div class="d-flex">
+              <i class="pi pi-angle-left"></i>
+              <p>{{ item.title }}</p>
+            </div>
+            <span>{{ item.desc }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="viewMode === 'table'">
+      <p-table
+        #dataTable
+        style="text-align: right"
+        dataKey="id"
+        [columns]="cols"
+        [value]="tableData"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[15, 20, 30]"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [loading]="loading"
+        selectionMode="single"
+        [tableStyle]="{ 'min-width': '75rem' }">
+        <!-- table header -->
+
+        <!--  table header -->
+
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              <span> {{ col.headerName }} </span>
+            </th>
+          </tr>
+        </ng-template>
+        <!-- / table header -->
+        <!-- table body -->
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td>
+              {{ rowData['title'] }}
+            </td>
+
+            <td>
+              {{ rowData['percent'] }}
+            </td>
+            <td>
+              {{ rowData['amount'] }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

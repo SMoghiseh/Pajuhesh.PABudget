@@ -4,7 +4,8 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date [selectType]="selectDateType"
+            (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
@@ -16,12 +17,10 @@
         <div class="col-3 section mt-4">
           <div>
             <img src="../../../../../../../assets/images/icons/mag.svg" />
-            <p> {{item}}
-            </p>
+            <p>{{ item }}</p>
           </div>
         </div>
       </ng-container>
     </div>
-
   </div>
 </div>
