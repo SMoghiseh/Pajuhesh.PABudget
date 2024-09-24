@@ -34,7 +34,6 @@ export class AddEditFinancialRatiosIndustryComponent {
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    debugger;
     this.getFinancialRatioLst();
     this.getIndustryLst();
     this.addEditForm = new FormGroup({
@@ -85,7 +84,6 @@ export class AddEditFinancialRatiosIndustryComponent {
   }
 
   getRowData(id: number) {
-    debugger;
     this.httpService
       .get<any>(FinancialRatiosIndustry.apiAddress + id)
       .subscribe(response => {
@@ -97,7 +95,6 @@ export class AddEditFinancialRatiosIndustryComponent {
   }
   addEditFinancialRatiosIndustry() {
     this.addEditFormSubmitted = true;
-    debugger;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;

@@ -64,7 +64,6 @@ export class FinancialRatiosIndustryComponent {
   }
 
   getFinancialRatiosIndustryList(event?: LazyLoadEvent) {
-    debugger;
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -126,7 +125,6 @@ export class FinancialRatiosIndustryComponent {
   }
 
   addFinancialRatiosIndustry(data: string) {
-    debugger;
     this.modalTitle = 'افزودن نسبت های مالی صنعت';
     this.addEditData.type = 'insert';
     this.mode = 'insert';
@@ -139,7 +137,6 @@ export class FinancialRatiosIndustryComponent {
     this.isOpenAddEditFinancialRatiosIndustry = true;
   }
   deleteRow(item: FinancialRatiosIndustry) {
-    debugger;
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -155,7 +152,6 @@ export class FinancialRatiosIndustryComponent {
       });
   }
   deleteFinancialRatiosIndustry(id: number, title: string) {
-    debugger;
     if (id && title) {
       this.httpService
         .get<FinancialRatiosIndustry>(
@@ -179,7 +175,6 @@ export class FinancialRatiosIndustryComponent {
   }
 
   reloadData() {
-    debugger;
     this.isOpenAddEditFinancialRatiosIndustry = false;
     this.getFinancialRatiosIndustryList();
   }

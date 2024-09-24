@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Assumptions, Company, Period, TypeCodeAssumptions } from '@shared/models/response.model';
+import {
+  Assumptions,
+  Company,
+  Period,
+  TypeCodeAssumptions,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -8,10 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-assumptions',
   templateUrl: './add-edit-assumptions.component.html',
-  styleUrls: ['./add-edit-assumptions.component.scss']
+  styleUrls: ['./add-edit-assumptions.component.scss'],
 })
 export class AddEditAssumptionsComponent {
-
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -23,8 +27,6 @@ export class AddEditAssumptionsComponent {
   companyList: any = [];
   typeCodeList: any = [];
 
-
-
   inputData = new Assumptions();
   @Input() mode = '';
   @Input() set data1(data: Assumptions) {
@@ -32,7 +34,6 @@ export class AddEditAssumptionsComponent {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
 
   get title() {
     return this.addEditForm.get('title');
@@ -55,16 +56,13 @@ export class AddEditAssumptionsComponent {
     return this.addEditForm.get('aspectCode');
   }
 
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getBudgetPeriodList();
     this.getCompanyLst();
     this.getTypeCodeList();
@@ -75,17 +73,16 @@ export class AddEditAssumptionsComponent {
       companyId: new FormControl(0, Validators.required),
       typeCode: new FormControl(0, Validators.required),
       budgetPeriodId: new FormControl(0, Validators.required),
-      aspectCode: new FormControl(0)
+      aspectCode: new FormControl(0),
     });
 
-    if (this.mode === 'edit') {debugger
+    if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
 
     this.addEditForm.patchValue({
-      budgetPeriodId: Number(this.route.snapshot.paramMap.get('id'))
-    })
-
+      budgetPeriodId: Number(this.route.snapshot.paramMap.get('id')),
+    });
   }
 
   addEditBudget() {
@@ -106,9 +103,10 @@ export class AddEditAssumptionsComponent {
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -156,5 +154,4 @@ export class AddEditAssumptionsComponent {
         }
       });
   }
-
 }

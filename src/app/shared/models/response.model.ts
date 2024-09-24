@@ -1249,6 +1249,7 @@ export class Plan {
     'api/PABudgetApi/Dashboard/Informations/Info';
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/';
+  static readonly apiAddressShareHolder = 'api/PABudgetApi/Dashboard/GetShareHolder';
 }
 
 export class Planning {
@@ -1339,6 +1340,7 @@ export class KeyTypecode {
   id!: number;
   title!: string;
 }
+
 
 export class AssemblyAssignments {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearUnion/';

@@ -37,7 +37,6 @@ export class AddEditFinancialRatiosPriceComponent {
   ) {}
   ngOnInit(): void {
     this.getFinancialRatioLst();
-    debugger;
     this.getCompanyLst();
     this.addEditForm = new FormGroup({
       financialRatioId: new FormControl(),
@@ -61,7 +60,6 @@ export class AddEditFinancialRatiosPriceComponent {
   }
 
   getRowData(id: number) {
-    debugger;
     this.httpService
       .get<any>(FinancialRatiosPrice.apiAddress + id)
       .subscribe(response => {
@@ -72,13 +70,11 @@ export class AddEditFinancialRatiosPriceComponent {
       });
   }
   addEditFinancialRatiosPrice() {
-    debugger;
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       const url = FinancialRatiosPrice.apiAddress + 'Create';
-
 
       this.isLoadingSubmit = true;
       this.httpService

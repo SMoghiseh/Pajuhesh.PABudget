@@ -11,7 +11,7 @@ import { map } from 'rxjs';
 export class SelectDateComponent {
   @Output() selectedVal = new EventEmitter<any>();
   @Input()
-  set selectType(val: string) { debugger
+  set selectType(val: string) {
     this._selectType = val;
     if (this.selectTypeOld !== val) {
       this.getStaticYear();
@@ -26,7 +26,7 @@ export class SelectDateComponent {
   selectTypeOld = '';
   _selectType = '';
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   getStaticYear() {
     this.selectTypeOld = this._selectType;
@@ -68,7 +68,7 @@ export class SelectDateComponent {
       });
   }
 
-  onSelectYear(id: number) { debugger
+  onSelectYear(id: number) {
     this.selectYearType(id);
   }
 

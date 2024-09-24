@@ -44,7 +44,6 @@ export class FinancialRatiosPriceComponent {
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    debugger;
     this.getFinancialRatioLst();
     this.getCompanyLst();
     this.searchForm = new FormGroup({
@@ -55,7 +54,6 @@ export class FinancialRatiosPriceComponent {
       // code: new FormControl('02'),
     });
     this.route.params.subscribe((param: any) => {
-      debugger;
       if (param.id) {
         this.searchForm.patchValue({
           periodId: param.id,
@@ -65,7 +63,6 @@ export class FinancialRatiosPriceComponent {
   }
 
   getFinancialRatiosPriceList(event?: LazyLoadEvent) {
-    debugger;
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -102,7 +99,6 @@ export class FinancialRatiosPriceComponent {
   }
 
   addFinancialRatiosPrice(data: string) {
-    debugger;
     this.modalTitle = 'افزودن نسبت های مالی';
     this.addEditData.type = 'insert';
     this.mode = 'insert';
@@ -115,8 +111,6 @@ export class FinancialRatiosPriceComponent {
     this.isOpenAddEditFinancialRatiosPrice = true;
   }
   deleteRow(item: FinancialRatiosPrice) {
-    debugger;
-
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -132,7 +126,6 @@ export class FinancialRatiosPriceComponent {
       });
   }
   deleteFinancialRatiosPrice(id: number, title: string) {
-    debugger;
     if (id && title) {
       this.httpService
         .get<FinancialRatiosPrice>(
@@ -156,7 +149,6 @@ export class FinancialRatiosPriceComponent {
   }
 
   getCompanyLst() {
-    debugger;
     this.httpService
       .post<Company[]>(Company.apiAddressDetailCo + 'List', {
         withOutPagination: true,
@@ -169,7 +161,6 @@ export class FinancialRatiosPriceComponent {
   }
 
   getFinancialRatioLst() {
-    debugger;
     this.httpService
       .post<FinancialRatiosPrice[]>(
         FinancialRatiosPrice.apiAddressFinancialRatio,

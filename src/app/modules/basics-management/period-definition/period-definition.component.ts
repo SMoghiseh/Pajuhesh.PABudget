@@ -72,21 +72,19 @@ export class PeriodDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit(): void {debugger
+  ngOnInit(): void {
     this.route.params.subscribe((param: any) => {
       if (param.id) {
         this.isDetail = true;
         this.pId = param.id;
         this.getPeriodSelectedData(param.id);
-      }
-      else
-        this.pageTitle = 'لیست دوره ها';
+      } else this.pageTitle = 'لیست دوره ها';
     });
   }
 
-  getPeriod(event?: LazyLoadEvent) {debugger
+  getPeriod(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -125,14 +123,12 @@ export class PeriodDefinitionComponent implements OnInit {
       .subscribe(res => (this.data = res));
   }
 
-  getPeriodSelectedData(id: number) {debugger
-    this.httpService
-      .get<any>(Period.apiAddress + id)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.pageTitle = response.data.result.periodTitle;
-        }
-      });
+  getPeriodSelectedData(id: number) {
+    this.httpService.get<any>(Period.apiAddress + id).subscribe(response => {
+      if (response.data && response.data.result) {
+        this.pageTitle = response.data.result.periodTitle;
+      }
+    });
   }
 
   addPeriod() {
@@ -201,12 +197,12 @@ export class PeriodDefinitionComponent implements OnInit {
     this.router.navigate(['/baseinfo/period/' + data.id]);
   }
 
-  reloadData() {debugger
+  reloadData() {
     this.isOpenAddEditPeriod = false;
     this.getPeriod();
   }
   // Set PeriodId On Active Component Route
-  setActiveComponentRoute(item: Period) {debugger
+  setActiveComponentRoute(item: Period) {
     this.subComponentList.forEach((componentInfo: any) => {
       componentInfo['routerLink'][0] =
         componentInfo['routerLink'][0] + '/' + item.id;
