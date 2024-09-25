@@ -11,6 +11,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-strategy',
@@ -33,6 +34,7 @@ export class StrategyComponent {
   addEditData = new STRATEGY();
   pId!: string;
   mode!: string;
+  planningId = 0;
 
   // form property
   searchForm!: FormGroup;
@@ -45,6 +47,7 @@ export class StrategyComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +60,7 @@ export class StrategyComponent {
       strategyCode: new FormControl(null),
       strategyPriority: new FormControl(null),
     });
+    this.planningId = Number(this.route.snapshot.paramMap.get('id'))
   }
 
   getBigGoalList() {
@@ -83,6 +87,7 @@ export class StrategyComponent {
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
+      planningValue: this.planningId,
       withOutPagination: false,
       ...formValue,
     };

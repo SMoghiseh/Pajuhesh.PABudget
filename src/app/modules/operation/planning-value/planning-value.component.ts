@@ -14,6 +14,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-planning-Value',
@@ -34,6 +35,7 @@ export class PlanningValueComponent {
   addEditData = new PlanningValue();
   pId!: string;
   mode!: string;
+  planningId = 0;
 
   // form property
   searchForm!: FormGroup;
@@ -45,8 +47,9 @@ export class PlanningValueComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.getkeyTypeCodeLst();
@@ -56,6 +59,7 @@ export class PlanningValueComponent {
       keyTypeCode: new FormControl(null),
       title: new FormControl(null),
     });
+    this.planningId = Number(this.route.snapshot.paramMap.get('id'))
   }
 
   getPlaningList() {
@@ -94,6 +98,7 @@ export class PlanningValueComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      planningValue: this.planningId,
       ...formValue,
     };
 
