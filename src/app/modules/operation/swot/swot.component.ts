@@ -11,6 +11,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-swot',
@@ -33,6 +34,8 @@ export class SwotComponent {
   addEditData = new SWTO();
   pId!: string;
   mode!: string;
+  planningId = 0;
+
 
   // form property
   searchForm!: FormGroup;
@@ -45,6 +48,7 @@ export class SwotComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +63,7 @@ export class SwotComponent {
       swotCode: new FormControl(null),
       swoPriority: new FormControl(null)
     });
+    this.planningId = Number(this.route.snapshot.paramMap.get('id'))
   }
 
   getPlaningList() {
@@ -96,6 +101,7 @@ export class SwotComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      planningValue: this.planningId,
       ...formValue,
     };
 
