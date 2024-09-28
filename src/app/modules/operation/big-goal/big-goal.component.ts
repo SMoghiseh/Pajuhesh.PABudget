@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, Vision, Aspect, BigGoal
+  UrlBuilder,
+  Vision,
+  Aspect,
+  BigGoal,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -11,16 +14,15 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-big-goal',
   templateUrl: './big-goal.component.html',
   styleUrls: ['./big-goal.component.scss'],
-  providers: [ConfirmationService]
-
+  providers: [ConfirmationService],
 })
-export class BigGoalComponent {
-
+export class BigGoalComponent implements OnInit {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -33,6 +35,7 @@ export class BigGoalComponent {
   addEditData = new BigGoal();
   pId!: string;
   mode!: string;
+  visionId!: number;
 
   // form property
   searchForm!: FormGroup;
@@ -42,17 +45,27 @@ export class BigGoalComponent {
   aspectCodeList: any = [];
 
   subComponentList = [
-    { label: ' ارتباط اهداف ', icon: 'pi pi-fw pi-star', routerLink: ['/Operation/'] },
-    { label: ' شاخص ارزیابی ', icon: 'pi pi-fw pi-eye', routerLink: ['/Operation/'] },
+    {
+      label: ' ارتباط اهداف ',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Operation/'],
+    },
+    {
+      label: ' شاخص ارزیابی ',
+      icon: 'pi pi-fw pi-eye',
+      routerLink: ['/Operation/'],
+    },
   ];
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-  ) { }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.visionId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.getVisionList();
     this.getAspectCodeList();
@@ -76,7 +89,7 @@ export class BigGoalComponent {
 
   getVisionList() {
     this.httpService
-      .post<Vision[]>(Vision.apiAddress + 'List', { "withOutPagination": true })
+      .post<Vision[]>(Vision.apiAddress + 'List', { withOutPagination: true })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.visionList = response.data.result;
@@ -98,12 +111,12 @@ export class BigGoalComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      visionId: this.visionId,
       ...formValue,
     };
 
     this.first = 0;
-    const url =
-      BigGoal.apiAddress + 'List';
+    const url = BigGoal.apiAddress + 'List';
     this.httpService
       .post<BigGoal[]>(url, body)
 
@@ -153,10 +166,7 @@ export class BigGoalComponent {
     if (id && title) {
       this.httpService
         .get<BigGoal>(
-          UrlBuilder.build(
-            BigGoal.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(BigGoal.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -183,6 +193,4 @@ export class BigGoalComponent {
     this.searchForm.reset();
     this.getVision();
   }
-
 }
-

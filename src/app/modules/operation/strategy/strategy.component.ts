@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, STRATEGY, BigGoal
+  UrlBuilder,
+  STRATEGY,
+  BigGoal,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -17,11 +19,9 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'PABudget-strategy',
   templateUrl: './strategy.component.html',
   styleUrls: ['./strategy.component.scss'],
-  providers: [ConfirmationService]
-
+  providers: [ConfirmationService],
 })
 export class StrategyComponent {
-
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -35,6 +35,7 @@ export class StrategyComponent {
   pId!: string;
   mode!: string;
   planningId = 0;
+  companyId!: number;
 
   // form property
   searchForm!: FormGroup;
@@ -42,16 +43,14 @@ export class StrategyComponent {
   // dropdown data list
   bigGoalList: any = [];
 
-
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getBigGoalList();
 
     this.searchForm = new FormGroup({
@@ -60,7 +59,7 @@ export class StrategyComponent {
       strategyCode: new FormControl(null),
       strategyPriority: new FormControl(null),
     });
-    this.planningId = Number(this.route.snapshot.paramMap.get('id'))
+    this.planningId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   getBigGoalList() {
@@ -72,7 +71,6 @@ export class StrategyComponent {
         }
       });
   }
-
 
   getData(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -93,8 +91,7 @@ export class StrategyComponent {
     };
 
     this.first = 0;
-    const url =
-      STRATEGY.apiAddress + 'List';
+    const url = STRATEGY.apiAddress + 'List';
     this.httpService
       .post<STRATEGY[]>(url, body)
 
@@ -108,12 +105,16 @@ export class StrategyComponent {
           } else return [new STRATEGY()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(res => {
+        this.companyId = res[0].companyId;
+        this.data = res;
+      });
   }
 
   addPlan() {
     this.modalTitle = 'افزودن استراتژی  ';
     this.mode = 'insert';
+    this.addEditData.companyId = this.companyId;
     this.isOpenAddEditPlan = true;
   }
 
@@ -144,10 +145,7 @@ export class StrategyComponent {
     if (id && title) {
       this.httpService
         .get<STRATEGY>(
-          UrlBuilder.build(
-            STRATEGY.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
+          UrlBuilder.build(STRATEGY.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -174,6 +172,4 @@ export class StrategyComponent {
     this.searchForm.reset();
     this.getData();
   }
-
 }
-

@@ -1,6 +1,7 @@
 <!-- pop up messages -->
-<p-toast key="companyDefinition" position="bottom-left"></p-toast>
+
 <p-toast key="uploadFile" position="bottom-left"></p-toast>
+<p-toast key="companyDefinition" position="bottom-left"></p-toast>
 
 <p-panel class="search-panel__secation pb-1" header="{{ formHeader }}">
   <form
@@ -20,12 +21,6 @@
           optionLabel="companyName"
           optionValue="id"
           placeholder="انتخاب کنید"
-          [class.ng-invalid]="parentId?.invalid"
-          [class.ng-dirty]="
-            (addNewCompanySubmitted && parentId?.pristine) ||
-            parentId?.dirty ||
-            parentId?.touched
-          "
           [options]="parents"
           [filter]="true"
           [showClear]="true">
@@ -463,128 +458,6 @@
       <!-- /آپلود فایل -->
     </div>
 
-    <!--  درصد سهام شرکت های زیرمجموعه -->
-    <div class="mt-4 p-3">
-      <h6>درصد سهام شرکت های زیرمجموعه</h6>
-      <div class="bg-container">
-        <!-- form group -->
-        <form #formDir="ngForm" [formGroup]="sharedHoldersForm">
-          <div class="container row">
-            <!-- درصد مالکیت -->
-            <div class="col-3 mt-2">
-              <label for="percentOwner"> درصد مالکیت</label>
-              <input
-                pInputText
-                id="percentOwner"
-                name="percentOwner"
-                formControlName="percentOwner"
-                type="text"
-                class="w-100" />
-            </div>
-            <!-- / درصد مالکیت -->
-            <!-- تاریخ صورت جلسه  -->
-            <div class="col-3 mt-2">
-              <label for="meetingDate">تاریخ صورت جلسه</label>
-              <p-persian-calendar
-                id="meetingDate	"
-                name="meetingDate"
-                formControlName="meetingDate"
-                styleClass="w-100">
-              </p-persian-calendar>
-            </div>
-            <!-- / تاریخ صورت جلسه  -->
-            <!-- شماره صورت جلسات -->
-            <div class="col-3 mt-2">
-              <label for="meetingNo"> شماره صورت جلسه </label>
-              <input
-                pInputText
-                id="meetingNo"
-                name="meetingNo"
-                formControlName="meetingNo"
-                type="text"
-                class="w-100" />
-            </div>
-            <!-- / شماره صورت جلسات -->
-            <div class="col-3" style="margin-top: 1.9rem">
-              <p-button
-                class="mt-4"
-                styleClass="p-button-info"
-                icon="pi pi-plus-circle"
-                label="افزودن به لیست "
-                (click)="addNewsharedHolders()"></p-button>
-            </div>
-          </div>
-        </form>
-        <!-- / form group -->
-        <!-- data table -->
-        <p-table
-          *ngIf="sharedHoldersArrayList.length != 0"
-          #dataTable
-          dataKey="id"
-          class="data-table d-none d-lg-block mt-4"
-          [styleClass]="gridClass"
-          [paginator]="true"
-          [rows]="dataTableRows"
-          [rowsPerPageOptions]="[10, 20, 30]"
-          [rowHover]="true"
-          [totalRecords]="totalCount"
-          [value]="sharedHoldersArrayList"
-          [loading]="loading"
-          [tableStyle]="{ 'min-width': '75rem' }"
-          [(first)]="first">
-          <!-- table header -->
-          <ng-template pTemplate="header">
-            <tr class="data-table__header">
-              <th style="min-width: 3rem">
-                <strong>درصد مالکیت</strong>
-              </th>
-
-              <th style="min-width: 20rem">
-                <strong>تاریخ صورتجلسه</strong>
-              </th>
-
-              <th style="min-width: 20rem">
-                <strong>شماره صورتجلسه</strong>
-              </th>
-
-              <th style="min-width: 20rem">
-                <strong> عملیات</strong>
-              </th>
-            </tr>
-          </ng-template>
-          <!-- / table header -->
-          <!-- table body -->
-          <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
-            <tr>
-              <td>{{ item.percentOwner }}</td>
-
-              <td>{{ item.meetingNo }}</td>
-
-              <td>{{ item.meetingDate | jDate | faNum }}</td>
-
-              <!-- actions -->
-              <td class="">
-                <!-- delete -->
-                <p-button
-                  pRipple
-                  class="pe-2"
-                  styleClass="p-button-text p-button-danger p-button-rounded"
-                  type="button"
-                  icon="pi pi-times"
-                  (click)="deleteRow(item)">
-                </p-button>
-                <!-- / delete -->
-              </td>
-              <!-- actions -->
-            </tr>
-          </ng-template>
-          <!-- / table body -->
-        </p-table>
-        <!-- data table -->
-      </div>
-    </div>
-    <!-- / درصد سهام شرکت های زیرمجموعه  -->
-
     <!-- دکمه ها -->
     <div
       class="d-flex justify-content-center justify-content-md-end pt-3 w-100">
@@ -594,6 +467,13 @@
         [label]="buttonLabel"
         type="submit"
         [loading]="addNewCompanyLoading"></p-button>
+
+      <p-button
+        class="pe-2 p-button-wide"
+        icon="pi pi-arrow-left"
+        styleClass="p-button-info back-btn"
+        label="بازگشت"
+        (click)="onBack()"></p-button>
     </div>
     <!-- / دکمه ها -->
   </form>

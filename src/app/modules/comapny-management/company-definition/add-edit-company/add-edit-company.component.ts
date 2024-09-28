@@ -18,8 +18,9 @@ import { map, of, tap } from 'rxjs';
 import { PersianNumberService } from '@shared/services/persian-number.service';
 import { DatePipe } from '@angular/common';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfigService } from '@core/services/app-config.service';
+import { JDate } from '@shared/utilities/JDate/jdate';
 export class sharedHolder {
   id = 1;
   percentOwner: any;
@@ -33,7 +34,7 @@ export class sharedHolder {
 })
 export class AddEditCompanyComponent implements OnInit {
   public datePipe = new DatePipe('en-US');
-  noSpacesRegex = /^[a-zA-z_-]+$/;
+  noSpacesRegex = /[A-Za-z ]/g;
   formHeader = '';
   buttonLabel = '';
   /*--------------------------
@@ -191,7 +192,8 @@ export class AddEditCompanyComponent implements OnInit {
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService,
     private route: ActivatedRoute,
-    private config: AppConfigService
+    private config: AppConfigService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -211,10 +213,7 @@ export class AddEditCompanyComponent implements OnInit {
 
   createForm() {
     this.addNewCompanyForm = new FormGroup({
-      parentId: new FormControl(
-        this.addNewCompanyModel.parentId,
-        Validators.required
-      ),
+      parentId: new FormControl(this.addNewCompanyModel.parentId),
       companyTypeId: new FormControl(
         this.addNewCompanyModel.companyTypeId,
         Validators.required
@@ -305,7 +304,6 @@ export class AddEditCompanyComponent implements OnInit {
         this.companySelected.id = params['companyId'];
         // get data of comoany selected
         this.getSelectedCompanyData(this.companySelected.id);
-        this.setChangesOnFields();
         this.formHeader = 'ویرایش سازمان';
         this.buttonLabel = 'ویرایش';
       }
@@ -321,11 +319,6 @@ export class AddEditCompanyComponent implements OnInit {
         console.log('mode is not defined!');
       }
     });
-  }
-
-  setChangesOnFields() {
-    if (this.companySelected.companyTypeId == 1) {
-    }
   }
 
   getParentSelectedCompanyData(id: number) {
@@ -348,6 +341,11 @@ export class AddEditCompanyComponent implements OnInit {
         if (response.data.result) {
           this.companySelected = response.data.result;
           this.addNewCompanyForm.patchValue(this.companySelected);
+          this.addNewCompanyForm.patchValue({
+            registerDate: new JDate(
+              new Date(this.companySelected.registerDate)
+            ),
+          });
         }
       });
   }
@@ -473,6 +471,10 @@ export class AddEditCompanyComponent implements OnInit {
           }
         });
     }
+  }
+
+  onBack() {
+    this.router.navigate(['/Comapny/createCompany']);
   }
 
   /*--------------------------

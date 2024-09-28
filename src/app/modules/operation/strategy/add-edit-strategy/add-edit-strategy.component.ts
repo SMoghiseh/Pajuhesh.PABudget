@@ -9,10 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-strategy',
   templateUrl: './add-edit-strategy.component.html',
-  styleUrls: ['./add-edit-strategy.component.scss']
+  styleUrls: ['./add-edit-strategy.component.scss'],
 })
 export class AddEditStrategyComponent {
-
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -23,8 +22,6 @@ export class AddEditStrategyComponent {
   typeCodeList: any = [];
   bigGoalList: any = [];
 
-
-
   inputData = new STRATEGY();
   @Input() mode = '';
   @Input() set data1(data: STRATEGY) {
@@ -32,7 +29,6 @@ export class AddEditStrategyComponent {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
 
   get title() {
     return this.addEditForm.get('title');
@@ -50,17 +46,13 @@ export class AddEditStrategyComponent {
     return this.addEditForm.get('strategyPriority');
   }
 
-
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getPlaningList();
     this.getBigGoalList();
 
@@ -77,8 +69,8 @@ export class AddEditStrategyComponent {
     }
 
     this.addEditForm.patchValue({
-      planningId: Number(this.route.snapshot.paramMap.get('id'))
-    })
+      planningId: Number(this.route.snapshot.paramMap.get('id')),
+    });
   }
 
   addEditPlan() {
@@ -99,9 +91,10 @@ export class AddEditStrategyComponent {
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -111,7 +104,9 @@ export class AddEditStrategyComponent {
 
   getPlaningList() {
     this.httpService
-      .post<Planning[]>(Planning.apiAddress + 'List', { "withOutPagination": true })
+      .post<Planning[]>(Planning.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.planingList = response.data.result;
@@ -120,16 +115,18 @@ export class AddEditStrategyComponent {
   }
 
   getBigGoalList() {
+    const body = {
+      companyId: this.inputData.companyId,
+      withOutPagination: true,
+    };
     this.httpService
-      .post<BigGoal[]>(BigGoal.apiAddress + 'List', { withOutPagination: true })
+      .post<BigGoal[]>(BigGoal.apiAddress + 'List', body)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.bigGoalList = response.data.result;
         }
       });
   }
-
-
 
   getRowData(id: number) {
     this.httpService
@@ -141,10 +138,4 @@ export class AddEditStrategyComponent {
         }
       });
   }
-
-
-
-
-
 }
-
