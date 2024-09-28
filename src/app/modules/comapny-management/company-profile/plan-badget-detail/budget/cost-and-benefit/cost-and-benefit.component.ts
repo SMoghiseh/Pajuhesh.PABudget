@@ -4,6 +4,8 @@ import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
 import { LazyLoadEvent } from 'primeng/api';
+import { Colors } from 'chart.js';
+import { title } from 'process';
 
 @Component({
   selector: 'PABudget-cost-and-benefit',
@@ -32,12 +34,15 @@ export class CostAndBenefitComponent implements OnInit {
   priceTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
+  listOfBudgetReport: Budget[] = [];
+  selectedlistOfBudgetReport: any = [];
 
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getPriceType();
     this.getTreeTableData();
+    this.getListOfBudgetReportLst();
   }
 
   returnSelectedDate(e: any) {
@@ -51,6 +56,19 @@ export class CostAndBenefitComponent implements OnInit {
     if (this.viewMode == 'chart') this.loadChart();
   }
 
+  getListOfBudgetReportLst() {
+    this.httpService
+      .get<Budget[]>(Budget.apiListOfBudgetReport)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.listOfBudgetReport = response.data.result;
+          this.selectedlistOfBudgetReport = response.data.result;
+          for (let i = 0; this.selectedlistOfBudgetReport.length > 0; i++) {
+            this.selectedlistOfBudgetReport = response.data.result[i];
+          }
+        }
+      });
+  }
   loadChart() {
     if (this.selectedPriceTypeId == 0) {
       // حالت نمایش چارت ها در تب "عملکردو بودجه"
@@ -86,7 +104,6 @@ export class CostAndBenefitComponent implements OnInit {
     tableId?: number
   ) {
     this.viewMode = viewMode;
-
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
 
@@ -185,11 +202,19 @@ export class CostAndBenefitComponent implements OnInit {
     chart = new Chart('LineChart' + indx, {
       type: 'line',
       data: data,
+
       options: {
+        elements: {
+          line: {
+            borderWidth: 1,
+          },
+        },
         plugins: {
           title: {
             display: true,
             text: data.title,
+            align: 'end',
+
             font: {
               family: 'shabnam',
             },
@@ -197,15 +222,23 @@ export class CostAndBenefitComponent implements OnInit {
               top: 10,
               bottom: 30,
             },
+            color: '#36A2EB',
           },
+
           legend: {
+            position: 'bottom',
             labels: {
+              usePointStyle: true,
+              pointStyle: 'circle',
+              boxWidth: 10,
+              boxHeight: 10,
+
               font: {
                 family: 'shabnam',
               },
             },
-            // maxHeight: 2,
           },
+
           tooltip: {
             titleFont: {
               family: 'shabnam',

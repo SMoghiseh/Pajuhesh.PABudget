@@ -5,19 +5,17 @@ import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
 import { LazyLoadEvent } from 'primeng/api';
 
-
 @Component({
   selector: 'PABudget-budget-resource-use',
   templateUrl: './budget-resource-use.component.html',
   styleUrls: ['./budget-resource-use.component.scss'],
 })
 export class BudgetResourceUseComponent {
-
   @Input() inputData: any;
 
   treeTableData: any;
   tableData: any = [];
-  selectDateType: "single" | "double" | "multiple" = 'single';
+  selectDateType: 'single' | 'double' | 'multiple' = 'single';
   selectedPlanName = 'منابع و مصارف';
   selectedRows: any = [];
   lazyLoadEvent?: LazyLoadEvent;
@@ -28,18 +26,21 @@ export class BudgetResourceUseComponent {
   cols: any = [];
   lineChart1: any;
   lineChart2: any;
-  viewMode: "table" | "chart" | "treeTable" = "treeTable";
+  viewMode: 'table' | 'chart' | 'treeTable' = 'treeTable';
   comparisonTableId = 0;
   selectedYerId: any;
   priceTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
+  listOfBudgetReport: any = [];
+  selectedlistOfBudgetReport: any = [];
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getPriceType();
-    this.getTreeTableData()
+    this.getTreeTableData();
+    this.getListOfBudgetReportLst();
   }
 
   returnSelectedDate(e: any) {
@@ -65,6 +66,20 @@ export class BudgetResourceUseComponent {
     return data.map(item => item.data.code);
   }
 
+  getListOfBudgetReportLst() {
+    this.httpService
+      .get<Budget[]>(Budget.apiListOfBudgetReport)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.listOfBudgetReport = response.data.result;
+          this.selectedlistOfBudgetReport = response.data.result;
+          for (let i = 0; this.selectedlistOfBudgetReport.length > 0; i++) {
+            this.selectedlistOfBudgetReport = response.data.result[i];
+          }
+        }
+      });
+  }
+
   createRequestBody(priceTypeId: number) {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
@@ -82,14 +97,18 @@ export class BudgetResourceUseComponent {
     };
   }
 
-  tabChange(viewMode: "table" | "chart" | "treeTable",
-    yearTypeSelection: "single" | "double" | "multiple", tableId?: number) {
+  tabChange(
+    viewMode: 'table' | 'chart' | 'treeTable',
+    yearTypeSelection: 'single' | 'double' | 'multiple',
+    tableId?: number
+  ) {
     this.viewMode = viewMode;
 
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
 
-    if (viewMode == 'table' && viewMode == this.viewMode) this.getTableData(this.comparisonTableId);
+    if (viewMode == 'table' && viewMode == this.viewMode)
+      this.getTableData(this.comparisonTableId);
   }
 
   getTreeTableData() {
@@ -115,7 +134,6 @@ export class BudgetResourceUseComponent {
   }
 
   getChart(chartId?: number, priceType?: number) {
-
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
 
@@ -139,7 +157,6 @@ export class BudgetResourceUseComponent {
   }
 
   getTableData(comparison: number) {
-
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
@@ -149,14 +166,17 @@ export class BudgetResourceUseComponent {
     const body = {
       accountReportCode: null,
       companyId: this.inputData.companyId,
-      firstPeriodId: this.selectedYerId[0] < this.selectedYerId[1] ? this.selectedYerId[0] : this.selectedYerId[1],
-      secondPeriodId: this.selectedYerId[0] > this.selectedYerId[1] ? this.selectedYerId[0] : this.selectedYerId[1],
+      firstPeriodId:
+        this.selectedYerId[0] < this.selectedYerId[1]
+          ? this.selectedYerId[0]
+          : this.selectedYerId[1],
+      secondPeriodId:
+        this.selectedYerId[0] > this.selectedYerId[1]
+          ? this.selectedYerId[0]
+          : this.selectedYerId[1],
     };
     this.httpService
-      .post<any>(
-        UrlBuilder.build(url + 'ResourceUse', ''),
-        body
-      )
+      .post<any>(UrlBuilder.build(url + 'ResourceUse', ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -182,23 +202,43 @@ export class BudgetResourceUseComponent {
     chart = new Chart('LineChart' + indx, {
       type: 'line',
       data: data,
+
       options: {
+        elements: {
+          line: {
+            borderWidth: 1,
+          },
+        },
         plugins: {
           title: {
             display: true,
             text: data.title,
+            align: 'end',
+
+            font: {
+              family: 'shabnam',
+            },
             padding: {
               top: 10,
               bottom: 30,
             },
+            color: '#36A2EB',
           },
+
           legend: {
+            position: 'bottom',
             labels: {
+              usePointStyle: true,
+              pointStyle: 'circle',
+              boxWidth: 10,
+              boxHeight: 10,
+
               font: {
                 family: 'shabnam',
               },
             },
           },
+
           tooltip: {
             titleFont: {
               family: 'shabnam',

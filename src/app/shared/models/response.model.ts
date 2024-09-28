@@ -1391,6 +1391,8 @@ export class FinancialRatiosIndustry {
   title!: string;
 }
 export class Budget {
+  id!: number;
+  title!: string;
   static readonly apiAddressBalanceSheet =
     'api/PABudgetApi/Dashboard/BalanceSheet/Info';
   static readonly apiAddressCostAndBenefit =
@@ -1406,6 +1408,8 @@ export class Budget {
     'api/PABudgetApi/Dashboard/CompareBudgetWithBudget/';
   static readonly apiAddressCompareRealWithBudget =
     'api/PABudgetApi/Dashboard/CompareRealWithBudget/';
+  static readonly apiListOfBudgetReport =
+    'api/PABudgetApi/Dashboard/ListOfBudgetReport';
 }
 
 export class StatementCashFlows {
