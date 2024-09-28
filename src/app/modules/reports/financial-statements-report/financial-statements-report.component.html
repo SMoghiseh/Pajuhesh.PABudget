@@ -6,9 +6,17 @@
   <form #formDir="ngForm" [formGroup]="financialStatementsReportForm">
     <div class="col-4">
       <label for="companyId"> شرکت </label>
-      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
-        (onChange)="onCompanySelected($event)" [filter]="true">
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        (onChange)="onCompanySelected($event)"
+        [filter]="true">
       </p-dropdown>
     </div>
   </form>
@@ -16,10 +24,22 @@
 
 <div class="table-container">
   <!-- data table -->
-  <p-table #dataTable style="text-align: right" dataKey="id" [columns]="cols" [value]="financialStatementsReportsTable"
-    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass"
-    [rowHover]="true" [totalRecords]="totalCount" [loading]="loading" selectionMode="single"
-    [tableStyle]="{ 'min-width': '75rem' }" class="data-table d-none d-lg-block">
+  <p-table
+    #dataTable
+    style="text-align: right"
+    dataKey="id"
+    [columns]="cols"
+    [value]="financialStatementsReportsTable"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[15, 20, 30]"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [totalRecords]="totalCount"
+    [loading]="loading"
+    selectionMode="single"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    class="data-table d-none d-lg-block">
     <!-- table header -->
 
     <!--  table header -->
@@ -41,11 +61,12 @@
           {{ rowData['title'] }}
         </td>
 
-        <td *ngFor="let col of rowData['priceCu']" [ngStyle]="col < 0 ? { color: 'red' } : { color: 'black' }">
+        <td
+          *ngFor="let col of rowData['priceCu']"
+          [ngStyle]="col < 0 ? { color: 'red' } : { color: 'black' }">
           {{ minusAmount(col) }}
         </td>
         <td></td>
-
       </tr>
     </ng-template>
   </p-table>
