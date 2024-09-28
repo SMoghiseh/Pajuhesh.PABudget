@@ -34,30 +34,43 @@
           (click)="tabChange('chart', 'multiple')">
           <span>روند</span>
         </div>
-        <div
+        <!-- <div
           class="items"
           [class.select-feature]="
             viewMode === 'table' && comparisonTableId == 1
           "
           (click)="tabChange('table', 'double', 1)">
           <span> مقایسه جاری بودجه با عملکرد</span>
-        </div>
-        <div
+        </div> -->
+        <!-- <div
           class="items"
           [class.select-feature]="
             viewMode === 'table' && comparisonTableId == 2
           "
           (click)="tabChange('table', 'double', 2)">
           <span> مقایسه بودجه با بودجه</span>
-        </div>
-        <div
+        </div> -->
+        <!-- <div
           class="items"
           [class.select-feature]="
             viewMode === 'table' && comparisonTableId == 3
           "
           (click)="tabChange('table', 'double', 3)">
           <span>مقایسه بودجه با عملکرد سال قبل </span>
-        </div>
+        </div> -->
+        <p-dropdown
+          id="id"
+          class="col"
+          styleClass="w-100"
+          optionLabel="title"
+          optionValue="id"
+          [options]="listOfBudgetReport"
+          placeholder=" تحلیل"
+          [(ngModel)]="selectedlistOfBudgetReport"
+          (onChange)="
+            tabChange('table', 'double', selectedlistOfBudgetReport)
+          ">
+        </p-dropdown>
       </div>
 
       <div *ngIf="viewMode === 'treeTable'" class="table-container">

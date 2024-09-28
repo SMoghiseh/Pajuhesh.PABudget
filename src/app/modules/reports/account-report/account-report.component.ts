@@ -47,7 +47,7 @@ export class AccountReportComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodTypeList();
@@ -213,7 +213,6 @@ export class AccountReportComponent {
   }
 
   addAccountReportToItem(report: AccountReport) {
-    debugger
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
   }
 }

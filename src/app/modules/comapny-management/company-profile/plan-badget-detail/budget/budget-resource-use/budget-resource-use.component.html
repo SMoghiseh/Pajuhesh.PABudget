@@ -4,15 +4,13 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date
-            [selectType]="selectDateType"
+          <app-select-date [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <ng-container *ngIf="viewMode !== 'table'">
-          <div
-            *ngFor="let item of priceTypeList"
+          <div *ngFor="let item of priceTypeList"
             class="items"
             (click)="onSelectPriceType(item.id)"
             [class.select-feature]="item.isSelected">
@@ -21,70 +19,80 @@
         </ng-container>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div
-          class="items"
+        <div class="items"
           (click)="tabChange('treeTable', 'single')"
           [class.select-feature]="viewMode === 'treeTable'">
           <span>جدول</span>
         </div>
-        <div
-          class="items disable-btns"
+        <div class="items disable-btns"
           [class.enable-btns]="selectedRows?.length > 0"
           [class.select-feature]="viewMode === 'chart'"
           (click)="tabChange('chart', 'multiple')">
           <span>روند</span>
         </div>
-        <div
+        <!-- <div
           class="items"
           [class.select-feature]="
             viewMode === 'table' && comparisonTableId == 1
           "
           (click)="tabChange('table', 'double', 1)">
           <span> مقایسه جاری بودجه با عملکرد</span>
-        </div>
-        <div
+        </div> -->
+        <!-- <div
           class="items"
           [class.select-feature]="
             viewMode === 'table' && comparisonTableId == 2
           "
           (click)="tabChange('table', 'double', 2)">
           <span> مقایسه بودجه با بودجه</span>
-        </div>
-        <div
+        </div> -->
+        <!-- <div
           class="items"
           [class.select-feature]="
             viewMode === 'table' && comparisonTableId == 3
           "
           (click)="tabChange('table', 'double', 3)">
           <span>مقایسه بودجه با عملکرد سال قبل </span>
-        </div>
+        </div> -->
+        <p-dropdown id="id"
+          class="col"
+          styleClass="w-100"
+          optionValue="id"
+          optionLabel="title"
+          [options]="listOfBudgetReport"
+          placeholder=" تحلیل"
+          [(ngModel)]="selectedlistOfBudgetReport"
+          (onChange)="tabChange('table', 'double', selectedlistOfBudgetReport)">
+        </p-dropdown>
       </div>
 
-      <div *ngIf="viewMode === 'treeTable'" class="table-container">
-        <p-treeTable
-          class="treeTable-container"
+      <div *ngIf="viewMode === 'treeTable'"
+        class="table-container">
+        <p-treeTable class="treeTable-container"
           [value]="treeTableData?.budgetDetails"
           [columns]="treeTableData?.headers"
           selectionMode="checkbox"
           [(selection)]="selectedRows"
           [scrollable]="true"
           [tableStyle]="{ 'min-width': '50rem' }">
-          <ng-template pTemplate="header" let-columns>
+          <ng-template pTemplate="header"
+            let-columns>
             <tr>
               <th *ngFor="let col of columns">
                 {{ col.headerName }}
               </th>
             </tr>
           </ng-template>
-          <ng-template
-            pTemplate="body"
+          <ng-template pTemplate="body"
             let-rowNode
             let-rowData="rowData"
             let-columns="columns">
             <tr [ttRow]="rowNode">
               <td *ngFor="let col of columns; let i = index">
-                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                <p-treeTableCheckbox [value]="rowNode"
+                  *ngIf="i === 0" />
+                <p-treeTableToggler [rowNode]="rowNode"
+                  *ngIf="i === 0" />
                 {{ rowData[col.field] }}
               </td>
               <td></td>
@@ -94,16 +102,16 @@
       </div>
 
       <div *ngIf="viewMode === 'chart'">
-        <div *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
-          <canvas
-            id="LineChart1"
+        <div class="chartStyle"
+          *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
+          <canvas id="LineChart1"
             width="900"
             height="200"
             style="display: unset"></canvas>
         </div>
-        <div *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
-          <canvas
-            id="LineChart2"
+        <div class="chartStyle"
+          *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
+          <canvas id="LineChart2"
             width="900"
             height="200"
             style="display: unset"></canvas>
@@ -111,8 +119,7 @@
       </div>
 
       <div *ngIf="viewMode === 'table'">
-        <p-table
-          #dataTable
+        <p-table #dataTable
           style="text-align: right"
           dataKey="id"
           [columns]="cols"
@@ -129,7 +136,8 @@
 
           <!--  table header -->
 
-          <ng-template pTemplate="header" let-columns>
+          <ng-template pTemplate="header"
+            let-columns>
             <tr>
               <th *ngFor="let col of columns">
                 <span> {{ col.headerName }} </span>
@@ -139,7 +147,9 @@
           <!-- / table header -->
           <!-- table body -->
 
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <ng-template pTemplate="body"
+            let-rowData
+            let-columns="columns">
             <tr>
               <td>
                 {{ rowData['accountReportItemTitle'] }}
