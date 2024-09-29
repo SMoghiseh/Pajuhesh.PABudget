@@ -106,7 +106,7 @@ export class CompanyProfileComponent implements OnInit {
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getList();
@@ -143,9 +143,9 @@ export class CompanyProfileComponent implements OnInit {
 
   contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
-      {
-        queryParams: {},
-      };
+    {
+      queryParams: {},
+    };
   }
 
   getCostAndBenefitForProfile(id: string) {
@@ -165,79 +165,10 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  // onSelectYear(id: number) {
-  //   this.selectYearType(id);
-  // }
-
-  // selectYearType(id: number) {
-  //   const fltr = this.selectedYears.filter(x => x === id);
-  //   this.staticYearLst.forEach(element => {
-  //     if (element.id === id) {
-  //       if (fltr.length === 0) {
-  //         element.isSelected = true;
-  //         this.selectedYears.push(element.id);
-  //       } else {
-  //         element.isSelected = false;
-  //         const index = this.selectedYears.indexOf(element.id);
-  //         if (index > -1) this.selectedYears.splice(index, 1);
-  //       }
-  //     }
-  //   });
-  //   if (this.selectedYearlyPlanId !== -1) this.onSelectPlan(this.selectedYearlyPlanId);
-  //   if (this.selectedBudgetId !== -1)
-  //     this.onSelectBudget(this.selectedBudgetId);
-  //   if (this.isShowChart) this.getChart();
-  // }
 
   onCoDetail(id: number) {
     this.router.navigate(['/Comapny/companyDetail/' + id]);
   }
-
-  // getStaticYear() {
-  //   this.httpService
-  //     .get<StaticYear[]>(StaticYear.apiAddress)
-  //     .pipe(
-  //       map(response => {
-  //         if (response.data && response.data.result) {
-  //           return response.data.result;
-  //         } else return [new StaticYear()];
-  //       })
-  //     )
-  //     .subscribe(res => {
-  //       res.forEach((element, index) => {
-  //         if (index === 0) {
-  //           this.selectedYears.push(element.id);
-  //           element.isSelected = true;
-  //         } else element.isSelected = false;
-  //       });
-  //       this.staticYearLst = res;
-  //     });
-  // }
-
-  // getGridBalanceSheet() {
-  //   this.loading = true;
-  //   const body = {
-  //     companyId: this.coId,
-  //     yearId: this.selectedYears,
-  //     reportTypeId: this.selectedReportId,
-  //   };
-  //   this.httpService
-  //     .post<GridBalanceSheet[]>(
-  //       UrlBuilder.build(GridBalanceSheet.apiAddress + 'list', ''),
-  //       body
-  //     )
-  //     .pipe(
-  //       map(response => {
-  //         this.loading = false;
-  //         if (response.data && response.data.result) {
-  //           return response.data.result;
-  //         } else return [];
-  //       })
-  //     )
-  //     .subscribe(res => {
-  //       this.gridBalanceLst = res;
-  //     });
-  // }
 
   onRowSelect(e: any) {
     this.liveSelectionRow++;
@@ -246,38 +177,6 @@ export class CompanyProfileComponent implements OnInit {
   onRowUnselect(e: any) {
     this.liveSelectionRow--;
   }
-
-  // getPlan() {
-  //   this.httpService
-  //     .get<Profile[]>(UrlBuilder.build(Profile.apiAddressGetPlan, ''))
-  //     .pipe(
-  //       map(response => {
-  //         if (response.data && response.data.result) {
-  //           return response.data.result;
-  //         } else return [new Profile()];
-  //       })
-  //     )
-  //     .subscribe(res => {
-  //       this.planLst = res;
-  //     });
-  // }
-
-  // getBudget() {
-  //   this.httpService
-  //     .post<Profile[]>(UrlBuilder.build(AccountReport.apiAddress + 'GetAllAccountReport', ''), {
-  //       withOutPagination: true
-  //     })
-  //     .pipe(
-  //       map(response => {
-  //         if (response.data && response.data.result) {
-  //           return response.data.result;
-  //         } else return [new Profile()];
-  //       })
-  //     )
-  //     .subscribe(res => {
-  //       this.budgetLst = res;
-  //     });
-  // }
 
   getList() {
     this.httpService
@@ -314,46 +213,13 @@ export class CompanyProfileComponent implements OnInit {
 
   onSelectBudget(data: any) {
     this.switchItem = data.componentName;
-    // this.selectedBudgetId = data.id;
-    // this.selectedYearlyPlanId = -1;
-    // this.selectedMacroId = -1;
-    // this.isSelectBudget = true;
-    // this.isSelectPlan = false;
+    this.selectedBudgetId = data.id;
     let yearId = 12;
     if (this.selectedYears) {
       if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
       else yearId = this.selectedYears[0];
     }
   }
-
-  // onSelectYearlyPlan(data: any) {
-  //   this.switchItem = '';
-  //   this.switchPlan = data.componentName;
-  //   this.selectedYearlyPlanId = data.id;
-  //   this.selectedMacroId = -1;
-  //   this.selectedBudgetId = -1;
-  //   this.isSelectPlan = true;
-  //   this.isSelectBudget = false;
-  //   let yearId = 12;
-  //   if (this.selectedYears) {
-  //     if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
-  //     else yearId = this.selectedYears[0];
-  //   }
-  // }
-  // onSelectMacro(data: any) {
-  //   this.switchItem = '';
-  //   this.switchPlan = data.componentName;
-  //   this.selectedYearlyPlanId = -1;
-  //   this.selectedMacroId = data.id;
-  //   this.selectedBudgetId = -1;
-  //   this.isSelectPlan = true;
-  //   this.isSelectBudget = false;
-  //   let yearId = 12;
-  //   if (this.selectedYears) {
-  //     if (typeof this.selectedYears === 'number') yearId = this.selectedYears;
-  //     else yearId = this.selectedYears[0];
-  //   }
-  // }
 
   selectTable() {
     this.selectDateType = 'single';
@@ -426,12 +292,5 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  // returnSelectedDate(e: any) {
-  //   this.selectedYears = e;
-  //   if (this.isSelectPlan && this.selectedYearlyPlanId > -1)
-  //     this.onSelectPlan(this.selectedYearlyPlanId);
-  //   if (this.isSelectBudget && this.selectedBudgetId > -1)
-  //     this.onSelectBudget(this.selectedBudgetId);
-  //   if (this.isShowChart) this.getChart();
-  // }
+
 }
