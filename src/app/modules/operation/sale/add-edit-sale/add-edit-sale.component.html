@@ -2,17 +2,7 @@
 
 <form #formDir="ngForm" [formGroup]="addEditSaleForm" (ngSubmit)="addEditSale()">
   <div class="container row">
-    <div class="col-6 mt-2">
-      <label for="saleType">نوع فروش </label>
-      <p-dropdown id="saleType" name="saleType" formControlName="saleType" styleClass="w-100 my-1" optionLabel="title"
-        placeholder="انتخاب کنید" [options]="saleTypeList" [filter]="true" [readonly]="mode == 'edit'" [required]="true"
-        [class.ng-invalid]="saleType?.invalid" [class.ng-dirty]="
-          (addEditSaleSubmitted && saleType?.pristine) ||
-          saleType?.dirty ||
-          saleType?.touched
-        " (onChange)="onChangeSaleType()">
-      </p-dropdown>
-    </div>
+
     <div class="col-6 mt-2">
       <label for="companyId"> شرکت</label>
       <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
@@ -22,6 +12,17 @@
     companyId?.dirty ||
     companyId?.touched
   ">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="saleType">نوع فروش </label>
+      <p-dropdown id="saleType" name="saleType" formControlName="saleType" styleClass="w-100 my-1" optionLabel="title"
+        placeholder="انتخاب کنید" [options]="saleTypeList" [filter]="true" [readonly]="mode == 'edit'" [required]="true"
+        [class.ng-invalid]="saleType?.invalid" [class.ng-dirty]="
+          (addEditSaleSubmitted && saleType?.pristine) ||
+          saleType?.dirty ||
+          saleType?.touched
+        " (onChange)="onChangeSaleType()">
       </p-dropdown>
     </div>
     <div class="col-6 mt-2" *ngIf="isContractValue && isChangeSaleType">

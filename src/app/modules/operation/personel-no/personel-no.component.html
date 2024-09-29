@@ -10,6 +10,12 @@
   <form #formDir="ngForm" [formGroup]="searchPersonelNoForm">
     <div class="row mt-8 pb-3">
       <div class="col my-1">
+        <label for="companyId"> شرکت</label>
+        <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true">
+        </p-dropdown>
+      </div>
+      <div class="col my-1">
         <label for="periodId">دوره بودجه</label>
         <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
           optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="periodLst" [filter]="true"
@@ -24,25 +30,20 @@
         </p-dropdown>
       </div>
       <div class="col my-1">
-        <label for="employmentTypeId">نوع استخدام</label>
-        <p-dropdown id="employmentTypeId" name="employmentTypeId" formControlName="employmentTypeId"
-          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [options]="employmentTypeLst" [filter]="true">
-        </p-dropdown>
-      </div>
-      <div class="col my-1">
-        <label for="companyId"> شرکت</label>
-        <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true">
-        </p-dropdown>
-      </div>
-      <div class="col my-1">
         <label for="costCenterTypeId">مرکز هزینه</label>
         <p-dropdown id="costCenterTypeId" name="costCenterTypeId" formControlName="costCenterTypeId"
           styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
           [options]="CostCenterLst" [filter]="true">
         </p-dropdown>
       </div>
+      <div class="col my-1">
+        <label for="employmentTypeId">نوع استخدام</label>
+        <p-dropdown id="employmentTypeId" name="employmentTypeId" formControlName="employmentTypeId"
+          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+          [options]="employmentTypeLst" [filter]="true">
+        </p-dropdown>
+      </div>
+
 
       <div class="col my-1">
         <label for="educationTypeId">تحصیلات</label>
