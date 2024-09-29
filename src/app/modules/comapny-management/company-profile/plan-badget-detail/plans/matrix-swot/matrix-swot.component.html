@@ -4,7 +4,8 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [selectType]="selectDateType"
+          <app-select-date
+            [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
@@ -14,11 +15,11 @@
         </div>
       </div>
       <ng-container *ngFor="let item of planDetailData">
-        <div  [style.borderColor]="item.color" class="col-6 section mt-4">
+        <div [style.borderColor]="item.color" class="col-6 section mt-4">
           <div>
             <div class="title-holder">
               <p>استراتژی</p>
-              <p >{{ item.title }}</p>
+              <p>{{ item.title }}</p>
             </div>
             <div class="desc">
               <ng-container *ngFor="let desc of item.desc">

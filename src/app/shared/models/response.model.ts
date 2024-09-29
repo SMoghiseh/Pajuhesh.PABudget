@@ -1555,6 +1555,8 @@ export class Aspect {
 
 export class BigGoal {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/BigGoal/';
+  static readonly apiAddressGetComPlanId =
+    'api/PABudgetApi/v1/Plan/GetCompanyByPlanId/';
   id!: number;
   visionId!: number;
   title!: string;
