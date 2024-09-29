@@ -103,8 +103,9 @@
         <th style="min-width: 20rem">
           <strong>شرح</strong>
         </th>
-        <th style="min-width: 0rem">
-          <strong></strong>
+    
+        <th style="min-width: 1rem">
+          <strong> عملیات </strong>
         </th>
       </tr>
     </ng-template>
@@ -115,7 +116,15 @@
         <td>{{ basics.masterTitle }}</td>
 
         <td>{{ basics.title }}</td>
-        <td></td>
+
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(basics)"
+            pTooltip="حذف ">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
@@ -216,4 +225,4 @@
     </div>
   </form>
 </p-dialog>
-<!-- <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog> -->
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

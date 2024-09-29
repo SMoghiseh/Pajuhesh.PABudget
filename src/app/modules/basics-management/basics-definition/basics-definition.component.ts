@@ -9,13 +9,18 @@ import {
   Pagination,
 } from '@shared/models/response.model';
 import { PersianNumberService } from '@shared/services/persian-number.service';
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import {
+  ConfirmationService,
+  LazyLoadEvent,
+  MessageService,
+} from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-basics-definition',
   templateUrl: './basics-definition.component.html',
   styleUrls: ['./basics-definition.component.scss'],
+  providers: [ConfirmationService],
 })
 export class BasicsDefinitionComponent implements OnInit {
   /* Table  */
@@ -47,7 +52,8 @@ export class BasicsDefinitionComponent implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -161,7 +167,7 @@ export class BasicsDefinitionComponent implements OnInit {
       request.title = title;
 
       this.httpService
-        .post<CreateBasics>(CreateBasics.apiAddress, request)
+        .post<CreateBasics>(CreateBasics.apiAddress + '/create', request)
         .pipe(
           tap(() => {
             this.addNewBasicsLoading = false;
@@ -199,6 +205,46 @@ export class BasicsDefinitionComponent implements OnInit {
     this.addNewBasicsForm.patchValue({
       masterId: masterId,
     });
+  }
+
+  deleteRow(basics: Basics) {
+    if (basics && basics.id)
+      this.confirmationService.confirm({
+        message: `آیا از حذف ${basics.title} اطمینان دارید؟`,
+        header: `عنوان ${basics.title}`,
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'تایید و حذف',
+        acceptButtonStyleClass: 'p-button-danger',
+        acceptIcon: 'pi pi-trash',
+        rejectLabel: 'انصراف',
+        rejectButtonStyleClass: 'p-button-secondary',
+        defaultFocus: 'reject',
+        accept: () => this.deleteBasics(basics.id, basics.title),
+      });
+  }
+
+  deleteBasics(id: number, title: string) {
+    if (id && title) {
+      this.httpService
+        .get<CreateBasics>(
+          UrlBuilder.build(CreateBasics.apiAddress, 'DELETE') + `/${id}`
+        )
+        .subscribe(response => {
+          if (response.successed) {
+            this.getSubjects();
+
+            this.messageService.add({
+              key: 'basicsDefinition',
+              life: 8000,
+              severity: 'success',
+              detail: `عنوان ${title}`,
+              summary: 'با موفقیت حذف شد',
+            });
+
+            this.resetAddNewBasicsForm();
+          }
+        });
+    }
   }
 
   clearSearch() {

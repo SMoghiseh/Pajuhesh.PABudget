@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import {
-  Company,
-  BenefitCostsReport,
-} from '@shared/models/response.model';
+import { Company, BenefitCostsReport } from '@shared/models/response.model';
 import { LazyLoadEvent } from 'primeng/api';
 import { map } from 'rxjs';
 
 @Component({
   selector: 'PABudget-benefit-cost-report',
   templateUrl: './benefit-cost-report.component.html',
-  styleUrls: ['./benefit-cost-report.component.scss']
+  styleUrls: ['./benefit-cost-report.component.scss'],
 })
 export class BenefitCostReportComponent {
   benefitCostReportForm!: FormGroup;
@@ -30,7 +27,7 @@ export class BenefitCostReportComponent {
   resultValue: any = [];
   // tableData = { this.benefitCostHeader, this.benefitCostDetails };
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
   ngOnInit(): void {
     this.getCompanyLst();
     this.benefitCostReportForm = new FormGroup({
@@ -45,9 +42,9 @@ export class BenefitCostReportComponent {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
           this.benefitCostReportForm.patchValue({
-            companyId: this.companyList[0].id
-          })
-          this.getBenefitCostsReport(this.companyList[0].id)
+            companyId: this.companyList[0].id,
+          });
+          this.getBenefitCostsReport(this.companyList[0].id);
         }
       });
   }
@@ -65,8 +62,7 @@ export class BenefitCostReportComponent {
         })
       )
       .subscribe(result => {
-        this.benefitCostReportsTable =
-          result.benefitCostReports;
+        this.benefitCostReportsTable = result.financialStatementsReports;
         this.cols = result.headers;
       });
   }
