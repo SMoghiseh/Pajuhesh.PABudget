@@ -76,7 +76,7 @@ export class PlanningComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getMeetingLst();
@@ -121,33 +121,33 @@ export class PlanningComponent {
     const formValue = this.searchForm.value;
     formValue.planingDate = formValue.planingDate
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue.planingDate?.getFullYear(),
-            formValue.planingDate?.getMonth(),
-            formValue.planingDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.planingDate?.getFullYear(),
+          formValue.planingDate?.getMonth(),
+          formValue.planingDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     formValue.startDate = formValue.startDate
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue.startDate?.getFullYear(),
-            formValue.startDate?.getMonth(),
-            formValue.startDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.startDate?.getFullYear(),
+          formValue.startDate?.getMonth(),
+          formValue.startDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     formValue.endDate = formValue.endDate
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue.endDate?.getFullYear(),
-            formValue.endDate?.getMonth(),
-            formValue.endDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue.endDate?.getFullYear(),
+          formValue.endDate?.getMonth(),
+          formValue.endDate?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
@@ -240,9 +240,12 @@ export class PlanningComponent {
 
   // Set PlanningId On Active Component Route
   setActiveComponentRoute(item: Planning) {
-    this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] + '/' + item.id;
-    });
+    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    if (!Number(idOfRouting)) {
+      this.subComponentList.forEach((componentInfo: any) => {
+        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
+      });
+    }
   }
 }
