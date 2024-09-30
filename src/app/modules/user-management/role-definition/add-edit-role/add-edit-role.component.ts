@@ -2,10 +2,8 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   CreatePerson,
-  Role,
-  UpdatePerson,
+  Role, UrlBuilder
 } from '@shared/models/response.model';
-import { PersianNumberService } from '@shared/services/persian-number.service';
 import { tap } from 'rxjs';
 import { HttpService } from '@core/http/http.service';
 import { MessageService } from 'primeng/api';
@@ -16,17 +14,11 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./add-edit-role.component.scss'],
 })
 export class AddEditRoleComponent implements OnInit {
-  addNewPersonForm!: FormGroup;
-  editRoleForm!: FormGroup;
 
+  editRoleForm!: FormGroup;
   patternText = /^[^1234567890\wertyuiopasdfghjklzxcvbnmq]+$/;
   patternENText = /^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
 
-  /** مدل افزودن کاربر جدید */
-  addNewPersonModel = new Role();
-
-  /** Main table data. */
-  selectedPerson = new Role();
 
   /** وضعیت تایید افزودن کاربر جدید */
   addNewPersonFormSubmitted = false;
@@ -37,33 +29,14 @@ export class AddEditRoleComponent implements OnInit {
   /** انتظار برای ویرایش کاربر */
   editPersonFormLoading = false;
 
-  isEdit = false;
-
   editData: any;
 
-  @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input() set data(val: Role) {
-    if (val && val.title) {
-      this.isEdit = true;
-      this.editData = val;
-      this.editRoleForm.patchValue(val);
-    } else {
-      this.isEdit = false;
-      this.editRoleForm.reset();
-    }
-  }
+  @Output() isSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input() set data1(val: Role) {
-    if (val && val.title) {
-      this.isEdit = true;
-      this.editData = val;
-      this.editRoleForm.patchValue(val);
-    } else {
-      this.isEdit = false;
-      this.editRoleForm.reset();
-    }
+    this.editData = val;
   }
+  @Input() mode = '';
 
   /** نام نقش */
   get name() {
@@ -82,121 +55,60 @@ export class AddEditRoleComponent implements OnInit {
   ngOnInit(): void {
     this.editRoleForm = new FormGroup({
       name: new FormControl(
-        this.addNewPersonModel.name,
+        '',
         Validators.required
       ),
       title: new FormControl(
-        this.addNewPersonModel.title,
+        '',
         Validators.required
       )
     });
-  }
-
-  addNewPerson() {
-    if (!this.isEdit) {
-      this.addNewPersonFormSubmitted = true;
-
-      if (this.addNewPersonForm.valid && this.editRoleForm.valid) {
-        this.addNewPersonFormLoading = true;
-
-        const { userNameForm, password, rePassword } =
-          this.addNewPersonForm.value;
-
-        const {
-          name,
-          title,
-        } = this.editRoleForm.value;
-        const request = new Role();
-        request.name = name;
-        request.title = title;
-
-
-        this.httpService
-          .post<CreatePerson>(CreatePerson.apiAddress, request)
-          .pipe(
-            tap(() => {
-              this.addNewPersonFormLoading = false;
-            })
-          )
-          .subscribe(response => {
-            if (response.successed) {
-              this.messageService.add({
-                key: 'userDefinition',
-                life: 8000,
-                severity: 'success',
-                detail: `کاربر ${PersianNumberService.toPersian(
-                  name
-                )} ${PersianNumberService.toPersian(title)}`,
-                summary: 'با موفقیت درج شد',
-              });
-
-              this.resetAddNewPersonForm();
-              this.closeModal.emit(true);
-            }
-          });
-      }
-    } else {
-      if (this.editRoleForm.valid) {
-        this.editPersonFormLoading = true;
-
-        const {
-          name,
-          title
-        } = this.editRoleForm.value;
-
-        const request = new Role();
-        request.id = this.editData.id;
-        request.name = name;
-        request.title = title;
-
-        this.httpService
-          .put<UpdatePerson>(UpdatePerson.apiAddress, request)
-          .pipe(
-            tap(() => {
-              this.editPersonFormLoading = false;
-            })
-          )
-          .subscribe(response => {
-            if (response.successed) {
-              this.messageService.add({
-                key: 'userDefinition',
-                life: 8000,
-                severity: 'success',
-                detail: `کاربر  ${PersianNumberService.toPersian(name)}`,
-                summary: 'با موفقیت ویرایش شد',
-              });
-
-              this.resetAddNewPersonForm();
-              this.closeModal.emit(true);
-            }
-          });
-      }
+    if (this.mode === 'edit') {
+      this.editRoleForm.patchValue(this.editData);
     }
   }
 
-  resetAddNewPersonForm() {
-    this.addNewPersonFormSubmitted = false;
-    this.addNewPersonForm.reset();
-    this.editRoleForm.reset();
-    this.selectedPerson = new Role();
-    this.editRoleForm.patchValue({
-      genderType: 0,
-    });
+  addNewPerson() {
+    this.addNewPersonFormSubmitted = true;
+    debugger
+    if (this.editRoleForm.valid) {
+      this.addNewPersonFormLoading = true;
 
-    /** Add user panel validation */
-    this.addNewPersonForm
-      .get('userNameForm')
-      ?.setValidators(Validators.required);
-    this.addNewPersonForm.get('userNameForm')?.updateValueAndValidity();
+      const {
+        name,
+        title,
+      } = this.editRoleForm.value;
+      const request = new Role();
+      request.id = this.mode === 'insert' ? 0 :
+        this.editData.id;
+      request.name = name;
+      request.title = title;
 
-    this.addNewPersonForm
-      .get('passwored')
-      ?.setValidators([Validators.required, Validators.minLength(8)]);
-    this.addNewPersonForm.get('password')?.updateValueAndValidity();
+      let url = UrlBuilder.build(Role.apiAddress, 'CREATE')
 
-    this.addNewPersonForm
-      .get('rePassword')
-      ?.setValidators([Validators.required, Validators.minLength(8)]);
-    this.addNewPersonForm.get('rePassword')?.updateValueAndValidity();
+      this.httpService
+        .post<CreatePerson>(url, request)
+        .pipe(
+          tap(() => {
+            this.addNewPersonFormLoading = false;
+          })
+        )
+        .subscribe(response => {
+          if (response.successed) {
+            this.messageService.add({
+              key: 'roleDefinition',
+              life: 8000,
+              severity: 'success',
+              detail: `نقش ${name} ${title}`,
+              summary: this.mode === 'insert'
+                ? 'با موفقیت درج شد'
+                : 'با موفقیت بروزرسانی شد',
+            });
+
+            this.isSuccess.emit(true);
+          }
+        });
+    }
   }
+
 }
