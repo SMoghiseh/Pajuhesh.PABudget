@@ -70,7 +70,6 @@ export class AddEditRoleComponent implements OnInit {
 
   addNewPerson() {
     this.addNewPersonFormSubmitted = true;
-    debugger
     if (this.editRoleForm.valid) {
       this.addNewPersonFormLoading = true;
 
@@ -84,7 +83,7 @@ export class AddEditRoleComponent implements OnInit {
       request.name = name;
       request.title = title;
 
-      let url = UrlBuilder.build(Role.apiAddress, 'CREATE')
+      let url = UrlBuilder.build(Role.apiAddress, 'CREATE');
 
       this.httpService
         .post<CreatePerson>(url, request)

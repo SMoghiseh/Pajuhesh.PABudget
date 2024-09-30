@@ -1,0 +1,36 @@
+<form #formDir="ngForm" [formGroup]="editUserRoleForm" (ngSubmit)="assignRoleTouser()">
+    <div class="container row ">
+
+        <!-- عنوان‌ها -->
+        <div class="col-6 mt-2">
+            <label for="user">انتخاب کاربر</label>
+            <p-dropdown id="user" name="user" formControlName="user" styleClass="w-100 my-1" optionLabel="fullName"
+                optionValue="userId" placeholder="انتخاب کنید" [options]="users" [filter]="true" [required]="true"
+                [class.ng-invalid]="user?.invalid" [class.ng-dirty]="
+                (addNewPersonFormSubmitted && user?.pristine) ||
+                user?.dirty ||
+                user?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <!-- / عنوان‌ها -->
+
+        <!-- نقش -->
+        <div class="col-6 mt-2">
+            <label for="role">انتخاب نقش</label>
+            <p-dropdown id="role" name="role" formControlName="role" styleClass="w-100 my-1" optionLabel="title"
+                optionValue="id" placeholder="انتخاب کنید" [options]="roles" [filter]="true" [required]="true"
+                [class.ng-invalid]="role?.invalid" [class.ng-dirty]="
+                (addNewPersonFormSubmitted && role?.pristine) ||
+                role?.dirty ||
+                role?.touched
+              ">
+            </p-dropdown>
+        </div>
+        <!-- / نقش -->
+        <div class="col-12 row-btn row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="addNewPersonFormLoading"></p-button>
+        </div>
+    </div>
+</form>
