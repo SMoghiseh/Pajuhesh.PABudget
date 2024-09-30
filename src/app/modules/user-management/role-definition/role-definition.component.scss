@@ -1,5 +1,15 @@
- 
+ :host ::ng-deep .p-button-wide .p-button {
+     min-width: 9rem;
+ }
 
-:host ::ng-deep .p-button-wide .p-button {
-    min-width: 9rem;
-}
+
+ :host ::ng-deep .row-btn.row-btn-fixed-bottom {
+     bottom: 22px;
+     position: absolute;
+     left: 23px;
+ }
+
+ :host ::ng-deep .height-size .p-dialog {
+     min-height: 300px !important;
+     height: auto !important;
+ }
