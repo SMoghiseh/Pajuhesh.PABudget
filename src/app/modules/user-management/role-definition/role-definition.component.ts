@@ -189,7 +189,6 @@ export class RoleDefinitionComponent {
   }
 
   reloadData() {
-    debugger
     this.isOpenAddRole = false;
     this.getRoleList();
   }
