@@ -3,6 +3,17 @@
 <form #formDir="ngForm" [formGroup]="addEditPersonelNoForm" (ngSubmit)="addEditPersonelNo()">
   <div class="container row">
     <div class="col-6 mt-2">
+      <label for="companyId"> شرکت</label>
+      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+        [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+    (addEditPersonelNoSubmitted && companyId?.pristine) ||
+    companyId?.dirty ||
+    companyId?.touched
+  ">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
       <label for="periodId">دوره بودجه</label>
       <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
         optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [class.ng-invalid]="periodId?.invalid"
@@ -24,17 +35,7 @@
         " [options]="periodDetailLst" [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
-      <label for="companyId"> شرکت</label>
-      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
-        [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
-    (addEditPersonelNoSubmitted && companyId?.pristine) ||
-    companyId?.dirty ||
-    companyId?.touched
-  ">
-      </p-dropdown>
-    </div>
+
     <div class="col-6 mt-2">
       <label for="costCenterTypeId">مرکز هزینه</label>
       <p-dropdown id="costCenterTypeId" name="costCenterTypeId" formControlName="costCenterTypeId"

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { UserManagementRoutingModule } from './user-management-routing.module';
@@ -31,6 +31,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { AddEditUserComponent } from './user-definition/add-edit-user/add-edit-user.component';
 import { AddEditRoleComponent } from './role-definition/add-edit-role/add-edit-role.component';
+import { AddEditUserRoleComponent } from './user-role-assignment/add-edit-user-role/add-edit-user-role.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AddEditRoleComponent } from './role-definition/add-edit-role/add-edit-r
     AddEditRoleComponent,
     UserRoleAssignmentComponent,
     PermissionRoleAssignmentComponent,
-    AddEditUserComponent
+    AddEditUserComponent,
+    AddEditUserRoleComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,14 @@ import { AddEditRoleComponent } from './role-definition/add-edit-role/add-edit-r
     CheckboxModule,
     ListboxModule,
     TreeSelectModule,
+  ],
+  providers: [
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `assets/images/${config.src}`;
+      },
+    },
   ],
 })
 export class UserManagementModule { }

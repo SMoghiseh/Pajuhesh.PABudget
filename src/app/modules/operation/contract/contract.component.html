@@ -43,7 +43,7 @@
         </p-dropdown>
       </div>
       <div class="col-2 mt-2">
-        <label for="employerID">کارفرما</label>
+        <label for="employerID">مجری</label>
         <p-dropdown id="employerID" name="employerID" formControlName="employerID" styleClass="w-100 my-1"
           optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="employerLst" [filter]="true">
         </p-dropdown>
@@ -74,45 +74,49 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <td>
-          <strong>کد قرارداد</strong>
-        </td>
-        <td>
-          <strong>تاریخ قرارداد</strong>
-        </td>
-        <td>
-          <strong>تاریخ شروع قرارداد</strong>
-        </td>
-        <td>
-          <strong>تاریخ پایان قرارداد</strong>
-        </td>
-        <td>
+        <th>
+          <strong>شماره قرارداد</strong>
+        </th>
+        <th>
           <strong>نوع قرارداد</strong>
-        </td>
-        <td>
-          <strong>کارفرما</strong>
-        </td>
-        <td>
+        </th>
+        <th>
+          <strong>مجری</strong>
+        </th>
+        <th>
           <strong>پیمانکار</strong>
-        </td>
-        <td>
+        </th>
+        <th>
+          <strong>تاریخ قرارداد</strong>
+        </th>
+        <th>
+          <strong>تاریخ شروع قرارداد</strong>
+        </th>
+        <th>
+          <strong>تاریخ پایان قرارداد</strong>
+        </th>
+        <th>
           <strong>مبلغ قرارداد</strong>
-        </td>
-        <td>
+        </th>
+        <th>
+          <strong> وضعیت</strong>
+        </th>
+        <th>
           <strong>عملیات</strong>
-        </td>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-contractNo let-rowIndex="rowIndex">
       <tr>
         <td>{{ contractNo.contractCode }}</td>
-        <td>{{ contractNo.contractDate | jDate }}</td>
-        <td>{{ contractNo.contractFromDate | jDate }}</td>
-        <td>{{ contractNo.contractToDate | jDate }}</td>
         <td>{{ contractNo.contracType }}</td>
         <td>{{ contractNo.employer }}</td>
         <td>{{ contractNo.contractor }}</td>
+        <td>{{ contractNo.contractDate | jDate }}</td>
+        <td>{{ contractNo.contractFromDate | jDate }}</td>
+        <td>{{ contractNo.contractToDate | jDate }}</td>
         <td>{{ contractNo.contractPriceCu }}</td>
+        <td>{{ contractNo.status }}</td>
 
         <td class="jc-left ai-left">
           <button class="action-image-container edit-button" (click)="editRow(contractNo)" pTooltip="ویرایش قرارداد">

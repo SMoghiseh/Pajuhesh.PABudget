@@ -24,6 +24,7 @@ export class AddEditStrategyComponent {
 
   inputData = new STRATEGY();
   @Input() mode = '';
+  @Input() planId = 0;
   @Input() set data1(data: STRATEGY) {
     this.inputData = data;
   }
@@ -54,7 +55,7 @@ export class AddEditStrategyComponent {
 
   ngOnInit(): void {
     this.getPlaningList();
-    this.getBigGoalList();
+    this.getBigGoalList(this.planId);
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -114,10 +115,10 @@ export class AddEditStrategyComponent {
       });
   }
 
-  getBigGoalList() {
+  getBigGoalList(planId: number) {
     const body = {
-      companyId: this.inputData.companyId,
       withOutPagination: true,
+      companyId: planId,
     };
     this.httpService
       .post<BigGoal[]>(BigGoal.apiAddress + 'List', body)

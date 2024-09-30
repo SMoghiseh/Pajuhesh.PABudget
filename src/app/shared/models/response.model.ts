@@ -824,7 +824,7 @@ export class CreateOnlineDocDefinition {
 /** اطلاعات پایه */
 export class CreateBasics {
   /** آدرس سرویس */
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/slave/create';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/slave';
 }
 /** اطلاعات پایه */
 export class Basics {
@@ -1555,6 +1555,8 @@ export class Aspect {
 
 export class BigGoal {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/BigGoal/';
+  static readonly apiAddressGetComPlanId =
+    'api/PABudgetApi/v1/Plan/GetCompanyByPlanId/';
   id!: number;
   visionId!: number;
   title!: string;

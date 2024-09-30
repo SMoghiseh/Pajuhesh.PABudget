@@ -6,17 +6,16 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-matrix-swot',
   templateUrl: './matrix-swot.component.html',
-  styleUrls: ['./matrix-swot.component.scss']
+  styleUrls: ['./matrix-swot.component.scss'],
 })
 export class MatrixSwotComponent {
-
   @Input() inputData: any;
 
   planDetailData: any;
   selectDateType = 'single';
   selectedPlanName = 'ماتریس SWOT ';
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   getPlanDetail(yearId: number) {
     const body = {
@@ -41,4 +40,3 @@ export class MatrixSwotComponent {
     this.getPlanDetail(e);
   }
 }
-

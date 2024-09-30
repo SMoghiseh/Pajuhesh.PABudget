@@ -15,7 +15,7 @@
         </div>
       </div>
       <ng-container *ngFor="let item of planDetailData">
-        <div class="col-3 section mt-4">
+        <div [style.borderColor]="item.color" class="col-6 section mt-4">
           <div>
             <div class="title-holder">
               <p>استراتژی</p>
@@ -26,6 +26,8 @@
                 <p>{{ desc }}</p>
               </ng-container>
             </div>
+
+            <!-- [style.borderColor]="item.color" -->
           </div>
         </div>
       </ng-container>

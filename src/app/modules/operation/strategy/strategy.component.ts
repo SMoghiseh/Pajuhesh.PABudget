@@ -42,6 +42,8 @@ export class StrategyComponent {
 
   // dropdown data list
   bigGoalList: any = [];
+  getCompanyByPlanIdList: any = [];
+  getPlanId!: number;
 
   constructor(
     private httpService: HttpService,
@@ -52,7 +54,6 @@ export class StrategyComponent {
 
   ngOnInit(): void {
     this.getBigGoalList();
-
     this.searchForm = new FormGroup({
       title: new FormControl(null),
       bigGoalId: new FormControl(null),
@@ -60,6 +61,7 @@ export class StrategyComponent {
       strategyPriority: new FormControl(null),
     });
     this.planningId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getCompanyByPlanId(this.planningId);
   }
 
   getBigGoalList() {
@@ -141,6 +143,16 @@ export class StrategyComponent {
       });
   }
 
+  getCompanyByPlanId(id: number) {
+    this.httpService
+      .get<BigGoal[]>(BigGoal.apiAddressGetComPlanId + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.getCompanyByPlanIdList = response.data.result;
+          this.getPlanId = this.getCompanyByPlanIdList;
+        }
+      });
+  }
   deletePlan(id: number, title: string) {
     if (id && title) {
       this.httpService

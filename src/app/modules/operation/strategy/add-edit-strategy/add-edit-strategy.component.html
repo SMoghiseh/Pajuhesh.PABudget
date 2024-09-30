@@ -1,57 +1,96 @@
 <p-toast key="swot" position="bottom-left"></p-toast>
 
-
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
-    <div class="container row">
-        <div class="col-6 mt-2">
-            <label for="planningId"> برنامه </label>
-            <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
-                [readonly]="true" [class.ng-invalid]="planningId?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && planningId?.pristine) ||
-                planningId?.dirty ||
-                planningId?.touched
-              ">
-            </p-dropdown>
-        </div>
-        <div class="col-6 mt-2">
-            <label for="strategyCode"> کد </label>
-            <input pInputText id="strategyCode" name="strategyCode" formControlName="strategyCode" class="w-100 my-1"
-                [class.ng-invalid]="strategyCode?.invalid" [class.ng-dirty]="
+  <div class="container row">
+    <div class="col-6 mt-2">
+      <label for="planningId"> برنامه </label>
+      <p-dropdown
+        id="planningId"
+        name="planningId"
+        formControlName="planningId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="planingList"
+        [filter]="true"
+        [readonly]="true"
+        [class.ng-invalid]="planningId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && planningId?.pristine) ||
+          planningId?.dirty ||
+          planningId?.touched
+        ">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="strategyCode"> کد </label>
+      <input
+        pInputText
+        id="strategyCode"
+        name="strategyCode"
+        formControlName="strategyCode"
+        class="w-100 my-1"
+        [class.ng-invalid]="strategyCode?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && strategyCode?.pristine) ||
           strategyCode?.dirty ||
           strategyCode?.touched
         " />
-        </div>
-        <div class="col-6 mt-2">
-            <label for="title"> عنوان </label>
-            <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
-                [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+    </div>
+    <div class="col-6 mt-2">
+      <label for="title"> عنوان </label>
+      <input
+        pInputText
+        id="title"
+        name="title"
+        formControlName="title"
+        class="w-100 my-1"
+        [class.ng-invalid]="title?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
         " />
-        </div>
+    </div>
 
-        <div class="col-6 mt-2">
-            <label for="bigGoalId"> شناسه اهداف </label>
-            <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="bigGoalList" [filter]="true">
-            </p-dropdown>
-        </div>
-        <div class="col-6 mt-2">
-            <label for="strategyPriority"> الویت </label>
-            <input pInputText id="strategyPriority" name="strategyPriority" formControlName="strategyPriority"
-                class="w-100 my-1" [class.ng-invalid]="strategyPriority?.invalid" [class.ng-dirty]="
+    <div class="col-6 mt-2">
+      <label for="bigGoalId"> شناسه اهداف </label>
+      <p-dropdown
+        id="bigGoalId"
+        name="bigGoalId"
+        formControlName="bigGoalId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="bigGoalList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="strategyPriority"> الویت </label>
+      <input
+        pInputText
+        id="strategyPriority"
+        name="strategyPriority"
+        formControlName="strategyPriority"
+        class="w-100 my-1"
+        [class.ng-invalid]="strategyPriority?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && strategyPriority?.pristine) ||
           strategyPriority?.dirty ||
           strategyPriority?.touched
         " />
-        </div>
-
-        <div class="col-12 row-btn row-btn-fixed-bottom">
-            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
-                [loading]="isLoadingSubmit"></p-button>
-        </div>
     </div>
+
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
 </form>
