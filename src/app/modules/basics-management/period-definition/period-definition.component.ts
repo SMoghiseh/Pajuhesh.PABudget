@@ -72,7 +72,7 @@ export class PeriodDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((param: any) => {
@@ -203,9 +203,12 @@ export class PeriodDefinitionComponent implements OnInit {
   }
   // Set PeriodId On Active Component Route
   setActiveComponentRoute(item: Period) {
-    this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] + '/' + item.id;
-    });
+    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    if (!Number(idOfRouting)) {
+      this.subComponentList.forEach((componentInfo: any) => {
+        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
+      });
+    }
   }
 }

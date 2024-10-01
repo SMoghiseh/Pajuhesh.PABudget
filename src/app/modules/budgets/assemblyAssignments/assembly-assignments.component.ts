@@ -5,9 +5,7 @@ import { HttpService } from '@core/http/http.service';
 import {
   AssemblyAssignments,
   Company,
-  Pagination,
-  PlanningValue,
-  UrlBuilder,
+  Pagination, UrlBuilder
 } from '@shared/models/response.model';
 import {
   ConfirmationService,
@@ -51,7 +49,7 @@ export class AssemblyAssignmentsComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
   ngOnInit(): void {
     // this.getAssemblyAssignmentsLst();
     this.getMeetingTopicList();
@@ -148,7 +146,7 @@ export class AssemblyAssignmentsComponent {
       this.httpService
         .get<AssemblyAssignments>(
           UrlBuilder.build(AssemblyAssignments.apiAddress + 'Delete', '') +
-            `/${id}`
+          `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -187,9 +185,12 @@ export class AssemblyAssignmentsComponent {
   }
   // Set PlanningId On Active Component Route
   setActiveComponentRoute(item: AssemblyAssignments) {
-    this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] + '/' + item.id;
-    });
+    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    if (!Number(idOfRouting)) {
+      this.subComponentList.forEach((componentInfo: any) => {
+        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
+      });
+    }
   }
 }

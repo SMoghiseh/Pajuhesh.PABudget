@@ -194,9 +194,12 @@ export class VisionComponent {
 
   // Set PlanningId On Active Component Route
   setActiveComponentRoute(item: Vision) {
-    this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] + '/' + item.id;
-    });
+    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    if (!Number(idOfRouting)) {
+      this.subComponentList.forEach((componentInfo: any) => {
+        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
+      });
+    }
   }
 }

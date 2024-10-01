@@ -56,7 +56,7 @@ export class ProjectComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getBudgetPeriodLst();
     this.getCompanyLst();
@@ -213,9 +213,12 @@ export class ProjectComponent {
 
   // Set PlanningId On Active Component Route
   setActiveComponentRoute(item: Project) {
-    this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] + '/' + item.id;
-    });
+    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    if (!Number(idOfRouting)) {
+      this.subComponentList.forEach((componentInfo: any) => {
+        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
+      });
+    }
   }
 }

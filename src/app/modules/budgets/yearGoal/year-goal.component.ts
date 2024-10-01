@@ -57,7 +57,7 @@ export class YearGoalComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAspectCodeLst();
@@ -202,15 +202,21 @@ export class YearGoalComponent {
   }
 
   setActiveComponentRoute(item: YearGoal) {
-    this.subComponentList.forEach((componentInfo: any) => {
-      componentInfo['routerLink'][0] =
-        componentInfo['routerLink'][0] +
-        '/' +
-        // budgetPeriodId
-        Number(this.route.snapshot.paramMap.get('id')) +
-        '/' +
-        // yearGoalId
-        +item.id;
-    });
+
+    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    if (!Number(idOfRouting)) {
+      this.subComponentList.forEach((componentInfo: any) => {
+        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] +
+          '/' +
+          // budgetPeriodId
+          Number(this.route.snapshot.paramMap.get('id')) +
+          '/' +
+          // yearGoalId
+          +item.id;;
+      });
+    }
+
+
   }
 }
