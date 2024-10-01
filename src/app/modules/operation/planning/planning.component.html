@@ -77,6 +77,8 @@
         <th style="min-width: 10rem"><strong> تاریخ تنظیم </strong></th>
         <th style="min-width: 10rem"><strong> از تاریخ </strong></th>
         <th style="min-width: 10rem"><strong> تا تاریخ </strong></th>
+        <th style="min-width: 10rem"><strong> ثبت کننده </strong></th>
+        <th style="min-width: 10rem"><strong> تعیین کننده </strong></th>
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
@@ -89,6 +91,8 @@
         <td>{{ item.planingDate }}</td>
         <td>{{ item.startDate }}</td>
         <td>{{ item.endDate }}</td>
+        <td>{{ item.registrar }}</td>
+        <td>{{ item.determinant }}</td>
         <td class="jc-left ai-left">
           <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
