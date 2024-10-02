@@ -1653,6 +1653,13 @@ export class YearRisk {
   title!: string;
 }
 
+export class RelatedYearRisk {
+  static readonly apiAddress = 'api/PABudgetApi/v1/RelatedYearRiskProgram/';
+  static readonly yearActivityApiAddress = 'api/PABudgetApi/v1/RelatedYearRiskProgram/GetAllRelatedYearRiskProgramsByYearActivity/';
+  id!: number;
+  yearActivityTitle!: string;
+}
+
 export class EvaluateIndex {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/EvaluateIndex/';
   id!: number;

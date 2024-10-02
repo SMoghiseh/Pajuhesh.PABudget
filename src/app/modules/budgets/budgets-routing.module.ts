@@ -13,6 +13,7 @@ import { YearPolicyComponent } from './year-policy/year-policy.component';
 import { YearRiskComponent } from './year-risk/year-risk.component';
 import { FinancialRatiosPriceComponent } from './financial-ratios-price/financial-ratios-price.component';
 import { FinancialRatiosIndustryComponent } from './financial-ratios-industry/financial-ratios-industry.component';
+import { RelatedYearRiskComponent } from './related-year-risk/related-year-risk.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,11 @@ const routes: Routes = [
             title: 'برنامه و بودجه | برنامه عملیاتی',
           },
           {
+            path: 'RelatedYearRiskProgram/:periodId/:yearRisk',
+            component: RelatedYearRiskComponent,
+            title: 'برنامه و بودجه | برنامه مرتبط ریسک',
+          },
+          {
             path: 'FinancialRatiosPrice/:id',
             component: FinancialRatiosPriceComponent,
             title: 'برنامه و بودجه | برنامه عملیاتی',
@@ -83,4 +89,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BudgetsRoutingModule {}
+export class BudgetsRoutingModule { }
