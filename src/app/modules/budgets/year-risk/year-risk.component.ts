@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearRisk, Company, EvaluateIndex, KeyTypeCode, Period
+  UrlBuilder, YearRisk, Company, EvaluateIndex, KeyTypeCode, Period, YearGoal
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -11,6 +11,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-year-risk',
@@ -36,6 +37,14 @@ export class YearRiskComponent {
   // form property
   searchForm!: FormGroup;
 
+  subComponentList = [
+    {
+      label: ' برنامه مرتبط ریسک ',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/RelatedYearRiskProgram'],
+    },
+  ];
+
   // dropdown data list
   budgetPeriodList: any = [];
   evaluateIndexList: any = [];
@@ -46,6 +55,7 @@ export class YearRiskComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -207,4 +217,25 @@ export class YearRiskComponent {
     this.searchForm.reset();
     this.getList();
   }
+
+  setActiveComponentRoute(item: YearGoal) {
+
+    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    if (!Number(idOfRouting)) {
+      this.subComponentList.forEach((componentInfo: any) => {
+        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] +
+          '/' +
+          // budgetPeriodId
+          Number(this.route.snapshot.paramMap.get('id')) +
+          '/' +
+          // yearRiskId
+          +item.id;
+      });
+    }
+
+
+  }
+
+
 }

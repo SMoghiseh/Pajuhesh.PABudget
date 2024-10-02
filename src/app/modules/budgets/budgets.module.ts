@@ -44,6 +44,8 @@ import { FinancialRatiosPriceComponent } from './financial-ratios-price/financia
 import { AddEditFinancialRatiosPriceComponent } from './financial-ratios-price/add-edit-financial-ratios-price/add-edit-financial-ratios-price.component';
 import { FinancialRatiosIndustryComponent } from './financial-ratios-industry/financial-ratios-industry.component';
 import { AddEditFinancialRatiosIndustryComponent } from './financial-ratios-industry/add-edit-financial-ratios-industry/add-edit-financial-ratios-industry.component';
+import { RelatedYearRiskComponent } from './related-year-risk/related-year-risk.component';
+import { AddEditRelatedYearRiskComponent } from './related-year-risk/add-edit-related-year-risk/add-edit-related-year-risk.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { AddEditFinancialRatiosIndustryComponent } from './financial-ratios-indu
     FinancialRatiosPriceComponent,
     AddEditFinancialRatiosPriceComponent,
     FinancialRatiosIndustryComponent,
-    AddEditFinancialRatiosIndustryComponent
+    AddEditFinancialRatiosIndustryComponent,
+    RelatedYearRiskComponent,
+    AddEditRelatedYearRiskComponent
   ],
   imports: [
     CommonModule,
