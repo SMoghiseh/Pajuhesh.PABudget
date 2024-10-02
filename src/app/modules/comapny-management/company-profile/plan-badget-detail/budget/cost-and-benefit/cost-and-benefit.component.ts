@@ -3,9 +3,11 @@ import { HttpService } from '@core/http/http.service';
 import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, MenuItem, PrimeIcons } from 'primeng/api';
 import { Colors } from 'chart.js';
 import { title } from 'process';
+import { style } from '@angular/animations';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'PABudget-cost-and-benefit',
@@ -36,13 +38,24 @@ export class CostAndBenefitComponent implements OnInit {
   allChartsData: any;
   listOfBudgetReport: Budget[] = [];
   selectedlistOfBudgetReport: any = [];
-
+  items: MenuItem[] | undefined;
   constructor(private httpService: HttpService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { debugger
     this.getPriceType();
     this.getTreeTableData();
     this.getListOfBudgetReportLst();
+
+    // this.items = [
+    //   {
+    //     styleClass: 'negativeNumbers',
+    //     iconStyle: 'pi pi-arrow-down',
+    //   },
+    //   {
+    //     styleClass: 'pasitiveNumbers',
+    //     iconStyle: 'pi pi-arrow-up',
+    //   },
+    // ];
   }
 
   returnSelectedDate(e: any) {
@@ -57,6 +70,7 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getListOfBudgetReportLst() {
+    debugger;
     this.httpService
       .get<Budget[]>(Budget.apiListOfBudgetReport)
       .subscribe(response => {
@@ -112,6 +126,7 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getTreeTableData() {
+    debugger;
     this.selectedRows = [];
     if (!this.selectedYerId) return;
     const body = {
@@ -131,6 +146,14 @@ export class CostAndBenefitComponent implements OnInit {
       .subscribe(res => {
         this.treeTableData = res;
       });
+
+    // for (let i = 0; this.treeTableData.budgetDetails.length > 0; i++) {
+    //   if (this.treeTableData.budgetDetails[i].data.value !== 0) {
+    //     const getvalue = this.treeTableData.budgetDetails[i].data.value;
+    //     if (getvalue > 0) PrimeIcons.ARROW_DOWN;
+    //     else PrimeIcons.ARROW_UP;
+    //   }
+    // }
   }
 
   getChart(chartId?: number, priceType?: number) {
