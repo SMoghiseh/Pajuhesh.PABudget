@@ -1,6 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountReport, AccountReportItemPrice, AccountReportToItem, Company, Period } from '@shared/models/response.model';
+import {
+  AccountReport,
+  AccountReportItemPrice,
+  AccountReportToItem,
+  Company,
+  Period,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -22,7 +28,6 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
   periodList: any = [];
   periodDetailLst: Period[] = [];
   accountReportList: any[] = [];
-
 
   inputData = new AccountReportItemPrice();
   @Input() mode = '';
@@ -63,10 +68,9 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getPeriodLst();
     this.getCompanyLst();
     this.getAccountRepLst();
@@ -79,7 +83,6 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
       toPeriodDetailId: new FormControl('', Validators.required),
       priceCu: new FormControl(this.inputData.priceCu, Validators.required),
       accountRepId: new FormControl(this.inputData.accountRepId),
-
     });
 
     if (this.mode === 'edit') {
@@ -93,8 +96,10 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
     if (this.addEditForm.valid) {
       const request: AccountReportItemPrice = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url = this.mode === 'insert' ? AccountReportItemPrice.apiAddress + 'CreateAccountReportItemPrice' :
-        AccountReportItemPrice.apiAddress + 'UpdateAccountReportItemPrice';
+      const url =
+        this.mode === 'insert'
+          ? AccountReportItemPrice.apiAddress + 'CreateAccountReportItemPrice'
+          : AccountReportItemPrice.apiAddress + 'UpdateAccountReportItemPrice';
       this.isLoadingSubmit = true;
 
       this.httpService
@@ -120,11 +125,11 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
 
   getAccountReportItemLst(data: any) {
     this.httpService
-      .post<AccountReportToItem[]>(AccountReportToItem.apiAddress + 'GetAccountRepToItemListByOrder',
-        {
-          withOutPagination: true,
-          reportId: data.value
-        })
+      .get<AccountReportToItem[]>(
+        AccountReportToItem.apiAddress +
+          'GetAccountRepToItemListByOrder/' +
+          data.value
+      )
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportItemList = response.data.result;
@@ -144,7 +149,9 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
 
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', { 'withOutPagination': true })
+      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
@@ -153,7 +160,9 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
   }
   getAccountRepLst() {
     this.httpService
-      .post<AccountReport[]>(AccountReport.apiAddressList, { 'withOutPagination': true })
+      .post<AccountReport[]>(AccountReport.apiAddressList, {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.accountReportList = response.data.result;
@@ -182,7 +191,11 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
 
   getRowData(id: number) {
     this.httpService
-      .get<any>(AccountReportItemPrice.apiAddress + 'GetAccountReportItemPriceById/' + id)
+      .get<any>(
+        AccountReportItemPrice.apiAddress +
+          'GetAccountReportItemPriceById/' +
+          id
+      )
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
@@ -190,9 +203,4 @@ export class AddEditAccountReportItemPriceComponent implements OnInit {
         }
       });
   }
-
-
-
-
-
 }

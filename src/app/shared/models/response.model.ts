@@ -1468,6 +1468,22 @@ export class AccountReportToItem {
   companyTitle!: string;
   accountRepItemId!: number;
   accountRepItemTitle!: string;
+  updated!: boolean;
+  priceCu!: number;
+}
+
+export class headerData {
+  field!: string;
+  headerName!: string;
+}
+
+export class AccountReportToItemBody {
+  data!: AccountReportToItem;
+  children!: AccountReportToItemBody[];
+}
+export class AccountReportToItemData {
+  headers!: headerData[];
+  body!: AccountReportToItemBody[];
 }
 export class AccountReportItem {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReportItem/';

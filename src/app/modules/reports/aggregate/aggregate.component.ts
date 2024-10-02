@@ -6,6 +6,7 @@ import {
   AccountReportItemPrice,
   Period,
   Company,
+  AccountReportToItemData,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -29,18 +30,83 @@ export class AggregateComponent implements OnInit {
   gridClass = 'p-datatable-sm';
   dataTableRows = 5;
   totalCount!: number;
-  accountReportItemList: any[] = [];
+  accountReportItemList!: AccountReportToItemData;
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   accountReportList: any[] = [];
   selectedReport: any = {};
   isLoadingSubmit = false;
+  changeList: any = [];
 
   // dropdown data list
   companyList: any = [];
   periodList: any = [];
   periodDetailLst: Period[] = [];
+
+  tempData = [
+    {
+      data: {
+        name: 'Applications',
+        size: '100kb',
+        type: 'Folder',
+      },
+      children: [
+        {
+          data: {
+            name: 'React',
+            size: '25kb',
+            type: 'Folder',
+          },
+          children: [
+            {
+              data: {
+                name: 'react.app',
+                size: '10kb',
+                type: 'Application',
+              },
+            },
+            {
+              data: {
+                name: 'native.app',
+                size: '10kb',
+                type: 'Application',
+              },
+            },
+            {
+              data: {
+                name: 'mobile.app',
+                size: '5kb',
+                type: 'Application',
+              },
+            },
+          ],
+        },
+        {
+          data: {
+            name: 'editor.app',
+            size: '25kb',
+            type: 'Application',
+          },
+        },
+        {
+          data: {
+            name: 'settings.app',
+            size: '50kb',
+            type: 'Application',
+          },
+        },
+      ],
+    },
+    {
+      data: {
+        name: 'Cloud',
+        size: '20kb',
+        type: 'Folder',
+      },
+      children: [],
+    },
+  ];
 
   get reportTypeCode() {
     return this.accountReportPriceForm.get('reportTypeCode');
@@ -50,7 +116,7 @@ export class AggregateComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -136,15 +202,14 @@ export class AggregateComponent implements OnInit {
     const url =
       AccountReportToItem.apiAddress + 'GetAccountRepToItemListByOrder';
     this.httpService
-      .post<AccountReportToItem[]>(url, body)
+      .post<AccountReportToItemData>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
-          if (response.data && response.data.result) {
-            this.totalCount = response.data.result.length;
+          if (response.data && response.data.result)
             return response.data.result;
-          } else return [new AccountReportToItem()];
+          else return new AccountReportToItemData();
         })
       )
       .subscribe(res => {
@@ -174,14 +239,6 @@ export class AggregateComponent implements OnInit {
     this.getAccountReportItemLst();
   }
 
-  convertData() {
-    const data = this.accountReportItemList.filter(item => item.updated);
-    return data.map(item => ({
-      accountRepItemId: item.accountRepItemId,
-      priceCu: item.priceCu,
-    }));
-  }
-
   addList() {
     const url = AccountReportItemPrice.apiAddress + 'AggregateCreate';
     const request = this.accountReportPriceForm.value;
@@ -197,7 +254,7 @@ export class AggregateComponent implements OnInit {
       ? request.toPeriodDetailId
       : 0;
     request.periodId = request.periodId ? request.periodId : 0;
-    request['accountReportItemPriceModels'] = this.convertData();
+    request['accountReportItemPriceModels'] = this.changeList;
 
     this.isLoadingSubmit = true;
     this.httpService
@@ -218,34 +275,13 @@ export class AggregateComponent implements OnInit {
   }
 
   onChangePrice(item: any) {
-    // find item selected from list
-    const object = this.accountReportItemList.find(
-      record => record.accountRepItemId == item.accountRepItemId
-    );
-    // add property updated to it
-    object['updated'] = true;
+    this.changeList.push({
+      accountRepItemId: item.accountRepItemId,
+      priceCu: item.priceCu,
+    });
   }
 
   addAccountReportToItem(report: AccountReport) {
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
   }
-
-  // onPage($event: any) {
-  //   if (!this.updateAtLeastOneInputValue) return;
-  //   this.confirmationService.confirm({
-  //     message: 'لطفا تغییرات خود را ذخیره نمایید . آیا مایل به ادامه هستید ؟  ',
-  //     header: `تغییراتی اعمال شده است`,
-  //     icon: 'pi pi-exclamation-triangle',
-  //     acceptLabel: 'تایید',
-  //     acceptButtonStyleClass: 'p-button-danger',
-  //     acceptIcon: 'pi pi-check',
-  //     rejectLabel: 'انصراف',
-  //     rejectButtonStyleClass: 'p-button-secondary',
-  //     defaultFocus: 'reject',
-  //     accept: () => { this.addList() },
-  //     reject: () => {
-  //       this.first = 0
-  //     }
-  //   });
-  // }
 }

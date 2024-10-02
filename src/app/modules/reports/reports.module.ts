@@ -29,6 +29,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeModule } from 'primeng/tree';
+import { TreeTableModule } from 'primeng/treetable';
 import { PickListModule } from 'primeng/picklist';
 import { AggregateComponent } from './aggregate/aggregate.component';
 import { PaginatorModule } from 'primeng/paginator';
@@ -69,6 +70,7 @@ import { BenefitCostReportComponent } from './benefit-cost-report/benefit-cost-r
     PaginatorModule,
     TooltipModule,
     RadioButtonModule,
+    TreeTableModule,
   ],
   providers: [
     {
@@ -79,4 +81,4 @@ import { BenefitCostReportComponent } from './benefit-cost-report/benefit-cost-r
     },
   ],
 })
-export class ReportsModule { }
+export class ReportsModule {}
