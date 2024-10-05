@@ -74,7 +74,7 @@
 
       <div *ngIf="viewMode === 'treeTable'" class="table-container">
         <p-treeTable
-          class="treeTable-container"
+          class="treeTable-container treeTable-profile-style"
           [value]="treeTableData?.budgetDetails"
           [columns]="treeTableData?.headers"
           selectionMode="checkbox"
@@ -102,7 +102,7 @@
                 <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
-                
+
                 {{ rowData[col.field] }}
               </td>
               <!-- <td></td> -->
