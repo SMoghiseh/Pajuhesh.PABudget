@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { YearActivity, RelationType } from '@shared/models/response.model';
+import { RelatedActivity, RelationType, YearActivity } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -24,9 +24,9 @@ export class AddEditRelatedActivityComponent {
   relationTypeList: any = [];
 
 
-  inputData = new YearActivity();
+  inputData = new RelatedActivity();
   @Input() mode = '';
-  @Input() set data1(data: YearActivity) {
+  @Input() set data1(data: RelatedActivity) {
     this.inputData = data;
   }
 
@@ -79,17 +79,17 @@ export class AddEditRelatedActivityComponent {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       const url = this.mode === 'insert'
-        ? YearActivity.apiAddress + 'Create'
-        : YearActivity.apiAddress + 'Update';
+        ? RelatedActivity.apiAddress + 'Create'
+        : RelatedActivity.apiAddress + 'Update';
 
       this.isLoadingSubmit = true;
       this.httpService
-        .post<YearActivity>(url, request)
+        .post<RelatedActivity>(url, request)
         .pipe(tap(() => (this.isLoadingSubmit = false)))
         .subscribe(response => {
           if (response.successed) {
             this.messageService.add({
-              key: 'YearActivity',
+              key: 'RelatedActivity',
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
@@ -139,7 +139,7 @@ export class AddEditRelatedActivityComponent {
 
   getRowData(id: number) {
     this.httpService
-      .get<any>(YearActivity.apiAddress + 'Get/' + id)
+      .get<any>(RelatedActivity.apiAddress + 'Get/' + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
