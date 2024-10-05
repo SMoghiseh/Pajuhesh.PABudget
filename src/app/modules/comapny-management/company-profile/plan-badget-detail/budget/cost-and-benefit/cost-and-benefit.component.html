@@ -98,8 +98,9 @@
                 *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
+                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
+                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
               </td>
@@ -160,14 +161,19 @@
           <!-- / table header -->
           <!-- table body -->
 
-          <ng-template pTemplate="body" let-rowData>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-              <td>
+              <!-- <td>
                 {{ rowData['accountReportItemTitle'] }}
-              </td>
+              </td> -->
 
-              <td>
-                {{ rowData['value'] }}
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
+                [class.pasitiveNumbers]="rowData[col.field] > 0">
+                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
+                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
+                {{ rowData[col.field] }}
               </td>
             </tr>
           </ng-template>

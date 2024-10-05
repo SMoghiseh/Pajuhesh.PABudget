@@ -34,20 +34,77 @@
   
 }
 
- ::ng-deep .p-treetable .p-treetable-tbody > tr {
-  display: table ;
-  margin-right: 7px !important;
+  ::ng-deep p-treetable.treeTable-container {
+  .p-treetable-thead>tr {
+    display: contents;
+
+
+    >th {
+      text-align: center !important;
+      background-color: rgba(255,152,116,0.6) !important;
+      height: 38px;
+      border-radius: 8px;
+      padding-top: 8px !important;
+      margin-left: 22px !important;
+      // width: 527px;
+      margin-top: 40px;
+      position: relative;
+    }
+  }
+
+  .p-treetable-tbody {
+    >tr {
+      display: table-row ;
+
+      >td {
+        &:nth-child(1) {
+          text-align: right !important;
+        }
+
+        text-align: center !important;
+        width: 350px;
+
+        .pi-chevron-right {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
 }
+
+
+::ng-deep .p-treetable table {
+  table-layout: unset !important;
+}
+
+ ::ng-deep .p-treetable .p-treetable-tbody > tr {
+ 
+  margin-right: 7px !important;
+  > td {
+    border: unset !important;
+  }
+
+  &:focus {
+    outline: 0.15rem solid rgba(255, 152, 116, 0.6)!important;
+  }
+ }
+
+
 
 ::ng-deep .p-treetable .p-treetable-scrollable-header,
 .p-treetable .p-treetable-scrollable-footer {
   background: none;
+  padding-top: 40px ;
 }
 
- ::ng-deep .table-container {
-  .p-datatable {
+::ng-deep .p-treetable-scrollable-header-box{
+  padding-right: 0px !important;
+}
+:host ::ng-deep .table-container  .p-datatable  {
    
-    .p-datatable-thead>tr>th {
+    .p-datatable-thead>tr {
+    display: contents ;
+    >th {
       
       text-align: center !important;
       background-color: rgba(255,152,116,0.6) !important;
@@ -55,27 +112,29 @@
       border-radius: 8px;
       padding-top: 8px !important;
       margin-left: 22px !important;
-      width: 500px;
+      // width: 552px;
       margin-top: 40px;
-      display: inline-block;
+      // display: inline-block;
+      position: relative !important;
      
     }
-
   }
-}
+  }
 
-::ng-deep .p-datatable .p-datatable-tbody > tr {
-     display: table;
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+     display:table-row;
       margin-right: 20px;
 }
 
-  ::ng-deep   .table-container .p-datatable-tbody>tr>td {
-  // text-align: center !important;
+:host ::ng-deep  .table-container .p-datatable-tbody>tr>td {
+
    min-width: 511px !important;
    width: 500px !important;
    text-align-last : center  !important;
    height: 40px;
+   border: unset;
 }
+
 
 
 tr:nth-child(even) {
@@ -90,5 +149,26 @@ tr:nth-child(even) {
 
     }
   
+}
+
+::ng-deep  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box {
+   &.p-highlight:hover {
+  border-color: rgba(59, 130, 246, 1) !important;
+  background: rgba(59, 130, 246, 1) !important;
+  color: #ffffff;
+}
+   &:hover {
+  border-color: rgba(59, 130, 246, 1);
+      }
+}
+
+::ng-deep  .p-checkbox .p-checkbox-box.p-highlight {
+  border-color: rgba(59, 130, 246, 1) !important;
+  background: rgba(59, 130, 246, 1) !important;
+}
+
+::ng-deep  .table-container {
+padding-right: 0px !important;
+padding-top: 40px ;
 }
 

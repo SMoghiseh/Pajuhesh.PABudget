@@ -126,7 +126,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getTreeTableData() {
-    debugger;
     this.selectedRows = [];
     if (!this.selectedYerId) return;
     const body = {
@@ -179,7 +178,7 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getTableData(comparison: number) {
+  getTableData(comparison: number) { debugger
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
