@@ -50,7 +50,7 @@ const routes: Routes = [
             title: 'برنامه و بودجه | مفاد',
           },
           {
-            path: 'RelatedActivity/:yearActivityId',
+            path: 'RelatedActivity/:budgetPeriodId/:yearGoalId/:yearActivityId',
             component: RelatedActivityComponent,
             title: 'برنامه و بودجه | برنامه عملیاتی',
           },

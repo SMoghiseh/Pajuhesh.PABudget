@@ -1,4 +1,4 @@
-<p-toast key="yearGoal" position="bottom-left"></p-toast>
+<p-toast key="RelatedActivity" position="bottom-left"></p-toast>
 
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
@@ -13,7 +13,7 @@
         <div class="col-12">
             <label for="relatedYearActivityId"> برنامه مرتبط </label>
             <p-dropdown id="relatedYearActivityId" name="relatedYearActivityId" formControlName="relatedYearActivityId"
-                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
+                styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
                 [options]="relatedYearActivityList" [filter]="true">
             </p-dropdown>
         </div>

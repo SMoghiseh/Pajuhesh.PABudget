@@ -220,19 +220,51 @@ export class YearRiskComponent {
 
   setActiveComponentRoute(item: YearGoal) {
 
+    // let componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    // let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
+    // if (!Number(idOfRouting)) {
+    //   this.subComponentList.forEach((componentInfo: any) => {
+    //     componentInfo['routerLink'][0] = componentInfo['routerLink'][0] +
+    //       '/' +
+    //       // budgetPeriodId
+    //       Number(this.route.snapshot.paramMap.get('id')) +
+    //       '/' +
+    //       // yearRiskId
+    //       +item.id;
+    //   });
+    // }
+
+
+
+
     let componentRouterLink = this.subComponentList[0]['routerLink'][0];
-    let idOfRouting = componentRouterLink.split('/')[componentRouterLink.split('/').length - 1];
-    if (!Number(idOfRouting)) {
-      this.subComponentList.forEach((componentInfo: any) => {
-        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] +
-          '/' +
-          // budgetPeriodId
-          Number(this.route.snapshot.paramMap.get('id')) +
-          '/' +
-          // yearRiskId
-          +item.id;
-      });
+    let array = componentRouterLink.split('/');
+    let idOfRouting = array[componentRouterLink.split('/').length - 1];
+
+    if (Number(idOfRouting) != Number(this.route.snapshot.paramMap.get('id'))) {
+
+      if (Number(idOfRouting)) {
+        this.subComponentList.forEach((componentInfo: any) => {
+          let url = componentInfo['routerLink'][0].split('/');
+          let prevId = url.pop();
+          let baseUrl = '';
+          url.forEach((i: string) => {
+            if (i != '')
+              baseUrl = baseUrl.concat(`/${i}`);
+          })
+          componentInfo['routerLink'][0] = baseUrl + '/' + item.id;
+        });
+      } else {
+        this.subComponentList.forEach((componentInfo: any) => {
+          componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' +
+            Number(this.route.snapshot.paramMap.get('id')) + '/' +
+            item.id;
+        });
+      }
     }
+
+
+
 
 
   }

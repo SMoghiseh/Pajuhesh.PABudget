@@ -1625,6 +1625,16 @@ export class RelationType {
   title!: string;
 }
 
+export class RelatedActivity {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BudgetPeriod/RelatedActivity/';
+  static readonly getAllRelatedActivitiesApiAddress =
+    'api/PABudgetApi/v1/BudgetPeriod/GetAllRelatedActivities/';
+  id!: number;
+  title!: string;
+  relatedYearActivityTitle!: string;
+}
+
 export class YearPolicy {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearPolicy/';
   id!: number;
@@ -1639,7 +1649,7 @@ export class YearRisk {
 
 export class RelatedYearRisk {
   static readonly apiAddress = 'api/PABudgetApi/v1/RelatedYearRiskProgram/';
-  static readonly yearActivityApiAddress = 'api/PABudgetApi/v1/RelatedYearRiskProgram/GetAllRelatedYearRiskProgramsByYearActivity/';
+  static readonly getAllYearActivityApiAddress = 'api/PABudgetApi/v1/GetAllRelatedYearRiskProgramsByYearActivity/';
   id!: number;
   yearActivityTitle!: string;
 }
