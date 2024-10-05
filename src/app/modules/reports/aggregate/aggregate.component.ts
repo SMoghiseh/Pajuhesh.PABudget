@@ -270,18 +270,36 @@ export class AggregateComponent implements OnInit {
             summary: 'با موفقیت ثبت شد',
           });
         }
+        this.changeList = [];
         this.getAccountReportItemLst();
       });
   }
 
   onChangePrice(item: any) {
-    this.changeList.push({
-      accountRepItemId: item.accountRepItemId,
-      priceCu: item.priceCu,
-    });
+    const fltr = this.changeList.filter(
+      (x: any) => x.accountRepItemId === item.accountRepItemId
+    );
+    if (fltr.length > 0) {
+      const index = this.changeList.indexOf(fltr[0]);
+      if (index > -1) {
+        this.changeList.splice(index, 1);
+        this.changeList.push({
+          accountRepItemId: item.accountRepItemId,
+          priceCu: item.priceCu,
+        });
+      }
+    } else
+      this.changeList.push({
+        accountRepItemId: item.accountRepItemId,
+        priceCu: item.priceCu,
+      });
   }
 
   addAccountReportToItem(report: AccountReport) {
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
+  }
+
+  openDialog(e: any) {
+    debugger;
   }
 }
