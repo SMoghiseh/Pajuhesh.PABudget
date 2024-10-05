@@ -88,14 +88,18 @@
             let-rowData="rowData"
             let-columns="columns">
             <tr [ttRow]="rowNode">
-              <td *ngFor="let col of columns; let i = index">
+              <td *ngFor="let col of columns; let i = index" 
+              [class.negativeNumbers]="rowData[col.field] < 0"
+              [class.pasitiveNumbers]="rowData[col.field] > 0">
+              <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
+                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
                 <p-treeTableCheckbox [value]="rowNode"
                   *ngIf="i === 0" />
                 <p-treeTableToggler [rowNode]="rowNode"
                   *ngIf="i === 0" />
                 {{ rowData[col.field] }}
               </td>
-              <td></td>
+              <!-- <td></td> -->
             </tr>
           </ng-template>
         </p-treeTable>
@@ -118,9 +122,11 @@
         </div>
       </div>
 
-      <div *ngIf="viewMode === 'table'">
-        <p-table #dataTable
-          style="text-align: right"
+      <div *ngIf="viewMode === 'table'" class="table-container">
+        <p-table
+          #dataTable
+          style="text-align: center"
+          class="table-Profile"
           dataKey="id"
           [columns]="cols"
           [value]="tableData"
@@ -131,32 +137,34 @@
           [rowHover]="true"
           [loading]="loading"
           selectionMode="single"
-          [tableStyle]="{ 'min-width': '75rem' }">
+          [tableStyle]="{ 'min-width': '50rem' }">
           <!-- table header -->
 
           <!--  table header -->
 
-          <ng-template pTemplate="header"
-            let-columns>
+          <ng-template pTemplate="header" let-columns>
             <tr>
               <th *ngFor="let col of columns">
-                <span> {{ col.headerName }} </span>
+                {{ col.headerName }}
               </th>
             </tr>
           </ng-template>
           <!-- / table header -->
           <!-- table body -->
 
-          <ng-template pTemplate="body"
-            let-rowData
-            let-columns="columns">
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-              <td>
+              <!-- <td>
                 {{ rowData['accountReportItemTitle'] }}
-              </td>
+              </td> -->
 
-              <td>
-                {{ rowData['value'] }}
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
+                [class.pasitiveNumbers]="rowData[col.field] > 0">
+                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
+                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
+                {{ rowData[col.field] }}
               </td>
             </tr>
           </ng-template>
