@@ -41,7 +41,7 @@ export class CostAndBenefitComponent implements OnInit {
   items: MenuItem[] | undefined;
   constructor(private httpService: HttpService) {}
 
-  ngOnInit(): void { debugger
+  ngOnInit(): void {
     this.getPriceType();
     this.getTreeTableData();
     this.getListOfBudgetReportLst();
@@ -70,7 +70,6 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getListOfBudgetReportLst() {
-    debugger;
     this.httpService
       .get<Budget[]>(Budget.apiListOfBudgetReport)
       .subscribe(response => {
@@ -178,7 +177,7 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getTableData(comparison: number) { debugger
+  getTableData(comparison: number) {
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
