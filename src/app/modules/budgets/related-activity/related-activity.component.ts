@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearActivity, RelationType
+  UrlBuilder, RelatedActivity, RelationType, YearActivity
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -23,13 +23,13 @@ export class RelatedActivityComponent {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: YearActivity[] = [];
+  data: RelatedActivity[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
   isOpenAddEditYearActivity = false;
-  addEditData = new YearActivity();
+  addEditData = new RelatedActivity();
   pId!: string;
   mode!: string;
 
@@ -52,14 +52,17 @@ export class RelatedActivityComponent {
   ngOnInit(): void {
 
     this.getYearActivityList();
-
+    this.getRelationTypeList();
 
     this.searchForm = new FormGroup({
-      budgetPeriodId: new FormControl(''),
-      relatedYearActivityId: new FormControl(''),
-      relationType: new FormControl(''),
+      yearActivityId: new FormControl(0),
+      relatedYearActivityId: new FormControl(0),
+      relationType: new FormControl(0),
     });
 
+    this.searchForm.patchValue({
+      yearActivityId: Number(this.route.snapshot.paramMap.get('yearActivityId'))
+    })
     this.getRelatedYearActivityList(Number(this.route.snapshot.paramMap.get('yearActivityId')));
 
   }
@@ -67,7 +70,7 @@ export class RelatedActivityComponent {
 
   getYearActivityList() {
     this.httpService
-      .get<YearActivity[]>(YearActivity.apiAddress + 'List', {
+      .post<YearActivity[]>(YearActivity.apiAddress + 'List', {
         withOutPagination: true
       })
       .subscribe(response => {
@@ -79,7 +82,7 @@ export class RelatedActivityComponent {
 
   getRelatedYearActivityList(yearActivityId: number) {
     this.httpService
-      .get<YearActivity[]>(YearActivity.apiAddressExceptedYearActivities + 'List', + yearActivityId)
+      .get<YearActivity[]>(YearActivity.apiAddressExceptedYearActivities + 'List/' + yearActivityId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.relatedYearActivityList = response.data.result;
@@ -116,11 +119,13 @@ export class RelatedActivityComponent {
       ...formValue,
     };
 
+    delete body['yearActivityId'];
+
     this.first = 0;
     const url =
-      YearActivity.apiAddress + 'List';
+      RelatedActivity.getAllRelatedActivitiesApiAddress + 'List';
     this.httpService
-      .post<YearActivity[]>(url, body)
+      .post<RelatedActivity[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -129,7 +134,7 @@ export class RelatedActivityComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new YearActivity()];
+          } else return [new RelatedActivity()];
         })
       )
       .subscribe(res => (this.data = res));
@@ -141,18 +146,18 @@ export class RelatedActivityComponent {
     this.isOpenAddEditYearActivity = true;
   }
 
-  editRow(data: YearActivity) {
+  editRow(data: RelatedActivity) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditYearActivity = true;
   }
 
-  deleteRow(item: YearActivity) {
+  deleteRow(item: RelatedActivity) {
     if (item && item.id)
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
-        header: `عنوان "${item.title}"`,
+        message: `آیا از حذف "${item.relatedYearActivityTitle} " اطمینان دارید؟`,
+        header: `عنوان "${item.relatedYearActivityTitle}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -160,16 +165,16 @@ export class RelatedActivityComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteYearActivity(item.id, item.title),
+        accept: () => this.deleteYearActivity(item.id, item.relatedYearActivityTitle),
       });
   }
 
   deleteYearActivity(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<YearActivity>(
+        .get<RelatedActivity>(
           UrlBuilder.build(
-            YearActivity.apiAddress + 'Delete',
+            RelatedActivity.apiAddress + 'Delete',
             ''
           ) + `/${id}`
         )
@@ -177,7 +182,7 @@ export class RelatedActivityComponent {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'YearActivity',
+              key: 'RelatedActivity',
               life: 8000,
               severity: 'success',
               detail: `  مورد  ${title}`,

@@ -46,6 +46,7 @@ import { FinancialRatiosIndustryComponent } from './financial-ratios-industry/fi
 import { AddEditFinancialRatiosIndustryComponent } from './financial-ratios-industry/add-edit-financial-ratios-industry/add-edit-financial-ratios-industry.component';
 import { RelatedYearRiskComponent } from './related-year-risk/related-year-risk.component';
 import { AddEditRelatedYearRiskComponent } from './related-year-risk/add-edit-related-year-risk/add-edit-related-year-risk.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { AddEditRelatedYearRiskComponent } from './related-year-risk/add-edit-re
     DialogModule,
     MenuModule,
     NgOptimizedImage,
-    InputNumberModule
+    InputNumberModule,
+    OverlayPanelModule
   ],
   providers: [
     {
