@@ -62,26 +62,6 @@
 ::ng-deep .p-treetable-scrollable-header-box{
   padding-right: 0px !important;
 }
-:host ::ng-deep .table-container  .p-datatable  {
-   
-    .p-datatable-thead>tr {
-    display: contents ;
-    >th {
-      
-      text-align: center !important;
-      background-color: rgba(255,152,116,0.6) !important;
-      height: 38px;
-      border-radius: 8px;
-      padding-top: 8px !important;
-      margin-left: 22px !important;
-      // width: 552px;
-      margin-top: 40px;
-      // display: inline-block;
-      position: relative !important;
-     
-    }
-  }
-  }
 
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
      display:table-row;

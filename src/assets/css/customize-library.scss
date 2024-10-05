@@ -661,14 +661,13 @@ p-organizationchart-nodes:host ::ng-deep .p-organizationchart-nodes {
   }
 }
 
-p-treetable.treeTable-profile-style {
+.treeTable{
   .p-treetable-thead>tr {
     display: flex;
     width: 100%;
 
     >th {
       text-align: center !important;
-      background-color: rgba(255,152,116,0.6) !important;
       height: 38px;
       border-radius: 8px;
       padding-top: 8px !important;
@@ -698,37 +697,33 @@ p-treetable.treeTable-profile-style {
   }
 }
 
-// p-treetable.treeTable-container {
-//   .p-treetable-thead>tr {
-//     display: inline-flex;
+p-treetable.treeTable-profile-style {
+  @extend .treeTable;
+  .p-treetable-thead>tr {
+    >th {
+      background-color: rgba(255,152,116,0.6) !important;
+    }
+  }
+}
 
-//     >th {
-//       text-align: center !important;
-//       background-color: #EEF2FF !important;
-//       height: 38px;
-//       border-radius: 8px;
-//       padding-top: 8px !important;
-//       margin-left: 22px !important;
-//       width: 310px;
-//     }
-//   }
+p-treetable.treeTable-container {
+  @extend .treeTable;
+}
 
-//   .p-treetable-tbody {
-//     >tr {
-//       // display: flex;
-
-//       >td {
-//         &:nth-child(1) {
-//           text-align: right !important;
-//         }
-
-//         text-align: center !important;
-//         width: 310px;
-
-//         .pi-chevron-right {
-//           transform: rotate(180deg);
-//         }
-//       }
-//     }
-//   }
-// }
+p-table.table-profile-style>.p-datatable  {
+   
+  .p-datatable-thead>tr {
+    display: flex;
+    width: 200%;
+  >th {
+    text-align: center !important;
+    background-color: rgba(255,152,116,0.6) !important;
+    height: 38px;
+    border-radius: 8px;
+    padding-top: 8px !important;
+    position: relative !important;
+    margin: 10px;
+    width: inherit;
+  }
+}
+}
