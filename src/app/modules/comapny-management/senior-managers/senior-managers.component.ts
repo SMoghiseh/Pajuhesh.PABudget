@@ -62,6 +62,8 @@ export class SeniorManagersComponent implements OnInit {
 
   getManagerList(event?: LazyLoadEvent) {
 
+    if (event) this.lazyLoadEvent = event;
+
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;

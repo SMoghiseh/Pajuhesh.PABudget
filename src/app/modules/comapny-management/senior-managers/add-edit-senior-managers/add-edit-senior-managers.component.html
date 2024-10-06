@@ -4,14 +4,46 @@
     <div class="container row">
 
         <div class="col-6 mt-2">
-            <label for="personId">نام فرد</label>
-            <p-dropdown id="personId" name="personId" formControlName="personId" styleClass="w-100 my-1"
-                optionLabel="personInfo" optionValue="id" placeholder="انتخاب کنید" [options]="personList"
-                [filter]="true" [class.ng-invalid]="personId?.invalid" [class.ng-dirty]="
-        (addEditManagerSubmitted && personId?.pristine) ||
-        personId?.dirty ||
-        personId?.touched">
-            </p-dropdown>
+            <label for="name">نام </label>
+            <input pInputText id="name" name="name" formControlName="name" type="text" class="w-100" />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="lastName">نام خانوادگی </label>
+            <input pInputText id="lastName" name="lastName" formControlName="lastName" type="text" class="w-100" />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="fatherName">نام پدر </label>
+            <input pInputText id="fatherName" name="fatherName" formControlName="fatherName" type="text"
+                class="w-100" />
+        </div>
+
+        <div class="col-6 mt-24">
+            <div class="d-flex align-items-center">
+                <p-radioButton name="gender" formControlName="gender" [value]="1" inputId="ingredient2"></p-radioButton>
+                <label for="ingredient2" class="ms-2 me-4">مرد </label>
+                <p-radioButton name="gender" formControlName="gender" [value]="0" inputId="ingredient1"></p-radioButton>
+                <label for="ingredient1" class="ms-2 me-4"> زن</label>
+            </div>
+        </div>
+
+        <div class="col-6 my-1">
+            <label for="nationalId">کد ملی</label>
+            <input pInputText pKeyFilter="int" [maxlength]="10" [minlength]="10" id="nationalId" name="nationalId"
+                formControlName="nationalId" type="text" class="w-100" [value]="nationalId?.value | faNum"
+                [class.ng-invalid]="nationalId?.invalid" [class.ng-dirty]="
+                (addEditManagerSubmitted && nationalId?.pristine) ||
+                nationalId?.dirty ||
+                nationalId?.touched
+              " />
+
+            <div id="nationalId-help">
+                <small *ngIf="(addEditManagerSubmitted && nationalId?.pristine) || 
+                        (nationalId?.errors?.['required'] && (nationalId?.dirty || nationalId?.touched))"
+                    class="p-error">
+                    لطفا این فیلد را خالی نگذارید
+                </small>
+                <small style="visibility: hidden" class="p-error"> error </small>
+            </div>
         </div>
         <div class="col-6 mt-2">
             <label for="managerTypeId"> نقش </label>
