@@ -1556,6 +1556,9 @@ export class CompanyManager {
   managerTypeTitle!: string;
   name!: string;
   lastName!: string;
+  fatherName!: string;
+  gender!: string;
+  nationalId!: string;
 }
 
 export class ManagerType {
