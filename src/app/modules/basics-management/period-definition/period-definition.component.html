@@ -59,6 +59,7 @@
 
         <td class="jc-left ai-left">
           <button
+            *ngIf="!isDetail"
             class="action-image-container add-button"
             (click)="periodDetail(period)"
             pTooltip="دوره عملیاتی">
