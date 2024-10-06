@@ -67,9 +67,7 @@
           [options]="listOfBudgetReport"
           placeholder=" تحلیل"
           [(ngModel)]="selectedlistOfBudgetReport"
-          (onChange)="
-            tabChange('table', 'double', selectedlistOfBudgetReport)
-          ">
+          (onChange)="tabChange('table', 'double', selectedlistOfBudgetReport)">
         </p-dropdown>
       </div>
 
@@ -95,11 +93,12 @@
             let-rowData="rowData"
             let-columns="columns">
             <tr [ttRow]="rowNode">
-              <td *ngFor="let col of columns; let i = index"
-              [class.negativeNumbers]="rowData[col.field] < 0"
-              [class.pasitiveNumbers]="rowData[col.field] > 0">
-              <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
-              <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
+                [class.pasitiveNumbers]="rowData[col.field] > 0">
+                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
+                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
@@ -131,7 +130,7 @@
         <p-table
           #dataTable
           style="text-align: center"
-          class="table-Profile"
+          class="table-Profile table-profile-style"
           dataKey="id"
           [columns]="cols"
           [value]="tableData"
@@ -157,14 +156,19 @@
           <!-- / table header -->
           <!-- table body -->
 
-          <ng-template pTemplate="body" let-rowData>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-              <td>
+              <!-- <td>
                 {{ rowData['accountReportItemTitle'] }}
-              </td>
+              </td> -->
 
-              <td>
-                {{ rowData['value'] }}
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
+                [class.pasitiveNumbers]="rowData[col.field] > 0">
+                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
+                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
+                {{ rowData[col.field] }}
               </td>
             </tr>
           </ng-template>

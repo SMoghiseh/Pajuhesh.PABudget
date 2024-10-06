@@ -19,7 +19,7 @@ export class ReceiveAndPayComponent {
   treeTableData: any;
   tableData: any = [];
   selectDateType: 'single' | 'double' | 'multiple' = 'single';
-  selectedPlanName = 'صورت جریان های نقد';
+  selectedPlanName = 'دریافت ها و پرداخت ها';
   selectedRows: any = [];
   lazyLoadEvent?: LazyLoadEvent;
   isShowChart = false;

@@ -34,44 +34,6 @@
   
 }
 
-  ::ng-deep p-treetable.treeTable-container {
-  .p-treetable-thead>tr {
-    display: contents;
-
-
-    >th {
-      text-align: center !important;
-      background-color: rgba(255,152,116,0.6) !important;
-      height: 38px;
-      border-radius: 8px;
-      padding-top: 8px !important;
-      margin-left: 22px !important;
-      // width: 527px;
-      margin-top: 40px;
-      position: relative;
-    }
-  }
-
-  .p-treetable-tbody {
-    >tr {
-      display: table-row ;
-
-      >td {
-        &:nth-child(1) {
-          text-align: right !important;
-        }
-
-        text-align: center !important;
-        width: 350px;
-
-        .pi-chevron-right {
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
-}
-
 
 ::ng-deep .p-treetable table {
   table-layout: unset !important;
@@ -94,32 +56,12 @@
 ::ng-deep .p-treetable .p-treetable-scrollable-header,
 .p-treetable .p-treetable-scrollable-footer {
   background: none;
-  padding-top: 40px ;
+  // padding-top: 40px ;
 }
 
 ::ng-deep .p-treetable-scrollable-header-box{
   padding-right: 0px !important;
 }
-:host ::ng-deep .table-container  .p-datatable  {
-   
-    .p-datatable-thead>tr {
-    display: contents ;
-    >th {
-      
-      text-align: center !important;
-      background-color: rgba(255,152,116,0.6) !important;
-      height: 38px;
-      border-radius: 8px;
-      padding-top: 8px !important;
-      margin-left: 22px !important;
-      // width: 552px;
-      margin-top: 40px;
-      // display: inline-block;
-      position: relative !important;
-     
-    }
-  }
-  }
 
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
      display:table-row;

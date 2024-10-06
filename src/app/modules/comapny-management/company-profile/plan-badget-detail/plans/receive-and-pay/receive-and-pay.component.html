@@ -77,10 +77,11 @@
         </div>
       </div>
 
-      <div *ngIf="viewMode === 'table'">
+      <div *ngIf="viewMode === 'table'" class="table-container">
         <p-table
           #dataTable
           style="text-align: right"
+          class="table-Profile table-profile-style"
           dataKey="id"
           [columns]="cols"
           [value]="tableData"
@@ -91,7 +92,7 @@
           [rowHover]="true"
           [loading]="loading"
           selectionMode="single"
-          [tableStyle]="{ 'min-width': '75rem' }">
+          >
           <!-- table header -->
 
           <!--  table header -->
