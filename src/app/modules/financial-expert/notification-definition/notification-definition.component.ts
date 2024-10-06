@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
@@ -85,7 +81,7 @@ export class NotificationDefinitionComponent implements OnInit {
     private jDateCalculatorService: JDateCalculatorService,
     private config: AppConfigService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.addNewReportForm = new FormGroup({
@@ -227,8 +223,7 @@ export class NotificationDefinitionComponent implements OnInit {
         request.subject = description;
         request.description = description;
         request.onlineDocDefinitionId = this.selectedOnlineDoc?.id;
-        request.docTypeId =
-          this.selectedOnlineDoc?.docTypeId;
+        request.docTypeId = this.selectedOnlineDoc?.docTypeId;
         request.multiMediaIds = this.multimediaIdList;
         this.addNewFormLoading = true;
         const tags: any[] = [];
@@ -239,28 +234,28 @@ export class NotificationDefinitionComponent implements OnInit {
               this.addNewReportForm
                 .get(
                   element.tagName +
-                  '_' +
-                  element.typeName +
-                  '_' +
-                  element.docTypeTagsId
+                    '_' +
+                    element.typeName +
+                    '_' +
+                    element.docTypeTagsId
                 )
                 ?.value?.getFullYear(),
               this.addNewReportForm
                 .get(
                   element.tagName +
-                  '_' +
-                  element.typeName +
-                  '_' +
-                  element.docTypeTagsId
+                    '_' +
+                    element.typeName +
+                    '_' +
+                    element.docTypeTagsId
                 )
                 ?.value?.getMonth(),
               this.addNewReportForm
                 .get(
                   element.tagName +
-                  '_' +
-                  element.typeName +
-                  '_' +
-                  element.docTypeTagsId
+                    '_' +
+                    element.typeName +
+                    '_' +
+                    element.docTypeTagsId
                 )
                 ?.value?.getDate()
             );
@@ -268,10 +263,10 @@ export class NotificationDefinitionComponent implements OnInit {
             val = this.addNewReportForm
               .get(
                 element.tagName +
-                '_' +
-                element.typeName +
-                '_' +
-                element.docTypeTagsId
+                  '_' +
+                  element.typeName +
+                  '_' +
+                  element.docTypeTagsId
               )
               ?.value.toString();
           tags.push({
@@ -334,11 +329,7 @@ export class NotificationDefinitionComponent implements OnInit {
     this.selectedOnlineDoc = event;
     this.tagsList.forEach(element => {
       this.addNewReportForm.removeControl(
-        element.tagName +
-        '_' +
-        element.typeName +
-        '_' +
-        element.docTypeTagsId
+        element.tagName + '_' + element.typeName + '_' + element.docTypeTagsId
       );
     });
 
@@ -359,7 +350,7 @@ export class NotificationDefinitionComponent implements OnInit {
       )
       .pipe(tap(() => (this.loading = false)))
       .subscribe(onlineDocAttachNeed => {
-        console.log(onlineDocAttachNeed.data.result)
+        console.log(onlineDocAttachNeed.data.result);
         this.onlineDocAttachNeed = onlineDocAttachNeed.data.result;
       });
   }
@@ -379,10 +370,10 @@ export class NotificationDefinitionComponent implements OnInit {
         documentTypes.forEach(element => {
           this.addNewReportForm.addControl(
             element.tagName +
-            '_' +
-            element.typeName +
-            '_' +
-            element.docTypeTagsId,
+              '_' +
+              element.typeName +
+              '_' +
+              element.docTypeTagsId,
             new FormControl('', element.isRequired ? Validators.required : null)
           );
         });
@@ -393,8 +384,8 @@ export class NotificationDefinitionComponent implements OnInit {
   downloadAttachmnet(attachment: FileType) {
     const url =
       this.config.getAddress('baseUrl') +
-      AttachmentType.apiAddress +
-      `/Template/download/${attachment.attachmentFileTypeTemplateId}`;
+      AssetAttachment.download2ApiAddress +
+      `${attachment.attachmentFileTypeTemplateId}`;
 
     const a = document.createElement('a');
     a.href = url;

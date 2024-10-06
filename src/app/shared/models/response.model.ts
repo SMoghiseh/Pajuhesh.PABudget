@@ -895,6 +895,7 @@ export class AssetAttachment {
   static readonly apiAddress = 'api/FileManagerApi/v1/FileManager/UploadFile';
   static readonly downloadApiAddress =
     'api/FileManagerApi/v1/FileManager/DownloadFile';
+  static readonly download2ApiAddress = 'api/v1/FileManager/DownloadFile/';
 
   multiMediaId!: number;
   fileSize!: number;
@@ -1665,7 +1666,8 @@ export class YearRisk {
 
 export class RelatedYearRisk {
   static readonly apiAddress = 'api/PABudgetApi/v1/RelatedYearRiskProgram/';
-  static readonly getAllYearActivityApiAddress = 'api/PABudgetApi/v1/GetAllRelatedYearRiskProgramsByYearActivity/';
+  static readonly getAllYearActivityApiAddress =
+    'api/PABudgetApi/v1/GetAllRelatedYearRiskProgramsByYearActivity/';
   id!: number;
   yearActivityTitle!: string;
 }

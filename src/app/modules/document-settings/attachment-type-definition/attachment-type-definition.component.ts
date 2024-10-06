@@ -72,7 +72,7 @@ export class AttachmentTypeDefinitionComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private http: HttpClient,
     private config: AppConfigService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getAttachmentTypes();
@@ -301,8 +301,8 @@ export class AttachmentTypeDefinitionComponent implements OnInit {
   downloadAttachmnet(attachment: FileType) {
     const url =
       this.config.getAddress('baseUrl') +
-      AttachmentType.apiAddress +
-      `/Template/download/${attachment.attachmentFileTypeTemplateId}`;
+      AssetAttachment.download2ApiAddress +
+      `${attachment.attachmentFileTypeTemplateId}`;
 
     const a = document.createElement('a');
     a.href = url;

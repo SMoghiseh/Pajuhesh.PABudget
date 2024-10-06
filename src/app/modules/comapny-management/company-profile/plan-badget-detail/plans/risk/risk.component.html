@@ -56,8 +56,10 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-risk let-rowIndex="rowIndex">
-          <tr [ngStyle]="{ 'background-color': risk.color }">
-            <div class="detailStyle Width: auto">
+          <tr>
+            <div
+              class="detailStyle Width: auto"
+              [ngStyle]="{ 'background-color': risk.color }">
               <td style="min-width: 45rem">{{ risk.title }}</td>
               <td style="min-width: 7rem">{{ risk.possibility }}</td>
               <td style="min-width: 7rem">{{ risk.riskIntensity }}</td>

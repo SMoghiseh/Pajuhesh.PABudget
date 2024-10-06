@@ -4,6 +4,9 @@
 }
 
 .headerStyle {
+    &:last-child{
+     margin-left: 0px; 
+    }
     background-color: rgba(255, 152, 116, 0.6);
     height: 38px;
     border-radius: 8px;
@@ -11,7 +14,15 @@
     display: inline-block;
     margin-left: 7px;
     width: inherit;
+    text-align: -webkit-center;
 }
+
+.detailStyle{
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 8px;
+}
+
 
 
 //   :host ::ng-deep .data-table__header ng-star-inserted {
