@@ -58,12 +58,13 @@
         <td>{{ period.statusTitle }}</td>
 
         <td class="jc-left ai-left">
-          <!-- <button
+          <button
+            *ngIf="!isDetail"
             class="action-image-container add-button"
             (click)="periodDetail(period)"
             pTooltip="دوره عملیاتی">
             <img ngSrc="icons\Group 131.svg" width="24" height="24" />
-          </button> -->
+          </button>
 
           <button
             class="action-image-container edit-button"
