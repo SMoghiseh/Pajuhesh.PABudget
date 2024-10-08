@@ -82,24 +82,6 @@
           [filter]="true">
         </p-dropdown>
       </div>
-      <div class="col-2 mt-2">
-        <label for="yearRiskCode"> کد</label>
-        <input
-          pInputText
-          id="yearRiskCode"
-          name="yearRiskCode"
-          formControlName="yearRiskCode"
-          class="w-100 my-1" />
-      </div>
-      <div class="col-2 mt-2">
-        <label for="title"> عنوان </label>
-        <input
-          pInputText
-          id="title"
-          name="title"
-          formControlName="title"
-          class="w-100 my-1" />
-      </div>
 
       <!-- دکمه -->
       <div
@@ -153,12 +135,12 @@
         <th style="min-width: 10rem">
           <strong> پیامد های وقوع ریسک در بودجه </strong>
         </th>
-        <th style="min-width: 10rem">
+        <!-- <th style="min-width: 10rem">
           <strong> برنامه شرکت در قبال ریسک خوشبینانه</strong>
         </th>
         <th style="min-width: 10rem">
           <strong> برنامه شرکت در قبال ریسک بدبینانه</strong>
-        </th>
+        </th> -->
 
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
@@ -175,8 +157,8 @@
         <td>{{ item.riskLevel }}</td>
         <td>{{ item.possibility }}</td>
         <td>{{ item.effectBudget }}</td>
-        <td>{{ item.possimistically }}</td>
-        <td>{{ item.optimistically }}</td>
+        <!-- <td>{{ item.possimistically }}</td>
+        <td>{{ item.optimistically }}</td> -->
 
         <td class="jc-left ai-left">
           <div class="d-inline-block">

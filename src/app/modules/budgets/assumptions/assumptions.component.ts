@@ -119,7 +119,7 @@ export class AssumptionsComponent {
   }
 
   addAssumptions() {
-    this.modalTitle = 'افزودن ماموریت  ';
+    this.modalTitle = 'افزودن مفروضات  ';
     this.mode = 'insert';
     this.isOpenAddEditAssumptions = true;
   }
