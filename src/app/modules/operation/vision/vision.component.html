@@ -66,11 +66,28 @@
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.visionCode }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.planningTitle }}</td>
+        <td>
+          {{ item.visionCode }}
+        </td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
+        <td
+          pTooltip="{{ item.planningTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.planningTitle }}
+        </td>
         <td>{{ item.keyTypeTitle }}</td>
-        <td>{{ item.planningValueTitle }}</td>
+        <td
+          pTooltip="{{ item.planningValueTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.planningValueTitle }}
+        </td>
 
         <td class="jc-left ai-left">
           <div class="d-inline-block">

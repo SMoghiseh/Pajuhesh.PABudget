@@ -57,7 +57,7 @@ export class YearGoalComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getAspectCodeLst();
@@ -144,19 +144,18 @@ export class YearGoalComponent {
 
   addSubComponentList(data: any) {
     data.forEach((row: any) => {
-
       row['componentList'] = [];
       let array = this.subComponentList;
-      let snapshotParams = '/' + Number(this.route.snapshot.paramMap.get('id'));
+      const snapshotParams =
+        '/' + Number(this.route.snapshot.paramMap.get('id'));
 
       array = array.map(com => {
-        let params = snapshotParams + '/' + row.id;
-        let route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] }
-      })
+        const params = snapshotParams + '/' + row.id;
+        const route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] };
+      });
 
       row['componentList'].push(...array);
-
     });
     return data;
   }
@@ -221,5 +220,4 @@ export class YearGoalComponent {
     this.searchForm.reset();
     this.getList();
   }
-
 }

@@ -2,24 +2,37 @@
 <p-toast key="roleDefinition" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-  <div class="table-header">لیست نقش ها </div>
+  <div class="table-header">لیست نقش ها</div>
   <div>
-    <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
+    <p-button
+      class="pe-2 mr-8"
+      styleClass="p-button-info"
+      icon="pi pi-plus-circle"
+      label="افزودن"
       (click)="addRole()"></p-button>
   </div>
 </div>
 
-
 <div class="table-container mt-8">
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass"
-    [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true" [paginator]="true" [rows]="dataTableRows"
-    [totalRecords]="totalCount" [value]="roleList" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }"
-    [lazy]="true" (onLazyLoad)="getRoleList($event)" [(first)]="first">
-
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [totalRecords]="totalCount"
+    [value]="roleList"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getRoleList($event)"
+    [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-
         <th style="min-width: 3rem">
           <strong>نام نقش</strong>
         </th>
@@ -36,18 +49,39 @@
     <!-- table body -->
     <ng-template pTemplate="body" let-role let-rowIndex="rowIndex">
       <tr>
+        <td
+          pTooltip="{{ role.name }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ role.name }}
+        </td>
 
-        <td>{{ role.name }}</td>
-
-        <td>{{ role.title }}</td>
+        <td
+          pTooltip="{{ role.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ role.title }}
+        </td>
         <!-- actions -->
         <td class="jc-left ai-left">
-          <button class="action-image-container edit-button" (click)="editRow(role)" pTooltip="ویرایش">
-            <img src="assets/images/icons/Group 116.svg" width="24" height="24" />
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(role)"
+            pTooltip="ویرایش">
+            <img
+              src="assets/images/icons/Group 116.svg"
+              width="24"
+              height="24" />
           </button>
 
-          <button class="action-image-container delete-button" (click)="deleteRow(role)" pTooltip="حذف">
-            <img src="assets/images/icons/Group 117.svg" width="24" height="24" />
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(role)"
+            pTooltip="حذف">
+            <img
+              src="assets/images/icons/Group 117.svg"
+              width="24"
+              height="24" />
           </button>
         </td>
         <!-- actions -->
@@ -58,11 +92,19 @@
   <!-- data table -->
 </div>
 
-
-
-<p-dialog class="height-size" *ngIf="isOpenAddRole" [header]="modalTitle" [(visible)]="isOpenAddRole" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '700px', height: '500px' }">
-  <app-add-edit-role [mode]="mode" (isSuccess)="reloadData()" [data1]="addEditData"></app-add-edit-role>
+<p-dialog
+  class="height-size"
+  *ngIf="isOpenAddRole"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddRole"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '700px', height: '500px' }">
+  <app-add-edit-role
+    [mode]="mode"
+    (isSuccess)="reloadData()"
+    [data1]="addEditData"></app-add-edit-role>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

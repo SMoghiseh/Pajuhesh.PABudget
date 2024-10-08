@@ -104,9 +104,19 @@
         <td>
           <p-tableCheckbox [value]="need"></p-tableCheckbox>
         </td>
-        <td>{{ need.title }}</td>
+        <td
+          pTooltip="{{ need.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ need.title }}
+        </td>
 
-        <td>{{ need.extention }}</td>
+        <td
+          pTooltip="{{ need.extention }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ need.extention }}
+        </td>
 
         <td
           [pEditableColumn]="need.isRequired"

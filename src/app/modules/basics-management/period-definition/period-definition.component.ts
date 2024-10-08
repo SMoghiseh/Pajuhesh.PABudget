@@ -72,7 +72,7 @@ export class PeriodDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((param: any) => {
@@ -127,18 +127,16 @@ export class PeriodDefinitionComponent implements OnInit {
 
   addSubComponentList(data: any) {
     data.forEach((row: any) => {
-
       row['componentList'] = [];
       let array = this.subComponentList;
 
       array = array.map(com => {
-        let params = '/' + row.id;
-        let route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] }
-      })
+        const params = '/' + row.id;
+        const route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] };
+      });
 
       row['componentList'].push(...array);
-
     });
     return data;
   }
@@ -221,5 +219,4 @@ export class PeriodDefinitionComponent implements OnInit {
     this.isOpenAddEditPeriod = false;
     this.getPeriod();
   }
-
 }

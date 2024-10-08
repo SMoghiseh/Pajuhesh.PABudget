@@ -60,12 +60,42 @@
     </ng-template>
     <ng-template pTemplate="body" let-manager let-rowIndex="rowIndex">
       <tr>
-        <td>{{ manager.managerTypeTitle }}</td>
-        <td>{{ manager.name }}</td>
-        <td>{{ manager.lastName }}</td>
-        <td>{{ manager.registerDate }}</td>
-        <td>{{ manager.meetingManagementDate }}</td>
-        <td>{{ manager.meetingManagmentNumber }}</td>
+        <td
+          pTooltip="{{ manager.managerTypeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ manager.managerTypeTitle }}
+        </td>
+        <td
+          pTooltip="{{ manager.name }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ manager.name }}
+        </td>
+        <td
+          pTooltip="{{ manager.lastName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ manager.lastName }}
+        </td>
+        <td
+          pTooltip="{{ manager.registerDate }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ manager.registerDate }}
+        </td>
+        <td
+          pTooltip="{{ manager.meetingManagementDate }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ manager.meetingManagementDate }}
+        </td>
+        <td
+          pTooltip="{{ manager.meetingManagmentNumber }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ manager.meetingManagmentNumber }}
+        </td>
 
         <td class="jc-left ai-left">
           <button

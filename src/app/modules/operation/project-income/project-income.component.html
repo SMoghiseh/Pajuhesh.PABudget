@@ -85,7 +85,7 @@
           [filter]="true">
         </p-dropdown>
       </div>
-<!-- 
+      <!-- 
       <div class="col-2 my-1">
         <label for="percentGrow">درصد پیشرفت فیزیکی</label>
         <input
@@ -159,26 +159,44 @@
       <tr class="data-table__header">
         <th style="min-width: 10rem"><strong> دوره بودجه </strong></th>
         <th style="min-width: 10rem"><strong> دوره عملیاتی </strong></th>
-        <!-- <th style="min-width: 10rem"><strong> شناسه پروژه </strong></th> -->
         <th style="min-width: 10rem"><strong> واحد </strong></th>
         <th style="min-width: 10rem"><strong> منبع </strong></th>
-        <!-- <th style="min-width: 10rem"><strong> درصد پیشرفت فیزیکی </strong></th>
-        <th style="min-width: 10rem"><strong> برآورد هزینه </strong></th> -->
         <th style="min-width: 10rem"><strong> هزینه فعلی </strong></th>
-
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.periodTitle }}</td>
-        <td>{{ item.periodDetailTitle }}</td>
-        <!-- <td>{{ item.projectTitle }}</td> -->
-        <td>{{ item.unitTitle }}</td>
-        <td>{{ item.sourceTypeTitle }}</td>
-        <!-- <td>{{ item.percentGrow }}</td>
-        <td>{{ item.estimatePriceCu }}</td> -->
-        <td>{{ item.realPriceCu }}</td>
+        <td
+          pTooltip="{{ item.periodTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.periodTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.periodDetailTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.periodDetailTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.unitTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.unitTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.sourceTypeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.sourceTypeTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.realPriceCu }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.realPriceCu }}
+        </td>
 
         <td class="jc-left ai-left">
           <button

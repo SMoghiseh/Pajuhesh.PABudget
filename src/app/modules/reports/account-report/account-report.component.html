@@ -114,10 +114,34 @@
     </ng-template>
     <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
       <tr>
-        <td style="min-width: 15rem">{{ report.code }}</td>
-        <td style="min-width: 15rem">{{ report.title }}</td>
-        <td style="min-width: 15rem">{{ report.reportTypeTitle }}</td>
-        <td style="min-width: 15rem">{{ report.periodTypeTitle }}</td>
+        <td
+          style="min-width: 15rem"
+          pTooltip="{{ report.code }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ report.code }}
+        </td>
+        <td
+          style="min-width: 15rem"
+          pTooltip="{{ report.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ report.title }}
+        </td>
+        <td
+          style="min-width: 15rem"
+          pTooltip="{{ report.reportTypeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ report.reportTypeTitle }}
+        </td>
+        <td
+          style="min-width: 15rem"
+          pTooltip="{{ report.periodTypeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ report.periodTypeTitle }}
+        </td>
 
         <td class="jc-left ai-left">
           <button
