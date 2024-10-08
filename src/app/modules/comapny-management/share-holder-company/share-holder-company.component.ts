@@ -69,6 +69,9 @@ export class ShareHolderCompanyComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
+          this.searchForm.patchValue({
+            companyId: this.companyList[0].id
+          })
           this.getList();
         }
       });
