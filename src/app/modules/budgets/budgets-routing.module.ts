@@ -30,7 +30,7 @@ const routes: Routes = [
             title: 'برنامه و بودجه |   اهداف سالیانه',
           },
           {
-            path: 'YearUnion/:id',
+            path: 'YearUnion/:budgetPeriodId',
             component: AssemblyAssignmentsComponent,
             title: 'برنامه و بودجه |  تکالیف مجمع',
           },
@@ -45,7 +45,7 @@ const routes: Routes = [
             title: 'برنامه و بودجه | برنامه عملیاتی',
           },
           {
-            path: 'YearUnionDetail/:id',
+            path: 'YearUnionDetail/:budgetPeriodId/:id',
             component: AssemblyAssignmentsDetailsComponent,
             title: 'برنامه و بودجه | مفاد',
           },

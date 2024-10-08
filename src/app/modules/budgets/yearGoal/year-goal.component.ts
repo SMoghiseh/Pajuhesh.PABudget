@@ -137,7 +137,27 @@ export class YearGoalComponent {
           } else return [new YearGoal()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(res => {
+        this.data = this.addSubComponentList(res);
+      });
+  }
+
+  addSubComponentList(data: any) {
+    data.forEach((row: any) => {
+      row['componentList'] = [];
+      let array = this.subComponentList;
+      const snapshotParams =
+        '/' + Number(this.route.snapshot.paramMap.get('id'));
+
+      array = array.map(com => {
+        const params = snapshotParams + '/' + row.id;
+        const route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] };
+      });
+
+      row['componentList'].push(...array);
+    });
+    return data;
   }
 
   addYearGoal() {
@@ -199,34 +219,5 @@ export class YearGoalComponent {
   clearSearch() {
     this.searchForm.reset();
     this.getList();
-  }
-
-  setActiveComponentRoute(item: YearGoal) { debugger
-    const componentRouterLink = this.subComponentList[0]['routerLink'][0];
-    const array = componentRouterLink.split('/');
-    const idOfRouting = array[componentRouterLink.split('/').length - 1];
-
-    if (Number(idOfRouting) != Number(this.route.snapshot.paramMap.get('id'))) {
-      if (Number(idOfRouting)) {
-        this.subComponentList.forEach((componentInfo: any) => {
-          const url = componentInfo['routerLink'][0].split('/');
-          const prevId = url.pop();
-          let baseUrl = '';
-          url.forEach((i: string) => {
-            if (i != '') baseUrl = baseUrl.concat(`/${i}`);
-          });
-          componentInfo['routerLink'][0] = baseUrl + '/' + item.id;
-        });
-      } else {
-        this.subComponentList.forEach((componentInfo: any) => {
-          componentInfo['routerLink'][0] =
-            componentInfo['routerLink'][0] +
-            '/' +
-            Number(this.route.snapshot.paramMap.get('id')) +
-            '/' +
-            item.id;
-        });
-      }
-    }
   }
 }

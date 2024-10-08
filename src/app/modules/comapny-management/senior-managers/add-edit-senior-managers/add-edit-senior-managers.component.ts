@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import { JDate } from '@shared/utilities/JDate/jdate';
+import { PersianNumberService } from '@shared/services/persian-number.service';
 
 @Component({
   selector: 'PABudget-add-edit-senior-managers',
@@ -41,9 +42,7 @@ export class AddEditSeniorManagersComponent {
   @Output() isCloseModal = new EventEmitter<boolean>();
 
 
-  get personId() {
-    return this.addEditManagerForm.get('personId');
-  }
+
   get managerTypeId() {
     return this.addEditManagerForm.get('managerTypeId');
   }
@@ -59,6 +58,15 @@ export class AddEditSeniorManagersComponent {
   get meetingManagmentNumber() {
     return this.addEditManagerForm.get('meetingManagmentNumber');
   }
+  get name() {
+    return this.addEditManagerForm.get('name');
+  }
+  get lastName() {
+    return this.addEditManagerForm.get('lastName');
+  }
+  get nationalId() {
+    return this.addEditManagerForm.get('nationalId');
+  }
 
   constructor(
     private httpService: HttpService,
@@ -71,12 +79,16 @@ export class AddEditSeniorManagersComponent {
     this.getManagerTypeList();
 
     this.addEditManagerForm = new FormGroup({
-      personId: new FormControl(this.inputData.personId, Validators.required),
       managerTypeId: new FormControl(this.inputData.managerTypeId, Validators.required),
       registerDate: new FormControl(this.inputData.registerDate, Validators.required),
       dismissalDate: new FormControl(this.inputData.dismissalDate),
       meetingManagementDate: new FormControl(this.inputData.meetingManagementDate),
       meetingManagmentNumber: new FormControl(this.inputData.meetingManagementDate),
+      name: new FormControl(this.inputData.name),
+      lastName: new FormControl(this.inputData.lastName),
+      fatherName: new FormControl(this.inputData.fatherName),
+      gender: new FormControl(this.inputData.gender),
+      nationalId: new FormControl(this.inputData.nationalId, Validators.required),
     });
 
     if (this.mode === 'edit') {
@@ -134,6 +146,7 @@ export class AddEditSeniorManagersComponent {
         : null;
 
 
+      request.nationalId = PersianNumberService.toEnglish(request.nationalId);
 
       const url = CompanyManager.apiAddress + 'CreateSeniorManager'
       this.isLoadingSubmit = true;

@@ -62,10 +62,10 @@ export class BigGoalComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.visionId = Number(this.route.snapshot.paramMap.get('id'));
+    this.visionId = Number(this.route.snapshot.paramMap.get('visionId'));
 
     this.getVisionList();
     this.getAspectCodeList();
@@ -130,7 +130,28 @@ export class BigGoalComponent implements OnInit {
           } else return [new BigGoal()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(res => {
+        this.data = this.addSubComponentList(res);
+      });
+  }
+  addSubComponentList(data: any) {
+    data.forEach((row: any) => {
+
+      row['componentList'] = [];
+      let array = this.subComponentList;
+      let snapshotParams = '/' + Number(this.route.snapshot.paramMap.get('id')) + '/' +
+        Number(this.route.snapshot.paramMap.get('visionId'));
+
+      array = array.map(com => {
+        let params = snapshotParams + '/' + row.id;
+        let route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] }
+      })
+
+      row['componentList'].push(...array);
+
+    });
+    return data;
   }
 
   addPlan() {
@@ -193,4 +214,5 @@ export class BigGoalComponent implements OnInit {
     this.searchForm.reset();
     this.getVision();
   }
+
 }

@@ -1,10 +1,10 @@
-<p-toast key="plan" position="bottom-left"></p-toast>
+<p-toast key="plan"
+  position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
   <div class="table-header">پروژه</div>
   <div>
-    <p-button
-      class="pe-2 mr-8"
+    <p-button class="pe-2 mr-8"
       styleClass="p-button-info"
       icon="pi pi-plus-circle"
       label="افزودن"
@@ -13,12 +13,12 @@
 </div>
 
 <div class="panel-search mt-8 mb-8">
-  <form #formDir="ngForm" [formGroup]="searchForm">
+  <form #formDir="ngForm"
+    [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
       <div class="col-2 my-1">
         <label for="code">کد</label>
-        <input
-          pInputText
+        <input pInputText
           id="code"
           name="code"
           formControlName="code"
@@ -27,8 +27,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="companyId"> شرکت</label>
-        <p-dropdown
-          id="companyId"
+        <p-dropdown id="companyId"
           name="companyId"
           formControlName="companyId"
           styleClass="w-100 my-1"
@@ -41,8 +40,7 @@
       </div>
       <div class="col-2 my-1">
         <label for="title">عنوان</label>
-        <input
-          pInputText
+        <input pInputText
           id="title"
           name="title"
           formControlName="title"
@@ -51,8 +49,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="budgetPeriodId"> دوره بودجه</label>
-        <p-dropdown
-          id="budgetPeriodId"
+        <p-dropdown id="budgetPeriodId"
           name="budgetPeriodId"
           formControlName="budgetPeriodId"
           styleClass="w-100 my-1"
@@ -66,8 +63,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="fromBudgetPeriodId"> از دوره</label>
-        <p-dropdown
-          id="fromBudgetPeriodId"
+        <p-dropdown id="fromBudgetPeriodId"
           name="fromBudgetPeriodId"
           formControlName="fromBudgetPeriodId"
           styleClass="w-100 my-1"
@@ -80,8 +76,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="toBudgetPeriodId"> تا دوره</label>
-        <p-dropdown
-          id="toBudgetPeriodId"
+        <p-dropdown id="toBudgetPeriodId"
           name="toBudgetPeriodId"
           formControlName="toBudgetPeriodId"
           styleClass="w-100 my-1"
@@ -95,8 +90,7 @@
 
       <div class="col-2 mt-2">
         <label for="typeCode"> نوع طرح</label>
-        <p-dropdown
-          id="typeCode"
+        <p-dropdown id="typeCode"
           name="typeCode"
           formControlName="typeCode"
           styleClass="w-100 my-1"
@@ -110,8 +104,7 @@
 
       <div class="col-2 mt-2">
         <label for="internalRateOfReturn">نرخ بازده داخلی</label>
-        <input
-          pInputText
+        <input pInputText
           id="internalRateOfReturn"
           name="internalRateOfReturn"
           formControlName="internalRateOfReturn"
@@ -121,8 +114,7 @@
 
       <div class="col-2 mt-2">
         <label for="netPersentValue">خالص ارزش فعلی</label>
-        <input
-          pInputText
+        <input pInputText
           id="netPersentValue"
           name="netPersentValue"
           formControlName="netPersentValue"
@@ -131,8 +123,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="payBackPeriod">دوره بازگشت سرمایه</label>
-        <input
-          pInputText
+        <input pInputText
           id="payBackPeriod"
           name="payBackPeriod"
           formControlName="payBackPeriod"
@@ -141,23 +132,21 @@
       </div>
       <div class="col-4 mt-2">
         <label for="address">آدرس</label>
-        <input
-          pInputText
+        <input pInputText
           id="address"
           name="address"
           formControlName="address"
           type="address"
           class="w-100" />
       </div>
-      <div
-        class="d-flex justify-content-end col text-end"
+      <div class="d-flex justify-content-end col text-end"
         style="margin-top: 20px">
         <div class="search-button mt-12">
-          <div class="clear-search" (click)="clearSearch()">
+          <div class="clear-search"
+            (click)="clearSearch()">
             <i class="pi pi-filter-slash"></i>
           </div>
-          <p-button
-            class="pe-2 p-button-wide"
+          <p-button class="pe-2 p-button-wide"
             styleClass="p-button-info"
             [label]="'جستجو'"
             (click)="getProject()"></p-button>
@@ -169,8 +158,7 @@
 </div>
 
 <div class="table-container">
-  <p-table
-    #dataTable
+  <p-table #dataTable
     dataKey="id"
     class="data-table d-none d-lg-block"
     [styleClass]="gridClass"
@@ -201,92 +189,89 @@
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
+    <ng-template pTemplate="body"
+      let-item
+      item
+      let-rowIndex="rowIndex">
       <tr>
         <td>{{ item.code }}</td>
-        <td
-          pTooltip="{{ item.companyName }}"
+        <td pTooltip="{{ item.companyName }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.companyName }}
         </td>
-        <td
-          pTooltip="{{ item.title }}"
+        <td pTooltip="{{ item.title }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.title }}
         </td>
-        <td
-          pTooltip="{{ item.budgetPeriodTitle }}"
+        <td pTooltip="{{ item.budgetPeriodTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.budgetPeriodTitle }}
         </td>
-        <td
-          pTooltip="{{ item.fromBudgetPeriodTitle }}"
+        <td pTooltip="{{ item.fromBudgetPeriodTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.fromBudgetPeriodTitle }}
         </td>
-        <td
-          pTooltip="{{ item.toBudgetPeriodTitle }}"
+        <td pTooltip="{{ item.toBudgetPeriodTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.toBudgetPeriodTitle }}
         </td>
-        <td
-          pTooltip="{{ item.typeTitle }}"
+        <td pTooltip="{{ item.typeTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.typeTitle }}
         </td>
-        <td
-          pTooltip="{{ item.internalRateOfReturn }}"
+        <td pTooltip="{{ item.internalRateOfReturn }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.internalRateOfReturn }}
         </td>
-        <td
-          pTooltip="{{ item.netPersentValue }}"
+        <td pTooltip="{{ item.netPersentValue }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.netPersentValue }}
         </td>
-        <td
-          pTooltip="{{ item.payBackPeriod }}"
+        <td pTooltip="{{ item.payBackPeriod }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.payBackPeriod }}
         </td>
 
         <td class="jc-left ai-left">
-          <button
-            class="action-image-container edit-button"
+          <div class="d-inline-block">
+            <button class="action-image-container delete-button context-menu"
+              (click)="menu.toggle($event)"
+              pTooltip="">
+              <img ngSrc="icons\Group 109.svg"
+                width="24"
+                height="24" />
+            </button>
+            <div #tblDiv
+              class="tbl-context-menu"></div>
+            <p-menu #menu
+              [popup]="true"
+              [model]="item.componentList"
+              [appendTo]="tblDiv"></p-menu>
+          </div>
+          <button class="action-image-container edit-button"
             (click)="editRow(item)"
             pTooltip="ویرایش">
-            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+            <img ngSrc="icons\Group 116.svg"
+              width="24"
+              height="24" />
           </button>
 
-          <button
-            class="action-image-container delete-button"
+          <button class="action-image-container delete-button"
             (click)="deleteRow(item)"
             pTooltip="حذف">
-            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            <img ngSrc="icons\Group 117.svg"
+              width="24"
+              height="24" />
           </button>
-
-          <button
-            class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(item)"
-            pTooltip="">
-            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-          </button>
-
-          <!-- <button
-            class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(item)"
-            pTooltip="">
-            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-          </button> -->
         </td>
       </tr>
     </ng-template>
@@ -294,7 +279,8 @@
 </div>
 
 <div class="data-list d-block d-lg-none">
-  <ul *ngFor="let report of data" class="list-group my-1">
+  <ul *ngFor="let report of data"
+    class="list-group my-1">
     <li class="list-group-item">
       <div class="row">
         <div class="col my-1 text-center">
@@ -306,18 +292,20 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button
-              class="action-image-container edit-button"
+            <button class="action-image-container edit-button"
               (click)="editRow(report)"
               title="ویرایش">
-              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+              <img ngSrc="icons\Group 116.svg"
+                width="24"
+                height="24" />
             </button>
 
-            <button
-              class="action-image-container delete-button"
+            <button class="action-image-container delete-button"
               (click)="deleteRow(report)"
               title="حذف بودجه ">
-              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+              <img ngSrc="icons\Group 117.svg"
+                width="24"
+                height="24" />
             </button>
           </div>
         </div>
@@ -326,8 +314,7 @@
   </ul>
 </div>
 
-<p-dialog
-  *ngIf="isOpenAddEditProject"
+<p-dialog *ngIf="isOpenAddEditProject"
   [header]="modalTitle"
   [(visible)]="isOpenAddEditProject"
   [modal]="true"
@@ -335,17 +322,10 @@
   [resizable]="false"
   [class.height-size]="mode === 'insert' || mode === 'edit'"
   [style]="{ width: '800px', height: '600px' }">
-  <PABudget-add-edit-project
-    [data]="addEditData"
+  <PABudget-add-edit-project [data]="addEditData"
     [mode]="mode"
     (isSuccess)="reloadData()"></PABudget-add-edit-project>
 </p-dialog>
 
-<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-
-<p-menu
-  [showTransitionOptions]="'0ms'"
-  [hideTransitionOptions]="'0ms'"
-  #menu
-  [popup]="true"
-  [model]="subComponentList"></p-menu>
+<p-confirmDialog [style]="{ width: '450px' }"
+  [rtl]="true"></p-confirmDialog>
