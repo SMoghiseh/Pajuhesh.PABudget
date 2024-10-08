@@ -48,7 +48,7 @@ export class AssumptionsComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCompanyLst();
@@ -119,7 +119,7 @@ export class AssumptionsComponent {
   }
 
   addAssumptions() {
-    this.modalTitle = 'افزودن ماموریت  ';
+    this.modalTitle = 'افزودن مفروضات ';
     this.mode = 'insert';
     this.isOpenAddEditAssumptions = true;
   }
