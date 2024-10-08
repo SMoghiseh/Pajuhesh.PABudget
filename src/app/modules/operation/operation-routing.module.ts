@@ -104,7 +104,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'BigGoal/:id',
+            path: 'BigGoal/:id/:visionId',
             component: BigGoalComponent,
             title: 'برنامه و بودجه |  اهداف',
             data: {

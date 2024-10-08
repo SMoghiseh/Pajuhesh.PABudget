@@ -124,6 +124,13 @@
         <td>{{ item.payBackPeriod }}</td>
 
         <td class="jc-left ai-left">
+          <div class="d-inline-block">
+            <button class="action-image-container delete-button context-menu" (click)="menu.toggle($event)" pTooltip="">
+              <img ngSrc="icons\Group 109.svg" width="24" height="24" />
+            </button>
+            <div #tblDiv class="tbl-context-menu"></div>
+            <p-menu #menu [popup]="true" [model]="item.componentList" [appendTo]="tblDiv"></p-menu>
+          </div>
           <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
           </button>
@@ -131,18 +138,6 @@
           <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
           </button>
-
-          <button class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(item)" pTooltip="">
-            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-          </button>
-
-          <!-- <button
-            class="action-image-container delete-button"
-            (click)="menu.toggle($event); setActiveComponentRoute(item)"
-            pTooltip="">
-            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-          </button> -->
         </td>
       </tr>
     </ng-template>
@@ -183,6 +178,3 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-
-<p-menu [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #menu [popup]="true"
-  [model]="subComponentList"></p-menu>

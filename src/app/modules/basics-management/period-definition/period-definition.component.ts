@@ -120,7 +120,27 @@ export class PeriodDefinitionComponent implements OnInit {
           } else return [new Period()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(res => {
+        this.data = this.addSubComponentList(res);
+      });
+  }
+
+  addSubComponentList(data: any) {
+    data.forEach((row: any) => {
+
+      row['componentList'] = [];
+      let array = this.subComponentList;
+
+      array = array.map(com => {
+        let params = '/' + row.id;
+        let route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] }
+      })
+
+      row['componentList'].push(...array);
+
+    });
+    return data;
   }
 
   getPeriodSelectedData(id: number) {
@@ -201,31 +221,5 @@ export class PeriodDefinitionComponent implements OnInit {
     this.isOpenAddEditPeriod = false;
     this.getPeriod();
   }
-  // Set PeriodId On Active Component Route
-  setActiveComponentRoute(item: Period) {
 
-    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
-    let array = componentRouterLink.split('/');
-    let idOfRouting = array[componentRouterLink.split('/').length - 1];
-
-    if (Number(idOfRouting)) {
-      this.subComponentList.forEach((componentInfo: any) => {
-        let url = componentInfo['routerLink'][0].split('/');
-        let prevId = url.pop();
-        let baseUrl = '';
-        url.forEach((i: string) => {
-          if (i != '')
-            baseUrl = baseUrl.concat(`/${i}`);
-        })
-        componentInfo['routerLink'][0] = baseUrl + '/' + item.id;
-      });
-    } else {
-      this.subComponentList.forEach((componentInfo: any) => {
-        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
-      });
-    }
-
-
-
-  }
 }
