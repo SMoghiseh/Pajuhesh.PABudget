@@ -1,7 +1,7 @@
 <p-toast key="RelatedYearRisk" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-  <div class="table-header">برنامه مرتبط ریسک</div>
+  <div class="table-header">برنامه مرتبط با ریسک</div>
   <div>
     <p-button
       class="pe-2 mr-8"
@@ -128,7 +128,7 @@
 
 <p-dialog
   *ngIf="isOpenAddEditYearGoal"
-  [header]="modalTitle"
+  header=" {{ modalTitle }} برنامه مرتبط با ریسک"
   [(visible)]="isOpenAddEditYearGoal"
   [modal]="true"
   [draggable]="false"

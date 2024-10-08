@@ -69,6 +69,7 @@ import { ShareHolderCompanyComponent } from './share-holder-company/share-holder
 import { AddEditShareHolderCompanyComponent } from './share-holder-company/add-edit-share-holder-company/add-edit-share-holder-company.component';
 import { MenuModule } from 'primeng/menu';
 import { CompanyDefinitionLookupComponent } from './share-holder-company/company-definition-lookup/company-definition-lookup.component';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import { CompanyDefinitionLookupComponent } from './share-holder-company/company
     InputNumberModule,
     TreeTableModule,
     MenuModule,
-    DialogModule
+    DialogModule,
+    NgxGraphModule,
   ],
   providers: [
     {

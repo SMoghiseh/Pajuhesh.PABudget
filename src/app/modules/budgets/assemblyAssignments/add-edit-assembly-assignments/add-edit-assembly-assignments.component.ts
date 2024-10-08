@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
@@ -11,7 +11,7 @@ import { tap } from 'rxjs';
   templateUrl: './add-edit-assembly-assignments.component.html',
   styleUrls: ['./add-edit-assembly-assignments.component.scss'],
 })
-export class AddEditAssemblyAssignmentsComponent {
+export class AddEditAssemblyAssignmentsComponent implements OnInit {
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
@@ -49,6 +49,7 @@ export class AddEditAssemblyAssignmentsComponent {
   ) {}
   ngOnInit(): void {
     this.getCompanyLst();
+    this.getMeetingTopicList();
     this.addEditForm = new FormGroup({
       budgetPeriodId: new FormControl(),
       meetingId: new FormControl(0),
@@ -121,6 +122,21 @@ export class AddEditAssemblyAssignmentsComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
+        }
+      });
+  }
+
+  getMeetingTopicList() {
+    this.httpService
+      .get<AssemblyAssignments[]>(
+        AssemblyAssignments.apiAddressMeetingTopic + 'List',
+        {
+          withOutPagination: true,
+        }
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.MeetingTopicList = response.data.result;
         }
       });
   }
