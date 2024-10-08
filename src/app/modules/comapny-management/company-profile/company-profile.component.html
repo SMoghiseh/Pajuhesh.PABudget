@@ -96,9 +96,9 @@
     <PABudget-balance-sheet
       [inputData]="planInputData"></PABudget-balance-sheet>
   </ng-template>
-  <!-- <ng-template [ngSwitchCase]="'YearGoal'">
-    <PABudget-year-goal [inputData]="planInputData"></PABudget-year-goal>
-  </ng-template> -->
+  <ng-template [ngSwitchCase]="'YearGoal'">
+    <PABudget-annual-gols [inputData]="planInputData"></PABudget-annual-gols>
+  </ng-template>
   <ng-template [ngSwitchCase]="'CostAndBenefit'">
     <PABudget-cost-and-benefit
       [inputData]="planInputData"></PABudget-cost-and-benefit>
@@ -115,7 +115,6 @@
     <PABudget-vision-and-mission
       [inputData]="planInputData"></PABudget-vision-and-mission>
   </ng-template>
-
   <ng-template [ngSwitchCase]="'Value'">
     <PABudget-value [inputData]="planInputData"></PABudget-value>
   </ng-template>

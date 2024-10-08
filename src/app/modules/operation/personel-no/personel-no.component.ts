@@ -47,6 +47,7 @@ export class PersonelNoComponent {
   pId!: string;
   addEditPersonelNoModel = new PersonelNo();
   companyList: any = [];
+  selectedValue!: number;
 
   constructor(
     private httpService: HttpService,

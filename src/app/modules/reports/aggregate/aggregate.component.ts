@@ -299,7 +299,5 @@ export class AggregateComponent implements OnInit {
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
   }
 
-  openDialog(e: any) {
-    debugger;
-  }
+  openDialog(e: any) {}
 }

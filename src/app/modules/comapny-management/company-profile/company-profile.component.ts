@@ -106,9 +106,9 @@ export class CompanyProfileComponent implements OnInit {
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit(): void { debugger
+  ngOnInit(): void {
     this.getList();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
@@ -120,7 +120,7 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  getProfileCoInfo(id: string) {debugger
+  getProfileCoInfo(id: string) {
     const body = {
       companyId: id,
     };
@@ -141,14 +141,14 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  contractRoute() {debugger
+  contractRoute() {
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
-    {
-      queryParams: {},
-    };
+      {
+        queryParams: {},
+      };
   }
 
-  getCostAndBenefitForProfile(id: string) {debugger
+  getCostAndBenefitForProfile(id: string) {
     this.httpService
       .get<number>(
         UrlBuilder.build(Dashboard.apiAddressCostAndBenefitForProfile + id, '')
@@ -165,8 +165,7 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-
-  onCoDetail(id: number) { debugger
+  onCoDetail(id: number) {
     this.router.navigate(['/Comapny/companyDetail/' + id]);
   }
 
@@ -178,7 +177,7 @@ export class CompanyProfileComponent implements OnInit {
     this.liveSelectionRow--;
   }
 
-  getList() {debugger
+  getList() {
     this.httpService
       .get<PermissionProfile[]>(
         UrlBuilder.build(PermissionProfile.apiAddress + 'list', '')
@@ -195,7 +194,7 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  operationOnList(data: any) {debugger
+  operationOnList(data: any) {
     this.allList = data;
     data.forEach((list: any) => {
       list['groupedDetail'] = this.convertArray(list.detail);
@@ -211,7 +210,7 @@ export class CompanyProfileComponent implements OnInit {
     return grouped;
   }
 
-  onSelectBudget(data: any) {debugger
+  onSelectBudget(data: any) {
     this.switchItem = data.componentName;
     this.selectedBudgetId = data.id;
     let yearId = 12;
@@ -228,7 +227,7 @@ export class CompanyProfileComponent implements OnInit {
     this.selectedRows = [];
   }
 
-  getChart() {debugger
+  getChart() {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
     const type = typeof this.selectedYears;
@@ -256,7 +255,7 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  createLineChart(data: any) {debugger
+  createLineChart(data: any) {
     this.lineChart1 = new Chart('LineChart', {
       type: 'line',
       data: data,
@@ -291,6 +290,4 @@ export class CompanyProfileComponent implements OnInit {
       },
     });
   }
-
-
 }
