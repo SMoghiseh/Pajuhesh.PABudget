@@ -4,19 +4,9 @@
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="budgetPeriodId"> دوره </label>
-      <p-dropdown
-        id="budgetPeriodId"
-        name="budgetPeriodId"
-        formControlName="budgetPeriodId"
-        styleClass="w-100 my-1"
-        optionLabel="periodTitle"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="budgetPeriodList"
-        [filter]="true"
-        [readonly]="true"
-        [class.ng-invalid]="budgetPeriodId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId" styleClass="w-100 my-1"
+        optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="budgetPeriodList"
+        [filter]="true" [readonly]="true" [class.ng-invalid]="budgetPeriodId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && budgetPeriodId?.pristine) ||
           budgetPeriodId?.dirty ||
           budgetPeriodId?.touched
@@ -25,18 +15,9 @@
     </div>
     <div class="col-6 mt-2">
       <label for="companyId"> شرکت </label>
-      <p-dropdown
-        id="companyId"
-        name="companyId"
-        formControlName="companyId"
-        styleClass="w-100 my-1"
-        optionLabel="partyName"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="companyList"
-        [filter]="true"
-        [class.ng-invalid]="companyId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+        [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && companyId?.pristine) ||
           companyId?.dirty ||
           companyId?.touched
@@ -45,75 +26,43 @@
     </div>
     <div class="col-6 mt-2">
       <label for="yearGoalCode"> کد </label>
-      <input
-        pInputText
-        id="yearGoalCode"
-        name="yearGoalCode"
-        formControlName="yearGoalCode"
-        class="w-100 my-1"
-        [class.ng-invalid]="yearGoalCode?.invalid"
-        [class.ng-dirty]="
+      <input pInputText id="yearGoalCode" name="yearGoalCode" formControlName="yearGoalCode" class="w-100 my-1"
+        [class.ng-invalid]="yearGoalCode?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && yearGoalCode?.pristine) ||
           yearGoalCode?.dirty ||
           yearGoalCode?.touched
         " />
     </div>
     <div class="col-6 mt-2">
-      <label for="bigGoalId"> شناسه هدف کلان </label>
-      <p-dropdown
-        id="bigGoalId"
-        name="bigGoalId"
-        formControlName="bigGoalId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="bigGoalList"
-        [filter]="true"
-        [class.ng-invalid]="bigGoalId?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && bigGoalId?.pristine) ||
-          bigGoalId?.dirty ||
-          bigGoalId?.touched
-        ">
-      </p-dropdown>
-    </div>
-    <div class="col-6 mt-2">
-      <label for="title"> هدف </label>
-      <input
-        pInputText
-        id="title"
-        name="title"
-        formControlName="title"
-        class="w-100 my-1"
-        [class.ng-invalid]="title?.invalid"
-        [class.ng-dirty]="
+      <label for="title"> عنوان </label>
+      <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
         " />
     </div>
     <div class="col-6 mt-2">
+      <label for="bigGoalId"> شناسه هدف کلان </label>
+      <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="bigGoalList" [filter]="true"
+        [class.ng-invalid]="bigGoalId?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && bigGoalId?.pristine) ||
+          bigGoalId?.dirty ||
+          bigGoalId?.touched
+        ">
+      </p-dropdown>
+    </div>
+
+    <div class="col-6 mt-2">
       <label for="aspectCode"> منظر</label>
-      <p-dropdown
-        id="aspectCode"
-        name="aspectCode"
-        formControlName="aspectCode"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="aspectCodeList"
-        [filter]="true">
+      <p-dropdown id="aspectCode" name="aspectCode" formControlName="aspectCode" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="aspectCodeList" [filter]="true">
       </p-dropdown>
     </div>
 
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>
