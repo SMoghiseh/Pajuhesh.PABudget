@@ -82,6 +82,7 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     VisionAndMissionComponent,
     ValueComponent,
     OrientationComponent,
+    AnnualGolsComponent,
     GoalsComponent,
     StrategyMapComponent,
     StrategyPlanComponent,
