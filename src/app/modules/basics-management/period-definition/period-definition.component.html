@@ -51,11 +51,33 @@
     </ng-template>
     <ng-template pTemplate="body" let-period let-rowIndex="rowIndex">
       <tr>
-        <td>{{ period.code }}</td>
-        <td>{{ period.title }}</td>
-        <td>{{ period.fromDatePC }}</td>
-        <td>{{ period.toDatePC }}</td>
-        <td>{{ period.statusTitle }}</td>
+        <td>
+          {{ period.code }}
+        </td>
+        <td
+          pTooltip="{{ period.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ period.title }}
+        </td>
+        <td
+          pTooltip="{{ period.fromDatePC }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ period.fromDatePC }}
+        </td>
+        <td
+          pTooltip="{{ period.toDatePC }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ period.toDatePC }}
+        </td>
+        <td
+          pTooltip="{{ period.statusTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ period.statusTitle }}
+        </td>
 
         <td class="jc-left ai-left">
           <button

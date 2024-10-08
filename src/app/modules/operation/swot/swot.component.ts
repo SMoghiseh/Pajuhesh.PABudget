@@ -125,7 +125,7 @@ export class SwotComponent {
   }
 
   addPlan() {
-    this.modalTitle = 'افزودن swto  ';
+    this.modalTitle = 'افزودن swot  ';
     this.mode = 'insert';
     this.isOpenAddEditPlan = true;
   }

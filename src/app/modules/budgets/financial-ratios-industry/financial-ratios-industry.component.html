@@ -1,7 +1,7 @@
 <p-toast key="FinancialRatiosIndustry" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-  <div class="table-header">  نسبت های مالی صنعت</div>
+  <div class="table-header">نسبت های مالی صنعت</div>
   <div>
     <p-button
       class="pe-2 mr-8"
@@ -60,7 +60,7 @@
           placeholder="انتخاب کنید">
         </p-dropdown>
       </div> -->
-            <!-- <div class="col-3 mt-2">
+      <!-- <div class="col-3 mt-2">
         <label for="industryId"> صنعت </label>
         <input
           pInputText
@@ -136,26 +136,35 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <!-- <th style="min-width: 10rem"><strong> شناسه دوره بودجه </strong></th> -->
         <th style="min-width: 10rem"><strong> نسبت مالی </strong></th>
         <th style="min-width: 10rem"><strong> صنعت </strong></th>
-        <!-- <th style="min-width: 10rem"><strong> دوره بودجه </strong></th> -->
         <th style="min-width: 10rem"><strong> مبلغ </strong></th>
         <th style="min-width: 10rem"><strong> واحد مبلغ </strong></th>
-        <!-- <th style="min-width: 10rem"><strong> تاریخ صورتجلسه </strong></th> -->
-
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <!-- <td>{{ item.budgetPeriodTitle }}</td> -->
-        <td>{{ item.title }}</td>
-        <td>{{ item.industryTitle }}</td>
-        <!-- <td>{{ item.periodId }}</td> -->
-        <td>{{ item.price }}</td>
         <td>{{ item.code }}</td>
-        <!-- <td>{{ item.meetingDate }}</td> -->
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
+        <td
+          pTooltip="{{ item.industryTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.industryTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.price }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.price }}
+        </td>
+ 
 
         <td class="jc-left ai-left">
           <button

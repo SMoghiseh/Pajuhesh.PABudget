@@ -72,7 +72,7 @@ export class PeriodDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((param: any) => {
@@ -202,30 +202,26 @@ export class PeriodDefinitionComponent implements OnInit {
     this.getPeriod();
   }
   // Set PeriodId On Active Component Route
-  setActiveComponentRoute(item: Period) {
-
-    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
-    let array = componentRouterLink.split('/');
-    let idOfRouting = array[componentRouterLink.split('/').length - 1];
+  setActiveComponentRoute(item: Period) { debugger
+    const componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    const array = componentRouterLink.split('/');
+    const idOfRouting = array[componentRouterLink.split('/').length - 1];
 
     if (Number(idOfRouting)) {
       this.subComponentList.forEach((componentInfo: any) => {
-        let url = componentInfo['routerLink'][0].split('/');
-        let prevId = url.pop();
+        const url = componentInfo['routerLink'][0].split('/');
+        const prevId = url.pop();
         let baseUrl = '';
         url.forEach((i: string) => {
-          if (i != '')
-            baseUrl = baseUrl.concat(`/${i}`);
-        })
+          if (i != '') baseUrl = baseUrl.concat(`/${i}`);
+        });
         componentInfo['routerLink'][0] = baseUrl + '/' + item.id;
       });
     } else {
-      this.subComponentList.forEach((componentInfo: any) => {
-        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' + item.id;
+      this.subComponentList.forEach((componentInfo: any) => { debugger
+        componentInfo['routerLink'][0] =
+          componentInfo['routerLink'][0] + '/' + item.id;
       });
     }
-
-
-
   }
 }

@@ -2,79 +2,126 @@
 <p-toast key="roleDefinition" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
-    <div class="table-header"> تخصیص نقش به کاربر </div>
-    <div>
-        <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
-            (click)="addRoleAssignment()"></p-button>
-    </div>
+  <div class="table-header">تخصیص نقش به کاربر</div>
+  <div>
+    <p-button
+      class="pe-2 mr-8"
+      styleClass="p-button-info"
+      icon="pi pi-plus-circle"
+      label="افزودن"
+      (click)="addRoleAssignment()"></p-button>
+  </div>
 </div>
 
-
 <div class="table-container mt-8">
-    <!-- data table -->
-    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass"
-        [rowsPerPageOptions]="[10, 20, 30]" [rows]="dataTableRows" [totalRecords]="totalCount" [value]="userRolesList"
-        [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" [rowHover]="true" [paginator]="true"
-        (onLazyLoad)="getUserRolesList($event)" [(first)]="first">
-        <!-- table header -->
-        <ng-template pTemplate="header">
-            <tr class="data-table__header">
-                <!-- <th style="min-width: 3rem">
+  <!-- data table -->
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rows]="dataTableRows"
+    [totalRecords]="totalCount"
+    [value]="userRolesList"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    [rowHover]="true"
+    [paginator]="true"
+    (onLazyLoad)="getUserRolesList($event)"
+    [(first)]="first">
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <!-- <th style="min-width: 3rem">
                       <strong>ردیف</strong>
                     </th> -->
 
-                <th style="min-width: 3rem">
-                    <strong>نام</strong>
-                </th>
+        <th style="min-width: 3rem">
+          <strong>نام</strong>
+        </th>
 
-                <th style="min-width: 10rem">
-                    <strong>نام خانوادگی</strong>
-                </th>
+        <th style="min-width: 10rem">
+          <strong>نام خانوادگی</strong>
+        </th>
 
-                <th style="min-width: 10rem">
-                    <strong>کد ملی</strong>
-                </th>
+        <th style="min-width: 10rem">
+          <strong>کد ملی</strong>
+        </th>
 
-                <th style="min-width: 10rem">
-                    <strong>نقش</strong>
-                </th>
+        <th style="min-width: 10rem">
+          <strong>نقش</strong>
+        </th>
 
-                <th>
-                    <strong> عملیات </strong>
-                </th>
-            </tr>
-        </ng-template>
-        <!-- / table header -->
-        <!-- table body -->
-        <ng-template pTemplate="body" let-userRole let-rowIndex="rowIndex">
-            <tr>
-                <td>{{ userRole.firstName }}</td>
+        <th>
+          <strong> عملیات </strong>
+        </th>
+      </tr>
+    </ng-template>
+    <!-- / table header -->
+    <!-- table body -->
+    <ng-template pTemplate="body" let-userRole let-rowIndex="rowIndex">
+      <tr>
+        <td
+          pTooltip="{{ userRole.firstName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ userRole.firstName }}
+        </td>
 
-                <td>{{ userRole.lastName }}</td>
+        <td
+          pTooltip="{{ userRole.lastName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ userRole.lastName }}
+        </td>
 
-                <td>{{ userRole.nationalId | faNum }}</td>
+        <td
+          pTooltip="{{ userRole.nationalId | faNum }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ userRole.nationalId | faNum }}
+        </td>
 
-                <td>{{ userRole.roleName }}</td>
-                <!-- actions -->
-                <td class="jc-left ai-left">
-                    <button class="action-image-container delete-button" (click)="deleteRow(userRole)" pTooltip="حذف">
-                        <img src="assets/images/icons/Group 117.svg" width="24" height="24" />
-                    </button>
-                </td>
-                <!-- actions -->
-            </tr>
-        </ng-template>
-        <!-- / table body -->
-    </p-table>
-    <!-- data table -->
+        <td
+          pTooltip="{{ userRole.roleName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ userRole.roleName }}
+        </td>
+        <!-- actions -->
+        <td class="jc-left ai-left">
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(userRole)"
+            pTooltip="حذف">
+            <img
+              src="assets/images/icons/Group 117.svg"
+              width="24"
+              height="24" />
+          </button>
+        </td>
+        <!-- actions -->
+      </tr>
+    </ng-template>
+    <!-- / table body -->
+  </p-table>
+  <!-- data table -->
 </div>
 
-
-
-<p-dialog class="height-size" *ngIf="isOpenAddRoleAssignment" [header]="modalTitle"
-    [(visible)]="isOpenAddRoleAssignment" [modal]="true" [draggable]="false" [resizable]="false"
-    [style]="{ width: '700px', height: '500px' }">
-    <PABudget-add-edit-user-role [mode]="mode" (isSuccess)="reloadData()"></PABudget-add-edit-user-role>
+<p-dialog
+  class="height-size"
+  *ngIf="isOpenAddRoleAssignment"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddRoleAssignment"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '700px', height: '500px' }">
+  <PABudget-add-edit-user-role
+    [mode]="mode"
+    (isSuccess)="reloadData()"></PABudget-add-edit-user-role>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

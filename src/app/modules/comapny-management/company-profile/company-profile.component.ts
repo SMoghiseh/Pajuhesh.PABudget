@@ -108,7 +108,7 @@ export class CompanyProfileComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { debugger
     this.getList();
     this.route.params.subscribe(params => {
       this.coId = params['id'];
@@ -120,7 +120,7 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  getProfileCoInfo(id: string) {
+  getProfileCoInfo(id: string) {debugger
     const body = {
       companyId: id,
     };
@@ -141,14 +141,14 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  contractRoute() {
+  contractRoute() {debugger
     this.router.navigate(['/Comapny/contractCompany', this.coId]),
     {
       queryParams: {},
     };
   }
 
-  getCostAndBenefitForProfile(id: string) {
+  getCostAndBenefitForProfile(id: string) {debugger
     this.httpService
       .get<number>(
         UrlBuilder.build(Dashboard.apiAddressCostAndBenefitForProfile + id, '')
@@ -166,7 +166,7 @@ export class CompanyProfileComponent implements OnInit {
   }
 
 
-  onCoDetail(id: number) {
+  onCoDetail(id: number) { debugger
     this.router.navigate(['/Comapny/companyDetail/' + id]);
   }
 
@@ -178,7 +178,7 @@ export class CompanyProfileComponent implements OnInit {
     this.liveSelectionRow--;
   }
 
-  getList() {
+  getList() {debugger
     this.httpService
       .get<PermissionProfile[]>(
         UrlBuilder.build(PermissionProfile.apiAddress + 'list', '')
@@ -195,7 +195,7 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  operationOnList(data: any) {
+  operationOnList(data: any) {debugger
     this.allList = data;
     data.forEach((list: any) => {
       list['groupedDetail'] = this.convertArray(list.detail);
@@ -211,7 +211,7 @@ export class CompanyProfileComponent implements OnInit {
     return grouped;
   }
 
-  onSelectBudget(data: any) {
+  onSelectBudget(data: any) {debugger
     this.switchItem = data.componentName;
     this.selectedBudgetId = data.id;
     let yearId = 12;
@@ -228,7 +228,7 @@ export class CompanyProfileComponent implements OnInit {
     this.selectedRows = [];
   }
 
-  getChart() {
+  getChart() {debugger
     this.selectDateType = 'multiple';
     this.isShowChart = true;
     const type = typeof this.selectedYears;
@@ -256,7 +256,7 @@ export class CompanyProfileComponent implements OnInit {
       });
   }
 
-  createLineChart(data: any) {
+  createLineChart(data: any) {debugger
     this.lineChart1 = new Chart('LineChart', {
       type: 'line',
       data: data,

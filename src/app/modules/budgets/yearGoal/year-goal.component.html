@@ -129,11 +129,36 @@
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.yearGoalCode }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.symbol }}</td>
-        <td>{{ item.bigGoalTitle }}</td>
-        <td>{{ item.aspectCodeTitle }}</td>
+        <td
+          pTooltip="{{ item.yearGoalCode }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.yearGoalCode }}
+        </td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
+        <td
+          pTooltip="{{ item.symbol }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.symbol }}
+        </td>
+        <td
+          pTooltip="{{ item.bigGoalTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.bigGoalTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.aspectCodeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.aspectCodeTitle }}
+        </td>
 
         <td class="jc-left ai-left">
           <button

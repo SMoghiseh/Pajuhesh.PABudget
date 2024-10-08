@@ -137,10 +137,30 @@
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
         <!-- <td>{{ item.budgetPeriodTitle }}</td> -->
-        <td>{{ item.meetingId }}</td>
-        <td>{{ item.typeCodeTitle }}</td>
-        <td>{{ item.companyName }}</td>
-        <td>{{ item.title }}</td>
+        <td
+          pTooltip="{{ item.meetingId }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.meetingId }}
+        </td>
+        <td
+          pTooltip="{{ item.typeCodeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.typeCodeTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.companyName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.companyName }}
+        </td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
         <!-- <td>{{ item.meetingDate }}</td> -->
 
         <td class="jc-left ai-left">
@@ -158,11 +178,11 @@
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
           </button>
           <button
-          class="action-image-container delete-button"
-          (click)="menu.toggle($event); setActiveComponentRoute(item)"
-          pTooltip="">
-          <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-        </button>
+            class="action-image-container delete-button"
+            (click)="menu.toggle($event); setActiveComponentRoute(item)"
+            pTooltip="">
+            <img ngSrc="icons\Group 109.svg" width="24" height="24" />
+          </button>
         </td>
       </tr>
     </ng-template>
@@ -218,7 +238,7 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
-<p-menu 
+<p-menu
   [showTransitionOptions]="'0ms'"
   [hideTransitionOptions]="'0ms'"
   #menu

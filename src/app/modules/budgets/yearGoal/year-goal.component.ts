@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   Pagination,
   UrlBuilder,
@@ -24,6 +24,7 @@ import { ActivatedRoute } from '@angular/router';
   providers: [ConfirmationService],
 })
 export class YearGoalComponent {
+  // @Input() inputData: any;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -36,7 +37,7 @@ export class YearGoalComponent {
   addEditData = new YearGoal();
   pId!: string;
   mode!: string;
-
+  selectedPlanName = 'اهداف سالیانه';
   // form property
   searchForm!: FormGroup;
 
@@ -57,7 +58,7 @@ export class YearGoalComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getAspectCodeLst();
@@ -202,32 +203,32 @@ export class YearGoalComponent {
   }
 
   setActiveComponentRoute(item: YearGoal) {
-
-    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
-    let array = componentRouterLink.split('/');
-    let idOfRouting = array[componentRouterLink.split('/').length - 1];
+    debugger;
+    const componentRouterLink = this.subComponentList[0]['routerLink'][0];
+    const array = componentRouterLink.split('/');
+    const idOfRouting = array[componentRouterLink.split('/').length - 1];
 
     if (Number(idOfRouting) != Number(this.route.snapshot.paramMap.get('id'))) {
-
       if (Number(idOfRouting)) {
         this.subComponentList.forEach((componentInfo: any) => {
-          let url = componentInfo['routerLink'][0].split('/');
-          let prevId = url.pop();
+          const url = componentInfo['routerLink'][0].split('/');
+          const prevId = url.pop();
           let baseUrl = '';
           url.forEach((i: string) => {
-            if (i != '')
-              baseUrl = baseUrl.concat(`/${i}`);
-          })
+            if (i != '') baseUrl = baseUrl.concat(`/${i}`);
+          });
           componentInfo['routerLink'][0] = baseUrl + '/' + item.id;
         });
       } else {
         this.subComponentList.forEach((componentInfo: any) => {
-          componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' +
-            Number(this.route.snapshot.paramMap.get('id')) + '/' +
+          componentInfo['routerLink'][0] =
+            componentInfo['routerLink'][0] +
+            '/' +
+            Number(this.route.snapshot.paramMap.get('id')) +
+            '/' +
             item.id;
         });
       }
     }
-
   }
 }

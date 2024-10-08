@@ -70,9 +70,24 @@
       <!-- table body -->
       <ng-template pTemplate="body" let-company let-rowIndex="rowIndex">
         <tr>
-          <td>{{ company.companyName }}</td>
-          <td>{{ company.companyType }}</td>
-          <td>{{ company.nationalID }}</td>
+          <td
+            pTooltip="{{ company.companyName }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ company.companyName }}
+          </td>
+          <td
+            pTooltip="{{ company.companyType }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ company.companyType }}
+          </td>
+          <td
+            pTooltip="{{ company.nationalID }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ company.nationalID }}
+          </td>
 
           <!-- actions -->
           <td class="jc-left ai-left">

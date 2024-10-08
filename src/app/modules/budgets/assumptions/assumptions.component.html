@@ -112,9 +112,24 @@
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
         <td>{{ item.assumptionsCode }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.companyTitle }}</td>
-        <td>{{ item.typeCodeTitle }}</td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
+        <td
+          pTooltip="{{ item.companyTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.companyTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.typeCodeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.typeCodeTitle }}
+        </td>
 
         <td class="jc-left ai-left">
           <button

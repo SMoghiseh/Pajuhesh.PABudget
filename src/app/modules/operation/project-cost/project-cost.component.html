@@ -153,14 +153,54 @@
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.periodTitle }}</td>
-        <td>{{ item.periodDetailTitle }}</td>
-        <td>{{ item.periodTitle }}</td>
-        <td>{{ item.unitTitle }}</td>
-        <td>{{ item.sourceTypeTitle }}</td>
-        <td>{{ item.percentGrow }}</td>
-        <td>{{ item.estimatePriceCu }}</td>
-        <td>{{ item.realPriceCu }}</td>
+        <td
+          pTooltip="{{ item.periodTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.periodTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.periodDetailTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.periodDetailTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.periodTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.periodTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.unitTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.unitTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.sourceTypeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.sourceTypeTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.percentGrow }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.percentGrow }}
+        </td>
+        <td
+          pTooltip="{{ item.estimatePriceCu }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.estimatePriceCu }}
+        </td>
+        <td
+          pTooltip="{{ item.realPriceCu }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.realPriceCu }}
+        </td>
 
         <td class="jc-left ai-left">
           <button

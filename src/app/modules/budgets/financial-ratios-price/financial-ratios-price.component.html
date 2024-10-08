@@ -112,26 +112,35 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <!-- <th style="min-width: 10rem"><strong> شناسه دوره بودجه </strong></th> -->
         <th style="min-width: 10rem"><strong> نسبت مالی </strong></th>
         <th style="min-width: 10rem"><strong> شرکت </strong></th>
-        <!-- <th style="min-width: 10rem"><strong> دوره بودجه </strong></th> -->
         <th style="min-width: 10rem"><strong> مبلغ </strong></th>
         <th style="min-width: 10rem"><strong> واحد مبلغ </strong></th>
-        <!-- <th style="min-width: 10rem"><strong> تاریخ صورتجلسه </strong></th> -->
-
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <!-- <td>{{ item.budgetPeriodTitle }}</td> -->
-        <td>{{ item.title }}</td>
-        <td>{{ item.companyName }}</td>
-        <!-- <td>{{ item.periodId }}</td> -->
-        <td>{{ item.price }}</td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
+        <td
+          pTooltip="{{ item.companyName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.companyName }}
+        </td>
+        <td
+          pTooltip="{{ item.price }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.price }}
+        </td>
         <td>{{ item.code }}</td>
-        <!-- <td>{{ item.meetingDate }}</td> -->
+        >
 
         <td class="jc-left ai-left">
           <button

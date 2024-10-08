@@ -1338,7 +1338,7 @@ export class ProjectCost {
   periodId!: number;
 }
 export class KeyTypecode {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/SWOT/';
   id!: number;
   title!: string;
 }

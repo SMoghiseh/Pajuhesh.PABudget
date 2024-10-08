@@ -97,10 +97,30 @@
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.bigGoalCode }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.visionTitle }}</td>
-        <td>{{ item.aspectCodeTitle }}</td>
+        <td
+          pTooltip="{{ item.bigGoalCode }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.bigGoalCode }}
+        </td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
+        <td
+          pTooltip="{{ item.visionTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.visionTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.aspectCodeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.aspectCodeTitle }}
+        </td>
 
         <td class="jc-left ai-left">
           <button
