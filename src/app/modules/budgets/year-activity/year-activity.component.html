@@ -11,14 +11,6 @@
 <div class="panel-search mt-8 mb-8">
   <form #formDir="ngForm" [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
-
-      <div class="col-3 mt-8">
-        <label for="yearGoalId"> هدف سالیانه </label>
-        <p-dropdown id="yearGoalId" name="yearGoalId" formControlName="yearGoalId" styleClass="w-100 my-1"
-          [readonly]="true" optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="yearGoalList"
-          [filter]="true">
-        </p-dropdown>
-      </div>
       <div class="col-3 mt-8">
         <label for="budgetPeriodId"> دوره </label>
         <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId" styleClass="w-100 my-1"
@@ -26,6 +18,14 @@
           [filter]="true" [readonly]="true">
         </p-dropdown>
       </div>
+      <div class="col-3 mt-8">
+        <label for="yearGoalId"> هدف سالیانه </label>
+        <p-dropdown id="yearGoalId" name="yearGoalId" formControlName="yearGoalId" styleClass="w-100 my-1"
+          [readonly]="true" optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="yearGoalList"
+          [filter]="true">
+        </p-dropdown>
+      </div>
+
       <div class="col-3 mt-8">
         <label for="code"> کد </label>
         <input pInputText id="code" name="code" formControlName="code" class="w-100 my-1" />
