@@ -65,6 +65,20 @@
           [filter]="true">
         </p-dropdown>
       </div>
+      <div class="col my-1">
+        <label for="companyId"> شرکت </label>
+        <p-dropdown
+          id="companyId"
+          name="companyId"
+          formControlName="companyId"
+          styleClass="w-100 my-1"
+          optionLabel="partyName"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="companyList"
+          [filter]="true">
+        </p-dropdown>
+      </div>
       <!-- / شناسه منابع و مصارف  -->
       <!-- دکمه -->
       <div

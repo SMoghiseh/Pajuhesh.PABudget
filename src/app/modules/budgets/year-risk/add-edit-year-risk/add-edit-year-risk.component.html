@@ -44,6 +44,36 @@
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
+      <label for="yearRiskCode"> کد</label>
+      <input
+        pInputText
+        id="yearRiskCode"
+        name="yearRiskCode"
+        formControlName="yearRiskCode"
+        class="w-100 my-1"
+        [class.ng-invalid]="yearRiskCode?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && yearRiskCode?.pristine) ||
+          yearRiskCode?.dirty ||
+          yearRiskCode?.touched
+        " />
+    </div>
+    <div class="col-6 mt-2">
+      <label for="title"> عنوان </label>
+      <input
+        pInputText
+        id="title"
+        name="title"
+        formControlName="title"
+        class="w-100 my-1"
+        [class.ng-invalid]="title?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+    </div>
+    <div class="col-6 mt-2">
       <label for="keyTypeCode"> نوع ریسک </label>
       <p-dropdown
         id="keyTypeCode"
@@ -76,36 +106,6 @@
         [options]="evaluateIndexList"
         [filter]="true">
       </p-dropdown>
-    </div>
-    <div class="col-6 mt-2">
-      <label for="yearRiskCode"> کد</label>
-      <input
-        pInputText
-        id="yearRiskCode"
-        name="yearRiskCode"
-        formControlName="yearRiskCode"
-        class="w-100 my-1"
-        [class.ng-invalid]="yearRiskCode?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && yearRiskCode?.pristine) ||
-          yearRiskCode?.dirty ||
-          yearRiskCode?.touched
-        " />
-    </div>
-    <div class="col-6 mt-2">
-      <label for="title"> عنوان </label>
-      <input
-        pInputText
-        id="title"
-        name="title"
-        formControlName="title"
-        class="w-100 my-1"
-        [class.ng-invalid]="title?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && title?.pristine) ||
-          title?.dirty ||
-          title?.touched
-        " />
     </div>
     <div class="col-6 mt-2">
       <label for="riskIntensity"> شدت </label>

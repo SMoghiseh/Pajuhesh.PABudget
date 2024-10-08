@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AccountReport,
+  Company,
   Period,
   PeriodBudgetType,
   ReportItemType,
@@ -15,7 +16,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './add-edit-account-report.component.html',
   styleUrls: ['./add-edit-account-report.component.scss'],
 })
-export class AddEditAccountReportComponent {
+export class AddEditAccountReportComponent implements OnInit {
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -24,6 +25,7 @@ export class AddEditAccountReportComponent {
   // dropdown data list
   periodTypeList: any = [];
   reportTypeCodeList: any = [];
+  companyList: any = [];
 
   inputData = new AccountReport();
   @Input() mode = '';
@@ -54,12 +56,14 @@ export class AddEditAccountReportComponent {
   ngOnInit(): void {
     this.getPeriodTypeList();
     this.getReportTypeCodeList();
+    this.getCompanyLst();
 
     this.addEditForm = new FormGroup({
       title: new FormControl(this.inputData.title, Validators.required),
       code: new FormControl(this.inputData.code, Validators.required),
       periodTypeCode: new FormControl('', Validators.required),
       reportTypeCode: new FormControl('', Validators.required),
+      companyId: new FormControl(),
     });
     this.addEditForm.patchValue(this.inputData);
 
@@ -128,6 +132,16 @@ export class AddEditAccountReportComponent {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
           this.addEditForm.patchValue(response.data.result);
+        }
+      });
+  }
+
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
         }
       });
   }

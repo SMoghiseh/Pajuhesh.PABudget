@@ -1,13 +1,14 @@
-<p-toast key="AssemblyAssignmen"
-  position="bottom-left"></p-toast>
+<p-toast key="AssemblyAssignmen" position="bottom-left"></p-toast>
 
-<form #formDir="ngForm"
+<form
+  #formDir="ngForm"
   [formGroup]="addEditForm"
   (ngSubmit)="addEditAssemblyAssignment()">
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="budgetPeriodId"> شناسه دوره بودجه </label>
-      <input pInputText
+      <input
+        pInputText
         id="budgetPeriodId"
         name="budgetPeriodId"
         formControlName="budgetPeriodId"
@@ -15,7 +16,8 @@
     </div>
     <div class="col-6 mt-2">
       <label for="title"> شرح </label>
-      <input pInputText
+      <input
+        pInputText
         id="title"
         name="title"
         formControlName="title"
@@ -23,7 +25,8 @@
     </div>
     <div class="col-6 mt-2">
       <label for="meetingId"> شناسه جلسه </label>
-      <p-dropdown id="meetingId"
+      <p-dropdown
+        id="meetingId"
         name="meetingId"
         formControlName="meetingId"
         styleClass="w-100 my-1"
@@ -35,7 +38,8 @@
     </div>
     <div class="col-6 mt-2">
       <label for="typeCode"> نوع صورتجلسه </label>
-      <p-dropdown id="typeCode"
+      <p-dropdown
+        id="typeCode"
         name="typeCode"
         formControlName="typeCode"
         styleClass="w-100 my-1"
@@ -48,7 +52,8 @@
     </div>
     <div class="col-6 mt-2">
       <label for="companyId"> شناسه شرکت </label>
-      <p-dropdown id="companyId"
+      <p-dropdown
+        id="companyId"
         name="companyId"
         formControlName="companyId"
         styleClass="w-100 my-1"
@@ -70,7 +75,8 @@
     </div> -->
 
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button class="pe-2 p-button-wide"
+      <p-button
+        class="pe-2 p-button-wide"
         styleClass="p-button-success"
         [label]="'ثبت'"
         type="submit"

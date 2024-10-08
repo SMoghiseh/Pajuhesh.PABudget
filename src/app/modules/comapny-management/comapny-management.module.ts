@@ -65,6 +65,7 @@ import { StatementCashFlowsComponent } from './company-profile/plan-badget-detai
 import { ReconciliationStatementOperatingComponent } from './company-profile/plan-badget-detail/plans/reconciliation-statement-operating/reconciliation-statement-operating.component';
 import { ReceiveAndPayComponent } from './company-profile/plan-badget-detail/plans/receive-and-pay/receive-and-pay.component';
 import { ShareholderComponent } from './company-profile/plan-badget-detail/plans/shareholder/shareholder.component';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,7 @@ import { ShareholderComponent } from './company-profile/plan-badget-detail/plans
     StatementCashFlowsComponent,
     ReconciliationStatementOperatingComponent,
     ReceiveAndPayComponent,
-    ShareholderComponent
+    ShareholderComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -127,7 +128,8 @@ import { ShareholderComponent } from './company-profile/plan-badget-detail/plans
     ListboxModule,
     TreeSelectModule,
     InputNumberModule,
-    TreeTableModule
+    TreeTableModule,
+    NgxGraphModule,
   ],
   providers: [
     {
@@ -139,4 +141,4 @@ import { ShareholderComponent } from './company-profile/plan-badget-detail/plans
     TableCheckbox,
   ],
 })
-export class ComapnyManagementModule { }
+export class ComapnyManagementModule {}

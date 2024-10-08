@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Pagination,
   AccountReport,
   UrlBuilder,
   PeriodBudgetType,
   ReportItemType,
+  Company,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -22,7 +23,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./account-report.component.scss'],
   providers: [ConfirmationService],
 })
-export class AccountReportComponent {
+export class AccountReportComponent implements OnInit {
   addNewAccountReportForm!: FormGroup;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -38,6 +39,7 @@ export class AccountReportComponent {
   mode!: string;
   periodTypeList: any = [];
   reportTypeCodeList: any = [];
+  companyList: any = [];
 
   get reportTypeCode() {
     return this.addNewAccountReportForm.get('reportTypeCode');
@@ -52,11 +54,13 @@ export class AccountReportComponent {
   ngOnInit(): void {
     this.getPeriodTypeList();
     this.getReportTypeCodeList();
+    this.getCompanyLst();
     this.addNewAccountReportForm = new FormGroup({
       code: new FormControl(null),
       title: new FormControl(null),
       reportTypeCode: new FormControl(0),
       periodTypeCode: new FormControl(0),
+      companyId: new FormControl(),
     });
   }
 
@@ -132,6 +136,7 @@ export class AccountReportComponent {
       title: formValue.title,
       reportTypeCode: formValue.reportTypeCode,
       periodTypeCode: formValue.periodTypeCode,
+      companyId: formValue.companyId,
     };
     this.first = 0;
     const url = AccountReport.apiAddressList;
@@ -214,5 +219,15 @@ export class AccountReportComponent {
 
   addAccountReportToItem(report: AccountReport) {
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
+  }
+
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
   }
 }
