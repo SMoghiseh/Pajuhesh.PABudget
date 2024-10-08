@@ -66,6 +66,10 @@ import { ReconciliationStatementOperatingComponent } from './company-profile/pla
 import { ReceiveAndPayComponent } from './company-profile/plan-badget-detail/plans/receive-and-pay/receive-and-pay.component';
 import { ShareholderComponent } from './company-profile/plan-badget-detail/plans/shareholder/shareholder.component';
 import { AnnualGolsComponent } from './company-profile/plan-badget-detail/plans/annual-gols/annual-gols.component';
+import { ShareHolderCompanyComponent } from './share-holder-company/share-holder-company.component';
+import { AddEditShareHolderCompanyComponent } from './share-holder-company/add-edit-share-holder-company/add-edit-share-holder-company.component';
+import { MenuModule } from 'primeng/menu';
+import { CompanyDefinitionLookupComponent } from './share-holder-company/company-definition-lookup/company-definition-lookup.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 @NgModule({
@@ -100,7 +104,10 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     StatementCashFlowsComponent,
     ReconciliationStatementOperatingComponent,
     ReceiveAndPayComponent,
-    ShareholderComponent
+    ShareholderComponent,
+    ShareHolderCompanyComponent,
+    AddEditShareHolderCompanyComponent,
+    CompanyDefinitionLookupComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -131,6 +138,8 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     TreeSelectModule,
     InputNumberModule,
     TreeTableModule,
+    MenuModule,
+    DialogModule,
     NgxGraphModule,
   ],
   providers: [
@@ -143,4 +152,4 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     TableCheckbox,
   ],
 })
-export class ComapnyManagementModule {}
+export class ComapnyManagementModule { }

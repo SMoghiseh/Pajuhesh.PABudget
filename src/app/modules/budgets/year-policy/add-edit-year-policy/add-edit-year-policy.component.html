@@ -26,17 +26,7 @@
               ">
             </p-dropdown>
         </div>
-        <div class="col-6 mt-2">
-            <label for="keyTypeCode"> شناسه نوع </label>
-            <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList" [filter]="true"
-                [class.ng-invalid]="keyTypeCode?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && keyTypeCode?.pristine) ||
-                keyTypeCode?.dirty ||
-                keyTypeCode?.touched
-              ">
-            </p-dropdown>
-        </div>
+
         <div class="col-6 mt-2">
             <label for="yearPolicyCode"> کد </label>
             <input pInputText id="yearPolicyCode" name="yearPolicyCode" formControlName="yearPolicyCode"
@@ -54,6 +44,17 @@
           title?.dirty ||
           title?.touched
         " />
+        </div>
+        <div class="col-6 mt-2">
+            <label for="keyTypeCode"> شناسه نوع </label>
+            <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList" [filter]="true"
+                [class.ng-invalid]="keyTypeCode?.invalid" [class.ng-dirty]="
+                (addEditFormSubmitted && keyTypeCode?.pristine) ||
+                keyTypeCode?.dirty ||
+                keyTypeCode?.touched
+              ">
+            </p-dropdown>
         </div>
         <div class="col-12 row-btn  row-btn-fixed-bottom">
             <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"

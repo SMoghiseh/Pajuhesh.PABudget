@@ -407,6 +407,8 @@ export class Person {
   nationalID!: string;
 
   groupId!: number;
+
+  active!: number;
 }
 
 export class ChangePassword {
@@ -1696,3 +1698,19 @@ export class FinancialRatio {
   id!: number;
   title!: string;
 }
+
+
+export class ShareHolder {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/ShareHolderCompany/';
+  static readonly PartyListApiAddress =
+    'api/PABudgetApi/v1/BaseInfo/GetPartyList';
+  static readonly TypeListApiAddress =
+    'api/PABudgetApi/v1/BaseInfo/ShareHolderType/';
+  id!: number;
+  partyName!: string;
+  partyLastName!: string;
+  partyNationalId!: string;
+}
+
+

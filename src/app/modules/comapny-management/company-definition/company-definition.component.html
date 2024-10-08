@@ -9,23 +9,12 @@
       <!-- / نام شرکت -->
       <div class="col-4">
         <label for="companyName"> &nbsp; </label>
-        <p-dropdown
-          id="companyName"
-          class="col"
-          styleClass="w-100"
-          optionLabel="companyName"
-          [options]="subCompanies"
-          placeholder="انتخاب کنید"
-          [(ngModel)]="selectedCompany"
-          (onChange)="onCompanySelected($event)">
+        <p-dropdown id="companyName" class="col" styleClass="w-100" optionLabel="companyName" [options]="subCompanies"
+          placeholder="انتخاب کنید" [(ngModel)]="selectedCompany" (onChange)="onCompanySelected($event)">
         </p-dropdown>
       </div>
       <!-- دکمه -->
-      <p-button
-        class="pe-2 mt-4"
-        styleClass="p-button-info"
-        icon="pi pi-plus-circle"
-        label="افزودن شرکت جدید"
+      <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن شرکت جدید"
         (click)="addCompany(selectedCompany)"></p-button>
       <!-- / دکمه -->
     </div>
@@ -34,20 +23,9 @@
 
   <!-- data table -->
   <div class="table-container">
-    <p-table
-      #dataTable
-      dataKey="id"
-      class="data-table d-none d-lg-block"
-      [styleClass]="gridClass"
-      [rowHover]="true"
-      [paginator]="true"
-      [rows]="dataTableRows"
-      [rowsPerPageOptions]="[10, 20, 30]"
-      [totalRecords]="totalCount"
-      [value]="data"
-      [loading]="loading"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      [lazy]="true"
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+      [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+      [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
       [(first)]="dataTableFirst">
       <!-- table header -->
       <ng-template pTemplate="header">
@@ -92,46 +70,31 @@
           <!-- actions -->
           <td class="jc-left ai-left">
             <!-- edit -->
-            <button
-              class="action-image-container"
-              pTooltip="ویرایش دوره"
-              (click)="editRow(company)">
+            <button class="action-image-container" pTooltip="ویرایش شرکت" (click)="editRow(company)">
               <img ngSrc="icons\Group 116.svg" width="24" height="24" />
             </button>
             <!-- / edit -->
 
             <!-- insert -->
-            <button
-              class="action-image-container"
-              pTooltip="افزودن شرکت"
-              (click)="addCompany(company)">
+            <button class="action-image-container" pTooltip="افزودن شرکت" (click)="addCompany(company)">
               <img ngSrc="icons\Group 187.svg" width="24" height="24" />
             </button>
             <!-- / insert -->
 
             <!-- delete -->
-            <button
-              class="action-image-container"
-              pTooltip="حذف شرکت"
-              (click)="deleteRow(company)">
+            <button class="action-image-container" pTooltip="حذف شرکت" (click)="deleteRow(company)">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>
             <!-- / delete -->
 
             <!-- select Board of Managments -->
-            <button
-              class="action-image-container"
-              pTooltip="لیست هیئت مدیره"
-              (click)="personscompany(company)">
+            <button class="action-image-container" pTooltip="لیست هیئت مدیره" (click)="personscompany(company)">
               <img ngSrc="icons\Group 118.svg" width="24" height="24" />
             </button>
             <!-- select Board of Managments -->
 
             <!-- select auditor -->
-            <button
-              class="action-image-container"
-              pTooltip="لیست بازرس ها"
-              (click)="selectAuditors(company)">
+            <button class="action-image-container" pTooltip="لیست بازرس ها" (click)="selectAuditors(company)">
               <img ngSrc="icons\Group 119.svg" width="24" height="24" />
             </button>
             <!-- select auditor -->
@@ -186,21 +149,13 @@
           <div class="col my-1 text-center">
             <div class="d-flex jc-center ai-center">
               <!-- edit -->
-              <p-button
-                pRipple
-                styleClass="p-button-text p-button-warning"
-                type="button"
-                icon="pi pi-pencil"
+              <p-button pRipple styleClass="p-button-text p-button-warning" type="button" icon="pi pi-pencil"
                 (click)="editRow(company)">
               </p-button>
               <!-- / edit -->
 
               <!-- delete -->
-              <p-button
-                pRipple
-                styleClass="p-button-text p-button-danger"
-                type="button"
-                icon="pi pi-times"
+              <p-button pRipple styleClass="p-button-text p-button-danger" type="button" icon="pi pi-times"
                 (click)="deleteRow(company)">
               </p-button>
               <!-- / delete -->

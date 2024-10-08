@@ -2,49 +2,47 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditProject()">
     <div class="container row">
-        <div class="col-6 mt-2">
+        <div class="col-4 mt-2">
             <label for="companyId"> شرکت</label>
             <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
                 optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
                 [filter]="true">
             </p-dropdown>
         </div>
-        <div class="col-6 mt-2">
+        <div class="col-4 mt-2">
+            <label for="code">کد</label>
+            <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100" />
+            <!-- / کد -->
+        </div>
+
+        <div class="col-4 mt-2">
+            <label for="title">عنوان</label>
+            <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100" />
+        </div>
+        <div class="col-4 mt-2">
             <label for="budgetPeriodId"> دوره بودجه</label>
             <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId"
                 styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
                 [options]="budgetPeriodList" (onChange)="onChangBudgetPeriod($event)" [filter]="true">
             </p-dropdown>
         </div>
-        <div class="col-6 mt-2">
+        <div class="col-4 mt-2">
             <label for="fromBudgetPeriodId"> از دوره</label>
             <p-dropdown id="fromBudgetPeriodId" name="fromBudgetPeriodId" formControlName="fromBudgetPeriodId"
                 styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
                 [options]="fromBudgetPeriodList" [filter]="true">
             </p-dropdown>
         </div>
-        <div class="col-6 mt-2">
+        <div class="col-4 mt-2">
             <label for="toBudgetPeriodId"> تا دوره</label>
             <p-dropdown id="toBudgetPeriodId" name="toBudgetPeriodId" formControlName="toBudgetPeriodId"
                 styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
                 [options]="toBudgetPeriodList" [filter]="true">
             </p-dropdown>
         </div>
-
-
-        <div class="col-6 mt-2">
-            <label for="typeCode"> نوع طرح</label>
-            <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="projectTypeCodeList"
-                [filter]="true">
-            </p-dropdown>
-        </div>
         <!-- کد -->
-        <div class="col-6 mt-2">
-            <label for="code">کد</label>
-            <input pInputText id="code" name="code" formControlName="code" type="text" class="w-100" />
-            <!-- / کد -->
-        </div>
+
+
 
         <div class="col-4 mt-2">
             <label for="internalRateOfReturn">نرخ بازده داخلی</label>
@@ -62,11 +60,15 @@
             <input pInputText id="payBackPeriod" name="payBackPeriod" formControlName="payBackPeriod" ype="text"
                 class="w-100" />
         </div>
-        <div class="col-6 mt-2">
-            <label for="title">عنوان</label>
-            <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100" />
+        <div class="col-4 mt-2">
+            <label for="typeCode"> نوع طرح</label>
+            <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="projectTypeCodeList"
+                [filter]="true">
+            </p-dropdown>
         </div>
-        <div class="col-6 mt-2">
+
+        <div class="col-4 mt-2">
             <label for="address">آدرس</label>
             <textarea pInputTextarea id="address" name="address" formControlName="address" class="w-100 my-1" rows="3"
                 cols="10"></textarea>

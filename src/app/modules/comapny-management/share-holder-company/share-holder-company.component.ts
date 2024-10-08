@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import {
   Pagination,
   UrlBuilder,
-  Assumptions,
-  Company,
-  TypeCodeAssumptions,
+  ShareHolder, Company
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -14,24 +12,25 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'PABudget-assumptions',
-  templateUrl: './assumptions.component.html',
-  styleUrls: ['./assumptions.component.scss'],
-  providers: [ConfirmationService],
+  selector: 'PABudget-share-holder-company',
+  templateUrl: './share-holder-company.component.html',
+  styleUrls: ['./share-holder-company.component.scss'],
+  providers: [ConfirmationService]
 })
-export class AssumptionsComponent {
+export class ShareHolderCompanyComponent {
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: Assumptions[] = [];
+  data: ShareHolder[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
-  isOpenAddEditAssumptions = false;
-  addEditData = new Assumptions();
+  isOpenAddEditShareHolder = false;
+  addEditData = new ShareHolder();
   pId!: string;
   mode!: string;
 
@@ -39,27 +38,28 @@ export class AssumptionsComponent {
   searchForm!: FormGroup;
 
   // dropdown data list
-  budgetPeriodList: any = [];
   aspectCodeList: any = [];
   companyList: any = [];
-  typeCodeList: any = [];
+  bigGoalList: any = [];
+  subComponentList = [
+    {
+      label: ' برنامه عملیاتی ',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Period/YearActivity'],
+    },
+  ];
 
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.getCompanyLst();
-    this.getTypeCodeList();
-
     this.searchForm = new FormGroup({
-      title: new FormControl(null),
-      assumptionsCode: new FormControl(null),
-      companyId: new FormControl(null),
-      typeCode: new FormControl(null),
-      aspectCode: new FormControl(null),
+      companyId: new FormControl(0)
     });
   }
 
@@ -69,16 +69,10 @@ export class AssumptionsComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
-        }
-      });
-  }
-
-  getTypeCodeList() {
-    this.httpService
-      .get<TypeCodeAssumptions[]>(TypeCodeAssumptions.apiAddress + 'List')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.typeCodeList = response.data.result;
+          this.searchForm.patchValue({
+            companyId: this.companyList[0].id
+          })
+          this.getList();
         }
       });
   }
@@ -100,10 +94,14 @@ export class AssumptionsComponent {
       ...formValue,
     };
 
+    body.companyId = body.companyId ? body.companyId :
+      this.companyList[0].id
+      ;
+
     this.first = 0;
-    const url = Assumptions.apiAddress + 'List';
+    const url = ShareHolder.apiAddress + 'GetShareHolderList';
     this.httpService
-      .post<Assumptions[]>(url, body)
+      .post<ShareHolder[]>(url, body)
 
       .pipe(
         tap(() => (this.loading = false)),
@@ -112,30 +110,32 @@ export class AssumptionsComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new Assumptions()];
+          } else return [new ShareHolder()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(res => {
+        this.data = res;
+      });
   }
 
-  addAssumptions() {
-    this.modalTitle = 'افزودن مفروضات ';
+  addShareHolder() {
+    this.modalTitle = 'افزودن';
     this.mode = 'insert';
-    this.isOpenAddEditAssumptions = true;
+    this.isOpenAddEditShareHolder = true;
   }
 
-  editRow(data: Assumptions) {
-    this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
+  editRow(data: ShareHolder) {
+    this.modalTitle = 'ویرایش ';
     this.addEditData = data;
     this.mode = 'edit';
-    this.isOpenAddEditAssumptions = true;
+    this.isOpenAddEditShareHolder = true;
   }
 
-  deleteRow(item: Assumptions) {
+  deleteRow(item: ShareHolder) {
     if (item && item.id)
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
-        header: `عنوان "${item.title}"`,
+        message: `آیا از حذف "${item.partyName} " اطمینان دارید؟`,
+        header: `عنوان "${item.partyName}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -143,21 +143,21 @@ export class AssumptionsComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteAssumptions(item.id, item.title),
+        accept: () => this.deleteShareHolder(item.id, item.partyName),
       });
   }
 
-  deleteAssumptions(id: number, title: string) {
+  deleteShareHolder(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<Assumptions>(
-          UrlBuilder.build(Assumptions.apiAddress + 'Delete', '') + `/${id}`
+        .get<ShareHolder>(
+          UrlBuilder.build(ShareHolder.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'Assumptions',
+              key: 'سhareHolder',
               life: 8000,
               severity: 'success',
               detail: `  مورد  ${title}`,
@@ -170,7 +170,7 @@ export class AssumptionsComponent {
   }
 
   reloadData() {
-    this.isOpenAddEditAssumptions = false;
+    this.isOpenAddEditShareHolder = false;
     this.getList();
   }
 
@@ -178,4 +178,5 @@ export class AssumptionsComponent {
     this.searchForm.reset();
     this.getList();
   }
+
 }

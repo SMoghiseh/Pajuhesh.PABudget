@@ -1,3 +1,7 @@
+::ng-deep .p-inputnumber {
+    width: 100%;
+}
+
 :host ::ng-deep .row-btn.row-btn-fixed-bottom {
     bottom: 22px;
     position: absolute;
@@ -5,6 +9,6 @@
 }
 
 :host ::ng-deep .height-size .p-dialog {
-    min-height: 600px !important;
+    min-height: 500px !important;
     height: auto !important;
 }
