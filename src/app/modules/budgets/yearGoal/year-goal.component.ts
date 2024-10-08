@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   Pagination,
   UrlBuilder,
@@ -24,7 +24,6 @@ import { ActivatedRoute } from '@angular/router';
   providers: [ConfirmationService],
 })
 export class YearGoalComponent {
-  // @Input() inputData: any;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -37,7 +36,7 @@ export class YearGoalComponent {
   addEditData = new YearGoal();
   pId!: string;
   mode!: string;
-  selectedPlanName = 'اهداف سالیانه';
+
   // form property
   searchForm!: FormGroup;
 
@@ -202,8 +201,7 @@ export class YearGoalComponent {
     this.getList();
   }
 
-  setActiveComponentRoute(item: YearGoal) {
-    debugger;
+  setActiveComponentRoute(item: YearGoal) { debugger
     const componentRouterLink = this.subComponentList[0]['routerLink'][0];
     const array = componentRouterLink.split('/');
     const idOfRouting = array[componentRouterLink.split('/').length - 1];

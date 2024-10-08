@@ -50,7 +50,7 @@ export class AddEditPersonelNoComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -65,8 +65,8 @@ export class AddEditPersonelNoComponent implements OnInit {
         Validators.required
       ),
       periodId: new FormControl(
-        this.addEditPersonelNoModel.periodId,
-        Validators.required
+        this.addEditPersonelNoModel.periodId
+        
       ),
       costCenterTypeId: new FormControl(
         this.addEditPersonelNoModel.costCenterTypeId
@@ -82,7 +82,7 @@ export class AddEditPersonelNoComponent implements OnInit {
         this.addEditPersonelNoModel.employeewageCU
       ),
       companyId: new FormControl(null, Validators.required),
-
+      gender: new FormControl(0),
     });
     if (this.inputData.type === 'edit') {
       this.getPeriodDetailLst(this.inputData.periodId);

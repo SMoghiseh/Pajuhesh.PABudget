@@ -100,6 +100,30 @@
         </p-dropdown>
       </div>
 
+      <!-- جنسیت -->
+      <div class="col d-flex align-items-center justify-content-around pb-1">
+        <div class="d-flex align-items-center">
+          <p-radioButton
+            id="gender"
+            name="gender"
+            formControlName="gender"
+            [value]="0"
+            inputId="ingredient2"></p-radioButton>
+          <label for="ingredient2" class="ms-2">زن</label>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <p-radioButton
+            id="gender"
+            name="gender"
+            formControlName="gender"
+            [value]="1"
+            inputId="ingredient1"></p-radioButton>
+          <label for="ingredient1" class="ms-2">مرد</label>
+        </div>
+      </div>
+      <!-- / جنسیت -->
+
       <!-- دکمه -->
       <div
         class="d-flex justify-content-end col text-end"
@@ -161,6 +185,9 @@
           <strong> مبلغ دستمزد </strong>
         </th>
         <th>
+          <strong> جنسیت </strong>
+        </th>
+        <th>
           <strong> وضعیت </strong>
         </th>
         <th>
@@ -211,6 +238,12 @@
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ personelNo.employeewageCU }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.gender }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.gender }}
         </td>
         <td
           pTooltip="{{ personelNo.statusTitle }}"

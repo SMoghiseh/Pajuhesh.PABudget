@@ -54,7 +54,7 @@ export class PersonelNoComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -77,7 +77,8 @@ export class PersonelNoComponent {
       educationTypeId: new FormControl(
         this.addEditPersonelNoModel.educationTypeId
       ),
-      companyId: new FormControl(null)
+      companyId: new FormControl(null),
+      gender: new FormControl(0),
     });
   }
 
@@ -179,6 +180,7 @@ export class PersonelNoComponent {
       employmentTypeId: formValue.employmentTypeId,
       costCenterTypeId: formValue.costCenterTypeId,
       educationTypeId: formValue.educationTypeId,
+      gender: formValue.gender,
     };
     this.first = 0;
     const url = PersonelNo.apiAddress + 'ListByFilter';
