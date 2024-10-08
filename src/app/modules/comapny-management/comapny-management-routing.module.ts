@@ -10,6 +10,7 @@ import { AddEditContractComponent } from './company-profile/company-contract/add
 import { PersonsCompanyComponent } from './persons-company/persons-company.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { SeniorManagersComponent } from './senior-managers/senior-managers.component';
+import { ShareHolderCompanyComponent } from './share-holder-company/share-holder-company.component';
 
 const routes: Routes = [
   {
@@ -91,6 +92,15 @@ const routes: Routes = [
             path: 'companyDetail/:id',
             component: CompanyDetailComponent,
             title: 'برنامه و بودجه |جزئیات شرکت',
+            data: {
+              reuse: true,
+              title: 'جزئیات شرکت',
+            },
+          },
+          {
+            path: 'ShareHolders',
+            component: ShareHolderCompanyComponent,
+            title: 'برنامه و بودجه | سهامداران',
             data: {
               reuse: true,
               title: 'جزئیات شرکت',

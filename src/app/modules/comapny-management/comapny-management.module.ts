@@ -65,6 +65,10 @@ import { StatementCashFlowsComponent } from './company-profile/plan-badget-detai
 import { ReconciliationStatementOperatingComponent } from './company-profile/plan-badget-detail/plans/reconciliation-statement-operating/reconciliation-statement-operating.component';
 import { ReceiveAndPayComponent } from './company-profile/plan-badget-detail/plans/receive-and-pay/receive-and-pay.component';
 import { ShareholderComponent } from './company-profile/plan-badget-detail/plans/shareholder/shareholder.component';
+import { ShareHolderCompanyComponent } from './share-holder-company/share-holder-company.component';
+import { AddEditShareHolderCompanyComponent } from './share-holder-company/add-edit-share-holder-company/add-edit-share-holder-company.component';
+import { MenuModule } from 'primeng/menu';
+import { CompanyDefinitionLookupComponent } from './share-holder-company/company-definition-lookup/company-definition-lookup.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +101,10 @@ import { ShareholderComponent } from './company-profile/plan-badget-detail/plans
     StatementCashFlowsComponent,
     ReconciliationStatementOperatingComponent,
     ReceiveAndPayComponent,
-    ShareholderComponent
+    ShareholderComponent,
+    ShareHolderCompanyComponent,
+    AddEditShareHolderCompanyComponent,
+    CompanyDefinitionLookupComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -127,7 +134,9 @@ import { ShareholderComponent } from './company-profile/plan-badget-detail/plans
     ListboxModule,
     TreeSelectModule,
     InputNumberModule,
-    TreeTableModule
+    TreeTableModule,
+    MenuModule,
+    DialogModule
   ],
   providers: [
     {

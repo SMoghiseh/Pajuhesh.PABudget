@@ -1,0 +1,160 @@
+<!-- pop up messages -->
+<p-toast key="userDefinition" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+    <!-- <div class="card">
+    <div class="card-body"> -->
+    <div class="card-text pt-3"></div>
+
+    <!-- اطلاعات -->
+
+    <!-- اطلاعات -->
+
+    <!-- جستجو -->
+    <div class="pb-2">
+
+        <form #formDir="ngForm" [formGroup]="searchPersonForm" (ngSubmit)="getPersonList()">
+            <div class="form-group container">
+                <div class="row row-cols-lg-6 row-cols-1">
+                    <!-- نام -->
+                    <div class="col my-1">
+                        <label for="partyName">نام</label>
+                        <input pInputText [pKeyFilter]="patternText" id="partyName" name="partyName"
+                            formControlName="partyName" type="text" class="w-100" [value]="partyName?.value | faNum" />
+                    </div>
+                    <!-- / نام -->
+
+                    <!-- نام خانوادگی -->
+                    <div class="col my-1">
+                        <label for="partyLastName">نام خانوادگی</label>
+                        <input pInputText [pKeyFilter]="patternText" id="partyLastName" name="partyLastName"
+                            formControlName="partyLastName" type="text" class="w-100"
+                            [value]="partyLastName?.value | faNum" />
+                    </div>
+                    <!-- / نام خانوادگی -->
+
+                    <!-- شناسه شرکت -->
+                    <div class="col my-1">
+                        <label for="partyNationalId">شناسه شرکت</label>
+                        <input pInputText pKeyFilter="int" id="partyNationalId" name="partyNationalId"
+                            formControlName="partyNationalId" type="text" class="w-100"
+                            [value]="partyNationalId?.value | faNum" [maxlength]="10" [minlength]="10" />
+                    </div>
+                    <!-- / شناسه شرکت -->
+
+
+                    <!-- دکمه -->
+                    <div class="col my-1" style="padding-top: 20px">
+                        <p-button class="pe-2" styleClass="p-button-info" label="جستجو" type="submit"
+                            icon="pi pi-search">
+                        </p-button>
+                    </div>
+
+                    <!-- / دکمه -->
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- / جستجو -->
+
+    <!-- data table -->
+
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass"
+        [rowsPerPageOptions]="[10, 20, 30]" [rowHover]="true" [paginator]="true" [(first)]="dataTableFirst"
+        [rows]="dataTableRows" [totalRecords]="totalCount" [value]="personList" [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" (onLazyLoad)="getPersonList($event)" [(first)]="first">
+        <!-- table header -->
+        <ng-template pTemplate="header">
+            <tr class="data-table__header">
+                <th>
+                    <strong>نام</strong>
+                </th>
+
+                <th>
+                    <strong>نام خانوادگی</strong>
+                </th>
+
+                <th>
+                    <strong>شناسه شرکت</strong>
+                </th>
+
+            </tr>
+        </ng-template>
+        <!-- / table header -->
+        <!-- table body -->
+        <ng-template pTemplate="body" let-person let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="person" (dblclick)="onRowDblClick(person)">
+                <td>{{ person.partyName }}</td>
+
+                <td>{{ person.partyLastName }}</td>
+
+                <td>{{ person.partyNationalId | faNum }}</td>
+            </tr>
+        </ng-template>
+        <!-- / table body -->
+        <!-- table footer -->
+        <!-- <ng-template pTemplate="summary">
+          مجموع کاربران
+          {{ totalCount | faNum }}
+          کاربر می‌باشد.
+        </ng-template> -->
+        <!-- / table footer -->
+    </p-table>
+    <!-- data table -->
+
+    <!-- data list -->
+    <div class="data-list d-block d-lg-none">
+        <ul *ngFor="let person of personList" class="list-group my-1">
+            <!-- نام -->
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col my-1">
+                        <strong>نام</strong>
+                    </div>
+
+                    <div class="col my-1 text-center">
+                        {{ person.partyName }}
+                    </div>
+                </div>
+            </li>
+            <!-- / نام -->
+
+            <!-- نام خانوادگی -->
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col my-1">
+                        <strong>نام خانوادگی</strong>
+                    </div>
+
+                    <div class="col my-1 text-center">
+                        {{ person.partyLastName }}
+                    </div>
+                </div>
+            </li>
+            <!-- / نام خانوادگی -->
+
+            <!-- شناسه شرکت -->
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col my-1">
+                        <strong>شناسه شرکت</strong>
+                    </div>
+
+                    <div class="col my-1 text-center">
+                        {{ person.partyNationalId | faNum }}
+                    </div>
+                </div>
+            </li>
+            <!-- / شناسه شرکت -->
+
+
+        </ul>
+    </div>
+    <!-- / data list -->
+    <!-- </div>
+  </div> -->
+</section>
+<!-- / data table -->
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

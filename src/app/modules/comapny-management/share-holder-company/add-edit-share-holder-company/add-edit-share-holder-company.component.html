@@ -1,0 +1,83 @@
+<p-toast key="shareholders" position="bottom-left"></p-toast>
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
+    <div class="container row">
+        <div class="col-6 mt-2">
+            <label for="periodId"> دوره عملیاتی </label>
+            <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
+                optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="periodList"
+                [filter]="true" [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && periodId?.pristine) ||
+          periodId?.dirty ||
+          periodId?.touched
+        ">
+            </p-dropdown>
+        </div>
+        <div class="col-6 mt-2">
+            <label for="companyId"> شرکت </label>
+            <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+                optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
+                [filter]="true" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && companyId?.pristine) ||
+          companyId?.dirty ||
+          companyId?.touched
+        ">
+            </p-dropdown>
+        </div>
+
+        <div class="col-6 align-c">
+            <label for="shareHolderPartyId" style="display: inherit"> شرکت سهامدار</label>
+            <input id="shareHolderPartyId" name="shareHolderPartyId" formControlName="shareHolderPartyId" pInputText
+                type="text" class="w-80" [readOnly]="true" />
+
+            <button class="btn-lookup-list" (click)="onOpenUsersList()">
+                <i class="pi pi-search"></i>
+            </button>
+        </div>
+
+        <div class="col-6 mt-2">
+            <label for="shareHolderTypeId"> نوع سهامدار </label>
+            <p-dropdown id="shareHolderTypeId" name="shareHolderTypeId" formControlName="shareHolderTypeId"
+                styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+                [options]="shareHolderTypeList" [filter]="true" [class.ng-invalid]="shareHolderTypeId?.invalid"
+                [class.ng-dirty]="
+          (addEditFormSubmitted && shareHolderTypeId?.pristine) ||
+          shareHolderTypeId?.dirty ||
+          shareHolderTypeId?.touched
+        ">
+            </p-dropdown>
+        </div>
+
+        <div class="col-6">
+            <label for="percentOwner"> درصد سهام </label>
+            <p-inputNumber id="percentOwner" formControlName="percentOwner" type="text" pKeyFilter="int" [minlength]="0"
+                class="w-100" [class.ng-invalid]="percentOwner?.invalid" [class.ng-dirty]="
+              (addEditFormSubmitted && percentOwner?.pristine) ||
+              percentOwner?.dirty ||
+              percentOwner?.touched
+            "></p-inputNumber>
+        </div>
+
+        <div class="col-6">
+            <label for="amount"> تعداد سهام </label>
+            <p-inputNumber id="amount" formControlName="amount" type="text" pKeyFilter="int" [minlength]="0"
+                class="w-100" [class.ng-invalid]="amount?.invalid" [class.ng-dirty]="
+              (addEditFormSubmitted && amount?.pristine) ||
+              amount?.dirty ||
+              amount?.touched
+            "></p-inputNumber>
+        </div>
+
+
+        <div class="col-12 row-btn row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>
+
+
+<p-dialog *ngIf="isVisibleUserLst" header="انتخاب کاربر" [(visible)]="isVisibleUserLst" [modal]="true"
+    [style]="{ width: '70vw', height: '75vh' }" [draggable]="false" [resizable]="false">
+    <PABudget-company-definition-lookup (Hide)="onHide($event)"></PABudget-company-definition-lookup>
+</p-dialog>
