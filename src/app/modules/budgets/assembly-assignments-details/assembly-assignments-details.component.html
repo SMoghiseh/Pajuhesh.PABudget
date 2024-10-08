@@ -78,7 +78,7 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <th style="min-width: 10rem"><strong>  تکالیف مجمع </strong></th>
+        <th style="min-width: 10rem"><strong> تکالیف مجمع </strong></th>
         <th style="min-width: 10rem"><strong> نوع مفاد </strong></th>
         <th style="min-width: 10rem"><strong> شرح </strong></th>
 
@@ -87,9 +87,24 @@
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.title }}</td>
-        <td>{{ item.typeCodeTitle }}</td>
-        <td>{{ item.title }}</td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
+        <td
+          pTooltip="{{ item.typeCodeTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.typeCodeTitle }}
+        </td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
 
         <td class="jc-left ai-left">
           <button

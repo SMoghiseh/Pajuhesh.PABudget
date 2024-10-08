@@ -128,7 +128,29 @@ export class VisionComponent {
           } else return [new Vision()];
         })
       )
-      .subscribe(res => (this.data = res));
+      .subscribe(res => {
+        this.data = this.addSubComponentList(res);
+      });
+  }
+
+
+  addSubComponentList(data: any) {
+    data.forEach((row: any) => {
+
+      row['componentList'] = [];
+      let array = this.subComponentList;
+      let snapshotParams = '/' + Number(this.route.snapshot.paramMap.get('id'));
+
+      array = array.map(com => {
+        let params = snapshotParams + '/' + row.id;
+        let route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] }
+      })
+
+      row['componentList'].push(...array);
+
+    });
+    return data;
   }
 
   addPlan() {
@@ -192,28 +214,5 @@ export class VisionComponent {
     this.getVision();
   }
 
-  // Set PlanningId On Active Component Route
-  setActiveComponentRoute(item: Vision) {
-    let componentRouterLink = this.subComponentList[0]['routerLink'][0];
-    let array = componentRouterLink.split('/');
-    let idOfRouting = array[componentRouterLink.split('/').length - 1];
 
-    if (Number(idOfRouting)) {
-      this.subComponentList.forEach((componentInfo: any) => {
-        let url = componentInfo['routerLink'][0].split('/');
-        let prevId = url.pop();
-        let baseUrl = '';
-        url.forEach((i: string) => {
-          if (i != '')
-            baseUrl = baseUrl.concat(`/${i}`);
-        })
-        componentInfo['routerLink'][0] = baseUrl + '/' + item.id;
-      });
-    } else {
-      this.subComponentList.forEach((componentInfo: any) => {
-        componentInfo['routerLink'][0] = componentInfo['routerLink'][0] + '/' +
-          item.id;
-      });
-    }
-  }
 }

@@ -2,7 +2,11 @@
 <div class="table-header">لیست بودجه پرسنل</div>
 <div class="justify-content-between pb-3 w-100" style="text-align: end">
   <div>
-    <p-button class="pe-2" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
+    <p-button
+      class="pe-2"
+      styleClass="p-button-info"
+      icon="pi pi-plus-circle"
+      label="افزودن"
       (click)="addPersonelNo()"></p-button>
   </div>
 </div>
@@ -11,55 +15,127 @@
     <div class="row mt-8 pb-3">
       <div class="col my-1">
         <label for="companyId"> شرکت</label>
-        <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true">
+        <p-dropdown
+          id="companyId"
+          name="companyId"
+          formControlName="companyId"
+          styleClass="w-100 my-1"
+          optionLabel="partyName"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="companyList"
+          [filter]="true">
         </p-dropdown>
       </div>
       <div class="col my-1">
         <label for="periodId">دوره بودجه</label>
-        <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
-          optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="periodLst" [filter]="true"
+        <p-dropdown
+          id="periodId"
+          name="periodId"
+          formControlName="periodId"
+          styleClass="w-100 my-1"
+          optionLabel="periodTitle"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="periodLst"
+          [filter]="true"
           (onChange)="onChangePeriod($event)">
         </p-dropdown>
       </div>
       <div class="col my-1">
         <label for="periodDetailId">دوره عملیاتی</label>
-        <p-dropdown id="periodDetailId" name="periodDetailId" formControlName="periodDetailId" styleClass="w-100 my-1"
-          optionLabel="periodDetailTitle" optionValue="id" [filter]="true" [options]="periodDetailLst"
+        <p-dropdown
+          id="periodDetailId"
+          name="periodDetailId"
+          formControlName="periodDetailId"
+          styleClass="w-100 my-1"
+          optionLabel="periodDetailTitle"
+          optionValue="id"
+          [filter]="true"
+          [options]="periodDetailLst"
           placeholder="انتخاب کنید">
         </p-dropdown>
       </div>
       <div class="col my-1">
         <label for="costCenterTypeId">مرکز هزینه</label>
-        <p-dropdown id="costCenterTypeId" name="costCenterTypeId" formControlName="costCenterTypeId"
-          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [options]="CostCenterLst" [filter]="true">
+        <p-dropdown
+          id="costCenterTypeId"
+          name="costCenterTypeId"
+          formControlName="costCenterTypeId"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="CostCenterLst"
+          [filter]="true">
         </p-dropdown>
       </div>
       <div class="col my-1">
         <label for="employmentTypeId">نوع استخدام</label>
-        <p-dropdown id="employmentTypeId" name="employmentTypeId" formControlName="employmentTypeId"
-          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [options]="employmentTypeLst" [filter]="true">
+        <p-dropdown
+          id="employmentTypeId"
+          name="employmentTypeId"
+          formControlName="employmentTypeId"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="employmentTypeLst"
+          [filter]="true">
         </p-dropdown>
       </div>
-
 
       <div class="col my-1">
         <label for="educationTypeId">تحصیلات</label>
-        <p-dropdown id="educationTypeId" name="educationTypeId" formControlName="educationTypeId"
-          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-          [options]="educationTypeCodeLst" [filter]="true">
+        <p-dropdown
+          id="educationTypeId"
+          name="educationTypeId"
+          formControlName="educationTypeId"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="educationTypeCodeLst"
+          [filter]="true">
         </p-dropdown>
       </div>
 
+      <!-- جنسیت -->
+      <div class="col d-flex align-items-center justify-content-around pb-1">
+        <div class="d-flex align-items-center">
+          <p-radioButton
+            id="gender"
+            name="gender"
+            formControlName="gender"
+            [value]="0"
+            inputId="ingredient2"></p-radioButton>
+          <label for="ingredient2" class="ms-2">زن</label>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <p-radioButton
+            id="gender"
+            name="gender"
+            formControlName="gender"
+            [value]="1"
+            inputId="ingredient1"></p-radioButton>
+          <label for="ingredient1" class="ms-2">مرد</label>
+        </div>
+      </div>
+      <!-- / جنسیت -->
+
       <!-- دکمه -->
-      <div class="d-flex justify-content-end col text-end" style="margin-top: 20px">
+      <div
+        class="d-flex justify-content-end col text-end"
+        style="margin-top: 20px">
         <div class="search-button mt-12">
           <div class="clear-search" (click)="clearSearch()">
             <i class="pi pi-filter-slash"></i>
           </div>
-          <p-button class="pe-2 p-button-wide" styleClass="p-button-info" [label]="'جستجو'"
+          <p-button
+            class="pe-2 p-button-wide"
+            styleClass="p-button-info"
+            [label]="'جستجو'"
             (click)="getPersonalNumberList()"></p-button>
         </div>
       </div>
@@ -68,10 +144,22 @@
   </form>
 </div>
 <div class="table-container">
-  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
-    (onLazyLoad)="getPersonalNumberList($event)" [(first)]="first">
+  <p-table
+    #dataTable
+    dataKey="id"
+    class="data-table d-none d-lg-block"
+    [styleClass]="gridClass"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="dataTableRows"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [totalRecords]="totalCount"
+    [value]="data"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [lazy]="true"
+    (onLazyLoad)="getPersonalNumberList($event)"
+    [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -97,6 +185,9 @@
           <strong> مبلغ دستمزد </strong>
         </th>
         <th>
+          <strong> جنسیت </strong>
+        </th>
+        <th>
           <strong> وضعیت </strong>
         </th>
         <th>
@@ -106,22 +197,72 @@
     </ng-template>
     <ng-template pTemplate="body" let-personelNo let-rowIndex="rowIndex">
       <tr>
-        <td>{{ personelNo.periodTitle }}</td>
-        <td>{{ personelNo.periodDetailTitle }}</td>
-        <td>{{ personelNo.costCenterTitle }}</td>
-        <td>{{ personelNo.employmentTitle }}</td>
-        <td>{{ personelNo.educationTitle }}</td>
-        <td>{{ personelNo.personelCount }}</td>
-        <td>{{ personelNo.employeewageCU }}</td>
-        <td>{{ personelNo.statusTitle }}</td>
+        <td
+          pTooltip="{{ personelNo.periodTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.periodTitle }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.periodDetailTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.periodDetailTitle }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.costCenterTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.costCenterTitle }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.employmentTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.employmentTitle }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.educationTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.educationTitle }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.personelCount }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.personelCount }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.employeewageCU }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.employeewageCU }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.gender }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.gender }}
+        </td>
+        <td
+          pTooltip="{{ personelNo.statusTitle }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ personelNo.statusTitle }}
+        </td>
 
         <td class="jc-left ai-left">
-          <button class="action-image-container edit-button" (click)="editRow(personelNo)"
+          <button
+            class="action-image-container edit-button"
+            (click)="editRow(personelNo)"
             pTooltip="ویرایش بودجه پرسنل">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
           </button>
 
-          <button class="action-image-container delete-button" (click)="deleteRow(personelNo)"
+          <button
+            class="action-image-container delete-button"
+            (click)="deleteRow(personelNo)"
             pTooltip="حذف بودجه پرسنل">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
           </button>
@@ -201,11 +342,16 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button class="action-image-container edit-button" (click)="editRow(personelNo)" title="ویرایش بودجه پرسنل">
+            <button
+              class="action-image-container edit-button"
+              (click)="editRow(personelNo)"
+              title="ویرایش بودجه پرسنل">
               <img ngSrc="icons\Group 116.svg" width="24" height="24" />
             </button>
 
-            <button class="action-image-container delete-button" (click)="deleteRow(personelNo)"
+            <button
+              class="action-image-container delete-button"
+              (click)="deleteRow(personelNo)"
               title="حذف بودجه پرسنل">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>
@@ -216,10 +362,18 @@
   </ul>
 </div>
 
-<p-dialog class="height-size" *ngIf="isOpenAddEditPersonelNo" [header]="modalTitle"
-  [(visible)]="isOpenAddEditPersonelNo" [modal]="true" [draggable]="false" [resizable]="false"
+<p-dialog
+  class="height-size"
+  *ngIf="isOpenAddEditPersonelNo"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditPersonelNo"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
   [style]="{ width: '700px' }">
-  <app-add-edit-personel-no [data]="addEditData" (isSuccess)="reloadData()"
+  <app-add-edit-personel-no
+    [data]="addEditData"
+    (isSuccess)="reloadData()"
     (isCloseModal)="closeModal()"></app-add-edit-personel-no>
 </p-dialog>
 

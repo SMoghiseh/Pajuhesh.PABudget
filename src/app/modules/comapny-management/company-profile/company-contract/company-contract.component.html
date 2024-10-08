@@ -84,14 +84,54 @@
       <!-- table body -->
       <ng-template pTemplate="body" let-contract let-rowIndex="rowIndex">
         <tr>
-          <td>{{ contract.contractCode }}</td>
-          <td>{{ contract.contracTypeID }}</td>
-          <td>{{ contract.contractorID }}</td>
-          <td>{{ contract.employerID }}</td>
-          <td>{{ contract.contractFromDate }}</td>
-          <td>{{ contract.contractPriceCu }}</td>
-          <td>{{ contract.contractorID }}</td>
-          <td>{{ contract.contractorID }}</td>
+          <td
+            pTooltip="{{ contract.contractCode }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.contractCode }}
+          </td>
+          <td
+            pTooltip="{{ contract.contracTypeID }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.contracTypeID }}
+          </td>
+          <td
+            pTooltip="{{ contract.contractorID }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.contractorID }}
+          </td>
+          <td
+            pTooltip="{{ contract.employerID }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.employerID }}
+          </td>
+          <td
+            pTooltip="{{ contract.contractFromDate }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.contractFromDate }}
+          </td>
+          <td
+            pTooltip="{{  contract.contractPriceCu }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.contractPriceCu }}
+          </td>
+          <td
+            pTooltip="{{ contract.contractorID }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.contractorID }}
+          </td>
+          <td
+            pTooltip="{{ contract.contractorID }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ contract.contractorID }}
+          </td>
 
           <!-- actions -->
           <td class="jc-left ai-left">

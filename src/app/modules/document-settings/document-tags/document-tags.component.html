@@ -221,9 +221,19 @@
               </strong>
             </td> -->
 
-        <td>{{ tagType.tagName }}</td>
+        <td
+          pTooltip="{{ tagType.tagName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ tagType.tagName }}
+        </td>
 
-        <td>{{ tagType.displayName }}</td>
+        <td
+          pTooltip="{{  tagType.displayName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ tagType.displayName }}
+        </td>
 
         <!-- actions -->
         <td class="d-flex jc-center ai-center">

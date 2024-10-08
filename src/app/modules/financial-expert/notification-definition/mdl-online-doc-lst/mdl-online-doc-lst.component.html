@@ -1,8 +1,21 @@
 <!-- data table -->
-<p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="true" [rows]="dataTableRows"
-  [rowsPerPageOptions]="[10, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [totalRecords]="totalCount"
-  [value]="onlineDocument" [loading]="loading" selectionMode="single" [(selection)]="selectedRow"
-  [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" (onLazyLoad)="getOnlineDocument($event)">
+<p-table
+  #dataTable
+  class="data-table d-none d-lg-block"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="dataTableRows"
+  [rowsPerPageOptions]="[10, 20, 30]"
+  [styleClass]="gridClass"
+  [rowHover]="true"
+  [totalRecords]="totalCount"
+  [value]="onlineDocument"
+  [loading]="loading"
+  selectionMode="single"
+  [(selection)]="selectedRow"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [lazy]="true"
+  (onLazyLoad)="getOnlineDocument($event)">
   <!-- table header -->
   <ng-template pTemplate="header">
     <tr class="data-table__header">
@@ -26,14 +39,32 @@
   <!-- / table header -->
   <!-- table body -->
   <ng-template pTemplate="body" let-onlineDocument let-rowIndex="rowIndex">
-    <tr [pSelectableRow]="onlineDocument" (dblclick)="onRowDblClick($event, onlineDocument)">
-      <td pTooltip="{{ onlineDocument.description }}" tooltipEvent="hover" tooltipPosition="top">
+    <tr
+      [pSelectableRow]="onlineDocument"
+      (dblclick)="onRowDblClick($event, onlineDocument)">
+      <td
+        pTooltip="{{ onlineDocument.description }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
         {{ onlineDocument.description }}
       </td>
 
-      <td>{{ onlineDocument.activeDatePersian }}</td>
-      <td>{{ onlineDocument.expiredDatePersian }}</td>
-      <td pTooltip="{{ onlineDocument.documentTypeName }}" tooltipEvent="hover" tooltipPosition="top">
+      <td
+        pTooltip="{{ onlineDocument.activeDatePersian }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
+        {{ onlineDocument.activeDatePersian }}
+      </td>
+      <td
+        pTooltip="{{ onlineDocument.expiredDatePersian }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
+        {{ onlineDocument.expiredDatePersian }}
+      </td>
+      <td
+        pTooltip="{{ onlineDocument.docTypeName }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
         {{ onlineDocument.docTypeName }}
       </td>
     </tr>

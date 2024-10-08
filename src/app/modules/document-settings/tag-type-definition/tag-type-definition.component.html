@@ -149,9 +149,19 @@
               </strong>
             </td> -->
 
-        <td>{{ tagType.name }}</td>
+        <td
+          pTooltip="{{ tagType.name }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ tagType.name }}
+        </td>
 
-        <td>{{ tagType.typeName }}</td>
+        <td
+          pTooltip="{{ tagType.typeName }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ tagType.typeName }}
+        </td>
 
         <!-- actions -->
         <td class="d-flex jc-center ai-center">
