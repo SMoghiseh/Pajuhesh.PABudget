@@ -161,7 +161,7 @@ export class AddEditShareHolderCompanyComponent {
 
   getRowData(id: number) {
     this.httpService
-      .get<any>(ShareHolder.apiAddress + id)
+      .get<any>(ShareHolder.apiAddress + 'GetShareHolderById/' + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
