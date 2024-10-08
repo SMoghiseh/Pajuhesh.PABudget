@@ -69,6 +69,7 @@ export class ShareHolderCompanyComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
+          this.getList();
         }
       });
   }
@@ -89,6 +90,10 @@ export class ShareHolderCompanyComponent {
       withOutPagination: false,
       ...formValue,
     };
+
+    body.companyId = body.companyId ? body.companyId :
+      this.companyList[0].id
+      ;
 
     this.first = 0;
     const url = ShareHolder.apiAddress + 'GetShareHolderList';
