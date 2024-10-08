@@ -1253,6 +1253,8 @@ export class Plan {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/';
   static readonly apiAddressShareHolder =
     'api/PABudgetApi/Dashboard/GetShareHolder';
+  static readonly apiAddressAnnualGols =
+    'api/PABudgetApi/Dashboard/YearGoal/Info';
 }
 
 export class Planning {

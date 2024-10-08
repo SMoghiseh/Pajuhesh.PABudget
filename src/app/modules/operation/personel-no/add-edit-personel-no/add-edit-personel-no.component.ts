@@ -64,10 +64,7 @@ export class AddEditPersonelNoComponent implements OnInit {
         this.addEditPersonelNoModel.periodDetailId,
         Validators.required
       ),
-      periodId: new FormControl(
-        this.addEditPersonelNoModel.periodId
-        
-      ),
+      periodId: new FormControl(this.addEditPersonelNoModel.periodId),
       costCenterTypeId: new FormControl(
         this.addEditPersonelNoModel.costCenterTypeId
       ),

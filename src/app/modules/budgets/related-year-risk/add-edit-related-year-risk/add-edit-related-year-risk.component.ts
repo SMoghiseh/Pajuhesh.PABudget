@@ -1,6 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RelatedYearRisk, YearRisk, YearActivity } from '@shared/models/response.model';
+import {
+  RelatedYearRisk,
+  YearRisk,
+  YearActivity,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -9,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-related-year-risk',
   templateUrl: './add-edit-related-year-risk.component.html',
-  styleUrls: ['./add-edit-related-year-risk.component.scss']
+  styleUrls: ['./add-edit-related-year-risk.component.scss'],
 })
 export class AddEditRelatedYearRiskComponent {
   // form property
@@ -29,7 +33,6 @@ export class AddEditRelatedYearRiskComponent {
 
   @Output() isSuccess = new EventEmitter<boolean>();
 
-
   get yearRiskId() {
     return this.addEditForm.get('yearRiskId');
   }
@@ -44,17 +47,16 @@ export class AddEditRelatedYearRiskComponent {
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getYearList();
     this.getYearActivityList();
 
     this.addEditForm = new FormGroup({
       yearActivityId: new FormControl(null, Validators.required),
       yearRiskId: new FormControl(0, Validators.required),
-      isOptimistically: new FormControl(1)
+      isOptimistically: new FormControl(1),
     });
 
     if (this.mode === 'edit') {
@@ -62,9 +64,8 @@ export class AddEditRelatedYearRiskComponent {
     }
 
     this.addEditForm.patchValue({
-      yearRiskId: Number(this.route.snapshot.paramMap.get('yearRisk'))
-    })
-
+      yearRiskId: Number(this.route.snapshot.paramMap.get('yearRisk')),
+    });
   }
 
   addEditRelatedYearRisk() {
@@ -73,8 +74,10 @@ export class AddEditRelatedYearRiskComponent {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       request.isOptimistically = request.isOptimistically ? true : false;
-      const url = this.mode === 'insert' ? RelatedYearRisk.apiAddress + 'RelatedYearRiskProgram/' + 'Create' :
-        RelatedYearRisk.apiAddress + 'RelatedYearRiskProgram/' + 'Update';
+      const url =
+        this.mode === 'insert'
+          ? RelatedYearRisk.apiAddress + 'RelatedYearRiskProgram/' + 'Create'
+          : RelatedYearRisk.apiAddress + 'RelatedYearRiskProgram/' + 'Update';
       this.isLoadingSubmit = true;
       this.httpService
         .post<RelatedYearRisk>(url, request)
@@ -100,7 +103,7 @@ export class AddEditRelatedYearRiskComponent {
   getYearList() {
     this.httpService
       .post<YearRisk[]>(YearRisk.apiAddress + 'List', {
-        withOutPagination: true
+        withOutPagination: true,
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -111,17 +114,15 @@ export class AddEditRelatedYearRiskComponent {
 
   getYearActivityList() {
     this.httpService
-      .post<YearActivity[]>(YearActivity.apiAddress + 'List',
-        {
-          withOutPagination: true
-        })
+      .post<YearActivity[]>(YearActivity.apiAddress + 'List', {
+        withOutPagination: true,
+      })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.yearActivityList = response.data.result;
         }
       });
   }
-
 
   getRowData(id: number) {
     this.httpService
