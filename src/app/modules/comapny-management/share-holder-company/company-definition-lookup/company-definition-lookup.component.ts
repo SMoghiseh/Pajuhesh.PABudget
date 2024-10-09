@@ -1,8 +1,9 @@
 import {
   Component,
   OnInit,
-  ViewChild, EventEmitter,
-  Output
+  ViewChild,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { map, tap } from 'rxjs';
@@ -33,7 +34,6 @@ export class SearchPerson extends Pagination {
 
   /** کد ملی */
   nationalId!: string;
-
 }
 
 @Component({
@@ -41,9 +41,7 @@ export class SearchPerson extends Pagination {
   templateUrl: './company-definition-lookup.component.html',
   styleUrls: ['./company-definition-lookup.component.scss'],
   providers: [ConfirmationService],
-
 })
-
 export class CompanyDefinitionLookupComponent implements OnInit {
   @Output() Hide: EventEmitter<ShareHolder> = new EventEmitter();
   /** Main table total count. */
@@ -133,6 +131,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
   --------------------------*/
   /** Get person list from server. */
   getPersonList(event?: LazyLoadEvent) {
+    debugger;
     if (event) this.lazyLoadEvent = event;
     else this.first = 0;
     if (this.searchPersonForm.valid) {
@@ -154,7 +153,8 @@ export class CompanyDefinitionLookupComponent implements OnInit {
       this.loading = true;
 
       this.httpService
-        .post<ShareHolder[]>(ShareHolder.PartyListApiAddress, searchModel).pipe(
+        .post<ShareHolder[]>(ShareHolder.PartyListApiAddress, searchModel)
+        .pipe(
           tap(() => (this.loading = false)),
           map(response => {
             if (response.data && response.data.totalCount != undefined)
@@ -165,7 +165,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
           })
         )
         .subscribe(personList => {
-          debugger
+          debugger;
           this.personList = personList;
         });
     }
@@ -314,7 +314,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
   }
 
   onRowDblClick(data: ShareHolder) {
-    debugger
+    debugger;
     this.Hide.emit(data);
   }
 
