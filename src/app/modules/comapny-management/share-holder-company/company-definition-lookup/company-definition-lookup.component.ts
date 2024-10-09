@@ -136,6 +136,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
     if (event) this.lazyLoadEvent = event;
     else this.first = 0;
     if (this.searchPersonForm.valid) {
+      debugger
       const { partyName, partyLastName, partyNationalId, userName } =
         this.searchPersonForm.value;
 
@@ -153,9 +154,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
       this.loading = true;
 
       this.httpService
-        .post<ShareHolder[]>(ShareHolder.PartyListApiAddress, {
-          withOutPagination: true
-        }).pipe(
+        .post<ShareHolder[]>(ShareHolder.PartyListApiAddress, searchModel).pipe(
           tap(() => (this.loading = false)),
           map(response => {
             if (response.data && response.data.totalCount != undefined)

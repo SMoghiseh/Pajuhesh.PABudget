@@ -95,8 +95,7 @@ export class ShareHolderCompanyComponent {
     };
 
     body.companyId = body.companyId ? body.companyId :
-      this.companyList[0].id
-      ;
+      this.companyList[0]?.id;
 
     this.first = 0;
     const url = ShareHolder.apiAddress + 'GetShareHolderList';
