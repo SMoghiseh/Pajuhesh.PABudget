@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {
   Pagination,
   UrlBuilder,
-  ShareHolder, Company
+  ShareHolder,
+  Company,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -18,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'PABudget-share-holder-company',
   templateUrl: './share-holder-company.component.html',
   styleUrls: ['./share-holder-company.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class ShareHolderCompanyComponent {
   gridClass = 'p-datatable-sm';
@@ -54,12 +55,12 @@ export class ShareHolderCompanyComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getCompanyLst();
     this.searchForm = new FormGroup({
-      companyId: new FormControl(0)
+      companyId: new FormControl(0),
     });
   }
 
@@ -70,8 +71,8 @@ export class ShareHolderCompanyComponent {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
           this.searchForm.patchValue({
-            companyId: this.companyList[0].id
-          })
+            companyId: this.companyList[0].id,
+          });
           this.getList();
         }
       });
@@ -94,9 +95,7 @@ export class ShareHolderCompanyComponent {
       ...formValue,
     };
 
-    body.companyId = body.companyId ? body.companyId :
-      this.companyList[0].id
-      ;
+    body.companyId = body.companyId ? body.companyId : this.companyList[0].id;
 
     this.first = 0;
     const url = ShareHolder.apiAddress + 'GetShareHolderList';
@@ -151,7 +150,8 @@ export class ShareHolderCompanyComponent {
     if (id && title) {
       this.httpService
         .get<ShareHolder>(
-          UrlBuilder.build(ShareHolder.apiAddress + 'Delete', '') + `/${id}`
+          UrlBuilder.build(ShareHolder.apiAddress + 'DeleteShareHolder', '') +
+            `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -178,5 +178,4 @@ export class ShareHolderCompanyComponent {
     this.searchForm.reset();
     this.getList();
   }
-
 }
