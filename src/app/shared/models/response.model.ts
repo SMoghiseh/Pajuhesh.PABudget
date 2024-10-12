@@ -1346,6 +1346,18 @@ export class KeyTypecode {
   title!: string;
 }
 
+export class ProjectPic {
+  static apiAddress = 'api/PABudgetApi/v1/Project/ProjectPic/';
+  id!: number;
+  projectId!: number;
+  title!: string;
+  code!: number;
+  picDate!: string;
+  description!: string;
+  picId!: number;
+  picTitle!: string;
+}
+
 export class AssemblyAssignments {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearUnion/';
   static apiAddressMeetingTopic =

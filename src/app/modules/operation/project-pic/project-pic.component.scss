@@ -1,0 +1,21 @@
+// :host ::ng-deep .row-btn.row-btn-fixed-bottom {
+//     bottom: 22px;
+//     position: absolute;
+//     left: 23px;
+// }
+
+// :host ::ng-deep .height-size .p-dialog {
+//     min-height: 550px !important;
+//     height: auto !important;
+// }
+
+.pi-download {
+    font-size: 1.5rem;
+    color: rgb(26, 30, 219);
+    background-color: yellow;
+    cursor: pointer  !important;
+}
+ ::ng-deep .row-btn {
+    padding-left:40px !important;
+    margin-top: 40px;
+  }
