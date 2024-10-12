@@ -50,13 +50,18 @@ export class ProjectComponent {
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Operation/ProjectCost'],
     },
+    {
+      label: 'تصاویر و مستندات پروژه',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Operation/ProjectPic'],
+    },
   ];
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.getBudgetPeriodLst();
     this.getCompanyLst();
@@ -122,31 +127,24 @@ export class ProjectComponent {
           } else return [new Project()];
         })
       )
-      .subscribe(res =>
-        this.data = this.addSubComponentList(res)
-      );
+      .subscribe(res => (this.data = this.addSubComponentList(res)));
   }
-
 
   addSubComponentList(data: any) {
     data.forEach((row: any) => {
-
       row['componentList'] = [];
       let array = this.subComponentList;
 
-
       array = array.map(com => {
-        let params = '/' + row.id;
-        let route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] }
-      })
+        const params = '/' + row.id;
+        const route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] };
+      });
 
       row['componentList'].push(...array);
-
     });
     return data;
   }
-
 
   deleteRow(item: Project) {
     if (item && item.id)
@@ -233,5 +231,4 @@ export class ProjectComponent {
         }
       });
   }
-
 }
