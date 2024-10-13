@@ -60,8 +60,8 @@
       </p-dropdown>
     </div>
     <div class="col-6 mt-2" *ngIf="isContractValue && isChangeSaleType">
-      <label for="costingUnitCu"> مبلغ قرارداد </label>
-      <p-inputNumber pKeyFilter="int" id="costingUnitCu" name="costingUnitCu" formControlName="costingUnitCu"
+      <label for="costingUnitCu"> مبلغ قرارداد (میلیون ریال) </label>
+      <p-inputNumber inputId="integeronly" id="costingUnitCu" name="costingUnitCu" formControlName="costingUnitCu"
         [required]="isChangeSaleType" type="text" class="w-100" value="costingUnitCu"
         [class.ng-invalid]="costingUnitCu?.invalid" [class.ng-dirty]="
           (addEditSaleSubmitted && costingUnitCu?.pristine) ||
@@ -94,18 +94,18 @@
     </div>
 
     <div class="col-6 mt-2" *ngIf="!isContractValue && isChangeSaleType">
-      <label for="productUnitSalesCu">مبلغ واحد فروش </label>
-      <p-inputNumber pKeyFilter="int" id="productUnitSalesCu" name="productUnitSalesCu" [required]="isChangeSaleType"
-        formControlName="productUnitSalesCu" type="text" class="w-100" [class.ng-invalid]="productUnitSalesCu?.invalid"
-        [class.ng-dirty]="
+      <label for="productUnitSalesCu">مبلغ واحد فروش (میلیون ریال) </label>
+      <p-inputNumber inputId="integeronly" id="productUnitSalesCu" name="productUnitSalesCu"
+        [required]="isChangeSaleType" formControlName="productUnitSalesCu" type="text" class="w-100"
+        [class.ng-invalid]="productUnitSalesCu?.invalid" [class.ng-dirty]="
           (addEditSaleSubmitted && productUnitSalesCu?.pristine) ||
           productUnitSalesCu?.dirty ||
           productUnitSalesCu?.touched
         "></p-inputNumber>
     </div>
     <div class="col-6 mt-2" *ngIf="!isContractValue && isChangeSaleType">
-      <label for="productAllSalesCu">مبلغ کل فروش </label>
-      <p-inputNumber pKeyFilter="int" id="productAllSalesCu" name="productAllSalesCu" [required]="isChangeSaleType"
+      <label for="productAllSalesCu">مبلغ کل فروش (میلیون ریال) </label>
+      <p-inputNumber inputId="integeronly" id="productAllSalesCu" name="productAllSalesCu" [required]="isChangeSaleType"
         formControlName="productAllSalesCu" type="text" class="w-100" [class.ng-invalid]="productAllSalesCu?.invalid"
         [class.ng-dirty]="
           ( addEditSaleSubmitted && productAllSalesCu?.pristine) ||
@@ -114,8 +114,8 @@
         "></p-inputNumber>
     </div>
     <div class="col-6 mt-2" *ngIf="isChangeSaleType">
-      <label for="benefitLossCu">مبلغ سود و زیان </label>
-      <p-inputNumber pKeyFilter="int" id="benefitLossCu" name="benefitLossCu" formControlName="benefitLossCu"
+      <label for="benefitLossCu">مبلغ سود و زیان (میلیون ریال) </label>
+      <p-inputNumber inputId="integeronly" id="benefitLossCu" name="benefitLossCu" formControlName="benefitLossCu"
         [required]="isChangeSaleType" type="text" class="w-100" [class.ng-invalid]="benefitLossCu?.invalid"
         [class.ng-dirty]="
           ( addEditSaleSubmitted && benefitLossCu?.pristine) ||
