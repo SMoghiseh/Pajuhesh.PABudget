@@ -17,7 +17,7 @@ export class MatrixSwotComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getPlanDetail(yearId: number) {
+  getPlanDetail(yearId: number) { debugger
     const body = {
       companyId: this.inputData.companyId,
       periodId: yearId,
@@ -36,7 +36,7 @@ export class MatrixSwotComponent {
       });
   }
 
-  returnSelectedDate(e: any) {
+  returnSelectedDate(e: any) { debugger
     this.getPlanDetail(e);
   }
 }
