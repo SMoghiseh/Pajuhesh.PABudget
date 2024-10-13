@@ -1645,6 +1645,8 @@ export class YearActivity {
     'api/PABudgetApi/v1/BaseInfo/YearActivity/CostCenter/';
   static readonly apiAddressExceptedYearActivities =
     'api/PABudgetApi/v1/BudgetPeriod/GetExceptedYearActivities/';
+  static readonly apiYearActivityrelatedToRisk =
+    'api/PABudgetApi/v1/BudgetPeriod/GetYearActivityrelatedToRisk/List';
   id!: number;
   title!: string;
 }
