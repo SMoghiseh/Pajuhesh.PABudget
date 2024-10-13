@@ -130,7 +130,7 @@ export class AddEditProjectPicComponent {
     this.isCloseModal.emit(false);
   }
 
-  uploadAttachment(files: FileList, form: any) { debugger
+  uploadAttachment(files: FileList, form: any) {
     const fileName = files[0]?.name;
     if (files.length) {
       Array.from(files).forEach(file => {

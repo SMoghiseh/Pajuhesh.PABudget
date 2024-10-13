@@ -12,3 +12,16 @@
 ::ng-deep .p-inputnumber {
     width: 100%;
 }
+
+  :host ::ng-deep  .p-datatable {
+    .p-datatable-thead>tr>th {
+      background: unset;
+      text-align: center !important;
+    }
+    .p-datatable-tbody>tr>td {
+      &:last-child {
+        text-align: center !important;
+
+      }
+    }
+  }
