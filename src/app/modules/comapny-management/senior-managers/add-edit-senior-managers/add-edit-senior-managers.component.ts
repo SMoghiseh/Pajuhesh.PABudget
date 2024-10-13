@@ -65,6 +65,9 @@ export class AddEditSeniorManagersComponent {
   get lastName() {
     return this.addEditManagerForm.get('lastName');
   }
+  get fatherName() {
+    return this.addEditManagerForm.get('fatherName');
+  }
   get nationalID() {
     return this.addEditManagerForm.get('nationalID');
   }
@@ -73,7 +76,7 @@ export class AddEditSeniorManagersComponent {
     private httpService: HttpService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPersonelList();
@@ -95,9 +98,9 @@ export class AddEditSeniorManagersComponent {
       meetingManagmentNumber: new FormControl(
         this.inputData.meetingManagementDate
       ),
-      name: new FormControl(this.inputData.name),
-      lastName: new FormControl(this.inputData.lastName),
-      fatherName: new FormControl(this.inputData.fatherName),
+      name: new FormControl(this.inputData.name, Validators.required),
+      lastName: new FormControl(this.inputData.lastName, Validators.required),
+      fatherName: new FormControl(this.inputData.fatherName, Validators.required),
       gender: new FormControl(this.inputData.gender),
       nationalID: new FormControl(
         this.inputData.nationalID,
@@ -125,33 +128,33 @@ export class AddEditSeniorManagersComponent {
       request.companyId = this.companySelected.id;
       request.registerDate = request.registerDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.registerDate?.getFullYear(),
-              request.registerDate?.getMonth(),
-              request.registerDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.registerDate?.getFullYear(),
+            request.registerDate?.getMonth(),
+            request.registerDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
       request.dismissalDate = request.dismissalDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.dismissalDate?.getFullYear(),
-              request.dismissalDate?.getMonth(),
-              request.dismissalDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.dismissalDate?.getFullYear(),
+            request.dismissalDate?.getMonth(),
+            request.dismissalDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
       request.meetingManagementDate = request.meetingManagementDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.meetingManagementDate?.getFullYear(),
-              request.meetingManagementDate?.getMonth(),
-              request.meetingManagementDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.meetingManagementDate?.getFullYear(),
+            request.meetingManagementDate?.getMonth(),
+            request.meetingManagementDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
 
       request.nationalID = PersianNumberService.toEnglish(request.nationalID);
@@ -160,7 +163,7 @@ export class AddEditSeniorManagersComponent {
       this.isLoadingSubmit = true;
 
       Object.entries(request).forEach(([key, val]) => {
-        if (!val) request[key] = 0;
+        if (!val) request[key] = null;
       });
 
       this.httpService
