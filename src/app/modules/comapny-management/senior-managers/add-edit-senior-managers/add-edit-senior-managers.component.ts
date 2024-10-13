@@ -1,6 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CompanyManager, ManagerType, Persons } from '@shared/models/response.model';
+import {
+  CompanyManager,
+  ManagerType,
+  Persons,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -12,10 +16,9 @@ import { PersianNumberService } from '@shared/services/persian-number.service';
 @Component({
   selector: 'PABudget-add-edit-senior-managers',
   templateUrl: './add-edit-senior-managers.component.html',
-  styleUrls: ['./add-edit-senior-managers.component.scss']
+  styleUrls: ['./add-edit-senior-managers.component.scss'],
 })
 export class AddEditSeniorManagersComponent {
-
   public datePipe = new DatePipe('en-US');
 
   // form property
@@ -41,8 +44,6 @@ export class AddEditSeniorManagersComponent {
   @Output() isSuccess = new EventEmitter<boolean>();
   @Output() isCloseModal = new EventEmitter<boolean>();
 
-
-
   get managerTypeId() {
     return this.addEditManagerForm.get('managerTypeId');
   }
@@ -64,91 +65,98 @@ export class AddEditSeniorManagersComponent {
   get lastName() {
     return this.addEditManagerForm.get('lastName');
   }
-  get nationalId() {
-    return this.addEditManagerForm.get('nationalId');
+  get nationalID() {
+    return this.addEditManagerForm.get('nationalID');
   }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPersonelList();
     this.getManagerTypeList();
 
     this.addEditManagerForm = new FormGroup({
-      managerTypeId: new FormControl(this.inputData.managerTypeId, Validators.required),
-      registerDate: new FormControl(this.inputData.registerDate, Validators.required),
+      managerTypeId: new FormControl(
+        this.inputData.managerTypeId,
+        Validators.required
+      ),
+      registerDate: new FormControl(
+        this.inputData.registerDate,
+        Validators.required
+      ),
       dismissalDate: new FormControl(this.inputData.dismissalDate),
-      meetingManagementDate: new FormControl(this.inputData.meetingManagementDate),
-      meetingManagmentNumber: new FormControl(this.inputData.meetingManagementDate),
+      meetingManagementDate: new FormControl(
+        this.inputData.meetingManagementDate
+      ),
+      meetingManagmentNumber: new FormControl(
+        this.inputData.meetingManagementDate
+      ),
       name: new FormControl(this.inputData.name),
       lastName: new FormControl(this.inputData.lastName),
       fatherName: new FormControl(this.inputData.fatherName),
       gender: new FormControl(this.inputData.gender),
-      nationalId: new FormControl(this.inputData.nationalId, Validators.required),
+      nationalID: new FormControl(
+        this.inputData.nationalID,
+        Validators.required
+      ),
     });
 
     if (this.mode === 'edit') {
       this.addEditManagerForm.patchValue(this.inputData);
       this.addEditManagerForm.patchValue({
-        dismissalDate: new JDate(
-          new Date(this.inputData.dismissalDate)
-        ),
+        dismissalDate: new JDate(new Date(this.inputData.dismissalDate)),
         meetingManagementDate: new JDate(
           new Date(this.inputData.meetingManagementDate)
         ),
-        registerDate: new JDate(
-          new Date(this.inputData.registerDate)
-        ),
+        registerDate: new JDate(new Date(this.inputData.registerDate)),
       });
     }
-
   }
 
   addEditManager() {
     this.addEditManagerSubmitted = true;
     if (this.addEditManagerForm.valid) {
-      let request = this.addEditManagerForm.value;
+      const request = this.addEditManagerForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       request.companyId = this.companySelected.id;
       request.registerDate = request.registerDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            request.registerDate?.getFullYear(),
-            request.registerDate?.getMonth(),
-            request.registerDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              request.registerDate?.getFullYear(),
+              request.registerDate?.getMonth(),
+              request.registerDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
       request.dismissalDate = request.dismissalDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            request.dismissalDate?.getFullYear(),
-            request.dismissalDate?.getMonth(),
-            request.dismissalDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              request.dismissalDate?.getFullYear(),
+              request.dismissalDate?.getMonth(),
+              request.dismissalDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
       request.meetingManagementDate = request.meetingManagementDate
         ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            request.meetingManagementDate?.getFullYear(),
-            request.meetingManagementDate?.getMonth(),
-            request.meetingManagementDate?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+            this.jDateCalculatorService.convertToGeorgian(
+              request.meetingManagementDate?.getFullYear(),
+              request.meetingManagementDate?.getMonth(),
+              request.meetingManagementDate?.getDate()
+            ),
+            'yyyy-MM-ddTHH:mm:ss'
+          )
         : null;
 
+      request.nationalID = PersianNumberService.toEnglish(request.nationalID);
 
-      request.nationalId = PersianNumberService.toEnglish(request.nationalId);
-
-      const url = CompanyManager.apiAddress + 'CreateSeniorManager'
+      const url = CompanyManager.apiAddress + 'CreateSeniorManager';
       this.isLoadingSubmit = true;
 
       Object.entries(request).forEach(([key, val]) => {
@@ -177,13 +185,11 @@ export class AddEditSeniorManagersComponent {
   }
 
   getPersonelList() {
-    this.httpService
-      .get<Persons[]>(Persons.apiAddress)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.personList = response.data.result;
-        }
-      });
+    this.httpService.get<Persons[]>(Persons.apiAddress).subscribe(response => {
+      if (response.data && response.data.result) {
+        this.personList = response.data.result;
+      }
+    });
   }
 
   getManagerTypeList() {
@@ -207,10 +213,7 @@ export class AddEditSeniorManagersComponent {
       });
   }
 
-
   closeModal() {
     this.isCloseModal.emit(false);
   }
-
-
 }
