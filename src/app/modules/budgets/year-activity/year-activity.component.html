@@ -267,7 +267,6 @@
       <!-- table header -->
       <ng-template pTemplate="header">
         <tr class="data-table__header">
-          <!-- <th style="min-width: 10rem"><strong> کد</strong></th> -->
           <th style="min-width: 10rem"><strong>اسم ریسک</strong></th>
           <th style="min-width: 10rem">
             <strong> اسم برنامه عملیاتی</strong>
@@ -279,7 +278,6 @@
       </ng-template>
       <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
         <tr>
-          <!-- <td>{{ item.code }}</td> -->
           <td
             style="min-width: 15rem"
             pTooltip="{{ item.yearRiskTitle }}"
@@ -290,7 +288,6 @@
           <td style="text-align: center !important">
             {{ item.yearActivityTitle }}
           </td>
-          <!-- <td>{{ item.toPeriodDetailTitle }}</td> -->
           <td>{{ item.optimismPessimismTitle }}</td>
         </tr>
       </ng-template>
