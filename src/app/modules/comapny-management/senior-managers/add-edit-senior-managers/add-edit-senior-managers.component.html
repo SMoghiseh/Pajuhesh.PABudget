@@ -54,29 +54,29 @@
     </div>
 
     <div class="col-6 my-1">
-      <label for="nationalId">کد ملی</label>
+      <label for="nationalID">کد ملی</label>
       <input
         pInputText
         pKeyFilter="int"
         [maxlength]="10"
         [minlength]="10"
-        id="nationalId"
-        name="nationalId"
-        formControlName="nationalId"
+        id="nationalID"
+        name="nationalID"
+        formControlName="nationalID"
         type="text"
         class="w-100"
-        [value]="nationalId?.value | faNum"
-        [class.ng-invalid]="nationalId?.invalid"
+        [value]="nationalID?.value | faNum"
+        [class.ng-invalid]="nationalID?.invalid"
         [class.ng-dirty]="
-          (addEditManagerSubmitted && nationalId?.pristine) ||
-          nationalId?.dirty ||
-          nationalId?.touched
+          (addEditManagerSubmitted && nationalID?.pristine) ||
+          nationalID?.dirty ||
+          nationalID?.touched
         " />
 
-      <div id="nationalId-help">
+      <div id="nationalID-help">
         <small
-          *ngIf="(addEditManagerSubmitted && nationalId?.pristine) || 
-                        (nationalId?.errors?.['required'] && (nationalId?.dirty || nationalId?.touched))"
+          *ngIf="(addEditManagerSubmitted && nationalID?.pristine) || 
+                        (nationalID?.errors?.['required'] && (nationalID?.dirty || nationalID?.touched))"
           class="p-error">
           لطفا این فیلد را خالی نگذارید
         </small>

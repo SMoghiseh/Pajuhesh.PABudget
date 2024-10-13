@@ -1382,6 +1382,8 @@ export class FinancialRatiosPrice {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/FinancialRatiosPrice/';
   static apiAddressFinancialRatio =
     'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/List';
+  static apiAddressAllUnits =
+    'api/PABudgetApi/v1/BudgetPeriod/GetAllUnits/List';
   id!: number;
   financialRatioId!: number;
   companyId!: number;
@@ -1575,7 +1577,7 @@ export class CompanyManager {
   lastName!: string;
   fatherName!: string;
   gender!: string;
-  nationalId!: string;
+  nationalID!: string;
 }
 
 export class ManagerType {
@@ -1713,10 +1715,8 @@ export class FinancialRatio {
   title!: string;
 }
 
-
 export class ShareHolder {
-  static readonly apiAddress =
-    'api/PABudgetApi/v1/ShareHolderCompany/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/ShareHolderCompany/';
   static readonly PartyListApiAddress =
     'api/PABudgetApi/v1/BaseInfo/GetPartyList';
   static readonly TypeListApiAddress =
@@ -1726,5 +1726,3 @@ export class ShareHolder {
   partyLastName!: string;
   partyNationalId!: string;
 }
-
-

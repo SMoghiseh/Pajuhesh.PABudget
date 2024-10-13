@@ -130,7 +130,7 @@ export class SeniorManagersComponent implements OnInit {
       });
   }
 
-  deleteRow(item: CompanyManager) {
+  deleteRow(item: CompanyManager) { debugger
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.managerTypeTitle} - ${item.name} ${item.lastName}" اطمینان دارید؟`,
@@ -146,7 +146,7 @@ export class SeniorManagersComponent implements OnInit {
       });
   }
 
-  deleteManager(item: CompanyManager) {
+  deleteManager(item: CompanyManager) { debugger
     if (item.id) {
       this.httpService
         .get<CompanyManager>(

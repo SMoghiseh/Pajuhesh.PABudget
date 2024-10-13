@@ -20,6 +20,7 @@ export class AddEditFinancialRatiosPriceComponent {
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
   MeetingTopicList: any = [];
+  unitList: any = [];
   companyList: any = [];
   financialRatioList: any = [];
   inputData = new FinancialRatiosPrice();
@@ -38,12 +39,13 @@ export class AddEditFinancialRatiosPriceComponent {
   ngOnInit(): void {
     this.getFinancialRatioLst();
     this.getCompanyLst();
+    this.getUnitLst();
     this.addEditForm = new FormGroup({
       financialRatioId: new FormControl(),
       companyId: new FormControl(null),
       periodId: new FormControl(null),
       price: new FormControl(null),
-      code: new FormControl('02'),
+      code: new FormControl(),
     });
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
@@ -112,6 +114,17 @@ export class AddEditFinancialRatiosPriceComponent {
       });
   }
 
+  getUnitLst() {
+    this.httpService
+      .post<FinancialRatiosPrice[]>(FinancialRatiosPrice.apiAddressAllUnits, {
+        withOutPagination: true,
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.unitList = response.data.result;
+        }
+      });
+  }
   getCompanyLst() {
     this.httpService
       .post<Company[]>(Company.apiAddressDetailCo + 'List', {
