@@ -56,22 +56,22 @@
       </div>
 
       <div class="col-2 mt-2">
-        <label for="internalRateOfReturn">نرخ بازده داخلی</label>
-        <input pInputText id="internalRateOfReturn" name="internalRateOfReturn" formControlName="internalRateOfReturn"
-          type="number" class="w-100" />
+        <label for="internalRateOfReturn">نرخ بازده داخلی(میلیون ریال)</label>
+        <p-inputNumber id="internalRateOfReturn" name="internalRateOfReturn" formControlName="internalRateOfReturn"
+          inputId="integeronly" class="w-100"></p-inputNumber>
       </div>
 
-      <div class="col-2 mt-2">
-        <label for="netPersentValue">خالص ارزش فعلی</label>
-        <input pInputText id="netPersentValue" name="netPersentValue" formControlName="netPersentValue" type="number"
-          class="w-100" />
+      <div class="col-3 mt-2">
+        <label for="netPersentValue">خالص ارزش فعلی(میلیون ریال)</label>
+        <p-inputNumber id="netPersentValue" name="netPersentValue" formControlName="netPersentValue"
+          inputId="integeronly" class="w-100"></p-inputNumber>
       </div>
       <div class="col-2 mt-2">
         <label for="payBackPeriod">دوره بازگشت سرمایه</label>
         <input pInputText id="payBackPeriod" name="payBackPeriod" formControlName="payBackPeriod" type="number"
           class="w-100" />
       </div>
-      <div class="col-4 mt-2">
+      <div class="col-3 mt-2">
         <label for="address">آدرس</label>
         <input pInputText id="address" name="address" formControlName="address" type="address" class="w-100" />
       </div>
@@ -104,8 +104,8 @@
         <th style="min-width: 10rem"><strong> از دوره </strong></th>
         <th style="min-width: 10rem"><strong> تا دوره </strong></th>
         <th style="min-width: 10rem"><strong> نوع طرح </strong></th>
-        <th style="min-width: 10rem"><strong> نرخ بازده داخلی </strong></th>
-        <th style="min-width: 10rem"><strong> خالص ارزش فعلی </strong></th>
+        <th style="min-width: 10rem"><strong> نرخ بازده داخلی (میلیون ریال)</strong></th>
+        <th style="min-width: 10rem"><strong> خالص ارزش فعلی (میلیون یال)</strong></th>
         <th style="min-width: 10rem"><strong> دوره بازگشت سرمایه </strong></th>
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
@@ -119,8 +119,8 @@
         <td>{{ item.fromBudgetPeriodTitle }}</td>
         <td>{{ item.toBudgetPeriodTitle }}</td>
         <td>{{ item.typeTitle }}</td>
-        <td>{{ item.internalRateOfReturn }}</td>
-        <td>{{ item.netPersentValue }}</td>
+        <td>{{ item.internalRateOfReturn | number }}</td>
+        <td>{{ item.netPersentValue | number}}</td>
         <td>{{ item.payBackPeriod }}</td>
 
         <td class="jc-left ai-left">
