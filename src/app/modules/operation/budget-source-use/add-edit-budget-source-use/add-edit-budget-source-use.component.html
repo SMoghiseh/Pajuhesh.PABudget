@@ -37,7 +37,11 @@
       <label for="sourceUseTypeId"> منابع / مصارف</label>
       <p-dropdown id="sourceUseTypeId" name="sourceUseTypeId" formControlName="sourceUseTypeId" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="sourceUseTypeList" [filter]="true"
-        placeholder="انتخاب کنید">
+        placeholder="انتخاب کنید" [class.ng-invalid]="sourceUseTypeId?.invalid" [class.ng-dirty]="
+        (addEditBudgetSourceUseSubmitted && sourceUseTypeId?.pristine) ||
+        sourceUseTypeId?.dirty ||
+        sourceUseTypeId?.touched
+      ">
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
   Company,
@@ -26,6 +26,7 @@ export class AddEditContractNoComponent implements OnInit {
   inputDataDetails = new Contract();
   addEditContractNoModel = new ContractNo();
   isLoadingSubmit = false;
+  addEditContractNoSubmitted = false;
   contracTypeLst: ContractType[] = [];
   employerLst: Employers[] = [];
   contractorLst: Employers[] = [];
@@ -85,20 +86,28 @@ export class AddEditContractNoComponent implements OnInit {
     this.getCompanyLst();
 
     this.addEditContractNoForm = new FormGroup({
-      contractCode: new FormControl(this.addEditContractNoModel.contractCode),
-      contractDate: new FormControl(this.addEditContractNoModel.contractDate),
+      contractCode: new FormControl(this.addEditContractNoModel.contractCode, Validators.required),
+      contractDate: new FormControl(this.addEditContractNoModel.contractDate,
+        Validators.required),
       contractFromDate: new FormControl(
-        this.addEditContractNoModel.contractFromDate
+        this.addEditContractNoModel.contractFromDate,
+        Validators.required
       ),
-      companyId: new FormControl(this.addEditContractNoModel.companyId),
+      companyId: new FormControl(this.addEditContractNoModel.companyId,
+        Validators.required),
       contractToDate: new FormControl(
-        this.addEditContractNoModel.contractToDate
+        this.addEditContractNoModel.contractToDate,
+        Validators.required
       ),
-      contracTypeID: new FormControl(this.addEditContractNoModel.contracTypeID),
-      employerID: new FormControl(this.addEditContractNoModel.employerID),
-      contractorID: new FormControl(this.addEditContractNoModel.contractorID),
+      contracTypeID: new FormControl(this.addEditContractNoModel.contracTypeID,
+        Validators.required),
+      employerID: new FormControl(this.addEditContractNoModel.employerID,
+        Validators.required),
+      contractorID: new FormControl(this.addEditContractNoModel.contractorID,
+        Validators.required),
       contractPriceCu: new FormControl(
-        this.addEditContractNoModel.contractPriceCu
+        this.addEditContractNoModel.contractPriceCu,
+        Validators.required
       ),
 
     });
@@ -174,6 +183,7 @@ export class AddEditContractNoComponent implements OnInit {
   }
 
   addEditContractNo() {
+    this.addEditContractNoSubmitted = true;
     if (this.addEditContractNoForm.valid) {
       this.isLoadingSubmit = true;
       const {
