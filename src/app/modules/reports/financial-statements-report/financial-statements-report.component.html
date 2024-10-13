@@ -41,11 +41,6 @@
           {{ rowData['title'] }}
         </td>
 
-        <!-- <td *ngFor="let col of rowData['priceCu']" [ngStyle]="col < 0 ? { color: 'red' } : { color: 'black' }">
-          {{ minusAmount(col) | number}}
-        </td> -->
-
-
         <ng-container *ngIf="rowData['priceCu'].length == 0 ">
           <td></td>
           <td></td>
