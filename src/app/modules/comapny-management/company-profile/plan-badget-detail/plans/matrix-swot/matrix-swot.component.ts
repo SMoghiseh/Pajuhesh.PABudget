@@ -16,11 +16,14 @@ export class MatrixSwotComponent {
   selectedPlanName = 'ماتریس SWOT ';
 
   constructor(private httpService: HttpService) {}
+  ngOnInit(): void {
+    this.getPlanDetail();
+  }
 
-  getPlanDetail(yearId: number) { debugger
+  getPlanDetail() { debugger
     const body = {
       companyId: this.inputData.companyId,
-      periodId: yearId,
+      // periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressSWOT, ''), body)
@@ -36,7 +39,7 @@ export class MatrixSwotComponent {
       });
   }
 
-  returnSelectedDate(e: any) { debugger
-    this.getPlanDetail(e);
-  }
+  // returnSelectedDate(e: any) { debugger
+  //   this.getPlanDetail(e);
+  // }
 }
