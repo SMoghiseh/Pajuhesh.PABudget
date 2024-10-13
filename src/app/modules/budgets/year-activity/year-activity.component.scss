@@ -25,3 +25,8 @@
       }
     }
   }
+
+ ::ng-deep .p-menu.p-menu-overlay {
+    // 
+    width: 18rem !important;
+  }
