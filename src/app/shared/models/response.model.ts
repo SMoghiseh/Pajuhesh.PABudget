@@ -1348,6 +1348,18 @@ export class KeyTypecode {
   title!: string;
 }
 
+export class ProjectPic {
+  static apiAddress = 'api/PABudgetApi/v1/Project/ProjectPic/';
+  id!: number;
+  projectId!: number;
+  title!: string;
+  code!: number;
+  picDate!: string;
+  description!: string;
+  picId!: number;
+  picTitle!: string;
+}
+
 export class AssemblyAssignments {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearUnion/';
   static apiAddressMeetingTopic =
@@ -1370,6 +1382,8 @@ export class FinancialRatiosPrice {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/FinancialRatiosPrice/';
   static apiAddressFinancialRatio =
     'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/List';
+  static apiAddressAllUnits =
+    'api/PABudgetApi/v1/BudgetPeriod/GetAllUnits/List';
   id!: number;
   financialRatioId!: number;
   companyId!: number;
@@ -1563,7 +1577,7 @@ export class CompanyManager {
   lastName!: string;
   fatherName!: string;
   gender!: string;
-  nationalId!: string;
+  nationalID!: string;
 }
 
 export class ManagerType {
@@ -1633,6 +1647,8 @@ export class YearActivity {
     'api/PABudgetApi/v1/BaseInfo/YearActivity/CostCenter/';
   static readonly apiAddressExceptedYearActivities =
     'api/PABudgetApi/v1/BudgetPeriod/GetExceptedYearActivities/';
+  static readonly apiYearActivityrelatedToRisk =
+    'api/PABudgetApi/v1/BudgetPeriod/GetYearActivityrelatedToRisk/List';
   id!: number;
   title!: string;
 }
@@ -1699,10 +1715,8 @@ export class FinancialRatio {
   title!: string;
 }
 
-
 export class ShareHolder {
-  static readonly apiAddress =
-    'api/PABudgetApi/v1/ShareHolderCompany/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/ShareHolderCompany/';
   static readonly PartyListApiAddress =
     'api/PABudgetApi/v1/BaseInfo/GetPartyList';
   static readonly TypeListApiAddress =
@@ -1712,5 +1726,3 @@ export class ShareHolder {
   partyLastName!: string;
   partyNationalId!: string;
 }
-
-

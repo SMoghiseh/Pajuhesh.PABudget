@@ -35,6 +35,7 @@ import { AggregateComponent } from './aggregate/aggregate.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { FinancialStatementsReportComponent } from './financial-statements-report/financial-statements-report.component';
 import { BenefitCostReportComponent } from './benefit-cost-report/benefit-cost-report.component';
+import { FileUploadModule } from 'primeng/fileupload';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -71,6 +72,7 @@ import { BenefitCostReportComponent } from './benefit-cost-report/benefit-cost-r
     TooltipModule,
     RadioButtonModule,
     TreeTableModule,
+    FileUploadModule,
   ],
   providers: [
     {

@@ -45,22 +45,28 @@
         class="w-100 my-1" />
     </div> -->
     <div class="col-6 mt-2">
-      <label for="price"> مبلغ </label>
-      <input
-        pInputText
+      <label for="price">مبلغ قرارداد(میلیون ریال)</label>
+      <p-inputNumber
         id="price"
         name="price"
         formControlName="price"
-        class="w-100 my-1" />
+        inputId="integeronly"
+        class="w-100"></p-inputNumber>
     </div>
     <div class="col-6 mt-2">
-      <label for="periodId"> واحد مبلغ </label>
-      <input
-        pInputText
+      <label for="companyId"> واحد مبلغ</label>
+      <p-dropdown
         id="code"
         name="code"
         formControlName="code"
-        class="w-100 my-1" />
+        styleClass="w-100 my-1"
+        optionLabel="code"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="unitList"
+        [filter]="true"
+        placeholder="انتخاب کنید">
+      </p-dropdown>
     </div>
 
     <div class="col-12 row-btn row-btn-fixed-bottom">

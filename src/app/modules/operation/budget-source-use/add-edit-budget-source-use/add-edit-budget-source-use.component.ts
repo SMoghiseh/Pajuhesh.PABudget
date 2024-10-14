@@ -55,7 +55,7 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -75,7 +75,8 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
         Validators.required
       ),
       sourceUseTypeId: new FormControl(
-        this.addEditBudgetSourceUseModel.sourceUseTypeId
+        this.addEditBudgetSourceUseModel.sourceUseTypeId,
+        Validators.required
       ),
       budgetPriceCu: new FormControl(
         this.addEditBudgetSourceUseModel.budgetPriceCu
@@ -91,6 +92,7 @@ export class AddEditBudgetSourceUseComponent implements OnInit {
     }
   }
   addEditBudgetSourceUse() {
+    this.addEditBudgetSourceUseSubmitted = true;
     if (this.addEditBudgetSourceUseForm.valid) {
       this.isLoadingSubmit = true;
       const {

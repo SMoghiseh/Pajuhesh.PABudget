@@ -55,7 +55,7 @@ export class ShareHolderCompanyComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCompanyLst();
@@ -151,7 +151,7 @@ export class ShareHolderCompanyComponent {
       this.httpService
         .get<ShareHolder>(
           UrlBuilder.build(ShareHolder.apiAddress + 'DeleteShareHolder', '') +
-            `/${id}`
+          `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {

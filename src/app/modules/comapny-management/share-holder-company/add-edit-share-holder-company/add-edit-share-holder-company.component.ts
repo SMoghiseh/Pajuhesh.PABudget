@@ -16,6 +16,7 @@ export class AddEditShareHolderCompanyComponent {
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
+  patternDecimal = /^(?=.*[0-9.\-])[\/0-9\s.',\-F]*$/;
 
   // dropdown data list
   periodList: any = [];

@@ -58,7 +58,9 @@ import { ProjectIncomeComponent } from './project-income/project-income.componen
 import { ProjectCostComponent } from './project-cost/project-cost.component';
 import { AddEditProjectIncomeComponent } from './project-income/add-edit-project-income/add-edit-project-income.component';
 import { AddEditProjectCostComponent } from './project-cost/add-edit-project-cost/add-edit-project-cost.component';
-
+import { ProjectPicComponent } from './project-pic/project-pic.component';
+import { AddEditProjectPicComponent } from './project-pic/add-edit-project-pic/add-edit-project-pic.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { AddEditProjectCostComponent } from './project-cost/add-edit-project-cos
     ProjectIncomeComponent,
     ProjectCostComponent,
     AddEditProjectIncomeComponent,
-    AddEditProjectCostComponent
+    AddEditProjectCostComponent,
+    ProjectPicComponent,
+    AddEditProjectPicComponent,
   ],
   imports: [
     CommonModule,
@@ -118,7 +122,7 @@ import { AddEditProjectCostComponent } from './project-cost/add-edit-project-cos
     KeyFilterModule,
     TooltipModule,
     MenuModule,
-    InputNumberModule
+    FileUploadModule,
   ],
   providers: [
     {
@@ -129,4 +133,4 @@ import { AddEditProjectCostComponent } from './project-cost/add-edit-project-cos
     },
   ],
 })
-export class OperationModule { }
+export class OperationModule {}

@@ -3,7 +3,11 @@
 <div class="d-flex justify-content-between">
   <div class="table-header">برنامه عملیاتی</div>
   <div>
-    <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
+    <p-button
+      class="pe-2 mr-8"
+      styleClass="p-button-info"
+      icon="pi pi-plus-circle"
+      label="افزودن"
       (click)="addYearActivity()"></p-button>
   </div>
 </div>
@@ -20,40 +24,94 @@
       </div>
       <div class="col-3 mt-8">
         <label for="yearGoalId"> هدف سالیانه </label>
-        <p-dropdown id="yearGoalId" name="yearGoalId" formControlName="yearGoalId" styleClass="w-100 my-1"
-          [readonly]="true" optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="yearGoalList"
+        <p-dropdown
+          id="yearGoalId"
+          name="yearGoalId"
+          formControlName="yearGoalId"
+          styleClass="w-100 my-1"
+          [readonly]="true"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="yearGoalList"
           [filter]="true">
         </p-dropdown>
       </div>
-
+      <div class="col-3 mt-8">
+        <label for="budgetPeriodId"> دوره </label>
+        <p-dropdown
+          id="budgetPeriodId"
+          name="budgetPeriodId"
+          formControlName="budgetPeriodId"
+          styleClass="w-100 my-1"
+          optionLabel="periodTitle"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="budgetPeriodList"
+          [filter]="true"
+          [readonly]="true">
+        </p-dropdown>
+      </div>
       <div class="col-3 mt-8">
         <label for="code"> کد </label>
-        <input pInputText id="code" name="code" formControlName="code" class="w-100 my-1" />
+        <input
+          pInputText
+          id="code"
+          name="code"
+          formControlName="code"
+          class="w-100 my-1" />
       </div>
       <div class="col-3 mt-8">
         <label for="title"> عنوان </label>
-        <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
+        <input
+          pInputText
+          id="title"
+          name="title"
+          formControlName="title"
+          class="w-100 my-1" />
       </div>
       <!--  دوره عملیاتی -->
       <div class="col-3 mt-8">
         <label for="fromPeriodDetailId"> از دوره عملیاتی </label>
-        <p-dropdown id="fromPeriodDetailId" name="fromPeriodDetailId" formControlName="fromPeriodDetailId"
-          styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-          [options]="periodDetailList" [filter]="true">
+        <p-dropdown
+          id="fromPeriodDetailId"
+          name="fromPeriodDetailId"
+          formControlName="fromPeriodDetailId"
+          styleClass="w-100 my-1"
+          optionLabel="periodDetailTitle"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="periodDetailList"
+          [filter]="true">
         </p-dropdown>
       </div>
       <div class="col-3 mt-8">
         <label for="toPeriodDetailId">تا دوره عملیاتی </label>
-        <p-dropdown id="toPeriodDetailId" name="toPeriodDetailId" formControlName="toPeriodDetailId"
-          styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-          [options]="periodDetailList" [filter]="true">
+        <p-dropdown
+          id="toPeriodDetailId"
+          name="toPeriodDetailId"
+          formControlName="toPeriodDetailId"
+          styleClass="w-100 my-1"
+          optionLabel="periodDetailTitle"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="periodDetailList"
+          [filter]="true">
         </p-dropdown>
       </div>
       <!--  دوره عملیاتی -->
       <div class="col-3 mt-8">
         <label for="costCenterId"> مرکز هزینه</label>
-        <p-dropdown id="costCenterId" name="costCenterId" formControlName="costCenterId" styleClass="w-100 my-1"
-          optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="costCenterList" [filter]="true">
+        <p-dropdown
+          id="costCenterId"
+          name="costCenterId"
+          formControlName="costCenterId"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="costCenterList"
+          [filter]="true">
         </p-dropdown>
       </div>
 
@@ -165,11 +223,75 @@
   </p-table>
 </div>
 
-<p-dialog *ngIf="isOpenAddEditYearActivity" [header]="modalTitle" [(visible)]="isOpenAddEditYearActivity" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '900px' }"
+<p-dialog
+  *ngIf="isOpenAddEditYearActivity"
+  [header]="modalTitle"
+  [(visible)]="isOpenAddEditYearActivity"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '900px' }"
   [class.height-size]="mode === 'insert' || mode === 'edit'">
-  <PABudget-add-edit-year-activity [data1]="addEditData" [mode]="mode"
+  <PABudget-add-edit-year-activity
+    [data1]="addEditData"
+    [mode]="mode"
     (isSuccess)="reloadData()"></PABudget-add-edit-year-activity>
 </p-dialog>
 
+<p-dialog
+  *ngIf="isOpenYearActivityrelatedToRisk"
+  [header]="modalTitle"
+  [(visible)]="isOpenYearActivityrelatedToRisk"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '900px' }"
+  [class.height-size]="mode === 'insert' || mode === 'edit'">
+  <div *ngIf="isOpenYearActivityrelatedToRisk" class="table-container">
+    <p-table
+      #dataTable
+      dataKey="id"
+      class="data-table d-none d-lg-block"
+      [styleClass]="gridClass"
+      [rowHover]="true"
+      [paginator]="true"
+      [rows]="dataTableRows"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [totalRecords]="totalCount"
+      [value]="activityrelatedToRisk"
+      [loading]="loading"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [lazy]="true"
+      (onLazyLoad)="getYearActivityrelatedToRisk($event)"
+      [(first)]="first">
+      <!-- table header -->
+      <ng-template pTemplate="header">
+        <tr class="data-table__header">
+          <th style="min-width: 10rem"><strong>اسم ریسک</strong></th>
+          <th style="min-width: 10rem">
+            <strong> اسم برنامه عملیاتی</strong>
+          </th>
+          <th style="min-width: 10rem">
+            <strong> بدبینانه وخوشبینانه </strong>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
+        <tr>
+          <td
+            style="min-width: 15rem"
+            pTooltip="{{ item.yearRiskTitle }}"
+            tooltipEvent="hover"
+            tooltipPosition="top">
+            {{ item.yearRiskTitle }}
+          </td>
+          <td style="text-align: center !important">
+            {{ item.yearActivityTitle }}
+          </td>
+          <td>{{ item.optimismPessimismTitle }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-dialog>
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

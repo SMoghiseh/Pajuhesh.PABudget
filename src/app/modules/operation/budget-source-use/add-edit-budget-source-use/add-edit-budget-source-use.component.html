@@ -37,18 +37,22 @@
       <label for="sourceUseTypeId"> منابع / مصارف</label>
       <p-dropdown id="sourceUseTypeId" name="sourceUseTypeId" formControlName="sourceUseTypeId" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="sourceUseTypeList" [filter]="true"
-        placeholder="انتخاب کنید">
+        placeholder="انتخاب کنید" [class.ng-invalid]="sourceUseTypeId?.invalid" [class.ng-dirty]="
+        (addEditBudgetSourceUseSubmitted && sourceUseTypeId?.pristine) ||
+        sourceUseTypeId?.dirty ||
+        sourceUseTypeId?.touched
+      ">
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
-      <label for="budgetPriceCu">مبلغ پیش بینی</label>
-      <input pInputText pKeyFilter="int" id="budgetPriceCu" name="budgetPriceCu" formControlName="budgetPriceCu"
-        type="text" class="w-100" />
+      <label for="budgetPriceCu">مبلغ پیش بینی (میلیون ریال) </label>
+      <p-inputNumber id="budgetPriceCu" name="budgetPriceCu" formControlName="budgetPriceCu" inputId="integeronly"
+        class="w-100"></p-inputNumber>
     </div>
     <div class="col-6 mt-2">
-      <label for="realPriceCu">مبلغ محقق شده</label>
-      <input pInputText pKeyFilter="int" id="realPriceCu" name="realPriceCu" formControlName="realPriceCu" type="text"
-        class="w-100" />
+      <label for="realPriceCu">مبلغ محقق شده (میلیون ریال)</label>
+      <p-inputNumber id="realPriceCu" name="realPriceCu" formControlName="realPriceCu" inputId="integeronly"
+        class="w-100"></p-inputNumber>
     </div>
     <div class="col-12 row-btn row-btn-fixed-bottom">
       <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"

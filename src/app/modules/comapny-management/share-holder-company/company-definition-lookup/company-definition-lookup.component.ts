@@ -115,7 +115,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.searchPersonForm = new FormGroup({
@@ -135,6 +135,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
     if (event) this.lazyLoadEvent = event;
     else this.first = 0;
     if (this.searchPersonForm.valid) {
+      debugger
       const { partyName, partyLastName, partyNationalId, userName } =
         this.searchPersonForm.value;
 

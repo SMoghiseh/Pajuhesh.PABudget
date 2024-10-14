@@ -17,6 +17,7 @@ import { BudgetSourceUseListComponent } from './budget-source-use-list-component
 import { ProjectComponent } from './project/project.component';
 import { ProjectIncomeComponent } from './project-income/project-income.component';
 import { ProjectCostComponent } from './project-cost/project-cost.component';
+import { ProjectPicComponent } from './project-pic/project-pic.component';
 
 
 const routes: Routes = [
@@ -167,6 +168,16 @@ const routes: Routes = [
             path: 'ProjectCost/:id',
             component: ProjectCostComponent,
             title: 'برنامه و بودجه |  هزینه های پروژه',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'ProjectPic/:id',
+            component: ProjectPicComponent,
+            title: 'برنامه و بودجه |  تصاویر و مستندات پروژه',
             data: {
               reuse: true,
               title: 'تعریف عناوین',

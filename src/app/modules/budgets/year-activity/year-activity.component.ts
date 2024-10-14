@@ -33,6 +33,7 @@ export class YearActivityComponent {
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
+  isOpenYearActivityrelatedToRisk = false;
   isOpenAddEditYearActivity = false;
   addEditData = new YearActivity();
   pId!: string;
@@ -40,9 +41,11 @@ export class YearActivityComponent {
 
   // form property
   searchForm!: FormGroup;
-
+  params!: number;
+  getYearActivityId!: any;
   // dropdown data list
   budgetPeriodList: any = [];
+  activityrelatedToRisk: any = [];
   periodDetailList: any = [];
   yearGoalList: any = [];
   rollList: any = [];
@@ -55,14 +58,22 @@ export class YearActivityComponent {
       label: ' پیش نیاز  ',
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Period/RelatedActivity'],
-    }
+    },
+    {
+      label: ' لیست ریسک های مرتبط با برنامه  ',
+      icon: 'pi pi-fw pi-star',
+
+      command: () => {
+        this.openDialog();
+      },
+    },
   ];
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getBudgetPeriodList();
@@ -99,6 +110,11 @@ export class YearActivityComponent {
     this.getPeriodDetailList(
       Number(this.route.snapshot.paramMap.get('budgetPeriodId'))
     );
+  }
+
+  openDialog() {
+    this.isOpenYearActivityrelatedToRisk = true;
+    this.getYearActivityrelatedToRisk();
   }
 
   getBudgetPeriodList() {
@@ -218,29 +234,72 @@ export class YearActivityComponent {
       )
       .subscribe(res => {
         this.data = this.addSubComponentList(res);
+        res.forEach((element: any) => {
+          this.getYearActivityId = element.id;
+        });
       });
   }
 
+  getYearActivityrelatedToRisk(event?: LazyLoadEvent) {
+    if (event) this.lazyLoadEvent = event;
+
+    const pagination = new Pagination();
+    const first = this.lazyLoadEvent?.first || 0;
+    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+    const formValue = this.searchForm.value;
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+
+    const body = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
+      yearActivityId: this.getYearActivityId,
+    };
+
+    this.first = 0;
+    const url = YearActivity.apiYearActivityrelatedToRisk;
+    this.httpService
+      .post<YearActivity[]>(url, body)
+
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          if (response.data && response.data.result) {
+            if (response.data.totalCount)
+              this.totalCount = response.data.totalCount;
+            return response.data.result;
+          } else return [new YearActivity()];
+        })
+      )
+      .subscribe(res => {
+        this.activityrelatedToRisk = res;
+      });
+  }
   addSubComponentList(data: any) {
     data.forEach((row: any) => {
-
       row['componentList'] = [];
       let array = this.subComponentList;
-      let snapshotParams = '/' + Number(this.route.snapshot.paramMap.get('budgetPeriodId')) + '/' +
+      const snapshotParams =
+        '/' +
+        Number(this.route.snapshot.paramMap.get('budgetPeriodId')) +
+        '/' +
         Number(this.route.snapshot.paramMap.get('yearGoalId'));
 
       array = array.map(com => {
-        let params = snapshotParams + '/' + row.id;
-        let route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] }
-      })
+        if (com['routerLink']) {
+          const params = snapshotParams + '/' + row.id;
+          const route = com['routerLink'][0].concat(params);
+          return { ...com, routerLink: [route] };
+        } else {
+          return { ...com };
+        }
+      });
 
       row['componentList'].push(...array);
-
     });
     return data;
   }
-
 
   addYearActivity() {
     this.modalTitle = 'افزودن برنامه عملیاتی   ';
@@ -302,5 +361,4 @@ export class YearActivityComponent {
     this.searchForm.reset();
     this.getList();
   }
-
 }

@@ -8,7 +8,7 @@ import {
   ContractNo,
   ContractType,
   Employers,
-  Pagination
+  Pagination,
 } from '@shared/models/response.model';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import {
@@ -53,8 +53,7 @@ export class ContractComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private jDateCalculatorService: JDateCalculatorService
-
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getContracType();
@@ -120,46 +119,43 @@ export class ContractComponent implements OnInit {
     const formValue = this.searchForm.value;
     formValue.contractDate = formValue.contractDate
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.contractDate?.getFullYear(),
-          formValue.contractDate?.getMonth(),
-          formValue.contractDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue.contractDate?.getFullYear(),
+            formValue.contractDate?.getMonth(),
+            formValue.contractDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
     formValue.contractFromDate = formValue.contractFromDate
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.contractFromDate?.getFullYear(),
-          formValue.contractFromDate?.getMonth(),
-          formValue.contractFromDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue.contractFromDate?.getFullYear(),
+            formValue.contractFromDate?.getMonth(),
+            formValue.contractFromDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
     formValue.contractToDate = formValue.contractToDate
       ? this.datePipe.transform(
-        this.jDateCalculatorService.convertToGeorgian(
-          formValue.contractToDate?.getFullYear(),
-          formValue.contractToDate?.getMonth(),
-          formValue.contractToDate?.getDate()
-        ),
-        'yyyy-MM-ddTHH:mm:ss'
-      )
+          this.jDateCalculatorService.convertToGeorgian(
+            formValue.contractToDate?.getFullYear(),
+            formValue.contractToDate?.getMonth(),
+            formValue.contractToDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
       : null;
-
-
 
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
-
 
     const searchModel = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      ...formValue
+      ...formValue,
     };
 
     this.loading = true;
@@ -237,5 +233,4 @@ export class ContractComponent implements OnInit {
     this.searchForm.reset();
     this.getContractlNo();
   }
-
 }

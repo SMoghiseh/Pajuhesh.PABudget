@@ -1,82 +1,57 @@
 <p-toast key="manager" position="bottom-left"></p-toast>
 
-<form
-  #formDir="ngForm"
-  [formGroup]="addEditManagerForm"
-  (ngSubmit)="addEditManager()">
+<form #formDir="ngForm" [formGroup]="addEditManagerForm" (ngSubmit)="addEditManager()">
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="name">نام </label>
-      <input
-        pInputText
-        id="name"
-        name="name"
-        formControlName="name"
-        type="text"
-        class="w-100" />
+      <input pInputText id="name" name="name" formControlName="name" type="text" class="w-100"
+        [class.ng-invalid]="name?.invalid" [class.ng-dirty]="
+          (addEditManagerSubmitted && name?.pristine) ||
+          name?.dirty ||
+          name?.touched
+        " />
     </div>
     <div class="col-6 mt-2">
       <label for="lastName">نام خانوادگی </label>
-      <input
-        pInputText
-        id="lastName"
-        name="lastName"
-        formControlName="lastName"
-        type="text"
-        class="w-100" />
+      <input pInputText id="lastName" name="lastName" formControlName="lastName" type="text" class="w-100"
+        [class.ng-invalid]="lastName?.invalid" [class.ng-dirty]="
+          (addEditManagerSubmitted && lastName?.pristine) ||
+          lastName?.dirty ||
+          lastName?.touched
+        " />
     </div>
     <div class="col-6 mt-2">
       <label for="fatherName">نام پدر </label>
-      <input
-        pInputText
-        id="fatherName"
-        name="fatherName"
-        formControlName="fatherName"
-        type="text"
-        class="w-100" />
+      <input pInputText id="fatherName" name="fatherName" formControlName="fatherName" type="text" class="w-100"
+        [class.ng-invalid]="fatherName?.invalid" [class.ng-dirty]="
+          (addEditManagerSubmitted && fatherName?.pristine) ||
+          fatherName?.dirty ||
+          fatherName?.touched
+        " />
     </div>
 
     <div class="col-6 mt-24">
       <div class="d-flex align-items-center">
-        <p-radioButton
-          name="gender"
-          formControlName="gender"
-          [value]="1"
-          inputId="ingredient2"></p-radioButton>
+        <p-radioButton name="gender" formControlName="gender" [value]="1" inputId="ingredient2"></p-radioButton>
         <label for="ingredient2" class="ms-2 me-4">مرد </label>
-        <p-radioButton
-          name="gender"
-          formControlName="gender"
-          [value]="0"
-          inputId="ingredient1"></p-radioButton>
+        <p-radioButton name="gender" formControlName="gender" [value]="0" inputId="ingredient1"></p-radioButton>
         <label for="ingredient1" class="ms-2 me-4"> زن</label>
       </div>
     </div>
 
     <div class="col-6 my-1">
-      <label for="nationalId">کد ملی</label>
-      <input
-        pInputText
-        pKeyFilter="int"
-        [maxlength]="10"
-        [minlength]="10"
-        id="nationalId"
-        name="nationalId"
-        formControlName="nationalId"
-        type="text"
-        class="w-100"
-        [value]="nationalId?.value | faNum"
-        [class.ng-invalid]="nationalId?.invalid"
-        [class.ng-dirty]="
-          (addEditManagerSubmitted && nationalId?.pristine) ||
-          nationalId?.dirty ||
-          nationalId?.touched
+      <label for="nationalID">کد ملی</label>
+      <input pInputText pKeyFilter="int" [maxlength]="10" [minlength]="10" id="nationalID" name="nationalID"
+        formControlName="nationalID" type="text" class="w-100" [value]="nationalID?.value | faNum"
+        [class.ng-invalid]="nationalID?.invalid" [class.ng-dirty]="
+          (addEditManagerSubmitted && nationalID?.pristine) ||
+          nationalID?.dirty ||
+          nationalID?.touched
         " />
 
-      <div id="nationalId-help">
-        <small
-          *ngIf="(addEditManagerSubmitted && nationalId?.pristine) || 
-                        (nationalId?.errors?.['required'] && (nationalId?.dirty || nationalId?.touched))"
+      <div id="nationalID-help">
+        <small *ngIf="(addEditManagerSubmitted && nationalID?.pristine) || 
+                        (nationalID?.errors?.['required'] && (nationalID?.dirty || nationalID?.touched))"
           class="p-error">
           لطفا این فیلد را خالی نگذارید
         </small>
@@ -85,18 +60,9 @@
     </div>
     <div class="col-6 mt-2">
       <label for="managerTypeId"> نقش </label>
-      <p-dropdown
-        id="managerTypeId"
-        name="managerTypeId"
-        formControlName="managerTypeId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="managerTypeList"
-        [filter]="true"
-        [class.ng-invalid]="managerTypeId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="managerTypeId" name="managerTypeId" formControlName="managerTypeId" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="managerTypeList" [filter]="true"
+        [class.ng-invalid]="managerTypeId?.invalid" [class.ng-dirty]="
           (addEditManagerSubmitted && managerTypeId?.pristine) ||
           managerTypeId?.dirty ||
           managerTypeId?.touched
@@ -105,13 +71,8 @@
     </div>
     <div class="col-6 mt-2">
       <label for="registerDate">تاریخ انتصاب</label>
-      <p-persian-calendar
-        id="registerDate"
-        name="registerDate"
-        formControlName="registerDate"
-        styleClass="w-100 "
-        [class.ng-invalid]="registerDate?.invalid"
-        [class.ng-dirty]="
+      <p-persian-calendar id="registerDate" name="registerDate" formControlName="registerDate" styleClass="w-100 "
+        [class.ng-invalid]="registerDate?.invalid" [class.ng-dirty]="
           (addEditManagerSubmitted && registerDate?.pristine) ||
           registerDate?.dirty ||
           registerDate?.touched
@@ -120,46 +81,25 @@
     </div>
     <div class="col-6 mt-2">
       <label for="dismissalDate">تاریخ عزل</label>
-      <p-persian-calendar
-        id="dismissalDate"
-        name="dismissalDate"
-        formControlName="dismissalDate"
-        styleClass="w-100 ">
+      <p-persian-calendar id="dismissalDate" name="dismissalDate" formControlName="dismissalDate" styleClass="w-100 ">
       </p-persian-calendar>
     </div>
     <div class="col-6 mt-2">
       <label for="meetingManagementDate">تاریخ صورتجلسه</label>
-      <p-persian-calendar
-        id="meetingManagementDate"
-        name="meetingManagementDate"
-        formControlName="meetingManagementDate"
-        styleClass="w-100 ">
+      <p-persian-calendar id="meetingManagementDate" name="meetingManagementDate"
+        formControlName="meetingManagementDate" styleClass="w-100 ">
       </p-persian-calendar>
     </div>
     <div class="col-6 mt-2">
       <label for="meetingManagmentNumber">شماره صورتجلسه</label>
-      <input
-        pInputText
-        pKeyFilter="int"
-        id="meetingManagmentNumber"
-        name="meetingManagmentNumber"
-        formControlName="meetingManagmentNumber"
-        type="text"
-        class="w-100" />
+      <input pInputText pKeyFilter="int" id="meetingManagmentNumber" name="meetingManagmentNumber"
+        formControlName="meetingManagmentNumber" type="text" class="w-100" />
     </div>
 
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2"
-        styleClass="p-button-warning"
-        label="انصراف"
-        icon="pi pi-times"
+      <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
         (click)="closeModal()"></p-button>
-      <p-button
-        class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>
