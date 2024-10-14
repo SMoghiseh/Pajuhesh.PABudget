@@ -325,7 +325,7 @@
                     }
 
                     .company-logo {
-                        display: none;
+                        // display: none;
                     }
 
                     &::before {
@@ -505,6 +505,7 @@
         cursor: pointer;
         width: 80%;
         transition: all 0.2s ease-in-out;
+
 
         &:hover {
             @extend .selected-filter-tab;

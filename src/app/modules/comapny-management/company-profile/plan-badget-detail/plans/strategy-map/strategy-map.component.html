@@ -16,8 +16,8 @@
     </div>
 
     <!-- [layout]="layout" -->
+
     <!-- <ngx-graph
-      [view]="[800, 500]"
       [links]="links"
       [nodes]="nodes"
       [curve]="curve"
@@ -25,8 +25,11 @@
       [nodeWidth]="150"
       [nodeHeight]="100"
       [layoutSettings]="layoutSettings"
-      [enableZoom]="true"
-      [autoZoom]="true">
+      [enableZoom]="false"
+      [autoZoom]="true"
+      [draggingEnabled]="false"
+      [panningEnabled]="false">
+      **<COMMENT>
       <ng-template #defsTemplate>
         <svg:marker
           id="arrow"
@@ -38,7 +41,8 @@
           orient="auto">
           <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
         </svg:marker>
-      </ng-template>
+      </ng-template> 
+      **<COMMENT>
 
       <ng-template #nodeTemplate let-node>
         <svg:g
@@ -59,7 +63,8 @@
         </svg:g>
       </ng-template>
 
-      <ng-template #linkTemplate let-link>
+      **<COMMENT>
+         <ng-template #linkTemplate let-link>
         <svg:g class="edge">
           <svg:path
             class="line"
@@ -86,7 +91,8 @@
             {{ link.data.linkText }}
           </svg:text>
         </svg:g>
-      </ng-template>
+      </ng-template> 
+      **<COMMENT>
     </ngx-graph> -->
 
     <!-- ---------------------------------------------------old Codes -->
