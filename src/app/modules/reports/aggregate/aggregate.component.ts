@@ -294,7 +294,7 @@ export class AggregateComponent implements OnInit {
         priceCu: item.priceCu,
       });
 
-    console.log('onChangePrice' + this.changeList);
+    console.log('onChangePrice - newList' + this.changeList);
   }
 
   addAccountReportToItem(report: AccountReport) {
