@@ -167,7 +167,7 @@
 
 <p-dialog *ngIf="isOpenAddEditSale" [header]="modalTitle" [(visible)]="isOpenAddEditSale" [modal]="true"
   [draggable]="false" [resizable]="false" [class.height-size]="mode === 'insert' || mode === 'edit'"
-  [style]="{ width: '700px' }" class="height-size">
+  [style]="{ width: '800px' }" class="height-size">
   <app-add-edit-sale [data1]="addEditData" [mode]="mode" (isSuccess)="reloadData()"
     (isCloseModal)="closeModal()"></app-add-edit-sale>
 </p-dialog>

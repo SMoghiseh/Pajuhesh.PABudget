@@ -1394,6 +1394,7 @@ export class FinancialRatiosPrice {
   code!: string;
   type!: string;
   title!: string;
+  companyName!: string;
 }
 
 export class FinancialRatiosIndustry {
