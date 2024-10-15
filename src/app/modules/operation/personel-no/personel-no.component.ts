@@ -165,6 +165,7 @@ export class PersonelNoComponent {
       });
   }
   getPersonalNumberList(event?: any) {
+    debugger;
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
@@ -176,12 +177,10 @@ export class PersonelNoComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      companyId: formValue.companyId,
       periodId: formValue.periodId,
       periodDetailId: formValue.periodDetailId,
-      employmentTypeId: formValue.employmentTypeId,
-      costCenterTypeId: formValue.costCenterTypeId,
-      educationTypeId: formValue.educationTypeId,
-      gender: formValue.gender,
+ 
     };
     this.first = 0;
     const url = PersonelNo.apiAddress + 'ListByFilter';
@@ -276,5 +275,10 @@ export class PersonelNoComponent {
   reloadData() {
     this.isOpenAddEditPersonelNo = false;
     this.getPersonalNumberList();
+  }
+
+  addNewItem(data: any) {
+
+    this.router.navigate(['/Operation/PersonelNo/Detail/' + data.id]);
   }
 }
