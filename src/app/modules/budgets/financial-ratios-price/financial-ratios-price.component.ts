@@ -42,7 +42,7 @@ export class FinancialRatiosPriceComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getFinancialRatioLst();
     this.getCompanyLst();
@@ -105,7 +105,7 @@ export class FinancialRatiosPriceComponent {
     this.isOpenAddEditFinancialRatiosPrice = true;
   }
   editRow(data: FinancialRatiosPrice) {
-    this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
+    this.modalTitle = 'ویرایش ' + '"' + data.companyName + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditFinancialRatiosPrice = true;
@@ -113,8 +113,8 @@ export class FinancialRatiosPriceComponent {
   deleteRow(item: FinancialRatiosPrice) {
     if (item && item.id)
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
-        header: `عنوان "${item.title}"`,
+        message: `آیا از حذف "${item.companyName} " اطمینان دارید؟`,
+        header: `عنوان "${item.companyName}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -122,7 +122,7 @@ export class FinancialRatiosPriceComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteFinancialRatiosPrice(item.id, item.title),
+        accept: () => this.deleteFinancialRatiosPrice(item.id, item.companyName),
       });
   }
   deleteFinancialRatiosPrice(id: number, title: string) {
@@ -130,7 +130,7 @@ export class FinancialRatiosPriceComponent {
       this.httpService
         .get<FinancialRatiosPrice>(
           UrlBuilder.build(FinancialRatiosPrice.apiAddress + 'Delete', '') +
-            `/${id}`
+          `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
