@@ -1,6 +1,6 @@
 <form #formDir="ngForm" [formGroup]="addEditContractNoForm" (ngSubmit)="addEditContractNo()">
   <div class="container row">
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="companyId"> شرکت</label>
       <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
         optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
@@ -11,7 +11,7 @@
         ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="contractCode">شماره قرارداد</label>
       <input pInputText pKeyFilter="int" id="contractCode" name="contractCode" formControlName="contractCode"
         type="text" class="w-100" [class.ng-invalid]="contractCode?.invalid" [class.ng-dirty]="
@@ -21,7 +21,7 @@
       " />
     </div>
 
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="contracTypeID">نوع قرارداد</label>
       <p-dropdown id="contracTypeID" name="contracTypeID" formControlName="contracTypeID" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="contracTypeLst" [filter]="true"
@@ -32,7 +32,7 @@
       ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="employerID">مجری</label>
       <p-dropdown id="employerID" name="employerID" formControlName="employerID" styleClass="w-100 my-1"
         optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="employerLst" [filter]="true"
@@ -43,7 +43,7 @@
       ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="contractorID">پیمان کار</label>
       <p-dropdown id="contractorID" name="contractorID" formControlName="contractorID" styleClass="w-100 my-1"
         optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="contractorLst" [filter]="true"
@@ -54,7 +54,7 @@
       ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="contractDate">تاریخ قرارداد</label>
       <p-persian-calendar id="contractDate" name="contractDate" formControlName="contractDate" styleClass="w-100 "
         [class.ng-invalid]="contractDate?.invalid" [class.ng-dirty]="
@@ -64,7 +64,7 @@
       ">
       </p-persian-calendar>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="contractFromDate">تاریخ شروع قرارداد</label>
       <p-persian-calendar id="contractFromDate" name="contractFromDate" formControlName="contractFromDate"
         styleClass="w-100 " [class.ng-invalid]="contractFromDate?.invalid" [class.ng-dirty]="
@@ -74,7 +74,7 @@
       ">
       </p-persian-calendar>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="contractToDate">تاریخ پایان قرارداد</label>
       <p-persian-calendar id="contractToDate" name="contractToDate" formControlName="contractToDate" styleClass="w-100 "
         [class.ng-invalid]="contractToDate?.invalid" [class.ng-dirty]="
@@ -85,7 +85,7 @@
       </p-persian-calendar>
     </div>
 
-    <div class="col-6 mt-2">
+    <div class="col-4 mt-2">
       <label for="contractPriceCu">مبلغ قرارداد(میلیون ریال)</label>
       <p-inputNumber id="contractPriceCu" name="contractPriceCu" formControlName="contractPriceCu" inputId="integeronly"
         class="w-100" [class.ng-invalid]="contractPriceCu?.invalid" [class.ng-dirty]="

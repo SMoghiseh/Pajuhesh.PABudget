@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination, Period, CompanyManager, UrlBuilder, Company } from '@shared/models/response.model';
+import {
+  Pagination,
+  Period,
+  CompanyManager,
+  UrlBuilder,
+  Company,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
 import {
@@ -13,10 +19,8 @@ import {
   templateUrl: './senior-managers.component.html',
   styleUrls: ['./senior-managers.component.scss'],
   providers: [ConfirmationService],
-
 })
 export class SeniorManagersComponent implements OnInit {
-
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
@@ -38,7 +42,7 @@ export class SeniorManagersComponent implements OnInit {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getCompanyLst();
@@ -54,14 +58,12 @@ export class SeniorManagersComponent implements OnInit {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
           this.selectedCompany = this.companyList[0];
-          this.getManagerList(this.selectedCompany.userId)
+          this.getManagerList(this.selectedCompany.userId);
         }
       });
   }
 
-
   getManagerList(event?: LazyLoadEvent) {
-
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -75,7 +77,7 @@ export class SeniorManagersComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      companyId: this.selectedCompany.id
+      companyId: this.selectedCompany.id,
     };
 
     this.loading = true;
@@ -98,7 +100,6 @@ export class SeniorManagersComponent implements OnInit {
       .subscribe(res => (this.data = res));
   }
 
-
   onCompanySelected(event: any) {
     this.selectedCompany = event?.value;
     this.getManagerList(this.selectedCompany.userId);
@@ -113,8 +114,7 @@ export class SeniorManagersComponent implements OnInit {
 
   editRow(data: CompanyManager) {
     this.modalTitle =
-      'ویرایش ' +
-      data.managerTypeTitle + '-' + data.name + ' ' + data.lastName;
+      'ویرایش ' + data.managerTypeTitle + '-' + data.name + ' ' + data.lastName;
     this.getRowDataById(data.id);
   }
 
@@ -130,7 +130,7 @@ export class SeniorManagersComponent implements OnInit {
       });
   }
 
-  deleteRow(item: CompanyManager) { debugger
+  deleteRow(item: CompanyManager) {
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.managerTypeTitle} - ${item.name} ${item.lastName}" اطمینان دارید؟`,
@@ -146,11 +146,12 @@ export class SeniorManagersComponent implements OnInit {
       });
   }
 
-  deleteManager(item: CompanyManager) { debugger
+  deleteManager(item: CompanyManager) {
     if (item.id) {
       this.httpService
         .get<CompanyManager>(
-          UrlBuilder.build(CompanyManager.apiAddress + 'delete', '') + `/${item.id}`
+          UrlBuilder.build(CompanyManager.apiAddress + 'delete', '') +
+            `/${item.id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -174,5 +175,4 @@ export class SeniorManagersComponent implements OnInit {
     this.isOpenAddEditManager = false;
     this.getManagerList();
   }
-
 }

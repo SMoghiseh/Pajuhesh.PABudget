@@ -4,8 +4,7 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [selectType]="selectDateType"
-            (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
@@ -13,14 +12,38 @@
           <span>شرح</span>
         </div> -->
       </div>
-      <ng-container *ngFor="let item of planDetailData.desc">
-        <div class="col-3 section mt-4">
-          <div>
-            <img src="../../../../../../../assets/images/icons/mag.svg" />
-            <p>{{ item }}</p>
-          </div>
-        </div>
-      </ng-container>
+    </div>
+    <div class="row">
+      <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+        [value]="planDetailData" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+        [(first)]="first">
+        <!-- table header -->
+        <ng-template pTemplate="header">
+          <tr class="data-table__header">
+            <div class="headerStyle">
+              <th style="min-width: 7rem">
+                <strong> هدف </strong>
+              </th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> دوره </strong></th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> برنامه عملیاتی </strong></th>
+            </div>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr>
+            <div class="detailStyle Width: auto" [ngStyle]="{ 'background-color': item.color }">
+              <td style="width: 33rem">{{ item.titleBigGoal }}</td>
+              <td style="width: 33rem">{{ item.titleBudget }}</td>
+              <td style="width: 33rem">{{ item.titleYearActivity }}</td>
+            </div>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </div>

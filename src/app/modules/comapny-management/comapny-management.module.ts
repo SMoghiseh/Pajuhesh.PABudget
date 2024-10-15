@@ -107,7 +107,7 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     ShareholderComponent,
     ShareHolderCompanyComponent,
     AddEditShareHolderCompanyComponent,
-    CompanyDefinitionLookupComponent
+    CompanyDefinitionLookupComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -141,6 +141,7 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     MenuModule,
     DialogModule,
     NgxGraphModule,
+   
   ],
   providers: [
     {
@@ -152,4 +153,4 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
     TableCheckbox,
   ],
 })
-export class ComapnyManagementModule { }
+export class ComapnyManagementModule {}

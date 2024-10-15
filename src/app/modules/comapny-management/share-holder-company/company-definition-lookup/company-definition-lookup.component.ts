@@ -115,7 +115,7 @@ export class CompanyDefinitionLookupComponent implements OnInit {
     private messageService: MessageService,
     private jDateCalculatorService: JDateCalculatorService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.searchPersonForm = new FormGroup({
@@ -131,11 +131,9 @@ export class CompanyDefinitionLookupComponent implements OnInit {
   --------------------------*/
   /** Get person list from server. */
   getPersonList(event?: LazyLoadEvent) {
-    debugger;
     if (event) this.lazyLoadEvent = event;
     else this.first = 0;
     if (this.searchPersonForm.valid) {
-      debugger
       const { partyName, partyLastName, partyNationalId, userName } =
         this.searchPersonForm.value;
 
@@ -165,7 +163,6 @@ export class CompanyDefinitionLookupComponent implements OnInit {
           })
         )
         .subscribe(personList => {
-          debugger;
           this.personList = personList;
         });
     }
@@ -314,7 +311,6 @@ export class CompanyDefinitionLookupComponent implements OnInit {
   }
 
   onRowDblClick(data: ShareHolder) {
-    debugger;
     this.Hide.emit(data);
   }
 

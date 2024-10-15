@@ -4,9 +4,7 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date
-            [selectType]="selectDateType"
-            (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
@@ -14,7 +12,7 @@
           <span>شرح</span>
         </div> -->
       </div>
-      <ng-container *ngFor="let item of dataList.desc">
+      <ng-container *ngFor="let item of dataList?.desc">
         <div class="col">
           <img src="../../../../../../../assets/images/icons/target.svg" />
           <div>

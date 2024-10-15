@@ -20,7 +20,7 @@ export class MatrixSwotComponent {
     this.getPlanDetail();
   }
 
-  getPlanDetail() { debugger
+  getPlanDetail() {
     const body = {
       companyId: this.inputData.companyId,
       // periodId: yearId,
@@ -39,7 +39,7 @@ export class MatrixSwotComponent {
       });
   }
 
-  // returnSelectedDate(e: any) { debugger
+  // returnSelectedDate(e: any) {
   //   this.getPlanDetail(e);
   // }
 }

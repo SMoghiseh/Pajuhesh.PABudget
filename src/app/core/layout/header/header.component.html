@@ -141,7 +141,12 @@
 
     <div *ngIf="!sidemenuService.offcanvasMode">
       <p-toast></p-toast>
-      <p-menu #menu *ngIf="profileItems" [model]="profileItems" [popup]="true" [styleClass]="'profile-menu'"></p-menu>
+      <p-menu
+        #menu
+        *ngIf="profileItems"
+        [model]="profileItems"
+        [popup]="true"
+        [styleClass]="'profile-menu'"></p-menu>
 
       <!-- <button
         type="button"
@@ -181,12 +186,20 @@
             <img src="assets/images/profile.svg" />
           </div>
           <div class="user-info">
-            <span class="spn-username" *ngIf="loginData && (loginData.name || loginData.family)">{{ loginData.name }} {{
-              loginData.family }}</span>
-            <span *ngIf="loginData && (!loginData.name || !loginData.family)">نامشخص</span>
+            <span
+              class="spn-username"
+              *ngIf="loginData && (loginData.name || loginData.family)"
+              >{{ loginData.name }} {{ loginData.family }}</span
+            >
+            <span *ngIf="loginData && (!loginData.name || !loginData.family)"
+              >نامشخص</span
+            >
             <br />
-            <span class="spn-user-info" *ngIf="loginData && loginData.loginDescription">{{ loginData.loginDescription
-              }}</span>
+            <span
+              class="spn-user-info"
+              *ngIf="loginData && loginData.loginDescription"
+              >{{ loginData.loginDescription }}</span
+            >
           </div>
         </div>
       </button>
@@ -194,8 +207,15 @@
   </div>
 </header>
 
-<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true" [closable]="false"></p-confirmDialog>
+<p-confirmDialog
+  [style]="{ width: '450px' }"
+  [rtl]="true"
+  [closable]="false"></p-confirmDialog>
 
-<p-dialog header="تغییر رمز ورود" [(visible)]="visibleChangePass" [modal]="true" [draggable]="false"
+<p-dialog
+  header="تغییر رمز ورود"
+  [(visible)]="visibleChangePass"
+  [modal]="true"
+  [draggable]="false"
   [resizable]="false">
 </p-dialog>
