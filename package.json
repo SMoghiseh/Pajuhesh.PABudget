@@ -51,6 +51,7 @@
     "@angular-eslint/template-parser": "15.2.1",
     "@angular/cli": "~15.2.7",
     "@angular/compiler-cli": "^15.2.8",
+    "@types/d3": "^7.4.3",
     "@types/d3-dispatch": "^3.0.1",
     "@types/d3-drag": "^3.0.7",
     "@types/d3-shape": "^3.1.6",
