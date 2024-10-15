@@ -1079,6 +1079,7 @@ export class GridBalanceSheet {
 export class PersonelNo {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PersonelNo/';
+  static readonly apiAddressPersonelNo = 'api/PABudgetApi/v1/BaseInfo/CreatePersonelNoDetail/';
 
   id!: number;
   educationTypeId!: number;
@@ -1086,6 +1087,7 @@ export class PersonelNo {
   periodDetailId!: number;
   employeewageCU!: number;
   periodId!: number;
+  personelNoId!: number;
   statusTypeId!: number;
   educationTitle!: string;
   statusTitle!: string;
@@ -1094,6 +1096,7 @@ export class PersonelNo {
   perioddetailId!: number;
   costCenterTypeId!: number;
   periodTitle!: string;
+  costCenterTypeTitle!: string;
   gender!: number;
 }
 export class ContractNo {

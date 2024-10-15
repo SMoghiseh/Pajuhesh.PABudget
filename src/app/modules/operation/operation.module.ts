@@ -61,6 +61,7 @@ import { AddEditProjectCostComponent } from './project-cost/add-edit-project-cos
 import { ProjectPicComponent } from './project-pic/project-pic.component';
 import { AddEditProjectPicComponent } from './project-pic/add-edit-project-pic/add-edit-project-pic.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/personel-no-detail.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     AddEditProjectCostComponent,
     ProjectPicComponent,
     AddEditProjectPicComponent,
+    PersonelNoDetailComponent,
   ],
   imports: [
     CommonModule,

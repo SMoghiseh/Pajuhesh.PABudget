@@ -18,6 +18,7 @@ import { ProjectComponent } from './project/project.component';
 import { ProjectIncomeComponent } from './project-income/project-income.component';
 import { ProjectCostComponent } from './project-cost/project-cost.component';
 import { ProjectPicComponent } from './project-pic/project-pic.component';
+import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/personel-no-detail.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,16 @@ const routes: Routes = [
           {
             path: 'PersonelNo',
             component: PersonelNoComponent,
+            title: 'برنامه و بودجه | تعریف عناوین',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'PersonelNo/Detail/:id',
+            component: PersonelNoDetailComponent,
             title: 'برنامه و بودجه | تعریف عناوین',
             data: {
               reuse: true,
