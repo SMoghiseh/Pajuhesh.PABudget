@@ -1254,7 +1254,9 @@ export class Plan {
   static readonly apiAddressRisk = 'api/PABudgetApi/Dashboard/Risk/Info';
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/';
   static readonly apiAddressShareHolder =
-    'api/PABudgetApi/Dashboard/GetShareHolder';
+    'api/PABudgetApi/Dashboard/GetShareHolderForDashboard';
+  static readonly apiAddressPieChart =
+    'api/PABudgetApi/Dashboard/GetShareHolderCompanyForPie';
   static readonly apiAddressAnnualGols =
     'api/PABudgetApi/Dashboard/YearGoal/Info';
 }
