@@ -116,7 +116,7 @@ export class AggregateComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -293,11 +293,13 @@ export class AggregateComponent implements OnInit {
         accountRepItemId: item.accountRepItemId,
         priceCu: item.priceCu,
       });
+
+    console.log('onChangePrice' + this.changeList);
   }
 
   addAccountReportToItem(report: AccountReport) {
     this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
   }
 
-  openDialog(e: any) {}
+  openDialog(e: any) { }
 }

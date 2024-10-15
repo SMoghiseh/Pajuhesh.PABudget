@@ -13,6 +13,10 @@
     margin: 0 auto;
 }
 
+::ng-deep .p-inputnumber {
+    width: 50%;
+}
+
 p-celleditor {
     padding: 0.5rem 0.5rem;
     border: 1px solid #ced4da;
@@ -40,6 +44,6 @@ p-celleditor {
     }
 }
 
-.negative-number{
+.negative-number {
     color: red;
 }
