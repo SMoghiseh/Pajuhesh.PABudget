@@ -162,7 +162,6 @@ export class PersonelNoDetailComponent {
   }
 
   addPersonalNoDetail() {
-    debugger
     if (this.searchPersonelNoForm.valid) {
       const request: PersonelNo = this.searchPersonelNoForm.value;
       request.id = this.inputData.type === 'insert' ? 0 : this.inputData.id;

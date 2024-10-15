@@ -55,7 +55,7 @@ export class PersonelNoComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodLst();
@@ -165,7 +165,6 @@ export class PersonelNoComponent {
       });
   }
   getPersonalNumberList(event?: any) {
-    debugger;
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
@@ -180,7 +179,7 @@ export class PersonelNoComponent {
       companyId: formValue.companyId,
       periodId: formValue.periodId,
       periodDetailId: formValue.periodDetailId,
- 
+
     };
     this.first = 0;
     const url = PersonelNo.apiAddress + 'ListByFilter';
