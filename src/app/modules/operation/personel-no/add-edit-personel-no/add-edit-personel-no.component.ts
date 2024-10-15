@@ -65,21 +65,21 @@ export class AddEditPersonelNoComponent implements OnInit {
         Validators.required
       ),
       periodId: new FormControl(this.addEditPersonelNoModel.periodId),
-      costCenterTypeId: new FormControl(
-        this.addEditPersonelNoModel.costCenterTypeId
-      ),
-      employmentTypeId: new FormControl(
-        this.addEditPersonelNoModel.employmentTypeId
-      ),
-      educationTypeId: new FormControl(
-        this.addEditPersonelNoModel.educationTypeId
-      ),
+      // costCenterTypeId: new FormControl(
+      //   this.addEditPersonelNoModel.costCenterTypeId
+      // ),
+      // employmentTypeId: new FormControl(
+      //   this.addEditPersonelNoModel.employmentTypeId
+      // ),
+      // educationTypeId: new FormControl(
+      //   this.addEditPersonelNoModel.educationTypeId
+      // ),
       personelCount: new FormControl(this.addEditPersonelNoModel.personelCount),
       employeewageCU: new FormControl(
         this.addEditPersonelNoModel.employeewageCU
       ),
       companyId: new FormControl(null, Validators.required),
-      gender: new FormControl(0),
+      // gender: new FormControl(0),
     });
     if (this.inputData.type === 'edit') {
       this.getPeriodDetailLst(this.inputData.periodId);
