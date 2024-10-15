@@ -12,14 +12,75 @@
           <span>شرح</span>
         </div> -->
       </div>
-      <ng-container *ngFor="let item of dataList?.desc">
-        <div class="col">
-          <img src="../../../../../../../assets/images/icons/target.svg" />
-          <div>
-            {{ item }}
-          </div>
-        </div>
-      </ng-container>
+    </div>
+    <div class="row">
+      <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+        [value]="planDetailData" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+        [(first)]="first">
+        <!-- table header -->
+        <ng-template pTemplate="header">
+          <tr class="data-table__header">
+            <div class="headerStyle">
+              <th style="min-width: 7rem">
+                <strong> هدف </strong>
+              </th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> دوره </strong></th>
+            </div>
+
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> برنامه های عملیاتی </strong></th>
+            </div>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr>
+            <div class="detailStyle Width: auto" [ngStyle]="{ 'background-color': item.color }">
+              <td style="width: 33rem">{{ item.desc }}</td>
+              <td style="width: 33rem">{{ item.titlePeriod }}</td>
+              <td style="width: 33rem">
+                <button class="action-image-container add-button" (click)="showYearActivityList(item)"
+                  pTooltip="دوره عملیاتی">
+                  <img ngSrc="icons\Group 131.svg" width="24" height="24" />
+                </button>
+              </td>
+            </div>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </div>
+
+<p-dialog *ngIf="isOpenDataList" [header]="modalTitle" [(visible)]="isOpenDataList" [modal]="true" [draggable]="false"
+  [resizable]="false" (isCloseModal)="closeModal()" [style]="{ width: '600px' }">
+
+  <div class="table-container">
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="yearActivityGridClass"
+      [rowHover]="true" [paginator]="true" [rows]="yearActivityDataTableRows" [rowsPerPageOptions]="[10 , 20 , 30]"
+      [totalRecords]="yearActivityTotalCount" [value]="yearActivityDataList" [tableStyle]="{ 'min-width': '100%' }">
+      <!-- table header -->
+      <ng-template pTemplate="header">
+        <tr class="">
+          <th style="width:50%;text-align: center !important"><strong> کد</strong></th>
+          <th style="width:50%;text-align: center !important"><strong> عنوان</strong></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-manager let-rowIndex="rowIndex">
+        <tr>
+          <td style="width: 5rem; text-align: center !important;" pTooltip="{{manager.code}}" tooltipEvent="hover"
+            tooltipPosition="top">
+            {{manager.code}}
+          </td>
+          <td style="width: 5rem;text-align: center !important" pTooltip="{{manager.title}}" tooltipEvent="hover"
+            tooltipPosition="top">
+            {{manager.title}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</p-dialog>
