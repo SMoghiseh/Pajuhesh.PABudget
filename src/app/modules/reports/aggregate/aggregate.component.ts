@@ -15,7 +15,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'PABudget-aggregate',
@@ -30,6 +30,7 @@ export class AggregateComponent implements OnInit {
   dataTableRows = 5;
   totalCount!: number;
   accountReportItemList!: AccountReportToItemData;
+  flattenList!: any;
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
@@ -37,6 +38,7 @@ export class AggregateComponent implements OnInit {
   selectedReport: any = {};
   isLoadingSubmit = false;
   changeList: any = [];
+  formSubmitted = false;
 
   // dropdown data list
   companyList: any = [];
@@ -110,6 +112,21 @@ export class AggregateComponent implements OnInit {
   get reportTypeCode() {
     return this.accountReportPriceForm.get('reportTypeCode');
   }
+  get companyId() {
+    return this.accountReportPriceForm.get('companyId');
+  }
+  get periodId() {
+    return this.accountReportPriceForm.get('periodId');
+  }
+  get fromPeriodDetailId() {
+    return this.accountReportPriceForm.get('fromPeriodDetailId');
+  }
+  get toPeriodDetailId() {
+    return this.accountReportPriceForm.get('toPeriodDetailId');
+  }
+  get priceType() {
+    return this.accountReportPriceForm.get('priceType');
+  }
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
@@ -124,11 +141,11 @@ export class AggregateComponent implements OnInit {
     this.getAccountRepLst();
 
     this.accountReportPriceForm = new FormGroup({
-      companyId: new FormControl(0),
-      periodId: new FormControl(null),
-      fromPeriodDetailId: new FormControl(null),
-      toPeriodDetailId: new FormControl(null),
-      priceType: new FormControl(2),
+      companyId: new FormControl(null, Validators.required),
+      periodId: new FormControl(null, Validators.required),
+      fromPeriodDetailId: new FormControl(null, Validators.required),
+      toPeriodDetailId: new FormControl(null, Validators.required),
+      priceType: new FormControl(null, Validators.required),
     });
   }
 
@@ -183,6 +200,10 @@ export class AggregateComponent implements OnInit {
   }
 
   getAccountReportItemLst(event?: LazyLoadEvent) {
+
+    this.formSubmitted = true;
+    if (!this.accountReportPriceForm.valid) return;
+
     // check if atLeast one record has changed 
     if (this.changeList?.length != 0) {
       this.confirmOnSearch();
@@ -195,12 +216,15 @@ export class AggregateComponent implements OnInit {
   searchOnDataList(event?: LazyLoadEvent) {
 
     const formValue = this.accountReportPriceForm.value;
+    delete formValue['accountRepId'];
+    delete formValue['accountReportItemPriceModels'];
+    delete formValue['id'];
+
     const body = {
       ...formValue,
       reportId: this.selectedReport?.id,
     };
 
-    this.first = 0;
     const url =
       AccountReportToItem.apiAddress + 'GetAccountRepToItemListByOrder';
     this.httpService
@@ -216,6 +240,33 @@ export class AggregateComponent implements OnInit {
       )
       .subscribe(res => {
         this.accountReportItemList = res;
+        this.getFlattnAccountReportList();
+        this.formSubmitted = false;
+      });
+  }
+
+  getFlattnAccountReportList() {
+    const formValue = this.accountReportPriceForm.value;
+    const body = {
+      ...formValue,
+      reportId: this.selectedReport?.id,
+    };
+
+    const url =
+      AccountReportToItem.apiAddress + 'GetPriceAccountRepToItemList';
+    this.httpService
+      .post<AccountReportToItemData>(url, body)
+
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          if (response.data && response.data.result)
+            return response.data.result;
+          else return new AccountReportToItemData();
+        })
+      )
+      .subscribe(res => {
+        this.flattenList = res;
       });
   }
 
@@ -239,7 +290,10 @@ export class AggregateComponent implements OnInit {
   }
 
   confirm() {
-    this.searchOnDataList();
+    this.addList();
+    setTimeout(() => {
+      this.searchOnDataList();
+    }, 1000);
   }
 
   createFormControls(data: any) {
@@ -278,7 +332,7 @@ export class AggregateComponent implements OnInit {
     request.toPeriodDetailId = request.toPeriodDetailId
       ? request.toPeriodDetailId
       : 0;
-    request.periodId = request.periodId ? request.periodId : 0; debugger
+    request.periodId = request.periodId ? request.periodId : 0;
     request['accountReportItemPriceModels'] = this.changeList;
 
     this.isLoadingSubmit = true;
@@ -288,7 +342,7 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.successed) {
           this.messageService.add({
-            key: 'vision',
+            key: 'aggregate',
             life: 8000,
             severity: 'success',
             detail: ` عنوان  ${request.title}`,
@@ -298,6 +352,7 @@ export class AggregateComponent implements OnInit {
         this.changeList = [];
         this.getAccountReportItemLst();
       });
+
   }
 
   onChangePrice(item: any) {
@@ -317,9 +372,38 @@ export class AggregateComponent implements OnInit {
       this.changeList.push({
         accountRepItemId: item.accountRepItemId,
         priceCu: item.priceCu,
+        groupId: item.parentId ? item.parentId : item.id
       });
 
-    console.log('onChangePrice - newList' + JSON.stringify(this.changeList));
+    this.updateBaseData(item);
+    this.calculateTotalPrice(item);
+  }
+
+  updateBaseData(ItemChanged: any) {
+    let indexToUpdate = this.flattenList.findIndex((item: any) =>
+      item.accountRepItemId === ItemChanged.accountRepItemId);
+    if (indexToUpdate != -1)
+      this.flattenList[indexToUpdate]['priceCu'] = ItemChanged.priceCu;
+  }
+
+  calculateTotalPrice(item: any) {
+    let parentNode: any
+
+    // when node changed is child
+    if (item.parentId) {
+      parentNode = this.accountReportItemList['body'].find(rec => rec.data.id == item.id);
+    }
+    // else {
+    //   // when node changed is parent 
+    //   parentNode = this.accountReportItemList['body'].find(rec => rec.data.id == item.id);
+    // }
+
+    let previousValue = this.flattenList.find((li: any) => li.accountRepItemId == item.accountRepItemId);
+    let currentValue = item.priceCu;
+    let total = previousValue + currentValue;
+
+
+    // parentNode['priceCu'] = parentNode['priceCu'] + total;
   }
 
   addAccountReportToItem(report: AccountReport) {

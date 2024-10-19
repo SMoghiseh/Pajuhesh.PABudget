@@ -1,4 +1,4 @@
-<p-toast key="item" position="bottom-left"></p-toast>
+<p-toast key="aggregate" position="bottom-left"></p-toast>
 
 <div class="table-header">
   نام گزارش : <span> {{ selectedReport?.title }}</span>
@@ -11,7 +11,12 @@
       <div class="col-2">
         <label for="companyId"> شرکت </label>
         <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true">
+          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+          [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+          (formSubmitted && companyId?.pristine) ||
+          companyId?.dirty ||
+          companyId?.touched
+        ">
         </p-dropdown>
       </div>
       <!--  شرکت -->
@@ -20,7 +25,11 @@
         <label for="periodId">دوره بودجه </label>
         <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
           optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="periodList" [filter]="true"
-          (onChange)="onChangePeriod($event)">
+          (onChange)="onChangePeriod($event)" [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
+          (formSubmitted && periodId?.pristine) ||
+          periodId?.dirty ||
+          periodId?.touched
+        ">
         </p-dropdown>
       </div>
       <!--  دوره بودجه -->
@@ -29,21 +38,34 @@
         <label for="fromPeriodDetailId"> از دوره عملیاتی </label>
         <p-dropdown id="fromPeriodDetailId" name="fromPeriodDetailId" formControlName="fromPeriodDetailId"
           styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-          [options]="periodDetailLst" [filter]="true">
+          [options]="periodDetailLst" [filter]="true" [class.ng-invalid]="fromPeriodDetailId?.invalid" [class.ng-dirty]="
+          (formSubmitted && fromPeriodDetailId?.pristine) ||
+          fromPeriodDetailId?.dirty ||
+          fromPeriodDetailId?.touched
+        ">
         </p-dropdown>
       </div>
       <div class="col-2">
         <label for="toPeriodDetailId">تا دوره عملیاتی </label>
         <p-dropdown id="toPeriodDetailId" name="toPeriodDetailId" formControlName="toPeriodDetailId"
           styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-          [options]="periodDetailLst" [filter]="true">
+          [options]="periodDetailLst" [filter]="true" [class.ng-invalid]="toPeriodDetailId?.invalid" [class.ng-dirty]="
+          (formSubmitted && toPeriodDetailId?.pristine) ||
+          toPeriodDetailId?.dirty ||
+          toPeriodDetailId?.touched
+        ">
         </p-dropdown>
       </div>
       <!--  دوره عملیاتی -->
 
       <div class="col-4 align-content-end pb-2">
         <div class="d-flex align-items-center">
-          <p-radioButton name="priceType" formControlName="priceType" [value]="2" inputId="ingredient2"></p-radioButton>
+          <p-radioButton name="priceType" formControlName="priceType" [value]="2" inputId="ingredient2"
+            [class.ng-invalid]="priceType?.invalid" [class.ng-dirty]="
+          (formSubmitted && priceType?.pristine) ||
+          priceType?.dirty ||
+          priceType?.touched
+        "></p-radioButton>
           <label for="ingredient2" class="ms-2 me-4">مبلغ عملکرد</label>
           <!-- </div>
 
@@ -76,6 +98,7 @@
           <th *ngFor="let col of columns">
             {{ col.headerName }}
           </th>
+          <!-- <th>جمع مبلغ(میلیون ریال)</th> -->
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
@@ -86,7 +109,6 @@
           </td>
           <td ttEditableColumn style="min-width: 15rem; direction: ltr">
             <p-treeTableCellEditor>
-
               <ng-template pTemplate="input">
                 <p-inputNumber [(ngModel)]="rowData.priceCu" (onInput)="onChangePrice(rowData)"
                   (keydown.enter)="onChangePrice(rowData)" (keydown.tab)="onChangePrice(rowData)"
@@ -102,6 +124,12 @@
 
             &nbsp;
           </td>
+          <!-- <td>
+            <ng-container *ngIf="rowData.parentId == null">
+              <span *ngIf="rowData['totallPriceCu']">{{ rowData['totallPriceCu'] | number}}</span>
+              <span *ngIf="!rowData['totallPriceCu']">0</span>
+            </ng-container>
+          </td> -->
         </tr>
       </ng-template>
     </p-treeTable>
