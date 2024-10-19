@@ -86,18 +86,20 @@
           </td>
           <td ttEditableColumn style="min-width: 15rem; direction: ltr">
             <p-treeTableCellEditor>
-              <ng-template pTemplate="input">
 
-                <p-inputNumber [(ngModel)]="rowData.priceCu" (change)="onChangePrice(rowData)"
+              <ng-template pTemplate="input">
+                <p-inputNumber [(ngModel)]="rowData.priceCu" (onInput)="onChangePrice(rowData)"
                   (keydown.enter)="onChangePrice(rowData)" (keydown.tab)="onChangePrice(rowData)"
                   inputId="integeronly"></p-inputNumber>
-
               </ng-template>
+
               <ng-template pTemplate="output">
                 <input pInputText type="text" value=" {{ rowData.priceCu | number }}"
                   [class.negative-number]="rowData.priceCu < 0" />
               </ng-template>
+
             </p-treeTableCellEditor>
+
             &nbsp;
           </td>
         </tr>
@@ -134,5 +136,7 @@
       (click)="addList()"></p-button>
   </div>
 </div>
+
+
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

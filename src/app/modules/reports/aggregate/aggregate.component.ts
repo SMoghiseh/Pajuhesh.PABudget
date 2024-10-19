@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Pagination,
   AccountReportToItem,
   AccountReport,
   AccountReportItemPrice,
   Period,
   Company,
-  AccountReportToItemData,
+  AccountReportToItemData
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -115,7 +114,8 @@ export class AggregateComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
   ) { }
 
   ngOnInit(): void {
@@ -183,16 +183,18 @@ export class AggregateComponent implements OnInit {
   }
 
   getAccountReportItemLst(event?: LazyLoadEvent) {
-    if (event) this.lazyLoadEvent = event;
+    // check if atLeast one record has changed 
+    if (this.changeList?.length != 0) {
+      this.confirmOnSearch();
+    } else {
+      this.searchOnDataList(event);
+    }
+  }
 
-    const pagination = new Pagination();
-    const first = this.lazyLoadEvent?.first || 0;
-    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+
+  searchOnDataList(event?: LazyLoadEvent) {
+
     const formValue = this.accountReportPriceForm.value;
-
-    pagination.pageNumber = first / rows + 1;
-    pagination.pageSize = rows;
-
     const body = {
       ...formValue,
       reportId: this.selectedReport?.id,
@@ -215,6 +217,29 @@ export class AggregateComponent implements OnInit {
       .subscribe(res => {
         this.accountReportItemList = res;
       });
+  }
+
+  confirmOnSearch() {
+    this.confirmationService.confirm({
+      message: ` درصورت ادامه روند جستجو تغییرات حذف میشوند ، مایل به ذخیره تغییرات هستید ؟ `,
+      header: `تغییرات ذخیره نشده اند `,
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: ' ذخیره و ادامه  ',
+      acceptButtonStyleClass: 'p-button-success',
+      acceptIcon: 'pi pi-check',
+      rejectLabel: 'انصراف',
+      rejectButtonStyleClass: 'p-button-secondary',
+      defaultFocus: 'reject',
+      accept: () => { this.confirm() },
+      reject: () => { this.reject(); }
+    });
+  }
+
+  reject() {
+  }
+
+  confirm() {
+    this.searchOnDataList();
   }
 
   createFormControls(data: any) {
@@ -253,7 +278,7 @@ export class AggregateComponent implements OnInit {
     request.toPeriodDetailId = request.toPeriodDetailId
       ? request.toPeriodDetailId
       : 0;
-    request.periodId = request.periodId ? request.periodId : 0;
+    request.periodId = request.periodId ? request.periodId : 0; debugger
     request['accountReportItemPriceModels'] = this.changeList;
 
     this.isLoadingSubmit = true;
@@ -294,7 +319,7 @@ export class AggregateComponent implements OnInit {
         priceCu: item.priceCu,
       });
 
-    console.log('onChangePrice - newList' + this.changeList);
+    console.log('onChangePrice - newList' + JSON.stringify(this.changeList));
   }
 
   addAccountReportToItem(report: AccountReport) {
