@@ -69,11 +69,17 @@
             <tr [ttRow]="rowNode">
               <td *ngFor="let col of columns; let i = index" [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
-                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
-                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
+                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
+                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
+                <ng-container *ngIf="col.field != 'value' && col.field != 'realvalue' && col.field != 'budgetvalue'">
+                  {{ rowData[col.field] }}
+                </ng-container>
+
+                <ng-container *ngIf=" col.field == 'value' || col.field == 'realvalue' || col.field == 'budgetvalue'">
+                  {{ rowData[col.field] | number }}
+                </ng-container>
               </td>
               <!-- <td></td> -->
             </tr>
