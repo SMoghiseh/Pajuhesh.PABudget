@@ -18,6 +18,11 @@ export class SelectDateComponent {
       this.selectedYears = [];
     }
   }
+  @Input()
+  set companyId(val: number) {
+    this._companyId = val;
+ 
+  }
 
   staticYearLst = [new StaticYear()];
   selectedYears: any = [];
@@ -25,13 +30,14 @@ export class SelectDateComponent {
   oldSelectedId!: number;
   selectTypeOld = '';
   _selectType = '';
+  _companyId = 0;
 
   constructor(private httpService: HttpService) {}
 
   getStaticYear() {
     this.selectTypeOld = this._selectType;
     this.httpService
-      .get<StaticYear[]>(StaticYear.apiAddress)
+      .get<StaticYear[]>(StaticYear.apiAddress + '/' + this._companyId)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {

@@ -5,6 +5,7 @@
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
           <app-select-date
+          [companyId]="inputData.companyId"
             [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>

@@ -4,7 +4,7 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
