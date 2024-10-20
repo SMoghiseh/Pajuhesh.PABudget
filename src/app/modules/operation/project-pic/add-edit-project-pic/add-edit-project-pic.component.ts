@@ -15,6 +15,7 @@ import { of, tap } from 'rxjs';
   styleUrls: ['./add-edit-project-pic.component.scss'],
 })
 export class AddEditProjectPicComponent {
+  // ViewChild ('tempPath') tempPath: any;
   public datePipe = new DatePipe('en-US');
   addEditForm!: FormGroup;
 
@@ -28,6 +29,8 @@ export class AddEditProjectPicComponent {
   attachmentFileName!: string;
   isLoadingSubmit = false;
   addEditFormSubmitted = false;
+  tempPath!: string;
+
   @Input() mode = '';
   @Input() set data(data: ProjectPic) {
     this.inputData = data;
@@ -35,6 +38,10 @@ export class AddEditProjectPicComponent {
   @Input() multiMediaId = this.attachmentFileTypeTemplateId;
   @Output() isSuccess = new EventEmitter<boolean>();
   @Output() isCloseModal = new EventEmitter<boolean>();
+
+  // get tempPath() {
+  //   return this.addEditForm.get('tempPath');
+  // }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -62,6 +69,7 @@ export class AddEditProjectPicComponent {
     if (this.mode === 'edit') {
       this.getProjectPicLst(this.inputData.id);
       this.addEditForm.patchValue(this.inputData);
+      // this.tempPath = this.inputData.picTitle;
     }
   }
 
@@ -72,9 +80,12 @@ export class AddEditProjectPicComponent {
         if (response.data) {
           this.inputData = response.data?.result;
         }
+        this.attachmentFileName = this.inputData.picTitle;
         this.addEditForm.patchValue(this.inputData);
         this.addEditForm.patchValue({
           picDate: new JDate(new Date(this.inputData.picDate)),
+          // tempPath: this.inputData.picTitle,
+          // tempPath: this.inputData.picTitle,
         });
       });
   }
@@ -101,6 +112,7 @@ export class AddEditProjectPicComponent {
         : null;
 
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
+      request.picTitle = this.attachmentFileName;
       const url = ProjectPic.apiAddress + 'Create';
 
       this.isLoadingSubmit = true;
@@ -131,7 +143,7 @@ export class AddEditProjectPicComponent {
   }
 
   uploadAttachment(files: FileList, form: any) {
-    const fileName = files[0]?.name;
+    const fileNamePic = files[0]?.name;
     if (files.length) {
       Array.from(files).forEach(file => {
         const data = new FormData();
@@ -143,14 +155,19 @@ export class AddEditProjectPicComponent {
             .subscribe(response => {
               if (response.successed && response.data && response.data.result) {
                 this.messageService.add({
-                  key: 'uploadFile',
+                  key: 'addPic',
                   life: 8000,
                   severity: 'success',
                   summary: 'فایل با موفقیت بارگذاری شد',
+                  // summary: 'تست',
+                });
+
+                this.addEditForm.patchValue({
+                  tempPath: fileNamePic,
                 });
                 this.attachmentFileTypeTemplateId =
                   response.data.result.multiMediaId;
-                this.attachmentFileName = response.data.result.fileName;
+                this.attachmentFileName = fileNamePic;
               }
             });
         else return of();

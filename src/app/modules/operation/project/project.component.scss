@@ -8,3 +8,7 @@
     min-height: 550px !important;
     height: auto !important;
 }
+
+::ng-deep .p-menu {
+    width: 15rem !important
+}

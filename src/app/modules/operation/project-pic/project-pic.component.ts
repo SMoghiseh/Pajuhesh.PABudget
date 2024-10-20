@@ -145,17 +145,23 @@ export class ProjectPicComponent {
       .subscribe(res => (this.data = res));
   }
 
-  downloadFile(multiMediaId: any) {
-    this.httpService
-      .get<AssetAttachment[]>(
-        AssetAttachment.downloadApiAddress + `/${multiMediaId}`
-      )
-      .subscribe(response => {
-        if (response.data.result) {
-          // a = response.data.result;
-        }
-      });
+  downloadAttachmnet(attachment: any) {
+    // this.httpService.get<AssetAttachment[]>(
+    //   AssetAttachment.downloadApiAddress + `/${attachment.picId}`
+    // );
+
+    const url =
+      this.config.getAddress('baseUrl') +
+      AssetAttachment.downloadApiAddress +
+      `/${attachment.picId}`;
+
+    const a = document.createElement('a');
+    a.href = url;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
+
   clearSearch() {
     this.searchForm.reset();
     this.getProjectPic();

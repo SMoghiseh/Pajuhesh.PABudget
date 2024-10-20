@@ -54,7 +54,6 @@ export class GraphComponent implements OnInit {
       .enter()
       .append('line')
       .attr('x1', d => {
-        debugger;
         return layerScale(this.findNode(data.nodes, d.source)?.layer) || 0;
       })
       .attr(
