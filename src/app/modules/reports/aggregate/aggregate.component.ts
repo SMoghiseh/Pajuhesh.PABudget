@@ -145,7 +145,7 @@ export class AggregateComponent implements OnInit {
       periodId: new FormControl(null, Validators.required),
       fromPeriodDetailId: new FormControl(null, Validators.required),
       toPeriodDetailId: new FormControl(null, Validators.required),
-      priceType: new FormControl(null, Validators.required),
+      priceType: new FormControl(2, Validators.required),
     });
   }
 
@@ -296,23 +296,6 @@ export class AggregateComponent implements OnInit {
     }, 1000);
   }
 
-  createFormControls(data: any) {
-    data.forEach((item: any) => {
-      this.dynamicControls.addControl(
-        'control_' + item.id,
-        new FormControl(null)
-      );
-    });
-  }
-
-  updateFormControlValue(data: any) {
-    data.forEach((element: any) => {
-      this.dynamicControls.controls['control_' + element.id].patchValue(
-        element.priceCu
-      );
-    });
-  }
-
   clearSearch() {
     this.accountReportPriceForm.reset();
     this.getAccountReportItemLst();
@@ -345,7 +328,8 @@ export class AggregateComponent implements OnInit {
             key: 'aggregate',
             life: 8000,
             severity: 'success',
-            detail: ` عنوان  ${request.title}`,
+            // detail: ` عنوان  ${request.title}`,
+            detail: ``,
             summary: 'با موفقیت ثبت شد',
           });
         }
@@ -372,11 +356,12 @@ export class AggregateComponent implements OnInit {
       this.changeList.push({
         accountRepItemId: item.accountRepItemId,
         priceCu: item.priceCu,
-        groupId: item.parentId ? item.parentId : item.id
+        // groupId: item.parentId ? item.parentId : item.id
       });
 
-    this.updateBaseData(item);
+
     this.calculateTotalPrice(item);
+    this.updateBaseData(item);
   }
 
   updateBaseData(ItemChanged: any) {
@@ -391,19 +376,25 @@ export class AggregateComponent implements OnInit {
 
     // when node changed is child
     if (item.parentId) {
-      parentNode = this.accountReportItemList['body'].find(rec => rec.data.id == item.id);
+      parentNode = this.accountReportItemList['body'].find(rec => rec.data.id == item.parentId)?.data;
     }
     // else {
     //   // when node changed is parent 
     //   parentNode = this.accountReportItemList['body'].find(rec => rec.data.id == item.id);
     // }
 
-    let previousValue = this.flattenList.find((li: any) => li.accountRepItemId == item.accountRepItemId);
-    let currentValue = item.priceCu;
-    let total = previousValue + currentValue;
+    // let previousValue = (this.flattenList.find((li: any) => li.accountRepItemId == item.accountRepItemId))?.priceCu;
+    // let currentValue = item.priceCu ? item.priceCu : 0;
+
+    // let amount = 0;
+    // if (previousValue > currentValue)
+    //   amount = -(previousValue - currentValue);
+    // else if (previousValue < currentValue)
+    //   amount = currentValue - previousValue;
 
 
-    // parentNode['priceCu'] = parentNode['priceCu'] + total;
+    // parentNode['priceCu'] = parentNode['priceCu'] + amount;
+
   }
 
   addAccountReportToItem(report: AccountReport) {
