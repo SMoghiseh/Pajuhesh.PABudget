@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { YearRisk, Company, Period, EvaluateIndex, KeyTypeCode } from '@shared/models/response.model';
+import { YearRisk, Company, Period, EvaluateIndex, KeyTypecode } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -159,7 +159,7 @@ export class AddEditYearRiskComponent {
 
   getTypeCodeList() {
     this.httpService
-      .get<KeyTypeCode[]>(KeyTypeCode.apiAddress + 'List')
+      .get<KeyTypecode[]>(KeyTypecode.yearRiskApiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.typeCodeList = response.data.result;

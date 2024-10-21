@@ -120,7 +120,7 @@ export class AddEditPlanningValueComponent {
 
   getkeyTypeCodeLst() {
     this.httpService
-      .get<KeyTypecode[]>(KeyTypecode.apiAddress + 'List')
+      .get<KeyTypecode[]>(KeyTypecode.planningValueApiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.KeyTypeList = response.data.result;

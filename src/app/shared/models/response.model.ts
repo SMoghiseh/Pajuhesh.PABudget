@@ -1348,7 +1348,11 @@ export class ProjectCost {
   periodId!: number;
 }
 export class KeyTypecode {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/SWOT/';
+  static readonly swotApiAddress = 'api/PABudgetApi/v1/BaseInfo/SWOT/';
+  static readonly missionApiAddress = 'api/PABudgetApi/v1/BaseInfo/MissionType/';
+  static readonly vissionApiAddress = 'api/PABudgetApi/v1/BaseInfo/VisionKeyWord/';
+  static readonly planningValueApiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';
+  static readonly yearRiskApiAddress = 'api/PABudgetApi/v1/BaseInfo/Risk/keyTypeCode/';
   id!: number;
   title!: string;
 }
@@ -1707,11 +1711,11 @@ export class EvaluateIndex {
   id!: number;
   title!: string;
 }
-export class KeyTypeCode {
-  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Risk/keyTypeCode/';
-  id!: number;
-  title!: string;
-}
+// export class KeyTypeCode {
+//   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/Risk/keyTypeCode/';
+//   id!: number;
+//   title!: string;
+// }
 export class FinancialRatio {
   static readonly apiAddressTypeCode =
     'api/PABudgetApi/v1/BaseInfo/GetFinancialRatioTypeCode/';
