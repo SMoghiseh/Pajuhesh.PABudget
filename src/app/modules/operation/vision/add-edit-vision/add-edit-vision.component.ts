@@ -58,7 +58,7 @@ export class AddEditVisionComponent {
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPlaningList();
@@ -140,7 +140,7 @@ export class AddEditVisionComponent {
 
   getkeyTypeCodeLst() {
     this.httpService
-      .get<KeyTypecode[]>(KeyTypecode.apiAddress + 'List')
+      .get<KeyTypecode[]>(KeyTypecode.vissionApiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.KeyTypeList = response.data.result;
