@@ -39,7 +39,11 @@ export class ProjectCostComponent {
   lazyLoadEvent?: LazyLoadEvent;
   data: ProjectCost[] = [];
   first = 0;
+
   addEditData = new ProjectCost();
+  get percentGrow() {
+    return this.searchForm.get('percentGrow');
+  }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -77,6 +81,11 @@ export class ProjectCostComponent {
           this.budgetPeriodList = response.data.result;
         }
       });
+  }
+  onlyNumberKey(event: { charCode: number }) {
+    return event.charCode == 8 || event.charCode == 0
+      ? null
+      : event.charCode >= 48 && event.charCode <= 57;
   }
 
   getunitList() {
