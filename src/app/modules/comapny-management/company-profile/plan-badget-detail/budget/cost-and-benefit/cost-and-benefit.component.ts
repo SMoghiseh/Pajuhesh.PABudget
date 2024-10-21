@@ -3,7 +3,7 @@ import { HttpService } from '@core/http/http.service';
 import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
-import { LazyLoadEvent, MenuItem, PrimeIcons } from 'primeng/api';
+import { LazyLoadEvent, MenuItem, PrimeIcons, TreeNode } from 'primeng/api';
 import { Colors } from 'chart.js';
 import { title } from 'process';
 import { style } from '@angular/animations';
@@ -36,6 +36,9 @@ export class CostAndBenefitComponent implements OnInit {
   priceTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
+  signalenCodeNode: any;
+  signalenBrin: any;
+  signalenVestigingNode: any;
   listOfBudgetReport: Budget[] = [];
   selectedlistOfBudgetReport: any = [];
   items: MenuItem[] | undefined;
@@ -115,7 +118,7 @@ export class CostAndBenefitComponent implements OnInit {
     viewMode: 'table' | 'chart' | 'treeTable',
     yearTypeSelection: 'single' | 'double' | 'multiple',
     tableId?: number
-  ) {
+  ) {  debugger
     this.viewMode = viewMode;
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
@@ -176,8 +179,32 @@ export class CostAndBenefitComponent implements OnInit {
         });
     }
   }
+  nodeSelect(event: { originalEvent: any; node: TreeNode<any> }) {
+    debugger;
+    if (event.node.children) {
+      // this.signalenCodeNode = event.node.data;
+      // this.getParentDetails(event.node);
+      const nodeArray = event.node.children;
+      for (let i = 0; i <= nodeArray.length; i++) {
+        event.node.children[i].partialSelected = true;
 
-  getTableData(comparison: number) {
+        // event.originalEvent.rowNode.visible = true;
+      }
+    }
+  }
+  nodeUnSelected(event: any) {
+    debugger
+  }
+  getParentDetails(node: TreeNode) {
+    debugger;
+    if (node.parent) {
+      this.signalenVestigingNode = node.parent.data;
+      if (node.parent.parent) {
+        this.signalenBrin = node.parent.parent.data;
+      }
+    }
+  }
+  getTableData(comparison: number) { debugger
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
