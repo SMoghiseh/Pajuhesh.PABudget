@@ -1,15 +1,14 @@
-<p-toast key="projectIncome" position="bottom-left"></p-toast>
+<p-toast key="projectIncome"
+  position="bottom-left"></p-toast>
 
-<form
-  #formDir="ngForm"
+<form #formDir="ngForm"
   [formGroup]="addEditForm"
   (ngSubmit)="addEditProjectCost()">
   <div class="container row">
     <div class="row mt-8 pb-3">
       <div class="col-3 my-2">
         <label for="periodId"> دوره بودجه</label>
-        <p-dropdown
-          id="periodId"
+        <p-dropdown id="periodId"
           name="periodId"
           formControlName="periodId"
           styleClass="w-100 my-1"
@@ -23,8 +22,7 @@
       </div>
       <div class="col-3 my-2">
         <label for="fromBudgetPeriodId"> دوره عملیاتی</label>
-        <p-dropdown
-          id="periodDetailId"
+        <p-dropdown id="periodDetailId"
           name="periodDetailId"
           formControlName="periodDetailId"
           styleClass="w-100 my-1"
@@ -37,8 +35,7 @@
       </div>
       <div class="col-3 my-2">
         <label for="projectId">شناسه پروژه </label>
-        <p-inputNumber
-          id="projectId"
+        <p-inputNumber id="projectId"
           name="projectId"
           formControlName="projectId"
           mode="decimal"
@@ -50,8 +47,7 @@
 
       <div class="col-3 my-2">
         <label for="unitId"> واحد</label>
-        <p-dropdown
-          id="unitId"
+        <p-dropdown id="unitId"
           name="unitId"
           formControlName="unitId"
           styleClass="w-100 my-1"
@@ -64,8 +60,7 @@
       </div>
       <div class="col-3 my-2">
         <label for="sourceType"> منبع</label>
-        <p-dropdown
-          id="sourceType"
+        <p-dropdown id="sourceType"
           name="sourceType"
           formControlName="sourceType"
           styleClass="w-100 my-1"
@@ -77,22 +72,26 @@
         </p-dropdown>
       </div>
 
-
       <div class="col-3 my-2">
         <label for="percentGrow">درصد پیشرفت فیزیکی</label>
-        <p-inputNumber
+
+        <input pInputText
+          type="number"
           id="percentGrow"
           name="percentGrow"
           formControlName="percentGrow"
-          mode="decimal"
-          inputId="withoutgrouping"
-          [useGrouping]="false"
-          class="w-100"></p-inputNumber>
+          maxlength="3"
+          [min]="0"
+          [max]="100"
+          (keypress)="onlyNumberKey($event)"
+          class="w-100 my-1" />
+        <div *ngIf="percentGrow?.errors">
+          <span class="reqText"> عدد وارد شده بزرگتر از 100 می باشد </span>
+        </div>
       </div>
       <div class="col-3 my-2">
         <label for="estimatePriceCu">برآورد هزینه</label>
-        <p-inputNumber
-          id="estimatePriceCu"
+        <p-inputNumber id="estimatePriceCu"
           name="estimatePriceCu"
           formControlName="estimatePriceCu"
           mode="decimal"
@@ -103,8 +102,7 @@
 
       <div class="col-3 my-2">
         <label for="realPriceCu">هزینه فعلی</label>
-          <p-inputNumber
-          id="realPriceCu"
+        <p-inputNumber id="realPriceCu"
           name="realPriceCu"
           formControlName="realPriceCu"
           mode="decimal"
@@ -117,8 +115,7 @@
       <!-- / دکمه -->
     </div>
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2 p-button-wide"
+      <p-button class="pe-2 p-button-wide"
         styleClass="p-button-success"
         [label]="'ثبت'"
         type="submit"

@@ -27,6 +27,9 @@ export class AddEditProjectCostComponent {
     this.inputData = data;
   }
   @Output() isSuccess = new EventEmitter<boolean>();
+  get percentGrow() {
+    return this.addEditForm.get('percentGrow');
+  }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -71,7 +74,11 @@ export class AddEditProjectCostComponent {
   onChangBudgetPeriod(e: any) {
     this.getOperationPeriodLst(e.value);
   }
-
+  onlyNumberKey(event: { charCode: number }) {
+    return event.charCode == 8 || event.charCode == 0
+      ? null
+      : event.charCode >= 48 && event.charCode <= 57;
+  }
   getOperationPeriodLst(id: number) {
     this.httpService
       .get<Period[]>(Period.apiAddressDetail + 'ListDropDown' + `/${id}`)

@@ -1085,7 +1085,8 @@ export class GridBalanceSheet {
 export class PersonelNo {
   /** آدرس سرویس */
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PersonelNo/';
-  static readonly apiAddressPersonelNo = 'api/PABudgetApi/v1/BaseInfo/CreatePersonelNoDetail/';
+  static readonly apiAddressPersonelNo =
+    'api/PABudgetApi/v1/BaseInfo/CreatePersonelNoDetail/';
 
   id!: number;
   educationTypeId!: number;
@@ -1352,13 +1353,18 @@ export class ProjectCost {
   title!: string;
   periodTitle!: string;
   periodId!: number;
+  percentGrow!: number;
 }
 export class KeyTypecode {
   static readonly swotApiAddress = 'api/PABudgetApi/v1/BaseInfo/SWOT/';
-  static readonly missionApiAddress = 'api/PABudgetApi/v1/BaseInfo/MissionType/';
-  static readonly vissionApiAddress = 'api/PABudgetApi/v1/BaseInfo/VisionKeyWord/';
-  static readonly planningValueApiAddress = 'api/PABudgetApi/v1/BaseInfo/KeyType/';
-  static readonly yearRiskApiAddress = 'api/PABudgetApi/v1/BaseInfo/Risk/keyTypeCode/';
+  static readonly missionApiAddress =
+    'api/PABudgetApi/v1/BaseInfo/MissionType/';
+  static readonly vissionApiAddress =
+    'api/PABudgetApi/v1/BaseInfo/VisionKeyWord/';
+  static readonly planningValueApiAddress =
+    'api/PABudgetApi/v1/BaseInfo/KeyType/';
+  static readonly yearRiskApiAddress =
+    'api/PABudgetApi/v1/BaseInfo/Risk/keyTypeCode/';
   id!: number;
   title!: string;
 }

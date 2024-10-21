@@ -20,8 +20,11 @@
         <div class="items" (click)="tabChange('treeTable', 'single')" [class.select-feature]="viewMode === 'treeTable'">
           <span>جدول</span>
         </div>
-        <div class="items disable-btns" [class.enable-btns]="selectedRows?.length > 0"
-          [class.select-feature]="viewMode === 'chart'" (click)="tabChange('chart', 'multiple')">
+        <div
+          class="items disable-btns"
+          [class.enable-btns]="selectedRows?.length > 0"
+          [class.select-feature]="viewMode === 'chart'"
+          (click)="tabChange('chart', 'multiple')">
           <span>روند</span>
         </div>
 
@@ -56,8 +59,14 @@
       </div>
 
       <div *ngIf="viewMode === 'treeTable'" class="table-container">
-        <p-treeTable class="treeTable-container treeTable-profile-style" [value]="treeTableData?.budgetDetails"
-          [columns]="treeTableData?.headers" selectionMode="checkbox" [(selection)]="selectedRows" [scrollable]="true"
+        <p-treeTable
+          class="treeTable-container treeTable-profile-style"
+          [value]="treeTableData?.budgetDetails"
+          [columns]="treeTableData?.headers"
+          selectionMode="checkbox"
+          [(selection)]="selectedRows"
+          [scrollable]="true"
+          (onNodeSelect)="nodeSelect($event)"
           [tableStyle]="{ 'min-width': '50rem' }">
           <ng-template pTemplate="header" let-columns>
             <tr>

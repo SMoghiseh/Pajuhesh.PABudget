@@ -94,7 +94,10 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getSelectedRowsId(data: any[]) {
-    return data.map(item => item.data.code);
+    const getpartialSelected = data.filter(
+      (item: any) => item.partialSelected === false
+    );
+    return getpartialSelected.map(item => item.data.code);
   }
 
   createRequestBody(priceTypeId: number) {
@@ -118,7 +121,7 @@ export class CostAndBenefitComponent implements OnInit {
     viewMode: 'table' | 'chart' | 'treeTable',
     yearTypeSelection: 'single' | 'double' | 'multiple',
     tableId?: number
-  ) {  debugger
+  ) {
     this.viewMode = viewMode;
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
@@ -180,21 +183,15 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
   nodeSelect(event: { originalEvent: any; node: TreeNode<any> }) {
-    debugger;
     if (event.node.children) {
-   
       const nodeArray = event.node.children;
       for (let i = 0; i <= nodeArray.length; i++) {
         event.node.children[i].partialSelected = true;
-
       }
     }
   }
-  nodeUnSelected(event: any) {
-    debugger
-  }
+  nodeUnSelected(event: any) {}
   getParentDetails(node: TreeNode) {
-    debugger;
     if (node.parent) {
       this.signalenVestigingNode = node.parent.data;
       if (node.parent.parent) {
@@ -202,7 +199,7 @@ export class CostAndBenefitComponent implements OnInit {
       }
     }
   }
-  getTableData(comparison: number) { debugger
+  getTableData(comparison: number) {
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
