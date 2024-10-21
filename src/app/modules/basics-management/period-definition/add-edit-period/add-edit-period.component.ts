@@ -41,9 +41,9 @@ export class AddEditPeriodComponent implements OnInit {
   get toDate() {
     return this.addEditPeriodForm.get('toDate');
   }
-  // get startFiscalYearId() {
-  //   return this.addEditPeriodForm.get('startFiscalYearId');
-  // }
+  get startFiscalYearId() {
+    return this.addEditPeriodForm.get('startFiscalYearId');
+  }
 
   constructor(
     private jDateCalculatorService: JDateCalculatorService,
@@ -68,10 +68,10 @@ export class AddEditPeriodComponent implements OnInit {
         this.addNewCompanyModel.toDate,
         Validators.required
       ),
-      // startFiscalYearId: new FormControl(
-      //   this.addNewCompanyModel.startFiscalYearId,
-      //   Validators.required
-      // ),
+      startFiscalYearId: new FormControl(
+        this.addNewCompanyModel.startFiscalYearId,
+        Validators.required
+      ),
     });
     if (this.inputData.type1 === 'edit') {
       this.addEditPeriodForm.patchValue(this.inputData);

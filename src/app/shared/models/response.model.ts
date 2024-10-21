@@ -538,7 +538,7 @@ export class Company {
   financialManager?: string;
   registerDate!: any;
   registerDatePC!: any;
-  periodTypeId!: any;
+  startFiscalYearId!: number;
   registeredCapital?: number;
   nonRegisteredCapital?: number;
   companyTypeId?: number;

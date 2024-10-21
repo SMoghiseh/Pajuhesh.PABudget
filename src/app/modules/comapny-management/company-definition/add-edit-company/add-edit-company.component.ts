@@ -7,6 +7,7 @@ import {
   CompanyInspectionInstitute,
   CompanyType,
   CreateCompany,
+  FiscalYear,
   ListCompany,
   PeriodType,
   PublisherStatus,
@@ -46,6 +47,7 @@ export class AddEditCompanyComponent implements OnInit {
   addNewCompanyModel = new Company();
   addNewCompanySubmitted = false;
   addNewCompanyLoading = false;
+  fiscalYearList: any = [];
 
   /*--------------------------
   # companyInspectionInstitutes
@@ -129,8 +131,8 @@ export class AddEditCompanyComponent implements OnInit {
   get registeredCapital() {
     return this.addNewCompanyForm.get('registeredCapital');
   }
-  get periodTypeId() {
-    return this.addNewCompanyForm.get('periodTypeId');
+  get startFiscalYearId() {
+    return this.addNewCompanyForm.get('startFiscalYearId');
   }
   get reportingTypeId() {
     return this.addNewCompanyForm.get('reportingTypeId');
@@ -180,6 +182,7 @@ export class AddEditCompanyComponent implements OnInit {
   get meetingNo() {
     return this.addNewCompanyForm.get('meetingNo');
   }
+
   // get auditStart() {
   //   return this.addNewCompanyForm.get('auditStart');
   // }
@@ -194,7 +197,7 @@ export class AddEditCompanyComponent implements OnInit {
     private route: ActivatedRoute,
     private config: AppConfigService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getDropDownData();
@@ -203,6 +206,7 @@ export class AddEditCompanyComponent implements OnInit {
   }
 
   getDropDownData() {
+    this.getFiscalYearLst();
     this.getCompanyInspectionInstitutes();
     this.getReportingTypes();
     this.getCompanyTree();
@@ -250,8 +254,8 @@ export class AddEditCompanyComponent implements OnInit {
         this.addNewCompanyModel.registeredCapital,
         Validators.required
       ),
-      periodTypeId: new FormControl(
-        this.addNewCompanyModel.periodTypeId,
+      startFiscalYearId: new FormControl(
+        this.addNewCompanyModel.startFiscalYearId,
         Validators.required
       ),
       systemOrganizationCode: new FormControl(
@@ -295,6 +299,18 @@ export class AddEditCompanyComponent implements OnInit {
       meetingNo: new FormControl(),
       meetingDate: new FormControl(),
     });
+  }
+
+  getFiscalYearLst() {
+    this.httpService
+      .get<FiscalYear[]>(
+        FiscalYear.apiAddress + 'List'
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.fiscalYearList = response.data.result;
+        }
+      });
   }
 
   setComponentMode() {
@@ -379,7 +395,7 @@ export class AddEditCompanyComponent implements OnInit {
         registerDate,
         registerNumber,
         registeredCapital,
-        periodTypeId,
+        startFiscalYearId,
         reportingTypeId,
         companyInspectionInstituteId,
         systemOrganizationCode,
@@ -405,15 +421,15 @@ export class AddEditCompanyComponent implements OnInit {
       request.registerNumber = registerNumber;
       request.registerDate = registerDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              registerDate?.getFullYear(),
-              registerDate?.getMonth(),
-              registerDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            registerDate?.getFullYear(),
+            registerDate?.getMonth(),
+            registerDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
-      request.periodTypeId = periodTypeId;
+      request.startFiscalYearId = startFiscalYearId;
       request.companyTypeId = companyTypeId;
       request.activityTypeId = activityTypeId;
       request.symbol = symbol;
@@ -588,13 +604,13 @@ export class AddEditCompanyComponent implements OnInit {
     // convert date
     formValue['meetingDate'] = formValue['meetingDate']
       ? this.datePipe.transform(
-          this.jDateCalculatorService.convertToGeorgian(
-            formValue['meetingDate']?.getFullYear(),
-            formValue['meetingDate']?.getMonth(),
-            formValue['meetingDate']?.getDate()
-          ),
-          'yyyy-MM-ddTHH:mm:ss'
-        )
+        this.jDateCalculatorService.convertToGeorgian(
+          formValue['meetingDate']?.getFullYear(),
+          formValue['meetingDate']?.getMonth(),
+          formValue['meetingDate']?.getDate()
+        ),
+        'yyyy-MM-ddTHH:mm:ss'
+      )
       : null;
     this.sharedHoldersArrayList.push(formValue);
     this.sharedHoldersForm.reset();
