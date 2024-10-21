@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Period } from '@shared/models/response.model';
+import { FiscalYear, Period } from '@shared/models/response.model';
 import { JDateCalculatorService } from '@shared/utilities/JDate/calculator/jdate-calculator.service';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
@@ -20,6 +20,7 @@ export class AddEditPeriodComponent implements OnInit {
   addNewCompanyModel = new Period();
   inputData = new Period();
   isLoadingSubmit = false;
+  fiscalYearList: any = [];
 
   @Input()
   set data(data: Period) {
@@ -40,14 +41,19 @@ export class AddEditPeriodComponent implements OnInit {
   get toDate() {
     return this.addEditPeriodForm.get('toDate');
   }
+  // get startFiscalYearId() {
+  //   return this.addEditPeriodForm.get('startFiscalYearId');
+  // }
 
   constructor(
     private jDateCalculatorService: JDateCalculatorService,
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.getFiscalYearLst();
+
     this.addEditPeriodForm = new FormGroup({
       code: new FormControl(this.addNewCompanyModel.code, Validators.required),
       title: new FormControl(
@@ -62,6 +68,10 @@ export class AddEditPeriodComponent implements OnInit {
         this.addNewCompanyModel.toDate,
         Validators.required
       ),
+      // startFiscalYearId: new FormControl(
+      //   this.addNewCompanyModel.startFiscalYearId,
+      //   Validators.required
+      // ),
     });
     if (this.inputData.type1 === 'edit') {
       this.addEditPeriodForm.patchValue(this.inputData);
@@ -70,6 +80,18 @@ export class AddEditPeriodComponent implements OnInit {
         toDate: new JDate(new Date(this.inputData.toDate)),
       });
     }
+  }
+
+  getFiscalYearLst() {
+    this.httpService
+      .get<FiscalYear[]>(
+        FiscalYear.apiAddress + 'List'
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.fiscalYearList = response.data.result;
+        }
+      });
   }
 
   addEditPeriod() {
@@ -81,23 +103,23 @@ export class AddEditPeriodComponent implements OnInit {
         request.periodId = this.inputData.periodId;
       request.fromDate = request.fromDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.fromDate?.getFullYear(),
-              request.fromDate?.getMonth(),
-              request.fromDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.fromDate?.getFullYear(),
+            request.fromDate?.getMonth(),
+            request.fromDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
       request.toDate = request.toDate
         ? this.datePipe.transform(
-            this.jDateCalculatorService.convertToGeorgian(
-              request.toDate?.getFullYear(),
-              request.toDate?.getMonth(),
-              request.toDate?.getDate()
-            ),
-            'yyyy-MM-ddTHH:mm:ss'
-          )
+          this.jDateCalculatorService.convertToGeorgian(
+            request.toDate?.getFullYear(),
+            request.toDate?.getMonth(),
+            request.toDate?.getDate()
+          ),
+          'yyyy-MM-ddTHH:mm:ss'
+        )
         : null;
 
       this.isLoadingSubmit = true;
@@ -112,7 +134,7 @@ export class AddEditPeriodComponent implements OnInit {
         .subscribe(response => {
           if (response.successed) {
             this.messageService.add({
-              key: 'companyDefinition',
+              key: 'periodDefinition',
               life: 8000,
               severity: 'success',
               detail:

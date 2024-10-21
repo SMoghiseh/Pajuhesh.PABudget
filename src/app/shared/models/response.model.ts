@@ -1054,7 +1054,13 @@ export class Period {
   type1!: string;
   type2!: string;
   periodId!: number;
+  startFiscalYearId!: number;
   list!: Period[];
+}
+
+export class FiscalYear {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BaseInfo/StartFiscalYear/';
 }
 
 export class StaticYear {
