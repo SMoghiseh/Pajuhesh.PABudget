@@ -182,13 +182,11 @@ export class CostAndBenefitComponent implements OnInit {
   nodeSelect(event: { originalEvent: any; node: TreeNode<any> }) {
     debugger;
     if (event.node.children) {
-      // this.signalenCodeNode = event.node.data;
-      // this.getParentDetails(event.node);
+   
       const nodeArray = event.node.children;
       for (let i = 0; i <= nodeArray.length; i++) {
         event.node.children[i].partialSelected = true;
 
-        // event.originalEvent.rowNode.visible = true;
       }
     }
   }
