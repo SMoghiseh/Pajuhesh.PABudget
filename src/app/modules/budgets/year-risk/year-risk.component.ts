@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   Pagination,
-  UrlBuilder, YearRisk, Company, EvaluateIndex, KeyTypeCode, Period
+  UrlBuilder, YearRisk, Company, EvaluateIndex, KeyTypecode, Period
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -110,7 +110,7 @@ export class YearRiskComponent {
 
   getTypeCodeList() {
     this.httpService
-      .get<KeyTypeCode[]>(KeyTypeCode.apiAddress + 'List')
+      .get<KeyTypecode[]>(KeyTypecode.yearRiskApiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.typeCodeList = response.data.result;

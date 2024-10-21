@@ -125,7 +125,7 @@ export class AddEditSwotComponent {
 
   getTypeCodeList() {
     this.httpService
-      .get<KeyTypecode[]>(KeyTypecode.apiAddress + 'List')
+      .get<KeyTypecode[]>(KeyTypecode.swotApiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.typeCodeList = response.data.result;
