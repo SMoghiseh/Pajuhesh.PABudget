@@ -6,7 +6,7 @@
     <div class="col-6 mt-2">
       <label for="companyId"> شرکت</label>
       <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [required]="true"
+        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [required]="true" (onChange)="onChangeCompanyId($event)"
         [filter]="true" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
     (addEditSaleSubmitted && companyId?.pristine) ||
     companyId?.dirty ||

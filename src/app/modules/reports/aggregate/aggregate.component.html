@@ -20,6 +20,7 @@
           placeholder="انتخاب کنید"
           [options]="companyList"
           [filter]="true"
+          (onChange)="onChangeCompanyId($event)"
           [class.ng-invalid]="companyId?.invalid"
           [class.ng-dirty]="
             (formSubmitted && companyId?.pristine) ||

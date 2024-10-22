@@ -136,7 +136,7 @@ export class AggregateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPeriodLst();
+    
     this.getCompanyLst();
     this.getAccountRepLst();
 
@@ -149,9 +149,9 @@ export class AggregateComponent implements OnInit {
     });
   }
 
-  getPeriodLst() {
+  getPeriodLst(companyId:number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodList = response.data.result;
@@ -171,6 +171,9 @@ export class AggregateComponent implements OnInit {
 
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
+  }
+  onChangeCompanyId(e: any) {
+    this.getPeriodLst(e.value);
   }
 
   getPeriodDetailLst(periodId: number) {

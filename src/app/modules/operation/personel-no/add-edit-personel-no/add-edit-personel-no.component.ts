@@ -50,10 +50,10 @@ export class AddEditPersonelNoComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getPeriodLst();
+
     this.getCostCenterType();
     this.getEmploymentType();
     this.getEducationTypeCode();
@@ -117,9 +117,9 @@ export class AddEditPersonelNoComponent implements OnInit {
     }
   }
 
-  getPeriodLst() {
+  getPeriodLst(companyId:number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodLst = response.data.result;
@@ -128,6 +128,9 @@ export class AddEditPersonelNoComponent implements OnInit {
   }
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
+  }
+  onChangeCompanyId(e: any) {
+    this.getPeriodLst(e.value);
   }
   getCompanyLst() {
     this.httpService

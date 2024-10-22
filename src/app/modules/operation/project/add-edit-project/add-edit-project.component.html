@@ -6,7 +6,7 @@
             <label for="companyId"> شرکت</label>
             <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
                 optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
-                [filter]="true">
+                [filter]="true" (onChange)="onChangeCompanyId($event)">
             </p-dropdown>
         </div>
         <div class="col-4 mt-2">

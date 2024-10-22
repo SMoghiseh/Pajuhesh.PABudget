@@ -35,7 +35,6 @@ export class AddEditProjectComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getBudgetPeriodLst();
     this.getCompanyLst();
     this.getprojectTypeCodeLst();
     this.addEditForm = new FormGroup({
@@ -99,6 +98,9 @@ export class AddEditProjectComponent {
     this.geToBudgetPeriodLst(e.value);
     this.getfromBudgetPeriodLst(e.value);
   }
+  onChangeCompanyId(e: any) {
+    this.getBudgetPeriodLst(e.value);
+  }
   getCompanyLst() {
     this.httpService
       .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
@@ -108,9 +110,9 @@ export class AddEditProjectComponent {
         }
       });
   }
-  getBudgetPeriodLst() {
+  getBudgetPeriodLst(companyId: number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.budgetPeriodList = response.data.result;

@@ -62,7 +62,7 @@ export class SaleComponent implements OnInit {
   }
 
   getList() {
-    this.getPeriodLst();
+    
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
     this.getContractList();
@@ -76,9 +76,9 @@ export class SaleComponent implements OnInit {
         }
       });
   }
-  getPeriodLst() {
+  getPeriodLst(companyId:number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.budgetPeriodList = response.data.result;
@@ -116,6 +116,9 @@ export class SaleComponent implements OnInit {
   }
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
+  }
+  onChangeCompanyId(e: any) {
+    this.getPeriodLst(e.value);
   }
   getPeriodDetailLst(periodId: number) {
     this.httpService

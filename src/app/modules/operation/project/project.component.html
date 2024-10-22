@@ -47,7 +47,8 @@
           optionValue="id"
           placeholder="انتخاب کنید"
           [options]="companyList"
-          [filter]="true">
+          [filter]="true" 
+          (onChange)="onChangeCompanyId($event)">
         </p-dropdown>
       </div>
       <div class="col-3 mt-2">

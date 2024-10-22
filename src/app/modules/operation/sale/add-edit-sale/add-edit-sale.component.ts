@@ -84,7 +84,6 @@ export class AddEditSaleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPeriodLst();
     this.getProductGroupLst();
     this.getAllSaleTypeLst();
     this.getContractList();
@@ -151,9 +150,9 @@ export class AddEditSaleComponent implements OnInit {
     }
   }
 
-  getPeriodLst() {
+  getPeriodLst(companyId: number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId )
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.budgetPeriodList = response.data.result;
@@ -219,6 +218,9 @@ export class AddEditSaleComponent implements OnInit {
   }
   closeModal() {
     this.isCloseModal.emit(false);
+  }
+  onChangeCompanyId(e: any) {
+    this.getPeriodLst(e.value);
   }
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);

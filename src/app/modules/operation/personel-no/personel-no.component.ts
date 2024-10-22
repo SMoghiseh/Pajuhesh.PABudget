@@ -58,7 +58,7 @@ export class PersonelNoComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getPeriodLst();
+ 
     this.getCostCenterType();
     this.getEmploymentType();
     this.getEducationTypeCode();
@@ -155,9 +155,9 @@ export class PersonelNoComponent {
         }
       });
   }
-  getPeriodLst() {
+  getPeriodLst(companyId: number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodLst = response.data.result;
@@ -216,6 +216,9 @@ export class PersonelNoComponent {
   }
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
+  }
+  onChangeCompanyId(e: any){
+    this.getPeriodLst(e.value);
   }
   getPeriodDetailLst(periodId: number) {
     this.httpService

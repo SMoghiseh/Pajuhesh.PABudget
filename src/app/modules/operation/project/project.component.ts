@@ -63,7 +63,6 @@ export class ProjectComponent {
     private jDateCalculatorService: JDateCalculatorService
   ) {}
   ngOnInit(): void {
-    this.getBudgetPeriodLst();
     this.getCompanyLst();
     this.getprojectTypeCodeLst();
 
@@ -129,7 +128,9 @@ export class ProjectComponent {
       )
       .subscribe(res => (this.data = this.addSubComponentList(res)));
   }
-
+  onChangeCompanyId(e: any) {
+    this.getBudgetPeriodLst(e.value);
+  }
   addSubComponentList(data: any) {
     data.forEach((row: any) => {
       row['componentList'] = [];
@@ -203,9 +204,9 @@ export class ProjectComponent {
       });
   }
 
-  getBudgetPeriodLst() {
+  getBudgetPeriodLst(companyId: number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.budgetPeriodList = response.data.result;
