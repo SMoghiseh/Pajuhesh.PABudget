@@ -162,21 +162,6 @@
         </td>
 
         <td class="jc-left ai-left">
-          <div class="d-inline-block">
-            <button
-              class="action-image-container delete-button context-menu"
-              (click)="menu.toggle($event)"
-              pTooltip="">
-              <img ngSrc="icons\Group 109.svg" width="24" height="24" />
-            </button>
-            <div #tblDiv class="tbl-context-menu"></div>
-            <p-menu
-              #menu
-              [popup]="true"
-              [model]="item.componentList"
-              [appendTo]="tblDiv"></p-menu>
-          </div>
-
           <button
             class="action-image-container edit-button"
             (click)="editRow(item)"

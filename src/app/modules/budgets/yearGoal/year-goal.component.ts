@@ -44,13 +44,7 @@ export class YearGoalComponent {
   aspectCodeList: any = [];
   companyList: any = [];
   bigGoalList: any = [];
-  subComponentList = [
-    {
-      label: ' برنامه عملیاتی ',
-      icon: 'pi pi-fw pi-star',
-      routerLink: ['/Period/YearActivity'],
-    },
-  ];
+
 
   constructor(
     private httpService: HttpService,
@@ -138,27 +132,11 @@ export class YearGoalComponent {
         })
       )
       .subscribe(res => {
-        this.data = this.addSubComponentList(res);
+        this.data = res;
       });
   }
 
-  addSubComponentList(data: any) {
-    data.forEach((row: any) => {
-      row['componentList'] = [];
-      let array = this.subComponentList;
-      const snapshotParams =
-        '/' + Number(this.route.snapshot.paramMap.get('id'));
 
-      array = array.map(com => {
-        const params = snapshotParams + '/' + row.id;
-        const route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] };
-      });
-
-      row['componentList'].push(...array);
-    });
-    return data;
-  }
 
   addYearGoal() {
     this.modalTitle = 'افزودن  ';
