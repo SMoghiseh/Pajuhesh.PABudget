@@ -3,20 +3,68 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
     <div class="container row">
-        <div class="col-4">
-            <label for="budgetPeriodId"> دوره </label>
-            <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId"
-                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
-                [options]="budgetPeriodList" [filter]="true" [readonly]="true">
+        <div class="col-6 mt-2">
+            <label for="companyId"> شرکت </label>
+            <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+              optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
+              [filter]="true" (onChange)="getReferenceFilteredList() ; getPeriodDetailList($event.value)" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+              (addEditFormSubmitted && companyId?.pristine) ||
+              companyId?.dirty ||
+              companyId?.touched
+            ">
             </p-dropdown>
-        </div>
-        <div class="col-4">
-            <label for="yearGoalId"> هدف سالیانه </label>
-            <p-dropdown id="yearGoalId" name="yearGoalId" formControlName="yearGoalId" styleClass="w-100 my-1"
-                [readonly]="true" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-                [options]="yearGoalList" [filter]="true">
+          </div>
+          <div class="col-3 mt-8">
+            <label for="periodId"> دوره </label>
+            <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
+              optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="budgetPeriodList"
+              [filter]="true" (onChange)="getReferenceFilteredList() " [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
+              (addEditFormSubmitted && periodId?.pristine) ||
+              periodId?.dirty ||
+              periodId?.touched
+            ">
             </p-dropdown>
-        </div>
+          </div>
+          <div class="col-3 mt-8">
+            <label for="referenceCode"> مرجع برنامه عملیاتی  </label>
+            <p-dropdown
+              id="referenceCode"
+              name="referenceCode"
+              formControlName="referenceCode"
+              styleClass="w-100 my-1"
+              optionLabel="title"
+              optionValue="id"
+              placeholder="انتخاب کنید"
+              [options]="referenceList"
+              [filter]="true"
+              (onChange)="getReferenceFilteredList() "
+              [class.ng-invalid]="referenceCode?.invalid" [class.ng-dirty]="
+              (addEditFormSubmitted && referenceCode?.pristine) ||
+              referenceCode?.dirty ||
+              referenceCode?.touched
+            ">
+            </p-dropdown>
+          </div>
+          <div class="col-3 mt-8">
+            <label for="referenceId" *ngIf="referenceOnList['labels'] && referenceOnList['labels'] != '' ">   {{ referenceOnList['labels'] }}   </label>
+            <label for="referenceId" *ngIf="!referenceOnList['labels'] || referenceOnList['labels'] == '' ">   عنوان لیست   </label>
+            <p-dropdown
+              id="referenceId"
+              name="referenceId"
+              formControlName="referenceId"
+              styleClass="w-100 my-1"
+              optionLabel="title"
+              optionValue="id"
+              placeholder="انتخاب کنید"
+              [options]="referenceOnList['contents']"
+              [filter]="true"  [class.ng-invalid]="referenceId?.invalid" [class.ng-dirty]="
+              (addEditFormSubmitted && referenceId?.pristine) ||
+              referenceId?.dirty ||
+              referenceId?.touched
+            "
+              >
+            </p-dropdown>
+          </div>
         <!--  دوره عملیاتی -->
         <div class="col-4">
             <label for="fromPeriodDetailId"> از دوره عملیاتی </label>

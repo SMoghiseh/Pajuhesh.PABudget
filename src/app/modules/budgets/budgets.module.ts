@@ -29,13 +29,9 @@ import { AddEditAssumptionsComponent } from './assumptions/add-edit-assumptions/
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 import { AddEditAssemblyAssignmentsComponent } from './assemblyAssignments/add-edit-assembly-assignments/add-edit-assembly-assignments.component';
 import { AssumptionsComponent } from './assumptions/assumptions.component';
-import { YearActivityComponent } from './year-activity/year-activity.component';
-import { AddEditYearActivityComponent } from './year-activity/add-edit-year-activity/add-edit-year-activity.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/assembly-assignments-details.component';
 import { AddEditAssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/add-edit-assembly-assignments-details/add-edit-assembly-assignments-details.component';
-import { RelatedActivityComponent } from './related-activity/related-activity.component';
-import { AddEditRelatedActivityComponent } from './related-activity/add-edit-related-activity/add-edit-related-activity.component';
 import { YearPolicyComponent } from './year-policy/year-policy.component';
 import { AddEditYearPolicyComponent } from './year-policy/add-edit-year-policy/add-edit-year-policy.component';
 import { YearRiskComponent } from './year-risk/year-risk.component';
@@ -57,12 +53,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     AssemblyAssignmentsComponent,
     AddEditAssemblyAssignmentsComponent,
     AssumptionsComponent,
-    YearActivityComponent,
-    AddEditYearActivityComponent,
     AssemblyAssignmentsDetailsComponent,
     AddEditAssemblyAssignmentsDetailsComponent,
-    RelatedActivityComponent,
-    AddEditRelatedActivityComponent,
     YearPolicyComponent,
     AddEditYearPolicyComponent,
     YearRiskComponent,

@@ -6,9 +6,7 @@ import { YearGoalComponent } from './yearGoal/year-goal.component';
 import { AssemblyAssignmentsComponent } from './assemblyAssignments/assembly-assignments.component';
 
 import { AssumptionsComponent } from './assumptions/assumptions.component';
-import { YearActivityComponent } from './year-activity/year-activity.component';
 import { AssemblyAssignmentsDetailsComponent } from './assembly-assignments-details/assembly-assignments-details.component';
-import { RelatedActivityComponent } from './related-activity/related-activity.component';
 import { YearPolicyComponent } from './year-policy/year-policy.component';
 import { YearRiskComponent } from './year-risk/year-risk.component';
 import { FinancialRatiosPriceComponent } from './financial-ratios-price/financial-ratios-price.component';
@@ -40,19 +38,9 @@ const routes: Routes = [
             title: 'برنامه و بودجه | مفروضات',
           },
           {
-            path: 'YearActivity/:budgetPeriodId/:yearGoalId',
-            component: YearActivityComponent,
-            title: 'برنامه و بودجه | برنامه عملیاتی',
-          },
-          {
             path: 'YearUnionDetail/:budgetPeriodId/:id',
             component: AssemblyAssignmentsDetailsComponent,
             title: 'برنامه و بودجه | مفاد',
-          },
-          {
-            path: 'RelatedActivity/:budgetPeriodId/:yearGoalId/:yearActivityId',
-            component: RelatedActivityComponent,
-            title: 'برنامه و بودجه | برنامه عملیاتی',
           },
           {
             path: 'YearPolicy/:id',

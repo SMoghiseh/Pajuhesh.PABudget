@@ -1642,6 +1642,11 @@ export class YearGoal {
   id!: number;
   title!: string;
 }
+export class ReferenceType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ReferenceType/';
+  id!: number;
+  title!: string;
+}
 
 export class TypeCodeAssumptions {
   static readonly apiAddress =
@@ -1684,6 +1689,12 @@ export class Operating {
 export class RelationType {
   static readonly apiAddress =
     'api/PABudgetApi/v1/BaseInfo/RelatedActivity/RelationType/';
+  id!: number;
+  title!: string;
+}
+export class ReferenceList {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BudgetPeriod/ActivityYear/ListByReference';
   id!: number;
   title!: string;
 }

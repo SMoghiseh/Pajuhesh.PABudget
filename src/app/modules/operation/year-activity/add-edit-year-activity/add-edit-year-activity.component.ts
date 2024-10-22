@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { YearActivity, ManagerType, Period, YearGoal, Operating } from '@shared/models/response.model';
+import { YearActivity, ManagerType, Period, YearGoal, Operating, ReferenceType, ReferenceList, Company } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -21,12 +21,14 @@ export class AddEditYearActivityComponent {
   // dropdown data list
   budgetPeriodList: any = [];
   periodDetailList: any = [];
-  yearGoalList: any = [];
+  referenceList: any = [];
+  referenceOnList: any = [];
   rollList: any = [];
   operationList: any = [];
   weightCodeList: any = [];
   priorityCodeList: any = [];
   costCenterList: any = [];
+  companyList: any[] = [];
 
 
 
@@ -40,8 +42,11 @@ export class AddEditYearActivityComponent {
   @Output() isSuccess = new EventEmitter<boolean>();
 
 
-  get yearGoalId() {
-    return this.addEditForm.get('yearGoalId');
+  get referenceCode() {
+    return this.addEditForm.get('referenceCode');
+  }
+  get referenceId() {
+    return this.addEditForm.get('referenceId');
   }
   get fromPeriodDetailId() {
     return this.addEditForm.get('fromPeriodDetailId');
@@ -76,6 +81,12 @@ export class AddEditYearActivityComponent {
   get costCenterId() {
     return this.addEditForm.get('costCenterId');
   }
+  get companyId() {
+    return this.addEditForm.get('companyId');
+  }
+  get periodId() {
+    return this.addEditForm.get('periodId');
+  }
 
 
 
@@ -88,16 +99,19 @@ export class AddEditYearActivityComponent {
   ngOnInit(): void {
 
     this.getBudgetPeriodList();
-    this.getYearGoalList();
+    this.getReferenceList();
     this.getManagerTypeList();
     this.getOperationList();
     this.getWeightCodeList();
     this.getPriorityCodeList();
     this.getCostCenterList();
+    this.getCompanyLst();
 
     this.addEditForm = new FormGroup({
-      budgetPeriodId: new FormControl(''),
-      yearGoalId: new FormControl(''),
+      periodId: new FormControl(null, Validators.required),
+      companyId: new FormControl(null, Validators.required),
+      referenceCode: new FormControl(null, Validators.required),
+      referenceId: new FormControl(null, Validators.required),
       fromPeriodDetailId: new FormControl('', Validators.required),
       toPeriodDetailId: new FormControl('', Validators.required),
       rollId: new FormControl('', Validators.required),
@@ -117,15 +131,55 @@ export class AddEditYearActivityComponent {
     }
 
     this.addEditForm.patchValue({
-      budgetPeriodId: Number(this.route.snapshot.paramMap.get('budgetPeriodId')),
-      yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId'))
+      // periodId: Number(this.route.snapshot.paramMap.get('periodId')),
+      // yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId'))
     })
 
-    this.getPeriodDetailList(Number(this.route.snapshot.paramMap.get('budgetPeriodId')));
+    // this.getPeriodDetailList(Number(this.route.snapshot.paramMap.get('periodId')));
 
   }
 
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
+  }
+
+  getReferenceFilteredList() {debugger
+    // check if periodId & companyId & code is selected 
+    let formValue = this.addEditForm.value;
+    if (formValue.companyId & formValue.periodId & formValue.referenceCode) {
+      this.getListByReference();
+    }
+  }
+
+
+  getListByReference() {
+    let formValue = this.addEditForm.value;
+
+    let body = {
+      referenceCode: formValue.referenceCode,
+      periodId: formValue.periodId,
+      companyId: formValue.companyId
+    }
+
+    this.httpService
+    .post<ReferenceList[]>(ReferenceList.apiAddress,
+      body
+    )
+    .subscribe(response => {
+      if (response.data && response.data.result) {
+        this.referenceOnList = response.data.result;
+      }
+    });
+  }
+
   addEditBudget() {
+
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
@@ -133,6 +187,9 @@ export class AddEditYearActivityComponent {
       const url = this.mode === 'insert'
         ? YearActivity.apiAddress + 'Create'
         : YearActivity.apiAddress + 'Update';
+      delete request['companyId'];
+      delete request['periodId'];
+      delete request['referenceCode'];
 
       this.isLoadingSubmit = true;
       this.httpService
@@ -175,14 +232,12 @@ export class AddEditYearActivityComponent {
       });
   }
 
-  getYearGoalList() {
+  getReferenceList() {
     this.httpService
-      .post<YearGoal[]>(YearGoal.apiAddress + 'List', {
-        withOutPagination: true
-      })
+      .get<ReferenceType[]>(ReferenceType.apiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.yearGoalList = response.data.result;
+          this.referenceList = response.data.result;
         }
       });
   }

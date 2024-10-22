@@ -3,10 +3,11 @@ import {
   Pagination,
   UrlBuilder,
   YearActivity,
-  ManagerType,
-  YearGoal,
-  Period,
+  ManagerType, Period,
   Operating,
+  ReferenceType,
+  ReferenceList,
+  Company
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -15,7 +16,7 @@ import {
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -29,6 +30,7 @@ export class YearActivityComponent {
   dataTableRows = 10;
   totalCount!: number;
   data: YearActivity[] = [];
+  companyList: any[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
@@ -38,6 +40,7 @@ export class YearActivityComponent {
   addEditData = new YearActivity();
   pId!: string;
   mode!: string;
+  formSubmitted = false;
 
   // form property
   searchForm!: FormGroup;
@@ -47,7 +50,8 @@ export class YearActivityComponent {
   budgetPeriodList: any = [];
   activityrelatedToRisk: any = [];
   periodDetailList: any = [];
-  yearGoalList: any = [];
+  referenceList: any = [];
+  referenceOnList: any = [];
   rollList: any = [];
   operationList: any = [];
   weightCodeList: any = [];
@@ -57,7 +61,7 @@ export class YearActivityComponent {
     {
       label: ' پیش نیاز  ',
       icon: 'pi pi-fw pi-star',
-      routerLink: ['/Period/RelatedActivity'],
+      routerLink: ['/Operation/RelatedActivity'],
     },
     {
       label: ' لیست ریسک های مرتبط با برنامه  ',
@@ -68,25 +72,42 @@ export class YearActivityComponent {
       },
     },
   ];
+
+  get companyId() {
+    return this.searchForm.get('companyId');
+  }
+  get periodId() {
+    return this.searchForm.get('periodId');
+  }
+  get referenceCode() {
+    return this.searchForm.get('referenceCode');
+  }
+  get referenceId() {
+    return this.searchForm.get('referenceId');
+  }
+
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getBudgetPeriodList();
-    this.getYearGoalList();
+    this.getReferenceList();
     this.getManagerTypeList();
     this.getOperationList();
     this.getWeightCodeList();
     this.getPriorityCodeList();
     this.getCostCenterList();
+    this.getCompanyLst();
 
     this.searchForm = new FormGroup({
-      budgetPeriodId: new FormControl(null),
-      yearGoalId: new FormControl(null),
+      periodId: new FormControl(null, Validators.required),
+      companyId: new FormControl(null, Validators.required),
+      referenceCode: new FormControl(null, Validators.required),
+      referenceId: new FormControl(null, Validators.required),
       fromPeriodDetailId: new FormControl(null),
       toPeriodDetailId: new FormControl(null),
       rollId: new FormControl(null),
@@ -101,15 +122,15 @@ export class YearActivityComponent {
     });
 
     this.searchForm.patchValue({
-      budgetPeriodId: Number(
-        this.route.snapshot.paramMap.get('budgetPeriodId')
-      ),
-      yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId')),
+      // periodId: Number(
+      //   this.route.snapshot.paramMap.get('periodId')
+      // ),
+      // yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId')),
     });
 
-    this.getPeriodDetailList(
-      Number(this.route.snapshot.paramMap.get('budgetPeriodId'))
-    );
+    // this.getPeriodDetailList(
+    //   Number(this.route.snapshot.paramMap.get('periodId'))
+    // );
   }
 
   openDialog() {
@@ -127,7 +148,17 @@ export class YearActivityComponent {
       });
   }
 
-  getPeriodDetailList(periodId: number) {
+  getCompanyLst() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
+  }
+
+  getPeriodDetailList(periodId: number) {debugger
     this.httpService
       .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
       .subscribe(response => {
@@ -137,14 +168,43 @@ export class YearActivityComponent {
       });
   }
 
-  getYearGoalList() {
+  getReferenceList() {
     this.httpService
-      .post<YearGoal[]>(YearGoal.apiAddress + 'List', {
-        withOutPagination: true,
-      })
+      .get<ReferenceType[]>(ReferenceType.apiAddress + 'List')
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.yearGoalList = response.data.result;
+          this.referenceList = response.data.result;
+        }
+      });
+  }
+
+
+  getReferenceFilteredList() {
+    debugger
+    // check if periodId & companyId & code is selected 
+    let formValue = this.searchForm.value;
+    if (formValue.companyId & formValue.periodId & formValue.referenceCode) {
+      this.getListByReference();
+    }
+
+  }
+
+  getListByReference() {
+    let formValue = this.searchForm.value;
+
+    let body = {
+      referenceCode: formValue.referenceCode,
+      periodId: formValue.periodId,
+      companyId: formValue.companyId
+    }
+
+    this.httpService
+      .post<ReferenceList[]>(ReferenceList.apiAddress,
+        body
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.referenceOnList = response.data.result;
         }
       });
   }
@@ -200,7 +260,21 @@ export class YearActivityComponent {
       });
   }
 
-  getList(event?: LazyLoadEvent) {
+  getList(isInFilterMode: boolean, event?: LazyLoadEvent) {
+    if (isInFilterMode) {
+      this.formSubmitted = true;
+      // check form validation 
+      if (this.searchForm.valid) {
+        this.getFilteredTableList(event);
+      }
+
+    } else {
+      this.getFilteredTableList(event)
+    }
+  }
+
+  getFilteredTableList(event?: LazyLoadEvent) {
+
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -216,6 +290,10 @@ export class YearActivityComponent {
       withOutPagination: false,
       ...formValue,
     };
+
+    delete body['companyId'];
+    delete body['periodId'];
+    delete body['referenceCode'];
 
     this.first = 0;
     const url = YearActivity.apiAddress + 'List';
@@ -280,15 +358,11 @@ export class YearActivityComponent {
     data.forEach((row: any) => {
       row['componentList'] = [];
       let array = this.subComponentList;
-      const snapshotParams =
-        '/' +
-        Number(this.route.snapshot.paramMap.get('budgetPeriodId')) +
-        '/' +
-        Number(this.route.snapshot.paramMap.get('yearGoalId'));
+
 
       array = array.map(com => {
         if (com['routerLink']) {
-          const params = snapshotParams + '/' + row.id;
+          const params = '/' + row.id;
           const route = com['routerLink'][0].concat(params);
           return { ...com, routerLink: [route] };
         } else {
@@ -346,7 +420,7 @@ export class YearActivityComponent {
               detail: `  مورد  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getList();
+            this.getList(false);
           }
         });
     }
@@ -354,11 +428,11 @@ export class YearActivityComponent {
 
   reloadData() {
     this.isOpenAddEditYearActivity = false;
-    this.getList();
+    this.getList(false);
   }
 
   clearSearch() {
     this.searchForm.reset();
-    this.getList();
+    this.getList(false);
   }
 }

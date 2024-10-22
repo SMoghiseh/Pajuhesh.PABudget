@@ -62,6 +62,10 @@ import { ProjectPicComponent } from './project-pic/project-pic.component';
 import { AddEditProjectPicComponent } from './project-pic/add-edit-project-pic/add-edit-project-pic.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/personel-no-detail.component';
+import { AddEditYearActivityComponent } from './year-activity/add-edit-year-activity/add-edit-year-activity.component';
+import { YearActivityComponent } from './year-activity/year-activity.component';
+import { RelatedActivityComponent } from './related-activity/related-activity.component';
+import { AddEditRelatedActivityComponent } from './related-activity/add-edit-related-activity/add-edit-related-activity.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +102,10 @@ import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/pers
     ProjectPicComponent,
     AddEditProjectPicComponent,
     PersonelNoDetailComponent,
+    YearActivityComponent,
+    AddEditYearActivityComponent,
+    RelatedActivityComponent,
+    AddEditRelatedActivityComponent,
   ],
   imports: [
     CommonModule,

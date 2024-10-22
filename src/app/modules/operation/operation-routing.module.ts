@@ -19,6 +19,8 @@ import { ProjectIncomeComponent } from './project-income/project-income.componen
 import { ProjectCostComponent } from './project-cost/project-cost.component';
 import { ProjectPicComponent } from './project-pic/project-pic.component';
 import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/personel-no-detail.component';
+import { YearActivityComponent } from './year-activity/year-activity.component';
+import { RelatedActivityComponent } from './related-activity/related-activity.component';
 
 
 const routes: Routes = [
@@ -194,6 +196,21 @@ const routes: Routes = [
               title: 'تعریف عناوین',
               animation: 'SubjectDefinitionPage',
             },
+          },
+          {
+            path: 'OperationalPlan',
+            component: YearActivityComponent,
+            title: 'برنامه و بودجه |  تصاویر و مستندات پروژه',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'RelatedActivity/:yearActivityId',
+            component: RelatedActivityComponent,
+            title: 'برنامه و بودجه | برنامه عملیاتی',
           },
         ],
       },
