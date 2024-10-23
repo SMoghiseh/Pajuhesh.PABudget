@@ -66,11 +66,15 @@ import { AddEditYearActivityComponent } from './year-activity/add-edit-year-acti
 import { YearActivityComponent } from './year-activity/year-activity.component';
 import { RelatedActivityComponent } from './related-activity/related-activity.component';
 import { AddEditRelatedActivityComponent } from './related-activity/add-edit-related-activity/add-edit-related-activity.component';
+import { SWOTStrategyComponent } from './swotstrategy/swotstrategy.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { PickListModule } from 'primeng/picklist';
 
 @NgModule({
   declarations: [
     OperationComponent,
     PersonelNoComponent,
+
     AddEditPersonelNoComponent,
     ContractComponent,
     AddEditContractNoComponent,
@@ -106,9 +110,12 @@ import { AddEditRelatedActivityComponent } from './related-activity/add-edit-rel
     AddEditYearActivityComponent,
     RelatedActivityComponent,
     AddEditRelatedActivityComponent,
+    SWOTStrategyComponent,
   ],
   imports: [
     CommonModule,
+    MultiSelectModule,
+    PickListModule,
     OperationRoutingModule,
     NgOptimizedImage,
     CommonModule,

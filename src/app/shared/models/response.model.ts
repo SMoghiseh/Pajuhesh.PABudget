@@ -1059,8 +1059,7 @@ export class Period {
 }
 
 export class FiscalYear {
-  static readonly apiAddress =
-    'api/PABudgetApi/v1/BaseInfo/StartFiscalYear/';
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/StartFiscalYear/';
 }
 
 export class StaticYear {
@@ -1629,6 +1628,12 @@ export class SWTO {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/SWTO/';
   id!: number;
   title!: string;
+}
+
+export class StrategySWOT {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/SWTO/';
+  static readonly apiAddressStrategySwot =
+    'api/PABudgetApi/v1/Plan/StrategySwot/Create';
 }
 
 export class STRATEGY {

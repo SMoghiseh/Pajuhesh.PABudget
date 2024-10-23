@@ -95,7 +95,7 @@ export class VisionComponent {
       });
   }
 
-  getVision(event?: LazyLoadEvent) {
+  getVision(event?: LazyLoadEvent) { debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
