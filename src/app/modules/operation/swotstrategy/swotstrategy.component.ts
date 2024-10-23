@@ -29,7 +29,6 @@ export class SWOTStrategyComponent {
   }
 
   getStrategySWOTLst() {
-    debugger;
     this.httpService
       .post<StrategySWOT[]>(StrategySWOT.apiAddress + 'List', {
         withOutPagination: true,
@@ -43,7 +42,6 @@ export class SWOTStrategyComponent {
   }
 
   sendStrategyswot(items: any) {
-    debugger;
     const result = items.map((x: { id: any }) => x.id);
     const body = {
       swotIds: result,

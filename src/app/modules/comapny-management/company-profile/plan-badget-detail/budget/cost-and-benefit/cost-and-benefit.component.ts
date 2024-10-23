@@ -50,8 +50,6 @@ export class CostAndBenefitComponent implements OnInit {
     this.getTreeTableData();
     this.getReportItemType();
     this.getListOfBudgetReportLst();
-
-
   }
 
   returnSelectedDate(e: any) {
@@ -115,7 +113,6 @@ export class CostAndBenefitComponent implements OnInit {
     yearTypeSelection: 'single' | 'double' | 'multiple',
     tableId?: number
   ) {
-    debugger;
     this.viewMode = viewMode;
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
@@ -125,15 +122,13 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getTreeTableData() {
-    debugger;
-
     this.selectedRows = [];
     if (!this.selectedYerId) return;
     const body = {
       companyId: this.inputData.companyId,
       periodId: this.selectedYerId,
       // priceType: this.selectedPriceTypeId,
-      isConsolidated:  this.selectedPriceTypeId,
+      isConsolidated: this.selectedPriceTypeId,
     };
     this.httpService
       .post<any>(Budget.apiAddressCostAndBenefit, body)
@@ -146,14 +141,10 @@ export class CostAndBenefitComponent implements OnInit {
       )
       .subscribe(res => {
         this.treeTableData = res;
-        
       });
-
-
   }
 
   getChart(chartId?: number, priceType?: number) {
-    debugger;
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
 
@@ -193,7 +184,6 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
   getTableData(comparison: number) {
-    debugger;
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
@@ -340,7 +330,6 @@ export class CostAndBenefitComponent implements OnInit {
         })
       )
       .subscribe(res => {
-
         this.reportItemTypeList = res;
         this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
         this.reportItemTypeList[0]['isSelected'] = true;

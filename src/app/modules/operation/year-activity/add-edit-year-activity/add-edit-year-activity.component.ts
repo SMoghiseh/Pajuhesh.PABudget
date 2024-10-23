@@ -1,6 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { YearActivity, ManagerType, Period, YearGoal, Operating, ReferenceType, ReferenceList, Company } from '@shared/models/response.model';
+import {
+  YearActivity,
+  ManagerType,
+  Period,
+  YearGoal,
+  Operating,
+  ReferenceType,
+  ReferenceList,
+  Company,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -9,10 +18,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-year-activity',
   templateUrl: './add-edit-year-activity.component.html',
-  styleUrls: ['./add-edit-year-activity.component.scss']
+  styleUrls: ['./add-edit-year-activity.component.scss'],
 })
 export class AddEditYearActivityComponent {
-
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -30,9 +38,6 @@ export class AddEditYearActivityComponent {
   costCenterList: any = [];
   companyList: any[] = [];
 
-
-
-
   inputData = new YearActivity();
   @Input() mode = '';
   @Input() set data1(data: YearActivity) {
@@ -40,7 +45,6 @@ export class AddEditYearActivityComponent {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
 
   get referenceCode() {
     return this.addEditForm.get('referenceCode');
@@ -88,16 +92,13 @@ export class AddEditYearActivityComponent {
     return this.addEditForm.get('periodId');
   }
 
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getBudgetPeriodList();
     this.getReferenceList();
     this.getManagerTypeList();
@@ -122,8 +123,7 @@ export class AddEditYearActivityComponent {
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       priceCu: new FormControl('', Validators.required),
-      costCenterId: new FormControl('', Validators.required)
-
+      costCenterId: new FormControl('', Validators.required),
     });
 
     if (this.mode === 'edit') {
@@ -133,10 +133,9 @@ export class AddEditYearActivityComponent {
     this.addEditForm.patchValue({
       // periodId: Number(this.route.snapshot.paramMap.get('periodId')),
       // yearGoalId: Number(this.route.snapshot.paramMap.get('yearGoalId'))
-    })
+    });
 
     // this.getPeriodDetailList(Number(this.route.snapshot.paramMap.get('periodId')));
-
   }
 
   getCompanyLst() {
@@ -149,14 +148,13 @@ export class AddEditYearActivityComponent {
       });
   }
 
-  getReferenceFilteredList() {debugger
-    // check if periodId & companyId & code is selected 
+  getReferenceFilteredList() {
+    // check if periodId & companyId & code is selected
     let formValue = this.addEditForm.value;
     if (formValue.companyId & formValue.periodId & formValue.referenceCode) {
       this.getListByReference();
     }
   }
-
 
   getListByReference() {
     let formValue = this.addEditForm.value;
@@ -164,29 +162,27 @@ export class AddEditYearActivityComponent {
     let body = {
       referenceCode: formValue.referenceCode,
       periodId: formValue.periodId,
-      companyId: formValue.companyId
-    }
+      companyId: formValue.companyId,
+    };
 
     this.httpService
-    .post<ReferenceList[]>(ReferenceList.apiAddress,
-      body
-    )
-    .subscribe(response => {
-      if (response.data && response.data.result) {
-        this.referenceOnList = response.data.result;
-      }
-    });
+      .post<ReferenceList[]>(ReferenceList.apiAddress, body)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.referenceOnList = response.data.result;
+        }
+      });
   }
 
   addEditBudget() {
-
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url = this.mode === 'insert'
-        ? YearActivity.apiAddress + 'Create'
-        : YearActivity.apiAddress + 'Update';
+      const url =
+        this.mode === 'insert'
+          ? YearActivity.apiAddress + 'Create'
+          : YearActivity.apiAddress + 'Update';
       delete request['companyId'];
       delete request['periodId'];
       delete request['referenceCode'];
@@ -202,9 +198,10 @@ export class AddEditYearActivityComponent {
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -254,7 +251,7 @@ export class AddEditYearActivityComponent {
   getOperationList() {
     this.httpService
       .post<Operating[]>(Operating.apiAddress + 'List', {
-        withOutPagination: true
+        withOutPagination: true,
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -302,5 +299,4 @@ export class AddEditYearActivityComponent {
         }
       });
   }
-
 }

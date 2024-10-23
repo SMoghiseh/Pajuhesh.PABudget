@@ -81,7 +81,6 @@ export class StrategyComponent {
       });
   }
   addSubComponentList(data: any) {
-    debugger;
     data.forEach((row: any) => {
       row['componentList'] = [];
       let array = this.subComponentList;
@@ -99,7 +98,6 @@ export class StrategyComponent {
     return data;
   }
   getData(event?: LazyLoadEvent) {
-    debugger;
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();

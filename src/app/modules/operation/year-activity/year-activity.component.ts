@@ -3,11 +3,12 @@ import {
   Pagination,
   UrlBuilder,
   YearActivity,
-  ManagerType, Period,
+  ManagerType,
+  Period,
   Operating,
   ReferenceType,
   ReferenceList,
-  Company
+  Company,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -91,7 +92,7 @@ export class YearActivityComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getBudgetPeriodList();
@@ -158,7 +159,7 @@ export class YearActivityComponent {
       });
   }
 
-  getPeriodDetailList(periodId: number) {debugger
+  getPeriodDetailList(periodId: number) {
     this.httpService
       .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
       .subscribe(response => {
@@ -178,15 +179,12 @@ export class YearActivityComponent {
       });
   }
 
-
   getReferenceFilteredList() {
-    debugger
-    // check if periodId & companyId & code is selected 
+    // check if periodId & companyId & code is selected
     let formValue = this.searchForm.value;
     if (formValue.companyId & formValue.periodId & formValue.referenceCode) {
       this.getListByReference();
     }
-
   }
 
   getListByReference() {
@@ -195,13 +193,11 @@ export class YearActivityComponent {
     let body = {
       referenceCode: formValue.referenceCode,
       periodId: formValue.periodId,
-      companyId: formValue.companyId
-    }
+      companyId: formValue.companyId,
+    };
 
     this.httpService
-      .post<ReferenceList[]>(ReferenceList.apiAddress,
-        body
-      )
+      .post<ReferenceList[]>(ReferenceList.apiAddress, body)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.referenceOnList = response.data.result;
@@ -263,18 +259,16 @@ export class YearActivityComponent {
   getList(isInFilterMode: boolean, event?: LazyLoadEvent) {
     if (isInFilterMode) {
       this.formSubmitted = true;
-      // check form validation 
+      // check form validation
       if (this.searchForm.valid) {
         this.getFilteredTableList(event);
       }
-
     } else {
-      this.getFilteredTableList(event)
+      this.getFilteredTableList(event);
     }
   }
 
   getFilteredTableList(event?: LazyLoadEvent) {
-
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -358,7 +352,6 @@ export class YearActivityComponent {
     data.forEach((row: any) => {
       row['componentList'] = [];
       let array = this.subComponentList;
-
 
       array = array.map(com => {
         if (com['routerLink']) {

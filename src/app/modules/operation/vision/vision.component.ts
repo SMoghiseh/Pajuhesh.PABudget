@@ -58,7 +58,7 @@ export class VisionComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getplanningValueLst();
@@ -70,7 +70,7 @@ export class VisionComponent {
       visionCode: new FormControl(null),
       keyTypeCode: new FormControl(null),
     });
-    this.planningId = Number(this.route.snapshot.paramMap.get('id'))
+    this.planningId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   getplanningValueLst() {
@@ -95,7 +95,7 @@ export class VisionComponent {
       });
   }
 
-  getVision(event?: LazyLoadEvent) { debugger
+  getVision(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -133,22 +133,20 @@ export class VisionComponent {
       });
   }
 
-
   addSubComponentList(data: any) {
     data.forEach((row: any) => {
-
       row['componentList'] = [];
       let array = this.subComponentList;
-      let snapshotParams = '/' + Number(this.route.snapshot.paramMap.get('id'));
+      const snapshotParams =
+        '/' + Number(this.route.snapshot.paramMap.get('id'));
 
       array = array.map(com => {
-        let params = snapshotParams + '/' + row.id;
-        let route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] }
-      })
+        const params = snapshotParams + '/' + row.id;
+        const route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] };
+      });
 
       row['componentList'].push(...array);
-
     });
     return data;
   }
@@ -213,6 +211,4 @@ export class VisionComponent {
     this.searchForm.reset();
     this.getVision();
   }
-
-
 }
