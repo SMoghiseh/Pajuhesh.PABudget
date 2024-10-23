@@ -45,6 +45,13 @@ export class StrategyComponent {
   getCompanyByPlanIdList: any = [];
   getPlanId!: number;
 
+  subComponentList = [
+    {
+      label: ' SWOT  استراتژی',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Operation/StrategySWOT'],
+    },
+  ];
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -73,8 +80,26 @@ export class StrategyComponent {
         }
       });
   }
+  addSubComponentList(data: any) {
+    debugger;
+    data.forEach((row: any) => {
+      row['componentList'] = [];
+      let array = this.subComponentList;
+      const snapshotParams =
+        '/' + Number(this.route.snapshot.paramMap.get('id'));
 
+      array = array.map(com => {
+        const params = snapshotParams + '/' + row.id;
+        const route = com['routerLink'][0].concat(params);
+        return { ...com, routerLink: [route] };
+      });
+
+      row['componentList'].push(...array);
+    });
+    return data;
+  }
   getData(event?: LazyLoadEvent) {
+    debugger;
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -110,6 +135,7 @@ export class StrategyComponent {
       .subscribe(res => {
         this.companyId = res[0].companyId;
         this.data = res;
+        this.addSubComponentList(res);
       });
   }
 

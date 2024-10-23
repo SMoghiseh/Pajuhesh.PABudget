@@ -19,6 +19,7 @@ import { ProjectIncomeComponent } from './project-income/project-income.componen
 import { ProjectCostComponent } from './project-cost/project-cost.component';
 import { ProjectPicComponent } from './project-pic/project-pic.component';
 import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/personel-no-detail.component';
+import { SWOTStrategyComponent } from './swotstrategy/swotstrategy.component';
 
 
 const routes: Routes = [
@@ -146,6 +147,16 @@ const routes: Routes = [
             },
           },
           {
+            path: 'SWOT/:id',
+            component: SwotComponent,
+            title: 'برنامه و بودجه |  SWOT',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
             path: 'Strategy/:id',
             component: StrategyComponent,
             title: 'برنامه و بودجه |  استراتژی',
@@ -186,8 +197,8 @@ const routes: Routes = [
             },
           },
           {
-            path: 'ProjectPic/:id',
-            component: ProjectPicComponent,
+            path: 'StrategySWOT/:id/:visionId',
+            component: SWOTStrategyComponent,
             title: 'برنامه و بودجه |  تصاویر و مستندات پروژه',
             data: {
               reuse: true,

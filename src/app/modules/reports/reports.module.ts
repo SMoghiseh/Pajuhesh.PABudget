@@ -73,6 +73,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     RadioButtonModule,
     TreeTableModule,
     FileUploadModule,
+
   ],
   providers: [
     {

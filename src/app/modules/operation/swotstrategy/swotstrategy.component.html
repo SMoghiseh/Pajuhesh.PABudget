@@ -1,0 +1,50 @@
+<p-toast key="SWOTStrategy" position="bottom-left"></p-toast>
+
+<div class="d-flex justify-content-between">
+  <div class="table-header">استراتژی SWOT</div>
+</div>
+<div class="panel-search mt-8 mb-8 " >
+  <form #formDir="ngForm" [formGroup]="SWOTStrategyForm">
+    <div class="row">
+      <label for="accountRepId"> نوع گزارش </label>
+      <!-- <p-multiSelect
+          id="accountRepId"
+          name="accountRepId"
+          formControlName="accountRepId"
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          [options]="strategyswotList"
+          placeholder="انتخاب کنید"
+           /> -->
+
+      <p-pickList
+        class="pickListStyle"
+        [source]="strategyswotList"
+        [target]="targetStrategyswot" 
+        [dragdrop]="true"
+        [sourceStyle]="{ height: 'auto', width: '100%' }"
+        breakpoint="1400px">
+        <ng-template let-item pTemplate="item">
+          <div class="flex-1 flex flex-column gap-2">
+            <h1 class="font-bold">
+              {{ item.title }}
+            </h1>
+          </div>
+        </ng-template>
+      </p-pickList>
+
+      <div class="justify-content-between pb-3 w-100" style="text-align: end">
+        <div>
+          <p-button
+            class="pe-2"
+            styleClass="p-button-info"
+            icon="pi pi-plus-circle"
+            (click)="sendStrategyswot(targetStrategyswot)"
+            label="ثبت "></p-button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="justify-content-between pb-3 w-100" style="text-align: end"></div>

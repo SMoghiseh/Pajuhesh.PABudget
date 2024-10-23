@@ -62,11 +62,15 @@ import { ProjectPicComponent } from './project-pic/project-pic.component';
 import { AddEditProjectPicComponent } from './project-pic/add-edit-project-pic/add-edit-project-pic.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/personel-no-detail.component';
+import { SWOTStrategyComponent } from './swotstrategy/swotstrategy.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { PickListModule } from 'primeng/picklist';
 
 @NgModule({
   declarations: [
     OperationComponent,
     PersonelNoComponent,
+
     AddEditPersonelNoComponent,
     ContractComponent,
     AddEditContractNoComponent,
@@ -98,9 +102,12 @@ import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/pers
     ProjectPicComponent,
     AddEditProjectPicComponent,
     PersonelNoDetailComponent,
+    SWOTStrategyComponent,
   ],
   imports: [
     CommonModule,
+    MultiSelectModule,
+    PickListModule,
     OperationRoutingModule,
     NgOptimizedImage,
     CommonModule,
