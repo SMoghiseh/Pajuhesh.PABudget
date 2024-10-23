@@ -18,7 +18,7 @@
             <label for="periodId"> دوره </label>
             <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
               optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="budgetPeriodList"
-              [filter]="true" (onChange)="getReferenceFilteredList() " [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
+              [filter]="true" (onChange)="getReferenceFilteredList()" [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
               (addEditFormSubmitted && periodId?.pristine) ||
               periodId?.dirty ||
               periodId?.touched

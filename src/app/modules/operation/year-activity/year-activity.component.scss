@@ -5,7 +5,7 @@
 }
 
 :host ::ng-deep .height-size .p-dialog {
-    min-height: 500px !important;
+    min-height: 100% !important;
     height: auto !important;
 }
 

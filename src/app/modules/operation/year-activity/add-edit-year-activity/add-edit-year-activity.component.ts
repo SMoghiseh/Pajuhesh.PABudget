@@ -148,7 +148,7 @@ export class AddEditYearActivityComponent {
       });
   }
 
-  getReferenceFilteredList() {
+  getReferenceFilteredList() {debugger
     // check if periodId & companyId & code is selected
     let formValue = this.addEditForm.value;
     if (formValue.companyId & formValue.periodId & formValue.referenceCode) {
