@@ -9,10 +9,19 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <ng-container *ngIf="viewMode !== 'table'">
+        <ng-container *ngIf="viewMode === 'treeTable'">
           <div *ngFor="let item of reportItemTypeList"
             class="items"
             (click)="onSelectReportItemType(item.id)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.title }}</span>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="viewMode === 'chart'">
+          <div
+            *ngFor="let item of priceTypeList"
+            class="items"
+            (click)="onSelectPriceType(item.id)"
             [class.select-feature]="item.isSelected">
             <span>{{ item.title }}</span>
           </div>

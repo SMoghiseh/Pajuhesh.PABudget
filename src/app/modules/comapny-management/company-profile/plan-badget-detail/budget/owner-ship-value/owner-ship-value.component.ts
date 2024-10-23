@@ -108,6 +108,8 @@ export class OwnerShipValueComponent implements OnInit {
 
     if (viewMode == 'table' && viewMode == this.viewMode)
       this.getTableData(this.comparisonTableId);
+    if (viewMode == 'chart' && viewMode == this.viewMode) this.getPriceType();
+    this.getChart(this.comparisonTableId);
   }
 
   getTreeTableData() {
@@ -131,7 +133,26 @@ export class OwnerShipValueComponent implements OnInit {
         this.treeTableData = res;
       });
   }
-
+  getPriceType() {
+    debugger;
+    this.httpService
+      .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        res.forEach((element: any) => {
+          if (element.id === 2) element.isSelected = true;
+          else element.isSelected = false;
+        });
+        this.priceTypeList = res;
+        this.selectedPriceTypeId = 2;
+      });
+  }
   getChart(chartId?: number, priceType?: number) {
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
@@ -252,6 +273,28 @@ export class OwnerShipValueComponent implements OnInit {
     this.selectedPriceTypeId = id;
 
     this.reportItemTypeList.forEach((element: any) => {
+      if (element.id === id) element.isSelected = true;
+      else element.isSelected = false;
+    });
+
+    if (this.viewMode == 'treeTable') this.getTreeTableData();
+
+    if (this.viewMode == 'chart') {
+      // نمایش چارت
+      if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
+        this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
+      } else if (this.selectedPriceTypeId == 0) {
+        // عملکرد و بودجه
+        // نمایش هر دو چارت
+        this.getChart(2, 2);
+        this.getChart(1, 1);
+      }
+    }
+  }
+  onSelectPriceType(id: number) {
+    this.selectedPriceTypeId = id;
+
+    this.priceTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
       else element.isSelected = false;
     });
