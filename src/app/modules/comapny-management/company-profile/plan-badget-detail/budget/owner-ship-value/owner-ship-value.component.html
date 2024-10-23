@@ -4,23 +4,32 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType"
+          <app-select-date
+            [companyId]="inputData.companyId"
+            [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <ng-container *ngIf="viewMode !== 'table'">
-          <div *ngFor="let item of priceTypeList" class="items" (click)="onSelectPriceType(item.id)"
+          <div *ngFor="let item of reportItemTypeList"
+            class="items"
+            (click)="onSelectReportItemType(item.id)"
             [class.select-feature]="item.isSelected">
             <span>{{ item.title }}</span>
           </div>
         </ng-container>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div class="items" (click)="tabChange('treeTable', 'single')" [class.select-feature]="viewMode === 'treeTable'">
+        <div
+          class="items"
+          (click)="tabChange('treeTable', 'single')"
+          [class.select-feature]="viewMode === 'treeTable'">
           <span>جدول</span>
         </div>
-        <div class="items disable-btns" [class.enable-btns]="selectedRows?.length > 0"
+        <div
+          class="items disable-btns"
+          [class.enable-btns]="selectedRows?.length > 0"
           [class.select-feature]="viewMode === 'chart'" (click)="tabChange('chart', 'multiple')">
           <span>روند</span>
         </div>
@@ -48,10 +57,12 @@
           (click)="tabChange('table', 'double', 3)">
           <span>مقایسه بودجه با عملکرد سال قبل </span>
         </div> -->
-        <p-dropdown id="id" class="col" styleClass="w-100" optionLabel="title" optionValue="id"
-          [options]="listOfBudgetReport" placeholder=" تحلیل" [(ngModel)]="selectedlistOfBudgetReport"
-          (onChange)="tabChange('table', 'double', selectedlistOfBudgetReport)">
-        </p-dropdown>
+        <div
+          class="items"
+        (click)="tabChange('table', 'double', 2)"
+        [class.select-feature]="viewMode === 'table'">
+        <span>مقایسه بودجه با بودجه</span>
+      </div>
       </div>
 
       <div *ngIf="viewMode === 'treeTable'" class="table-container">

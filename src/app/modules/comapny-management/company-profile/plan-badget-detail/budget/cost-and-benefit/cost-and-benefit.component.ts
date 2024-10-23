@@ -34,6 +34,7 @@ export class CostAndBenefitComponent implements OnInit {
   comparisonTableId = 0;
   selectedYerId: any;
   priceTypeList: any;
+  reportItemTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
   signalenCodeNode: any;
@@ -45,20 +46,12 @@ export class CostAndBenefitComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.getPriceType();
+    // this.getPriceType();
     this.getTreeTableData();
+    this.getReportItemType();
     this.getListOfBudgetReportLst();
 
-    // this.items = [
-    //   {
-    //     styleClass: 'negativeNumbers',
-    //     iconStyle: 'pi pi-arrow-down',
-    //   },
-    //   {
-    //     styleClass: 'pasitiveNumbers',
-    //     iconStyle: 'pi pi-arrow-up',
-    //   },
-    // ];
+
   }
 
   returnSelectedDate(e: any) {
@@ -122,6 +115,7 @@ export class CostAndBenefitComponent implements OnInit {
     yearTypeSelection: 'single' | 'double' | 'multiple',
     tableId?: number
   ) {
+    debugger;
     this.viewMode = viewMode;
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
@@ -131,12 +125,15 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   getTreeTableData() {
+    debugger;
+
     this.selectedRows = [];
     if (!this.selectedYerId) return;
     const body = {
       companyId: this.inputData.companyId,
       periodId: this.selectedYerId,
-      priceType: this.selectedPriceTypeId,
+      // priceType: this.selectedPriceTypeId,
+      isConsolidated:  this.selectedPriceTypeId,
     };
     this.httpService
       .post<any>(Budget.apiAddressCostAndBenefit, body)
@@ -149,18 +146,14 @@ export class CostAndBenefitComponent implements OnInit {
       )
       .subscribe(res => {
         this.treeTableData = res;
+        
       });
 
-    // for (let i = 0; this.treeTableData.budgetDetails.length > 0; i++) {
-    //   if (this.treeTableData.budgetDetails[i].data.value !== 0) {
-    //     const getvalue = this.treeTableData.budgetDetails[i].data.value;
-    //     if (getvalue > 0) PrimeIcons.ARROW_DOWN;
-    //     else PrimeIcons.ARROW_UP;
-    //   }
-    // }
+
   }
 
   getChart(chartId?: number, priceType?: number) {
+    debugger;
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
     if (!priceType) priceType = this.selectedPriceTypeId;
 
@@ -190,7 +183,7 @@ export class CostAndBenefitComponent implements OnInit {
       }
     }
   }
-  nodeUnSelected(event: any) {}
+
   getParentDetails(node: TreeNode) {
     if (node.parent) {
       this.signalenVestigingNode = node.parent.data;
@@ -200,6 +193,7 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
   getTableData(comparison: number) {
+    debugger;
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
@@ -312,30 +306,10 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getPriceType() {
-    this.httpService
-      .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [];
-        })
-      )
-      .subscribe(res => {
-        res.forEach((element: any) => {
-          if (element.id === 2) element.isSelected = true;
-          else element.isSelected = false;
-        });
-        this.priceTypeList = res;
-        this.selectedPriceTypeId = 2;
-      });
-  }
-
-  onSelectPriceType(id: number) {
+  onSelectReportItemType(id: number) {
     this.selectedPriceTypeId = id;
 
-    this.priceTypeList.forEach((element: any) => {
+    this.reportItemTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
       else element.isSelected = false;
     });
@@ -353,5 +327,23 @@ export class CostAndBenefitComponent implements OnInit {
         this.getChart(1, 1);
       }
     }
+  }
+
+  getReportItemType() {
+    this.httpService
+      .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+
+        this.reportItemTypeList = res;
+        this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
+        this.reportItemTypeList[0]['isSelected'] = true;
+      });
   }
 }

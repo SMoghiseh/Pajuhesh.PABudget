@@ -26,6 +26,7 @@ export class OwnerShipValueComponent implements OnInit {
   cols: any = [];
   lineChart1: any;
   lineChart2: any;
+  reportItemTypeList: any;
   viewMode: 'table' | 'chart' | 'treeTable' = 'treeTable';
   comparisonTableId = 0;
   selectedYerId: any;
@@ -38,8 +39,8 @@ export class OwnerShipValueComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.getPriceType();
     this.getTreeTableData();
+    this.getReportItemType();
     this.getListOfBudgetReportLst();
   }
 
@@ -115,7 +116,7 @@ export class OwnerShipValueComponent implements OnInit {
     const body = {
       companyId: this.inputData.companyId,
       periodId: this.selectedYerId,
-      priceType: this.selectedPriceTypeId,
+      isConsolidated: this.selectedPriceTypeId,
     };
     this.httpService
       .post<any>(Budget.apiAddresOwnershipValue, body)
@@ -247,27 +248,7 @@ export class OwnerShipValueComponent implements OnInit {
     }
   }
 
-  getPriceType() {
-    this.httpService
-      .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [];
-        })
-      )
-      .subscribe(res => {
-        res.forEach((element: any) => {
-          if (element.id === 2) element.isSelected = true;
-          else element.isSelected = false;
-        });
-        this.priceTypeList = res;
-        this.selectedPriceTypeId = 2;
-      });
-  }
-
-  onSelectPriceType(id: number) {
+  onSelectReportItemType(id: number) {
     this.selectedPriceTypeId = id;
 
     this.priceTypeList.forEach((element: any) => {
@@ -289,4 +270,22 @@ export class OwnerShipValueComponent implements OnInit {
       }
     }
   }
+  getReportItemType() {
+    this.httpService
+      .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+
+        this.reportItemTypeList = res;
+        this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
+        this.reportItemTypeList[0]['isSelected'] = true;
+      });
+  }
 }
+

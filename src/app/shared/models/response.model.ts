@@ -1231,6 +1231,8 @@ export class Profile {
   static readonly apiAddressGetChart = 'api/PABudgetApi/Dashboard/GetChart';
   static readonly apiAddressGetPriceType =
     'api/PABudgetApi/Dashboard/GetPriceType';
+  static readonly apiAddressReportItemType =
+    'api/PABudgetApi/v1/BaseInfo/ReportItemType/list';
 
   id!: number;
   title!: string;

@@ -30,6 +30,7 @@ export class BalanceSheetComponent {
   comparisonTableId = 0;
   selectedYerId: any;
   priceTypeList: any;
+  reportItemTypeList: any;
   selectedPriceTypeId!: number;
   allChartsData: any;
   listOfBudgetReport: any = [];
@@ -37,7 +38,7 @@ export class BalanceSheetComponent {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.getPriceType();
+    this.getReportItemType();
     this.getTreeTableData();
     this.getListOfBudgetReportLst();
   }
@@ -115,7 +116,7 @@ export class BalanceSheetComponent {
     const body = {
       companyId: this.inputData.companyId,
       periodId: this.selectedYerId,
-      priceType: this.selectedPriceTypeId,
+      isConsolidated:  this.selectedPriceTypeId,
     };
     this.httpService
       .post<any>(Budget.apiAddressBalanceSheet, body)
@@ -267,30 +268,11 @@ export class BalanceSheetComponent {
     }
   }
 
-  getPriceType() {
-    this.httpService
-      .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [];
-        })
-      )
-      .subscribe(res => {
-        res.forEach((element: any) => {
-          if (element.id === 2) element.isSelected = true;
-          else element.isSelected = false;
-        });
-        this.priceTypeList = res;
-        this.selectedPriceTypeId = 2;
-      });
-  }
 
-  onSelectPriceType(id: number) {
+  onSelectReportItemType(id: number) {
     this.selectedPriceTypeId = id;
 
-    this.priceTypeList.forEach((element: any) => {
+    this.reportItemTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
       else element.isSelected = false;
     });
@@ -308,5 +290,23 @@ export class BalanceSheetComponent {
         this.getChart(1, 1);
       }
     }
+  }
+
+  getReportItemType() {
+    this.httpService
+      .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+
+        this.reportItemTypeList = res;
+        this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
+        this.reportItemTypeList[0]['isSelected'] = true;
+      });
   }
 }

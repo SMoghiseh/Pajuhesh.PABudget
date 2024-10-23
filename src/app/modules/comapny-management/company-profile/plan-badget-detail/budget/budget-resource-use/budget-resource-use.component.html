@@ -8,11 +8,12 @@
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
+
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <ng-container *ngIf="viewMode !== 'table'">
-          <div *ngFor="let item of priceTypeList"
+          <div *ngFor="let item of reportItemTypeList"
             class="items"
-            (click)="onSelectPriceType(item.id)"
+            (click)="onSelectReportItemType(item.id)"
             [class.select-feature]="item.isSelected">
             <span>{{ item.title }}</span>
           </div>
@@ -30,41 +31,13 @@
           (click)="tabChange('chart', 'multiple')">
           <span>روند</span>
         </div>
-        <!-- <div
+
+             <div
           class="items"
-          [class.select-feature]="
-            viewMode === 'table' && comparisonTableId == 1
-          "
-          (click)="tabChange('table', 'double', 1)">
-          <span> مقایسه جاری بودجه با عملکرد</span>
-        </div> -->
-        <!-- <div
-          class="items"
-          [class.select-feature]="
-            viewMode === 'table' && comparisonTableId == 2
-          "
-          (click)="tabChange('table', 'double', 2)">
-          <span> مقایسه بودجه با بودجه</span>
-        </div> -->
-        <!-- <div
-          class="items"
-          [class.select-feature]="
-            viewMode === 'table' && comparisonTableId == 3
-          "
-          (click)="tabChange('table', 'double', 3)">
-          <span>مقایسه بودجه با عملکرد سال قبل </span>
-        </div> -->
-        <p-dropdown id="id"
-          class="col"
-          styleClass="w-100"
-          optionValue="id"
-          optionLabel="title"
-          [options]="listOfBudgetReport"
-          placeholder=" تحلیل"
-          [(ngModel)]="selectedlistOfBudgetReport"
-          (onChange)="tabChange('table', 'double', selectedlistOfBudgetReport)">
-        </p-dropdown>
-      </div>
+          (click)="tabChange('table', 'double', 2)"
+          [class.select-feature]="viewMode === 'table'">
+          <span>مقایسه بودجه با بودجه</span>
+        </div>
 
       <div *ngIf="viewMode === 'treeTable'"
         class="table-container">
