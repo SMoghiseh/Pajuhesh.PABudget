@@ -119,6 +119,8 @@ export class CostAndBenefitComponent implements OnInit {
 
     if (viewMode == 'table' && viewMode == this.viewMode)
       this.getTableData(this.comparisonTableId);
+    if (viewMode == 'chart' && viewMode == this.viewMode)
+      this.getTableData(this.comparisonTableId);
   }
 
   getTreeTableData() {

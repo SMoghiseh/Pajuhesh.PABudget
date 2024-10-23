@@ -251,7 +251,7 @@ export class OwnerShipValueComponent implements OnInit {
   onSelectReportItemType(id: number) {
     this.selectedPriceTypeId = id;
 
-    this.priceTypeList.forEach((element: any) => {
+    this.reportItemTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
       else element.isSelected = false;
     });

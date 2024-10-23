@@ -77,14 +77,19 @@
 
 :host ::ng-deep  .table-container .p-datatable-tbody>tr>td {
 
-   min-width: 511px !important;
+  //  min-width: 511px !important;
    width: 500px !important;
    text-align-last : center  !important;
    height: 40px;
    border: unset;
 }
 
+:host ::ng-deep  .p-datatable-thead>tr {
+  // display: flex;
+  width: 300% !important;
 
+
+}
 
 tr:nth-child(even) {
   background-color: rgba(255,152,116,0.1);
