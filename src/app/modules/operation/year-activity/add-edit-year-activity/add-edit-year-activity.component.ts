@@ -99,7 +99,6 @@ export class AddEditYearActivityComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getBudgetPeriodList();
     this.getReferenceList();
     this.getManagerTypeList();
     this.getOperationList();
@@ -209,10 +208,14 @@ export class AddEditYearActivityComponent {
     }
   }
 
-  getBudgetPeriodList() {
+  onChangeCompanyId(e: any){
+    this.getBudgetPeriodList(e.value);
+  }
+  
+  getBudgetPeriodList(companyId:number) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
-      .subscribe(response => {
+    .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
+    .subscribe(response => {
         if (response.data && response.data.result) {
           this.budgetPeriodList = response.data.result;
         }
