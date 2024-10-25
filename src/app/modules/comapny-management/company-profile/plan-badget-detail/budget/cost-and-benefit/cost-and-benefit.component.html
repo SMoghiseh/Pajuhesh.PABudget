@@ -12,7 +12,7 @@
       </div>
 
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <ng-container *ngIf="viewMode !== 'table'">
+        <ng-container *ngIf="viewMode === 'treeTable'">
           <div *ngFor="let item of reportItemTypeList"
             class="items"
             (click)="onSelectReportItemType(item.id)"
@@ -20,7 +20,27 @@
             <span>{{ item.title }}</span>
           </div>
         </ng-container>
+        <ng-container *ngIf="viewMode === 'chart'">
+          <div
+            *ngFor="let item of priceTypeList"
+            class="items"
+            (click)="onSelectPriceType(item.id)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.title }}</span>
+          </div>
+        </ng-container>
       </div>
+      <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
+        <ng-container *ngIf="viewMode !== 'chart'">
+          <div
+            *ngFor="let item of priceTypeList"
+            class="items"
+            (click)="onSelectPriceType(item.id)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.title }}</span>
+          </div>
+        </ng-container>
+      </div> -->
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div
           class="items"
@@ -64,7 +84,9 @@
           </ng-template>
           <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
-              <td *ngFor="let col of columns; let i = index" [class.negativeNumbers]="rowData[col.field] < 0"
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
                
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
