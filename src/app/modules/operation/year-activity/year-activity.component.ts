@@ -179,7 +179,7 @@ export class YearActivityComponent {
       });
   }
 
-  getReferenceFilteredList() {
+  getReferenceFilteredList() { debugger
     // check if periodId & companyId & code is selected
     let formValue = this.searchForm.value;
     if (formValue.companyId & formValue.periodId & formValue.referenceCode) {

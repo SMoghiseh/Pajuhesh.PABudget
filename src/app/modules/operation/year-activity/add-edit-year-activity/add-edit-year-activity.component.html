@@ -7,7 +7,7 @@
       <label for="companyId"> شرکت </label>
       <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
         optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
-        (onChange)="getReferenceFilteredList() ; getPeriodDetailList($event.value)"
+        (onChange)="getReferenceFilteredList(); getPeriodDetailList($event.value)"
         [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
               (addEditFormSubmitted && companyId?.pristine) ||
               companyId?.dirty ||

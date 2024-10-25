@@ -50,7 +50,7 @@
           placeholder="انتخاب کنید"
           [options]="referenceList"
           [filter]="true"
-          (onChange)="getReferenceFilteredList() "
+          (onChange)="getReferenceFilteredList()"
           [class.ng-invalid]="referenceCode?.invalid" [class.ng-dirty]="
           (formSubmitted && referenceCode?.pristine) ||
           referenceCode?.dirty ||
