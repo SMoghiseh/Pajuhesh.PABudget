@@ -36,6 +36,7 @@ export class CostAndBenefitComponent implements OnInit {
   priceTypeList: any;
   reportItemTypeList: any;
   selectedPriceTypeId!: number;
+  selectedReportItemTypeId!: number;
   allChartsData: any;
   signalenCodeNode: any;
   signalenBrin: any;
@@ -67,6 +68,7 @@ export class CostAndBenefitComponent implements OnInit {
 
   getListOfBudgetReportLst() {
     debugger;
+    debugger;
     this.httpService
       .get<Budget[]>(Budget.apiListOfBudgetReport)
       .subscribe(response => {
@@ -81,11 +83,12 @@ export class CostAndBenefitComponent implements OnInit {
   }
   loadChart() {
     debugger;
-    if (this.selectedPriceTypeId == 0) {
+    debugger;
+    if (this.selectedReportItemTypeId == 0) {
       // حالت نمایش چارت ها در تب "عملکردو بودجه"
       this.getChart(1, 1);
       this.getChart(2, 2);
-    } else this.getChart(this.selectedPriceTypeId);
+    } else this.getChart(this.selectedReportItemTypeId);
   }
 
   getSelectedRowsId(data: any[]) {
@@ -145,8 +148,9 @@ export class CostAndBenefitComponent implements OnInit {
 
     if (viewMode == 'table' && viewMode == this.viewMode)
       this.getTableData(this.comparisonTableId);
-    if (viewMode == 'chart' && viewMode == this.viewMode) this.getPriceType();
-    this.getChart(this.comparisonTableId);
+    if (viewMode == 'chart' && viewMode == this.viewMode) {
+      this.getChart(this.comparisonTableId);
+    }
   }
 
   getTreeTableData() {
@@ -157,7 +161,7 @@ export class CostAndBenefitComponent implements OnInit {
       companyId: this.inputData.companyId,
       periodId: this.selectedYerId,
       // priceType: this.selectedPriceTypeId,
-      isConsolidated: this.selectedPriceTypeId,
+      isConsolidated: this.selectedReportItemTypeId,
     };
     this.httpService
       .post<any>(Budget.apiAddressCostAndBenefit, body)
@@ -176,6 +180,7 @@ export class CostAndBenefitComponent implements OnInit {
   getChart(chartId?: number, priceType?: number) {
     debugger;
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
+    this.getPriceType();
     if (!priceType) priceType = this.selectedPriceTypeId;
 
     if (this.selectedRows?.length > 0) {
@@ -247,7 +252,6 @@ export class CostAndBenefitComponent implements OnInit {
         this.cols = result.headers;
       });
   }
-
   createLineChart(data: any, indx: any) {
     if (indx == 1) {
       this.lineChart1?.destroy();
@@ -260,23 +264,43 @@ export class CostAndBenefitComponent implements OnInit {
     chart = new Chart('LineChart' + indx, {
       type: 'line',
       data: data,
+
       options: {
+        elements: {
+          line: {
+            borderWidth: 1,
+          },
+        },
         plugins: {
           title: {
             display: true,
             text: data.title,
+            align: 'end',
+
+            font: {
+              family: 'shabnam',
+            },
             padding: {
               top: 10,
               bottom: 30,
             },
+            color: '#36A2EB',
           },
+
           legend: {
+            position: 'bottom',
             labels: {
+              usePointStyle: true,
+              pointStyle: 'circle',
+              boxWidth: 10,
+              boxHeight: 10,
+
               font: {
                 family: 'shabnam',
               },
             },
           },
+
           tooltip: {
             titleFont: {
               family: 'shabnam',
@@ -332,6 +356,7 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   onSelectPriceType(id: number) {
+    debugger;
     this.selectedPriceTypeId = id;
 
     this.priceTypeList.forEach((element: any) => {
@@ -367,7 +392,7 @@ export class CostAndBenefitComponent implements OnInit {
       )
       .subscribe(res => {
         this.reportItemTypeList = res;
-        this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
+        this.selectedReportItemTypeId = this.reportItemTypeList[0]['id'];
         this.reportItemTypeList[0]['isSelected'] = true;
       });
   }
