@@ -134,7 +134,6 @@ export class OwnerShipValueComponent implements OnInit {
       });
   }
   getPriceType() {
-    debugger;
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
       .pipe(
@@ -324,11 +323,9 @@ export class OwnerShipValueComponent implements OnInit {
         })
       )
       .subscribe(res => {
-
         this.reportItemTypeList = res;
         this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
         this.reportItemTypeList[0]['isSelected'] = true;
       });
   }
 }
-

@@ -134,7 +134,6 @@ export class BalanceSheetComponent {
       });
   }
   getPriceType() {
-    debugger;
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
       .pipe(

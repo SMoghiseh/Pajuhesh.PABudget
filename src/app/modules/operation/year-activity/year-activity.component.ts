@@ -138,10 +138,10 @@ export class YearActivityComponent {
     this.getYearActivityrelatedToRisk();
   }
 
-  getBudgetPeriodList(companyId:number) {
+  getBudgetPeriodList(companyId: number) {
     this.httpService
-    .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
-    .subscribe(response => {
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
+      .subscribe(response => {
         if (response.data && response.data.result) {
           this.budgetPeriodList = response.data.result;
         }
@@ -178,15 +178,15 @@ export class YearActivityComponent {
       });
   }
 
-  getReferenceFilteredList() { debugger
+  getReferenceFilteredList() {
     // check if periodId & companyId & code is selected
     let formValue = this.searchForm.value;
-    if ( formValue.periodId & formValue.referenceCode) {
+    if (formValue.periodId & formValue.referenceCode) {
       this.getListByReference();
     }
   }
 
-  onChangeCompanyId(e: any){
+  onChangeCompanyId(e: any) {
     this.getBudgetPeriodList(e.value);
   }
 
