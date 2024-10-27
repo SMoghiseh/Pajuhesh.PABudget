@@ -3,7 +3,7 @@ import { HttpService } from '@core/http/http.service';
 import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'PABudget-owner-ship-value',
@@ -27,11 +27,12 @@ export class OwnerShipValueComponent implements OnInit {
   lineChart1: any;
   lineChart2: any;
   reportItemTypeList: any;
+  selectedReportTypeId!: number;
+  selectedPriceTypeId!: number;
   viewMode: 'table' | 'chart' | 'treeTable' = 'treeTable';
   comparisonTableId = 0;
   selectedYerId: any;
   priceTypeList: any;
-  selectedPriceTypeId!: number;
   allChartsData: any;
   listOfBudgetReport: any = [];
   selectedlistOfBudgetReport: any = [];
@@ -39,8 +40,8 @@ export class OwnerShipValueComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.getTreeTableData();
     this.getReportItemType();
+    this.getTreeTableData();
     this.getListOfBudgetReportLst();
   }
 
@@ -49,6 +50,19 @@ export class OwnerShipValueComponent implements OnInit {
     this.reloadFilteredData();
   }
 
+  getListOfBudgetReportLst() {
+    this.httpService
+      .get<Budget[]>(Budget.apiListOfBudgetReport)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.listOfBudgetReport = response.data.result;
+          this.selectedlistOfBudgetReport = response.data.result;
+          for (let i = 0; this.selectedlistOfBudgetReport.length > 0; i++) {
+            this.selectedlistOfBudgetReport = response.data.result[i];
+          }
+        }
+      });
+  }
   reloadFilteredData() {
     if (this.viewMode == 'treeTable') this.getTreeTableData();
     if (this.viewMode == 'table') this.getTableData(this.comparisonTableId);
@@ -64,21 +78,12 @@ export class OwnerShipValueComponent implements OnInit {
   }
 
   getSelectedRowsId(data: any[]) {
-    return data.map(item => item.data.code);
+    const getpartialSelected = data.filter(
+      (item: any) => item.partialSelected === false
+    );
+    return getpartialSelected.map(item => item.data.code);
   }
-  getListOfBudgetReportLst() {
-    this.httpService
-      .get<Budget[]>(Budget.apiListOfBudgetReport)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.listOfBudgetReport = response.data.result;
-          this.selectedlistOfBudgetReport = response.data.result;
-          for (let i = 0; this.selectedlistOfBudgetReport.length > 0; i++) {
-            this.selectedlistOfBudgetReport = response.data.result[i];
-          }
-        }
-      });
-  }
+
   createRequestBody(priceTypeId: number) {
     this.selectDateType = 'multiple';
     this.isShowChart = true;
@@ -106,6 +111,12 @@ export class OwnerShipValueComponent implements OnInit {
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
 
+    if (viewMode == 'treeTable' && viewMode == this.viewMode) {
+      if (this.selectedYerId.length > 0) {
+        this.selectedYerId = this.selectedYerId[0];
+      }
+      this.getTreeTableData();
+    }
     if (viewMode == 'table' && viewMode == this.viewMode)
       this.getTableData(this.comparisonTableId);
     if (viewMode == 'chart' && viewMode == this.viewMode) this.getPriceType();
@@ -114,14 +125,15 @@ export class OwnerShipValueComponent implements OnInit {
 
   getTreeTableData() {
     this.selectedRows = [];
-    if (!this.selectedYerId) return;
+    // if (!this.selectedYerId) return;
     const body = {
       companyId: this.inputData.companyId,
-      periodId: this.selectedYerId,
-      isConsolidated: this.selectedPriceTypeId,
+      periodId: this.selectedYerId.toString(),
+      // priceType: this.selectedPriceTypeId,
+      isConsolidated: this.selectedReportTypeId,
     };
     this.httpService
-      .post<any>(Budget.apiAddresOwnershipValue, body)
+      .post<any>(Budget.apiAddressCostAndBenefit, body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -195,7 +207,7 @@ export class OwnerShipValueComponent implements OnInit {
           : this.selectedYerId[1],
     };
     this.httpService
-      .post<any>(UrlBuilder.build(url + 'OwnershipValue', ''), body)
+      .post<any>(UrlBuilder.build(url + 'CostAndBenefit', ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -221,23 +233,43 @@ export class OwnerShipValueComponent implements OnInit {
     chart = new Chart('LineChart' + indx, {
       type: 'line',
       data: data,
+
       options: {
+        elements: {
+          line: {
+            borderWidth: 1,
+          },
+        },
         plugins: {
           title: {
             display: true,
             text: data.title,
+            align: 'end',
+
+            font: {
+              family: 'shabnam',
+            },
             padding: {
               top: 10,
               bottom: 30,
             },
+            color: '#36A2EB',
           },
+
           legend: {
+            position: 'bottom',
             labels: {
+              usePointStyle: true,
+              pointStyle: 'circle',
+              boxWidth: 10,
+              boxHeight: 10,
+
               font: {
                 family: 'shabnam',
               },
             },
           },
+
           tooltip: {
             titleFont: {
               family: 'shabnam',
@@ -269,7 +301,7 @@ export class OwnerShipValueComponent implements OnInit {
   }
 
   onSelectReportItemType(id: number) {
-    this.selectedPriceTypeId = id;
+    this.selectedReportTypeId = id;
 
     this.reportItemTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
@@ -278,17 +310,17 @@ export class OwnerShipValueComponent implements OnInit {
 
     if (this.viewMode == 'treeTable') this.getTreeTableData();
 
-    if (this.viewMode == 'chart') {
-      // نمایش چارت
-      if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
-        this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
-      } else if (this.selectedPriceTypeId == 0) {
-        // عملکرد و بودجه
-        // نمایش هر دو چارت
-        this.getChart(2, 2);
-        this.getChart(1, 1);
-      }
-    }
+    // if (this.viewMode == 'chart') {
+    //   // نمایش چارت
+    //   if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
+    //     this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
+    //   } else if (this.selectedPriceTypeId == 0) {
+    //     // عملکرد و بودجه
+    //     // نمایش هر دو چارت
+    //     this.getChart(2, 2);
+    //     this.getChart(1, 1);
+    //   }
+    // }
   }
   onSelectPriceType(id: number) {
     this.selectedPriceTypeId = id;
@@ -312,6 +344,16 @@ export class OwnerShipValueComponent implements OnInit {
       }
     }
   }
+
+  nodeSelect(event: { originalEvent: any; node: TreeNode<any> }) {
+    if (event.node.children) {
+      const nodeArray = event.node.children;
+      for (let i = 0; i <= nodeArray.length; i++) {
+        event.node.children[i].partialSelected = true;
+      }
+    }
+  }
+
   getReportItemType() {
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
@@ -324,7 +366,7 @@ export class OwnerShipValueComponent implements OnInit {
       )
       .subscribe(res => {
         this.reportItemTypeList = res;
-        this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
+        this.selectedReportTypeId = this.reportItemTypeList[0]['id'];
         this.reportItemTypeList[0]['isSelected'] = true;
       });
   }

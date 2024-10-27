@@ -35,8 +35,8 @@ export class CostAndBenefitComponent implements OnInit {
   selectedYerId: any;
   priceTypeList: any;
   reportItemTypeList: any;
+  selectedReportTypeId!: number;
   selectedPriceTypeId!: number;
-  selectedReportItemTypeId!: number;
   allChartsData: any;
   signalenCodeNode: any;
   signalenBrin: any;
@@ -47,21 +47,14 @@ export class CostAndBenefitComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    // this.getPriceType();
-    this.getTreeTableData();
     this.getReportItemType();
+    this.getTreeTableData();
     this.getListOfBudgetReportLst();
   }
 
   returnSelectedDate(e: any) {
     this.selectedYerId = e;
     this.reloadFilteredData();
-  }
-
-  reloadFilteredData() {
-    if (this.viewMode == 'treeTable') this.getTreeTableData();
-    if (this.viewMode == 'table') this.getTableData(this.comparisonTableId);
-    if (this.viewMode == 'chart') this.loadChart();
   }
 
   getListOfBudgetReportLst() {
@@ -77,12 +70,18 @@ export class CostAndBenefitComponent implements OnInit {
         }
       });
   }
+  reloadFilteredData() {
+    if (this.viewMode == 'treeTable') this.getTreeTableData();
+    if (this.viewMode == 'table') this.getTableData(this.comparisonTableId);
+    if (this.viewMode == 'chart') this.loadChart();
+  }
+
   loadChart() {
-    if (this.selectedReportItemTypeId == 0) {
+    if (this.selectedPriceTypeId == 0) {
       // حالت نمایش چارت ها در تب "عملکردو بودجه"
       this.getChart(1, 1);
       this.getChart(2, 2);
-    } else this.getChart(this.selectedReportItemTypeId);
+    } else this.getChart(this.selectedPriceTypeId);
   }
 
   getSelectedRowsId(data: any[]) {
@@ -109,6 +108,50 @@ export class CostAndBenefitComponent implements OnInit {
     };
   }
 
+  tabChange(
+    viewMode: 'table' | 'chart' | 'treeTable',
+    yearTypeSelection: 'single' | 'double' | 'multiple',
+    tableId?: number
+  ) {
+    this.viewMode = viewMode;
+
+    this.selectDateType = yearTypeSelection;
+    if (tableId) this.comparisonTableId = tableId;
+
+    if (viewMode == 'treeTable' && viewMode == this.viewMode) {
+      if (this.selectedYerId.length > 0) {
+        this.selectedYerId = this.selectedYerId[0];
+      }
+      this.getTreeTableData();
+    }
+    if (viewMode == 'table' && viewMode == this.viewMode)
+      this.getTableData(this.comparisonTableId);
+    if (viewMode == 'chart' && viewMode == this.viewMode) this.getPriceType();
+    this.getChart(this.comparisonTableId);
+  }
+
+  getTreeTableData() {
+    this.selectedRows = [];
+    // if (!this.selectedYerId) return;
+    const body = {
+      companyId: this.inputData.companyId,
+      periodId: this.selectedYerId.toString(),
+      // priceType: this.selectedPriceTypeId,
+      isConsolidated: this.selectedReportTypeId,
+    };
+    this.httpService
+      .post<any>(Budget.apiAddressCostAndBenefit, body)
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        this.treeTableData = res;
+      });
+  }
   getPriceType() {
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
@@ -128,48 +171,8 @@ export class CostAndBenefitComponent implements OnInit {
         this.selectedPriceTypeId = 2;
       });
   }
-  tabChange(
-    viewMode: 'table' | 'chart' | 'treeTable',
-    yearTypeSelection: 'single' | 'double' | 'multiple',
-    tableId?: number
-  ) {
-    this.viewMode = viewMode;
-    this.selectDateType = yearTypeSelection;
-    if (tableId) this.comparisonTableId = tableId;
-
-    if (viewMode == 'table' && viewMode == this.viewMode)
-      this.getTableData(this.comparisonTableId);
-    if (viewMode == 'chart' && viewMode == this.viewMode) {
-      this.getChart(this.comparisonTableId);
-    }
-  }
-
-  getTreeTableData() {
-    this.selectedRows = [];
-    if (!this.selectedYerId) return;
-    const body = {
-      companyId: this.inputData.companyId,
-      periodId: this.selectedYerId,
-      // priceType: this.selectedPriceTypeId,
-      isConsolidated: this.selectedReportItemTypeId,
-    };
-    this.httpService
-      .post<any>(Budget.apiAddressCostAndBenefit, body)
-      .pipe(
-        map(response => {
-          if (response.data && response.data.result) {
-            return response.data.result;
-          } else return [];
-        })
-      )
-      .subscribe(res => {
-        this.treeTableData = res;
-      });
-  }
-
   getChart(chartId?: number, priceType?: number) {
     if (!chartId) chartId = 2; // انتخاب پیش فرض عملکرد
-    this.getPriceType();
     if (!priceType) priceType = this.selectedPriceTypeId;
 
     if (this.selectedRows?.length > 0) {
@@ -190,23 +193,7 @@ export class CostAndBenefitComponent implements OnInit {
         });
     }
   }
-  nodeSelect(event: { originalEvent: any; node: TreeNode<any> }) {
-    if (event.node.children) {
-      const nodeArray = event.node.children;
-      for (let i = 0; i <= nodeArray.length; i++) {
-        event.node.children[i].partialSelected = true;
-      }
-    }
-  }
 
-  getParentDetails(node: TreeNode) {
-    if (node.parent) {
-      this.signalenVestigingNode = node.parent.data;
-      if (node.parent.parent) {
-        this.signalenBrin = node.parent.parent.data;
-      }
-    }
-  }
   getTableData(comparison: number) {
     let url = '';
     if (this.viewMode == 'table') {
@@ -240,6 +227,7 @@ export class CostAndBenefitComponent implements OnInit {
         this.cols = result.headers;
       });
   }
+
   createLineChart(data: any, indx: any) {
     if (indx == 1) {
       this.lineChart1?.destroy();
@@ -320,7 +308,7 @@ export class CostAndBenefitComponent implements OnInit {
   }
 
   onSelectReportItemType(id: number) {
-    this.selectedPriceTypeId = id;
+    this.selectedReportTypeId = id;
 
     this.reportItemTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
@@ -329,19 +317,18 @@ export class CostAndBenefitComponent implements OnInit {
 
     if (this.viewMode == 'treeTable') this.getTreeTableData();
 
-    if (this.viewMode == 'chart') {
-      // نمایش چارت
-      if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
-        this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
-      } else if (this.selectedPriceTypeId == 0) {
-        // عملکرد و بودجه
-        // نمایش هر دو چارت
-        this.getChart(2, 2);
-        this.getChart(1, 1);
-      }
-    }
+    // if (this.viewMode == 'chart') {
+    //   // نمایش چارت
+    //   if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
+    //     this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
+    //   } else if (this.selectedPriceTypeId == 0) {
+    //     // عملکرد و بودجه
+    //     // نمایش هر دو چارت
+    //     this.getChart(2, 2);
+    //     this.getChart(1, 1);
+    //   }
+    // }
   }
-
   onSelectPriceType(id: number) {
     this.selectedPriceTypeId = id;
 
@@ -365,6 +352,15 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
+  nodeSelect(event: { originalEvent: any; node: TreeNode<any> }) {
+    if (event.node.children) {
+      const nodeArray = event.node.children;
+      for (let i = 0; i <= nodeArray.length; i++) {
+        event.node.children[i].partialSelected = true;
+      }
+    }
+  }
+
   getReportItemType() {
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
@@ -377,7 +373,7 @@ export class CostAndBenefitComponent implements OnInit {
       )
       .subscribe(res => {
         this.reportItemTypeList = res;
-        this.selectedReportItemTypeId = this.reportItemTypeList[0]['id'];
+        this.selectedReportTypeId = this.reportItemTypeList[0]['id'];
         this.reportItemTypeList[0]['isSelected'] = true;
       });
   }
