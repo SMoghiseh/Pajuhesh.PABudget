@@ -1575,7 +1575,7 @@ export class AccountReport {
   reportTypeCode!: number;
   periodTypeCode!: number;
   accountRepId!: number;
-  accountRepItemId!: number;
+  accountRepItemId!: number[];
   companyId!: number;
   accountReportId!: number;
   isUsedInAccountReportToItem!: boolean;
@@ -1634,7 +1634,7 @@ export class BigGoal {
 export class RelatedBigGoal {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/RelatedBigGoal/';
   static readonly apiAddressList = 'api/PABudgetApi/v1/Plan/BigGoal/relatedBigGoalList/';
-  
+
   id!: number;
   title!: string;
 
