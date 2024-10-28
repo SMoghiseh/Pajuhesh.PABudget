@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AccountReport,
+  AccountReportType,
   Company,
   Period,
   PeriodBudgetType,
@@ -25,6 +26,7 @@ export class AddEditAccountReportComponent implements OnInit {
   // dropdown data list
   periodTypeList: any = [];
   reportTypeCodeList: any = [];
+  reportTitleTypesList: any = [];
   companyList: any = [];
 
   inputData = new AccountReport();
@@ -47,6 +49,9 @@ export class AddEditAccountReportComponent implements OnInit {
   get reportTypeCode() {
     return this.addEditForm.get('reportTypeCode');
   }
+  get basicReportTypeId() {
+    return this.addEditForm.get('basicReportTypeId');
+  }
 
   constructor(
     private httpService: HttpService,
@@ -56,6 +61,7 @@ export class AddEditAccountReportComponent implements OnInit {
   ngOnInit(): void {
     this.getPeriodTypeList();
     this.getReportTypeCodeList();
+    this.getReportTitleTypeList();
     this.getCompanyLst();
 
     this.addEditForm = new FormGroup({
@@ -63,6 +69,7 @@ export class AddEditAccountReportComponent implements OnInit {
       code: new FormControl(this.inputData.code, Validators.required),
       periodTypeCode: new FormControl('', Validators.required),
       reportTypeCode: new FormControl('', Validators.required),
+      basicReportTypeId: new FormControl('', Validators.required),
       companyId: new FormControl(),
     });
     this.addEditForm.patchValue(this.inputData);
@@ -121,6 +128,16 @@ export class AddEditAccountReportComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.reportTypeCodeList = response.data.result;
+        }
+      });
+  }
+
+  getReportTitleTypeList() {
+    this.httpService
+      .get<any[]>(AccountReportType.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.reportTitleTypesList = response.data.result;
         }
       });
   }

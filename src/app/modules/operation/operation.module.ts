@@ -69,6 +69,8 @@ import { AddEditRelatedActivityComponent } from './related-activity/add-edit-rel
 import { SWOTStrategyComponent } from './swotstrategy/swotstrategy.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PickListModule } from 'primeng/picklist';
+import { RelatedBigGoalComponent } from './related-big-goal/related-big-goal.component';
+import { AddEditRelatedBigGoalComponent } from './related-big-goal/add-edit-related-big-goal/add-edit-related-big-goal.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,8 @@ import { PickListModule } from 'primeng/picklist';
     RelatedActivityComponent,
     AddEditRelatedActivityComponent,
     SWOTStrategyComponent,
+    RelatedBigGoalComponent,
+    AddEditRelatedBigGoalComponent,
   ],
   imports: [
     CommonModule,
