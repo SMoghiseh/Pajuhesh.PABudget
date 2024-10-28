@@ -67,22 +67,61 @@
               </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+          <ng-template
+            pTemplate="body"
+            let-rowNode
+            let-rowData="rowData"
+            let-columns="columns">
             <tr [ttRow]="rowNode">
-              <td *ngFor="let col of columns; let i = index" [class.negativeNumbers]="rowData[col.field] < 0"
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
-                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
 
-                <ng-container *ngIf="col.field != 'value' && col.field != 'realvalue' && col.field != 'budgetvalue'">
+
+                <ng-container
+                  *ngIf="
+                    col.field != 'value' &&
+                    col.field != 'realvalue' &&
+                    col.field != 'budgetvalue'
+                  ">
                   {{ rowData[col.field] }}
                 </ng-container>
 
-                <ng-container *ngIf=" col.field == 'value' || col.field == 'realvalue' || col.field == 'budgetvalue'">
+                <ng-container
+                  *ngIf="
+                    col.field == 'value' ||
+                    col.field == 'realvalue' ||
+                    col.field == 'budgetvalue'
+                  ">
                   {{ rowData[col.field] | number }}
                 </ng-container>
+                <div
+                *ngIf="
+                  (col.field === 'realvalue' && rowData.realvalue !== 0) ||
+                  (col.field === 'budgetvalue' && rowData.budgetvalue !== 0)
+                ">
+                <div>
+                  <i
+                    *ngIf="rowData.displayType === '1'"
+                    class="pi pi-minus"
+                    style="font-size: 23px"></i>
+                </div>
+                  <div>
+                  <i
+                    *ngIf="rowData.displayType === '2'"
+                    class="pi pi-equals"
+                    style="font-size: 23px"></i>
+                </div>
+                <div>
+                  <i
+                    *ngIf="rowData.displayType === '3'"
+                    class="pi pi-bars"
+                    style="font-size: 23px"></i>
+                </div>
+              </div>
               </td>
               <!-- <td></td> -->
             </tr>
@@ -95,13 +134,20 @@
           <canvas id="LineChart1" width="900" height="200" style="display: unset"></canvas>
         </div>
         <div class="chartStyle" *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
-          <canvas id="LineChart2" width="900" height="200" style="display: unset"></canvas>
+          <canvas
+            id="LineChart2"
+            width="900"
+            height="200"
+            style="display: unset"></canvas>
         </div>
       </div>
 
       <div *ngIf="viewMode === 'table'" class="table-container">
         <p-table #dataTable style="text-align: center" dataKey="id" class="table-Profile table-profile-style"
-          [columns]="cols" [value]="tableData" [paginator]="true" [rows]="dataTableRows"
+          [columns]="cols"
+          [value]="tableData"
+          [paginator]="true"
+          [rows]="dataTableRows"
           [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [loading]="loading"
           selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }">
           <!-- table header -->
@@ -124,10 +170,11 @@
                 {{ rowData['accountReportItemTitle'] }}
               </td> -->
 
-              <td *ngFor="let col of columns; let i = index" [class.negativeNumbers]="rowData[col.field] < 0"
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
-                <i *ngIf="rowData[col.field] < 0" class="pi pi-arrow-down"></i>
-                <i *ngIf="rowData[col.field] > 0" class="pi pi-arrow-up"></i>
+
                 {{ rowData[col.field] }}
               </td>
             </tr>

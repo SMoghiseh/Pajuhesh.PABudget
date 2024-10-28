@@ -13,7 +13,8 @@
 
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <ng-container *ngIf="viewMode === 'treeTable'">
-          <div *ngFor="let item of reportItemTypeList"
+          <div
+            *ngFor="let item of reportItemTypeList"
             class="items"
             (click)="onSelectReportItemType(item.id)"
             [class.select-feature]="item.isSelected">
@@ -52,7 +53,6 @@
           [class.select-feature]="viewMode === 'table'">
           <span>مقایسه بودجه با بودجه</span>
         </div>
-
       </div>
 
       <div *ngIf="viewMode === 'treeTable'" class="table-container">
@@ -72,24 +72,69 @@
               </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+          <ng-template
+            pTemplate="body"
+            let-rowNode
+            let-rowData="rowData"
+            let-columns="columns"
+            let-value="value">
             <tr [ttRow]="rowNode">
+              <!-- <span><i class="pi pi-equals"></i></span> -->
+
               <td
                 *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
-               
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
 
-                <ng-container *ngIf="col.field != 'value' && col.field != 'realvalue' && col.field != 'budgetvalue'">
+                <ng-container
+                  *ngIf="
+                    col.field !== 'value' &&
+                    col.field !== 'realvalue' &&
+                    col.field !== 'budgetvalue'
+                  ">
                   {{ rowData[col.field] }}
                 </ng-container>
 
-                <ng-container *ngIf=" col.field == 'value' || col.field == 'realvalue' || col.field == 'budgetvalue'">
+                <ng-container
+                  *ngIf="
+                    col.field === 'value' ||
+                    col.field === 'realvalue' ||
+                    col.field === 'budgetvalue'
+                  ">
                   {{ rowData[col.field] | number }}
                 </ng-container>
 
+                <div
+                  *ngIf="
+                    (col.field === 'realvalue' && rowData.realvalue !== 0) ||
+                    (col.field === 'budgetvalue' && rowData.budgetvalue !== 0)
+                  ">
+                  <div>
+                    <i
+                      *ngIf="rowData.displayType === '1'"
+                      class="pi pi-minus"
+                      style="font-size: 23px"></i>
+                  </div>
+                  <div>
+                    <i
+                      *ngIf="rowData.displayType === '2'"
+                      class="pi pi-equals"
+                      style="font-size: 23px"></i>
+                  </div>
+                  <div>
+                    <i
+                      *ngIf="rowData.displayType === '3'"
+                      class="pi pi-bars"
+                      style="font-size: 23px"></i>
+                  </div>
+                </div>
+                <!-- <ng-container [class.displayTwoRow]="
+                    col.filed === 'realvalue' && rowData.displayType === '2'
+                  ">
+                  {{ rowData[col.field] }}
+                </ng-container> -->
               </td>
               <!-- <td></td> -->
             </tr>
@@ -98,11 +143,23 @@
       </div>
 
       <div *ngIf="viewMode === 'chart'">
-        <div class="chartStyle" *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
-          <canvas id="LineChart1" width="900" height="200" style="display: unset"></canvas>
+        <div
+          class="chartStyle"
+          *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
+          <canvas
+            id="LineChart1"
+            width="900"
+            height="200"
+            style="display: unset"></canvas>
         </div>
-        <div class="chartStyle" *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
-          <canvas id="LineChart2" width="900" height="200" style="display: unset"></canvas>
+        <div
+          class="chartStyle"
+          *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
+          <canvas
+            id="LineChart2"
+            width="900"
+            height="200"
+            style="display: unset"></canvas>
         </div>
       </div>
 
@@ -145,7 +202,6 @@
                 *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
-
                 {{ rowData[col.field] }}
               </td>
             </tr>

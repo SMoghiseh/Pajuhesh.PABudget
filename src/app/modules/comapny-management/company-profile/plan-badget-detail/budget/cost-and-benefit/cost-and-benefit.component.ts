@@ -9,6 +9,7 @@ import { title } from 'process';
 import { style } from '@angular/animations';
 import { NgStyle } from '@angular/common';
 
+
 @Component({
   selector: 'PABudget-cost-and-benefit',
   templateUrl: './cost-and-benefit.component.html',
@@ -194,7 +195,7 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getTableData(comparison: number) {
+  getTableData(comparison: number) { debugger
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;

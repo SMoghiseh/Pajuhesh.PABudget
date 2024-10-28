@@ -84,7 +84,7 @@ export class AccountReportToItemComponent implements OnInit {
 
   }
 
-  getRowDataById(id: number) {
+  getRowDataById(id: number) { debugger
     this.httpService
       .get<AccountReportItem>(AccountReportItem.apiAddress + 'GetById/' + id)
       .subscribe(response => {

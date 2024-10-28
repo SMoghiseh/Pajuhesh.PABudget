@@ -15,18 +15,23 @@
   
   
 }
+.displayTwoRow{
 
-// ::ng-deep .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
-//   color: #f2f7fd !important;
-//   background-color: #ffffff !important;
-//   border-color: #ffffff !important;
-//   font: 0px !important;
-// }
+
+border-width: 5px !important;
+color: blue !important;
+
+}
+
+
 
 .pasitiveNumbers {
   direction: ltr;
   color: green;
   font-size: 1.1rem;
+}
+.pi .pi-equals {
+  
 }
 
 .chartStyle{
@@ -92,7 +97,7 @@
 }
 
 tr:nth-child(even) {
-  background-color: rgba(255,152,116,0.1);
+  background-color:#EEF2FF;
 }
 
 ::ng-deep   .p-treetable-tbody {
