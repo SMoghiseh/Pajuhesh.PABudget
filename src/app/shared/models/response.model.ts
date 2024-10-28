@@ -1193,6 +1193,8 @@ export class EducationTypeCode {
 
 export class ReportItemType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ReportItemType/';
+  static readonly apiAddressDisType =
+    'api/PABudgetApi/v1/BaseInfo/DisplayType/';
 }
 export class AccountReportType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AccountReportType/';

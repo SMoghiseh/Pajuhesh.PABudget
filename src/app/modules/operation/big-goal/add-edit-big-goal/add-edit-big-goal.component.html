@@ -1,11 +1,13 @@
-<p-toast key="bigGoal" position="bottom-left"></p-toast>
+<p-toast key="bigGoal"
+  position="bottom-left"></p-toast>
 
-<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
+<form #formDir="ngForm"
+  [formGroup]="addEditForm"
+  (ngSubmit)="addEditPlan()">
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="bigGoalCode"> کد </label>
-      <input
-        pInputText
+      <input pInputText
         id="bigGoalCode"
         name="bigGoalCode"
         formControlName="bigGoalCode"
@@ -19,8 +21,7 @@
     </div>
     <div class="col-6 mt-2">
       <label for="title"> عنوان </label>
-      <input
-        pInputText
+      <input pInputText
         id="title"
         name="title"
         formControlName="title"
@@ -34,8 +35,7 @@
     </div>
     <div class="col-6 mt-2">
       <label for="aspectCode">منظر </label>
-      <p-dropdown
-        id="aspectCode"
+      <p-dropdown id="aspectCode"
         name="aspectCode"
         formControlName="aspectCode"
         styleClass="w-100 my-1"
@@ -54,8 +54,7 @@
     </div>
     <div class="col-6 mt-2">
       <label for="visionId"> چشم انداز </label>
-      <p-dropdown
-        id="visionId"
+      <p-dropdown id="visionId"
         name="visionId"
         formControlName="visionId"
         styleClass="w-100 my-1"
@@ -72,9 +71,22 @@
         ">
       </p-dropdown>
     </div>
+    <div class="col mt-2 mb-8 height:350px">
+      <label for="
+      visionId"> توضیحات </label>
+      <textarea pInputTextarea
+        id="description"
+        name="description"
+        formControlName="description"
+        rows="10"
+        cols="30"
+        class="w-100"
+        placeholder="توضیحات"
+        [autoResize]="true">
+      </textarea>
+    </div>
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2 p-button-wide"
+      <p-button class="pe-2 p-button-wide"
         styleClass="p-button-success"
         [label]="'ثبت'"
         type="submit"

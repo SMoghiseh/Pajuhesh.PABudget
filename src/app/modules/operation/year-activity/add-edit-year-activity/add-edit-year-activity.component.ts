@@ -25,7 +25,7 @@ export class AddEditYearActivityComponent {
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
-
+  dropDwnDis = true;
   // dropdown data list
   budgetPeriodList: any = [];
   periodDetailList: any = [];
@@ -108,12 +108,27 @@ export class AddEditYearActivityComponent {
     this.getCompanyLst();
 
     this.addEditForm = new FormGroup({
-      periodId: new FormControl(null, Validators.required),
+      periodId: new FormControl(
+        { value: null, disabled: true },
+        Validators.required
+      ),
       companyId: new FormControl(null, Validators.required),
-      referenceCode: new FormControl(null, Validators.required),
-      referenceId: new FormControl(null, Validators.required),
-      fromPeriodDetailId: new FormControl('', Validators.required),
-      toPeriodDetailId: new FormControl('', Validators.required),
+      referenceCode: new FormControl(
+        { value: null, disabled: true },
+        Validators.required
+      ),
+      referenceId: new FormControl(
+        { value: null, disabled: true },
+        Validators.required
+      ),
+      fromPeriodDetailId: new FormControl(
+        { value: null, disabled: true },
+        Validators.required
+      ),
+      toPeriodDetailId: new FormControl(
+        { value: null, disabled: true },
+        Validators.required
+      ),
       rollId: new FormControl('', Validators.required),
       operatingId: new FormControl(0),
       weightCode: new FormControl('', Validators.required),
@@ -147,18 +162,26 @@ export class AddEditYearActivityComponent {
       });
   }
 
-  getReferenceFilteredList() {debugger
+  getReferenceFilteredList(e: any) {
     // check if periodId & companyId & code is selected
-    let formValue = this.addEditForm.value;
+
+    this.getPeriodDetailList(e.value);
+    this.addEditForm.controls['fromPeriodDetailId'].enable();
+    this.addEditForm.controls['toPeriodDetailId'].enable();
+    this.addEditForm.controls['referenceCode'].enable();
+  }
+
+  getReferenceLable() {
+    const formValue = this.addEditForm.value;
     if (formValue.companyId & formValue.periodId & formValue.referenceCode) {
       this.getListByReference();
     }
   }
 
   getListByReference() {
-    let formValue = this.addEditForm.value;
+    const formValue = this.addEditForm.value;
 
-    let body = {
+    const body = {
       referenceCode: formValue.referenceCode,
       periodId: formValue.periodId,
       companyId: formValue.companyId,
@@ -170,6 +193,7 @@ export class AddEditYearActivityComponent {
         if (response.data && response.data.result) {
           this.referenceOnList = response.data.result;
         }
+        this.addEditForm.controls['referenceId'].enable();
       });
   }
 
@@ -208,14 +232,15 @@ export class AddEditYearActivityComponent {
     }
   }
 
-  onChangeCompanyId(e: any){
+  onChangeCompanyId(e: any) {
     this.getBudgetPeriodList(e.value);
+    this.addEditForm.controls['periodId'].enable();
   }
-  
-  getBudgetPeriodList(companyId:number) {
+
+  getBudgetPeriodList(companyId: number) {
     this.httpService
-    .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
-    .subscribe(response => {
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
+      .subscribe(response => {
         if (response.data && response.data.result) {
           this.budgetPeriodList = response.data.result;
         }

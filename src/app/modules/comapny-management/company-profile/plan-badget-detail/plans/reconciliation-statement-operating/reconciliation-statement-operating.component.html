@@ -41,6 +41,30 @@
                 <ng-container *ngIf=" col.field == 'value' || col.field == 'realvalue' || col.field == 'budgetvalue'">
                   {{ rowData[col.field] | number }}
                 </ng-container>
+                <div
+                *ngIf="
+                  (col.field === 'realvalue' && rowData.realvalue !== 0) ||
+                  (col.field === 'budgetvalue' && rowData.budgetvalue !== 0)
+                ">
+                <div>
+                  <i
+                    *ngIf="rowData.displayType === '1'"
+                    class="pi pi-minus"
+                    style="font-size: 23px"></i>
+                </div>
+                <div>
+                  <i
+                    *ngIf="rowData.displayType === '2'"
+                    class="pi pi-equals"
+                    style="font-size: 23px"></i>
+                </div>
+                <div>
+                  <i
+                    *ngIf="rowData.displayType === '3'"
+                    class="pi pi-bars"
+                    style="font-size: 23px"></i>
+                </div>
+              </div>
               </td>
               <!-- <td></td> -->
             </tr>

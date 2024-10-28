@@ -1,12 +1,10 @@
-<form
-  [formGroup]="addNewAccountReportForm"
+<form [formGroup]="addNewAccountReportForm"
   (ngSubmit)="onSubmitNewAccountReport()">
   <div class="container row">
     <!-- کد  -->
     <div class="col-6 mt-2">
       <label for="code"> کد</label>
-      <input
-        pInputText
+      <input pInputText
         id="code"
         name="code"
         formControlName="code"
@@ -25,8 +23,7 @@
     <!-- عنوان  -->
     <div class="col-6 mt-2">
       <label for="title"> عنوان</label>
-      <input
-        pInputText
+      <input pInputText
         id="title"
         name="title"
         formControlName="title"
@@ -43,8 +40,7 @@
     <!-- نوع  -->
     <div class="col-6 mt-2">
       <label for="itemReportTypeCode"> نوع</label>
-      <p-dropdown
-        id="itemReportTypeCode"
+      <p-dropdown id="itemReportTypeCode"
         name="itemReportTypeCode"
         formControlName="itemReportTypeCode"
         styleClass="w-100 my-1"
@@ -62,11 +58,25 @@
       </p-dropdown>
     </div>
     <!-- / نوع  -->
+
+    <div class="col-6 mt-2">
+      <label for="itemReportTypeCode"> نحوه نمایش</label>
+      <p-dropdown id="displayTypeId"
+        name="displayTypeId"
+        formControlName="displayTypeId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="displayTypeList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+
     <!-- ترتیب  -->
     <div class="col-6 mt-2">
       <label for="order"> ترتیب</label>
-      <p-inputNumber
-        id="order"
+      <p-inputNumber id="order"
         formControlName="order"
         type="text"
         pKeyFilter="int"
@@ -74,11 +84,9 @@
         class="w-100"></p-inputNumber>
     </div>
     <!-- / ترتیب  -->
-
     <!-- دکمه ها -->
     <div class="row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2 p-button-wide"
+      <p-button class="pe-2 p-button-wide"
         styleClass="p-button-success"
         [label]="'ثبت'"
         type="submit"

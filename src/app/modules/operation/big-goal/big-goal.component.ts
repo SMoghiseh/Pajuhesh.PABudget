@@ -97,7 +97,7 @@ export class BigGoalComponent implements OnInit {
       });
   }
 
-  getVision(event?: LazyLoadEvent) {
+  getVision(event?: LazyLoadEvent) { debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -205,12 +205,12 @@ export class BigGoalComponent implements OnInit {
     }
   }
 
-  reloadData() {
+  reloadData() { debugger
     this.isOpenAddEditPlan = false;
     this.getVision();
   }
 
-  clearSearch() {
+  clearSearch() {debugger
     this.searchForm.reset();
     this.getVision();
   }

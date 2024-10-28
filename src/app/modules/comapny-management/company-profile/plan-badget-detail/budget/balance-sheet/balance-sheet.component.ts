@@ -3,7 +3,7 @@ import { HttpService } from '@core/http/http.service';
 import { Budget, Profile, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 import Chart from 'chart.js/auto';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'PABudget-balance-sheet',
@@ -31,6 +31,7 @@ export class BalanceSheetComponent {
   selectedYerId: any;
   priceTypeList: any;
   reportItemTypeList: any;
+  selectedReportTypeId!: number;
   selectedPriceTypeId!: number;
   allChartsData: any;
   listOfBudgetReport: any = [];
@@ -76,7 +77,10 @@ export class BalanceSheetComponent {
   }
 
   getSelectedRowsId(data: any[]) {
-    return data.map(item => item.data.code);
+    const getpartialSelected = data.filter(
+      (item: any) => item.partialSelected === false
+    );
+    return getpartialSelected.map(item => item.data.code);
   }
 
   createRequestBody(priceTypeId: number) {
@@ -106,6 +110,12 @@ export class BalanceSheetComponent {
     this.selectDateType = yearTypeSelection;
     if (tableId) this.comparisonTableId = tableId;
 
+    if (viewMode == 'treeTable' && viewMode == this.viewMode) {
+      if (this.selectedYerId.length > 0) {
+        this.selectedYerId = this.selectedYerId[0];
+      }
+      this.getTreeTableData();
+    }
     if (viewMode == 'table' && viewMode == this.viewMode)
       this.getTableData(this.comparisonTableId);
     if (viewMode == 'chart' && viewMode == this.viewMode) this.getPriceType();
@@ -114,14 +124,15 @@ export class BalanceSheetComponent {
 
   getTreeTableData() {
     this.selectedRows = [];
-    if (!this.selectedYerId) return;
+    // if (!this.selectedYerId) return;
     const body = {
       companyId: this.inputData.companyId,
-      periodId: this.selectedYerId,
-      isConsolidated: this.selectedPriceTypeId,
+      periodId: this.selectedYerId.toString(),
+      // priceType: this.selectedPriceTypeId,
+      isConsolidated: this.selectedReportTypeId,
     };
     this.httpService
-      .post<any>(Budget.apiAddressBalanceSheet, body)
+      .post<any>(Budget.apiAddressCostAndBenefit, body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -134,7 +145,6 @@ export class BalanceSheetComponent {
       });
   }
   getPriceType() {
-    debugger;
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
       .pipe(
@@ -196,7 +206,7 @@ export class BalanceSheetComponent {
           : this.selectedYerId[1],
     };
     this.httpService
-      .post<any>(UrlBuilder.build(url + 'BalanceSheet', ''), body)
+      .post<any>(UrlBuilder.build(url + 'CostAndBenefit', ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -290,7 +300,7 @@ export class BalanceSheetComponent {
   }
 
   onSelectReportItemType(id: number) {
-    this.selectedPriceTypeId = id;
+    this.selectedReportTypeId = id;
 
     this.reportItemTypeList.forEach((element: any) => {
       if (element.id === id) element.isSelected = true;
@@ -299,17 +309,17 @@ export class BalanceSheetComponent {
 
     if (this.viewMode == 'treeTable') this.getTreeTableData();
 
-    if (this.viewMode == 'chart') {
-      // نمایش چارت
-      if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
-        this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
-      } else if (this.selectedPriceTypeId == 0) {
-        // عملکرد و بودجه
-        // نمایش هر دو چارت
-        this.getChart(2, 2);
-        this.getChart(1, 1);
-      }
-    }
+    // if (this.viewMode == 'chart') {
+    //   // نمایش چارت
+    //   if (this.selectedPriceTypeId == 1 || this.selectedPriceTypeId == 2) {
+    //     this.getChart(this.selectedPriceTypeId, this.selectedPriceTypeId);
+    //   } else if (this.selectedPriceTypeId == 0) {
+    //     // عملکرد و بودجه
+    //     // نمایش هر دو چارت
+    //     this.getChart(2, 2);
+    //     this.getChart(1, 1);
+    //   }
+    // }
   }
   onSelectPriceType(id: number) {
     this.selectedPriceTypeId = id;
@@ -334,6 +344,15 @@ export class BalanceSheetComponent {
     }
   }
 
+  nodeSelect(event: { originalEvent: any; node: TreeNode<any> }) {
+    if (event.node.children) {
+      const nodeArray = event.node.children;
+      for (let i = 0; i <= nodeArray.length; i++) {
+        event.node.children[i].partialSelected = true;
+      }
+    }
+  }
+
   getReportItemType() {
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
@@ -346,7 +365,7 @@ export class BalanceSheetComponent {
       )
       .subscribe(res => {
         this.reportItemTypeList = res;
-        this.selectedPriceTypeId = this.reportItemTypeList[0]['id'];
+        this.selectedReportTypeId = this.reportItemTypeList[0]['id'];
         this.reportItemTypeList[0]['isSelected'] = true;
       });
   }
