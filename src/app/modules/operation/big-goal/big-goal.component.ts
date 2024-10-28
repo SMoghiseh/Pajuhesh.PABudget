@@ -48,7 +48,7 @@ export class BigGoalComponent implements OnInit {
     {
       label: ' ارتباط اهداف ',
       icon: 'pi pi-fw pi-star',
-      routerLink: ['/Operation/'],
+      routerLink: ['/Operation/RelatedBigGoal/'],
     },
     {
       label: ' شاخص ارزیابی ',

@@ -1194,6 +1194,9 @@ export class EducationTypeCode {
 export class ReportItemType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ReportItemType/';
 }
+export class AccountReportType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AccountReportType/';
+}
 
 export class Sale {
   /** آدرس سرویس */
@@ -1624,6 +1627,15 @@ export class BigGoal {
   title!: string;
   bigGoalCode!: string;
   aspectCode!: number;
+}
+
+export class RelatedBigGoal {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/RelatedBigGoal/';
+  static readonly apiAddressList = 'api/PABudgetApi/v1/Plan/BigGoal/relatedBigGoalList/';
+  
+  id!: number;
+  title!: string;
+
 }
 
 export class SWTO {

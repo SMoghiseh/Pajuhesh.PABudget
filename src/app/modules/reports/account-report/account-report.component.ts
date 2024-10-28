@@ -6,6 +6,7 @@ import {
   PeriodBudgetType,
   ReportItemType,
   Company,
+  AccountReportType,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -29,6 +30,7 @@ export class AccountReportComponent implements OnInit {
   dataTableRows = 10;
   totalCount!: number;
   data: AccountReport[] = [];
+  reportTitleTypesList: any = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
@@ -49,17 +51,20 @@ export class AccountReportComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPeriodTypeList();
     this.getReportTypeCodeList();
     this.getCompanyLst();
+    this.getReportTitleTypeList();
+
     this.addNewAccountReportForm = new FormGroup({
       code: new FormControl(null),
       title: new FormControl(null),
-      reportTypeCode: new FormControl(0),
-      periodTypeCode: new FormControl(0),
+      reportTypeCode: new FormControl(null),
+      periodTypeCode: new FormControl(null),
+      basicReportTypeId: new FormControl(null),
       companyId: new FormControl(),
     });
   }
@@ -84,40 +89,51 @@ export class AccountReportComponent implements OnInit {
       });
   }
 
-  getReport(event?: LazyLoadEvent) {
-    if (event) this.lazyLoadEvent = event;
-
-    const pagination = new Pagination();
-    const first = this.lazyLoadEvent?.first || 0;
-    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-
-    pagination.pageNumber = first / rows + 1;
-    pagination.pageSize = rows;
-
-    const body = {
-      pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-    };
-
-    this.first = 0;
-    const url = AccountReport.apiAddress + 'GetAllAccountReport';
+  getReportTitleTypeList() {
     this.httpService
-      .post<AccountReport[]>(url, body)
-
-      .pipe(
-        tap(() => (this.loading = false)),
-        map(response => {
-          if (response.data && response.data.result) {
-            if (response.data.totalCount)
-              this.totalCount = response.data.totalCount;
-            return response.data.result;
-          } else return [new AccountReport()];
-        })
-      )
-      .subscribe(res => {
-        this.data = res;
+      .get<any[]>(AccountReportType.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.reportTitleTypesList = response.data.result;
+        }
       });
   }
+  // getReport(event?: LazyLoadEvent) {
+  //   if (event) this.lazyLoadEvent = event;
+
+  //   const pagination = new Pagination();
+  //   const first = this.lazyLoadEvent?.first || 0;
+  //   const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+
+  //   pagination.pageNumber = first / rows + 1;
+  //   pagination.pageSize = rows;
+
+  //   const body = {
+  //     withOutPagination: false,
+  //     pageSize: pagination.pageSize,
+  //     pageNumber: pagination.pageNumber,
+  //     ...this.addNewAccountReportForm.value
+  //   };
+
+  //   this.first = 0;
+  //   const url = AccountReport.apiAddress + 'GetAllAccountReport';
+  //   this.httpService
+  //     .post<AccountReport[]>(url, body)
+
+  //     .pipe(
+  //       tap(() => (this.loading = false)),
+  //       map(response => {
+  //         if (response.data && response.data.result) {
+  //           if (response.data.totalCount)
+  //             this.totalCount = response.data.totalCount;
+  //           return response.data.result;
+  //         } else return [new AccountReport()];
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       this.data = res;
+  //     });
+  // }
 
   getAccountReportList(event?: any) {
     if (event) this.lazyLoadEvent = event;
@@ -137,6 +153,7 @@ export class AccountReportComponent implements OnInit {
       reportTypeCode: formValue.reportTypeCode,
       periodTypeCode: formValue.periodTypeCode,
       companyId: formValue.companyId,
+      basicReportTypeId: formValue.basicReportTypeId,
     };
     this.first = 0;
     const url = AccountReport.apiAddressList;
@@ -206,7 +223,7 @@ export class AccountReportComponent implements OnInit {
               detail: ` گزارش  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getReport();
+            this.getAccountReportList();
           }
         });
     }
@@ -214,7 +231,7 @@ export class AccountReportComponent implements OnInit {
 
   reloadData() {
     this.isOpenAddEditReport = false;
-    this.getReport();
+    this.getAccountReportList();
   }
 
   addAccountReportToItem(report: AccountReport) {

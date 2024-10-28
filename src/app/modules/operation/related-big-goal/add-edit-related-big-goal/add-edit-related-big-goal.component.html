@@ -1,0 +1,26 @@
+<p-toast key="relatedBigGoal" position="bottom-left"></p-toast>
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
+    <div class="container row">
+
+        <div class="col my-1">
+            <label for="bigGoalId"> اهداف کلان </label>
+            <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1"
+                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="bigGoalList" [readonly]="true"
+                [filter]="true">
+            </p-dropdown>
+        </div>
+        <div class="col my-1">
+            <label for="relatedBigGoalId"> ارتباط اهداف کلان </label>
+            <p-dropdown id="relatedBigGoalId" name="relatedBigGoalId" formControlName="relatedBigGoalId"
+                styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+                [options]="relatedBigGoalList" [filter]="true">
+            </p-dropdown>
+        </div>
+
+        <div class="col-12 row-btn row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>
