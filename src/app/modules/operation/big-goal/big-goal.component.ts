@@ -65,7 +65,7 @@ export class BigGoalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.visionId = Number(this.route.snapshot.paramMap.get('visionId'));
+    // this.visionId = Number(this.route.snapshot.paramMap.get('visionId'));
 
     this.getVisionList();
     this.getAspectCodeList();
@@ -111,7 +111,7 @@ export class BigGoalComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      visionId: this.visionId,
+      visionId: this.addEditData.visionId,
       ...formValue,
     };
 
