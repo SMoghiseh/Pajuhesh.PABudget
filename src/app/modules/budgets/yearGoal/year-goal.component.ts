@@ -89,7 +89,7 @@ export class YearGoalComponent {
       });
   }
 
-  getAspectCodeLst() {
+  getAspectCodeLst() { debugger
     this.httpService
       .get<Aspect[]>(Aspect.apiAddress + 'List')
       .subscribe(response => {
@@ -99,7 +99,7 @@ export class YearGoalComponent {
       });
   }
 
-  getList(event?: LazyLoadEvent) {
+  getList(event?: LazyLoadEvent) { debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -138,13 +138,13 @@ export class YearGoalComponent {
 
 
 
-  addYearGoal() {
+  addYearGoal() { debugger
     this.modalTitle = 'افزودن  ';
     this.mode = 'insert';
     this.isOpenAddEditYearGoal = true;
   }
 
-  editRow(data: YearGoal) {
+  editRow(data: YearGoal) { debugger
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
@@ -167,7 +167,7 @@ export class YearGoalComponent {
       });
   }
 
-  deleteYearGoal(id: number, title: string) {
+  deleteYearGoal(id: number, title: string) { debugger
     if (id && title) {
       this.httpService
         .get<YearGoal>(
@@ -189,12 +189,12 @@ export class YearGoalComponent {
     }
   }
 
-  reloadData() {
+  reloadData() { debugger
     this.isOpenAddEditYearGoal = false;
     this.getList();
   }
 
-  clearSearch() {
+  clearSearch() {debugger        
     this.searchForm.reset();
     this.getList();
   }

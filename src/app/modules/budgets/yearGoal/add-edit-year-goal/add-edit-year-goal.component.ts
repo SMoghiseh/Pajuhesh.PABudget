@@ -58,7 +58,7 @@ export class AddEditYearGoalComponent {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { debugger
 
     this.getBudgetPeriodList();
     this.getAspectCodeLst();
@@ -74,7 +74,7 @@ export class AddEditYearGoalComponent {
       aspectCode: new FormControl(0)
     });
 
-    if (this.mode === 'edit') {
+    if (this.mode === 'edit') { debugger
       this.getRowData(this.inputData.id);
     }
 
@@ -84,7 +84,7 @@ export class AddEditYearGoalComponent {
 
   }
 
-  addEditBudget() {
+  addEditBudget() { debugger
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
@@ -113,7 +113,7 @@ export class AddEditYearGoalComponent {
     }
   }
 
-  getBudgetPeriodList() {
+  getBudgetPeriodList() { 
     this.httpService
       .get<Period[]>(Period.apiAddress + 'ListDropDown')
       .subscribe(response => {
@@ -133,7 +133,7 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  getBigGoalList() {
+  getBigGoalList() { debugger
     this.httpService
       .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
         withOutPagination: true
@@ -145,7 +145,7 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  getAspectCodeLst() {
+  getAspectCodeLst() { debugger
     this.httpService
       .get<Aspect[]>(Aspect.apiAddress + 'List')
       .subscribe(response => {
@@ -155,7 +155,7 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  getRowData(id: number) {
+  getRowData(id: number) { debugger
     this.httpService
       .get<any>(YearGoal.apiAddress + id)
       .subscribe(response => {
