@@ -21,6 +21,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
 
   // dropdown data list
   itemReportTypeCodeList: any[] = [];
+  displayTypeList: any[] = [];
 
   inputData = new AccountReportItem();
   @Input() mode = '';
@@ -43,19 +44,21 @@ export class AddEditAccountReportToItemComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getItemReportTypeCodeList();
+    this.getDisplayTypeList();
 
     this.addNewAccountReportForm = new FormGroup({
       title: new FormControl('', Validators.required),
       itemReportTypeCode: new FormControl(0, Validators.required),
       code: new FormControl(0, Validators.required),
       order: new FormControl(0),
+      displayTypeId: new FormControl(),
     });
 
-    if (this.mode == 'editSubGroupPro' || this.mode == 'editGroupPro') {
+    if (this.mode == 'editSubGroupPro' || this.mode == 'editGroupPro') { debugger
       this.addNewAccountReportForm.patchValue(this.inputData);
     }
   }
@@ -79,7 +82,22 @@ export class AddEditAccountReportToItemComponent implements OnInit {
       });
   }
 
-  onSubmitNewAccountReport() {
+  getDisplayTypeList() {
+    this.httpService
+      .get<ReportItemType[]>(ReportItemType.apiAddressDisType + 'List')
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [new ReportItemType()];
+        })
+      )
+      .subscribe(data => {
+        this.displayTypeList = data;
+      });
+  }
+
+  onSubmitNewAccountReport() { debugger
     this.addNewAccountReportSubmitted = true;
     if (this.addNewAccountReportForm.invalid) return;
     const url = AccountReportItem.apiAddress + 'Create';
@@ -98,6 +116,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
     }
 
     request.itemReportTypeCode = Number(request.itemReportTypeCode);
+    
 
     this.httpService
       .post<AccountReportItem>(url, request)
