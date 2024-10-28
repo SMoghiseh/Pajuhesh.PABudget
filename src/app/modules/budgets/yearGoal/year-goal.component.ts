@@ -45,7 +45,6 @@ export class YearGoalComponent {
   companyList: any = [];
   bigGoalList: any = [];
 
-
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -89,7 +88,7 @@ export class YearGoalComponent {
       });
   }
 
-  getAspectCodeLst() { debugger
+  getAspectCodeLst() {
     this.httpService
       .get<Aspect[]>(Aspect.apiAddress + 'List')
       .subscribe(response => {
@@ -99,7 +98,7 @@ export class YearGoalComponent {
       });
   }
 
-  getList(event?: LazyLoadEvent) { debugger
+  getList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -136,15 +135,13 @@ export class YearGoalComponent {
       });
   }
 
-
-
-  addYearGoal() { debugger
+  addYearGoal() {
     this.modalTitle = 'افزودن  ';
     this.mode = 'insert';
     this.isOpenAddEditYearGoal = true;
   }
 
-  editRow(data: YearGoal) { debugger
+  editRow(data: YearGoal) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
@@ -167,7 +164,7 @@ export class YearGoalComponent {
       });
   }
 
-  deleteYearGoal(id: number, title: string) { debugger
+  deleteYearGoal(id: number, title: string) {
     if (id && title) {
       this.httpService
         .get<YearGoal>(
@@ -189,12 +186,12 @@ export class YearGoalComponent {
     }
   }
 
-  reloadData() { debugger
+  reloadData() {
     this.isOpenAddEditYearGoal = false;
     this.getList();
   }
 
-  clearSearch() {debugger        
+  clearSearch() {
     this.searchForm.reset();
     this.getList();
   }

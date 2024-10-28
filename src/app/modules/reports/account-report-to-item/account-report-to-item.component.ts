@@ -9,9 +9,8 @@ import { map } from 'rxjs';
   selector: 'PABudget-account-report',
   templateUrl: './account-report-to-item.component.html',
   styleUrls: ['./account-report-to-item.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
-
 export class AccountReportToItemComponent implements OnInit {
   accountReports: AccountReportItem[] = [];
   addEditData = new AccountReportItem();
@@ -25,12 +24,11 @@ export class AccountReportToItemComponent implements OnInit {
     | 'editGroupPro'
     | 'editSubGroupPro';
 
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getAccountReportList();
@@ -56,7 +54,6 @@ export class AccountReportToItemComponent implements OnInit {
       });
   }
 
-
   onNodeSelect(e: any) {
     console.log('node select');
   }
@@ -74,17 +71,14 @@ export class AccountReportToItemComponent implements OnInit {
     this.getRowDataById(node.id);
   }
 
-
   onEditRow(node: any) {
     this.modalTitle = 'ویرایش گروه';
-    if (!node.parentId)
-      this.mode = 'editGroupPro';
+    if (!node.parentId) this.mode = 'editGroupPro';
     else this.mode = 'editSubGroupPro';
     this.getRowDataById(node.id);
-
   }
 
-  getRowDataById(id: number) { debugger
+  getRowDataById(id: number) {
     this.httpService
       .get<AccountReportItem>(AccountReportItem.apiAddress + 'GetById/' + id)
       .subscribe(response => {
@@ -107,11 +101,7 @@ export class AccountReportToItemComponent implements OnInit {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () =>
-          this.deleteAccountReports(
-            node.id,
-            node.label
-          ),
+        accept: () => this.deleteAccountReports(node.id, node.label),
       });
     }, 100);
   }

@@ -1,6 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { YearGoal, Company, BigGoal, Aspect, Period } from '@shared/models/response.model';
+import {
+  YearGoal,
+  Company,
+  BigGoal,
+  Aspect,
+  Period,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -58,8 +64,7 @@ export class AddEditYearGoalComponent {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void { debugger
-
+  ngOnInit(): void {
     this.getBudgetPeriodList();
     this.getAspectCodeLst();
     this.getCompanyLst();
@@ -71,20 +76,19 @@ export class AddEditYearGoalComponent {
       companyId: new FormControl(0, Validators.required),
       bigGoalId: new FormControl(0, Validators.required),
       budgetPeriodId: new FormControl(0, Validators.required),
-      aspectCode: new FormControl(0)
+      aspectCode: new FormControl(0),
     });
 
-    if (this.mode === 'edit') { debugger
+    if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
 
     this.addEditForm.patchValue({
-      budgetPeriodId: Number(this.route.snapshot.paramMap.get('id'))
-    })
-
+      budgetPeriodId: Number(this.route.snapshot.paramMap.get('id')),
+    });
   }
 
-  addEditBudget() { debugger
+  addEditBudget() {
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
@@ -113,7 +117,7 @@ export class AddEditYearGoalComponent {
     }
   }
 
-  getBudgetPeriodList() { 
+  getBudgetPeriodList() {
     this.httpService
       .get<Period[]>(Period.apiAddress + 'ListDropDown')
       .subscribe(response => {
@@ -133,10 +137,10 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  getBigGoalList() { debugger
+  getBigGoalList() {
     this.httpService
       .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
-        withOutPagination: true
+        withOutPagination: true,
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -145,7 +149,7 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  getAspectCodeLst() { debugger
+  getAspectCodeLst() {
     this.httpService
       .get<Aspect[]>(Aspect.apiAddress + 'List')
       .subscribe(response => {
@@ -155,14 +159,12 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  getRowData(id: number) { debugger
-    this.httpService
-      .get<any>(YearGoal.apiAddress + id)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.inputData = response.data.result;
-          this.addEditForm.patchValue(response.data.result);
-        }
-      });
+  getRowData(id: number) {
+    this.httpService.get<any>(YearGoal.apiAddress + id).subscribe(response => {
+      if (response.data && response.data.result) {
+        this.inputData = response.data.result;
+        this.addEditForm.patchValue(response.data.result);
+      }
+    });
   }
 }

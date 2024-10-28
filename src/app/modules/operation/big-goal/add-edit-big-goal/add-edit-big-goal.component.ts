@@ -71,8 +71,7 @@ export class AddEditBigGoalComponent {
     });
   }
 
-  addEditPlan() { debugger
-    debugger;
+  addEditPlan() {
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;

@@ -58,7 +58,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
       displayTypeId: new FormControl(),
     });
 
-    if (this.mode == 'editSubGroupPro' || this.mode == 'editGroupPro') { debugger
+    if (this.mode == 'editSubGroupPro' || this.mode == 'editGroupPro') {
       this.addNewAccountReportForm.patchValue(this.inputData);
     }
   }
@@ -97,7 +97,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
       });
   }
 
-  onSubmitNewAccountReport() { debugger
+  onSubmitNewAccountReport() {
     this.addNewAccountReportSubmitted = true;
     if (this.addNewAccountReportForm.invalid) return;
     const url = AccountReportItem.apiAddress + 'Create';
@@ -116,7 +116,6 @@ export class AddEditAccountReportToItemComponent implements OnInit {
     }
 
     request.itemReportTypeCode = Number(request.itemReportTypeCode);
-    
 
     this.httpService
       .post<AccountReportItem>(url, request)
