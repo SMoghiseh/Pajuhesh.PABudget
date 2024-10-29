@@ -132,7 +132,7 @@ export class BalanceSheetComponent {
       isConsolidated: this.selectedReportTypeId,
     };
     this.httpService
-      .post<any>(Budget.apiAddressCostAndBenefit, body)
+      .post<any>(Budget.apiAddressBalanceSheet, body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
