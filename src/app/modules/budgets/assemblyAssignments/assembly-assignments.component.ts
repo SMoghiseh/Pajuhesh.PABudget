@@ -34,6 +34,7 @@ export class AssemblyAssignmentsComponent {
   totalCount!: number;
   loading = false;
   first = 0;
+  selectedPeriodId = 0;
   data: AssemblyAssignments[] = [];
   subComponentList = [
     {
@@ -62,6 +63,9 @@ export class AssemblyAssignmentsComponent {
       title: new FormControl(null),
       // meetingDate: new FormControl(),
     });
+
+    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('budgetPeriodId'));
+
   }
 
   getMeetingTopicList() {
@@ -93,6 +97,7 @@ export class AssemblyAssignmentsComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      periodId : this.selectedPeriodId,
       ...formValue,
     };
 

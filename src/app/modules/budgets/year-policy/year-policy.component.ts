@@ -11,6 +11,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-year-policy',
@@ -32,6 +33,7 @@ export class YearPolicyComponent {
   addEditData = new YearPolicy();
   pId!: string;
   mode!: string;
+  selectedPeriodId = 0;
 
   // form property
   searchForm!: FormGroup;
@@ -46,6 +48,7 @@ export class YearPolicyComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -60,6 +63,9 @@ export class YearPolicyComponent {
       keyTypeCode: new FormControl(null),
       aspectCode: new FormControl(null)
     });
+
+    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('id'));
+
 
   }
 
@@ -98,6 +104,7 @@ export class YearPolicyComponent {
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
+      periodId : this.selectedPeriodId,
       withOutPagination: false,
       ...formValue,
     };
