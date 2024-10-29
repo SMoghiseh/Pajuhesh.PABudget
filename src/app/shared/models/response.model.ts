@@ -1583,7 +1583,7 @@ export class AccountReport {
   reportTypeCode!: number;
   periodTypeCode!: number;
   accountRepId!: number;
-  accountRepItemId!: number;
+  accountRepItemId!: number[];
   companyId!: number;
   accountReportId!: number;
   isUsedInAccountReportToItem!: boolean;
