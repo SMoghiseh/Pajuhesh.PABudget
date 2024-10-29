@@ -1196,6 +1196,9 @@ export class ReportItemType {
   static readonly apiAddressDisType =
     'api/PABudgetApi/v1/BaseInfo/DisplayType/';
 }
+export class AccountReportType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AccountReportType/';
+}
 
 export class Sale {
   /** آدرس سرویس */
@@ -1235,6 +1238,8 @@ export class Profile {
     'api/PABudgetApi/Dashboard/GetPriceType';
   static readonly apiAddressReportItemType =
     'api/PABudgetApi/v1/BaseInfo/ReportItemType/list';
+  static readonly apiAddressEmployeeFilter =
+    'api/PABudgetApi/v1/BaseInfo/EmployeeFilter/list';
 
   id!: number;
   title!: string;
@@ -1272,6 +1277,12 @@ export class Plan {
     'api/PABudgetApi/Dashboard/GetShareHolderCompanyForPie';
   static readonly apiAddressAnnualGols =
     'api/PABudgetApi/Dashboard/YearGoal/Info';
+  static readonly apiAddressEmployees =
+    'api/PABudgetApi/Dashboard/GetPersonelNoForDashboard';
+  static readonly apiAddressEmployeesPie =
+    'api/PABudgetApi/Dashboard/GetPersonelNoCompanyForPie';
+  static readonly apiAddressEmployeeTable =
+    'api/PABudgetApi/Dashboard/GetPersonelNoForDashboard';
 }
 
 export class Planning {
@@ -1572,7 +1583,7 @@ export class AccountReport {
   reportTypeCode!: number;
   periodTypeCode!: number;
   accountRepId!: number;
-  accountRepItemId!: number;
+  accountRepItemId!: number[];
   companyId!: number;
   accountReportId!: number;
   isUsedInAccountReportToItem!: boolean;
@@ -1626,6 +1637,15 @@ export class BigGoal {
   title!: string;
   bigGoalCode!: string;
   aspectCode!: number;
+}
+
+export class RelatedBigGoal {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Plan/RelatedBigGoal/';
+  static readonly apiAddressList =
+    'api/PABudgetApi/v1/Plan/BigGoal/relatedBigGoalList/';
+
+  id!: number;
+  title!: string;
 }
 
 export class SWTO {

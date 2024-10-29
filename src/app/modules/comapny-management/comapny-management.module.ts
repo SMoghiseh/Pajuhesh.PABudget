@@ -72,6 +72,7 @@ import { MenuModule } from 'primeng/menu';
 import { CompanyDefinitionLookupComponent } from './share-holder-company/company-definition-lookup/company-definition-lookup.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { GraphComponent } from './company-profile/plan-badget-detail/plans/strategy-map/graph/graph.component';
+import { EmployeesComponent } from './company-profile/plan-badget-detail/plans/employees/employees.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { GraphComponent } from './company-profile/plan-badget-detail/plans/strat
     AddEditShareHolderCompanyComponent,
     CompanyDefinitionLookupComponent,
     GraphComponent,
+    EmployeesComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,

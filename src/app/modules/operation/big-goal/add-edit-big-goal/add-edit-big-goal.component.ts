@@ -9,10 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'PABudget-add-edit-big-goal',
   templateUrl: './add-edit-big-goal.component.html',
-  styleUrls: ['./add-edit-big-goal.component.scss']
+  styleUrls: ['./add-edit-big-goal.component.scss'],
 })
 export class AddEditBigGoalComponent {
-
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
@@ -22,8 +21,6 @@ export class AddEditBigGoalComponent {
   visionList: any = [];
   aspectCodeList: any = [];
 
-
-
   inputData = new BigGoal();
   @Input() mode = '';
   @Input() set data(data: BigGoal) {
@@ -31,7 +28,6 @@ export class AddEditBigGoalComponent {
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
-
 
   get bigGoalCode() {
     return this.addEditForm.get('bigGoalCode');
@@ -49,16 +45,13 @@ export class AddEditBigGoalComponent {
     return this.addEditForm.get('aspectCode');
   }
 
-
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getVisionList();
     this.getAspectCodeList();
 
@@ -67,15 +60,15 @@ export class AddEditBigGoalComponent {
       title: new FormControl('', Validators.required),
       aspectCode: new FormControl(0, Validators.required),
       visionId: new FormControl(0, Validators.required),
+      description: new FormControl(),
     });
 
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
     this.addEditForm.patchValue({
-      visionId: Number(this.route.snapshot.paramMap.get('id'))
-    })
-
+      visionId: Number(this.route.snapshot.paramMap.get('id')),
+    });
   }
 
   addEditPlan() {
@@ -96,9 +89,10 @@ export class AddEditBigGoalComponent {
               life: 8000,
               severity: 'success',
               detail: ` عنوان  ${request.title}`,
-              summary: this.mode === 'insert'
-                ? 'با موفقیت درج شد'
-                : 'با موفقیت بروزرسانی شد',
+              summary:
+                this.mode === 'insert'
+                  ? 'با موفقیت درج شد'
+                  : 'با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
@@ -118,7 +112,7 @@ export class AddEditBigGoalComponent {
 
   getVisionList() {
     this.httpService
-      .post<Vision[]>(Vision.apiAddress + 'List', { "withOutPagination": true })
+      .post<Vision[]>(Vision.apiAddress + 'List', { withOutPagination: true })
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.visionList = response.data.result;
@@ -136,10 +130,4 @@ export class AddEditBigGoalComponent {
         }
       });
   }
-
-
-
-
-
 }
-

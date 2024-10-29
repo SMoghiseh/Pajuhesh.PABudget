@@ -37,6 +37,20 @@
         " />
     </div>
     <div class="col-6 mt-2">
+      <label for="companyId"> شرکت </label>
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
       <label for="reportTypeCode"> نوع گزارش </label>
       <p-dropdown
         id="reportTypeCode"
@@ -56,20 +70,27 @@
         ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
-      <label for="companyId"> شرکت </label>
+    <div class="col my-1">
+      <label for="basicReportTypeId"> نوع عنوان گزارش </label>
       <p-dropdown
-        id="companyId"
-        name="companyId"
-        formControlName="companyId"
+        id="basicReportTypeId"
+        name="basicReportTypeId"
+        formControlName="basicReportTypeId"
         styleClass="w-100 my-1"
-        optionLabel="partyName"
+        optionLabel="title"
         optionValue="id"
         placeholder="انتخاب کنید"
-        [options]="companyList"
-        [filter]="true">
+        [options]="reportTitleTypesList"
+        [filter]="true"
+        [class.ng-invalid]="basicReportTypeId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && basicReportTypeId?.pristine) ||
+          basicReportTypeId?.dirty ||
+          basicReportTypeId?.touched
+        ">
       </p-dropdown>
     </div>
+    
     <div class="col-6 mt-2">
       <label for="periodTypeCode"> دوره بودجه </label>
       <p-dropdown

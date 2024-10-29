@@ -1,0 +1,83 @@
+<div class="row bottom-section">
+  <div class="co-info-box">
+    <h3>{{ selectedPlanName }}</h3>
+    <div class="row row-feature">
+      <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 box">
+        <ng-container >
+          <div
+            *ngFor="let item of employeeInfoList"
+            class="items"
+            (click)="onSelectemployeeInfo(item.code)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.title }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row row-cols-lg-1 row-cols-md-1 row-cols-sm-1">
+      <div class="col my-1" *ngFor="let item of planDetailData">
+        <div class="box-data h-100">
+          <div class="row d-inline lh-lg">
+            <div class="d-flex">
+              <i class="pi pi-angle-left"></i>
+              <p>{{ item.title }}</p>
+            </div>
+            <span>{{ item.desc }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="viewMode === 'table'" class="row row-cols-lg-1 table-container">
+      <p-table
+        #dataTable
+        style="text-align: center"
+        dataKey="id"
+        class="table-Profile table-profile-style"
+        [columns]="cols"
+        [value]="tableData"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[15, 20, 30]"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [loading]="loading"
+        selectionMode="single"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <!-- table header -->
+
+        <!--  table header -->
+
+        <ng-template pTemplate="header" let-columns>
+          <tr *ngIf="tableData.length">
+            <th *ngFor="let col of columns">
+              {{ col.headerName }}
+            </th>
+          </tr>
+        </ng-template>
+        <!-- / table header -->
+        <!-- table body -->
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td>
+              {{ rowData['title'] }}
+            </td>
+
+            <td>
+              {{ rowData['count'] }}
+            </td>
+            <td>
+              {{ rowData['amount'] }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <div
+        class="col-lg-3 col-md-3 col-sm-12 col-xs-12 chart-outside-box stylePie">
+        <div id="chart-wrapper">
+          <canvas id="PieChart1" style="display: unset"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

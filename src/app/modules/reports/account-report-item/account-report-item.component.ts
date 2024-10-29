@@ -1,12 +1,9 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import { AccountReport, UrlBuilder } from '@shared/models/response.model';
 import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
-import { title } from 'process';
-import { findIndex, map, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'PABudget-account-report-item',
@@ -40,7 +37,7 @@ export class AccountReportItemComponent {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAccountReportLst();
@@ -73,14 +70,14 @@ export class AccountReportItemComponent {
     this.httpService
       .get<AccountReport[]>(
         UrlBuilder.build(AccountReport.apiAddressTree, '') +
-          `/${accountReportId}`
+        `/${accountReportId}`
       )
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
           if (response.data && response.data.result) {
             const permissions = response.data.result;
-            this.setSelectedNodes(permissions);
+            this.setSelectedNodes(permissions); debugger
             this.accountReportItemForm.patchValue({
               accountRepItemId: this.selectedaccountReportList,
             });
@@ -111,6 +108,7 @@ export class AccountReportItemComponent {
       );
   }
   selectionChange(e: any) {
+    debugger
     this.selectedaccountReportIdList = [];
 
     e.forEach((element: any) => {
@@ -120,6 +118,7 @@ export class AccountReportItemComponent {
   }
 
   setSelectedNodes(nodes: any) {
+    debugger
     nodes.forEach((element: any) => {
       if (element.isUsedInAccountReportToItem) {
         this.selectedaccountReportList.push(element);
@@ -160,7 +159,7 @@ export class AccountReportItemComponent {
         sourceOrder
       )
       .subscribe(response => {
-        this.getAccountReporDragDrop(item.items[0].accountRepId);
+        this.getAccountReporDragDrop(item.items[0].accountRepId); debugger
         // if (response.successed) {
         //   this.messageService.add({
         //     key: 'report',
@@ -176,11 +175,15 @@ export class AccountReportItemComponent {
     const { accountRepId, accountRepItemId } = this.accountReportItemForm.value;
     const request = new AccountReport();
     request.accountRepId = accountRepId;
-    const getAccountRepItemId: any = [];
+    const getAccountRepItemId: number[] = [];
     accountRepItemId.forEach((element: any) => {
       getAccountRepItemId.push(element.id);
     });
-    request.accountRepItemId = getAccountRepItemId;
+    // request.accountRepItemId = getAccountRepItemId;
+
+    // remove repetitive items
+    request.accountRepItemId = [...new Set(getAccountRepItemId)];
+
     this.httpService
       .post<AccountReport[]>(
         UrlBuilder.build(AccountReport.apiAddressItemCreate, ''),

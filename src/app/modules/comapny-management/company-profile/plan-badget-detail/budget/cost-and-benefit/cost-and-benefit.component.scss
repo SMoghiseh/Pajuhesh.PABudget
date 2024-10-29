@@ -30,9 +30,9 @@ color: blue !important;
   color: green;
   font-size: 1.1rem;
 }
-.pi .pi-equals {
-  
-}
+//  :host ::ng-deep .pi .pi-equals {
+//   z-index: 1;
+// }
 
 .chartStyle{
   // width: 900px !important;

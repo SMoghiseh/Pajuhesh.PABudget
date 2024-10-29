@@ -11,6 +11,7 @@ import { PersonsCompanyComponent } from './persons-company/persons-company.compo
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { SeniorManagersComponent } from './senior-managers/senior-managers.component';
 import { ShareHolderCompanyComponent } from './share-holder-company/share-holder-company.component';
+import { EmployeesComponent } from './company-profile/plan-badget-detail/plans/employees/employees.component';
 
 const routes: Routes = [
   {
@@ -100,6 +101,15 @@ const routes: Routes = [
           {
             path: 'ShareHolders',
             component: ShareHolderCompanyComponent,
+            title: 'برنامه و بودجه | سهامداران',
+            data: {
+              reuse: true,
+              title: 'جزئیات شرکت',
+            },
+          },
+          {
+            path: 'Employees',
+            component: EmployeesComponent,
             title: 'برنامه و بودجه | سهامداران',
             data: {
               reuse: true,

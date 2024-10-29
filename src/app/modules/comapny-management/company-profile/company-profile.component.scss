@@ -68,14 +68,12 @@
     .person-box {
         margin: 0;
         border-radius: 10px;
-        background: rgba(187, 247, 208, 0.1);
+        background: #FFFFFF;
         border-style: solid;
-        border-color: #bbf7d038;
-        // box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25);
+        border-color:  #EFF6FF;
         padding-bottom: 8px;
         margin-bottom: 16px;
-
-
+        border-width: 2px;
         .item {
             padding: 10px 0 0px 0;
         }
@@ -89,13 +87,15 @@
 }
 
 .sub-co {
-    background-color: #F1F5F9;
+    background-color:#F1F5F9;
+
+
     border: 1px solid #F1F5F9;
     margin: 0 6px;
     font-size: 13px;
     padding: 5px 0px;
     border-radius: 7px;
-    color: black;
+    color:#000000;
     cursor: pointer;
     align-items: center;
 
@@ -115,7 +115,7 @@
     i {
         width: auto;
         font-size: 16px;
-        color: #15803D;
+        // color: #15803D;
         padding: 2px 3px 2px 3px;
     }
 
@@ -123,8 +123,9 @@
 }
 
 .selected-sub-co {
-    background-color: rgba(187, 247, 208, 0.5);
-    color: #202020;
+    background-color: #DBEAFE;
+    color:  #1E40AF;
+
     font-weight: 500;
     transition: 0.2s;
     cursor: pointer;

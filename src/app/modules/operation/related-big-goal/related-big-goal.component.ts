@@ -1,85 +1,79 @@
-import { Component } from '@angular/core';
-import {
-  Pagination,
-  UrlBuilder,
-  YearGoal,
-  Aspect,
-  BigGoal,
-  Company,
-} from '@shared/models/response.model';
-import { HttpService } from '@core/http/http.service';
-import { map, tap } from 'rxjs';
-import {
-  ConfirmationService,
-  LazyLoadEvent,
-  MessageService,
-} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { HttpService } from '@core/http/http.service';
+import { BigGoal, Pagination, RelatedBigGoal, UrlBuilder } from '@shared/models/response.model';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-year-goal',
-  templateUrl: './year-goal.component.html',
-  styleUrls: ['./year-goal.component.scss'],
+  selector: 'PABudget-related-big-goal',
+  templateUrl: './related-big-goal.component.html',
+  styleUrls: ['./related-big-goal.component.scss'],
   providers: [ConfirmationService],
+
 })
-export class YearGoalComponent {
+export class RelatedBigGoalComponent implements OnInit {
+  addNewRelatedBigGoalForm!: FormGroup;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   totalCount!: number;
-  data: YearGoal[] = [];
+  data: RelatedBigGoal[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
   modalTitle = '';
-  isOpenAddEditYearGoal = false;
-  addEditData = new YearGoal();
+  isOpenAddEditForm = false;
+  addEditData = new RelatedBigGoal();
   pId!: string;
   mode!: string;
 
-  // form property
-  searchForm!: FormGroup;
-
-  // dropdown data list
-  aspectCodeList: any = [];
-  companyList: any = [];
+  relatedBigGoalList: any = [];
   bigGoalList: any = [];
 
+  get reportTypeCode() {
+    return this.addNewRelatedBigGoalForm.get('reportTypeCode');
+  }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getAspectCodeLst();
-    this.getCompanyLst();
+    this.getRelatedBigGoalList();
     this.getBigGoalList();
 
-    this.searchForm = new FormGroup({
-      title: new FormControl(null),
-      yearGoalCode: new FormControl(null),
-      companyId: new FormControl(null),
+    this.addNewRelatedBigGoalForm = new FormGroup({
+      relatedBigGoalId: new FormControl(null),
       bigGoalId: new FormControl(null),
-      aspectCode: new FormControl(null),
     });
+
+    this.addNewRelatedBigGoalForm.patchValue({
+      bigGoalId: Number(this.route.snapshot.paramMap.get('bigGoalId'))
+    })
+
   }
 
-  getCompanyLst() {
+
+
+  getRelatedBigGoalList() {
     this.httpService
-      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .get<any[]>(RelatedBigGoal.apiAddressList +
+        Number(this.route.snapshot.paramMap.get('bigGoalId'))
+      )
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.companyList = response.data.result;
+          this.relatedBigGoalList = response.data.result;
         }
       });
   }
 
   getBigGoalList() {
     this.httpService
-      .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
-        withOutPagination: true,
+      .post<any[]>(BigGoal.apiAddress + 'List', {
+        withOutPagination: true
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -88,38 +82,25 @@ export class YearGoalComponent {
       });
   }
 
-  getAspectCodeLst() {
-    this.httpService
-      .get<Aspect[]>(Aspect.apiAddress + 'List')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.aspectCodeList = response.data.result;
-        }
-      });
-  }
-
-  getList(event?: LazyLoadEvent) {
+  getList(event?: any) {
     if (event) this.lazyLoadEvent = event;
-
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
     const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-    const formValue = this.searchForm.value;
+    const formValue = this.addNewRelatedBigGoalForm.value;
+
     pagination.pageNumber = first / rows + 1;
     pagination.pageSize = rows;
-
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      ...formValue,
+      bigGoalId: formValue.bigGoalId
     };
-
     this.first = 0;
-    const url = YearGoal.apiAddress + 'List';
+    const url = RelatedBigGoal.apiAddress + 'list';
     this.httpService
-      .post<YearGoal[]>(url, body)
-
+      .post<RelatedBigGoal[]>(url, body)
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
@@ -127,28 +108,29 @@ export class YearGoalComponent {
             if (response.data.totalCount)
               this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new YearGoal()];
+          } else return [new RelatedBigGoal()];
         })
       )
-      .subscribe(res => {
-        this.data = res;
-      });
+      .subscribe(res => (this.data = res));
   }
-
-  addYearGoal() {
-    this.modalTitle = 'افزودن  ';
+  clearSearch() {
+    this.addNewRelatedBigGoalForm.reset();
+    this.getList();
+  }
+  addReport() {
+    this.modalTitle = 'افزودن';
     this.mode = 'insert';
-    this.isOpenAddEditYearGoal = true;
+    this.isOpenAddEditForm = true;
   }
 
-  editRow(data: YearGoal) {
+  editRow(data: RelatedBigGoal) {
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
-    this.isOpenAddEditYearGoal = true;
+    this.isOpenAddEditForm = true;
   }
 
-  deleteRow(item: YearGoal) {
+  deleteRow(item: RelatedBigGoal) {
     if (item && item.id)
       this.confirmationService.confirm({
         message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
@@ -160,24 +142,27 @@ export class YearGoalComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteYearGoal(item.id, item.title),
+        accept: () => this.deleteReport(item.id, item.title),
       });
   }
 
-  deleteYearGoal(id: number, title: string) {
+  deleteReport(id: number, title: string) {
     if (id && title) {
       this.httpService
-        .get<YearGoal>(
-          UrlBuilder.build(YearGoal.apiAddress + 'Delete', '') + `/${id}`
+        .get<RelatedBigGoal>(
+          UrlBuilder.build(
+            RelatedBigGoal.apiAddress + 'Delete',
+            ''
+          ) + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
             this.first = 0;
             this.messageService.add({
-              key: 'yearGoal',
+              key: 'relatedBigGoal',
               life: 8000,
               severity: 'success',
-              detail: `  مورد  ${title}`,
+              detail: ` مورد  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
             this.getList();
@@ -187,12 +172,9 @@ export class YearGoalComponent {
   }
 
   reloadData() {
-    this.isOpenAddEditYearGoal = false;
+    this.isOpenAddEditForm = false;
     this.getList();
   }
 
-  clearSearch() {
-    this.searchForm.reset();
-    this.getList();
-  }
+
 }

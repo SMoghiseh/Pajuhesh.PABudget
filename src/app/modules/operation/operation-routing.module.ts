@@ -17,11 +17,12 @@ import { BudgetSourceUseListComponent } from './budget-source-use-list-component
 import { ProjectComponent } from './project/project.component';
 import { ProjectIncomeComponent } from './project-income/project-income.component';
 import { ProjectCostComponent } from './project-cost/project-cost.component';
-import { ProjectPicComponent } from './project-pic/project-pic.component';
 import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/personel-no-detail.component';
 import { YearActivityComponent } from './year-activity/year-activity.component';
 import { RelatedActivityComponent } from './related-activity/related-activity.component';
 import { SWOTStrategyComponent } from './swotstrategy/swotstrategy.component';
+import { RelatedBigGoal } from '@shared/models/response.model';
+import { RelatedBigGoalComponent } from './related-big-goal/related-big-goal.component';
 
 
 const routes: Routes = [
@@ -127,6 +128,12 @@ const routes: Routes = [
               title: 'تعریف عناوین',
               animation: 'SubjectDefinitionPage',
             },
+          },
+          {
+            path: 'RelatedBigGoal/:id/:visionId/:bigGoalId',
+            component: RelatedBigGoalComponent,
+            title: 'برنامه و بودجه |  اهداف',
+            
           },
           {
             path: 'Mission/:id',

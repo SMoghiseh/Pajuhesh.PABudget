@@ -1,0 +1,136 @@
+.disable-btns {
+    opacity: 40%;
+    cursor: default !important;
+  }
+  
+  .enable-btns {
+    opacity: 100%;
+    cursor: pointer !important;
+  }
+  
+  .negativeNumbers {
+    direction: ltr;
+    color: red;
+    font-size: 1.1rem;
+    
+    
+  }
+  
+  .pasitiveNumbers {
+    direction: ltr;
+    color: green;
+    font-size: 1.1rem;
+  }
+  
+  .chartStyle{
+    // width: 900px !important;
+    padding-right : 5rem !important;
+    border: solid #FED7AA !important;
+    border-radius: 7px;
+    margin-top: 40px;
+    width: 920px  !important;
+    height : 227px !important;
+    margin-right: 80px !important;
+    
+  }
+  
+  
+  ::ng-deep .p-treetable table {
+    table-layout: unset !important;
+  }
+  
+   ::ng-deep .p-treetable .p-treetable-tbody > tr {
+   
+    margin-right: 7px !important;
+    > td {
+      border: unset !important;
+    }
+  
+    &:focus {
+      outline: 0.15rem solid rgba(255, 152, 116, 0.6)!important;
+    }
+   }
+  
+  
+  
+  ::ng-deep .p-treetable .p-treetable-scrollable-header,
+  .p-treetable .p-treetable-scrollable-footer {
+    background: none;
+    // padding-top: 40px ;
+  }
+  
+  ::ng-deep .p-treetable-scrollable-header-box{
+    padding-right: 0px !important;
+  }
+  
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+       display:table-row;
+        margin-right: 20px;
+  }
+  
+  :host ::ng-deep  .table-container .p-datatable-tbody>tr>td {
+  
+     min-width: 230px !important;
+     width: 500px !important;
+     text-align-last : center  !important;
+     height: 40px;
+     border: unset;
+  }
+  
+  
+  
+  tr:nth-child(even) {
+    background-color: #EEF2FF;
+  }
+  
+  ::ng-deep   .p-treetable-tbody {
+    >tr >td {
+   
+      text-align: center !important;
+      width: 510px !important;
+  
+      }
+    
+  }
+  
+  ::ng-deep  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box {
+     &.p-highlight:hover {
+    border-color: rgba(59, 130, 246, 1) !important;
+    background: rgba(59, 130, 246, 1) !important;
+    color: #ffffff;
+  }
+     &:hover {
+    border-color: rgba(59, 130, 246, 1);
+        }
+  }
+  
+  ::ng-deep  .p-checkbox .p-checkbox-box.p-highlight {
+    border-color: rgba(59, 130, 246, 1) !important;
+    background: rgba(59, 130, 246, 1) !important;
+  }
+  
+  :host ::ng-deep  .table-container {
+  padding-right: 0px !important;
+  padding-top: 40px ;
+  position: relative;
+  display: ruby !important;
+  }
+  
+  
+
+  ::ng-deep  p-table.table-profile-style>.p-datatable {
+
+    .p-datatable-thead>tr {
+      display: flex;
+      width: 300%;
+  
+    }
+  }
+
+  :host ::ng-deep .p-datatable-table { 
+    width: unset !important;
+  }
+
+  .stylePie{
+    margin-right: 6rem !important;
+  }
