@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
-  Company,
   FinancialRatiosIndustry,
   Pagination,
   UrlBuilder,
@@ -36,6 +35,8 @@ export class FinancialRatiosIndustryComponent {
   loading = false;
   first = 0;
   data: FinancialRatiosIndustry[] = [];
+  selectedPeriodId = 0;
+
   // subComponentList = [
   //   {
   //     label: 'مفاد ',
@@ -61,6 +62,9 @@ export class FinancialRatiosIndustryComponent {
       price: new FormControl(null),
       code: new FormControl(null),
     });
+
+    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('id'));
+
   }
 
   getFinancialRatiosIndustryList(event?: LazyLoadEvent) {
@@ -77,6 +81,7 @@ export class FinancialRatiosIndustryComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: true,
+      periodId : this.selectedPeriodId,
       financialRatioId: formValue.financialRatioId,
       industryId: formValue.industryId,
     };

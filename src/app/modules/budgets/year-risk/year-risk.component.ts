@@ -33,6 +33,7 @@ export class YearRiskComponent {
   addEditData = new YearRisk();
   pId!: string;
   mode!: string;
+  selectedPeriodId = 0;
 
   // form property
   searchForm!: FormGroup;
@@ -72,6 +73,8 @@ export class YearRiskComponent {
       keyTypeCode: new FormControl(null),
       budgetPeriodId: new FormControl(null),
     });
+
+    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('id'));
 
   }
 
@@ -131,6 +134,7 @@ export class YearRiskComponent {
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
+      periodId : this.selectedPeriodId,
       withOutPagination: false,
       ...formValue,
     };

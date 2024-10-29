@@ -36,6 +36,7 @@ export class YearGoalComponent {
   addEditData = new YearGoal();
   pId!: string;
   mode!: string;
+  selectedPeriodId = 0;
 
   // form property
   searchForm!: FormGroup;
@@ -64,6 +65,9 @@ export class YearGoalComponent {
       bigGoalId: new FormControl(null),
       aspectCode: new FormControl(null),
     });
+
+    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('id'));
+
   }
 
   getCompanyLst() {
@@ -112,6 +116,7 @@ export class YearGoalComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      periodId : this.selectedPeriodId,
       ...formValue,
     };
 
