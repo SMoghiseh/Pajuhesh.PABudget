@@ -4,22 +4,66 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType"
+          <app-select-date
+            [companyId]="inputData.companyId"
+            [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
+
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <ng-container *ngIf="viewMode !== 'table'">
-          <div *ngFor="let item of priceTypeList" class="items" (click)="onSelectPriceType(item.id)"
+        <ng-container *ngIf="viewMode === 'treeTable'">
+          <div *ngFor="let item of reportItemTypeList"
+            class="items"
+            (click)="onSelectReportItemType(item.id)"
+            [class.select-feature]="item.isSelected">
+            <span>{{ item.title }}</span>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="viewMode === 'chart'">
+          <div
+            *ngFor="let item of priceTypeList"
+            class="items"
+            (click)="onSelectPriceType(item.id)"
             [class.select-feature]="item.isSelected">
             <span>{{ item.title }}</span>
           </div>
         </ng-container>
       </div>
 
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
+        <div
+          class="items"
+          (click)="tabChange('treeTable', 'single')"
+          [class.select-feature]="viewMode === 'treeTable'">
+          <span>جدول</span>
+        </div>
+        <div
+          class="items disable-btns"
+          [class.enable-btns]="selectedRows?.length > 0"
+          [class.select-feature]="viewMode === 'chart'"
+          (click)="tabChange('chart', 'multiple')">
+          <span>روند</span>
+        </div>
+
+        <div
+          class="items"
+          (click)="tabChange('table', 'double', 2)"
+          [class.select-feature]="viewMode === 'table'">
+          <span>مقایسه بودجه با بودجه</span>
+        </div>
+
+      </div>
+
       <div *ngIf="viewMode === 'treeTable'" class="table-container">
-        <p-treeTable class="treeTable-container treeTable-profile-style" [value]="treeTableData?.budgetDetails"
-          [columns]="treeTableData?.headers" selectionMode="checkbox" [(selection)]="selectedRows" [scrollable]="true"
+        <p-treeTable
+          class="treeTable-container treeTable-profile-style"
+          [value]="treeTableData?.budgetDetails"
+          [columns]="treeTableData?.headers"
+          selectionMode="checkbox"
+          [(selection)]="selectedRows"
+          [scrollable]="true"
+          (onNodeSelect)="nodeSelect($event)"
           [tableStyle]="{ 'min-width': '50rem' }">
           <ng-template pTemplate="header" let-columns>
             <tr>
@@ -30,11 +74,13 @@
           </ng-template>
           <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
-              <td *ngFor="let col of columns; let i = index" [class.negativeNumbers]="rowData[col.field] < 0"
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
+               
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
-
 
                 <ng-container *ngIf="col.field != 'value' && col.field != 'realvalue' && col.field != 'budgetvalue'">
                   {{ rowData[col.field] }}
@@ -43,6 +89,7 @@
                 <ng-container *ngIf=" col.field == 'value' || col.field == 'realvalue' || col.field == 'budgetvalue'">
                   {{ rowData[col.field] | number }}
                 </ng-container>
+
                 <div
                 *ngIf="
                   (col.field === 'realvalue' && rowData.realvalue !== 0) ||
@@ -67,6 +114,7 @@
                     style="font-size: 23px"></i>
                 </div>
               </div>
+
               </td>
               <!-- <td></td> -->
             </tr>
@@ -75,19 +123,29 @@
       </div>
 
       <div *ngIf="viewMode === 'chart'">
-        <div *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
+        <div class="chartStyle" *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
           <canvas id="LineChart1" width="900" height="200" style="display: unset"></canvas>
         </div>
-        <div *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
+        <div class="chartStyle" *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
           <canvas id="LineChart2" width="900" height="200" style="display: unset"></canvas>
         </div>
       </div>
 
       <div *ngIf="viewMode === 'table'" class="table-container">
-        <p-table #dataTable style="text-align: right" class="table-Profile table-profile-style" dataKey="id"
-          [columns]="cols" [value]="tableData" [paginator]="true" [rows]="dataTableRows"
-          [rowsPerPageOptions]="[15, 20, 30]" [styleClass]="gridClass" [rowHover]="true" [loading]="loading"
-          selectionMode="single" [tableStyle]="{ 'min-width': '75rem' }">
+        <p-table
+          #dataTable
+          style="text-align: center"
+          class="table-Profile table-profile-style"
+          dataKey="id"
+          [columns]="cols"
+          [value]="tableData"
+          [paginator]="true"
+          [rows]="dataTableRows"
+          [rowsPerPageOptions]="[15, 20, 30]"
+          [styleClass]="gridClass"
+          [rowHover]="true"
+          [loading]="loading"
+          selectionMode="single">
           <!-- table header -->
 
           <!--  table header -->
@@ -95,7 +153,7 @@
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th *ngFor="let col of columns">
-                <span> {{ col.headerName }} </span>
+                {{ col.headerName }}
               </th>
             </tr>
           </ng-template>
@@ -104,12 +162,16 @@
 
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-              <td>
+              <!-- <td>
                 {{ rowData['accountReportItemTitle'] }}
-              </td>
+              </td> -->
 
-              <td>
-                {{ rowData['value'] }}
+              <td
+                *ngFor="let col of columns; let i = index"
+                [class.negativeNumbers]="rowData[col.field] < 0"
+                [class.pasitiveNumbers]="rowData[col.field] > 0">
+
+                {{ rowData[col.field] }}
               </td>
             </tr>
           </ng-template>
