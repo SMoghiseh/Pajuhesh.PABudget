@@ -26,16 +26,6 @@
               ">
             </p-dropdown>
         </div>
-
-        <div class="col-6 mt-2">
-            <label for="yearPolicyCode"> کد </label>
-            <input pInputText id="yearPolicyCode" name="yearPolicyCode" formControlName="yearPolicyCode"
-                class="w-100 my-1" [class.ng-invalid]="yearPolicyCode?.invalid" [class.ng-dirty]="
-          (addEditFormSubmitted && yearPolicyCode?.pristine) ||
-          yearPolicyCode?.dirty ||
-          yearPolicyCode?.touched
-        " />
-        </div>
         <div class="col-6 mt-2">
             <label for="title"> عنوان </label>
             <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"

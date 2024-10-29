@@ -20,15 +20,6 @@
         " />
         </div>
         <div class="col-6 mt-2">
-            <label for="swotCode"> کد </label>
-            <input pInputText id="swotCode" name="swotCode" formControlName="swotCode" class="w-100 my-1"
-                [class.ng-invalid]="swotCode?.invalid" [class.ng-dirty]="
-          (addEditFormSubmitted && swotCode?.pristine) ||
-          swotCode?.dirty ||
-          swotCode?.touched
-        " />
-        </div>
-        <div class="col-6 mt-2">
             <label for="typeCode"> نوع </label>
             <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
                 optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList" [filter]="true">

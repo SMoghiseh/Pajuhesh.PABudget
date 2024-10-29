@@ -40,9 +40,6 @@ export class AddEditAccountReportComponent implements OnInit {
   get title() {
     return this.addEditForm.get('title');
   }
-  get code() {
-    return this.addEditForm.get('code');
-  }
   get periodTypeCode() {
     return this.addEditForm.get('periodTypeCode');
   }
@@ -66,7 +63,6 @@ export class AddEditAccountReportComponent implements OnInit {
 
     this.addEditForm = new FormGroup({
       title: new FormControl(this.inputData.title, Validators.required),
-      code: new FormControl(this.inputData.code, Validators.required),
       periodTypeCode: new FormControl('', Validators.required),
       reportTypeCode: new FormControl('', Validators.required),
       basicReportTypeId: new FormControl('', Validators.required),

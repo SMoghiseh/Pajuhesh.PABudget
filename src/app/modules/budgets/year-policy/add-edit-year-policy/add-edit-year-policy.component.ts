@@ -38,10 +38,6 @@ export class AddEditYearPolicyComponent {
     return this.addEditForm.get('title');
   }
 
-  get yearPolicyCode() {
-    return this.addEditForm.get('yearPolicyCode');
-  }
-
   get budgetPeriodId() {
     return this.addEditForm.get('budgetPeriodId');
   }
@@ -51,9 +47,7 @@ export class AddEditYearPolicyComponent {
   get keyTypeCode() {
     return this.addEditForm.get('keyTypeCode');
   }
-  get aspectCode() {
-    return this.addEditForm.get('aspectCode');
-  }
+
 
 
 
@@ -71,12 +65,10 @@ export class AddEditYearPolicyComponent {
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      yearPolicyCode: new FormControl('', Validators.required),
-      companyId: new FormControl(0, Validators.required),
-      keyTypeCode: new FormControl(0, Validators.required),
-      budgetPeriodId: new FormControl(0, Validators.required),
-      aspectCode: new FormControl(0)
-    });
+      companyId: new FormControl(null, Validators.required),
+      keyTypeCode: new FormControl(null, Validators.required),
+      budgetPeriodId: new FormControl(0, Validators.required)
+        });
 
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);

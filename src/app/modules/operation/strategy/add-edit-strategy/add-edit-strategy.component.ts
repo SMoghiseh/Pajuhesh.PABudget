@@ -40,9 +40,7 @@ export class AddEditStrategyComponent {
   get bigGoalId() {
     return this.addEditForm.get('bigGoalId');
   }
-  get strategyCode() {
-    return this.addEditForm.get('strategyCode');
-  }
+
   get strategyPriority() {
     return this.addEditForm.get('strategyPriority');
   }
@@ -61,7 +59,6 @@ export class AddEditStrategyComponent {
       title: new FormControl('', Validators.required),
       planningId: new FormControl('', Validators.required),
       bigGoalId: new FormControl(''),
-      strategyCode: new FormControl('', Validators.required),
       strategyPriority: new FormControl('', Validators.required),
     });
 

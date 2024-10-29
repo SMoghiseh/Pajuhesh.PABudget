@@ -3,23 +3,6 @@
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditReport()">
   <div class="container row">
     <div class="col-6 mt-2">
-      <label for="code"> کد </label>
-      <input
-        pInputText
-        id="code"
-        name="code"
-        formControlName="code"
-        type="text"
-        class="w-100"
-        value="code"
-        [class.ng-invalid]="code?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && code?.pristine) ||
-          code?.dirty ||
-          code?.touched
-        " />
-    </div>
-    <div class="col-6 mt-2">
       <label for="title"> عنوان </label>
       <input
         pInputText

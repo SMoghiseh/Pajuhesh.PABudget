@@ -42,10 +42,6 @@ export class AddEditVisionComponent {
     return this.addEditForm.get('title');
   }
 
-  get visionCode() {
-    return this.addEditForm.get('visionCode');
-  }
-
   get planningId() {
     return this.addEditForm.get('planningId');
   }
@@ -68,7 +64,6 @@ export class AddEditVisionComponent {
     this.addEditForm = new FormGroup({
       planningValueId: new FormControl(0),
       title: new FormControl('', Validators.required),
-      visionCode: new FormControl('', Validators.required),
       keyTypeCode: new FormControl(0),
       planningId: new FormControl(null, Validators.required),
     });

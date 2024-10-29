@@ -34,9 +34,7 @@ export class AddEditPlanningValueComponent {
 
   @Output() isSuccess = new EventEmitter<boolean>();
 
-  get planningValueCode() {
-    return this.addEditForm.get('planningValueCode');
-  }
+
   get title() {
     return this.addEditForm.get('title');
   }
@@ -64,7 +62,6 @@ export class AddEditPlanningValueComponent {
     this.getkeyTypeCodeLst();
 
     this.addEditForm = new FormGroup({
-      planningValueCode: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       keyTypeCode: new FormControl(0),
       planingId: new FormControl('', Validators.required),
