@@ -133,7 +133,7 @@ export class OwnerShipValueComponent implements OnInit {
       isConsolidated: this.selectedReportTypeId,
     };
     this.httpService
-      .post<any>(Budget.apiAddressCostAndBenefit, body)
+      .post<any>(Budget.apiAddresOwnershipValue, body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
