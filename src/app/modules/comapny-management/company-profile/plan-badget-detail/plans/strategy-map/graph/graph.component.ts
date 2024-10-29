@@ -37,7 +37,7 @@ export class GraphComponent implements OnInit {
 
   createLayeredGraph(data: data) {
     const width = this.getNodeCount(data) * 250;
-    const height = 800;
+    const height = 600;
 
     const svg = d3
       .select(this.graphContainer.nativeElement)
@@ -60,33 +60,38 @@ export class GraphComponent implements OnInit {
       .enter()
       .append('line')
       .attr('x1', d => {
-        return this.returnCXNodesScale(d.source);
+        return this.returnCXNodesScale(d.source) + 80;
       })
       .attr('x2', d => {
-        return this.returnCXNodesScale(d.target);
+        return this.returnCXNodesScale(d.target) + 90;
       })
       .attr('y1', d => {
-        return this.returnCYNodesScale(d.source);
+        return this.returnCYNodesScale(d.source) + 70;
       })
       .attr('y2', d => {
         return this.returnCYNodesScale(d.target);
       })
-      .attr('stroke', 'black')
+      .attr('stroke', '#a1a0a0')
       .attr('stroke-width', 2);
 
+    // رسم نودها
     svg
-      .selectAll('circle')
+      .selectAll('rect')
       .data(data.nodes)
       .enter()
-      .append('circle')
-      .attr('cx', (d: any) => {
+      .append('rect')
+      .attr('x', (d: any) => {
         return this.returnCXNodesScale(d.id);
       })
-      .attr('cy', d => {
+      .attr('y', d => {
         return this.returnCYNodesScale(d.id);
       })
-      .attr('r', 70)
-      .attr('fill', '#4f81bd');
+      .attr('width', 170)
+      .attr('height', 70)
+      .attr('rx', '10')
+      .attr('ry', '10')
+      .attr('fill', '#A0D8B3')
+      .attr('color', '#4A4A4A');
 
     // اضافه کردن متن به گره‌ها
     svg
@@ -95,11 +100,11 @@ export class GraphComponent implements OnInit {
       .enter()
       .append('text')
       .attr('x', (d: any) => {
-        return this.returnCXNodesScale(d.id);
+        return this.returnCXNodesScale(d.id) + 90;
       })
-      .attr('y', d => (height / 5) * d.layer + 5)
+      .attr('y', d => (height / 4) * d.layer - 84)
       .attr('text-anchor', 'middle')
-      .attr('fill', 'white')
+      .attr('fill', '#4A4A4A')
       .text(d => d.title);
   }
 
@@ -128,11 +133,11 @@ export class GraphComponent implements OnInit {
         const arr = {
           layer: nodeData.layer,
           id: nodeData.id,
-          cx: layerScale(1) + 50,
+          cx: layerScale(1),
           cy:
             nodeData.layer === 1
-              ? (h / 5) * nodeData.layer
-              : (h / 5) * nodeData.layer + nodeData.layer,
+              ? (h / 4) * nodeData.layer - 120
+              : (h / 4) * nodeData.layer + nodeData.layer - 120,
         };
         this.nodesDrawList.push(arr);
         return arr.cx;
