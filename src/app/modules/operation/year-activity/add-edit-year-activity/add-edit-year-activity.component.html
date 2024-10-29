@@ -36,7 +36,7 @@
         placeholder="انتخاب کنید"
         [options]="budgetPeriodList"
         [filter]="true"
-        (onChange)="getReferenceFilteredList($event)"
+        (onChange)="getReferenceFilteredList() ; getPeriodDetailList($event.value)"
         [class.ng-invalid]="periodId?.invalid"
         [class.ng-dirty]="
           (addEditFormSubmitted && periodId?.pristine) ||
@@ -53,7 +53,7 @@
         styleClass="w-100 my-1"
         optionLabel="title"
         optionValue="id"
-        (onChange)="getReferenceLable()"
+        (onChange)="getReferenceFilteredList()"
         placeholder="انتخاب کنید"
         [options]="referenceList"
         [filter]="true"
