@@ -38,10 +38,6 @@ export class AddEditYearRiskComponent {
     return this.addEditForm.get('title');
   }
 
-  get yearRiskCode() {
-    return this.addEditForm.get('yearRiskCode');
-  }
-
   get budgetPeriodId() {
     return this.addEditForm.get('budgetPeriodId');
   }
@@ -73,10 +69,9 @@ export class AddEditYearRiskComponent {
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      yearRiskCode: new FormControl('', Validators.required),
-      companyId: new FormControl(0, Validators.required),
+      companyId: new FormControl(null, Validators.required),
       evaluateIndexId: new FormControl(0),
-      keyTypeCode: new FormControl(0, Validators.required),
+      keyTypeCode: new FormControl(null, Validators.required),
       budgetPeriodId: new FormControl(0, Validators.required),
       riskIntensity: new FormControl(0),
       riskLevel: new FormControl(0),

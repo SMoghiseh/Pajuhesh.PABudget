@@ -42,9 +42,6 @@ export class AddEditSwotComponent {
   get typeCode() {
     return this.addEditForm.get('typeCode');
   }
-  get swotCode() {
-    return this.addEditForm.get('swotCode');
-  }
   get swotRank() {
     return this.addEditForm.get('swotRank');
   }
@@ -71,7 +68,6 @@ export class AddEditSwotComponent {
       planningId: new FormControl('', Validators.required),
       typeCode: new FormControl('', Validators.required),
       swotRank: new FormControl('', Validators.required),
-      swotCode: new FormControl('', Validators.required),
       swoPriority: new FormControl('', Validators.required)
     });
 

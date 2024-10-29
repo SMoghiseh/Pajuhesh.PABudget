@@ -38,10 +38,6 @@ export class AddEditMissionComponent {
     return this.addEditForm.get('title');
   }
 
-  get missionCode() {
-    return this.addEditForm.get('missionCode');
-  }
-
   get planningId() {
     return this.addEditForm.get('planningId');
   }
@@ -65,7 +61,6 @@ export class AddEditMissionComponent {
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      missionCode: new FormControl('', Validators.required),
       typeCode: new FormControl(0),
       planningId: new FormControl(null, Validators.required),
     });

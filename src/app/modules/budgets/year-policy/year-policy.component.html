@@ -30,15 +30,6 @@
         </p-dropdown>
       </div>
       <div class="col-2 mt-2">
-        <label for="yearPolicyCode"> کد </label>
-        <input
-          pInputText
-          id="yearPolicyCode"
-          name="yearPolicyCode"
-          formControlName="yearPolicyCode"
-          class="w-100 my-1" />
-      </div>
-      <div class="col-2 mt-2">
         <label for="title"> عنوان </label>
         <input
           pInputText
@@ -101,8 +92,8 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <th style="min-width: 10rem"><strong> دوره </strong></th>
         <th style="min-width: 10rem"><strong> کد </strong></th>
+        <th style="min-width: 10rem"><strong> دوره </strong></th>
         <th style="min-width: 10rem"><strong> عنوان </strong></th>
         <th style="min-width: 10rem"><strong> شرکت </strong></th>
         <th style="min-width: 10rem"><strong> عنوان نوع</strong></th>
@@ -113,16 +104,16 @@
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
         <td
+        pTooltip="{{ item.yearPolicyCode }}"
+        tooltipEvent="hover"
+        tooltipPosition="top">
+        {{ item.yearPolicyCode }}
+      </td>
+        <td
           pTooltip="{{ item.budgetPeriodTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.budgetPeriodTitle }}
-        </td>
-        <td
-          pTooltip="{{ item.yearPolicyCode }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
-          {{ item.yearPolicyCode }}
         </td>
         <td
           pTooltip="{{ item.title }}"

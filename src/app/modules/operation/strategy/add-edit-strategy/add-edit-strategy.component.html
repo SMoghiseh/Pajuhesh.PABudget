@@ -24,21 +24,6 @@
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
-      <label for="strategyCode"> کد </label>
-      <input
-        pInputText
-        id="strategyCode"
-        name="strategyCode"
-        formControlName="strategyCode"
-        class="w-100 my-1"
-        [class.ng-invalid]="strategyCode?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && strategyCode?.pristine) ||
-          strategyCode?.dirty ||
-          strategyCode?.touched
-        " />
-    </div>
-    <div class="col-6 mt-2">
       <label for="title"> عنوان </label>
       <input
         pInputText

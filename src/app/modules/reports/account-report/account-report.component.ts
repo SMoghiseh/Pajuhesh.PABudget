@@ -60,7 +60,6 @@ export class AccountReportComponent implements OnInit {
     this.getReportTitleTypeList();
 
     this.addNewAccountReportForm = new FormGroup({
-      code: new FormControl(null),
       title: new FormControl(null),
       reportTypeCode: new FormControl(null),
       periodTypeCode: new FormControl(null),
@@ -148,7 +147,6 @@ export class AccountReportComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      code: formValue.code,
       title: formValue.title,
       reportTypeCode: formValue.reportTypeCode,
       periodTypeCode: formValue.periodTypeCode,

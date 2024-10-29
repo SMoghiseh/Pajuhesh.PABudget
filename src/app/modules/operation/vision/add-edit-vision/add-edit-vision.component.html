@@ -23,36 +23,7 @@
         ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
-      <label for="visionCode"> کد چشم انداز </label>
-      <input
-        pInputText
-        id="visionCode"
-        name="visionCode"
-        formControlName="visionCode"
-        class="w-100 my-1"
-        [class.ng-invalid]="visionCode?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && visionCode?.pristine) ||
-          visionCode?.dirty ||
-          visionCode?.touched
-        " />
-    </div>
 
-    <div class="col-6 mt-2">
-      <label for="planningValueId"> ارزش</label>
-      <p-dropdown
-        id="planningValueId"
-        name="planningValueId"
-        formControlName="planningValueId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="planningValueList"
-        [filter]="true">
-      </p-dropdown>
-    </div>
     <div class="col-6 mt-2">
       <label for="keyTypeCode"> کلید واژه</label>
       <p-dropdown
@@ -64,6 +35,20 @@
         optionValue="id"
         placeholder="انتخاب کنید"
         [options]="KeyTypeList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-12 mt-2">
+      <label for="planningValueId"> ارزش</label>
+      <p-dropdown
+        id="planningValueId"
+        name="planningValueId"
+        formControlName="planningValueId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="planningValueList"
         [filter]="true">
       </p-dropdown>
     </div>

@@ -6,20 +6,6 @@
   (ngSubmit)="addEditPlan()">
   <div class="container row">
     <div class="col-6 mt-2">
-      <label for="bigGoalCode"> کد </label>
-      <input pInputText
-        id="bigGoalCode"
-        name="bigGoalCode"
-        formControlName="bigGoalCode"
-        class="w-100 my-1"
-        [class.ng-invalid]="bigGoalCode?.invalid"
-        [class.ng-dirty]="
-          (addEditFormSubmitted && bigGoalCode?.pristine) ||
-          bigGoalCode?.dirty ||
-          bigGoalCode?.touched
-        " />
-    </div>
-    <div class="col-6 mt-2">
       <label for="title"> عنوان </label>
       <input pInputText
         id="title"

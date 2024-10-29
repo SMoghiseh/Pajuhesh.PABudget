@@ -29,10 +29,6 @@ export class AddEditBigGoalComponent {
 
   @Output() isSuccess = new EventEmitter<boolean>();
 
-  get bigGoalCode() {
-    return this.addEditForm.get('bigGoalCode');
-  }
-
   get title() {
     return this.addEditForm.get('title');
   }
@@ -56,7 +52,6 @@ export class AddEditBigGoalComponent {
     this.getAspectCodeList();
 
     this.addEditForm = new FormGroup({
-      bigGoalCode: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       aspectCode: new FormControl(0, Validators.required),
       visionId: new FormControl(0, Validators.required),

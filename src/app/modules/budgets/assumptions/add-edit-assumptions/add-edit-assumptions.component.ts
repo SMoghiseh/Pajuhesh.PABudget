@@ -39,10 +39,6 @@ export class AddEditAssumptionsComponent {
     return this.addEditForm.get('title');
   }
 
-  get assumptionsCode() {
-    return this.addEditForm.get('assumptionsCode');
-  }
-
   get budgetPeriodId() {
     return this.addEditForm.get('budgetPeriodId');
   }
@@ -69,7 +65,6 @@ export class AddEditAssumptionsComponent {
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      assumptionsCode: new FormControl('', Validators.required),
       companyId: new FormControl(0, Validators.required),
       typeCode: new FormControl(0, Validators.required),
       budgetPeriodId: new FormControl(0, Validators.required),

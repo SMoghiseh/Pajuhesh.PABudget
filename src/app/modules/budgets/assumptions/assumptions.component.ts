@@ -56,7 +56,6 @@ export class AssumptionsComponent {
 
     this.searchForm = new FormGroup({
       title: new FormControl(null),
-      assumptionsCode: new FormControl(null),
       companyId: new FormControl(null),
       typeCode: new FormControl(null),
       aspectCode: new FormControl(null),

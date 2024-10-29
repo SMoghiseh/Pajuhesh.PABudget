@@ -41,10 +41,6 @@ export class AddEditYearGoalComponent {
     return this.addEditForm.get('title');
   }
 
-  get yearGoalCode() {
-    return this.addEditForm.get('yearGoalCode');
-  }
-
   get budgetPeriodId() {
     return this.addEditForm.get('budgetPeriodId');
   }
@@ -72,9 +68,8 @@ export class AddEditYearGoalComponent {
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      yearGoalCode: new FormControl('', Validators.required),
-      companyId: new FormControl(0, Validators.required),
-      bigGoalId: new FormControl(0, Validators.required),
+      companyId: new FormControl(null, Validators.required),
+      bigGoalId: new FormControl(null, Validators.required),
       budgetPeriodId: new FormControl(0, Validators.required),
       aspectCode: new FormControl(0),
     });

@@ -8,15 +8,7 @@
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
-      <label for="planningValueCode"> کد </label>
-      <input pInputText id="planningValueCode" name="planningValueCode" formControlName="planningValueCode"
-        class="w-100 my-1" [class.ng-invalid]="planningValueCode?.invalid" [class.ng-dirty]="
-          (addEditFormSubmitted && planningValueCode?.pristine) ||
-          planningValueCode?.dirty ||
-          planningValueCode?.touched
-        " />
-    </div>
+
     <div class="col-6 mt-2">
       <label for="title"> عنوان </label>
       <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
