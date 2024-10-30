@@ -25,7 +25,7 @@ export class OrientationComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getPlanDetail(yearId: number) {
+  getPlanDetail(yearId: number) { debugger
     const body = {
       companyId: this.inputData.companyId,
       periodId: yearId,
@@ -40,11 +40,11 @@ export class OrientationComponent {
         })
       )
       .subscribe(res => {
-        this.dataList = res;
+        this.planDetailData = res;
       });
   }
 
-  returnSelectedDate(e: any) {
+  returnSelectedDate(e: any) { debugger
     this.getPlanDetail(e);
   }
 }
