@@ -119,15 +119,6 @@
     </div>
 
     <div class="col-4">
-      <label for="code"> کد </label>
-      <input pInputText id="code" name="code" formControlName="code" class="w-100 my-1"
-        [class.ng-invalid]="code?.invalid" [class.ng-dirty]="
-          (addEditFormSubmitted && code?.pristine) ||
-          code?.dirty ||
-          code?.touched
-        " />
-    </div>
-    <div class="col-4">
       <label for="priceCu"> تاثیر مالی </label>
       <p-inputNumber id="priceCu" formControlName="priceCu" type="text" pKeyFilter="int" [minlength]="0" class="w-100"
         [class.ng-invalid]="priceCu?.invalid" [class.ng-dirty]="
@@ -137,7 +128,7 @@
         "></p-inputNumber>
     </div>
 
-    <div class="col-4">
+    <div class="col-8">
       <label for="costCenterId"> مرکز هزینه</label>
       <p-dropdown id="costCenterId" name="costCenterId" formControlName="costCenterId" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="costCenterList" [filter]="true"
