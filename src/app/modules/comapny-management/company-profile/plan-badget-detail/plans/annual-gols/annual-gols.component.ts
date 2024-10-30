@@ -17,16 +17,8 @@ export class AnnualGolsComponent {
   planDetailData: any;
   loading = false;
   selectDateType = 'single';
-  selectedPlanName = 'اهداف سالیانه';
+  selectedPlanName = ' اهداف سالیانه ';
 
-  // yearActivityDataList properties
-  isOpenDataList = false;
-  modalTitle = '';
-  yearActivityDataList: any;
-  yearActivityGridClass = 'p-datatable-sm';
-  yearActivityDataTableRows = 10;
-  yearActivityFirst = 0;
-  yearActivityTotalCount!: number;
 
 
   constructor(private httpService: HttpService) { }
@@ -53,13 +45,4 @@ export class AnnualGolsComponent {
     this.getPlanDetail(e);
   }
 
-  showYearActivityList(data: any) {
-    this.modalTitle = 'لیست برنامه های عملیاتی' + ' " ' + data?.desc?.substring(0, 40) + ' ... ' + ' " ';
-    this.isOpenDataList = true;
-    this.yearActivityDataList = data.titleYearActivityList;
-  }
-
-  closeModal() {
-    this.isOpenDataList = false;
-  }
 }

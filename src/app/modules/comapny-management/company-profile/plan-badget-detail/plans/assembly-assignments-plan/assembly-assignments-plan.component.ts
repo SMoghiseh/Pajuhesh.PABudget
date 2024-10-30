@@ -51,7 +51,7 @@ export class AssemblyAssignmentsPlanComponent implements OnInit {
 
   showAssemblyAssignmentsList(data: any) {
     this.modalTitle =
-      'تکالیف مجمع' + ' " ' + data?.titleMain?.substring(0, 40) + ' " ';
+      ' مفاد تکالیف' + ' " ' + data?.titleMain?.substring(0, 40) + ' " ';
     this.isOpenDataList = true;
     this.assemblyAssignmentsDataList = data.titleList;
   }
