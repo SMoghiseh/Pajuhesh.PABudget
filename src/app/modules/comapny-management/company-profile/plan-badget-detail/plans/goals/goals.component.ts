@@ -8,20 +8,24 @@ import { map } from 'rxjs';
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.scss']
 })
-export class GoalsComponent implements OnInit {
+export class GoalsComponent  {
   @Input() inputData: any;
-
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  first = 0;
+  totalCount!: number;
   planDetailData: any;
+  loading = false;
   selectDateType = 'single';
-  selectedPlanName = 'اهداف';
+  selectedPlanName = ' اهداف کلان ';
+
+
 
   constructor(private httpService: HttpService) { }
-  ngOnInit(): void {
-    this.getPlanDetail();
-  }
-  getPlanDetail() {
+  getPlanDetail(yearId: number) {
     const body = {
-      companyId: this.inputData.companyId
+      companyId: this.inputData.companyId,
+      periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressGoals, ''), body)
@@ -36,4 +40,11 @@ export class GoalsComponent implements OnInit {
         this.planDetailData = res;
       });
   }
+
+  returnSelectedDate(e: any) {
+    this.getPlanDetail(e);
+  }
+
+
+
 }

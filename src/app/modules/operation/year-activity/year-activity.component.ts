@@ -179,7 +179,7 @@ export class YearActivityComponent {
   }
 
   getReferenceFilteredList() {
-    // check if periodId & companyId & code is selected
+    // check if periodId &  referenceCode is selected
     let formValue = this.searchForm.value;
     if (formValue.periodId & formValue.referenceCode) {
       this.getListByReference();
@@ -428,6 +428,7 @@ export class YearActivityComponent {
   }
 
   clearSearch() {
+    this.formSubmitted = false;
     this.searchForm.reset();
     this.getList(false);
   }

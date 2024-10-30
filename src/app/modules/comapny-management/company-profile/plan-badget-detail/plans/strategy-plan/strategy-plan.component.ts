@@ -8,25 +8,35 @@ import { map } from 'rxjs';
   templateUrl: './strategy-plan.component.html',
   styleUrls: ['./strategy-plan.component.scss']
 })
-export class StrategyPlanComponent implements OnInit {
+export class StrategyPlanComponent {
   @Input() inputData: any;
-
-  planDetailData: any = {};
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  first = 0;
+  totalCount!: number;
+  planDetailData: any;
+  loading = false;
   selectDateType = 'single';
-  selectedPlanName = 'استراتژی';
+  selectedPlanName = ' استراتژی ';
+
+  // strategyDataList properties
+  isOpenDataList = false;
+  modalTitle = '';
+  titleList: any;
+  strategyGridClass = 'p-datatable-sm';
+  strategyDataTableRows = 10;
+  strategyFirst = 0;
+  strategyTotalCount!: number;
+
 
   constructor(private httpService: HttpService) { }
-
-  ngOnInit(): void {
-    this.getPlanDetail();
-  }
-
-  getPlanDetail() {
+  getPlanDetail(yearId: number) {
     const body = {
-      companyId: this.inputData.companyId
+      companyId: this.inputData.companyId,
+      periodId: yearId,
     };
     this.httpService
-      .post<any>(UrlBuilder.build(Plan.apiAddressStrategyMap, ''), body)
+      .post<any>(UrlBuilder.build(Plan.apiAddressStrategyPlan, ''), body)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -37,5 +47,19 @@ export class StrategyPlanComponent implements OnInit {
       .subscribe(res => {
         this.planDetailData = res;
       });
+  }
+
+  returnSelectedDate(e: any) {
+    this.getPlanDetail(e);
+  }
+
+  showYearActivityList(data: any) {
+    this.modalTitle = 'لیست استراتژی-swot ' + ' " ' + data?.titleMain?.substring(0, 40) + ' ... ' + ' " ';
+    this.isOpenDataList = true;
+    this.titleList = data.titleList;
+  }
+
+  closeModal() {
+    this.isOpenDataList = false;
   }
 }

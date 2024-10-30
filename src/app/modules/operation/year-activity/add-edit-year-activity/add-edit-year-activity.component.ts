@@ -96,7 +96,7 @@ export class AddEditYearActivityComponent {
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getReferenceList();
@@ -109,24 +109,24 @@ export class AddEditYearActivityComponent {
 
     this.addEditForm = new FormGroup({
       periodId: new FormControl(
-        { value: null, disabled: true },
+        // { value: null, disabled: true },
         Validators.required
       ),
       companyId: new FormControl(null, Validators.required),
       referenceCode: new FormControl(
-        { value: null, disabled: true },
+        // { value: null, disabled: true },
         Validators.required
       ),
       referenceId: new FormControl(
-        { value: null, disabled: true },
+        // { value: null, disabled: true },
         Validators.required
       ),
       fromPeriodDetailId: new FormControl(
-        { value: null, disabled: true },
+        // { value: null, disabled: true },
         Validators.required
       ),
       toPeriodDetailId: new FormControl(
-        { value: null, disabled: true },
+        // { value: null, disabled: true },
         Validators.required
       ),
       rollId: new FormControl('', Validators.required),
@@ -162,20 +162,18 @@ export class AddEditYearActivityComponent {
       });
   }
 
-  getReferenceFilteredList(e: any) {
-    // check if periodId & companyId & code is selected
+  getReferenceFilteredList() {
 
-    this.getPeriodDetailList(e.value);
-    this.addEditForm.controls['fromPeriodDetailId'].enable();
-    this.addEditForm.controls['toPeriodDetailId'].enable();
-    this.addEditForm.controls['referenceCode'].enable();
-  }
-
-  getReferenceLable() {
-    const formValue = this.addEditForm.value;
-    if (formValue.companyId & formValue.periodId & formValue.referenceCode) {
+    // check if periodId &  referenceCode is selected
+    let formValue = this.addEditForm.value;
+    if (formValue.periodId & formValue.referenceCode) {
       this.getListByReference();
     }
+
+    // this.getPeriodDetailList(e.value);
+    // this.addEditForm.controls['fromPeriodDetailId'].enable();
+    // this.addEditForm.controls['toPeriodDetailId'].enable();
+    // this.addEditForm.controls['referenceCode'].enable();
   }
 
   getListByReference() {
@@ -208,7 +206,6 @@ export class AddEditYearActivityComponent {
           : YearActivity.apiAddress + 'Update';
       delete request['companyId'];
       delete request['periodId'];
-      delete request['referenceCode'];
 
       this.isLoadingSubmit = true;
       this.httpService
