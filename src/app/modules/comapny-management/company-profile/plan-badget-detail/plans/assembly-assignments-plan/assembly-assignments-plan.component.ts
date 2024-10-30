@@ -31,7 +31,6 @@ export class AssemblyAssignmentsPlanComponent implements OnInit {
   ngOnInit(): void {}
 
   getPlanDetail(yearId: number) {
-    debugger;
     const body = {
       companyId: this.inputData.companyId,
       periodId: yearId,
@@ -51,7 +50,6 @@ export class AssemblyAssignmentsPlanComponent implements OnInit {
   }
 
   showAssemblyAssignmentsList(data: any) {
-    debugger;
     this.modalTitle =
       'تکالیف مجمع' + ' " ' + data?.titleMain?.substring(0, 40) + ' " ';
     this.isOpenDataList = true;

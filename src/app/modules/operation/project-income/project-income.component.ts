@@ -61,10 +61,10 @@ export class ProjectIncomeComponent {
       estimatePriceCu: new FormControl(null),
       realPriceCu: new FormControl(null),
     });
-    // this.route.params.subscribe(params => {
-    //   const RouteId = params['id'];
-    //   this.searchForm.patchValue({ projectId: parseInt(RouteId) });
-    // });
+    this.route.params.subscribe(params => {
+      const RouteId = params['id'];
+      this.searchForm.patchValue({ projectId: parseInt(RouteId) });
+    });
   }
 
   addProjectIncome() {
