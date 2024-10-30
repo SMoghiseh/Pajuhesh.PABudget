@@ -10,7 +10,15 @@ import { map } from 'rxjs';
 })
 export class OrientationComponent {
   @Input() inputData: any;
-
+   gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  first = 0;
+  totalCount!: number;
+  planDetailData: any;
+  // data: Plan[] = [];
+  loading = false;
+  modalTitle = '';
+  isOpenDataList = false;
   dataList: any;
   selectDateType = 'single';
   selectedPlanName = '  جهت گیری';
