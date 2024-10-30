@@ -19,14 +19,14 @@ export class StrategyPlanComponent {
   selectDateType = 'single';
   selectedPlanName = ' استراتژی ';
 
-  // yearActivityDataList properties
+  // strategyDataList properties
   isOpenDataList = false;
   modalTitle = '';
-  yearActivityDataList: any;
-  yearActivityGridClass = 'p-datatable-sm';
-  yearActivityDataTableRows = 10;
-  yearActivityFirst = 0;
-  yearActivityTotalCount!: number;
+  titleList: any;
+  strategyGridClass = 'p-datatable-sm';
+  strategyDataTableRows = 10;
+  strategyFirst = 0;
+  strategyTotalCount!: number;
 
 
   constructor(private httpService: HttpService) { }
@@ -56,7 +56,7 @@ export class StrategyPlanComponent {
   showYearActivityList(data: any) {
     this.modalTitle = 'لیست استراتژی-swot ' + ' " ' + data?.titleMain?.substring(0, 40) + ' ... ' + ' " ';
     this.isOpenDataList = true;
-    this.yearActivityDataList = data.titleYearActivityList;
+    this.titleList = data.titleList;
   }
 
   closeModal() {

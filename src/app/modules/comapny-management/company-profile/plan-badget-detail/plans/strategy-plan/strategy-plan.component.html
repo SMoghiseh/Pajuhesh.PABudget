@@ -37,7 +37,7 @@
 
             <div class="headerStyle Width: auto">
               <th style="min-width: 7rem"><strong>
-                  دوره عملیاتی
+                 swot های مرتبط
                 </strong></th>
             </div>
           </tr>
@@ -66,12 +66,12 @@
 </div>
 
 <p-dialog *ngIf="isOpenDataList" [header]="modalTitle" [(visible)]="isOpenDataList" [modal]="true" [draggable]="false"
-  [resizable]="false" (isCloseModal)="closeModal()" [style]="{ width: '600px' }">
+  [resizable]="false" (isCloseModal)="closeModal()" [style]="{ width: '700px' }">
 
   <div class="table-container">
-    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="yearActivityGridClass"
-      [rowHover]="true" [paginator]="true" [rows]="yearActivityDataTableRows" [rowsPerPageOptions]="[10 , 20 , 30]"
-      [totalRecords]="yearActivityTotalCount" [value]="yearActivityDataList" [tableStyle]="{ 'min-width': '100%' }">
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="strategyGridClass"
+      [rowHover]="true" [paginator]="true" [rows]="strategyDataTableRows" [rowsPerPageOptions]="[10 , 20 , 30]"
+      [totalRecords]="strategyTotalCount" [value]="titleList" [tableStyle]="{ 'min-width': '100%' }">
       <!-- table header -->
       <ng-template pTemplate="header">
         <tr class="">
@@ -81,13 +81,13 @@
       </ng-template>
       <ng-template pTemplate="body" let-manager let-rowIndex="rowIndex">
         <tr>
-          <td style="width: 5rem; text-align: center !important;" pTooltip="{{manager.code}}" tooltipEvent="hover"
+          <td style="width: 5rem; text-align: center !important;" pTooltip="{{manager.titleS}}" tooltipEvent="hover"
             tooltipPosition="top">
-            {{manager.code}}
+            {{manager.titleS}}
           </td>
-          <td style="width: 5rem;text-align: center !important" pTooltip="{{manager.title}}" tooltipEvent="hover"
+          <td style="width: 5rem;text-align: center !important" pTooltip="{{manager.titleT}}" tooltipEvent="hover"
             tooltipPosition="top">
-            {{manager.title}}
+            {{manager.titleT}}
           </td>
         </tr>
       </ng-template>
