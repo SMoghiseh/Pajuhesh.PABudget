@@ -70,9 +70,6 @@ export class AddEditYearActivityComponent {
   get priorityCode() {
     return this.addEditForm.get('priorityCode');
   }
-  get code() {
-    return this.addEditForm.get('code');
-  }
   get title() {
     return this.addEditForm.get('title');
   }
@@ -133,7 +130,6 @@ export class AddEditYearActivityComponent {
       operatingId: new FormControl(0),
       weightCode: new FormControl('', Validators.required),
       priorityCode: new FormControl('', Validators.required),
-      code: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       priceCu: new FormControl('', Validators.required),
@@ -199,6 +195,11 @@ export class AddEditYearActivityComponent {
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
+
+      if(this.mode === 'insert'){
+        delete request['id'];
+      } 
+
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       const url =
         this.mode === 'insert'
@@ -206,7 +207,10 @@ export class AddEditYearActivityComponent {
           : YearActivity.apiAddress + 'Update';
       delete request['companyId'];
       delete request['periodId'];
-
+      if(this.mode === 'insert'){
+        delete request['id'];
+      } 
+      
       this.isLoadingSubmit = true;
       this.httpService
         .post<YearActivity>(url, request)
