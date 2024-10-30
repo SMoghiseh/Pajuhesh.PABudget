@@ -4,11 +4,7 @@
 <div class="d-flex justify-content-between">
   <div class="table-header">برنامه عملیاتی</div>
   <div>
-    <p-button
-      class="pe-2 mr-8"
-      styleClass="p-button-info"
-      icon="pi pi-plus-circle"
-      label="افزودن"
+    <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
       (click)="addYearActivity()"></p-button>
   </div>
 </div>
@@ -19,8 +15,8 @@
       <div class="col-6 mt-2">
         <label for="companyId"> شرکت </label>
         <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
-          [filter]="true" (onChange)="onChangeCompanyId($event)" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+          (onChange)="onChangeCompanyId($event)" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
           (formSubmitted && companyId?.pristine) ||
           companyId?.dirty ||
           companyId?.touched
@@ -31,7 +27,8 @@
         <label for="periodId"> دوره </label>
         <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
           optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="budgetPeriodList"
-          [filter]="true" (onChange)="getReferenceFilteredList() ; getPeriodDetailList($event.value)" [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
+          [filter]="true" (onChange)="getReferenceFilteredList() ; getPeriodDetailList($event.value)"
+          [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
           (formSubmitted && periodId?.pristine) ||
           periodId?.dirty ||
           periodId?.touched
@@ -39,19 +36,10 @@
         </p-dropdown>
       </div>
       <div class="col-3 mt-8">
-        <label for="referenceCode"> مرجع برنامه عملیاتی  </label>
-        <p-dropdown
-          id="referenceCode"
-          name="referenceCode"
-          formControlName="referenceCode"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="referenceList"
-          [filter]="true"
-          (onChange)="getReferenceFilteredList()"
-          [class.ng-invalid]="referenceCode?.invalid" [class.ng-dirty]="
+        <label for="referenceCode"> مرجع برنامه عملیاتی </label>
+        <p-dropdown id="referenceCode" name="referenceCode" formControlName="referenceCode" styleClass="w-100 my-1"
+          optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="referenceList" [filter]="true"
+          (onChange)="getReferenceFilteredList()" [class.ng-invalid]="referenceCode?.invalid" [class.ng-dirty]="
           (formSubmitted && referenceCode?.pristine) ||
           referenceCode?.dirty ||
           referenceCode?.touched
@@ -59,77 +47,39 @@
         </p-dropdown>
       </div>
       <div class="col-3 mt-8">
-        <label for="referenceId" *ngIf="referenceOnList['labels'] && referenceOnList['labels'] != '' ">   {{ referenceOnList['labels'] }}   </label>
-        <label for="referenceId" *ngIf="!referenceOnList['labels'] || referenceOnList['labels'] == '' ">   عنوان لیست   </label>
-        <p-dropdown
-          id="referenceId"
-          name="referenceId"
-          formControlName="referenceId"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="referenceOnList['contents']"
-          [filter]="true"  [class.ng-invalid]="referenceId?.invalid" [class.ng-dirty]="
+        <label for="referenceId" *ngIf="referenceOnList['labels'] && referenceOnList['labels'] != '' "> {{
+          referenceOnList['labels'] }} </label>
+        <label for="referenceId" *ngIf="!referenceOnList['labels'] || referenceOnList['labels'] == '' "> عنوان لیست
+        </label>
+        <p-dropdown id="referenceId" name="referenceId" formControlName="referenceId" styleClass="w-100 my-1"
+          optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="referenceOnList['contents']"
+          [filter]="true" [class.ng-invalid]="referenceId?.invalid" [class.ng-dirty]="
           (formSubmitted && referenceId?.pristine) ||
           referenceId?.dirty ||
           referenceId?.touched
-        "
-          >
+        ">
         </p-dropdown>
-      </div>
- 
-      <div class="col-3 mt-8">
-        <label for="title"> عنوان </label>
-        <input
-          pInputText
-          id="title"
-          name="title"
-          formControlName="title"
-          class="w-100 my-1" />
       </div>
       <!--  دوره عملیاتی -->
       <div class="col-3 mt-8">
         <label for="fromPeriodDetailId"> از دوره عملیاتی </label>
-        <p-dropdown
-          id="fromPeriodDetailId"
-          name="fromPeriodDetailId"
-          formControlName="fromPeriodDetailId"
-          styleClass="w-100 my-1"
-          optionLabel="periodDetailTitle"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="periodDetailList"
-          [filter]="true">
+        <p-dropdown id="fromPeriodDetailId" name="fromPeriodDetailId" formControlName="fromPeriodDetailId"
+          styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
+          [options]="periodDetailList" [filter]="true">
         </p-dropdown>
       </div>
       <div class="col-3 mt-8">
         <label for="toPeriodDetailId">تا دوره عملیاتی </label>
-        <p-dropdown
-          id="toPeriodDetailId"
-          name="toPeriodDetailId"
-          formControlName="toPeriodDetailId"
-          styleClass="w-100 my-1"
-          optionLabel="periodDetailTitle"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="periodDetailList"
-          [filter]="true">
+        <p-dropdown id="toPeriodDetailId" name="toPeriodDetailId" formControlName="toPeriodDetailId"
+          styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
+          [options]="periodDetailList" [filter]="true">
         </p-dropdown>
       </div>
       <!--  دوره عملیاتی -->
       <div class="col-3 mt-8">
         <label for="costCenterId"> مرکز هزینه</label>
-        <p-dropdown
-          id="costCenterId"
-          name="costCenterId"
-          formControlName="costCenterId"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="costCenterList"
-          [filter]="true">
+        <p-dropdown id="costCenterId" name="costCenterId" formControlName="costCenterId" styleClass="w-100 my-1"
+          optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="costCenterList" [filter]="true">
         </p-dropdown>
       </div>
 
@@ -163,11 +113,23 @@
           optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="weightCodeList" [filter]="true">
         </p-dropdown>
       </div>
-
-      <div class="col-3 mt-8">
+      <div class="col-9 mt-8">
         <label for="description"> شرح </label>
-        <input pInputText id="description" name="description" formControlName="description" class="w-100 my-1" />
+        <textarea pInputTextarea id="description" name="description" formControlName="description" 
+        rows="2" cols="10"
+          class="w-100"></textarea>
       </div>
+
+      <div class="col-12 mt-8">
+        <label for="title"> عنوان </label>
+        <textarea pInputTextarea id="title" name="title" formControlName="title" 
+        rows="3" cols="10"
+          class="w-100"></textarea>
+      </div>
+
+
+
+
 
       <!-- دکمه -->
       <div class="d-flex justify-content-end col text-end" style="margin-top: 20px">
@@ -243,47 +205,21 @@
   </p-table>
 </div>
 
-<p-dialog
-  *ngIf="isOpenAddEditYearActivity"
-  [header]="modalTitle"
-  [(visible)]="isOpenAddEditYearActivity"
-  [modal]="true"
-  [draggable]="false"
-  [resizable]="false"
-  [style]="{ width: '900px' }"
+<p-dialog *ngIf="isOpenAddEditYearActivity" [header]="modalTitle" [(visible)]="isOpenAddEditYearActivity" [modal]="true"
+  [draggable]="false" [resizable]="false" [style]="{ width: '900px' }"
   [class.height-size]="mode === 'insert' || mode === 'edit'">
-  <PABudget-add-edit-year-activity
-    [data1]="addEditData"
-    [mode]="mode"
+  <PABudget-add-edit-year-activity [data1]="addEditData" [mode]="mode"
     (isSuccess)="reloadData()"></PABudget-add-edit-year-activity>
 </p-dialog>
 
-<p-dialog
-  *ngIf="isOpenYearActivityrelatedToRisk"
-  [header]="modalTitle"
-  [(visible)]="isOpenYearActivityrelatedToRisk"
-  [modal]="true"
-  [draggable]="false"
-  [resizable]="false"
-  [style]="{ width: '900px' }"
+<p-dialog *ngIf="isOpenYearActivityrelatedToRisk" [header]="modalTitle" [(visible)]="isOpenYearActivityrelatedToRisk"
+  [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '900px' }"
   [class.height-size]="mode === 'insert' || mode === 'edit'">
   <div *ngIf="isOpenYearActivityrelatedToRisk" class="table-container">
-    <p-table
-      #dataTable
-      dataKey="id"
-      class="data-table d-none d-lg-block"
-      [styleClass]="gridClass"
-      [rowHover]="true"
-      [paginator]="true"
-      [rows]="dataTableRows"
-      [rowsPerPageOptions]="[10, 20, 30]"
-      [totalRecords]="totalCount"
-      [value]="activityrelatedToRisk"
-      [loading]="loading"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      [lazy]="true"
-      (onLazyLoad)="getYearActivityrelatedToRisk($event)"
-      [(first)]="first">
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+      [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+      [value]="activityrelatedToRisk" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+      (onLazyLoad)="getYearActivityrelatedToRisk($event)" [(first)]="first">
       <!-- table header -->
       <ng-template pTemplate="header">
         <tr class="data-table__header">
@@ -298,11 +234,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
         <tr>
-          <td
-            style="min-width: 15rem"
-            pTooltip="{{ item.yearRiskTitle }}"
-            tooltipEvent="hover"
-            tooltipPosition="top">
+          <td style="min-width: 15rem" pTooltip="{{ item.yearRiskTitle }}" tooltipEvent="hover" tooltipPosition="top">
             {{ item.yearRiskTitle }}
           </td>
           <td style="text-align: center !important">

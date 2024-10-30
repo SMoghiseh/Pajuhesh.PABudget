@@ -1,10 +1,10 @@
 :host ::ng-deep .row-btn.row-btn-fixed-bottom {
     bottom: 22px;
-    position: inherit;
+    position: absolute;
     left: 23px;
 }
 
 :host ::ng-deep .height-size .p-dialog {
-    min-height: 400px !important;
+    min-height: 550px !important;
     height: auto !important;
 }

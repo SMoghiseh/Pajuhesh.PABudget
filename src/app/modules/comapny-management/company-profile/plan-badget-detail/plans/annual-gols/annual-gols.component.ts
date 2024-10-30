@@ -17,7 +17,7 @@ export class AnnualGolsComponent {
   planDetailData: any;
   loading = false;
   selectDateType = 'single';
-  selectedPlanName = 'اهداف سالیانه';
+  selectedPlanName = ' اهداف سالیانه ';
 
   // yearActivityDataList properties
   isOpenDataList = false;

@@ -4,7 +4,8 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType"
+            (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
@@ -23,28 +24,38 @@
           <tr class="data-table__header">
             <div class="headerStyle">
               <th style="min-width: 7rem">
-                <strong> هدف </strong>
+                <strong> عنوان </strong>
               </th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> دوره </strong></th>
+              <th style="min-width: 7rem"><strong> اهداف </strong></th>
             </div>
 
             <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> برنامه های عملیاتی </strong></th>
+              <th style="min-width: 7rem"><strong> دوره  </strong></th>
+            </div>
+
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong>
+                  دوره عملیاتی
+                </strong></th>
             </div>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
             <div class="detailStyle Width: auto" [ngStyle]="{ 'background-color': item.color }">
-              <td style="width: 33rem">{{ item.desc }}</td>
-              <td style="width: 33rem">{{ item.titlePeriod }}</td>
+              <td style="width: 33rem">{{ item.titleMain }}</td>
+              <td style="width: 33rem">{{ item.titleFirst }}</td>
+              <td style="width: 33rem">{{ item.titleTwo }}</td>
+
               <td style="width: 33rem">
-                <button class="action-image-container add-button" (click)="showYearActivityList(item)"
-                  pTooltip="دوره عملیاتی">
-                  <img ngSrc="icons\Group 131.svg" width="24" height="24" />
-                </button>
+                <ng-container *ngIf="item.titleList && item.titleList.length ">
+                  <button class="action-image-container add-button" (click)="showYearActivityList(item)"
+                    pTooltip=" اهداف سالیانه">
+                    <img ngSrc="icons\Group 131.svg" width="24" height="24" />
+                  </button>
+                </ng-container>
               </td>
             </div>
           </tr>
