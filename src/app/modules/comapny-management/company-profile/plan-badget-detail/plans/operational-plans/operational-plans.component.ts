@@ -6,10 +6,9 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-operational-plans',
   templateUrl: './operational-plans.component.html',
-  styleUrls: ['./operational-plans.component.scss']
+  styleUrls: ['./operational-plans.component.scss'],
 })
 export class OperationalPlansComponent {
-
   @Input() inputData: any;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -20,7 +19,8 @@ export class OperationalPlansComponent {
   selectDateType = 'single';
   selectedPlanName = 'برنامه های عملیاتی';
 
-  constructor(private httpService: HttpService) { }
+
+  constructor(private httpService: HttpService) {}
 
   getPlanDetail(yearId: number) {
     const body = {
@@ -40,9 +40,7 @@ export class OperationalPlansComponent {
         this.planDetailData = res;
       });
   }
-
   returnSelectedDate(e: any) {
     this.getPlanDetail(e);
   }
 }
-

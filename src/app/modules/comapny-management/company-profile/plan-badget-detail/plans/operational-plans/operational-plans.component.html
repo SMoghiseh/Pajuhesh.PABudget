@@ -4,7 +4,10 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date
+            [companyId]="inputData.companyId"
+            [selectType]="selectDateType"
+            (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
@@ -14,32 +17,59 @@
       </div>
     </div>
     <div class="row">
-      <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-        [value]="planDetailData" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+      <p-table
+        #dataTable
+        dataKey="id"
+        class="data-table d-none d-lg-block"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [totalRecords]="totalCount"
+        [value]="planDetailData"
+        [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [lazy]="true"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
           <tr class="data-table__header">
             <div class="headerStyle">
               <th style="min-width: 7rem">
-                <strong> هدف </strong>
+                <strong> عنوان </strong>
               </th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> دوره </strong></th>
+              <th style="min-width: 7rem"><strong> اهداف سالیانه </strong></th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> برنامه عملیاتی </strong></th>
+              <th style="min-width: 7rem"><strong> استراتژی </strong></th>
             </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> سیاست ها  </strong></th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> ریسک </strong></th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> تکالیف مجمع </strong></th>
+            </div>
+
           </tr>
         </ng-template>
+
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <div class="detailStyle Width: auto" [ngStyle]="{ 'background-color': item.color }">
-              <td style="width: 33rem">{{ item.titleBigGoal }}</td>
-              <td style="width: 33rem">{{ item.titleBudget }}</td>
-              <td style="width: 33rem">{{ item.titleYearActivity }}</td>
+            <div
+              class="detailStyle Width: auto"
+              [ngStyle]="{ 'background-color': item.color }">
+              <td style="width: 33rem">{{ item.titleMain }}</td>
+              <td style="width: 33rem">{{ item.titleFirst }}</td>
+              <td style="width: 33rem">{{ item.titleTwo }}</td>
+              <td style="width: 33rem">{{ item.titleThree }}</td>
+              <td style="width: 33rem">{{ item.titleFour }}</td>
+              <td style="width: 33rem">{{ item.titleFive }}</td>
             </div>
           </tr>
         </ng-template>
@@ -47,3 +77,4 @@
     </div>
   </div>
 </div>
+
