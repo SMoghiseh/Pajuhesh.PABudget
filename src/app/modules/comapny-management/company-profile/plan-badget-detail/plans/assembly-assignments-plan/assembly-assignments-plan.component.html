@@ -59,9 +59,9 @@
               [ngStyle]="{ 'background-color': item.color }">
               <td style="width: 33rem">{{ item.titleMain }}</td>
               <td style="width: 33rem">{{ item.titleFirst }}</td>
-              
-                <td style="width: 33rem">
-                  <ng-container *ngIf="item.titleList && item.titleList.length">
+
+              <td style="width: 33rem">
+                <ng-container *ngIf="item.titleList && item.titleList.length">
                   <button
                     class="action-image-container add-button"
                     (click)="showAssemblyAssignmentsList(item)"
@@ -69,8 +69,7 @@
                     <img ngSrc="icons\Group 131.svg" width="24" height="24" />
                   </button>
                 </ng-container>
-                </td>
-       
+              </td>
             </div>
           </tr>
         </ng-template>
