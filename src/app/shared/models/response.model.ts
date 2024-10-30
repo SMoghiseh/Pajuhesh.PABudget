@@ -1283,7 +1283,6 @@ export class Plan {
     'api/PABudgetApi/Dashboard/GetPersonelNoCompanyForPie';
   static readonly apiAddressEmployeeTable =
     'api/PABudgetApi/Dashboard/GetPersonelNoForDashboard';
-
 }
 
 export class Planning {
@@ -1467,6 +1466,11 @@ export class Budget {
     'api/PABudgetApi/Dashboard/CompareRealWithBudget/';
   static readonly apiListOfBudgetReport =
     'api/PABudgetApi/Dashboard/ListOfBudgetReport';
+  static readonly apiStatementCashFlows =
+    'api/PABudgetApi/Dashboard/StatementCashFlows';
+  static readonly apiReconciliationStatementOperating =
+    'api/PABudgetApi/Dashboard/ReconciliationStatementOperating';
+  static readonly apiReceiveAndPay = 'api/PABudgetApi/Dashboard/ReceiveAndPay';
 }
 
 export class StatementCashFlows {

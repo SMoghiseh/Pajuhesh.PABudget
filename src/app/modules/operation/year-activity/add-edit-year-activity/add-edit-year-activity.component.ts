@@ -207,9 +207,7 @@ export class AddEditYearActivityComponent {
           : YearActivity.apiAddress + 'Update';
       delete request['companyId'];
       delete request['periodId'];
-      if(this.mode === 'insert'){
-        delete request['id'];
-      } 
+
       
       this.isLoadingSubmit = true;
       this.httpService

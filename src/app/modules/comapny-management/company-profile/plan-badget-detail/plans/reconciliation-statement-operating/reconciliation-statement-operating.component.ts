@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import {
+  Budget,
   Profile,
   ReconciliationStatementOperating,
   StatementCashFlows,
@@ -54,17 +55,17 @@ export class ReconciliationStatementOperatingComponent {
   }
 
   getListOfBudgetReportLst() {
-    // this.httpService
-    //   .get<Budget[]>(Budget.apiListOfBudgetReport)
-    //   .subscribe(response => {
-    //     if (response.data && response.data.result) {
-    //       this.listOfBudgetReport = response.data.result;
-    //       this.selectedlistOfBudgetReport = response.data.result;
-    //       for (let i = 0; this.selectedlistOfBudgetReport.length > 0; i++) {
-    //         this.selectedlistOfBudgetReport = response.data.result[i];
-    //       }
-    //     }
-    //   });
+    this.httpService
+      .get<Budget[]>(Budget.apiListOfBudgetReport)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.listOfBudgetReport = response.data.result;
+          this.selectedlistOfBudgetReport = response.data.result;
+          for (let i = 0; this.selectedlistOfBudgetReport.length > 0; i++) {
+            this.selectedlistOfBudgetReport = response.data.result[i];
+          }
+        }
+      });
   }
   reloadFilteredData() {
     if (this.viewMode == 'treeTable') this.getTreeTableData();
@@ -127,26 +128,26 @@ export class ReconciliationStatementOperatingComponent {
   }
 
   getTreeTableData() {
-    // this.selectedRows = [];
-   
-    // const body = {
-    //   companyId: this.inputData.companyId,
-    //   periodId: this.selectedYerId.toString(),
-    //   // priceType: this.selectedPriceTypeId,
-    //   isConsolidated: this.selectedReportTypeId,
-    // };
-    // this.httpService
-    //   .post<any>(Budget.apiAddresOwnershipValue, body)
-    //   .pipe(
-    //     map(response => {
-    //       if (response.data && response.data.result) {
-    //         return response.data.result;
-    //       } else return [];
-    //     })
-    //   )
-    //   .subscribe(res => {
-    //     this.treeTableData = res;
-    //   });
+    this.selectedRows = [];
+    // if (!this.selectedYerId) return;
+    const body = {
+      companyId: this.inputData.companyId,
+      periodId: this.selectedYerId.toString(),
+      // priceType: this.selectedPriceTypeId,
+      isConsolidated: this.selectedReportTypeId,
+    };
+    this.httpService
+      .post<any>(Budget.apiReconciliationStatementOperating, body)
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        this.treeTableData = res;
+      });
   }
   getPriceType() {
     this.httpService
@@ -191,37 +192,37 @@ export class ReconciliationStatementOperatingComponent {
   }
 
   getTableData(comparison: number) {
-    // let url = '';
-    // if (this.viewMode == 'table') {
-    //   if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
-    //   if (comparison == 2) url = Budget.apiAddressCompareBudgetWithBudget;
-    //   if (comparison == 3) url = Budget.apiAddressCompareRealWithBudget;
-    // }
-    // const body = {
-    //   accountReportCode: null,
-    //   companyId: this.inputData.companyId,
-    //   firstPeriodId:
-    //     this.selectedYerId[0] < this.selectedYerId[1]
-    //       ? this.selectedYerId[0]
-    //       : this.selectedYerId[1],
-    //   secondPeriodId:
-    //     this.selectedYerId[0] > this.selectedYerId[1]
-    //       ? this.selectedYerId[0]
-    //       : this.selectedYerId[1],
-    // };
-    // this.httpService
-    //   .post<any>(UrlBuilder.build(url + 'CostAndBenefit', ''), body)
-    //   .pipe(
-    //     map(response => {
-    //       if (response.data && response.data.result) {
-    //         return response.data.result;
-    //       } else return [];
-    //     })
-    //   )
-    //   .subscribe(result => {
-    //     this.tableData = result.compareReportDetail;
-    //     this.cols = result.headers;
-    //   });
+    let url = '';
+    if (this.viewMode == 'table') {
+      if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
+      if (comparison == 2) url = Budget.apiAddressCompareBudgetWithBudget;
+      if (comparison == 3) url = Budget.apiAddressCompareRealWithBudget;
+    }
+    const body = {
+      accountReportCode: null,
+      companyId: this.inputData.companyId,
+      firstPeriodId:
+        this.selectedYerId[0] < this.selectedYerId[1]
+          ? this.selectedYerId[0]
+          : this.selectedYerId[1],
+      secondPeriodId:
+        this.selectedYerId[0] > this.selectedYerId[1]
+          ? this.selectedYerId[0]
+          : this.selectedYerId[1],
+    };
+    this.httpService
+      .post<any>(UrlBuilder.build(url + 'CostAndBenefit', ''), body)
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(result => {
+        this.tableData = result.compareReportDetail;
+        this.cols = result.headers;
+      });
   }
 
   createLineChart(data: any, indx: any) {
