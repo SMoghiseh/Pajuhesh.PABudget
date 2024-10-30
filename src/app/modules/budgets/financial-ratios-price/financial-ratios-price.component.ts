@@ -35,6 +35,7 @@ export class FinancialRatiosPriceComponent {
   loading = false;
   first = 0;
   data: FinancialRatiosPrice[] = [];
+  selectedPeriodId = 0;
 
   isOpenAddEditFinancialRatiosPrice = false;
   constructor(
@@ -53,13 +54,12 @@ export class FinancialRatiosPriceComponent {
       // price: new FormControl(null),
       // code: new FormControl('02'),
     });
-    this.route.params.subscribe((param: any) => {
-      if (param.id) {
-        this.searchForm.patchValue({
-          periodId: param.id,
-        });
-      }
+
+    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('id'));
+    this.searchForm.patchValue({
+      periodId: this.selectedPeriodId
     });
+
   }
 
   getFinancialRatiosPriceList(event?: LazyLoadEvent) {
@@ -77,6 +77,7 @@ export class FinancialRatiosPriceComponent {
       pageNumber: pagination.pageNumber,
       withOutPagination: true,
       financialRatioId: formValue.financialRatioId,
+      periodId : this.selectedPeriodId,
       companyId: formValue.companyId,
     };
 

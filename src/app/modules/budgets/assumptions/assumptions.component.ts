@@ -14,6 +14,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'PABudget-assumptions',
@@ -34,6 +35,7 @@ export class AssumptionsComponent {
   addEditData = new Assumptions();
   pId!: string;
   mode!: string;
+  selectedPeriodId = 0;
 
   // form property
   searchForm!: FormGroup;
@@ -47,7 +49,8 @@ export class AssumptionsComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -60,6 +63,10 @@ export class AssumptionsComponent {
       typeCode: new FormControl(null),
       aspectCode: new FormControl(null),
     });
+
+    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('id'));
+
+
   }
 
   getCompanyLst() {
@@ -96,6 +103,7 @@ export class AssumptionsComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
+      periodId : this.selectedPeriodId,
       ...formValue,
     };
 
