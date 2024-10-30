@@ -4,7 +4,10 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType" (selectedVal)="returnSelectedDate($event)"></app-select-date>
+          <app-select-date
+            [companyId]="inputData.companyId"
+            [selectType]="selectDateType"
+            (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
@@ -14,9 +17,20 @@
       </div>
     </div>
     <div class="row">
-      <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-        [value]="planDetailData" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+      <p-table
+        #dataTable
+        dataKey="id"
+        class="data-table d-none d-lg-block"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [totalRecords]="totalCount"
+        [value]="planDetailData"
+        [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [lazy]="true"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
@@ -31,17 +45,23 @@
             </div>
 
             <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> برنامه های عملیاتی </strong></th>
+              <th style="min-width: 7rem">
+                <strong> برنامه های عملیاتی </strong>
+              </th>
             </div>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <div class="detailStyle Width: auto" [ngStyle]="{ 'background-color': item.color }">
+            <div
+              class="detailStyle Width: auto"
+              [ngStyle]="{ 'background-color': item.color }">
               <td style="width: 33rem">{{ item.desc }}</td>
               <td style="width: 33rem">{{ item.titlePeriod }}</td>
               <td style="width: 33rem">
-                <button class="action-image-container add-button" (click)="showYearActivityList(item)"
+                <button
+                  class="action-image-container add-button"
+                  (click)="showYearActivityList(item)"
                   pTooltip="دوره عملیاتی">
                   <img ngSrc="icons\Group 131.svg" width="24" height="24" />
                 </button>
@@ -54,33 +74,57 @@
   </div>
 </div>
 
-<p-dialog *ngIf="isOpenDataList" [header]="modalTitle" [(visible)]="isOpenDataList" [modal]="true" [draggable]="false"
-  [resizable]="false" (isCloseModal)="closeModal()" [style]="{ width: '600px' }">
-
+<p-dialog
+  *ngIf="isOpenDataList"
+  [header]="modalTitle"
+  [(visible)]="isOpenDataList"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  (isCloseModal)="closeModal()"
+  [style]="{ width: '600px' }">
   <div class="table-container">
-    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="yearActivityGridClass"
-      [rowHover]="true" [paginator]="true" [rows]="yearActivityDataTableRows" [rowsPerPageOptions]="[10 , 20 , 30]"
-      [totalRecords]="yearActivityTotalCount" [value]="yearActivityDataList" [tableStyle]="{ 'min-width': '100%' }">
+    <p-table
+      #dataTable
+      dataKey="id"
+      class="data-table d-none d-lg-block"
+      [styleClass]="yearActivityGridClass"
+      [rowHover]="true"
+      [paginator]="true"
+      [rows]="yearActivityDataTableRows"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [totalRecords]="yearActivityTotalCount"
+      [value]="yearActivityDataList"
+      [tableStyle]="{ 'min-width': '100%' }">
       <!-- table header -->
       <ng-template pTemplate="header">
         <tr class="">
-          <th style="width:50%;text-align: center !important"><strong> کد</strong></th>
-          <th style="width:50%;text-align: center !important"><strong> عنوان</strong></th>
+          <th style="width: 50%; text-align: center !important">
+            <strong> کد</strong>
+          </th>
+          <th style="width: 50%; text-align: center !important">
+            <strong> عنوان</strong>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-manager let-rowIndex="rowIndex">
         <tr>
-          <td style="width: 5rem; text-align: center !important;" pTooltip="{{manager.code}}" tooltipEvent="hover"
+          <td
+            style="width: 5rem; text-align: center !important"
+            pTooltip="{{ manager.code }}"
+            tooltipEvent="hover"
             tooltipPosition="top">
-            {{manager.code}}
+            {{ manager.code }}
           </td>
-          <td style="width: 5rem;text-align: center !important" pTooltip="{{manager.title}}" tooltipEvent="hover"
+          <td
+            style="width: 5rem; text-align: center !important"
+            pTooltip="{{ manager.title }}"
+            tooltipEvent="hover"
             tooltipPosition="top">
-            {{manager.title}}
+            {{ manager.title }}
           </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
-
 </p-dialog>

@@ -10,17 +10,27 @@ import { map } from 'rxjs';
 })
 export class AssemblyAssignmentsPlanComponent implements OnInit {
   @Input() inputData: any;
+  gridClass = 'p-datatable-sm';
 
+  dataTableRows = 10;
+  first = 0;
+  totalCount!: number;
   planDetailData: any;
+  // data: Plan[] = [];
+  loading = false;
+  assemblyAssignmentsClass = 'p-datatable-sm';
+  assemblyAssignmentsTotalCount!: number;
   selectDateType = 'single';
   selectedPlanName = ' تکالیف مجمع';
+  modalTitle = '';
+  isOpenDataList = false;
+  assemblyAssignmentsDataList: any;
+  assemblyAssignmentsDataTableRows = 10;
+  constructor(private httpService: HttpService) {}
 
-  constructor(private httpService: HttpService) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  getPlanDetail(yearId: number) {
+  getPlanDetail(yearId: number) { debugger
     const body = {
       companyId: this.inputData.companyId,
       periodId: yearId,
@@ -37,6 +47,16 @@ export class AssemblyAssignmentsPlanComponent implements OnInit {
       .subscribe(res => {
         this.planDetailData = res;
       });
+  }
+
+  showAssemblyAssignmentsList(data: any) { debugger
+    this.modalTitle =
+      'تکالیف مجمع' + ' " ' + data?.desc?.substring(0, 40) + ' ... ' + ' " ';
+    this.isOpenDataList = true;
+    this.assemblyAssignmentsDataList = data.titleList;
+  }
+  closeModal() {
+    this.isOpenDataList = false;
   }
 
   returnSelectedDate(e: any) {

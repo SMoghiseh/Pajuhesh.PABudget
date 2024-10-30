@@ -1283,6 +1283,7 @@ export class Plan {
     'api/PABudgetApi/Dashboard/GetPersonelNoCompanyForPie';
   static readonly apiAddressEmployeeTable =
     'api/PABudgetApi/Dashboard/GetPersonelNoForDashboard';
+
 }
 
 export class Planning {
