@@ -54,7 +54,7 @@ export class GoalsComponent  {
   }
 
   showYearActivityList(data: any) {
-    this.modalTitle = 'لیست برنامه های عملیاتی' + ' " ' + data?.desc?.substring(0, 40) + ' ... ' + ' " ';
+    this.modalTitle = 'اهداف کلان   ' + ' " ' + data?.titleMain?.substring(0, 40) + ' ... ' + ' " ';
     this.isOpenDataList = true;
     this.yearActivityDataList = data.titleYearActivityList;
   }
