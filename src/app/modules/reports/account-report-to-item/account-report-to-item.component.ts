@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import { AccountReportItem } from '@shared/models/response.model';
+import { AccountReportItem, Profile, UrlBuilder } from '@shared/models/response.model';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { map } from 'rxjs';
 
@@ -15,6 +15,8 @@ export class AccountReportToItemComponent implements OnInit {
   accountReports: AccountReportItem[] = [];
   addEditData = new AccountReportItem();
   selectedAccountReports: any;
+  reportItemTypeList: any;
+  selectedReportTypeId!: number;
   isOpenAddAccountReport: boolean = false;
   addNewAccountReportForm!: FormGroup;
   modalTitle = '';
@@ -28,18 +30,18 @@ export class AccountReportToItemComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getAccountReportList();
+    this.getReportItemType();
   }
 
   /*--------------------------
   # GET
   --------------------------*/
-  getAccountReportList() {
+  getAccountReportList(id: number) {
     this.httpService
-      .get<AccountReportItem[]>(AccountReportItem.apiAddress + 'Tree')
+      .get<AccountReportItem[]>(AccountReportItem.apiAddress + 'Tree/' + id)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -52,6 +54,35 @@ export class AccountReportToItemComponent implements OnInit {
       .subscribe(accountReports => {
         this.accountReports = accountReports;
       });
+  }
+
+  getReportItemType() {
+    this.httpService
+      .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return [];
+        })
+      )
+      .subscribe(res => {
+        this.reportItemTypeList = res;
+        this.onSelectReportItemType(this.reportItemTypeList[0]['id']);
+      });
+  }
+
+  onSelectReportItemType(id: number) {
+    this.selectedReportTypeId = id;
+
+    this.reportItemTypeList.forEach((element: any) => {
+      if (element.id === id) element.isSelected = true;
+      else element.isSelected = false;
+    });
+
+
+    this.getAccountReportList(this.selectedReportTypeId);
+
   }
 
   onNodeSelect(e: any) {
@@ -120,14 +151,14 @@ export class AccountReportToItemComponent implements OnInit {
             detail: `آیتم ${title}`,
             summary: 'با موفقیت حذف شد',
           });
-          this.getAccountReportList();
+          this.getAccountReportList(this.selectedReportTypeId);
         }
       });
   }
 
   reloadData() {
     this.isOpenAddAccountReport = false;
-    this.getAccountReportList();
+    this.getAccountReportList(this.selectedReportTypeId);
   }
 
   closeModal() {
