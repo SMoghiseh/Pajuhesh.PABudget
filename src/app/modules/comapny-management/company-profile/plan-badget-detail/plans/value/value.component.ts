@@ -8,7 +8,7 @@ import { map } from 'rxjs';
   templateUrl: './value.component.html',
   styleUrls: ['./value.component.scss'],
 })
-export class ValueComponent {
+export class ValueComponent implements OnInit {
   @Input() inputData: any;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -22,6 +22,11 @@ export class ValueComponent {
 
 
   constructor(private httpService: HttpService) { }
+
+  ngOnInit(): void {
+    this.getPlanDetail(0);
+  }
+  
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,

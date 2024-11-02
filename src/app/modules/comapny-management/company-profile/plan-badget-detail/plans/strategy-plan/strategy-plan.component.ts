@@ -8,7 +8,7 @@ import { map } from 'rxjs';
   templateUrl: './strategy-plan.component.html',
   styleUrls: ['./strategy-plan.component.scss']
 })
-export class StrategyPlanComponent {
+export class StrategyPlanComponent implements OnInit {
   @Input() inputData: any;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -30,6 +30,11 @@ export class StrategyPlanComponent {
 
 
   constructor(private httpService: HttpService) { }
+  
+  ngOnInit(): void {
+    this.getPlanDetail(0);
+  }
+  
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
