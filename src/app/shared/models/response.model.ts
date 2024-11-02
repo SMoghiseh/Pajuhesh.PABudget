@@ -1782,6 +1782,19 @@ export class FinancialRatio {
   title!: string;
 }
 
+export class Indicator {
+  static readonly apiAddressIndicator = 'api/PABudgetApi/v1/Indicator/';
+  static readonly apiaddressPeriodTypeCode =
+    'api/PABudgetApi/v1/BaseInfo/PeriodTypeCode/';
+  static readonly apiAddressMinMaxTypeCode =
+    'api/PABudgetApi/v1/BaseInfo/MinMaxTypeCode/';
+  static readonly apiAddressQualityTypeCode =
+    'api/PABudgetApi/v1/BaseInfo/QualityTypeCode/';
+  static readonly apiaddressIndicatorType =
+    'api/PABudgetApi/v1/BaseInfo/IndicatorType/';
+  id!: number;
+  title!: string;
+}
 export class ShareHolder {
   static readonly apiAddress = 'api/PABudgetApi/v1/ShareHolderCompany/';
   static readonly PartyListApiAddress =

@@ -11,9 +11,11 @@ import { BasicsDefinitionComponent } from './basics-definition/basics-definition
 import { PeriodDefinitionComponent } from './period-definition/period-definition.component';
 import { ProductGroupComponent } from './product-group/product-group.component';
 import { FinancialRatioComponent } from './financial-ratio/financial-ratio.component';
+import { IndicatorComponent } from './indicator/indicator.component';
+import { IndicatorValueComponent } from './indicator-value/indicator-value.component';
 
 const routes: Routes = [
-  {
+  { 
     path: '',
     component: BasicsManagementComponent,
     children: [
@@ -81,6 +83,20 @@ const routes: Routes = [
             path: '',
             redirectTo: '/baseinfo/createmasters',
             pathMatch: 'full',
+          },
+          {
+            path: 'Indicator',
+            component: IndicatorComponent,
+            title: 'برنامه و بودجه | تعریف نسبت های مالی',
+            data: {
+              reuse: true,
+              title: 'تعریف نسبت های مالی',
+            },
+          },
+          {
+            path: 'IndicatorValue/:id',
+            component: IndicatorValueComponent,
+            title: 'برنامه و بودجه |   اهداف سالیانه',
           },
         ],
       },
