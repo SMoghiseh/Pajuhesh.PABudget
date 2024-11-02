@@ -33,7 +33,7 @@ export class StrategyPlanComponent {
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      periodId: yearId,
+      // periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressStrategyPlan, ''), body)

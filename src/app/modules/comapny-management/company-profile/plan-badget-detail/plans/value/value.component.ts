@@ -25,7 +25,7 @@ export class ValueComponent {
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      periodId: yearId,
+      // periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressValue, ''), body)
