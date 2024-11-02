@@ -35,6 +35,10 @@ import { ProductGroupComponent } from './product-group/product-group.component';
 import { MenuModule } from 'primeng/menu';
 import { FinancialRatioComponent } from './financial-ratio/financial-ratio.component';
 import { AddEditFinancialRatioComponent } from './financial-ratio/add-edit-financial-ratio/add-edit-financial-ratio.component';
+import { IndicatorComponent } from './indicator/indicator.component';
+import { AddEditIndicatorComponent } from './indicator/add-edit-indicator/add-edit-indicator.component';
+import { IndicatorValueComponent } from './indicator-value/indicator-value.component';
+import { AddEditIndicatorValueComponent } from './indicator-value/add-edit-indicator-value/add-edit-indicator-value.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +50,10 @@ import { AddEditFinancialRatioComponent } from './financial-ratio/add-edit-finan
     ProductGroupComponent,
     FinancialRatioComponent,
     AddEditFinancialRatioComponent,
+    IndicatorComponent,
+    AddEditIndicatorComponent,
+    IndicatorValueComponent,
+    AddEditIndicatorValueComponent,
   ],
   imports: [
     NgOptimizedImage,
