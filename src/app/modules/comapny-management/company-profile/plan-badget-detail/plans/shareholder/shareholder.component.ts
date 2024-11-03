@@ -99,7 +99,7 @@ export class ShareholderComponent {
               display: false,
               text: 'سهامداران',
               font: {
-                family: 'vazirmatn',
+                family: 'shabnam',
               },
             },
             legend: {
@@ -111,17 +111,17 @@ export class ShareholderComponent {
                 boxWidth: 10,
                 boxHeight: 10,
                 font: {
-                  family: 'vazirmatn',
+                  family: 'shabnam',
                   size: 11,
                 },
               },
             },
             tooltip: {
               titleFont: {
-                family: 'vazirmatn',
+                family: 'shabnam',
               },
               bodyFont: {
-                family: 'vazirmatn',
+                family: 'shabnam',
               },
             },
           },

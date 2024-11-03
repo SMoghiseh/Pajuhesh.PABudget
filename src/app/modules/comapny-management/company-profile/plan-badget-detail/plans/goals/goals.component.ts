@@ -8,7 +8,7 @@ import { map } from 'rxjs';
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.scss']
 })
-export class GoalsComponent  {
+export class GoalsComponent implements OnInit {
   @Input() inputData: any;
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -22,10 +22,15 @@ export class GoalsComponent  {
 
 
   constructor(private httpService: HttpService) { }
+
+  ngOnInit(): void {
+    this.getPlanDetail(0);
+  }
+
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
-      periodId: yearId,
+      // periodId: yearId,
     };
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressGoals, ''), body)

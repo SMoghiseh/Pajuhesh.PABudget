@@ -56,3 +56,33 @@
     position: absolute;
     left: 23px;
 }
+
+.select-feature {
+    background-color: #3B82F6 !important;
+    color: white !important;
+}
+
+.deselect-feature {
+    background-color: #E2E8F0 !important;
+    color: #64748B !important;
+}
+
+::ng-deep .row-feature {
+    margin: 10px 11px 10px;
+
+    div.items {
+        width: fit-content;
+        background-color: #E2E8F0;
+        color: #64748B;
+        padding: 5px;
+        border-radius: 7px;
+        cursor: pointer;
+        margin-left: 10px;
+        height: min-content;
+        cursor: pointer;
+
+        span {
+            margin: 13px;
+        }
+    }
+}

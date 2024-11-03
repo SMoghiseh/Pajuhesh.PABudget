@@ -129,7 +129,7 @@ export class EmployeesComponent {
               display: false,
               text: 'کارکنان',
               font: {
-                family: 'vazirmatn',
+                family: 'shabnam',
               },
             },
             legend: {
@@ -141,17 +141,17 @@ export class EmployeesComponent {
                 boxWidth: 10,
                 boxHeight: 10,
                 font: {
-                  family: 'vazirmatn',
+                  family: 'shabnam',
                   size: 11,
                 },
               },
             },
             tooltip: {
               titleFont: {
-                family: 'vazirmatn',
+                family: 'shabnam',
               },
               bodyFont: {
-                family: 'vazirmatn',
+                family: 'shabnam',
               },
             },
           },

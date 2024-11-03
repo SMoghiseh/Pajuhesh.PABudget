@@ -1,22 +1,25 @@
 <!-- pop up messages -->
 <p-toast key="accountReportMessage" position="bottom-left"></p-toast>
 
-<!-- data table -->
 <section class="section">
-  <div class="pb-2">
+  <div class="d-flex justify-content-between">
     <div class="table-header">گزارشات مالی </div>
-    <div class="d-flex justify-content-end pb-3 w-100">
-      <!-- دکمه -->
-      <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن  آیتم جدید"
-        (click)="onAddNewAccountReport()"></p-button>
-      <!-- / دکمه -->
+    <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن  آیتم جدید"
+      (click)="onAddNewAccountReport()"></p-button>
+  </div>
+
+  <div class="panel-search mt-8 mb-8">
+    <div class="row row-feature">
+      <div *ngFor="let item of reportItemTypeList" class="items" (click)="onSelectReportItemType(item.id)"
+        [class.select-feature]="item.isSelected">
+        <span>{{ item.title }}</span>
+      </div>
     </div>
-    <!-- </p-panel> -->
   </div>
 
   <!-- data table -->
   <div class="table-container">
-    <div class="tree-header">لیست آیتم ها</div>
+    <div class="tree-header mr-8">لیست آیتم ها</div>
     <p-tree selectionMode="single" class="w-full md:w-30rem" [value]="accountReports"
       [(selection)]="selectedAccountReports" [style]="{ height: '73vh', overflow: 'auto' }"
       (onNodeSelect)="onNodeSelect($event)">
