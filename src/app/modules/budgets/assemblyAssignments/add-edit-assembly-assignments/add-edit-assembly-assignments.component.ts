@@ -46,12 +46,12 @@ export class AddEditAssemblyAssignmentsComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getCompanyLst();
     this.getMeetingTopicList();
     this.addEditForm = new FormGroup({
-      budgetPeriodId: new FormControl(),
+      budgetPeriodId: new FormControl(0),
       meetingId: new FormControl(0),
       typeCode: new FormControl(null),
       companyId: new FormControl(null),
@@ -63,9 +63,9 @@ export class AddEditAssemblyAssignmentsComponent implements OnInit {
     }
     if (this.mode === 'insert') {
       this.route.params.subscribe((param: any) => {
-        if (param.id) {
+        if (param.budgetPeriodId) {
           this.addEditForm.patchValue({
-            budgetPeriodId: param.id,
+            budgetPeriodId: Number(param.budgetPeriodId),
           });
         }
       });

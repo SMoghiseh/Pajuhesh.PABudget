@@ -1,0 +1,27 @@
+<p-toast key="Indicator" position="bottom-left"></p-toast>
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditIndicator()">
+  <div class="container row">
+    <div class="col-6 mt-2">
+      <label for="title">عنوان </label>
+      <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+          (addEditFormSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+    </div>
+    <div class="col-6 mt-2">
+      <label for="groupTypeCode"> شاخص های کیفی </label>
+      <p-dropdown id="groupTypeCode" name="groupTypeCode" formControlName="groupTypeCode" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="groupTypeCodeList" [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button class="pe-2" styleClass="p-button-warning" label="انصراف" icon="pi pi-times"
+        (click)="closeModal()"></p-button>
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>
