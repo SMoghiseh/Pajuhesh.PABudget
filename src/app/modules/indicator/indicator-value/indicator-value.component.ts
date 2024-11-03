@@ -7,6 +7,7 @@ import {
   Company,
   Indicator,
   Pagination,
+  Period,
   UrlBuilder,
 } from '@shared/models/response.model';
 import {
@@ -32,6 +33,7 @@ export class IndicatorValueComponent {
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
+  periodDetailLst: Period[] = [];
   getindicatorId: any;
   modalTitle = '';
   isOpenAddEditIndicator = false;
@@ -42,9 +44,10 @@ export class IndicatorValueComponent {
   searchForm!: FormGroup;
 
   // dropdown data list
-
+  inputData = new Indicator();
   chartValueList: any = [];
   companyList: any = [];
+  periodList: any = [];
 
   get companyId() {
     return this.searchForm.get('companyId');
@@ -58,14 +61,16 @@ export class IndicatorValueComponent {
 
   ngOnInit(): void {
     this.getCompanyLst();
+    this.getPeriodList();
+    // this.getPeriodDetailLst(e.value);
     this.route.params.subscribe(params => {
       this.getindicatorId = params['id'];
     });
-    this.getChartValueListList();
+    // this.getChartValueListList();
 
     this.searchForm = new FormGroup({
-      chartValue: new FormControl(''),
-      minValue: new FormControl(''),
+      qualityValue: new FormControl(null),
+      minValue: new FormControl(null),
       maxValue: new FormControl(null),
       fromPeriodDetailId: new FormControl(null),
       toPeriodDetailId: new FormControl(null),
@@ -76,9 +81,15 @@ export class IndicatorValueComponent {
     });
   }
 
-  getChartValueListList() {
+  onChangePeriod(e: any) {
+    this.getChartValueList(e.value);
+    this.getPeriodDetailLst(e.value);
+  }
+
+  getChartValueList(periodId: number) {
     const body = {
-      indicatorId: this.getindicatorId,
+      indicatorId: parseInt(this.getindicatorId),
+      periodId: periodId,
     };
 
     this.httpService
@@ -86,9 +97,28 @@ export class IndicatorValueComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.chartValueList = response.data.result;
+          if (this.inputData.id)
+            this.searchForm.patchValue({
+              qualityValue: this.inputData.qualityValue,
+            });
         }
       });
   }
+  getPeriodDetailLst(periodId: number) {
+    this.httpService
+      .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodDetailLst = response.data.result;
+          if (this.inputData.id)
+            this.searchForm.patchValue({
+              toPeriodDetailId: this.inputData.toPeriodDetailId,
+              fromPeriodDetailId: this.inputData.fromPeriodDetailId,
+            });
+        }
+      });
+  }
+
   getCompanyLst() {
     this.httpService
       .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
@@ -99,7 +129,17 @@ export class IndicatorValueComponent {
       });
   }
 
-  getIndicator(event?: LazyLoadEvent) {
+  getPeriodList() {
+    this.httpService
+      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodList = response.data.result;
+        }
+      });
+  }
+
+  getIndicatorValue(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -114,10 +154,11 @@ export class IndicatorValueComponent {
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
       ...formValue,
+      indicatorId: this.getindicatorId,
     };
 
     this.first = 0;
-    const url = Indicator.apiAddressIndicator + 'GetAllIndicators';
+    const url = Indicator.apiAddressIndicator + 'GetAllIndicatorValues';
     this.httpService
       .post<Indicator[]>(url, body)
 
@@ -130,14 +171,14 @@ export class IndicatorValueComponent {
             return response.data.result;
           } else return [new Indicator()];
         })
-      );
-    // .subscribe(res => {
-    //   this.data = this.addSubComponentList(res);
-    // });
+      )
+      .subscribe(res => {
+        this.data = res;
+      });
   }
 
   addIndicator() {
-    this.modalTitle = 'افزودن  شاخص  جدید ';
+    this.modalTitle = 'افزودن  مقدار شاخص  جدید ';
     this.mode = 'insert';
     this.isOpenAddEditIndicator = true;
   }
@@ -146,7 +187,7 @@ export class IndicatorValueComponent {
     this.isOpenAddEditIndicator = false;
   }
   editRow(data: Indicator) {
-    this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
+    this.modalTitle = 'ویرایش مقدار شاخص  ' + '"' + data.indicatorTitle + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditIndicator = true;
@@ -155,8 +196,8 @@ export class IndicatorValueComponent {
   deleteRow(item: Indicator) {
     if (item && item.id)
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
-        header: `عنوان "${item.title}"`,
+        message: `آیا از حذف "${item.indicatorTitle} " اطمینان دارید؟`,
+        header: `عنوان شاخص "${item.indicatorTitle}"`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -164,7 +205,7 @@ export class IndicatorValueComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteIndicator(item.id, item.title),
+        accept: () => this.deleteIndicator(item.id, item.indicatorTitle),
       });
   }
 
@@ -173,7 +214,7 @@ export class IndicatorValueComponent {
       this.httpService
         .get<Indicator>(
           UrlBuilder.build(
-            Indicator.apiAddressIndicator + 'DeleteIndicator',
+            Indicator.apiAddressIndicator + 'DeleteIndicatorValue',
             ''
           ) + `/${id}`
         )
@@ -184,10 +225,10 @@ export class IndicatorValueComponent {
               key: ' Indicator',
               life: 8000,
               severity: 'success',
-              detail: ` شاخص  ${title}`,
+              detail: ` مقدار شاخص  ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getIndicator();
+            this.getIndicatorValue();
           }
         });
     }
@@ -195,11 +236,11 @@ export class IndicatorValueComponent {
 
   reloadData() {
     this.isOpenAddEditIndicator = false;
-    this.getIndicator();
+    this.getIndicatorValue();
   }
 
   clearSearch() {
     this.searchForm.reset();
-    this.getIndicator();
+    this.getIndicatorValue();
   }
 }

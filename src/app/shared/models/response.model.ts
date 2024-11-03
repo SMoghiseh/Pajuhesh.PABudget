@@ -1056,6 +1056,7 @@ export class Period {
   periodId!: number;
   startFiscalYearId!: number;
   list!: Period[];
+  toPeriodDetailId!: number;
 }
 
 export class FiscalYear {
@@ -1784,6 +1785,7 @@ export class FinancialRatio {
 
 export class Indicator {
   static readonly apiAddressIndicator = 'api/PABudgetApi/v1/Indicator/';
+
   static readonly apiaddressPeriodTypeCode =
     'api/PABudgetApi/v1/BaseInfo/PeriodTypeCode/';
   static readonly apiAddressMinMaxTypeCode =
@@ -1796,6 +1798,11 @@ export class Indicator {
     'api/PABudgetApi/v1/Indicator/GetIndicatorValueChartTypeInputResults/';
   id!: number;
   title!: string;
+  indicatorTitle!: string;
+  periodId!: number;
+  toPeriodDetailId!: number;
+  fromPeriodDetailId!: number;
+  qualityValue!: number;
 }
 export class ShareHolder {
   static readonly apiAddress = 'api/PABudgetApi/v1/ShareHolderCompany/';

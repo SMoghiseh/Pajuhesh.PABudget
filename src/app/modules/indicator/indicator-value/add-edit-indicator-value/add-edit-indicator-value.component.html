@@ -21,15 +21,46 @@
         [filter]="true">
       </p-dropdown>
     </div>
+
     <div class="col-6 mt-2">
-      <label for="chartValue"> مقدار مرتبط</label>
+      <label for="fromPeriodDetailId">از دوره عملیاتی</label>
       <p-dropdown
-        id="chartValue"
-        name="chartValue"
-        formControlName="chartValue"
+        id="fromPeriodDetailId"
+        name="fromPeriodDetailId"
+        formControlName="fromPeriodDetailId"
         styleClass="w-100 my-1"
-        optionLabel="title"
+        optionLabel="periodDetailTitle"
         optionValue="id"
+        [filter]="true"
+        [options]="periodDetailLst"
+        placeholder="انتخاب کنید">
+      </p-dropdown>
+      <!-- / دوره عملیاتی -->
+    </div>
+    <div class="col-6 mt-2">
+      <label for="toPeriodDetailId">تا دوره عملیاتی</label>
+      <p-dropdown
+        id="toPeriodDetailId"
+        name="toPeriodDetailId"
+        formControlName="toPeriodDetailId"
+        styleClass="w-100 my-1"
+        optionLabel="periodDetailTitle"
+        optionValue="id"
+        [filter]="true"
+        [options]="periodDetailLst"
+        placeholder="انتخاب کنید">
+      </p-dropdown>
+      <!-- / دوره عملیاتی -->
+    </div>
+    <div class="col-6 mt-2">
+      <label for="qualityValue"> مقدار مرتبط</label>
+      <p-dropdown
+        id="qualityValue"
+        name="qualityValue"
+        formControlName="qualityValue"
+        styleClass="w-100 my-1"
+        optionLabel="indicatorChartValueTitle"
+        optionValue="indicatorChartValueId"
         placeholder="انتخاب کنید"
         [options]="chartValueList"
         [filter]="true">
@@ -57,7 +88,7 @@
     </div>
 
 
-    <div class="col-6 mt-2">
+    <!-- <div class="col-6 mt-2">
       <label for="qualityTypeCode"> نوع کیفی</label>
       <p-dropdown
         id="qualityTypeCode"
@@ -70,7 +101,7 @@
         [options]="qualityTypeCodeList"
         [filter]="true">
       </p-dropdown>
-    </div>
+    </div> -->
     <div class="col-6 mt-2">
       <label for="minValue">حداقل مجاز </label>
       <input
@@ -80,8 +111,9 @@
         formControlName="minValue"
         class="w-100 my-1" />
     </div>
+
     <div class="col-6 mt-2">
-      <label for="maxValue">حداکثر مجاز</label>
+      <label for="maxValue">حداکثر مجاز </label>
       <input
         pInputText
         id="maxValue"
@@ -89,7 +121,7 @@
         formControlName="maxValue"
         class="w-100 my-1" />
     </div>
-    <div class="col-6 mt-2">
+    <!-- <div class="col-6 mt-2">
       <label for="fromPeriodDetailId">از دوره عملیاتی</label>
       <input
         pInputText
@@ -97,8 +129,9 @@
         name="fromPeriodDetailId"
         formControlName="fromPeriodDetailId"
         class="w-100 my-1" />
-    </div>
-    <div class="col-6 mt-2">
+    </div> -->
+
+    <!-- <div class="col-6 mt-2">
       <label for="toPeriodDetailId">تا دوره عملیاتی</label>
       <input
         pInputText
@@ -106,7 +139,7 @@
         name="toPeriodDetailId"
         formControlName="toPeriodDetailId"
         class="w-100 my-1" />
-    </div>
+    </div> -->
 
     <!-- <div class="col-6 mt-2">
       <label for="chartTypeCode"> نوع جدولی</label>

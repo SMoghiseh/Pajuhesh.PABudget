@@ -29,6 +29,7 @@ export class AddEditIndicatorValueComponent {
   chartValueList: any = [];
   companyList: any = [];
   periodList: any = [];
+  periodDetailLst: Period[] = [];
   inputData = new Indicator();
   @Input() mode = '';
   @Input() set data(data: Indicator) {
@@ -79,20 +80,22 @@ export class AddEditIndicatorValueComponent {
     this.getCompanyList();
     this.getQualityTypeCodeList();
     this.addEditForm = new FormGroup({
-      chartValue: new FormControl(''),
-      minValue: new FormControl(''),
-      maxValue: new FormControl(null),
-      fromPeriodDetailId: new FormControl(null),
-      toPeriodDetailId: new FormControl(null),
+      qualityValue: new FormControl(null),
+      minValue: new FormControl(),
+      maxValue: new FormControl(),
+      fromPeriodDetailId: new FormControl(),
+      toPeriodDetailId: new FormControl(),
       periodId: new FormControl(null),
       // chartTypeCode: new FormControl(null),
       indicatorId: new FormControl(null),
-      qualityTypeCode: new FormControl(),
+      // qualityTypeCode: new FormControl(),
       companyId: new FormControl(null),
     });
 
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
+      this.getPeriodDetailLst(this.inputData.periodId);
+      this.getChartValueList(this.inputData.periodId);
     }
   }
 
@@ -116,13 +119,26 @@ export class AddEditIndicatorValueComponent {
       });
   }
 
-  onChangePeriod(e: any) {
-    debugger;
+  getPeriodDetailLst(periodId: number) {
+    this.httpService
+      .get<Period[]>(Period.apiAddressDetail + 'ListDropDown/' + periodId)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodDetailLst = response.data.result;
+          if (this.inputData.id)
+            this.addEditForm.patchValue({
+              toPeriodDetailId: this.inputData.toPeriodDetailId,
+              fromPeriodDetailId: this.inputData.fromPeriodDetailId,
+            });
+        }
+      });
+  }
 
+  onChangePeriod(e: any) {
     this.getChartValueList(e.value);
+    this.getPeriodDetailLst(e.value);
   }
   getChartValueList(periodId: number) {
-    debugger;
     const body = {
       indicatorId: parseInt(this.getindicatorId),
       periodId: periodId,
@@ -133,6 +149,10 @@ export class AddEditIndicatorValueComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.chartValueList = response.data.result;
+          if (this.inputData.id)
+            this.addEditForm.patchValue({
+              qualityValue: this.inputData.qualityValue,
+            });
         }
       });
   }
@@ -140,12 +160,13 @@ export class AddEditIndicatorValueComponent {
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
+      request.indicatorId = this.getindicatorId;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
 
       const url =
         this.mode === 'insert'
-          ? Indicator.apiAddressIndicator + 'CreateIndicator'
-          : Indicator.apiAddressIndicator + 'UpdateIndicator';
+          ? Indicator.apiAddressIndicator + 'CreateIndicatorValue'
+          : Indicator.apiAddressIndicator + 'UpdateIndicatorValue';
       this.isLoadingSubmit = true;
 
       this.httpService
@@ -157,7 +178,7 @@ export class AddEditIndicatorValueComponent {
               key: ' Indicator',
               life: 8000,
               severity: 'success',
-              detail: ` برنامه  ${request.title}`,
+              detail: ` شاخص  ${request.indicatorTitle}`,
               summary:
                 this.mode === 'insert'
                   ? 'با موفقیت درج شد'
@@ -204,7 +225,7 @@ export class AddEditIndicatorValueComponent {
 
   getRowData(id: number) {
     this.httpService
-      .get<any>(Indicator.apiAddressIndicator + 'GetIndicatorById/' + id)
+      .get<any>(Indicator.apiAddressIndicator + 'GetIndicatorValueById/' + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
