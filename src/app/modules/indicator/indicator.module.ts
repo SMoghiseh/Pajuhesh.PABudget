@@ -32,6 +32,8 @@ import { IndicatorValueComponent } from './indicator-value/indicator-value.compo
 import { IndicatorComponent } from './indicator.component';
 import { AddEditIndicatorDefinitionComponent } from './indicator-definition/add-edit-indicator-definition/add-edit-indicator-definition.component';
 import { IndicatorRoutingModule } from './indicator-routing.module';
+import { IndicatorChartComponent } from './indicator-chart/indicator-chart.component';
+import { AddEditIndicatorChartComponent } from './indicator-chart/add-edit-indicator-definition/add-edit-indicator-chart.component';
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import { IndicatorRoutingModule } from './indicator-routing.module';
     IndicatorValueComponent,
     AddEditIndicatorValueComponent,
     AddEditIndicatorDefinitionComponent,
+    IndicatorChartComponent,
+    AddEditIndicatorChartComponent
   ],
   imports: [
     CommonModule,
@@ -76,4 +80,4 @@ import { IndicatorRoutingModule } from './indicator-routing.module';
     },
   ],
 })
-export class IndicatorModule {}
+export class IndicatorModule { }

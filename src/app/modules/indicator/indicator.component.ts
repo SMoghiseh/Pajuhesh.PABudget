@@ -10,5 +10,5 @@ import { AnimationService } from '@shared/services/animation.service';
   providers: [AnimationService],
 })
 export class IndicatorComponent {
-  constructor(public animationService: AnimationService) {  debugger}
+  constructor(public animationService: AnimationService) {  }
 }
