@@ -3,8 +3,17 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { Indicator, Pagination, UrlBuilder } from '@shared/models/response.model';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import {
+  Company,
+  Indicator,
+  Pagination,
+  UrlBuilder,
+} from '@shared/models/response.model';
+import {
+  ConfirmationService,
+  LazyLoadEvent,
+  MessageService,
+} from 'primeng/api';
 import { map, tap } from 'rxjs';
 
 @Component({
@@ -14,7 +23,6 @@ import { map, tap } from 'rxjs';
   providers: [ConfirmationService],
 })
 export class IndicatorValueComponent {
-
   public datePipe = new DatePipe('en-US');
 
   gridClass = 'p-datatable-sm';
@@ -24,21 +32,23 @@ export class IndicatorValueComponent {
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
+  getindicatorId: any;
   modalTitle = '';
   isOpenAddEditIndicator = false;
   addEditData = new Indicator();
   mode!: string;
-
+  public submitted = false;
   // form property
   searchForm!: FormGroup;
 
   // dropdown data list
-  periodTypeList: any = [];
-  minMaxTypeCodeList: any = [];
-  qualityTypeCodeList: any = [];
-  indicatorTypeList: any = [];
 
+  chartValueList: any = [];
+  companyList: any = [];
 
+  get companyId() {
+    return this.searchForm.get('companyId');
+  }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -47,62 +57,49 @@ export class IndicatorValueComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getIndicatorTypeList();
-    this.getMinMaxTypeCodeList();
-    this.getQualityTypeCodeList();
-    this.getPeriodTypeList();
+    this.getCompanyLst();
+    this.route.params.subscribe(params => {
+      this.getindicatorId = params['id'];
+    });
+    this.getChartValueListList();
 
     this.searchForm = new FormGroup({
-      code: new FormControl(''),
-      title: new FormControl(''),
-      accountReportItemId: new FormControl(null),
-      indicatorTypeCode: new FormControl(null),
-      periodTypeCode: new FormControl(null),
-      minMaxTypeCode: new FormControl(null),
+      chartValue: new FormControl(''),
+      minValue: new FormControl(''),
+      maxValue: new FormControl(null),
+      fromPeriodDetailId: new FormControl(null),
+      toPeriodDetailId: new FormControl(null),
+      periodId: new FormControl(null),
       // chartTypeCode: new FormControl(null),
-      qualityTypeCode: new FormControl(null),
+      indicatorId: new FormControl(null),
+      companyId: new FormControl(null),
     });
   }
-  getPeriodTypeList() {
+
+  getChartValueListList() {
+    const body = {
+      indicatorId: this.getindicatorId,
+    };
+
     this.httpService
-      .get<Indicator[]>(Indicator.apiaddressPeriodTypeCode + 'list')
+      .post<Indicator[]>(Indicator.apiAddressChartvalue, body)
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.periodTypeList = response.data.result;
+          this.chartValueList = response.data.result;
         }
       });
   }
-  getMinMaxTypeCodeList() {
+  getCompanyLst() {
     this.httpService
-      .get<Indicator[]>(Indicator.apiAddressMinMaxTypeCode + 'list')
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.minMaxTypeCodeList = response.data.result;
-        }
-      });
-  }
-  getQualityTypeCodeList() {
-    this.httpService
-      .get<Indicator[]>(Indicator.apiAddressQualityTypeCode + 'list')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.qualityTypeCodeList = response.data.result;
-        }
-      });
-  }
-  getIndicatorTypeList() {
-    this.httpService
-      .get<Indicator[]>(Indicator.apiaddressIndicatorType + 'list')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.indicatorTypeList = response.data.result;
+          this.companyList = response.data.result;
         }
       });
   }
 
-
-
-  getIndicator(event?: LazyLoadEvent) { debugger
+  getIndicator(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -133,10 +130,10 @@ export class IndicatorValueComponent {
             return response.data.result;
           } else return [new Indicator()];
         })
-      )
-      // .subscribe(res => {
-      //   this.data = this.addSubComponentList(res);
-      // });
+      );
+    // .subscribe(res => {
+    //   this.data = this.addSubComponentList(res);
+    // });
   }
 
   addIndicator() {
@@ -205,6 +202,4 @@ export class IndicatorValueComponent {
     this.searchForm.reset();
     this.getIndicator();
   }
-  
-
 }

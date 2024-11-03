@@ -51,7 +51,7 @@ export class AccountReportComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getPeriodTypeList();
@@ -134,7 +134,7 @@ export class AccountReportComponent implements OnInit {
   //     });
   // }
 
-  getAccountReportList(event?: any) { debugger
+  getAccountReportList(event?: any) {
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;

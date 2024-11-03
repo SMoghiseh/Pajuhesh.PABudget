@@ -78,6 +78,16 @@ const routes: Routes = [
                 './modules/basics-management/basics-management.module'
               ).then(m => m.BasicsManagementModule),
           },
+          {
+            path: 'Indicator',
+
+            title: 'برنامه و بودجه | شاخص',
+
+            loadChildren: () =>
+              import('./modules/indicator/indicator.module').then(
+                m => m.IndicatorModule
+              ),
+          },
 
           {
             path: 'UserManagment',
@@ -165,4 +175,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

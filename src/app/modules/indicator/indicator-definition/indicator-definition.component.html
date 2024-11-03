@@ -281,11 +281,11 @@
   [resizable]="false"
   [class.height-size]="mode === 'insert' || mode === 'edit'"
   [style]="{ width: '800px' }">
-  <PABudget-add-edit-indicator
+  <PABudget-add-edit-indicator-definition
     [data]="addEditData"
     [mode]="mode"
     (isCloseModal)="closeModal()"
-    (isSuccess)="reloadData()"></PABudget-add-edit-indicator>
+    (isSuccess)="reloadData()"></PABudget-add-edit-indicator-definition>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

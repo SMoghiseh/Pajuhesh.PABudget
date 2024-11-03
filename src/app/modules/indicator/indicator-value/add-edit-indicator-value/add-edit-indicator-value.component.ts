@@ -1,31 +1,34 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { Indicator } from '@shared/models/response.model';
-import { MessageService } from 'primeng/api';
+import { Company, Indicator, Period } from '@shared/models/response.model';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
 
 @Component({
   selector: 'PABudget-add-edit-indicator-value',
   templateUrl: './add-edit-indicator-value.component.html',
-  styleUrls: ['./add-edit-indicator-value.component.scss']
+  styleUrls: ['./add-edit-indicator-value.component.scss'],
 })
 export class AddEditIndicatorValueComponent {
-
   public datePipe = new DatePipe('en-US');
-
+  submitted = false;
   // form property
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
-
+  getindicatorId: any;
+  getPeriodId: any;
   // dropdown data list
   periodTypeList: any = [];
   minMaxTypeCodeList: any = [];
   qualityTypeCodeList: any = [];
   indicatorTypeList: any = [];
-
+  chartValueList: any = [];
+  companyList: any = [];
+  periodList: any = [];
   inputData = new Indicator();
   @Input() mode = '';
   @Input() set data(data: Indicator) {
@@ -50,6 +53,9 @@ export class AddEditIndicatorValueComponent {
   get minMaxTypeCode() {
     return this.addEditForm.get('minMaxTypeCode');
   }
+  get companyId() {
+    return this.addEditForm.get('companyId');
+  }
   // get chartTypeCode() {
   //   return this.addEditForm.get('chartTypeCode');
   // }
@@ -59,23 +65,30 @@ export class AddEditIndicatorValueComponent {
 
   constructor(
     private httpService: HttpService,
-    private messageService: MessageService
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getIndicatorTypeList();
-    this.getMinMaxTypeCodeList();
+    this.route.params.subscribe(params => {
+      this.getindicatorId = params['id'];
+    });
+
+    this.getPeriodList();
+    this.getCompanyList();
     this.getQualityTypeCodeList();
-    this.getPeriodTypeList();
     this.addEditForm = new FormGroup({
-      code: new FormControl('', Validators.required),
-      title: new FormControl('', Validators.required),
-      accountReportItemId: new FormControl(null),
-      indicatorTypeCode: new FormControl(null, Validators.required),
-      periodTypeCode: new FormControl(null),
-      minMaxTypeCode: new FormControl(null),
+      chartValue: new FormControl(''),
+      minValue: new FormControl(''),
+      maxValue: new FormControl(null),
+      fromPeriodDetailId: new FormControl(null),
+      toPeriodDetailId: new FormControl(null),
+      periodId: new FormControl(null),
       // chartTypeCode: new FormControl(null),
-      qualityTypeCode: new FormControl(null),
+      indicatorId: new FormControl(null),
+      qualityTypeCode: new FormControl(),
+      companyId: new FormControl(null),
     });
 
     if (this.mode === 'edit') {
@@ -83,7 +96,47 @@ export class AddEditIndicatorValueComponent {
     }
   }
 
-  addEditIndicator() { debugger
+  getCompanyList() {
+    this.httpService
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.companyList = response.data.result;
+        }
+      });
+  }
+
+  getPeriodList() {
+    this.httpService
+      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.periodList = response.data.result;
+        }
+      });
+  }
+
+  onChangePeriod(e: any) {
+    debugger;
+
+    this.getChartValueList(e.value);
+  }
+  getChartValueList(periodId: number) {
+    debugger;
+    const body = {
+      indicatorId: parseInt(this.getindicatorId),
+      periodId: periodId,
+    };
+
+    this.httpService
+      .post<Indicator[]>(Indicator.apiAddressChartvalue, body)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.chartValueList = response.data.result;
+        }
+      });
+  }
+  addEditIndicatorValue() {
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
@@ -125,15 +178,7 @@ export class AddEditIndicatorValueComponent {
         }
       });
   }
-  getMinMaxTypeCodeList() {
-    this.httpService
-      .get<Indicator[]>(Indicator.apiAddressMinMaxTypeCode + 'list')
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.minMaxTypeCodeList = response.data.result;
-        }
-      });
-  }
+
   getQualityTypeCodeList() {
     this.httpService
       .get<Indicator[]>(Indicator.apiAddressQualityTypeCode + 'list')
@@ -167,5 +212,4 @@ export class AddEditIndicatorValueComponent {
         }
       });
   }
-
 }

@@ -10,7 +10,7 @@ import { map } from 'rxjs';
 })
 export class OrientationComponent {
   @Input() inputData: any;
-   gridClass = 'p-datatable-sm';
+  gridClass = 'p-datatable-sm';
   dataTableRows = 10;
   first = 0;
   totalCount!: number;
@@ -25,7 +25,7 @@ export class OrientationComponent {
 
   constructor(private httpService: HttpService) {}
 
-  getPlanDetail(yearId: number) { debugger
+  getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
       periodId: yearId,
@@ -44,7 +44,7 @@ export class OrientationComponent {
       });
   }
 
-  returnSelectedDate(e: any) { debugger
+  returnSelectedDate(e: any) {
     this.getPlanDetail(e);
   }
 }
