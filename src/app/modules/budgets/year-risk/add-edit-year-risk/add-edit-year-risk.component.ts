@@ -74,7 +74,7 @@ export class AddEditYearRiskComponent {
       keyTypeCode: new FormControl(null, Validators.required),
       budgetPeriodId: new FormControl(0, Validators.required),
       riskIntensity: new FormControl(0),
-      riskLevel: new FormControl(0),
+      // riskLevel: new FormControl(0),
       possibility: new FormControl(0),
       effectBudget: new FormControl(0),
       possimistically: new FormControl(0),
