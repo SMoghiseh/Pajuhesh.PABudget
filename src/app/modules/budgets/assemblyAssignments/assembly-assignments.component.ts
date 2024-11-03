@@ -56,7 +56,6 @@ export class AssemblyAssignmentsComponent {
     this.getMeetingTopicList();
     this.getCompanyLst();
     this.searchForm = new FormGroup({
-      budgetPeriodId: new FormControl(),
       meetingId: new FormControl(null),
       typeCode: new FormControl(null),
       companyId: new FormControl(null),
@@ -97,7 +96,7 @@ export class AssemblyAssignmentsComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      periodId : this.selectedPeriodId,
+      periodId: this.selectedPeriodId,
       ...formValue,
     };
 
