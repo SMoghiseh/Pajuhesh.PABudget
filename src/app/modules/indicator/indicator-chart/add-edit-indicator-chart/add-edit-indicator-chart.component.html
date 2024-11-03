@@ -1,4 +1,4 @@
-<p-toast key=" Indicator" position="bottom-left"></p-toast>
+<p-toast key="Indicator" position="bottom-left"></p-toast>
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditIndicator()">
   <div class="container row">
@@ -11,7 +11,7 @@
           title?.touched
         " />
     </div>
-    <div class="col-2 mt-2">
+    <div class="col-6 mt-2">
       <label for="groupTypeCode"> شاخص های کیفی </label>
       <p-dropdown id="groupTypeCode" name="groupTypeCode" formControlName="groupTypeCode" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="groupTypeCodeList" [filter]="true">

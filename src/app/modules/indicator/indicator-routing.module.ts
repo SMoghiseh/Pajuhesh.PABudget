@@ -5,6 +5,7 @@ import { IndicatorComponent } from './indicator.component';
 import { authGuard } from '@core/guards/auth/auth.guard';
 import { IndicatorValueComponent } from './indicator-value/indicator-value.component';
 import { IndicatorChartComponent } from './indicator-chart/indicator-chart.component';
+import { IndicatorChartValueComponent } from './indicator-chart-value/indicator-chart-value.component';
 
 const routes: Routes = [
   {
@@ -48,7 +49,7 @@ const routes: Routes = [
           },
           {
             path: 'IndicatorChartValue/:id',
-            component: IndicatorChartComponent,
+            component: IndicatorChartValueComponent,
             title: 'برنامه و بودجه | تعریف شاخص',
             data: {
               reuse: true,

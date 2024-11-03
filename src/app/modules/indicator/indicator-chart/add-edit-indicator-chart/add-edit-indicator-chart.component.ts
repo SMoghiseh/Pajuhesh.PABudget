@@ -75,11 +75,12 @@ export class AddEditIndicatorChartComponent {
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-
+      request.groupTypeCode = null;
+      
       const url =
         this.mode === 'insert'
-          ? Indicator.apiAddressIndicator + 'CreateIndicator'
-          : Indicator.apiAddressIndicator + 'UpdateIndicator';
+          ? Indicator.apiAddressIndicator + 'CreateIndicatorChart'
+          : Indicator.apiAddressIndicator + 'UpdateIndicatorChart';
       this.isLoadingSubmit = true;
 
       this.httpService
@@ -91,7 +92,7 @@ export class AddEditIndicatorChartComponent {
               key: ' Indicator',
               life: 8000,
               severity: 'success',
-              detail: ` برنامه  ${request.title}`,
+              detail: ` ${request.title}`,
               summary:
                 this.mode === 'insert'
                   ? 'با موفقیت درج شد'
@@ -110,7 +111,7 @@ export class AddEditIndicatorChartComponent {
 
   getRowData(id: number) {
     this.httpService
-      .get<any>(Indicator.apiAddressIndicator + 'GetIndicatorById/' + id)
+      .get<any>(Indicator.apiAddressIndicator + 'GetIndicatorChartById/' + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;

@@ -15,12 +15,12 @@ import {
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-indicator-chart',
-  templateUrl: './indicator-chart.component.html',
-  styleUrls: ['./indicator-chart.component.scss'],
+  selector: 'PABudget-indicator-chart-value',
+  templateUrl: './indicator-chart-value.component.html',
+  styleUrls: ['./indicator-chart-value.component.scss'],
   providers: [ConfirmationService],
 })
-export class IndicatorChartComponent {
+export class IndicatorChartValueComponent {
   public datePipe = new DatePipe('en-US');
 
   gridClass = 'p-datatable-sm';
@@ -39,14 +39,7 @@ export class IndicatorChartComponent {
   searchForm!: FormGroup;
 
   // dropdown data list
-  groupTypeCodeList: any = [];
-  subComponentList = [
-    {
-      label: ' مقادیر جدول مرتبط',
-      icon: 'pi pi-fw pi-star',
-      routerLink: ['/Indicator/IndicatorChartValue'],
-    },
-  ];
+  indicatorChartsList: any = [];
 
   constructor(
     private httpService: HttpService,
@@ -55,39 +48,26 @@ export class IndicatorChartComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getGroupTypeCodeList();
+    this.GetAllIndicatorCharts();
 
     this.searchForm = new FormGroup({
       title: new FormControl(null),
-      groupTypeCode: new FormControl(null),
+      indicatorChartId: new FormControl(null),
     });
   }
 
-  getGroupTypeCodeList() {
-    // this.httpService
-    //   .get<Indicator[]>(Indicator + 'list')
-    //   .subscribe(response => {
-    //     if (response.data && response.data.result) {
-    //       this.groupTypeCodeList = response.data.result;
-    //     }
-    //   });
-  }
-
-  addSubComponentList(data: any) {
-    data.forEach((row: any) => {
-      row['componentList'] = [];
-      let array = this.subComponentList;
-
-      array = array.map(com => {
-        const params = '/' + row.id;
-        const route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] };
+  GetAllIndicatorCharts() {
+    this.httpService
+      .post<Indicator[]>(Indicator.apiAddressIndicator + 'GetAllIndicatorCharts' , {
+        "withOutPagination": true
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.indicatorChartsList = response.data.result;
+        }
       });
-
-      row['componentList'].push(...array);
-    });
-    return data;
   }
+
 
   getIndicatorChart(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
@@ -107,7 +87,7 @@ export class IndicatorChartComponent {
     };
 
     this.first = 0;
-    const url = Indicator.apiAddressIndicator + 'GetAllIndicatorCharts';
+    const url = Indicator.apiAddressIndicator + 'GetAllIndicatorChartValues';
     this.httpService
       .post<Indicator[]>(url, body)
 
@@ -122,7 +102,7 @@ export class IndicatorChartComponent {
         })
       )
       .subscribe(res => {
-        this.data = this.addSubComponentList(res);
+        this.data = res;
       });
   }
 
@@ -163,7 +143,7 @@ export class IndicatorChartComponent {
       this.httpService
         .get<Indicator>(
           UrlBuilder.build(
-            Indicator.apiAddressIndicator + 'DeleteIndicatorChart',
+            Indicator.apiAddressIndicator + 'DeleteIndicatorChartValue',
             ''
           ) + `/${id}`
         )
