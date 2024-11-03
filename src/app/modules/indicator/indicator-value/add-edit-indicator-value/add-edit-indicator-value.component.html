@@ -1,0 +1,136 @@
+<p-toast key=" Indicator" position="bottom-left"></p-toast>
+
+<form
+  #formDir="ngForm"
+  [formGroup]="addEditForm"
+  (ngSubmit)="addEditIndicatorValue()">
+  <div class="container row">
+
+    <div class="col-6 mt-2">
+      <label for="periodId"> دوره بودجه</label>
+      <p-dropdown
+        id="periodId"
+        name="periodId"
+        formControlName="periodId"
+        styleClass="w-100 my-1"
+        optionLabel="periodTitle"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="periodList"
+        (onChange)="onChangePeriod($event)"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="chartValue"> مقدار مرتبط</label>
+      <p-dropdown
+        id="chartValue"
+        name="chartValue"
+        formControlName="chartValue"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="chartValueList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="companyId">شناسه شرکت</label>
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true"
+        [class.ng-invalid]="companyId?.invalid"
+        [class.ng-dirty]="
+          (submitted && companyId?.pristine) ||
+          companyId?.dirty ||
+          companyId?.touched
+        ">
+      </p-dropdown>
+    </div>
+
+
+    <div class="col-6 mt-2">
+      <label for="qualityTypeCode"> نوع کیفی</label>
+      <p-dropdown
+        id="qualityTypeCode"
+        name="qualityTypeCode"
+        formControlName="qualityTypeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="qualityTypeCodeList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="minValue">حداقل مجاز </label>
+      <input
+        pInputText
+        id="minValue"
+        name="minValue"
+        formControlName="minValue"
+        class="w-100 my-1" />
+    </div>
+    <div class="col-6 mt-2">
+      <label for="maxValue">حداکثر مجاز</label>
+      <input
+        pInputText
+        id="maxValue"
+        name="maxValue"
+        formControlName="maxValue"
+        class="w-100 my-1" />
+    </div>
+    <div class="col-6 mt-2">
+      <label for="fromPeriodDetailId">از دوره عملیاتی</label>
+      <input
+        pInputText
+        id="fromPeriodDetailId"
+        name="fromPeriodDetailId"
+        formControlName="fromPeriodDetailId"
+        class="w-100 my-1" />
+    </div>
+    <div class="col-6 mt-2">
+      <label for="toPeriodDetailId">تا دوره عملیاتی</label>
+      <input
+        pInputText
+        id="toPeriodDetailId"
+        name="toPeriodDetailId"
+        formControlName="toPeriodDetailId"
+        class="w-100 my-1" />
+    </div>
+
+    <!-- <div class="col-6 mt-2">
+      <label for="chartTypeCode"> نوع جدولی</label>
+      <input
+        pInputText
+        id="chartTypeCode"
+        name="chartTypeCode"
+        formControlName="chartTypeCode"
+        class="w-100 my-1" />
+    </div> -->
+
+    <div class="col-12 row-btn row-btn-fixed-bottom">
+      <p-button
+        class="pe-2"
+        styleClass="p-button-warning"
+        label="انصراف"
+        icon="pi pi-times"
+        (click)="closeModal()"></p-button>
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+  </div>
+</form>

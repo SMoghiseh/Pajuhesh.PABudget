@@ -7,11 +7,11 @@ import { MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-add-edit-indicator',
-  templateUrl: './add-edit-indicator.component.html',
-  styleUrls: ['./add-edit-indicator.component.scss'],
+  selector: 'PABudget-add-edit-indicator-definition',
+  templateUrl: './add-edit-indicator-definition.component.html',
+  styleUrls: ['./add-edit-indicator-definition.component.scss'],
 })
-export class AddEditIndicatorComponent {
+export class AddEditIndicatorDefinitionComponent {
   public datePipe = new DatePipe('en-US');
 
   // form property
@@ -82,7 +82,7 @@ export class AddEditIndicatorComponent {
     }
   }
 
-  addEditIndicator() { debugger
+  addEditIndicator() {
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;

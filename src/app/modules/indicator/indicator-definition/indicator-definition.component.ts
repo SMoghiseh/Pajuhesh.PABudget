@@ -15,12 +15,12 @@ import {
 import { map, tap } from 'rxjs';
 
 @Component({
-  selector: 'PABudget-indicator',
-  templateUrl: './indicator.component.html',
-  styleUrls: ['./indicator.component.scss'],
+  selector: 'PABudget-indicator-definition',
+  templateUrl: './indicator-definition.component.html',
+  styleUrls: ['./indicator-definition.component.scss'],
   providers: [ConfirmationService],
 })
-export class IndicatorComponent {
+export class IndicatorDefinitionComponent {
   public datePipe = new DatePipe('en-US');
 
   gridClass = 'p-datatable-sm';
@@ -75,7 +75,6 @@ export class IndicatorComponent {
     });
   }
 
-
   getPeriodTypeList() {
     this.httpService
       .get<Indicator[]>(Indicator.apiaddressPeriodTypeCode + 'list')
@@ -113,7 +112,7 @@ export class IndicatorComponent {
       });
   }
 
-  addSubComponentList(data: any) { debugger
+  addSubComponentList(data: any) {
     data.forEach((row: any) => {
       row['componentList'] = [];
       let array = this.subComponentList;
@@ -129,7 +128,7 @@ export class IndicatorComponent {
     return data;
   }
 
-  getIndicator(event?: LazyLoadEvent) { debugger
+  getIndicator(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();

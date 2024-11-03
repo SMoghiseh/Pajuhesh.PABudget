@@ -76,7 +76,6 @@ import { AddEditRelatedBigGoalComponent } from './related-big-goal/add-edit-rela
   declarations: [
     OperationComponent,
     PersonelNoComponent,
-
     AddEditPersonelNoComponent,
     ContractComponent,
     AddEditContractNoComponent,

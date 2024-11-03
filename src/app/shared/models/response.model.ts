@@ -1792,6 +1792,8 @@ export class Indicator {
     'api/PABudgetApi/v1/BaseInfo/QualityTypeCode/';
   static readonly apiaddressIndicatorType =
     'api/PABudgetApi/v1/BaseInfo/IndicatorType/';
+  static readonly apiAddressChartvalue =
+    'api/PABudgetApi/v1/Indicator/GetIndicatorValueChartTypeInputResults/';
   id!: number;
   title!: string;
 }
