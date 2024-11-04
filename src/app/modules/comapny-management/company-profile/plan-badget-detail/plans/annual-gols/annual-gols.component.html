@@ -4,7 +4,9 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType"
+          <app-select-date
+            [companyId]="inputData.companyId"
+            [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
@@ -43,20 +45,18 @@
             </div>
 
             <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> دوره  </strong></th>
+              <th style="min-width: 7rem"><strong> دوره </strong></th>
             </div>
-
-        
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <div class="detailStyle Width: auto" [ngStyle]="{ 'background-color': item.color }">
+            <div
+              class="detailStyle Width: auto"
+              [ngStyle]="{ 'background-color': item.color }">
               <td style="width: 33rem">{{ item.titleMain }}</td>
               <td style="width: 33rem">{{ item.titleFirst }}</td>
               <td style="width: 33rem">{{ item.titleTwo }}</td>
-
-            
             </div>
           </tr>
         </ng-template>

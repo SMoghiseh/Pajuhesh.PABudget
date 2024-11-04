@@ -15,9 +15,20 @@
       </div>
     </div>
     <div class="row">
-      <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
-        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
-        [value]="planDetailData" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+      <p-table
+        #dataTable
+        dataKey="id"
+        class="data-table d-none d-lg-block"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [totalRecords]="totalCount"
+        [value]="planDetailData"
+        [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [lazy]="true"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
@@ -34,17 +45,16 @@
             <div class="headerStyle Width: auto">
               <th style="min-width: 7rem"><strong> کلید واژه </strong></th>
             </div>
-
-  
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <div class="detailStyle Width: auto" [ngStyle]="{ 'background-color': item.color }">
+            <div
+              class="detailStyle Width: auto"
+              [ngStyle]="{ 'background-color': item.color }">
               <td style="width: 33rem">{{ item.titleMain }}</td>
               <td style="width: 33rem">{{ item.titleFirst }}</td>
               <td style="width: 33rem">{{ item.titleTwo }}</td>
-
             </div>
           </tr>
         </ng-template>
