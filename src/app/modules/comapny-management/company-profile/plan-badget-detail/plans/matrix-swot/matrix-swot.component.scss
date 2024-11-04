@@ -1,45 +1,72 @@
-.section {
-    min-height: 110px;
-    padding: 16px 12px 7px;
+:host ::ng-deep .co-info-box {
+    background-color: inherit;
+    box-shadow: none;
+    padding: 0px 4px;
+}
 
-    >div {
-        height: 100%;
+
+
+.d-section {
+
+    .section {
+        padding: 16px 12px 7px;
+        border-radius: 15px;
+        background: #FFF;
+        box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25);
+        height: 280px;
+        width: 100%;
         text-align: center;
         display: flex;
 
-        &::-webkit-scrollbar-thumb {
-            background: #ccc;
+        .title-holder {
+            border-radius: 6px;
+            background: #F1F5F9;
+            padding: 5px 0;
+            font-weight: 700;
+            height: 75px;
+            width: 74px;
+            min-width: 74px;
+            margin-bottom: 15px;
+
+            p {
+                font-weight: 900;
+                font-size: 19px;
+                margin: 0 0 8px;
+            }
+
+            span {
+                border: 1px solid #D6DFE8;
+                padding: 2px 3px;
+                border-radius: 5px;
+                font-weight: normal;
+            }
         }
 
-    }
+        .desc {
+            text-align: right;
+            margin-right: 10px;
+            overflow: auto;
+            scrollbar-color: #ccc #F5F7FA;
 
-    .title-holder {
-        border-radius: 6px;
-        background: #F1F1F1;
-        padding: 6px 9px;
-        display: unset;
-        font-weight: 700;
-        height: 75px;
-        width : 75px;
-
-        &:nth-child(1) {}
-    }
-
-    .desc {
-        display: unset;
-
-        p {
-            margin: 0;
+            p {
+                margin-top: 10px;
+            }
         }
-    }
-
-    p {
-        margin-top: 10px;
     }
 }
 
-.d-section{
-    border: 2px solid;
-    border-radius: 10px;
-    padding: 15px;
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+:host ::ng-deep .row-btn.row-btn-fixed-bottom {
+    bottom: 22px;
+    position: absolute;
+    left: 23px;
+}
+
+:host ::ng-deep .height-size .p-dialog {
+    min-height: 400px !important;
+    height: auto !important;
 }
