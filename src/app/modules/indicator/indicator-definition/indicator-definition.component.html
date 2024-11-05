@@ -1,10 +1,10 @@
-<p-toast key=" Indicator" position="bottom-left"></p-toast>
+<p-toast key=" Indicator"
+  position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
   <div class="table-header">شاخص</div>
   <div>
-    <p-button
-      class="pe-2 mr-8"
+    <p-button class="pe-2 mr-8"
       styleClass="p-button-info"
       icon="pi pi-plus-circle"
       label="افزودن"
@@ -13,12 +13,12 @@
 </div>
 
 <div class="panel-search mt-8 mb-8">
-  <form #formDir="ngForm" [formGroup]="searchForm">
+  <form #formDir="ngForm"
+    [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
       <div class="col-2 mt-2">
         <label for="code"> کد </label>
-        <input
-          pInputText
+        <input pInputText
           id="code"
           name="code"
           formControlName="code"
@@ -26,8 +26,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="title">عنوان </label>
-        <input
-          pInputText
+        <input pInputText
           id="title"
           name="title"
           formControlName="title"
@@ -35,17 +34,20 @@
       </div>
       <div class="col-2 mt-2">
         <label for="accountReportItemId"> آیتم مالی مرتبط</label>
-        <input
-          pInputText
-          id="accountReportItemId"
+        <p-dropdown id="accountReportItemId"
           name="accountReportItemId"
           formControlName="accountReportItemId"
-          class="w-100 my-1" />
+          styleClass="w-100 my-1"
+          optionLabel="title"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="accountReportItemList"
+          [filter]="true">
+        </p-dropdown>
       </div>
       <div class="col-2 mt-2">
         <label for="indicatorTypeCode"> نوع شاخص</label>
-        <p-dropdown
-          id="indicatorTypeCode"
+        <p-dropdown id="indicatorTypeCode"
           name="indicatorTypeCode"
           formControlName="indicatorTypeCode"
           styleClass="w-100 my-1"
@@ -58,8 +60,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="periodTypeCode"> نوع دوره</label>
-        <p-dropdown
-          id="periodTypeCode"
+        <p-dropdown id="periodTypeCode"
           name="periodTypeCode"
           formControlName="periodTypeCode"
           styleClass="w-100 my-1"
@@ -72,8 +73,7 @@
       </div>
       <div class="col-2 mt-2">
         <label for="minMaxTypeCode"> نوع حداقل/حداکثر</label>
-        <p-dropdown
-          id="minMaxTypeCode"
+        <p-dropdown id="minMaxTypeCode"
           name="minMaxTypeCode"
           formControlName="minMaxTypeCode"
           styleClass="w-100 my-1"
@@ -95,8 +95,7 @@
       </div> -->
       <div class="col-2 mt-2">
         <label for="qualityTypeCode"> نوع کیفی</label>
-        <p-dropdown
-          id="qualityTypeCode"
+        <p-dropdown id="qualityTypeCode"
           name="qualityTypeCode"
           formControlName="qualityTypeCode"
           styleClass="w-100 my-1"
@@ -109,15 +108,14 @@
       </div>
 
       <!-- دکمه -->
-      <div
-        class="d-flex justify-content-end col text-end"
+      <div class="d-flex justify-content-end col text-end"
         style="margin-top: 20px">
         <div class="search-button mt-12">
-          <div class="clear-search" (click)="clearSearch()">
+          <div class="clear-search"
+            (click)="clearSearch()">
             <i class="pi pi-filter-slash"></i>
           </div>
-          <p-button
-            class="pe-2 p-button-wide"
+          <p-button class="pe-2 p-button-wide"
             styleClass="p-button-info"
             [label]="'جستجو'"
             (click)="getIndicator()"></p-button>
@@ -129,8 +127,7 @@
 </div>
 
 <div class="table-container">
-  <p-table
-    #dataTable
+  <p-table #dataTable
     dataKey="id"
     class="data-table d-none d-lg-block"
     [styleClass]="gridClass"
@@ -160,35 +157,33 @@
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
+    <ng-template pTemplate="body"
+      let-item
+      item
+      let-rowIndex="rowIndex">
       <tr>
         <td>{{ item.code }}</td>
-        <td
-          pTooltip="{{ item.title }}"
+        <td pTooltip="{{ item.title }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.title }}
         </td>
-        <td
-          pTooltip="{{ item.accountReportItemTitle }}"
+        <td pTooltip="{{ item.accountReportItemTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.accountReportItemTitle }}
         </td>
-        <td
-          pTooltip="{{ item.indicatorTypeTitle }}"
+        <td pTooltip="{{ item.indicatorTypeTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.indicatorTypeTitle }}
         </td>
-        <td
-          pTooltip="{{ item.periodTypeTitle }}"
+        <td pTooltip="{{ item.periodTypeTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.periodTypeTitle }}
         </td>
-        <td
-          pTooltip="{{ item.minMaxTypeTitle }}"
+        <td pTooltip="{{ item.minMaxTypeTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.minMaxTypeTitle }}
@@ -199,39 +194,41 @@
           tooltipPosition="top">
           {{ item.chartTypeTitle }}
         </td> -->
-        <td
-          pTooltip="{{ item.qualityTypeTitle }}"
+        <td pTooltip="{{ item.qualityTypeTitle }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.qualityTypeTitle }}
         </td>
         <td class="jc-left ai-left">
           <div class="d-inline-block">
-            <button
-              class="action-image-container delete-button context-menu"
+            <button class="action-image-container delete-button context-menu"
               (click)="menu.toggle($event)"
               pTooltip="">
-              <img ngSrc="icons\Group 109.svg" width="24" height="24" />
+              <img ngSrc="icons\Group 109.svg"
+                width="24"
+                height="24" />
             </button>
-            <div #tblDiv class="tbl-context-menu"></div>
-            <p-menu
-              #menu
+            <div #tblDiv
+              class="tbl-context-menu"></div>
+            <p-menu #menu
               [popup]="true"
               [model]="item.componentList"
               [appendTo]="tblDiv"></p-menu>
           </div>
-          <button
-            class="action-image-container edit-button"
+          <button class="action-image-container edit-button"
             (click)="editRow(item)"
             pTooltip="ویرایش">
-            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+            <img ngSrc="icons\Group 116.svg"
+              width="24"
+              height="24" />
           </button>
 
-          <button
-            class="action-image-container delete-button"
+          <button class="action-image-container delete-button"
             (click)="deleteRow(item)"
             pTooltip="حذف">
-            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+            <img ngSrc="icons\Group 117.svg"
+              width="24"
+              height="24" />
           </button>
         </td>
       </tr>
@@ -240,7 +237,8 @@
 </div>
 
 <div class="data-list d-block d-lg-none">
-  <ul *ngFor="let report of data" class="list-group my-1">
+  <ul *ngFor="let report of data"
+    class="list-group my-1">
     <li class="list-group-item">
       <div class="row">
         <div class="col my-1 text-center">
@@ -252,18 +250,20 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button
-              class="action-image-container edit-button"
+            <button class="action-image-container edit-button"
               (click)="editRow(report)"
               title="ویرایش">
-              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+              <img ngSrc="icons\Group 116.svg"
+                width="24"
+                height="24" />
             </button>
 
-            <button
-              class="action-image-container delete-button"
+            <button class="action-image-container delete-button"
               (click)="deleteRow(report)"
               title="حذف بودجه ">
-              <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+              <img ngSrc="icons\Group 117.svg"
+                width="24"
+                height="24" />
             </button>
           </div>
         </div>
@@ -272,8 +272,7 @@
   </ul>
 </div>
 
-<p-dialog
-  *ngIf="isOpenAddEditIndicator"
+<p-dialog *ngIf="isOpenAddEditIndicator"
   [header]="modalTitle"
   [(visible)]="isOpenAddEditIndicator"
   [modal]="true"
@@ -281,11 +280,11 @@
   [resizable]="false"
   [class.height-size]="mode === 'insert' || mode === 'edit'"
   [style]="{ width: '800px' }">
-  <PABudget-add-edit-indicator-definition
-    [data]="addEditData"
+  <PABudget-add-edit-indicator-definition [data]="addEditData"
     [mode]="mode"
     (isCloseModal)="closeModal()"
     (isSuccess)="reloadData()"></PABudget-add-edit-indicator-definition>
 </p-dialog>
 
-<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
+<p-confirmDialog [style]="{ width: '450px' }"
+  [rtl]="true"></p-confirmDialog>

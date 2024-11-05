@@ -44,7 +44,7 @@
           [filter]="true">
         </p-dropdown>
       </div>
-    
+
       <div class="col-2 mt-2">
         <label for="fromPeriodDetailId">از دوره عملیاتی</label>
         <p-dropdown
@@ -106,8 +106,6 @@
           formControlName="maxValue"
           class="w-100 my-1" />
       </div>
-
- 
 
       <!-- دکمه -->
       <div
@@ -277,6 +275,7 @@
     [data]="addEditData"
     [mode]="mode"
     (isCloseModal)="closeModal()"
+    [addInputs]="insertIndicatorValueList"
     (isSuccess)="reloadData()"></PABudget-add-edit-indicator-value>
 </p-dialog>
 

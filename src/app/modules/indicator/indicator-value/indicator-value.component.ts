@@ -48,6 +48,8 @@ export class IndicatorValueComponent {
   chartValueList: any = [];
   companyList: any = [];
   periodList: any = [];
+  insertIndicatorValueList: any = [];
+  // addInputs: any
 
   get companyId() {
     return this.searchForm.get('companyId');
@@ -86,6 +88,17 @@ export class IndicatorValueComponent {
     this.getPeriodDetailLst(e.value);
   }
 
+  getInsertIndicatorValue(id?: any) {
+    this.httpService
+      .get<Indicator[]>(
+        Indicator.apiAddressIndicator + 'GetIndicatorValueInputs' + `/${id}`
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.insertIndicatorValueList = response.data.result;
+        }
+      });
+  }
   getChartValueList(periodId: number) {
     const body = {
       indicatorId: parseInt(this.getindicatorId),
@@ -181,6 +194,7 @@ export class IndicatorValueComponent {
     this.modalTitle = 'افزودن  مقدار شاخص  جدید ';
     this.mode = 'insert';
     this.isOpenAddEditIndicator = true;
+    this.getInsertIndicatorValue(this.getindicatorId);
   }
 
   closeModal() {

@@ -5,7 +5,6 @@
   [formGroup]="addEditForm"
   (ngSubmit)="addEditIndicatorValue()">
   <div class="container row">
-
     <div class="col-6 mt-2">
       <label for="periodId"> دوره بودجه</label>
       <p-dropdown
@@ -22,7 +21,9 @@
       </p-dropdown>
     </div>
 
-    <div class="col-6 mt-2">
+    <div
+      *ngIf="addInputsEnable.fromPeriodDetailId.visibility === true"
+      class="col-6 mt-2">
       <label for="fromPeriodDetailId">از دوره عملیاتی</label>
       <p-dropdown
         id="fromPeriodDetailId"
@@ -37,7 +38,9 @@
       </p-dropdown>
       <!-- / دوره عملیاتی -->
     </div>
-    <div class="col-6 mt-2">
+    <div
+      *ngIf="addInputsEnable.toPeriodDetailId.visibility === true"
+      class="col-6 mt-2">
       <label for="toPeriodDetailId">تا دوره عملیاتی</label>
       <p-dropdown
         id="toPeriodDetailId"
@@ -52,7 +55,9 @@
       </p-dropdown>
       <!-- / دوره عملیاتی -->
     </div>
-    <div class="col-6 mt-2">
+    <div
+      *ngIf="addInputsEnable.qualityValue.visibility === true"
+      class="col-6 mt-2">
       <label for="qualityValue"> مقدار مرتبط</label>
       <p-dropdown
         id="qualityValue"
@@ -86,23 +91,9 @@
         ">
       </p-dropdown>
     </div>
-
-
-    <!-- <div class="col-6 mt-2">
-      <label for="qualityTypeCode"> نوع کیفی</label>
-      <p-dropdown
-        id="qualityTypeCode"
-        name="qualityTypeCode"
-        formControlName="qualityTypeCode"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="qualityTypeCodeList"
-        [filter]="true">
-      </p-dropdown>
-    </div> -->
-    <div class="col-6 mt-2">
+    <div
+      *ngIf="addInputsEnable.minValue.visibility === true"
+      class="col-6 mt-2">
       <label for="minValue">حداقل مجاز </label>
       <input
         pInputText
@@ -112,7 +103,9 @@
         class="w-100 my-1" />
     </div>
 
-    <div class="col-6 mt-2">
+    <div
+      *ngIf="addInputsEnable.maxValue.visibility === true"
+      class="col-6 mt-2">
       <label for="maxValue">حداکثر مجاز </label>
       <input
         pInputText
@@ -121,35 +114,6 @@
         formControlName="maxValue"
         class="w-100 my-1" />
     </div>
-    <!-- <div class="col-6 mt-2">
-      <label for="fromPeriodDetailId">از دوره عملیاتی</label>
-      <input
-        pInputText
-        id="fromPeriodDetailId"
-        name="fromPeriodDetailId"
-        formControlName="fromPeriodDetailId"
-        class="w-100 my-1" />
-    </div> -->
-
-    <!-- <div class="col-6 mt-2">
-      <label for="toPeriodDetailId">تا دوره عملیاتی</label>
-      <input
-        pInputText
-        id="toPeriodDetailId"
-        name="toPeriodDetailId"
-        formControlName="toPeriodDetailId"
-        class="w-100 my-1" />
-    </div> -->
-
-    <!-- <div class="col-6 mt-2">
-      <label for="chartTypeCode"> نوع جدولی</label>
-      <input
-        pInputText
-        id="chartTypeCode"
-        name="chartTypeCode"
-        formControlName="chartTypeCode"
-        class="w-100 my-1" />
-    </div> -->
 
     <div class="col-12 row-btn row-btn-fixed-bottom">
       <p-button

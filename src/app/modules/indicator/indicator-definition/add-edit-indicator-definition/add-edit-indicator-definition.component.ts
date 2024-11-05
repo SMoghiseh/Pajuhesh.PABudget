@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import { Indicator } from '@shared/models/response.model';
+import { AccountReportItem, Indicator } from '@shared/models/response.model';
 import { MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
 
@@ -24,6 +24,8 @@ export class AddEditIndicatorDefinitionComponent {
   minMaxTypeCodeList: any = [];
   qualityTypeCodeList: any = [];
   indicatorTypeList: any = [];
+  accountReportItemList: any = [];
+  chartTypeList: any = [];
 
   inputData = new Indicator();
   @Input() mode = '';
@@ -66,14 +68,16 @@ export class AddEditIndicatorDefinitionComponent {
     this.getMinMaxTypeCodeList();
     this.getQualityTypeCodeList();
     this.getPeriodTypeList();
+    this.getAccountReportItemList();
+    this.getChartTypeList();
     this.addEditForm = new FormGroup({
-      code: new FormControl('', Validators.required),
+      // code: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       accountReportItemId: new FormControl(null),
       indicatorTypeCode: new FormControl(null, Validators.required),
       periodTypeCode: new FormControl(null),
       minMaxTypeCode: new FormControl(null),
-      // chartTypeCode: new FormControl(null),
+      chartTypeCode: new FormControl(null),
       qualityTypeCode: new FormControl(null),
     });
 
@@ -124,6 +128,27 @@ export class AddEditIndicatorDefinitionComponent {
         }
       });
   }
+  getAccountReportItemList() {
+    this.httpService
+      .post<AccountReportItem[]>(AccountReportItem.apiAddress + 'List', {
+        withOutPagination: true,
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.accountReportItemList = response.data.result;
+        }
+      });
+  }
+
+  getChartTypeList() {
+    this.httpService
+      .get<Indicator[]>(Indicator.apiAddressIndicator + 'GetRelatedTableItems')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.chartTypeList = response.data.result;
+        }
+      });
+  }
   getMinMaxTypeCodeList() {
     this.httpService
       .get<Indicator[]>(Indicator.apiAddressMinMaxTypeCode + 'list')
@@ -135,7 +160,7 @@ export class AddEditIndicatorDefinitionComponent {
   }
   getQualityTypeCodeList() {
     this.httpService
-      .get<Indicator[]>(Indicator.apiAddressQualityTypeCode + 'list')
+      .get<Indicator[]>(Indicator.apiAddressQualityTypeCode + 'list', '')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.qualityTypeCodeList = response.data.result;

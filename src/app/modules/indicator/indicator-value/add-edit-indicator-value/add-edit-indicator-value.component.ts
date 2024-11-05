@@ -30,14 +30,27 @@ export class AddEditIndicatorValueComponent {
   companyList: any = [];
   periodList: any = [];
   periodDetailLst: Period[] = [];
+  addInputsEnable: any;
   inputData = new Indicator();
   @Input() mode = '';
+  // @Input() addInputs: any;
+
   @Input() set data(data: Indicator) {
     this.inputData = data;
   }
 
   @Output() isSuccess = new EventEmitter<boolean>();
   @Output() isCloseModal = new EventEmitter<boolean>();
+
+  // text
+
+  @Input()
+  set addInputs(val: any) {
+    if (val != undefined) {
+      this.addInputsEnable = val;
+    }
+  }
+  // text
 
   get code() {
     return this.addEditForm.get('code');

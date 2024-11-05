@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
+  AccountReportItem,
   Indicator,
   Pagination,
   UrlBuilder,
@@ -34,7 +36,7 @@ export class IndicatorDefinitionComponent {
   isOpenAddEditIndicator = false;
   addEditData = new Indicator();
   mode!: string;
-
+  getindicatorId: any;
   // form property
   searchForm!: FormGroup;
 
@@ -42,6 +44,7 @@ export class IndicatorDefinitionComponent {
   periodTypeList: any = [];
   minMaxTypeCodeList: any = [];
   qualityTypeCodeList: any = [];
+  accountReportItemList: any = [];
   indicatorTypeList: any = [];
   subComponentList = [
     {
@@ -54,7 +57,8 @@ export class IndicatorDefinitionComponent {
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +66,7 @@ export class IndicatorDefinitionComponent {
     this.getMinMaxTypeCodeList();
     this.getQualityTypeCodeList();
     this.getPeriodTypeList();
+    this.getAccountReportItemList();
 
     this.searchForm = new FormGroup({
       code: new FormControl(''),
@@ -102,6 +107,19 @@ export class IndicatorDefinitionComponent {
         }
       });
   }
+
+  getAccountReportItemList() {
+    this.httpService
+      .post<AccountReportItem[]>(AccountReportItem.apiAddress + 'List', {
+        withOutPagination: true,
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.accountReportItemList = response.data.result;
+        }
+      });
+  }
+
   getIndicatorTypeList() {
     this.httpService
       .get<Indicator[]>(Indicator.apiaddressIndicatorType + 'list')
