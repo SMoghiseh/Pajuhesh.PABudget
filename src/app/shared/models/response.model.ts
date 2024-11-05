@@ -1575,7 +1575,7 @@ export class AccountReport {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
   static readonly apiAddressList =
     'api/PABudgetApi/v1/AccountReport/GetAllAccountReport';
-  static readonly apiAddressTree = 'api/PABudgetApi/v1/AccountReportItem/Tree';
+  static readonly apiAddressTree = 'api/PABudgetApi/v1/AccountReportItem/Tree/AccRep';
   static readonly apiAddressItemCreate =
     'api/PABudgetApi/v1/AccountReportToItem/create';
   static readonly apiAddressDragDrop =

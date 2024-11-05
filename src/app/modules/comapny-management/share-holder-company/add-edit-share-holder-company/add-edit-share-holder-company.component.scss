@@ -1,10 +1,14 @@
 .btn-lookup-list {
-    height: 32px;
+    height: 33px;
     width: 32px;
-    border: 1px solid #ced4da;
-    left: 1px;
+    border: 1px solid #c4c7ca;
+    top: 1.4px;
     position: relative;
     cursor: pointer;
+    background: #e1e2e4;
+    display: inline-block;
+    left: 1px;
+    padding: 8px 8px;
 }
 
 .align-c {
