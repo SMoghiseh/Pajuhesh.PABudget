@@ -39,14 +39,15 @@ export class AggregateComponent implements OnInit {
   isLoadingSubmit = false;
   changeList: any = [];
   formSubmitted = false;
-  addBuggetBreakingModal = true;
-  selectedMounthItem: any;
+  addBuggetBreakingModal = false;
+  selectedMonthItem: any;
+  rowSelected: any;
 
 
   // dropdown data list
   companyList: any = [];
   periodList: any = [];
-  mounthList: any = [];
+  monthList: any = [];
   periodDetailLst: Period[] = [];
 
   get reportTypeCode() {
@@ -79,14 +80,13 @@ export class AggregateComponent implements OnInit {
 
     this.getCompanyLst();
     this.getAccountRepLst();
-    this.getMounthList(10);
 
     this.accountReportPriceForm = new FormGroup({
       companyId: new FormControl(null, Validators.required),
       periodId: new FormControl(null, Validators.required),
       fromPeriodDetailId: new FormControl(null, Validators.required),
       toPeriodDetailId: new FormControl(null, Validators.required),
-      priceType: new FormControl(2, Validators.required),
+      priceType: new FormControl(1, Validators.required),
     });
 
   }
@@ -96,7 +96,7 @@ export class AggregateComponent implements OnInit {
       .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.periodList = response.data.result; debugger
+          this.periodList = response.data.result;
           this.accountReportPriceForm.patchValue({
             periodId: this.periodList[0].id
           })
@@ -120,103 +120,19 @@ export class AggregateComponent implements OnInit {
   }
 
 
-  getMounthList(rowId: number) {
-    // this.httpService
-    //   .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
-    //   .subscribe(response => {
-    //     if (response.data && response.data.result) {
-    //       this.companyList = response.data.result;
-    //     }
-    //   });
-
-
-    this.mounthList = [
-
-      {
-        id: 1,
-        title: 'فروردین',
-        price: '32,000,000',
-        percentage: 10
-      },
-      {
-        id: 2,
-        title: 'اردیبهشت',
-        price: '382,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 3,
-        title: 'خرداد',
-        price: '3,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 4,
-        title: 'تیر',
-        price: '3,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 5,
-        title: 'مرداد',
-        price: '38,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 6,
-        title: 'شهریور',
-        price: '398,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 7,
-        title: 'مهر',
-        price: '32,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 8,
-        title: 'آبان',
-        price: '382,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 9,
-        title: 'آذر',
-        price: '3,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 10,
-        title: 'دی',
-        price: '3,000,000',
-        percentage: 10
-
-      },
-      {
-        id: 11,
-        title: 'بهمن',
-        price: '38,000,000',
-        percentage: 0
-
-      },
-      {
-        id: 12,
-        title: 'اسفند',
-        price: '398,000,000',
-        percentage: 0
-
-      },
-
-    ]
+  getmonthList() {
+    let data = {
+      accountRepItemId: this.rowSelected.id,
+      companyId: this.accountReportPriceForm.value['companyId'],
+      periodId: this.accountReportPriceForm.value['periodId']
+    }
+    this.httpService
+      .post<AccountReportItemPrice[]>(AccountReportItemPrice.apiAddress + 'GetBudgetBreaking', data)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.monthList = response.data.result;
+        }
+      });
   }
 
   onChangePeriod(e: any) {
@@ -235,7 +151,7 @@ export class AggregateComponent implements OnInit {
           this.periodDetailLst = response.data.result;
           this.accountReportPriceForm.patchValue({
             fromPeriodDetailId: this.periodDetailLst[0].id,
-            toPeriodDetailId: this.periodDetailLst[1].id,
+            toPeriodDetailId: this.periodDetailLst[11].id,
           })
           setTimeout(() => {
             this.getAccountReportItemLst();
@@ -420,7 +336,7 @@ export class AggregateComponent implements OnInit {
         // groupId: item.parentId ? item.parentId : item.id
       });
 
-
+    item['changePrice'] = true;
     this.calculateTotalPrice(item);
     this.updateBaseData(item);
   }
@@ -460,12 +376,13 @@ export class AggregateComponent implements OnInit {
 
   onOpenBreakingBudgeDialog(item: any) {
     this.addBuggetBreakingModal = true;
-    this.getMounthList(item.id);
+    this.rowSelected = item ;
+    this.getmonthList();
   }
 
 
-  onSelectMounthItem(item: any) {
-    this.selectedMounthItem = item;
+  onSelectMonthItem(item: any) {
+    this.selectedMonthItem = item;
   }
 
   onChangePercent(item: any) {
@@ -474,7 +391,7 @@ export class AggregateComponent implements OnInit {
 
   addPercentageList() {
 
-    let percentageList = this.mounthList.map((item: { percentage: any }) => { return item.percentage })
+    let percentageList = this.monthList.map((item: { percentage: any }) => { return item.percentage ? Number(item.percentage) : 0  })
     let sum = 0;
     percentageList.forEach((element: any) => {
       sum = sum + element;
@@ -490,26 +407,35 @@ export class AggregateComponent implements OnInit {
       return;
     }
 
-    let finalList = this.mounthList.filter((item: { changed: boolean }) => item.changed == true);
-    finalList = finalList.map((item: { id: any; percentage: any; }) => { return { id: item.id, percentage: item.percentage } })
+    let finalList = this.monthList.filter((item: { changed: boolean }) => item.changed == true);
+    finalList = finalList.map((item: { id: any; percentage: any; }) => { return { id: item.id, percentage: Number(item.percentage) } })
 
+    let data = {
+      budgetPrice: this.rowSelected.priceCu,
+      periodpercentage: finalList
+    }
 
-    // this.httpService
-    // .post<AccountReportItemPrice>(url, request)
-    // .pipe(tap(() => (this.isLoadingSubmit = false)))
-    // .subscribe(response => {
-    //   if (response.successed) {
-    //     this.messageService.add({
-    //       key: 'aggregate',
-    //       life: 8000,
-    //       severity: 'success',
-    //       // detail: ` عنوان  ${request.title}`,
-    //       detail: ``,
-    //       summary: 'با موفقیت ثبت شد',
-    //     });
-    //   }
+    this.httpService
+      .post<AccountReportItemPrice>(
+        AccountReportItemPrice.apiAddress + 'CreateBudgetBreaking'
+        , data)
+      .pipe(tap(() => (this.isLoadingSubmit = false)))
+      .subscribe(response => {
+        if (response.successed) {
+          this.messageService.add({
+            key: 'aggregate',
+            life: 8000,
+            severity: 'success',
+            // detail: ` عنوان  ${request.title}`,
+            detail: ``,
+            summary: 'با موفقیت ثبت شد',
+          });
+          this.addBuggetBreakingModal = false;
+        }
 
+      })
   }
+
 
 
   openDialog(e: any) { }

@@ -125,7 +125,8 @@
             &nbsp;
           </td>
           <td class="jc-left ai-left">
-            <ng-container *ngIf="rowData.priceCu != 0 ">
+            <ng-container
+              *ngIf=" (!rowData.changePrice &&  rowData.priceCu != 0)  || (  priceType?.value == 1 && formSubmitted )">
               <!-- <ng-container> -->
               <button class="action-image-container edit-button" (click)="onOpenBreakingBudgeDialog(rowData)"
                 pTooltip=" شکست بودجه">
@@ -176,36 +177,38 @@
 
 
 
-<p-dialog *ngIf="addBuggetBreakingModal" [header]="'افزودن شکست بودجه به ازای هر ماه'"
-  [(visible)]="addBuggetBreakingModal" [modal]="true" [draggable]="false" [resizable]="false"
-  [style]="{ width: '80%' }" class="height-size">
+<p-dialog *ngIf="addBuggetBreakingModal" [header]="'افزودن شکست بودجه به ازای هر ماه '"
+  [(visible)]="addBuggetBreakingModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '80%' }"
+  class="height-size">
 
 
-  <div class="d-flex row-cols-lg-6 flex-wrap  mounth-list">
-    <ng-container *ngFor="let item of mounthList">
+  <div class="d-flex row-cols-lg-6 flex-wrap  month-list">
+    <ng-container *ngFor="let item of monthList">
       <div class="col">
-        <div [class.selected]="item.id === selectedMounthItem?.id" class="content" (click)="onSelectMounthItem(item)">
+        <div [class.selected]="item.id === selectedMonthItem?.id" class="content" (click)="onSelectMonthItem(item)">
 
-          <p> <span>{{ item.title }}</span> </p>
+          <p class="month-title"> <span>{{ item.periodTitle }}</span> </p>
           <p class="d-flex justify-content-between"> <span>مبلغ:</span> <span> {{ item.price }}</span></p>
 
-         <div class="d-flex justify-content-between">
-          <span>درصد: </span>
-          <p-inputNumber [(ngModel)]="item.percentage" (onInput)="onChangePercent(item)"
-          (keydown.enter)="onChangePercent(item)" (keydown.tab)="onChangePercent(item)"></p-inputNumber>
+          <div class="d-flex justify-content-between">
+            <span class="mt-8">درصد: </span>
+            <!-- <p-inputNumber [minFractionDigits]="2"  mode="decimal" [(ngModel)]="item.percentage" (onInput)="onChangePercent(item)"
+              (keydown.enter)="onChangePercent(item)" (keydown.tab)="onChangePercent(item)"></p-inputNumber> -->
 
-         </div>
+              <input pInputText [(ngModel)]="item.percentage" (ngModelChange)="onChangePercent(item)" />
+          </div>
+
         </div>
       </div>
     </ng-container>
-
-    <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'"
-        (click)="addPercentageList()"></p-button>
-    </div>
-
   </div>
 
+
+  <div class="col-12 row-btn row-btn-fixed-bottom d-flex justify-content-between">
+    <span>*تمامی مبالغ به میلیون ریال است</span>
+    <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'"
+      (click)="addPercentageList()"></p-button>
+  </div>
 
 </p-dialog>
 

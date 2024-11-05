@@ -1,7 +1,5 @@
 :host ::ng-deep .row-btn {
-    bottom: 22px;
-    position: absolute;
-    left: 23px;
+    padding: 0 12px;
 }
 
 :host ::ng-deep .height-size .p-dialog {
@@ -49,7 +47,7 @@ p-celleditor {
 }
 
 
-.mounth-list {
+.month-list {
     font-size: 1.2rem;
     margin-top: 10px;
 
@@ -71,6 +69,10 @@ p-celleditor {
         }
     }
 
+    .month-title{
+        font-weight: 600;
+    }
+
     .selected {
         border: 1px solid #60A5FA !important;
     }
@@ -79,6 +81,8 @@ p-celleditor {
 }
 
 
-:host ::ng-deep  .p-inputtext {
-    width: 40px;
+:host ::ng-deep .month-list .p-inputtext {
+    width: 60px;
+    text-align: center !important;
+    direction: ltr;
 }

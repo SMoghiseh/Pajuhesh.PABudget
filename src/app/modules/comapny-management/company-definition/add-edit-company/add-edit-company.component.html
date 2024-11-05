@@ -102,7 +102,7 @@
 
       <!-- نام نماد -->
       <!-- <div class="col-3 mt-2" *ngIf="this.companySelected.companyTypeId == 1"> -->
-      <div class="col-3 mt-2">
+      <div class="col-6 mt-2">
         <label for="symbol">نام نماد</label>
         <input pInputText id="symbol" name="symbol" formControlName="symbol" type="text" class="w-100"
           [class.ng-invalid]="symbol?.invalid" [class.ng-dirty]="
@@ -113,9 +113,9 @@
       </div>
       <!-- / نام نماد -->
       <!-- نام لاتین -->
-      <div class="col-3 mt-2">
+      <div class="col-6 mt-2">
         <label for="latinName">نام لاتین</label>
-        <input pInputText [pKeyFilter]="noSpacesRegex" id="latinName" name="latinName" formControlName="latinName"
+        <input pInputText  id="latinName" name="latinName" formControlName="latinName"
           type="text" class="w-100" [class.ng-invalid]="latinName?.invalid" [class.ng-dirty]="
             (addNewCompanySubmitted && latinName?.pristine) ||
             latinName?.dirty ||
@@ -189,7 +189,7 @@
       </div> -->
       <!-- / نمابر امور سهام (کد) -->
       <!-- <div class="col-3 mt-2"></div> -->
-      <div class="row col-12">
+      <div class="row col-12 p-0 m-0">
         <!-- تلفن کارخانه (کد) -->
         <div class="col-3 mt-2">
           <label for="factoryTelephone">تلفن کارخانه (کد)</label>
@@ -227,7 +227,7 @@
           type="text" class="w-100" />
       </div> -->
       <!-- / آدرس امور سهام -->
-      <div class="row col-12">
+      <div class="row col-12 p-0 m-0">
         <!-- تلفن دفتر مرکزی (کد) -->
         <div class="col-3 mt-2">
           <label for="centeralOfficeTelephone">تلفن دفتر مرکزی (کد)</label>
@@ -252,7 +252,7 @@
       </div>
 
       <!-- موضوع فعالیت -->
-      <div class="col-12 mt-2">
+      <div class="col-12 mt-2 pr-4 m-0">
         <label for="activitySubject">اساسنامه</label>
         <textarea pInputTextarea id="activitySubject" name="activitySubject" formControlName="activitySubject" rows="3"
           cols="10" class="w-100"></textarea>
