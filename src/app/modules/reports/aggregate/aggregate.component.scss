@@ -1,7 +1,5 @@
 :host ::ng-deep .row-btn {
-    bottom: 22px;
-    position: absolute;
-    left: 23px;
+    padding: 0 12px;
 }
 
 :host ::ng-deep .height-size .p-dialog {
@@ -46,4 +44,45 @@ p-celleditor {
 
 .negative-number {
     color: red;
+}
+
+
+.month-list {
+    font-size: 1.2rem;
+    margin-top: 10px;
+
+    .content {
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--BlueGray-300, #CBD5E1);
+        background: var(--BlueGray-50, #F8FAFC);
+        width: fit-content;
+        margin-bottom: 30px;
+        width: 90%;
+        text-align: center;
+        height: 130px;
+
+        p {
+            &:nth-child(3) {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .month-title{
+        font-weight: 600;
+    }
+
+    .selected {
+        border: 1px solid #60A5FA !important;
+    }
+
+
+}
+
+
+:host ::ng-deep .month-list .p-inputtext {
+    width: 60px;
+    text-align: center !important;
+    direction: ltr;
 }

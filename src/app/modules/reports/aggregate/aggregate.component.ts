@@ -39,75 +39,16 @@ export class AggregateComponent implements OnInit {
   isLoadingSubmit = false;
   changeList: any = [];
   formSubmitted = false;
+  addBuggetBreakingModal = false;
+  selectedMonthItem: any;
+  rowSelected: any;
+
 
   // dropdown data list
   companyList: any = [];
   periodList: any = [];
+  monthList: any = [];
   periodDetailLst: Period[] = [];
-
-  tempData = [
-    {
-      data: {
-        name: 'Applications',
-        size: '100kb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'React',
-            size: '25kb',
-            type: 'Folder',
-          },
-          children: [
-            {
-              data: {
-                name: 'react.app',
-                size: '10kb',
-                type: 'Application',
-              },
-            },
-            {
-              data: {
-                name: 'native.app',
-                size: '10kb',
-                type: 'Application',
-              },
-            },
-            {
-              data: {
-                name: 'mobile.app',
-                size: '5kb',
-                type: 'Application',
-              },
-            },
-          ],
-        },
-        {
-          data: {
-            name: 'editor.app',
-            size: '25kb',
-            type: 'Application',
-          },
-        },
-        {
-          data: {
-            name: 'settings.app',
-            size: '50kb',
-            type: 'Application',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Cloud',
-        size: '20kb',
-        type: 'Folder',
-      },
-      children: [],
-    },
-  ];
 
   get reportTypeCode() {
     return this.accountReportPriceForm.get('reportTypeCode');
@@ -136,7 +77,7 @@ export class AggregateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.getCompanyLst();
     this.getAccountRepLst();
 
@@ -145,11 +86,12 @@ export class AggregateComponent implements OnInit {
       periodId: new FormControl(null, Validators.required),
       fromPeriodDetailId: new FormControl(null, Validators.required),
       toPeriodDetailId: new FormControl(null, Validators.required),
-      priceType: new FormControl(2, Validators.required),
+      priceType: new FormControl(null, Validators.required),
     });
+
   }
 
-  getPeriodLst(companyId:number) {
+  getPeriodLst(companyId: number) {
     this.httpService
       .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
@@ -169,9 +111,26 @@ export class AggregateComponent implements OnInit {
       });
   }
 
+
+  getmonthList() {
+    let data = {
+      accountRepItemId: this.rowSelected.id,
+      companyId: this.accountReportPriceForm.value['companyId'],
+      periodId: this.accountReportPriceForm.value['periodId']
+    }
+    this.httpService
+      .post<AccountReportItemPrice[]>(AccountReportItemPrice.apiAddress + 'GetBudgetBreaking', data)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.monthList = response.data.result;
+        }
+      });
+  }
+
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
   }
+
   onChangeCompanyId(e: any) {
     this.getPeriodLst(e.value);
   }
@@ -182,6 +141,7 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodDetailLst = response.data.result;
+
         }
       });
   }
@@ -362,7 +322,7 @@ export class AggregateComponent implements OnInit {
         // groupId: item.parentId ? item.parentId : item.id
       });
 
-
+    item['changePrice'] = true;
     this.calculateTotalPrice(item);
     this.updateBaseData(item);
   }
@@ -400,9 +360,69 @@ export class AggregateComponent implements OnInit {
 
   }
 
-  addAccountReportToItem(report: AccountReport) {
-    this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
+  onOpenBreakingBudgeDialog(item: any) {
+    this.addBuggetBreakingModal = true;
+    this.rowSelected = item ;
+    this.getmonthList();
   }
+
+
+  onSelectMonthItem(item: any) {
+    this.selectedMonthItem = item;
+  }
+
+  onChangePercent(item: any) {
+    item['changed'] = true;
+  }
+
+  addPercentageList() {
+
+    let percentageList = this.monthList.map((item: { percentage: any }) => { return item.percentage ? Number(item.percentage) : 0  })
+    let sum = 0;
+    percentageList.forEach((element: any) => {
+      sum = sum + element;
+    });
+    if (sum != 100) {
+      this.messageService.add({
+        key: 'aggregate',
+        life: 8000,
+        severity: 'error',
+        detail: ``,
+        summary: 'جمع درصد های وارد شده برابر 100 نیست',
+      });
+      return;
+    }
+
+    let finalList = this.monthList.filter((item: { changed: boolean }) => item.changed == true);
+    finalList = finalList.map((item: { id: any; percentage: any; }) => { return { id: item.id, percentage: Number(item.percentage) } })
+
+    let data = {
+      budgetPrice: this.rowSelected.priceCu,
+      periodpercentage: finalList
+    }
+
+    this.httpService
+      .post<AccountReportItemPrice>(
+        AccountReportItemPrice.apiAddress + 'CreateBudgetBreaking'
+        , data)
+      .pipe(tap(() => (this.isLoadingSubmit = false)))
+      .subscribe(response => {
+        if (response.successed) {
+          this.messageService.add({
+            key: 'aggregate',
+            life: 8000,
+            severity: 'success',
+            // detail: ` عنوان  ${request.title}`,
+            detail: ``,
+            summary: 'با موفقیت ثبت شد',
+          });
+          this.addBuggetBreakingModal = false;
+        }
+
+      })
+  }
+
+
 
   openDialog(e: any) { }
 }
