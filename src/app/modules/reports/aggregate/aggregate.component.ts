@@ -86,7 +86,7 @@ export class AggregateComponent implements OnInit {
       periodId: new FormControl(null, Validators.required),
       fromPeriodDetailId: new FormControl(null, Validators.required),
       toPeriodDetailId: new FormControl(null, Validators.required),
-      priceType: new FormControl(1, Validators.required),
+      priceType: new FormControl(null, Validators.required),
     });
 
   }
@@ -97,10 +97,6 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodList = response.data.result;
-          this.accountReportPriceForm.patchValue({
-            periodId: this.periodList[0].id
-          })
-          this.getPeriodDetailLst(this.periodList[0].id);
         }
       });
   }
@@ -111,10 +107,6 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
-          this.accountReportPriceForm.patchValue({
-            companyId: this.companyList[0].id
-          })
-          this.getPeriodLst(this.companyList[0].id);
         }
       });
   }
@@ -149,13 +141,7 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodDetailLst = response.data.result;
-          this.accountReportPriceForm.patchValue({
-            fromPeriodDetailId: this.periodDetailLst[0].id,
-            toPeriodDetailId: this.periodDetailLst[11].id,
-          })
-          setTimeout(() => {
-            this.getAccountReportItemLst();
-          }, 100)
+
         }
       });
   }
