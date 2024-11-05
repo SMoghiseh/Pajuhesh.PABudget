@@ -47,3 +47,38 @@ p-celleditor {
 .negative-number {
     color: red;
 }
+
+
+.mounth-list {
+    font-size: 1.2rem;
+    margin-top: 10px;
+
+    .content {
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--BlueGray-300, #CBD5E1);
+        background: var(--BlueGray-50, #F8FAFC);
+        width: fit-content;
+        margin-bottom: 30px;
+        width: 90%;
+        text-align: center;
+        height: 130px;
+
+        p {
+            &:nth-child(3) {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .selected {
+        border: 1px solid #60A5FA !important;
+    }
+
+
+}
+
+
+:host ::ng-deep  .p-inputtext {
+    width: 40px;
+}

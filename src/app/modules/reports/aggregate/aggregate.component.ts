@@ -39,75 +39,15 @@ export class AggregateComponent implements OnInit {
   isLoadingSubmit = false;
   changeList: any = [];
   formSubmitted = false;
+  addBuggetBreakingModal = true;
+  selectedMounthItem: any;
+
 
   // dropdown data list
   companyList: any = [];
   periodList: any = [];
+  mounthList: any = [];
   periodDetailLst: Period[] = [];
-
-  tempData = [
-    {
-      data: {
-        name: 'Applications',
-        size: '100kb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'React',
-            size: '25kb',
-            type: 'Folder',
-          },
-          children: [
-            {
-              data: {
-                name: 'react.app',
-                size: '10kb',
-                type: 'Application',
-              },
-            },
-            {
-              data: {
-                name: 'native.app',
-                size: '10kb',
-                type: 'Application',
-              },
-            },
-            {
-              data: {
-                name: 'mobile.app',
-                size: '5kb',
-                type: 'Application',
-              },
-            },
-          ],
-        },
-        {
-          data: {
-            name: 'editor.app',
-            size: '25kb',
-            type: 'Application',
-          },
-        },
-        {
-          data: {
-            name: 'settings.app',
-            size: '50kb',
-            type: 'Application',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Cloud',
-        size: '20kb',
-        type: 'Folder',
-      },
-      children: [],
-    },
-  ];
 
   get reportTypeCode() {
     return this.accountReportPriceForm.get('reportTypeCode');
@@ -136,9 +76,10 @@ export class AggregateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.getCompanyLst();
     this.getAccountRepLst();
+    this.getMounthList(10);
 
     this.accountReportPriceForm = new FormGroup({
       companyId: new FormControl(null, Validators.required),
@@ -147,14 +88,19 @@ export class AggregateComponent implements OnInit {
       toPeriodDetailId: new FormControl(null, Validators.required),
       priceType: new FormControl(2, Validators.required),
     });
+
   }
 
-  getPeriodLst(companyId:number) {
+  getPeriodLst(companyId: number) {
     this.httpService
       .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
-          this.periodList = response.data.result;
+          this.periodList = response.data.result; debugger
+          this.accountReportPriceForm.patchValue({
+            periodId: this.periodList[0].id
+          })
+          this.getPeriodDetailLst(this.periodList[0].id);
         }
       });
   }
@@ -165,13 +111,118 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
+          this.accountReportPriceForm.patchValue({
+            companyId: this.companyList[0].id
+          })
+          this.getPeriodLst(this.companyList[0].id);
         }
       });
+  }
+
+
+  getMounthList(rowId: number) {
+    // this.httpService
+    //   .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
+    //   .subscribe(response => {
+    //     if (response.data && response.data.result) {
+    //       this.companyList = response.data.result;
+    //     }
+    //   });
+
+
+    this.mounthList = [
+
+      {
+        id: 1,
+        title: 'فروردین',
+        price: '32,000,000',
+        percentage: 10
+      },
+      {
+        id: 2,
+        title: 'اردیبهشت',
+        price: '382,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 3,
+        title: 'خرداد',
+        price: '3,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 4,
+        title: 'تیر',
+        price: '3,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 5,
+        title: 'مرداد',
+        price: '38,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 6,
+        title: 'شهریور',
+        price: '398,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 7,
+        title: 'مهر',
+        price: '32,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 8,
+        title: 'آبان',
+        price: '382,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 9,
+        title: 'آذر',
+        price: '3,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 10,
+        title: 'دی',
+        price: '3,000,000',
+        percentage: 10
+
+      },
+      {
+        id: 11,
+        title: 'بهمن',
+        price: '38,000,000',
+        percentage: 0
+
+      },
+      {
+        id: 12,
+        title: 'اسفند',
+        price: '398,000,000',
+        percentage: 0
+
+      },
+
+    ]
   }
 
   onChangePeriod(e: any) {
     this.getPeriodDetailLst(e.value);
   }
+
   onChangeCompanyId(e: any) {
     this.getPeriodLst(e.value);
   }
@@ -182,6 +233,13 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodDetailLst = response.data.result;
+          this.accountReportPriceForm.patchValue({
+            fromPeriodDetailId: this.periodDetailLst[0].id,
+            toPeriodDetailId: this.periodDetailLst[1].id,
+          })
+          setTimeout(() => {
+            this.getAccountReportItemLst();
+          }, 100)
         }
       });
   }
@@ -400,9 +458,59 @@ export class AggregateComponent implements OnInit {
 
   }
 
-  addAccountReportToItem(report: AccountReport) {
-    this.router.navigate(['/Reports/AggregateCreate/' + report.id]);
+  onOpenBreakingBudgeDialog(item: any) {
+    this.addBuggetBreakingModal = true;
+    this.getMounthList(item.id);
   }
+
+
+  onSelectMounthItem(item: any) {
+    this.selectedMounthItem = item;
+  }
+
+  onChangePercent(item: any) {
+    item['changed'] = true;
+  }
+
+  addPercentageList() {
+
+    let percentageList = this.mounthList.map((item: { percentage: any }) => { return item.percentage })
+    let sum = 0;
+    percentageList.forEach((element: any) => {
+      sum = sum + element;
+    });
+    if (sum != 100) {
+      this.messageService.add({
+        key: 'aggregate',
+        life: 8000,
+        severity: 'error',
+        detail: ``,
+        summary: 'جمع درصد های وارد شده برابر 100 نیست',
+      });
+      return;
+    }
+
+    let finalList = this.mounthList.filter((item: { changed: boolean }) => item.changed == true);
+    finalList = finalList.map((item: { id: any; percentage: any; }) => { return { id: item.id, percentage: item.percentage } })
+
+
+    // this.httpService
+    // .post<AccountReportItemPrice>(url, request)
+    // .pipe(tap(() => (this.isLoadingSubmit = false)))
+    // .subscribe(response => {
+    //   if (response.successed) {
+    //     this.messageService.add({
+    //       key: 'aggregate',
+    //       life: 8000,
+    //       severity: 'success',
+    //       // detail: ` عنوان  ${request.title}`,
+    //       detail: ``,
+    //       summary: 'با موفقیت ثبت شد',
+    //     });
+    //   }
+
+  }
+
 
   openDialog(e: any) { }
 }
