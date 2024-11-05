@@ -167,6 +167,9 @@ export class AddEditShareHolderCompanyComponent {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
           this.addEditForm.patchValue(response.data.result);
+          this.addEditForm.patchValue({
+            shareHolderPartyId: response.data.result.partyName ? response.data.result.partyName : '' 
+          })
         }
       });
   }
