@@ -706,9 +706,25 @@ p-treetable.treeTable-profile-style {
 
   .p-treetable-thead>tr {
     >th {
-      background-color: #F8FAFC !important;
+      background-color: #0AB39C !important;
+   
     }
   }
+}
+
+.p-treetable .p-treetable-thead > tr > th {
+
+  border: 1px solid #e9ecef;
+  font-weight: 300;
+  color: #FFFF;
+  font-size: 14px !important
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  border: 1px solid #e9ecef;
+  font-weight: 300;
+  color: #FFFF;
+  font-size: 14px !important
 }
 
 p-treetable.treeTable-container {
@@ -727,7 +743,7 @@ p-table.table-profile-style>.p-datatable {
       }
 
       text-align: center !important;
-      background-color: #F8FAFC !important;
+      background-color: #0AB39C !important;
       height: 38px;
       border-radius: 8px;
       padding-top: 8px !important;
