@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
-  Company, DeleteCompany, UrlBuilder
+  Company,
+  DeleteCompany,
+  UrlBuilder,
 } from '@shared/models/response.model';
 import {
   ConfirmationService,
@@ -18,7 +20,6 @@ import { map, tap } from 'rxjs';
   providers: [ConfirmationService],
 })
 export class CompanyDefinitionComponent implements OnInit {
-
   /*--------------------------
   # Table
   --------------------------*/
@@ -41,23 +42,18 @@ export class CompanyDefinitionComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getSubCompanies();
   }
 
-
-
   /*--------------------------
   # GET
   --------------------------*/
-  getSubCompanies(event?: LazyLoadEvent) {
-
-
+  getSubCompanies(event?: LazyLoadEvent) { debugger
     this.httpService
-      .get<Company[]>(`${Company.apiAddressSubCompanies}0`,
-      )
+      .get<Company[]>(`${Company.apiAddressSubCompanies}0`)
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {
@@ -71,10 +67,9 @@ export class CompanyDefinitionComponent implements OnInit {
       .subscribe(companyList => {
         this.subCompanies = companyList;
         this.selectedCompany = this.subCompanies[0];
-        this.getSubsets(this.selectedCompany.id)
+        this.getSubsets(this.selectedCompany.id);
       });
   }
-
 
   onCompanySelected(event: any) {
     this.selectedCompany = event?.value;
@@ -120,7 +115,6 @@ export class CompanyDefinitionComponent implements OnInit {
 
   personscompany(company: Company) {
     this.router.navigate(['/Comapny/personscompany/' + company.id]);
-
   }
 
   deleteCompany(id: number, companyName: string) {
@@ -146,14 +140,18 @@ export class CompanyDefinitionComponent implements OnInit {
   }
 
   addCompany(company: Company) {
-    this.router.navigate(['/Comapny/CompanyForm'], { queryParams: { parentId: company.id } })
+    this.router.navigate(['/Comapny/CompanyForm'], {
+      queryParams: { parentId: company.id },
+    });
   }
 
   editRow(company: Company) {
-    this.router.navigate(['/Comapny/CompanyForm'], { queryParams: { companyId: company.id } });
+    this.router.navigate(['/Comapny/CompanyForm'], {
+      queryParams: { companyId: company.id },
+    });
   }
 
-  selectBoardOfManagments(company: Company) { }
+  selectBoardOfManagments(company: Company) {}
 
-  selectAuditors(company: Company) { }
+  selectAuditors(company: Company) {}
 }

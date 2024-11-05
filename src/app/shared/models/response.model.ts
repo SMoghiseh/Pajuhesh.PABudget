@@ -504,7 +504,7 @@ export class Company {
   static readonly apiAddress = 'api/PABudgetApi/v1/company/All';
   static readonly apiAddressSubset = 'api/PABudgetApi/v1/company/subsets';
   static readonly apiAddressSubCompanies =
-    'api/PABudgetApi/v1/Company/SubCompanies/';
+    'api/PABudgetApi/v1/Company/SubCompaniesList/';
   static readonly apiAddressDetailCo = 'api/PABudgetApi/v1/Company/';
   static readonly apiAddressUserCompany =
     'api/PABudgetApi/v1/Company/UserCompany/';
