@@ -199,11 +199,11 @@ export class AddEditIndicatorValueComponent {
               key: ' Indicator',
               life: 8000,
               severity: 'success',
-              detail: ` شاخص  ${request.indicatorTitle}`,
+              // detail: ` شاخص  `,
               summary:
                 this.mode === 'insert'
-                  ? 'با موفقیت درج شد'
-                  : 'با موفقیت بروزرسانی شد',
+                  ? ' شاخص با موفقیت درج شد'
+                  : '  شاخص با موفقیت بروزرسانی شد',
             });
             this.isSuccess.emit(true);
           }
