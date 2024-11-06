@@ -74,7 +74,7 @@ export class AddEditIndicatorDefinitionComponent {
     this.getMinMaxTypeCodeList();
     this.getQualityTypeCodeList();
     this.getPeriodTypeList();
-    this.getChartTypeList();
+    this.getAccountReportItemList();
     this.addEditForm = new FormGroup({
       // code: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
@@ -148,7 +148,8 @@ export class AddEditIndicatorDefinitionComponent {
   changeQualityTypeCode(e: any) {
     if (e.value === 30264) {
       this.disCombo = true;
-      this.getAccountReportItemList();
+      // this.getAccountReportItemList();
+      this.getChartTypeList();
     } else this.disCombo = false;
   }
   getChartTypeList() {
