@@ -5,6 +5,28 @@
   [formGroup]="addEditForm"
   (ngSubmit)="addEditIndicatorValue()">
   <div class="container row">
+
+    <div class="col-6 mt-2">
+      <label for="companyId">شناسه شرکت</label>
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        (onChange)="onChangeCompany($event)"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true"
+        [class.ng-invalid]="companyId?.invalid"
+        [class.ng-dirty]="
+          (submitted && companyId?.pristine) ||
+          companyId?.dirty ||
+          companyId?.touched
+        ">
+      </p-dropdown>
+    </div>
     <div class="col-6 mt-2">
       <label for="periodId"> دوره بودجه</label>
       <p-dropdown
@@ -20,6 +42,8 @@
         [filter]="true">
       </p-dropdown>
     </div>
+
+
 
     <div
       *ngIf="addInputsEnable.fromPeriodDetailId.visibility === true"
@@ -71,26 +95,7 @@
         [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
-      <label for="companyId">شناسه شرکت</label>
-      <p-dropdown
-        id="companyId"
-        name="companyId"
-        formControlName="companyId"
-        styleClass="w-100 my-1"
-        optionLabel="partyName"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="companyList"
-        [filter]="true"
-        [class.ng-invalid]="companyId?.invalid"
-        [class.ng-dirty]="
-          (submitted && companyId?.pristine) ||
-          companyId?.dirty ||
-          companyId?.touched
-        ">
-      </p-dropdown>
-    </div>
+
     <div
       *ngIf="addInputsEnable.minValue.visibility === true"
       class="col-6 mt-2">

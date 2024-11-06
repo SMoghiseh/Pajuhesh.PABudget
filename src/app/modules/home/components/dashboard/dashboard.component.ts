@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private httpService: HttpService, private router: Router) {}
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.getMySubCompanies(0);
   }
 
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getMySubCompanies(id: number) {  
+  getMySubCompanies(id: number) {
     this.getCoApi(id)
       .pipe(
         map(response => {

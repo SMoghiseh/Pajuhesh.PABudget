@@ -2,7 +2,12 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import { AccountReportItem, Indicator } from '@shared/models/response.model';
+import {
+  AccountReportItem,
+  BudgetPeriod,
+  Indicator,
+  ReferenceList,
+} from '@shared/models/response.model';
 import { MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
 
@@ -18,6 +23,7 @@ export class AddEditIndicatorDefinitionComponent {
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
+  disCombo = false;
 
   // dropdown data list
   periodTypeList: any = [];
@@ -68,7 +74,6 @@ export class AddEditIndicatorDefinitionComponent {
     this.getMinMaxTypeCodeList();
     this.getQualityTypeCodeList();
     this.getPeriodTypeList();
-    this.getAccountReportItemList();
     this.getChartTypeList();
     this.addEditForm = new FormGroup({
       // code: new FormControl('', Validators.required),
@@ -130,7 +135,7 @@ export class AddEditIndicatorDefinitionComponent {
   }
   getAccountReportItemList() {
     this.httpService
-      .post<AccountReportItem[]>(AccountReportItem.apiAddress + 'List', {
+      .post<BudgetPeriod[]>(BudgetPeriod.apiAddress, {
         withOutPagination: true,
       })
       .subscribe(response => {
@@ -140,6 +145,12 @@ export class AddEditIndicatorDefinitionComponent {
       });
   }
 
+  changeQualityTypeCode(e: any) {
+    if (e.value === 30264) {
+      this.disCombo = true;
+      this.getAccountReportItemList();
+    } else this.disCombo = false;
+  }
   getChartTypeList() {
     this.httpService
       .get<Indicator[]>(Indicator.apiAddressIndicator + 'GetRelatedTableItems')

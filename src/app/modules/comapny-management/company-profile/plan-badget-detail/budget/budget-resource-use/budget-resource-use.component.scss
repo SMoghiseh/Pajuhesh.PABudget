@@ -22,6 +22,17 @@
 //   border-color: #ffffff !important;
 //   font: 0px !important;
 // }
+//   .p-treetable .p-treetable-thead > tr > th {
+
+//   color: #FFFF !important;
+
+// }
+
+//  .p-datatable .p-datatable-thead > tr > th {
+
+//   color: #FFFF !important;
+  
+// }
 
 .pasitiveNumbers {
   direction: ltr;
@@ -40,7 +51,9 @@
   margin-right: 80px !important;
   
 }
-
+.fontStyle{
+  color: #ffffff !important;
+}
 
 ::ng-deep .p-treetable table {
   table-layout: unset !important;
