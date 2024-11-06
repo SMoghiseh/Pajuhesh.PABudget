@@ -3,7 +3,7 @@
     <h3>{{ selectedPlanName }}</h3>
     <div class="row row-feature">
       <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 box">
-        <ng-container >
+        <ng-container>
           <div
             *ngFor="let item of employeeInfoList"
             class="items"
@@ -49,7 +49,7 @@
 
         <ng-template pTemplate="header" let-columns>
           <tr *ngIf="tableData.length">
-            <th *ngFor="let col of columns">
+            <th class="fontStyle" *ngFor="let col of columns">
               {{ col.headerName }}
             </th>
           </tr>
@@ -67,7 +67,7 @@
               {{ rowData['count'] }}
             </td>
             <td>
-              {{ rowData['amount'] | number}}
+              {{ rowData['amount'] | number }}
             </td>
           </tr>
         </ng-template>

@@ -89,7 +89,6 @@ export class AddEditIndicatorValueComponent {
       this.getindicatorId = params['id'];
     });
 
-    this.getPeriodList();
     this.getCompanyList();
     this.getQualityTypeCodeList();
     this.addEditForm = new FormGroup({
@@ -109,6 +108,7 @@ export class AddEditIndicatorValueComponent {
       this.getRowData(this.inputData.id);
       this.getPeriodDetailLst(this.inputData.periodId);
       this.getChartValueList(this.inputData.periodId);
+      this.getPeriodList(this.inputData.companyId);
     }
   }
 
@@ -122,13 +122,17 @@ export class AddEditIndicatorValueComponent {
       });
   }
 
-  getPeriodList() {
+  getPeriodList(companyId: any) {
     this.httpService
-      .get<Period[]>(Period.apiAddress + 'ListDropDown')
+      .get<Period[]>(Period.apiAddress + 'ListDropDown/' + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodList = response.data.result;
         }
+        if (this.inputData.id)
+          this.addEditForm.patchValue({
+            periodId: this.inputData.periodId,
+          });
       });
   }
 
@@ -150,6 +154,10 @@ export class AddEditIndicatorValueComponent {
   onChangePeriod(e: any) {
     this.getChartValueList(e.value);
     this.getPeriodDetailLst(e.value);
+  }
+
+  onChangeCompany(e: any) {
+    this.getPeriodList(e.value);
   }
   getChartValueList(periodId: number) {
     const body = {
