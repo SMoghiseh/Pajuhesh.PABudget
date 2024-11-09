@@ -205,6 +205,7 @@ export class IndicatorValueComponent {
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditIndicator = true;
+    this.getInsertIndicatorValue(this.getindicatorId);
   }
 
   deleteRow(item: Indicator) {

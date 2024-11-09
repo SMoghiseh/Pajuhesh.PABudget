@@ -504,11 +504,12 @@ export class Company {
   static readonly apiAddress = 'api/PABudgetApi/v1/company/All';
   static readonly apiAddressSubset = 'api/PABudgetApi/v1/company/subsets';
   static readonly apiAddressSubCompanies =
-    'api/PABudgetApi/v1/Company/SubCompaniesList/';
+    'api/PABudgetApi/v1/Company/SubCompanies/';
   static readonly apiAddressDetailCo = 'api/PABudgetApi/v1/Company/';
   static readonly apiAddressUserCompany =
     'api/PABudgetApi/v1/Company/UserCompany/';
-
+  static readonly apiAddressSubCompaniesList =
+    'api/PABudgetApi/v1/Company/SubCompaniesList/';
   static readonly apiAddressReportParentCo =
     'api/PABudgetApi/Dashboard/ReportParentCompany';
 
@@ -1575,7 +1576,8 @@ export class AccountReport {
   static readonly apiAddress = 'api/PABudgetApi/v1/AccountReport/';
   static readonly apiAddressList =
     'api/PABudgetApi/v1/AccountReport/GetAllAccountReport';
-  static readonly apiAddressTree = 'api/PABudgetApi/v1/AccountReportItem/Tree/AccRep';
+  static readonly apiAddressTree =
+    'api/PABudgetApi/v1/AccountReportItem/Tree/AccRep';
   static readonly apiAddressItemCreate =
     'api/PABudgetApi/v1/AccountReportToItem/create';
   static readonly apiAddressDragDrop =
@@ -1750,6 +1752,11 @@ export class YearPolicy {
   title!: string;
 }
 
+export class BudgetPeriod {
+  static readonly apiAddress =
+    'api/PABudgetApi/v1/BudgetPeriod/Budget/GetItemPirceOriginal';
+}
+
 export class YearRisk {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/YearRisk/';
   id!: number;
@@ -1803,6 +1810,7 @@ export class Indicator {
   toPeriodDetailId!: number;
   fromPeriodDetailId!: number;
   qualityValue!: number;
+  companyId!: number;
 }
 export class ShareHolder {
   static readonly apiAddress = 'api/PABudgetApi/v1/ShareHolderCompany/';

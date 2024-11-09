@@ -191,7 +191,7 @@ export class YearActivityComponent {
   }
 
   getListByReference() {
-    let formValue = this.searchForm.value;
+    const formValue = this.searchForm.value;
 
     let body = {
       referenceCode: formValue.referenceCode,

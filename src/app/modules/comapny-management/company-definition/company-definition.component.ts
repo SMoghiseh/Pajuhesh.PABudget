@@ -51,7 +51,7 @@ export class CompanyDefinitionComponent implements OnInit {
   /*--------------------------
   # GET
   --------------------------*/
-  getSubCompanies(event?: LazyLoadEvent) { debugger
+  getSubCompanies(event?: LazyLoadEvent) {
     this.httpService
       .get<Company[]>(`${Company.apiAddressSubCompanies}0`)
       .pipe(
@@ -81,7 +81,7 @@ export class CompanyDefinitionComponent implements OnInit {
 --------------------------*/
   getSubsets(id: number) {
     this.httpService
-      .get<Company[]>(`${Company.apiAddressSubCompanies}${id}`)
+      .get<Company[]>(`${Company.apiAddressSubCompaniesList}${id}`)
       .pipe(
         tap(() => (this.loading = false)),
         map(response => {

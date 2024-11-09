@@ -5,7 +5,7 @@ import {
   AccountReportItemPrice,
   Period,
   Company,
-  AccountReportToItemData
+  AccountReportToItemData,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -39,10 +39,11 @@ export class AggregateComponent implements OnInit {
   isLoadingSubmit = false;
   changeList: any = [];
   formSubmitted = false;
+  downloadPriceAccountRepList: any;
   addBuggetBreakingModal = false;
   selectedMonthItem: any;
   rowSelected: any;
-
+  btnDownload: any;
 
   // dropdown data list
   companyList: any = [];
@@ -73,11 +74,10 @@ export class AggregateComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
-    private confirmationService: ConfirmationService,
-  ) { }
+    private confirmationService: ConfirmationService
+  ) {}
 
   ngOnInit(): void {
-
     this.getCompanyLst();
     this.getAccountRepLst();
 
@@ -88,7 +88,6 @@ export class AggregateComponent implements OnInit {
       toPeriodDetailId: new FormControl(null, Validators.required),
       priceType: new FormControl(null, Validators.required),
     });
-
   }
 
   getPeriodLst(companyId: number) {
@@ -111,15 +110,17 @@ export class AggregateComponent implements OnInit {
       });
   }
 
-
   getmonthList() {
-    let data = {
+    const data = {
       accountRepItemId: this.rowSelected.id,
       companyId: this.accountReportPriceForm.value['companyId'],
-      periodId: this.accountReportPriceForm.value['periodId']
-    }
+      periodId: this.accountReportPriceForm.value['periodId'],
+    };
     this.httpService
-      .post<AccountReportItemPrice[]>(AccountReportItemPrice.apiAddress + 'GetBudgetBreaking', data)
+      .post<AccountReportItemPrice[]>(
+        AccountReportItemPrice.apiAddress + 'GetBudgetBreaking',
+        data
+      )
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.monthList = response.data.result;
@@ -141,7 +142,6 @@ export class AggregateComponent implements OnInit {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.periodDetailLst = response.data.result;
-
         }
       });
   }
@@ -163,11 +163,10 @@ export class AggregateComponent implements OnInit {
   }
 
   getAccountReportItemLst(event?: LazyLoadEvent) {
-
     this.formSubmitted = true;
     if (!this.accountReportPriceForm.valid) return;
 
-    // check if atLeast one record has changed 
+    // check if atLeast one record has changed
     if (this.changeList?.length != 0) {
       this.confirmOnSearch();
     } else {
@@ -175,9 +174,32 @@ export class AggregateComponent implements OnInit {
     }
   }
 
+  downloadExcelFile() {
+    const formValue = this.accountReportPriceForm.value;
+    this.formSubmitted = true;
+    const body = {
+      ...formValue,
+      reportId: this.selectedReport?.id,
+    };
+    const url =
+      AccountReportToItem.apiAddress + 'DownloadPriceAccountRepToItemExcelFile';
+    this.httpService
+      .post<AccountReportToItem>(url, body)
+
+      .pipe(
+        tap(() => (this.loading = false)),
+        map(response => {
+          if (response.data && response.data.result)
+            return response.data.result;
+          else return new AccountReportToItemData();
+        })
+      )
+      .subscribe(res => {
+        this.downloadPriceAccountRepList = res;
+      });
+  }
 
   searchOnDataList(event?: LazyLoadEvent) {
-
     const formValue = this.accountReportPriceForm.value;
     delete formValue['accountRepId'];
     delete formValue['accountReportItemPriceModels'];
@@ -215,8 +237,7 @@ export class AggregateComponent implements OnInit {
       reportId: this.selectedReport?.id,
     };
 
-    const url =
-      AccountReportToItem.apiAddress + 'GetPriceAccountRepToItemList';
+    const url = AccountReportToItem.apiAddress + 'GetPriceAccountRepToItemList';
     this.httpService
       .post<AccountReportToItemData>(url, body)
 
@@ -244,13 +265,16 @@ export class AggregateComponent implements OnInit {
       rejectLabel: 'انصراف',
       rejectButtonStyleClass: 'p-button-secondary',
       defaultFocus: 'reject',
-      accept: () => { this.confirm() },
-      reject: () => { this.reject(); }
+      accept: () => {
+        this.confirm();
+      },
+      reject: () => {
+        this.reject();
+      },
     });
   }
 
-  reject() {
-  }
+  reject() {}
 
   confirm() {
     this.addList();
@@ -299,7 +323,6 @@ export class AggregateComponent implements OnInit {
         this.changeList = [];
         this.getAccountReportItemLst();
       });
-
   }
 
   onChangePrice(item: any) {
@@ -328,21 +351,24 @@ export class AggregateComponent implements OnInit {
   }
 
   updateBaseData(ItemChanged: any) {
-    let indexToUpdate = this.flattenList.findIndex((item: any) =>
-      item.accountRepItemId === ItemChanged.accountRepItemId);
+    const indexToUpdate = this.flattenList.findIndex(
+      (item: any) => item.accountRepItemId === ItemChanged.accountRepItemId
+    );
     if (indexToUpdate != -1)
       this.flattenList[indexToUpdate]['priceCu'] = ItemChanged.priceCu;
   }
 
   calculateTotalPrice(item: any) {
-    let parentNode: any
+    let parentNode: any;
 
     // when node changed is child
     if (item.parentId) {
-      parentNode = this.accountReportItemList['body'].find(rec => rec.data.id == item.parentId)?.data;
+      parentNode = this.accountReportItemList['body'].find(
+        rec => rec.data.id == item.parentId
+      )?.data;
     }
     // else {
-    //   // when node changed is parent 
+    //   // when node changed is parent
     //   parentNode = this.accountReportItemList['body'].find(rec => rec.data.id == item.id);
     // }
 
@@ -355,17 +381,14 @@ export class AggregateComponent implements OnInit {
     // else if (previousValue < currentValue)
     //   amount = currentValue - previousValue;
 
-
     // parentNode['priceCu'] = parentNode['priceCu'] + amount;
-
   }
 
   onOpenBreakingBudgeDialog(item: any) {
     this.addBuggetBreakingModal = true;
-    this.rowSelected = item ;
+    this.rowSelected = item;
     this.getmonthList();
   }
-
 
   onSelectMonthItem(item: any) {
     this.selectedMonthItem = item;
@@ -376,8 +399,9 @@ export class AggregateComponent implements OnInit {
   }
 
   addPercentageList() {
-
-    let percentageList = this.monthList.map((item: { percentage: any }) => { return item.percentage ? Number(item.percentage) : 0  })
+    const percentageList = this.monthList.map((item: { percentage: any }) => {
+      return item.percentage ? Number(item.percentage) : 0;
+    });
     let sum = 0;
     percentageList.forEach((element: any) => {
       sum = sum + element;
@@ -393,18 +417,23 @@ export class AggregateComponent implements OnInit {
       return;
     }
 
-    let finalList = this.monthList.filter((item: { changed: boolean }) => item.changed == true);
-    finalList = finalList.map((item: { id: any; percentage: any; }) => { return { id: item.id, percentage: Number(item.percentage) } })
+    let finalList = this.monthList.filter(
+      (item: { changed: boolean }) => item.changed == true
+    );
+    finalList = finalList.map((item: { id: any; percentage: any }) => {
+      return { id: item.id, percentage: Number(item.percentage) };
+    });
 
-    let data = {
+    const data = {
       budgetPrice: this.rowSelected.priceCu,
-      periodpercentage: finalList
-    }
+      periodpercentage: finalList,
+    };
 
     this.httpService
       .post<AccountReportItemPrice>(
-        AccountReportItemPrice.apiAddress + 'CreateBudgetBreaking'
-        , data)
+        AccountReportItemPrice.apiAddress + 'CreateBudgetBreaking',
+        data
+      )
       .pipe(tap(() => (this.isLoadingSubmit = false)))
       .subscribe(response => {
         if (response.successed) {
@@ -418,11 +447,8 @@ export class AggregateComponent implements OnInit {
           });
           this.addBuggetBreakingModal = false;
         }
-
-      })
+      });
   }
 
-
-
-  openDialog(e: any) { }
+  openDialog(e: any) {}
 }

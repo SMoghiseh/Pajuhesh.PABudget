@@ -36,18 +36,19 @@
     </div>
 
     <div class="col-6 mt-2">
-      <label for="chartTypeCode"> نوع جدولی</label>
-      <p-dropdown id="chartTypeCode"
-        name="chartTypeCode"
-        formControlName="chartTypeCode"
+      <label for="accountReportItemId"> آیتم مالی مرتبط</label>
+      <p-dropdown id="accountReportItemId"
+        name="accountReportItemId"
+        formControlName="accountReportItemId"
         styleClass="w-100 my-1"
         optionLabel="title"
         optionValue="id"
         placeholder="انتخاب کنید"
-        [options]="chartTypeList"
+        [options]="accountReportItemList"
         [filter]="true">
       </p-dropdown>
     </div>
+
     <div class="col-6 mt-2">
       <label for="indicatorTypeCode"> نوع شاخص</label>
       <p-dropdown id="indicatorTypeCode"
@@ -74,6 +75,36 @@
         [filter]="true">
       </p-dropdown>
     </div>
+
+    <div class="col-6 mt-2">
+      <label for="qualityTypeCode"> نوع کیفی</label>
+      <p-dropdown id="qualityTypeCode"
+        name="qualityTypeCode"
+        formControlName="qualityTypeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        (onChange)="changeQualityTypeCode($event)"
+        placeholder="انتخاب کنید"
+        [options]="qualityTypeCodeList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div   *ngIf="disCombo" class="col-6 mt-2">
+      <label for="chartTypeCode"> نوع جدولی</label>
+      <p-dropdown id="chartTypeCode"
+        name="chartTypeCode"
+        formControlName="chartTypeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="chartTypeList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+
+
     <div class="col-6 mt-2">
       <label for="minMaxTypeCode"> نوع حداقل/حداکثر</label>
       <p-dropdown id="minMaxTypeCode"
@@ -87,32 +118,7 @@
         [filter]="true">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
-      <label for="accountReportItemId"> آیتم مالی مرتبط</label>
-      <p-dropdown id="accountReportItemId"
-        name="accountReportItemId"
-        formControlName="accountReportItemId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="accountReportItemList"
-        [filter]="true">
-      </p-dropdown>
-    </div>
-    <div class="col-6 mt-2">
-      <label for="qualityTypeCode"> نوع کیفی</label>
-      <p-dropdown id="qualityTypeCode"
-        name="qualityTypeCode"
-        formControlName="qualityTypeCode"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="qualityTypeCodeList"
-        [filter]="true">
-      </p-dropdown>
-    </div>
+
     <div class="col-12 row-btn row-btn-fixed-bottom">
       <p-button class="pe-2"
         styleClass="p-button-warning"
