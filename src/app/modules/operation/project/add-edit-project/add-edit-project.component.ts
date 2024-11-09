@@ -156,4 +156,16 @@ export class AddEditProjectComponent {
         }
       });
   }
+
+  onlyNumberKey(event: { charCode: number }) {
+    return event.charCode == 8 || event.charCode == 0
+    ? null
+    : ( event.charCode >= 48 && event.charCode <= 57 );
+  }
+  
+  onlyFloatNumberKey(event: { charCode: number }) {
+    return event.charCode == 8 || event.charCode == 0
+    ? null
+    : ( event.charCode >= 48 && event.charCode <= 57 )|| event.charCode == 46 ;
+  }
 }

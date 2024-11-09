@@ -111,13 +111,15 @@
       </div>
 
       <div class="col-3 mt-3">
-        <label for="internalRateOfReturn">نرخ بازده داخلی(میلیون ریال)</label>
-        <p-inputNumber
+        <label for="internalRateOfReturn">نرخ بازده داخلی(درصد)</label>
+          <input 
+          pInputText
           id="internalRateOfReturn"
           name="internalRateOfReturn"
           formControlName="internalRateOfReturn"
-          inputId="integeronly"
-          class="w-100"></p-inputNumber>
+          type="number"
+          class="w-100" 
+          (keypress)="onlyFloatNumberKey($event)"/>
       </div>
 
       <div class="col-3 mt-2">
@@ -139,7 +141,8 @@
           name="payBackPeriod"
           formControlName="payBackPeriod"
           type="number"
-          class="w-100" />
+          class="w-100" 
+          (keypress)="onlyNumberKey($event)"/>
       </div>
       <div class="col-6 mt-2">
         <label for="address">آدرس</label>
@@ -203,7 +206,7 @@
         <th style="min-width: 10rem">
           <strong> خالص ارزش فعلی (میلیون یال)</strong>
         </th>
-        <th style="min-width: 10rem"><strong> دوره بازگشت سرمایه </strong></th>
+        <th style="min-width: 111px"><strong> دوره بازگشت سرمایه (ماه) </strong></th>
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
     </ng-template>

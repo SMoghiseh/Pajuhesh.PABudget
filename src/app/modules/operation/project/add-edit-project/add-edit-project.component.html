@@ -45,9 +45,15 @@
 
 
         <div class="col-4 mt-2">
-            <label for="internalRateOfReturn">نرخ بازده داخلی(میلیون ریال)</label>
-            <p-inputNumber id="internalRateOfReturn" name="internalRateOfReturn" formControlName="internalRateOfReturn"
-                inputId="integeronly" class="w-100"></p-inputNumber>
+            <label for="internalRateOfReturn">نرخ بازده داخلی(درصد)</label>
+            <input 
+          pInputText
+          id="internalRateOfReturn"
+          name="internalRateOfReturn"
+          formControlName="internalRateOfReturn"
+          type="number"
+          class="w-100" 
+          (keypress)="onlyFloatNumberKey($event)"/>
         </div>
 
         <div class="col-4 mt-2">
@@ -57,8 +63,14 @@
         </div>
         <div class="col-4 mt-2">
             <label for="payBackPeriod">دوره بازگشت سرمایه</label>
-            <p-inputNumber id="payBackPeriod" name="payBackPeriod" formControlName="payBackPeriod"
-                class="w-100"></p-inputNumber>
+            <input
+            pInputText
+            id="payBackPeriod"
+            name="payBackPeriod"
+            formControlName="payBackPeriod"
+            type="number"
+            class="w-100" 
+            (keypress)="onlyNumberKey($event)"/>
         </div>
         <div class="col-4 mt-2">
             <label for="typeCode"> نوع طرح</label>
