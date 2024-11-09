@@ -53,7 +53,7 @@ export class AddEditBigGoalComponent {
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      aspectCode: new FormControl(0, Validators.required),
+      aspectCode: new FormControl(null, Validators.required),
       visionId: new FormControl(0, Validators.required),
       description: new FormControl(),
     });
@@ -62,7 +62,7 @@ export class AddEditBigGoalComponent {
       this.getRowData(this.inputData.id);
     }
     this.addEditForm.patchValue({
-      visionId: Number(this.route.snapshot.paramMap.get('id')),
+      visionId: Number(this.route.snapshot.paramMap.get('visionId')),
     });
   }
 

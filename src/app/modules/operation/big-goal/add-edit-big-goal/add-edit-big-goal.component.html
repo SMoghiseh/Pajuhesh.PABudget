@@ -49,6 +49,7 @@
         placeholder="انتخاب کنید"
         [options]="visionList"
         [filter]="true"
+        [readonly]="true"
         [class.ng-invalid]="visionId?.invalid"
         [class.ng-dirty]="
           (addEditFormSubmitted && visionId?.pristine) ||
