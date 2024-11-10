@@ -108,6 +108,7 @@ export class BaseResponse<type> {
     afd?: [any];
 
     hasAccessAll?: boolean;
+    fileName?: string;
   };
 }
 
@@ -800,6 +801,8 @@ export class PeriodBudgetType {
 
 export class AttachmentType {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/AttachmentFileType';
+  static readonly apiAddressUpload =
+    'api/FileManagerApi/v1/FileManager/UploadFile';
   id!: number;
   title!: string;
   enName!: string;
@@ -1533,6 +1536,7 @@ export class AccountReportToItem {
   accountRepItemTitle!: string;
   updated!: boolean;
   priceCu!: number;
+  fileName?: string;
 }
 
 export class headerData {

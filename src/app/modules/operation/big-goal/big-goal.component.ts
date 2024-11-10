@@ -35,7 +35,7 @@ export class BigGoalComponent implements OnInit {
   addEditData = new BigGoal();
   pId!: string;
   mode!: string;
-  visionId!: number;
+  rowSelectedId!: number;
 
   // form property
   searchForm!: FormGroup;
@@ -65,7 +65,6 @@ export class BigGoalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.visionId = Number(this.route.snapshot.paramMap.get('visionId'));
 
     this.getVisionList();
     this.getAspectCodeList();
@@ -74,7 +73,14 @@ export class BigGoalComponent implements OnInit {
       bigGoalCode: new FormControl(null),
       title: new FormControl(null),
       aspectCode: new FormControl(null),
+      visionId: new FormControl(null),
     });
+
+    this.rowSelectedId = Number(this.route.snapshot.paramMap.get('visionId'));
+    this.searchForm.patchValue({
+      visionId : this.rowSelectedId
+    })
+
   }
 
   getAspectCodeList() {
@@ -111,7 +117,6 @@ export class BigGoalComponent implements OnInit {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      visionId: this.addEditData.visionId,
       ...formValue,
     };
 

@@ -6,9 +6,10 @@ import {
   Period,
   Company,
   AccountReportToItemData,
+  AttachmentType,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
-import { map, tap } from 'rxjs';
+import { map, of, tap } from 'rxjs';
 import {
   ConfirmationService,
   LazyLoadEvent,
@@ -44,9 +45,11 @@ export class AggregateComponent implements OnInit {
   selectedMonthItem: any;
   rowSelected: any;
   btnDownload: any;
-
+  uploadFile: any;
+  btnDis = true;
   // dropdown data list
   companyList: any = [];
+  priceAccountRepToItemFromExcelFile: any;
   periodList: any = [];
   monthList: any = [];
   periodDetailLst: Period[] = [];
@@ -175,30 +178,90 @@ export class AggregateComponent implements OnInit {
   }
 
   downloadExcelFile() {
-    const formValue = this.accountReportPriceForm.value;
-    this.formSubmitted = true;
-    const body = {
-      ...formValue,
-      reportId: this.selectedReport?.id,
-    };
-    const url =
-      AccountReportToItem.apiAddress + 'DownloadPriceAccountRepToItemExcelFile';
-    this.httpService
-      .post<AccountReportToItem>(url, body)
-
-      .pipe(
-        tap(() => (this.loading = false)),
-        map(response => {
-          if (response.data && response.data.result)
-            return response.data.result;
-          else return new AccountReportToItemData();
-        })
-      )
-      .subscribe(res => {
-        this.downloadPriceAccountRepList = res;
+    if (this.btnDis == false) {
+      const formValue = this.accountReportPriceForm.value;
+      this.formSubmitted = true;
+      const body = {
+        ...formValue,
+        reportId: this.selectedReport?.id,
+      };
+      const url =
+        AccountReportToItem.apiAddress +
+        'DownloadPriceAccountRepToItemExcelFile';
+      this.httpService.post<AccountReportToItem>(url, body).subscribe(res => {
+        if (res.successed) {
+          const a = document.createElement('a'); //Create <a>
+          a.href = 'data:application/octet-stream;base64,' + res.data.result; //Image Base64 Goes here
+          a.download = res.data.fileName || ''; //File name Here
+          a.click(); //Downloaded file
+        }
       });
+    }
   }
 
+  onSelectAttachment(files: FileList) {
+    const File = files[0].name;
+    if (files.length) {
+      Array.from(files).forEach(file => {
+        const data = new FormData();
+        data.append('File', file);
+
+        if (file.size <= 25000000)
+          return this.httpService
+            .post<any>(AttachmentType.apiAddressUpload, data)
+            .subscribe(response => {
+              if (response.successed && response.data && response.data.result) {
+                this.messageService.add({
+                  key: 'attachmentTypeDefinition',
+                  life: 8000,
+                  severity: 'success',
+                  summary: 'فایل با موفقیت بارگذاری شد',
+                });
+                // this.accountReportPriceForm.patchValue({
+                //   tempPath: fileName,
+                // });
+                this.uploadFile = response.data.result.multiMediaId;
+                this.ReadPriceAccountFromExcelFile(this.uploadFile);
+              }
+            });
+        else return of();
+      });
+    }
+  }
+
+  ReadPriceAccountFromExcelFile(multiMediaIdId: number) {
+    this.httpService
+      .get<AccountReportToItem[]>(
+        AccountReportToItem.apiAddress +
+          'ReadPriceAccountRepToItemFromExcelFile/' +
+          multiMediaIdId
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.priceAccountRepToItemFromExcelFile = response.data.result;
+        }
+        this.changeList = [];
+        for (let i = 0; i < this.flattenList.length; i++) {
+          //
+          if (
+            this.flattenList[i].accountRepItemId ===
+            this.priceAccountRepToItemFromExcelFile[i].accountRepItemId
+          ) {
+            this.accountReportItemList.body[i].data.priceCu =
+              this.priceAccountRepToItemFromExcelFile[i].priceCu;
+            this.changeList.push({
+              accountRepItemId:
+                this.priceAccountRepToItemFromExcelFile[i].accountRepItemId,
+              priceCu: this.priceAccountRepToItemFromExcelFile[i].priceCu,
+
+              // groupId: item.parentId ? item.parentId : item.id
+            });
+            // this.flattenList[i].priceCu =
+            //   this.priceAccountRepToItemFromExcelFile[i].priceCu;
+          }
+        }
+      });
+  }
   searchOnDataList(event?: LazyLoadEvent) {
     const formValue = this.accountReportPriceForm.value;
     delete formValue['accountRepId'];
@@ -227,6 +290,12 @@ export class AggregateComponent implements OnInit {
         this.accountReportItemList = res;
         this.getFlattnAccountReportList();
         this.formSubmitted = false;
+        if (
+          this.accountReportItemList.body.length &&
+          this.accountReportPriceForm.valid
+        ) {
+          this.btnDis = false;
+        } else this.btnDis = true;
       });
   }
 
@@ -342,6 +411,7 @@ export class AggregateComponent implements OnInit {
       this.changeList.push({
         accountRepItemId: item.accountRepItemId,
         priceCu: item.priceCu,
+
         // groupId: item.parentId ? item.parentId : item.id
       });
 
