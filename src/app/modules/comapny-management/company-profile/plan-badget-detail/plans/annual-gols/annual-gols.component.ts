@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-annual-gols',
   templateUrl: './annual-gols.component.html',
-  styleUrls: ['./annual-gols.component.scss']
+  styleUrls: ['./annual-gols.component.scss'],
 })
 export class AnnualGolsComponent {
   @Input() inputData: any;
@@ -19,9 +19,7 @@ export class AnnualGolsComponent {
   selectDateType = 'single';
   selectedPlanName = ' اهداف سالیانه ';
 
-
-
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
   getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
@@ -44,5 +42,4 @@ export class AnnualGolsComponent {
   returnSelectedDate(e: any) {
     this.getPlanDetail(e);
   }
-
 }
