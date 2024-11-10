@@ -1,18 +1,17 @@
-<p-toast key="aggregate"
-  position="bottom-left"></p-toast>
+<p-toast key="aggregate" position="bottom-left"></p-toast>
 
 <div class="table-header">
   نام گزارش : <span> {{ selectedReport?.title }}</span>
 </div>
 
 <div class="panel-search mt-8 mb-8">
-  <form #formDir="ngForm"
-    [formGroup]="accountReportPriceForm">
+  <form #formDir="ngForm" [formGroup]="accountReportPriceForm">
     <div class="row mt-8 pb-3">
       <!--  شرکت -->
       <div class="col-2">
         <label for="companyId"> شرکت </label>
-        <p-dropdown id="companyId"
+        <p-dropdown
+          id="companyId"
           name="companyId"
           formControlName="companyId"
           styleClass="w-100 my-1"
@@ -34,7 +33,8 @@
       <!--  دوره بودجه -->
       <div class="col-2">
         <label for="periodId">دوره بودجه </label>
-        <p-dropdown id="periodId"
+        <p-dropdown
+          id="periodId"
           name="periodId"
           formControlName="periodId"
           styleClass="w-100 my-1"
@@ -56,7 +56,8 @@
       <!--  دوره عملیاتی -->
       <div class="col-2">
         <label for="fromPeriodDetailId"> از دوره عملیاتی </label>
-        <p-dropdown id="fromPeriodDetailId"
+        <p-dropdown
+          id="fromPeriodDetailId"
           name="fromPeriodDetailId"
           formControlName="fromPeriodDetailId"
           styleClass="w-100 my-1"
@@ -75,7 +76,8 @@
       </div>
       <div class="col-2">
         <label for="toPeriodDetailId">تا دوره عملیاتی </label>
-        <p-dropdown id="toPeriodDetailId"
+        <p-dropdown
+          id="toPeriodDetailId"
           name="toPeriodDetailId"
           formControlName="toPeriodDetailId"
           styleClass="w-100 my-1"
@@ -96,7 +98,8 @@
 
       <div class="col-4 align-content-end pb-2">
         <div class="d-flex align-items-center">
-          <p-radioButton name="priceType"
+          <p-radioButton
+            name="priceType"
             formControlName="priceType"
             [value]="2"
             inputId="ingredient2"
@@ -106,33 +109,44 @@
               priceType?.dirty ||
               priceType?.touched
             "></p-radioButton>
-          <label for="ingredient2"
-            class="ms-2 me-4">مبلغ عملکرد</label>
+          <label for="ingredient2" class="ms-2 me-4">مبلغ عملکرد</label>
           <!-- </div>
 
         <div class="d-flex align-items-center"> -->
-          <p-radioButton name="priceType"
+          <p-radioButton
+            name="priceType"
             formControlName="priceType"
             [value]="1"
             inputId="ingredient1"></p-radioButton>
-          <label for="ingredient1"
-            class="ms-2 me-4">مبلغ بودجه</label>
+          <label for="ingredient1" class="ms-2 me-4">مبلغ بودجه</label>
         </div>
       </div>
     </div>
     <!-- دکمه -->
     <div class="d-flex justify-content-end col text-end">
       <div class="search-button mt-12">
-        <p-button class="pe-2 p-button-wide"
-          [disabled]="!accountReportPriceForm.valid"
-          styleClass="p-button-info"
-          [label]="'دانلود فایل اکسل'"
-          (click)="downloadExcelFile()"></p-button>
-
+        <div class="btnExcelStyle">
+          <p-button
+            class="ng-star-inserted"
+            style="padding-left: 3px"
+            [disabled]="btnDis"
+            styleClass="p-button-info"
+            [label]="'دانلود فایل اکسل'"
+            (click)="downloadExcelFile()"></p-button>
+          <p-fileUpload
+            #form
+            mode="basic"
+            chooseLabel="افزودن پیوست"
+            name="attachments[]"
+            [disabled]="btnDis"
+            [auto]="true"
+            (onSelect)="onSelectAttachment($event.files)"></p-fileUpload>
+        </div>
         <div class="clear-search" (click)="clearSearch()">
           <i class="pi pi-filter-slash"></i>
         </div>
-        <p-button class="pe-2 p-button-wide"
+        <p-button
+          class="pe-2 p-button-wide"
           styleClass="p-button-info"
           [label]="'جستجو'"
           (click)="getAccountReportItemLst()"></p-button>
@@ -143,18 +157,16 @@
 </div>
 <div class="table-container">
   <!-- <form #formDir="ngForm" [formGroup]="dynamicControls"> -->
-  <div *ngIf="accountReportItemList"
-    class="card">
-    <p-treeTable class="treeTable-container"
+  <div *ngIf="accountReportItemList" class="card">
+    <p-treeTable
+      class="treeTable-container"
       [value]="accountReportItemList.body"
       [columns]="accountReportItemList.headers"
       [scrollable]="true"
       [tableStyle]="{ 'min-width': '50rem' }">
-      <ng-template pTemplate="header"
-        let-columns>
+      <ng-template pTemplate="header" let-columns>
         <tr>
-          <th style="width: 330px"
-            *ngFor="let col of columns">
+          <th style="width: 330px" *ngFor="let col of columns">
             {{ col.headerName }}
           </th>
           <th style="width: 300px">شکست بودجه</th>
@@ -162,7 +174,8 @@
           <!-- <th>جمع مبلغ(میلیون ریال)</th> -->
         </tr>
       </ng-template>
-      <ng-template pTemplate="body"
+      <ng-template
+        pTemplate="body"
         let-rowNode
         let-rowData="rowData"
         let-columns="columns">
@@ -171,18 +184,19 @@
             <p-treeTableToggler [rowNode]="rowNode" />
             {{ rowData['accountRepItemTitle'] }}
           </td>
-          <td ttEditableColumn
-            style="min-width: 15rem; direction: ltr">
+          <td ttEditableColumn style="min-width: 15rem; direction: ltr">
             <p-treeTableCellEditor>
               <ng-template pTemplate="input">
-                <p-inputNumber [(ngModel)]="rowData.priceCu"
+                <p-inputNumber
+                  [(ngModel)]="rowData.priceCu"
                   (onInput)="onChangePrice(rowData)"
                   (keydown.enter)="onChangePrice(rowData)"
                   (keydown.tab)="onChangePrice(rowData)"></p-inputNumber>
               </ng-template>
 
               <ng-template pTemplate="output">
-                <input pInputText
+                <input
+                  pInputText
                   type="text"
                   value=" {{ rowData.priceCu | number }}"
                   [class.negative-number]="rowData.priceCu < 0" />
@@ -192,17 +206,17 @@
             &nbsp;
           </td>
           <td class="jc-left ai-left">
-            <ng-container *ngIf="
+            <ng-container
+              *ngIf="
                 (!rowData.changePrice && rowData.priceCu != 0) ||
                 (priceType?.value == 1 && formSubmitted)
               ">
               <!-- <ng-container> -->
-              <button class="action-image-container edit-button"
+              <button
+                class="action-image-container edit-button"
                 (click)="onOpenBreakingBudgeDialog(rowData)"
                 pTooltip=" شکست بودجه">
-                <img ngSrc="icons\Group 131.svg"
-                  width="24"
-                  height="24" />
+                <img ngSrc="icons\Group 131.svg" width="24" height="24" />
               </button>
             </ng-container>
           </td>
@@ -241,9 +255,9 @@
   </div>
   <!-- </form> -->
 
-  <div class="d-flex justify-content-end"
-    style="padding: 13px 2px">
-    <p-button class="pe-2 mr-8"
+  <div class="d-flex justify-content-end" style="padding: 13px 2px">
+    <p-button
+      class="pe-2 mr-8"
       styleClass="p-button-info"
       icon="pi pi-plus-circle"
       label="ذخیره تغییرات"
@@ -251,7 +265,8 @@
   </div>
 </div>
 
-<p-dialog *ngIf="addBuggetBreakingModal"
+<p-dialog
+  *ngIf="addBuggetBreakingModal"
   [header]="'افزودن شکست بودجه به ازای هر ماه '"
   [(visible)]="addBuggetBreakingModal"
   [modal]="true"
@@ -262,7 +277,8 @@
   <div class="d-flex row-cols-lg-6 flex-wrap month-list">
     <ng-container *ngFor="let item of monthList">
       <div class="col">
-        <div [class.selected]="item.id === selectedMonthItem?.id"
+        <div
+          [class.selected]="item.id === selectedMonthItem?.id"
           class="content"
           (click)="onSelectMonthItem(item)">
           <p class="month-title">
@@ -277,7 +293,8 @@
             <!-- <p-inputNumber [minFractionDigits]="2"  mode="decimal" [(ngModel)]="item.percentage" (onInput)="onChangePercent(item)"
               (keydown.enter)="onChangePercent(item)" (keydown.tab)="onChangePercent(item)"></p-inputNumber> -->
 
-            <input pInputText
+            <input
+              pInputText
               [(ngModel)]="item.percentage"
               (ngModelChange)="onChangePercent(item)" />
           </div>
@@ -286,14 +303,15 @@
     </ng-container>
   </div>
 
-  <div class="col-12 row-btn row-btn-fixed-bottom d-flex justify-content-between">
+  <div
+    class="col-12 row-btn row-btn-fixed-bottom d-flex justify-content-between">
     <span>*تمامی مبالغ به میلیون ریال است</span>
-    <p-button class="pe-2 p-button-wide"
+    <p-button
+      class="pe-2 p-button-wide"
       styleClass="p-button-success"
       [label]="'ثبت'"
       (click)="addPercentageList()"></p-button>
   </div>
 </p-dialog>
 
-<p-confirmDialog [style]="{ width: '450px' }"
-  [rtl]="true"></p-confirmDialog>
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
