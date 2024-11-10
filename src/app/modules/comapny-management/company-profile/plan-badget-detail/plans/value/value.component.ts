@@ -19,15 +19,13 @@ export class ValueComponent implements OnInit {
   selectDateType = 'single';
   selectedPlanName = 'ارزش ها ';
 
-
-
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getPlanDetail(0);
   }
-  
-  getPlanDetail(yearId: number) {
+
+  getPlanDetail(yearId: number) { debugger
     const body = {
       companyId: this.inputData.companyId,
       // periodId: yearId,
@@ -46,11 +44,7 @@ export class ValueComponent implements OnInit {
       });
   }
 
-  returnSelectedDate(e: any) {
+  returnSelectedDate(e: any) { debugger
     this.getPlanDetail(e);
   }
-
-
-
-
 }

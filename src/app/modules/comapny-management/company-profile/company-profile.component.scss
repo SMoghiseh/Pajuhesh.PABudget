@@ -183,12 +183,37 @@
         .desc {
             font-size: 14px;
             padding: 10px;
+            
+            
         }
+ 
+   
     }
+
+
+
 
     h3 {
         margin: 20px 30px;
     }
+
+    
+   
+}
+
+.headerStyleForm {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -12px;
+
+    // .labelStyle{
+    //     font-size: 14px;
+    //     font-weight: bold;
+    //     margin: 9px 0px 12px;
+    //     color:  #94A3B8 !important;
+    //     font : Shabnam;
+    // }
+
 }
 
 .cost-benefit-box {
@@ -350,6 +375,7 @@
         .desc {
             font-size: 14px;
             padding: 10px;
+           
         }
     }
 
@@ -357,6 +383,7 @@
         margin: 12px 0px 12px;
         font-size: 1.5rem;
         font-weight: 700;
+        color:#3B82F6;
     }
 }
 
@@ -399,6 +426,38 @@
     border-radius: 10px;
     box-shadow: 0 0 7px rgba(182, 194, 211, 0.35);
     padding: 5px;
+}
+
+::ng-deep .headerStyleForm {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -12px;
+
+    .labelStyle{
+        font-size: 14px;
+        margin: 9px 0px 12px;
+        color:  #94A3B8 !important;
+        font : Shabnam;
+        font-weight: 400px;
+    }
+
+    hr {
+   width: 1098px;
+   height: 3px;
+   top: 836px;
+   left: 39px;
+   gap: 0px;
+   opacity: 0px;
+   background: #F1F5F9;
+    }
+    span{
+        font-size: 14px;
+        font-weight: bold;
+        margin: 9px 0px 12px;
+        color:  #94A3B8 !important;
+        font : Shabnam;
+        font-weight: 700px;
+    }
 }
 
 ::ng-deep .co-info-box {
