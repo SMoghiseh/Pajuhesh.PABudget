@@ -70,7 +70,6 @@ export class ProjectComponent {
       budgetPeriodId: new FormControl(null),
       fromBudgetPeriodId: new FormControl(null),
       toBudgetPeriodId: new FormControl(null),
-      code: new FormControl(null),
       title: new FormControl(null),
       companyId: new FormControl(null),
       address: new FormControl(null),
@@ -232,7 +231,7 @@ export class ProjectComponent {
         }
       });
   }
-  
+
   onlyNumberKey(event: { charCode: number }) {
     return event.charCode == 8 || event.charCode == 0
     ? null

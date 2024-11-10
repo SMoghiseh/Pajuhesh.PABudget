@@ -1665,7 +1665,7 @@ export class SWTO {
 export class StrategySWOT {
   static readonly apiAddress = 'api/PABudgetApi/v1/Plan/SWTO/';
   static readonly apiAddressStrategySwot =
-    'api/PABudgetApi/v1/Plan/StrategySwot/Create';
+    'api/PABudgetApi/v1/Plan/StrategySwot/';
 }
 
 export class STRATEGY {

@@ -28,6 +28,38 @@ export class AddEditProjectComponent {
   }
   @Output() isSuccess = new EventEmitter<boolean>();
 
+  
+  get budgetPeriodId() {
+    return this.addEditForm.get('budgetPeriodId');
+  }
+  get fromBudgetPeriodId() {
+    return this.addEditForm.get('fromBudgetPeriodId');
+  }
+  get toBudgetPeriodId() {
+    return this.addEditForm.get('toBudgetPeriodId');
+  }
+  get title() {
+    return this.addEditForm.get('title');
+  }
+  get companyId() {
+    return this.addEditForm.get('companyId');
+  }
+  get address() {
+    return this.addEditForm.get('address');
+  }
+  get typeCode() {
+    return this.addEditForm.get('typeCode');
+  }
+  get internalRateOfReturn() {
+    return this.addEditForm.get('internalRateOfReturn');
+  }
+  get netPersentValue() {
+    return this.addEditForm.get('netPersentValue');
+  }
+  get payBackPeriod() {
+    return this.addEditForm.get('payBackPeriod');
+  }
+
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
@@ -38,17 +70,16 @@ export class AddEditProjectComponent {
     this.getCompanyLst();
     this.getprojectTypeCodeLst();
     this.addEditForm = new FormGroup({
-      budgetPeriodId: new FormControl(null),
-      fromBudgetPeriodId: new FormControl(null),
-      toBudgetPeriodId: new FormControl(null),
-      code: new FormControl(null),
-      title: new FormControl(null),
-      companyId: new FormControl(null),
-      address: new FormControl(null),
-      typeCode: new FormControl(null),
-      internalRateOfReturn: new FormControl(null),
-      netPersentValue: new FormControl(null),
-      payBackPeriod: new FormControl(null),
+      budgetPeriodId: new FormControl(null , Validators.required),
+      fromBudgetPeriodId: new FormControl(null , Validators.required),
+      toBudgetPeriodId: new FormControl(null , Validators.required),
+      title: new FormControl(null , Validators.required),
+      companyId: new FormControl(null , Validators.required),
+      address: new FormControl(null , Validators.required),
+      typeCode: new FormControl(null , Validators.required),
+      internalRateOfReturn: new FormControl(null , Validators.required),
+      netPersentValue: new FormControl(null , Validators.required),
+      payBackPeriod: new FormControl(null , Validators.required),
     });
 
     if (this.mode === 'edit') {
@@ -162,7 +193,7 @@ export class AddEditProjectComponent {
     ? null
     : ( event.charCode >= 48 && event.charCode <= 57 );
   }
-  
+
   onlyFloatNumberKey(event: { charCode: number }) {
     return event.charCode == 8 || event.charCode == 0
     ? null

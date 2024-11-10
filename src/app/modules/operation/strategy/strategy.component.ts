@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import {
-  Pagination,
   UrlBuilder,
   STRATEGY,
   BigGoal,
+  StrategySWOT
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 import {
-  ConfirmationService,
-  LazyLoadEvent,
-  MessageService,
+  ConfirmationService, MessageService
 } from 'primeng/api';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,13 +19,8 @@ import { ActivatedRoute } from '@angular/router';
   providers: [ConfirmationService],
 })
 export class StrategyComponent {
-  gridClass = 'p-datatable-sm';
-  dataTableRows = 10;
-  totalCount!: number;
-  data: STRATEGY[] = [];
-  loading = false;
-  lazyLoadEvent?: LazyLoadEvent;
-  first = 0;
+
+  data: any;
   modalTitle = '';
   isOpenAddEditPlan = false;
   addEditData = new STRATEGY();
@@ -36,38 +28,27 @@ export class StrategyComponent {
   mode!: string;
   planningId = 0;
   companyId!: number;
-
-  // form property
-  searchForm!: FormGroup;
+  planDetailData: any;
+  matrixSelected: any;
 
   // dropdown data list
   bigGoalList: any = [];
   getCompanyByPlanIdList: any = [];
   getPlanId!: number;
 
-  subComponentList = [
-    {
-      label: ' SWOT  استراتژی',
-      icon: 'pi pi-fw pi-star',
-      routerLink: ['/Operation/StrategySWOT'],
-    },
-  ];
+
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+   
     this.getBigGoalList();
-    this.searchForm = new FormGroup({
-      title: new FormControl(null),
-      bigGoalId: new FormControl(null),
-      strategyCode: new FormControl(null),
-      strategyPriority: new FormControl(null),
-    });
     this.planningId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getData(this.planningId);
     this.getCompanyByPlanId(this.planningId);
   }
 
@@ -80,60 +61,22 @@ export class StrategyComponent {
         }
       });
   }
-  addSubComponentList(data: any) {
-    data.forEach((row: any) => {
-      row['componentList'] = [];
-      let array = this.subComponentList;
-      const snapshotParams =
-        '/' + Number(this.route.snapshot.paramMap.get('id'));
 
-      array = array.map(com => {
-        const params = snapshotParams + '/' + row.id;
-        const route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] };
-      });
+  getData(id:number) {
 
-      row['componentList'].push(...array);
-    });
-    return data;
-  }
-  getData(event?: LazyLoadEvent) {
-    if (event) this.lazyLoadEvent = event;
-
-    const pagination = new Pagination();
-    const first = this.lazyLoadEvent?.first || 0;
-    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
-    const formValue = this.searchForm.value;
-    pagination.pageNumber = first / rows + 1;
-    pagination.pageSize = rows;
-
-    const body = {
-      pageSize: pagination.pageSize,
-      pageNumber: pagination.pageNumber,
-      planningValue: this.planningId,
-      withOutPagination: false,
-      ...formValue,
-    };
-
-    this.first = 0;
-    const url = STRATEGY.apiAddress + 'List';
+    const url = StrategySWOT.apiAddressStrategySwot + 'List/' + id;
     this.httpService
-      .post<STRATEGY[]>(url, body)
+      .get<StrategySWOT[]>(url)
 
       .pipe(
-        tap(() => (this.loading = false)),
         map(response => {
           if (response.data && response.data.result) {
-            if (response.data.totalCount)
-              this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [new STRATEGY()];
+          } else return [new StrategySWOT()];
         })
       )
       .subscribe(res => {
-        this.companyId = res[0].companyId;
-        this.data = res;
-        this.addSubComponentList(res);
+        this.planDetailData = res;
       });
   }
 
@@ -144,8 +87,8 @@ export class StrategyComponent {
     this.isOpenAddEditPlan = true;
   }
 
-  editRow(data: STRATEGY) {
-    this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
+  editRowDescription(data: STRATEGY) {
+    this.modalTitle = 'ویرایش ' + '"' + data.title?.substring(0, 40) + ' ... ' + '"';
     this.addEditData = data;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
@@ -185,7 +128,6 @@ export class StrategyComponent {
         )
         .subscribe(response => {
           if (response.successed) {
-            this.first = 0;
             this.messageService.add({
               key: 'strategy',
               life: 8000,
@@ -193,19 +135,20 @@ export class StrategyComponent {
               detail: ` مورد   ${title}`,
               summary: 'با موفقیت حذف شد',
             });
-            this.getData();
+            this.getData(this.planningId);
           }
         });
     }
   }
 
-  reloadData() {
-    this.isOpenAddEditPlan = false;
-    this.getData();
+  addDetail(item: any) {
+    this.isOpenAddEditPlan = true;
+    this.matrixSelected = item;
   }
 
-  clearSearch() {
-    this.searchForm.reset();
-    this.getData();
+  reloadData() {
+    this.isOpenAddEditPlan = false;
+    this.getData(this.planningId);
   }
+
 }
