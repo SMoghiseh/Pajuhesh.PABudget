@@ -1,8 +1,7 @@
 <div class="row bottom-section">
   <div class="co-info-box">
     <div class="row">
-      <p-table
-        #dataTable
+      <p-table #dataTable
         dataKey="id"
         class="data-table d-none d-lg-block"
         [styleClass]="gridClass"
@@ -20,11 +19,9 @@
         <ng-template pTemplate="header">
           <div class="headerStyleForm">
             <h3>{{ selectedPlanName }}</h3>
-            <label class="labelStyle"
-              ><span >ارزش : </span>{{ planDetailData[0].titleTwo }}</label
-            >
+            <label class="labelStyle"><span>ارزش : </span>{{ planDetailData[0].titleTwo }}</label>
           </div>
-          <hr>
+          <br />
           <tr class="data-table__header">
             <div class="headerStyle">
               <th style="min-width: 7rem">
@@ -43,10 +40,11 @@
             </div>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        <ng-template pTemplate="body"
+          let-item
+          let-rowIndex="rowIndex">
           <tr>
-            <div
-              class="detailStyle Width: auto"
+            <div class="detailStyle Width: auto"
               [ngStyle]="{ 'background-color': item.color }">
               <td style="width: 33rem">{{ item.titleMain }}</td>
               <td style="width: 33rem">{{ item.titleFirst }}</td>
