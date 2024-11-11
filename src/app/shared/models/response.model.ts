@@ -1093,7 +1093,7 @@ export class PersonelNo {
     'api/PABudgetApi/v1/BaseInfo/CreatePersonelNoDetail/';
 
   id!: number;
-  educationTypeId!: number;
+  educationTypeId!: any;
   personelCount!: number;
   periodDetailId!: number;
   employeewageCU!: number;
@@ -1103,12 +1103,12 @@ export class PersonelNo {
   educationTitle!: string;
   statusTitle!: string;
   type!: string;
-  employmentTypeId!: number;
+  employmentTypeId!: any;
   perioddetailId!: number;
-  costCenterTypeId!: number;
+  costCenterTypeId!: any;
   periodTitle!: string;
   costCenterTypeTitle!: string;
-  gender!: number;
+  gender!: any;
 }
 export class ContractNo {
   static readonly apiAddress = 'api/PABudgetApi/v1/Info/CreateContract';
