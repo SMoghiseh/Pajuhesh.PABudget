@@ -1,3 +1,47 @@
+.column-right {
+    padding-right: 14px;
+
+    .row-header {
+        border-radius: 15px;
+        background: #DBEAFE;
+        box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25);
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        padding: 13px 15px;
+    }
+}
+
+.column-left {
+    height: 280px;
+    margin-bottom: 15px;
+
+    .row-header {
+        height: 100%;
+        border-radius: 15px;
+        background: #DBEAFE;
+        box-shadow: 0px 0px 6px 0px rgba(182, 194, 211, 0.25);
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        text-align: center;
+        width: 80%;
+
+        span {
+            rotate: -90deg;
+        }
+    }
+}
+
+.row-header {
+    span {
+        color: #1E40AF;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+}
+
+
 .d-section {
 
     .section {
@@ -14,7 +58,7 @@
             text-align: right;
         }
 
-        .title{
+        .title {
             font-size: 13px;
             font-weight: 500;
             position: absolute;
@@ -37,14 +81,21 @@
 }
 
 
-
-// :host ::ng-deep .row-btn.row-btn-fixed-bottom {
-//     bottom: 22px;
-//     position: absolute;
-//     left: 23px;
-// }
-
 :host ::ng-deep .height-size .p-dialog {
     min-height: 55px !important;
     height: auto !important;
+}
+
+
+
+
+.headerTitle {
+    font-weight: 600;
+    font-size: 1.25rem;
+
+    .additionaHeaderTitle {
+        color: #94A3B8;
+        font-size: 1rem;
+        font-weight: 400;
+    }
 }

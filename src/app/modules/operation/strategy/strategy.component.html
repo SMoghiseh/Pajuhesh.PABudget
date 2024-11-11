@@ -1,43 +1,87 @@
 <p-toast key="strategy" position="bottom-left"></p-toast>
 
+<div class="row mb-3">
+  <div class="col-11 row m-0">
+    <div class="col-6 column-right" style="padding-right: 0;">
+      <div class="row-header">
+        <span>نقاط قوت</span>
+        <span>Strengths </span>
+      </div>
+    </div>
+    <div class="col-6 column-right" style="padding: 0 9px 0 3px;">
+      <div class="row-header">
+        <span>نقاط ضعف</span>
+        <span>Weaknesses </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-1"></div>
+</div>
 
-<div class="row row-feature">
-  <ng-container *ngFor="let item of planDetailData">
-    <div class="col-6 mb-4 d-section">
-      <div class="section">
-        <div class="action">
-          <p-button styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
-            (click)="addPlan(item)"></p-button>
+<div class="row">
+  <div class="col-11">
+    <div class="row">
+      <ng-container *ngFor="let item of planDetailData">
+        <div class="col-6 mb-4 d-section">
+          <div class="section">
+            <div class="action">
+              <p-button styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن"
+                (click)="addPlan(item)"></p-button>
+            </div>
+            <div class="title">{{item.strategyTypeTitle}}</div>
+            <div class="desc">
+              <ng-container *ngFor="let desc of item.title">
+                <p>
+                  <button class="action-image-container" pTooltip=" ویرایش" (click)="editRowDescription(desc , item)">
+                    <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+                  </button>
+                  {{ desc.title }}
+                </p>
+              </ng-container>
+            </div>
+          </div>
         </div>
-        <div class="title">{{item.strategyTypeTitle}}</div>
-        <div class="desc">
-          <ng-container *ngFor="let desc of item.title">
-            <p>
-              <button
-              class="action-image-container"
-              pTooltip=" ویرایش" (click)="editRowDescription(desc , item)"
-              >
-              <img ngSrc="icons\Group 116.svg" width="24" height="24" />
-            </button>
-              {{ desc.title }}</p>
-          </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+
+  <div class="col-1">
+    <div class="row mb-3">
+      <div class="col-12 column-left">
+        <div class="row-header" style="padding: 30px 0 55px 0;">
+          <span>فرصت ها</span>
+          <span>Opportunities</span>
+        </div>
+      </div>
+      <div class="col-12 column-left">
+        <div class="row-header" style="padding: 30px 0;">
+          <span>تهدید‌ها</span>
+          <span>Threats</span>
         </div>
       </div>
     </div>
-  </ng-container>
+  </div>
+
+
 </div>
 
 
 
 
 
-<p-dialog *ngIf="isOpenAddEditPlan" [header]="modalTitle" [(visible)]="isOpenAddEditPlan" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '800px' }"
-  [class.height-size]="mode === 'insert' || mode === 'edit'">
-  <PABudget-add-edit-strategy
-    [data1]="addEditData"
-    [mode]="mode"
-    [planId]="getPlanId"
+<p-dialog *ngIf="isOpenAddEditPlan" [(visible)]="isOpenAddEditPlan" [modal]="true" [draggable]="false"
+  [resizable]="false" [style]="{ width: '800px' }" [class.height-size]="mode === 'insert' || mode === 'edit'">
+
+  <ng-template pTemplate="header">
+    <span class="headerTitle">{{modalTitle}}
+      <span class="additionaHeaderTitle">({{planingTitleSelected}})
+      </span>
+    </span>
+    
+  </ng-template>
+
+  <PABudget-add-edit-strategy [data1]="addEditData" [mode]="mode" [planId]="getPlanId"
     (isSuccess)="reloadData()"></PABudget-add-edit-strategy>
 </p-dialog>
 

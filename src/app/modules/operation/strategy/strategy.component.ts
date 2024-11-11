@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  UrlBuilder,
-  STRATEGY,
   BigGoal,
   StrategySWOT,
   Planning
@@ -9,9 +7,10 @@ import {
 import { HttpService } from '@core/http/http.service';
 import { map } from 'rxjs';
 import {
-  ConfirmationService, MessageService
+  ConfirmationService
 } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
+import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'PABudget-strategy',
@@ -31,7 +30,7 @@ export class StrategyComponent {
   companyId!: number;
   planDetailData: any;
   matrixSelected: any;
-  planingTitleSelected = '';
+  planingTitleSelected?: SafeHtml;;
 
   // dropdown data list
   bigGoalList: any = [];
@@ -70,12 +69,14 @@ export class StrategyComponent {
         withOutPagination: true,
       })
       .subscribe(response => {
-        if (response.data && response.data.result) {debugger
+        if (response.data && response.data.result) {
+          debugger
           let planingList = response.data.result;
-          let planingTitleSelected = planingList.find((item: { id: any; }) => 
+          let planingTitleSelected = planingList.find((item: { id: any; }) =>
             item.id == this.planningId
-          )?.title ; 
-          this.planingTitleSelected = planingTitleSelected ? planingTitleSelected : '' ;
+          )?.title;
+          this.planingTitleSelected = planingTitleSelected ? planingTitleSelected : '';
+
         }
       });
   }
@@ -100,7 +101,7 @@ export class StrategyComponent {
   }
 
   addPlan(item: any) {
-    this.modalTitle = 'ثبت استراتژی ' + '(' + this.planingTitleSelected + ')';
+    this.modalTitle = 'ثبت استراتژی ';
     this.mode = 'insert';
     // this.addEditData.companyId = this.companyId;
     this.addEditData['strategyTypeCodeId'] = item.strategyTypeId;
