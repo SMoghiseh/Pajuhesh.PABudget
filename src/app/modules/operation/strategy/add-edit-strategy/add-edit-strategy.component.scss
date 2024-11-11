@@ -1,0 +1,36 @@
+.list-ckeckbox {
+    margin-top: 15px;
+}
+
+.list-item {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 20px 5px;
+    height: 250px;
+    overflow-y: auto;
+
+    p {
+        font-size: 15px;
+        margin: 0;
+        margin-right: 9px;
+        font-weight: 500;
+    }
+
+    span {
+        margin-right: 11px;
+        font-size: 13px;
+    }
+
+    input {
+        margin-top: 10px;
+    }
+
+}
+
+:host :ng-deep .p-listbox{
+    width: 100%;
+}
+
+:host :ng-deep  .p-listbox .p-listbox-list .p-listbox-item  span{
+    margin-right: 10px;
+}

@@ -42,6 +42,7 @@ import { LoadingElementComponent } from '@core/layout/loading-element/loading-el
 import { PageNotFoundComponent } from '@core/layout/page-not-found/page-not-found.component';
 import { SidemenuComponent } from '@core/layout/sidemenu/sidemenu.component';
 import { MainComponent } from '@core/main/main.component';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MainComponent } from '@core/main/main.component';
     RippleModule,
     PasswordModule,
     FormsModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    ListboxModule],
   exports: [
     IRCurrencyPipe,
     FaNumPipe,

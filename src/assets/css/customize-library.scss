@@ -707,7 +707,7 @@ p-treetable.treeTable-profile-style {
   .p-treetable-thead>tr {
     >th {
       background-color: #0AB39C !important;
-   
+
     }
   }
 }
@@ -767,4 +767,16 @@ p-table.table-profile-style>.p-datatable {
 
 .p-inputnumber {
   width: 100%;
+}
+
+.w-100.my-1.p-dropdown.p-component.p-dropdown-clearable {
+  margin: 0px !important;
+}
+
+.p-confirmDialog {
+  max-width: fit-content !important;
+}
+
+.p-button-info {
+  background-color: #3B82F6 !important;
 }

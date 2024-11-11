@@ -3,7 +3,8 @@ import {
   UrlBuilder,
   STRATEGY,
   BigGoal,
-  StrategySWOT
+  StrategySWOT,
+  Planning
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map } from 'rxjs';
@@ -23,13 +24,14 @@ export class StrategyComponent {
   data: any;
   modalTitle = '';
   isOpenAddEditPlan = false;
-  addEditData = new STRATEGY();
+  addEditData = new StrategySWOT();
   pId!: string;
   mode!: string;
   planningId = 0;
   companyId!: number;
   planDetailData: any;
   matrixSelected: any;
+  planingTitleSelected = '';
 
   // dropdown data list
   bigGoalList: any = [];
@@ -39,17 +41,17 @@ export class StrategyComponent {
 
   constructor(
     private httpService: HttpService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-   
+
     this.getBigGoalList();
     this.planningId = Number(this.route.snapshot.paramMap.get('id'));
     this.getData(this.planningId);
     this.getCompanyByPlanId(this.planningId);
+    this.getPlaningList();
+
   }
 
   getBigGoalList() {
@@ -62,7 +64,24 @@ export class StrategyComponent {
       });
   }
 
-  getData(id:number) {
+  getPlaningList() {
+    this.httpService
+      .post<Planning[]>(Planning.apiAddress + 'List', {
+        withOutPagination: true,
+      })
+      .subscribe(response => {
+        if (response.data && response.data.result) {debugger
+          let planingList = response.data.result;
+          let planingTitleSelected = planingList.find((item: { id: any; }) => 
+            item.id == this.planningId
+          )?.title ; 
+          this.planingTitleSelected = planingTitleSelected ? planingTitleSelected : '' ;
+        }
+      });
+  }
+
+
+  getData(id: number) {
 
     const url = StrategySWOT.apiAddressStrategySwot + 'List/' + id;
     this.httpService
@@ -80,35 +99,24 @@ export class StrategyComponent {
       });
   }
 
-  addPlan() {
-    this.modalTitle = 'افزودن استراتژی  ';
+  addPlan(item: any) {
+    this.modalTitle = 'ثبت استراتژی ' + '(' + this.planingTitleSelected + ')';
     this.mode = 'insert';
-    this.addEditData.companyId = this.companyId;
+    // this.addEditData.companyId = this.companyId;
+    this.addEditData['strategyTypeCodeId'] = item.strategyTypeId;
     this.isOpenAddEditPlan = true;
   }
 
-  editRowDescription(data: STRATEGY) {
-    this.modalTitle = 'ویرایش ' + '"' + data.title?.substring(0, 40) + ' ... ' + '"';
-    this.addEditData = data;
+  editRowDescription(row: any, column: any) {
+    this.modalTitle = 'ویرایش ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
+    // this.addEditData = data;
+    this.addEditData['id'] = row.id;
+    this.addEditData['strategyTypeCodeId'] = column.strategyTypeId;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
   }
 
-  deleteRow(item: STRATEGY) {
-    if (item && item.id)
-      this.confirmationService.confirm({
-        message: `آیا از حذف "${item.title} " اطمینان دارید؟`,
-        header: `عنوان "${item.title}"`,
-        icon: 'pi pi-exclamation-triangle',
-        acceptLabel: 'تایید و حذف',
-        acceptButtonStyleClass: 'p-button-danger',
-        acceptIcon: 'pi pi-trash',
-        rejectLabel: 'انصراف',
-        rejectButtonStyleClass: 'p-button-secondary',
-        defaultFocus: 'reject',
-        accept: () => this.deletePlan(item.id, item.title),
-      });
-  }
+
 
   getCompanyByPlanId(id: number) {
     this.httpService
@@ -120,33 +128,9 @@ export class StrategyComponent {
         }
       });
   }
-  deletePlan(id: number, title: string) {
-    if (id && title) {
-      this.httpService
-        .get<STRATEGY>(
-          UrlBuilder.build(STRATEGY.apiAddress + 'Delete', '') + `/${id}`
-        )
-        .subscribe(response => {
-          if (response.successed) {
-            this.messageService.add({
-              key: 'strategy',
-              life: 8000,
-              severity: 'success',
-              detail: ` مورد   ${title}`,
-              summary: 'با موفقیت حذف شد',
-            });
-            this.getData(this.planningId);
-          }
-        });
-    }
-  }
-
-  addDetail(item: any) {
-    this.isOpenAddEditPlan = true;
-    this.matrixSelected = item;
-  }
 
   reloadData() {
+    debugger
     this.isOpenAddEditPlan = false;
     this.getData(this.planningId);
   }
