@@ -25,7 +25,7 @@ export class ValueComponent implements OnInit {
     this.getPlanDetail(0);
   }
 
-  getPlanDetail(yearId: number) { debugger
+  getPlanDetail(yearId: number) {
     const body = {
       companyId: this.inputData.companyId,
       // periodId: yearId,
@@ -44,7 +44,7 @@ export class ValueComponent implements OnInit {
       });
   }
 
-  returnSelectedDate(e: any) { debugger
+  returnSelectedDate(e: any) {
     this.getPlanDetail(e);
   }
 }

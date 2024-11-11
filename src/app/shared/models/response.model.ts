@@ -1245,6 +1245,8 @@ export class Profile {
     'api/PABudgetApi/v1/BaseInfo/ReportItemType/list';
   static readonly apiAddressEmployeeFilter =
     'api/PABudgetApi/v1/BaseInfo/EmployeeFilter/list';
+  static readonly apiAddressReportItemCompany =
+    'api/PABudgetApi/v1/BaseInfo/ReportItemType/Company/';
 
   id!: number;
   title!: string;
