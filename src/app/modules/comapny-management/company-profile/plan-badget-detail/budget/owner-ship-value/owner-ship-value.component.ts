@@ -40,7 +40,7 @@ export class OwnerShipValueComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.getReportItemType();
+    this.getReportItemType(this.inputData.companyId);
     this.getTreeTableData();
     this.getListOfBudgetReportLst();
   }
@@ -354,9 +354,9 @@ export class OwnerShipValueComponent implements OnInit {
     }
   }
 
-  getReportItemType() {
+  getReportItemType(companyId: number) {
     this.httpService
-      .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
+      .get<any>(Profile.apiAddressReportItemCompany + companyId)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {

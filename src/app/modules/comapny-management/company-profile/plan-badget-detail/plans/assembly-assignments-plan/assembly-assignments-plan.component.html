@@ -1,21 +1,6 @@
 <div class="row bottom-section">
   <div class="co-info-box">
     <h3>{{ selectedPlanName }}</h3>
-    <div class="row row-feature">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-        <div class="row">
-          <app-select-date
-            [companyId]="inputData.companyId"
-            [selectType]="selectDateType"
-            (selectedVal)="returnSelectedDate($event)"></app-select-date>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-        <!-- <div class="items select-feature">
-          <span>شرح</span>
-        </div> -->
-      </div>
-    </div>
     <div class="row">
       <p-table
         #dataTable
@@ -34,19 +19,35 @@
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
+          <div class="row row-feature">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+              <div class="row">
+                <app-select-date
+                  [companyId]="inputData.companyId"
+                  [selectType]="selectDateType"
+                  (selectedVal)="returnSelectedDate($event)"></app-select-date>
+              </div>
+            </div>
+            <div style="justify-content: end" class="headerStyleForm">
+              <!-- <h3>{{ selectedPlanName }}</h3> -->
+              <label class="labelStyle" style="margin-top: -29px"
+                ><span>دوره : </span>{{ planDetailData[0].titleFirst }}</label
+              >
+            </div>
+          </div>
           <tr class="data-table__header">
             <div class="headerStyle">
               <th style="min-width: 7rem">
                 <strong> هدف </strong>
               </th>
             </div>
-            <div class="headerStyle Width: auto">
+            <!-- <div class="headerStyle Width: auto">
               <th style="min-width: 7rem"><strong> دوره </strong></th>
-            </div>
+            </div> -->
 
             <div class="headerStyle Width: auto">
               <th style="min-width: 7rem">
-                <strong>  مفاد  </strong>
+                <strong> مفاد </strong>
               </th>
             </div>
           </tr>
@@ -57,10 +58,10 @@
             <div
               class="detailStyle Width: auto"
               [ngStyle]="{ 'background-color': item.color }">
-              <td style="width: 33rem">{{ item.titleMain }}</td>
-              <td style="width: 33rem">{{ item.titleFirst }}</td>
+              <td style="width: 45rem">{{ item.titleMain }}</td>
+              <!-- <td style="width: 33rem">{{ item.titleFirst }}</td> -->
 
-              <td style="width: 33rem">
+              <td style="width: 45rem">
                 <ng-container *ngIf="item.titleList && item.titleList.length">
                   <button
                     class="action-image-container add-button"

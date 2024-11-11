@@ -35,6 +35,7 @@ export class CostAndBenefitComponent implements OnInit {
   selectedYerId: any;
   priceTypeList: any;
   reportItemTypeList: any;
+  reportItemCompanyList: any;
   selectedReportTypeId!: number;
   selectedPriceTypeId!: number;
   allChartsData: any;
@@ -47,7 +48,7 @@ export class CostAndBenefitComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.getReportItemType();
+    this.getReportItemType(this.inputData.companyId);
     this.getTreeTableData();
     this.getListOfBudgetReportLst();
   }
@@ -152,6 +153,7 @@ export class CostAndBenefitComponent implements OnInit {
         this.treeTableData = res;
       });
   }
+
   getPriceType() {
     this.httpService
       .get<any>(UrlBuilder.build(Profile.apiAddressGetPriceType, ''))
@@ -361,9 +363,9 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getReportItemType() {
+  getReportItemType(companyId: number) {
     this.httpService
-      .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
+      .get<any>(Profile.apiAddressReportItemCompany + companyId)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {

@@ -44,7 +44,7 @@ export class ReconciliationStatementOperatingComponent {
   selectedlistOfBudgetReport: any = [];
   constructor(private httpService: HttpService) {}
   ngOnInit(): void {
-    this.getReportItemType();
+    this.getReportItemType(this.inputData.companyId);
     this.getTreeTableData();
     this.getListOfBudgetReportLst();
   }
@@ -358,9 +358,9 @@ export class ReconciliationStatementOperatingComponent {
     }
   }
 
-  getReportItemType() {
+  getReportItemType(companyId: number) {
     this.httpService
-      .get<any>(UrlBuilder.build(Profile.apiAddressReportItemType, ''))
+      .get<any>(Profile.apiAddressReportItemCompany + companyId)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
