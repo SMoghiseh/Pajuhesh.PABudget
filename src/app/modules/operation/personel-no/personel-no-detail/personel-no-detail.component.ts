@@ -17,14 +17,13 @@ import {
   MessageService,
 } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'PABudget-personel-no-detail',
   templateUrl: './personel-no-detail.component.html',
   styleUrls: ['./personel-no-detail.component.scss'],
   providers: [ConfirmationService],
-
 })
 export class PersonelNoDetailComponent {
   gridClass = 'p-datatable-sm';
@@ -50,15 +49,27 @@ export class PersonelNoDetailComponent {
   CostCenterLst: CostCenterType[] = [];
   educationTypeCodeLst: EducationTypeCode[] = [];
   companyList: any = [];
+  formSubmitted = false;
 
-
+  get employmentTypeId() {
+    return this.searchPersonelNoForm.get('companyId');
+  }
+  get costCenterTypeId() {
+    return this.searchPersonelNoForm.get('companyId');
+  }
+  get educationTypeId() {
+    return this.searchPersonelNoForm.get('companyId');
+  }
+  get gender() {
+    return this.searchPersonelNoForm.get('companyId');
+  }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getCostCenterType();
@@ -67,20 +78,14 @@ export class PersonelNoDetailComponent {
     this.getCompanyLst();
 
     this.searchPersonelNoForm = new FormGroup({
-      employmentTypeId: new FormControl(
-        this.addEditPersonelNoModel.employmentTypeId
-      ),
-      costCenterTypeId: new FormControl(
-        this.addEditPersonelNoModel.costCenterTypeId
-      ),
-      educationTypeId: new FormControl(
-        this.addEditPersonelNoModel.educationTypeId
-      ),
+      employmentTypeId: new FormControl(null, Validators.required),
+      costCenterTypeId: new FormControl(null, Validators.required),
+      educationTypeId: new FormControl(null, Validators.required),
       employeewageCU: new FormControl(
         this.addEditPersonelNoModel.employeewageCU
       ),
       personelCount: new FormControl(this.addEditPersonelNoModel.personelCount),
-      gender: new FormControl(null),
+      gender: new FormControl(null, Validators.required),
     });
 
     this.personelNoId = Number(this.route.snapshot.paramMap.get('id'));
@@ -125,7 +130,8 @@ export class PersonelNoDetailComponent {
       });
   }
 
-  getPersonalNumberList(event?: any) {
+  getPersonalNumberList(event?: any) { debugger
+    this.formSubmitted = true;
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
@@ -161,7 +167,7 @@ export class PersonelNoDetailComponent {
       .subscribe(res => (this.data = res));
   }
 
-  addPersonalNoDetail() {
+  addPersonalNoDetail() { debugger
     if (this.searchPersonelNoForm.valid) {
       const request: PersonelNo = this.searchPersonelNoForm.value;
       request.id = this.inputData.type === 'insert' ? 0 : this.inputData.id;
@@ -169,7 +175,10 @@ export class PersonelNoDetailComponent {
       this.isLoadingSubmit = true;
 
       this.httpService
-        .post<PersonelNo>(PersonelNo.apiAddressPersonelNo + 'CreateOrUpdate', request)
+        .post<PersonelNo>(
+          PersonelNo.apiAddressPersonelNo + 'CreateOrUpdate',
+          request
+        )
         .pipe(tap(() => (this.isLoadingSubmit = false)))
         .subscribe(response => {
           if (response.successed) {
@@ -195,7 +204,6 @@ export class PersonelNoDetailComponent {
     this.buttonLabel = 'افزودن';
   }
 
-
   editRow(data: PersonelNo) {
     this.addEditData = data;
     this.addEditData.type = 'edit';
@@ -214,7 +222,6 @@ export class PersonelNoDetailComponent {
         }
       });
   }
-
 
   closeModal() {
     // this.isOpenAddEditPersonelNo = false;
@@ -240,7 +247,8 @@ export class PersonelNoDetailComponent {
     if (id && title) {
       this.httpService
         .get<PersonelNo>(
-          UrlBuilder.build(PersonelNo.apiAddressPersonelNo + 'DELETE', '') + `/${id}`
+          UrlBuilder.build(PersonelNo.apiAddressPersonelNo + 'DELETE', '') +
+            `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -263,5 +271,4 @@ export class PersonelNoDetailComponent {
     this.searchPersonelNoForm.reset();
     this.getPersonalNumberList();
   }
-
 }
