@@ -83,7 +83,6 @@ export class PlanningComponent {
     this.getCompanyLst();
 
     this.searchForm = new FormGroup({
-      planingCode: new FormControl(null),
       title: new FormControl(null),
       companyId: new FormControl(null),
       meetingId: new FormControl(null),
