@@ -80,7 +80,7 @@
         </td>
 
         <td class="jc-left ai-left">
-          <div class="d-inline-block">
+          <div *ngIf="!isDetail" class="d-inline-block">
             <button
               class="action-image-container delete-button context-menu"
               (click)="menu.toggle($event)"
