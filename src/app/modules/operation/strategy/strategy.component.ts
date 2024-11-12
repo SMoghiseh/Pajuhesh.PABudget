@@ -30,7 +30,7 @@ export class StrategyComponent {
   companyId!: number;
   planDetailData: any;
   matrixSelected: any;
-  planingTitleSelected?: SafeHtml;;
+  planingTitleSelected =  '';
 
   // dropdown data list
   bigGoalList: any = [];

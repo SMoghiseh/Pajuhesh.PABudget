@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { Plan, UrlBuilder } from '@shared/models/response.model';
+import { BigGoal, Plan, Planning, StrategySWOT, UrlBuilder } from '@shared/models/response.model';
 import { map } from 'rxjs';
 
 @Component({
@@ -10,43 +11,62 @@ import { map } from 'rxjs';
 })
 export class StrategyPlanComponent implements OnInit {
   @Input() inputData: any;
-  gridClass = 'p-datatable-sm';
-  dataTableRows = 10;
-  first = 0;
-  totalCount!: number;
-  planDetailData: any;
-  loading = false;
-  selectDateType = 'single';
-  selectedPlanName = ' استراتژی ';
-
-  // strategyDataList properties
-  isOpenDataList = false;
+  data: any;
   modalTitle = '';
-  titleList: any;
-  strategyGridClass = 'p-datatable-sm';
-  strategyDataTableRows = 10;
-  strategyFirst = 0;
-  strategyTotalCount!: number;
+  isOpenAddEditPlan = false;
+  addEditData = new StrategySWOT();
+  pId!: string;
+  mode!: string;
+  companyId = 0;
+  planDetailData: any;
+  matrixSelected: any;
+  planingTitleSelected =  '';
+  selectedPlanName = 'استراتژی';
+
+  // dropdown data list
+  bigGoalList: any = [];
+  getCompanyByPlanIdList: any = [];
+  getPlanId!: number;
 
 
-  constructor(private httpService: HttpService) { }
-  
+
+  constructor(
+    private httpService: HttpService,
+    private route: ActivatedRoute
+  ) { }
+    
   ngOnInit(): void {
-    this.getPlanDetail(0);
+
+    this.getBigGoalList();
+    this.companyId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getData(this.companyId);
+    this.getCompanyByPlanId(this.companyId);
+
   }
-  
-  getPlanDetail(yearId: number) {
-    const body = {
-      companyId: this.inputData.companyId,
-      // periodId: yearId,
-    };
+
+  getBigGoalList() {
     this.httpService
-      .post<any>(UrlBuilder.build(Plan.apiAddressStrategyPlan, ''), body)
+      .post<BigGoal[]>(BigGoal.apiAddress + 'List', { withOutPagination: true })
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.bigGoalList = response.data.result;
+        }
+      });
+  }
+
+
+
+  getData(id: number) {
+
+    const url = StrategySWOT.apiAddressStrategySwot + 'List/' + id;
+    this.httpService
+      .get<StrategySWOT[]>(url)
+
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
             return response.data.result;
-          } else return [];
+          } else return [new StrategySWOT()];
         })
       )
       .subscribe(res => {
@@ -54,17 +74,37 @@ export class StrategyPlanComponent implements OnInit {
       });
   }
 
-  returnSelectedDate(e: any) {
-    this.getPlanDetail(e);
+  addPlan(item: any) {
+    this.modalTitle = 'ثبت استراتژی ';
+    this.mode = 'insert';
+    this.addEditData['strategyTypeCodeId'] = item.strategyTypeId;
+    this.isOpenAddEditPlan = true;
   }
 
-  showYearActivityList(data: any) {
-    this.modalTitle = 'لیست استراتژی-swot ' + ' " ' + data?.titleMain?.substring(0, 40) + ' ... ' + ' " ';
-    this.isOpenDataList = true;
-    this.titleList = data.titleList;
+  editRowDescription(row: any, column: any) {
+    this.modalTitle = 'جزئیات ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
+    this.addEditData['id'] = row.id;
+    this.addEditData['strategyTypeCodeId'] = column.strategyTypeId;
+    this.mode = 'edit';
+    this.isOpenAddEditPlan = true;
   }
 
-  closeModal() {
-    this.isOpenDataList = false;
+
+
+  getCompanyByPlanId(id: number) {
+    this.httpService
+      .get<BigGoal[]>(BigGoal.apiAddressGetComPlanId + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.getCompanyByPlanIdList = response.data.result;
+          this.getPlanId = this.getCompanyByPlanIdList;
+        }
+      });
   }
+
+  reloadData() {
+    this.isOpenAddEditPlan = false;
+    this.getData(this.companyId);
+  }
+
 }

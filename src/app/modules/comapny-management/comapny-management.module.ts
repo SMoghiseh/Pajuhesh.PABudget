@@ -73,6 +73,7 @@ import { CompanyDefinitionLookupComponent } from './share-holder-company/company
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { GraphComponent } from './company-profile/plan-badget-detail/plans/strategy-map/graph/graph.component';
 import { EmployeesComponent } from './company-profile/plan-badget-detail/plans/employees/employees.component';
+import { DetailStrategyPlanComponent } from './company-profile/plan-badget-detail/plans/strategy-plan/detail-strategy-plan/detail-strategy-plan.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { EmployeesComponent } from './company-profile/plan-badget-detail/plans/e
     CompanyDefinitionLookupComponent,
     GraphComponent,
     EmployeesComponent,
+    DetailStrategyPlanComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -156,4 +158,4 @@ import { EmployeesComponent } from './company-profile/plan-badget-detail/plans/e
     TableCheckbox,
   ],
 })
-export class ComapnyManagementModule {}
+export class ComapnyManagementModule { }
