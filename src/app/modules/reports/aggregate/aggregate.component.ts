@@ -15,7 +15,7 @@ import {
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -40,6 +40,7 @@ export class AggregateComponent implements OnInit {
   isLoadingSubmit = false;
   changeList: any = [];
   formSubmitted = false;
+  dataFetched = false;
   downloadPriceAccountRepList: any;
   addBuggetBreakingModal = false;
   selectedMonthItem: any;
@@ -47,6 +48,8 @@ export class AggregateComponent implements OnInit {
   btnDownload: any;
   uploadFile: any;
   btnDis = true;
+  AdditionalTextForColumn = '';
+  IsBreakingBudgeVisibile = false;
   // dropdown data list
   companyList: any = [];
   priceAccountRepToItemFromExcelFile: any;
@@ -75,10 +78,9 @@ export class AggregateComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
-    private router: Router,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCompanyLst();
@@ -91,6 +93,36 @@ export class AggregateComponent implements OnInit {
       toPeriodDetailId: new FormControl(null, Validators.required),
       priceType: new FormControl(null, Validators.required),
     });
+
+    // this.accountReportPriceForm.valueChanges.pipe(pairwise())
+    //   .subscribe(([prev, next]: [any, any]) => {
+    //     // check if atLeast one record has changed
+    //     Object.keys(prev).forEach(controlName => {
+    //       const control = this.accountReportPriceForm.get(controlName);
+    //       const prevValue = prev[controlName];
+
+
+    //       // Update the control with the reversed value
+    //       control?.setValue(prevValue, { emitEvent: false });
+    //     });
+    //   });
+
+    // this.accountReportPriceForm.valueChanges
+    // .subscribe(([prev, next]: [any, any]) => {debugger
+    //   Object.keys(prev).forEach(controlName => {
+    //     const control = this.accountReportPriceForm.get(controlName);
+    //     const currentValue = prev[controlName];
+
+    //     // Reverse the value
+    //     const reversedValue = prev['controlName'];
+
+    //     // Update the control with the reversed value
+    //     control?.setValue(reversedValue, { emitEvent: false });
+    //   });
+    // });
+
+    /////
+
   }
 
   getPeriodLst(companyId: number) {
@@ -170,11 +202,12 @@ export class AggregateComponent implements OnInit {
     if (!this.accountReportPriceForm.valid) return;
 
     // check if atLeast one record has changed
-    if (this.changeList?.length != 0) {
-      this.confirmOnSearch();
-    } else {
-      this.searchOnDataList(event);
-    }
+    // if (this.changeList?.length != 0) {
+    //   debugger
+    //   this.confirmOnSearch();
+    // } else {
+    this.searchOnDataList(event);
+    // }
   }
 
   downloadExcelFile() {
@@ -233,8 +266,8 @@ export class AggregateComponent implements OnInit {
     this.httpService
       .get<AccountReportToItem[]>(
         AccountReportToItem.apiAddress +
-          'ReadPriceAccountRepToItemFromExcelFile/' +
-          multiMediaIdId
+        'ReadPriceAccountRepToItemFromExcelFile/' +
+        multiMediaIdId
       )
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -308,14 +341,33 @@ export class AggregateComponent implements OnInit {
       .subscribe(res => {
         this.accountReportItemList = res;
         this.getFlattnAccountReportList();
+        this.getAdditionalTextForColumn();
+        this.changeButtonsDisablity();
+        this.changeBreakingBudgeVisibility();
         this.formSubmitted = false;
-        if (
-          this.accountReportItemList.body.length &&
-          this.accountReportPriceForm.valid
-        ) {
-          this.btnDis = false;
-        } else this.btnDis = true;
+
+        if (this.accountReportItemList.body.length != 0)
+          this.accountReportPriceForm.disable();
+
+
       });
+  }
+
+  changeBreakingBudgeVisibility() {
+    this.IsBreakingBudgeVisibile = this.priceType?.value == 2 ? false : true;
+  }
+
+  getAdditionalTextForColumn() {
+    this.AdditionalTextForColumn = this.priceType?.value == 2 ? 'عملکرد' : 'بودجه';
+  }
+
+  changeButtonsDisablity() {
+    if (
+      this.accountReportItemList.body.length &&
+      this.accountReportPriceForm.valid
+    ) {
+      this.btnDis = false;
+    } else this.btnDis = true;
   }
 
   getFlattnAccountReportList() {
@@ -362,7 +414,7 @@ export class AggregateComponent implements OnInit {
     });
   }
 
-  reject() {}
+  reject() { }
 
   confirm() {
     this.addList();
@@ -372,7 +424,14 @@ export class AggregateComponent implements OnInit {
   }
 
   clearSearch() {
+    this.accountReportPriceForm.enable();
     this.accountReportPriceForm.reset();
+    // Clear validators for each control
+    Object.keys(this.accountReportPriceForm.controls).forEach(key => {
+      this.accountReportPriceForm.get(key)?.clearValidators();
+      this.accountReportPriceForm.get(key)?.updateValueAndValidity();
+    });
+    this.formSubmitted = false;
     this.getAccountReportItemLst();
   }
 
@@ -539,5 +598,5 @@ export class AggregateComponent implements OnInit {
       });
   }
 
-  openDialog(e: any) {}
+  openDialog(e: any) { }
 }
