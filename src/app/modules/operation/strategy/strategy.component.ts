@@ -70,7 +70,6 @@ export class StrategyComponent {
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
-          debugger
           let planingList = response.data.result;
           let planingTitleSelected = planingList.find((item: { id: any; }) =>
             item.id == this.planningId
@@ -131,7 +130,6 @@ export class StrategyComponent {
   }
 
   reloadData() {
-    debugger
     this.isOpenAddEditPlan = false;
     this.getData(this.planningId);
   }

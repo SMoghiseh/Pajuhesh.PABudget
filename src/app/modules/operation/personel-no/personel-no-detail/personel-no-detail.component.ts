@@ -130,7 +130,7 @@ export class PersonelNoDetailComponent {
       });
   }
 
-  getPersonalNumberList(event?: any) { debugger
+  getPersonalNumberList(event?: any) {
     this.formSubmitted = true;
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
@@ -167,7 +167,7 @@ export class PersonelNoDetailComponent {
       .subscribe(res => (this.data = res));
   }
 
-  addPersonalNoDetail() { debugger
+  addPersonalNoDetail() {
     if (this.searchPersonelNoForm.valid) {
       const request: PersonelNo = this.searchPersonelNoForm.value;
       request.id = this.inputData.type === 'insert' ? 0 : this.inputData.id;
