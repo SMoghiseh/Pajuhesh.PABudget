@@ -104,10 +104,10 @@ export class YearActivityComponent {
     this.getCompanyLst();
 
     this.searchForm = new FormGroup({
-      periodId: new FormControl(null, Validators.required),
-      companyId: new FormControl(null, Validators.required),
-      referenceCode: new FormControl(null, Validators.required),
-      referenceId: new FormControl(null, Validators.required),
+      periodId: new FormControl(null),
+      companyId: new FormControl(null),
+      referenceCode: new FormControl(null),
+      referenceId: new FormControl(null),
       fromPeriodDetailId: new FormControl(null),
       toPeriodDetailId: new FormControl(null),
       rollId: new FormControl(null),
@@ -288,9 +288,9 @@ export class YearActivityComponent {
       ...formValue,
     };
 
-    delete body['companyId'];
-    delete body['periodId'];
-    delete body['referenceCode'];
+    // delete body['companyId'];
+    // delete body['periodId'];
+    // delete body['referenceCode'];
 
     this.first = 0;
     const url = YearActivity.apiAddress + 'List';

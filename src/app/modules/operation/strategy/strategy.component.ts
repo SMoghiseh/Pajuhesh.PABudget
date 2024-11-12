@@ -4,13 +4,11 @@ import {
   STRATEGY,
   BigGoal,
   StrategySWOT,
-  Planning
+  Planning,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map } from 'rxjs';
-import {
-  ConfirmationService, MessageService
-} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,7 +18,6 @@ import { ActivatedRoute } from '@angular/router';
   providers: [ConfirmationService],
 })
 export class StrategyComponent {
-
   data: any;
   modalTitle = '';
   isOpenAddEditPlan = false;
@@ -38,20 +35,17 @@ export class StrategyComponent {
   getCompanyByPlanIdList: any = [];
   getPlanId!: number;
 
-
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getBigGoalList();
     this.planningId = Number(this.route.snapshot.paramMap.get('id'));
     this.getData(this.planningId);
     this.getCompanyByPlanId(this.planningId);
     this.getPlaningList();
-
   }
 
   getBigGoalList() {
@@ -70,19 +64,19 @@ export class StrategyComponent {
         withOutPagination: true,
       })
       .subscribe(response => {
-        if (response.data && response.data.result) {debugger
+        if (response.data && response.data.result) {
           let planingList = response.data.result;
-          let planingTitleSelected = planingList.find((item: { id: any; }) => 
-            item.id == this.planningId
-          )?.title ; 
-          this.planingTitleSelected = planingTitleSelected ? planingTitleSelected : '' ;
+          let planingTitleSelected = planingList.find(
+            (item: { id: any }) => item.id == this.planningId
+          )?.title;
+          this.planingTitleSelected = planingTitleSelected
+            ? planingTitleSelected
+            : '';
         }
       });
   }
 
-
   getData(id: number) {
-
     const url = StrategySWOT.apiAddressStrategySwot + 'List/' + id;
     this.httpService
       .get<StrategySWOT[]>(url)
@@ -108,15 +102,14 @@ export class StrategyComponent {
   }
 
   editRowDescription(row: any, column: any) {
-    this.modalTitle = 'ویرایش ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
+    this.modalTitle =
+      'ویرایش ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
     // this.addEditData = data;
     this.addEditData['id'] = row.id;
     this.addEditData['strategyTypeCodeId'] = column.strategyTypeId;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
   }
-
-
 
   getCompanyByPlanId(id: number) {
     this.httpService
@@ -130,9 +123,7 @@ export class StrategyComponent {
   }
 
   reloadData() {
-    debugger
     this.isOpenAddEditPlan = false;
     this.getData(this.planningId);
   }
-
 }
