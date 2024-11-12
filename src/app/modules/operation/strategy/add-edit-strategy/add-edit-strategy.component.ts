@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { STRATEGY, Planning, BigGoal } from '@shared/models/response.model';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { STRATEGY, Planning, BigGoal, StrategySWOT } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -16,16 +16,19 @@ export class AddEditStrategyComponent {
   addEditForm!: FormGroup;
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
-
+  selectedCheckbox = [];
+  
   // dropdown data list
   planingList: any = [];
   typeCodeList: any = [];
   bigGoalList: any = [];
+  swotList: any = [];
 
-  inputData = new STRATEGY();
+  // inputData = new STRATEGY();
+  inputData: any;
   @Input() mode = '';
   @Input() planId = 0;
-  @Input() set data1(data: STRATEGY) {
+  @Input() set data1(data: any) {
     this.inputData = data;
   }
 
@@ -44,43 +47,56 @@ export class AddEditStrategyComponent {
   get strategyPriority() {
     return this.addEditForm.get('strategyPriority');
   }
+  get strategyTypeCodeId() {
+    return this.addEditForm.get('strategyTypeCodeId');
+  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.getPlaningList();
-    this.getBigGoalList(this.planId);
 
     this.addEditForm = new FormGroup({
-      title: new FormControl('', Validators.required),
-      planningId: new FormControl('', Validators.required),
-      bigGoalId: new FormControl(''),
-      strategyPriority: new FormControl('', Validators.required),
+      strategyTypeCodeId: new FormControl(0),
+      title: new FormControl(''),
+      planningId: new FormControl(0),
+      bigGoalId: new FormControl(0),
+      strategyPriority: new FormControl(0),
     });
 
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
 
+ 
     this.addEditForm.patchValue({
       planningId: Number(this.route.snapshot.paramMap.get('id')),
+      strategyTypeCodeId: this.inputData['strategyTypeCodeId']
     });
+
+    this.getPlaningList();
+    this.getBigGoalList(this.planningId?.value);
+    this.getSwotList();
+
+
+
   }
 
   addEditPlan() {
+
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
-      request.id = this.mode === 'insert' ? 0 : this.inputData.id;
-      const url = STRATEGY.apiAddress + 'Create';
-
+      request.id = this.mode === 'insert' ? 0 : this.inputData?.strategy?.id;
+      const url = StrategySWOT.apiAddressStrategySwot + 'Create';
+      request['swot'] = this.selectedCheckbox; 
       this.isLoadingSubmit = true;
       this.httpService
-        .post<STRATEGY>(url, request)
+        .post<StrategySWOT>(url, request)
         .pipe(tap(() => (this.isLoadingSubmit = false)))
         .subscribe(response => {
           if (response.successed) {
@@ -112,13 +128,25 @@ export class AddEditStrategyComponent {
       });
   }
 
-  getBigGoalList(planId: number) {
-    const body = {
-      withOutPagination: true,
-      companyId: planId,
-    };
+  getSwotList() {
     this.httpService
-      .post<BigGoal[]>(BigGoal.apiAddress + 'List', body)
+      .post<StrategySWOT[]>(StrategySWOT.apiAddressStrategySwot + 'StrategyType',
+        {
+          strategyTypeId: this.strategyTypeCodeId?.value,
+          planId: this.planningId?.value
+        }
+      )
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.swotList = response.data.result;
+        }
+      });
+  }
+
+
+  getBigGoalList(planId: number) {
+    this.httpService
+      .get<BigGoal[]>(BigGoal.apiAddress + 'GetList/' + planId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.bigGoalList = response.data.result;
@@ -132,8 +160,11 @@ export class AddEditStrategyComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.inputData = response.data.result;
-          this.addEditForm.patchValue(response.data.result);
+          this.addEditForm.patchValue(response.data.result['strategy']);
+
+          this.selectedCheckbox = response.data.result['swot']
         }
       });
   }
+
 }

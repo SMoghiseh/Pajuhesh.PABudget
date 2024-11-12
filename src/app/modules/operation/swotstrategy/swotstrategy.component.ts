@@ -48,7 +48,7 @@ export class SWOTStrategyComponent {
       strategyId: this.route.snapshot.paramMap.get('visionId'),
     };
     this.httpService
-      .post<StrategySWOT[]>(StrategySWOT.apiAddressStrategySwot + '', body)
+      .post<StrategySWOT[]>(StrategySWOT.apiAddressStrategySwot + 'Create' + '', body)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.strategyswotList = response.data.result;

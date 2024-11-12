@@ -71,6 +71,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { PickListModule } from 'primeng/picklist';
 import { RelatedBigGoalComponent } from './related-big-goal/related-big-goal.component';
 import { AddEditRelatedBigGoalComponent } from './related-big-goal/add-edit-related-big-goal/add-edit-related-big-goal.component';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { AddEditRelatedBigGoalComponent } from './related-big-goal/add-edit-rela
     TooltipModule,
     MenuModule,
     FileUploadModule,
+    ListboxModule
   ],
   providers: [
     {

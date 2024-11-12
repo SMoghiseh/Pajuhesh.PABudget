@@ -79,7 +79,6 @@
           maxlength="3"
           [min]="0"
           [max]="100"
-          (keypress)="onlyNumberKey($event)"
           class="w-100 my-1" />
         <div *ngIf="percentGrow?.errors">
           <span class="reqText"> عدد وارد شده بزرگتر از 100 می باشد </span>
