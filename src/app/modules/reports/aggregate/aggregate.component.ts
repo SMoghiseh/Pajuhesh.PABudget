@@ -247,8 +247,27 @@ export class AggregateComponent implements OnInit {
             this.flattenList[i].accountRepItemId ===
             this.priceAccountRepToItemFromExcelFile[i].accountRepItemId
           ) {
-            this.accountReportItemList.body[i].data.priceCu =
-              this.priceAccountRepToItemFromExcelFile[i].priceCu;
+            //upload child data from excel to form
+            if (this.accountReportItemList.body[i].data.hasChild === true) {
+              const childArray = this.accountReportItemList.body[i].children;
+              for (let j = 0; j < childArray.length; j++) {
+                for (let k = 0; k < this.flattenList.length; k++) {
+                  const reportItem =
+                    this.accountReportItemList.body[i].children[j].data
+                      .accountRepItemId;
+                  if (this.flattenList[k].accountRepItemId === reportItem) {
+                    this.accountReportItemList.body[i].children[
+                      j
+                    ].data.priceCu =
+                      this.priceAccountRepToItemFromExcelFile[k].priceCu;
+                  }
+                }
+              }
+              //---upload child data from excel to form
+            } else {
+              this.accountReportItemList.body[i].data.priceCu =
+                this.priceAccountRepToItemFromExcelFile[i].priceCu;
+            }
             this.changeList.push({
               accountRepItemId:
                 this.priceAccountRepToItemFromExcelFile[i].accountRepItemId,

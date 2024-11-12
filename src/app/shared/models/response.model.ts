@@ -1091,6 +1091,7 @@ export class PersonelNo {
   static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/PersonelNo/';
   static readonly apiAddressPersonelNo =
     'api/PABudgetApi/v1/BaseInfo/CreatePersonelNoDetail/';
+  static readonly apiAddressPersonelNoFile = 'api/PABudgetApi/v1/BaseInfo/';
 
   id!: number;
   educationTypeId!: any;
@@ -1539,6 +1540,7 @@ export class AccountReportToItem {
   updated!: boolean;
   priceCu!: number;
   fileName?: string;
+  hasChild!: boolean;
 }
 
 export class headerData {
