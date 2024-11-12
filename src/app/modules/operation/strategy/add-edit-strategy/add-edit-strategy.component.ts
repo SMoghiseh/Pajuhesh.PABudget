@@ -27,7 +27,6 @@ export class AddEditStrategyComponent {
   // inputData = new STRATEGY();
   inputData: any;
   @Input() mode = '';
-  @Input() planId = 0;
   @Input() set data1(data: any) {
     this.inputData = data;
   }

@@ -48,7 +48,7 @@ export class StrategyComponent {
     this.getBigGoalList();
     this.planningId = Number(this.route.snapshot.paramMap.get('id'));
     this.getData(this.planningId);
-    this.getCompanyByPlanId(this.planningId);
+    // this.getCompanyByPlanId(this.planningId);
     this.getPlaningList();
 
   }
@@ -118,16 +118,16 @@ export class StrategyComponent {
 
 
 
-  getCompanyByPlanId(id: number) {
-    this.httpService
-      .get<BigGoal[]>(BigGoal.apiAddressGetComPlanId + id)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.getCompanyByPlanIdList = response.data.result;
-          this.getPlanId = this.getCompanyByPlanIdList;
-        }
-      });
-  }
+  // getCompanyByPlanId(id: number) {
+  //   this.httpService
+  //     .get<BigGoal[]>(BigGoal.apiAddressGetComPlanId + id)
+  //     .subscribe(response => {
+  //       if (response.data && response.data.result) {
+  //         this.getCompanyByPlanIdList = response.data.result;
+  //         this.getPlanId = this.getCompanyByPlanIdList;
+  //       }
+  //     });
+  // }
 
   reloadData() {
     this.isOpenAddEditPlan = false;

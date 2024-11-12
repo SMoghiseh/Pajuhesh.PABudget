@@ -5,12 +5,9 @@
       <input [type]="'number'" pInputText id="strategyTypeCodeId" name="strategyTypeCodeId"
         formControlName="strategyTypeCodeId" class="w-100 my-1" />
     </div>
-    <div class="col-6 mt-2"  *ngIf="false">
-      <label for="planningId"> برنامه </label>
-      <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
-        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
-        [readonly]="true" [ngClass]="{'readonly-dropdown': true}">
-      </p-dropdown>
+    <div class="col-6 mt-2" *ngIf="false">
+      <input pInputText id="companyId" name="companyId"
+        formControlName="companyId" class="w-100 my-1" />
     </div>
     <div class="col-8 mt-2">
       <label for="title"> عنوان </label>

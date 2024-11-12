@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { STRATEGY, Planning, BigGoal, StrategySWOT } from '@shared/models/response.model';
+import { STRATEGY, BigGoal, StrategySWOT } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
@@ -27,7 +27,6 @@ export class DetailStrategyPlanComponent {
   // inputData = new STRATEGY();
   inputData: any;
   @Input() mode = '';
-  @Input() planId = 0;
   @Input() set data1(data: any) {
     this.inputData = data;
   }
@@ -37,8 +36,8 @@ export class DetailStrategyPlanComponent {
   get title() {
     return this.addEditForm.get('title');
   }
-  get planningId() {
-    return this.addEditForm.get('planningId');
+  get companyId() {
+    return this.addEditForm.get('companyId');
   }
   get bigGoalId() {
     return this.addEditForm.get('bigGoalId');
@@ -63,7 +62,7 @@ export class DetailStrategyPlanComponent {
     this.addEditForm = new FormGroup({
       strategyTypeCodeId: new FormControl(0),
       title: new FormControl(''),
-      planningId: new FormControl(0),
+      companyId: new FormControl(0),
       bigGoalId: new FormControl(0),
       strategyPriority: new FormControl(0),
     });
@@ -74,12 +73,11 @@ export class DetailStrategyPlanComponent {
 
  
     this.addEditForm.patchValue({
-      planningId: Number(this.route.snapshot.paramMap.get('id')),
+      companyId: this.inputData['companyId'],
       strategyTypeCodeId: this.inputData['strategyTypeCodeId']
     });
 
-    this.getPlaningList();
-    this.getBigGoalList(this.planningId?.value);
+    this.getBigGoalList(this.companyId?.value);
     this.getSwotList();
 
 
@@ -116,24 +114,12 @@ export class DetailStrategyPlanComponent {
     }
   }
 
-  getPlaningList() {
-    this.httpService
-      .post<Planning[]>(Planning.apiAddress + 'List', {
-        withOutPagination: true,
-      })
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.planingList = response.data.result;
-        }
-      });
-  }
-
   getSwotList() {
     this.httpService
       .post<StrategySWOT[]>(StrategySWOT.apiAddressStrategySwot + 'StrategyType',
         {
           strategyTypeId: this.strategyTypeCodeId?.value,
-          planId: this.planningId?.value
+          companyId: this.companyId?.value
         }
       )
       .subscribe(response => {

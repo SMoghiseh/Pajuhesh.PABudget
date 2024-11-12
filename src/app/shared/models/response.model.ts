@@ -1676,6 +1676,7 @@ export class StrategySWOT {
 
   id!: number;
   strategyTypeCodeId!: number;
+  companyId!: number;
 }
 
 export class STRATEGY {

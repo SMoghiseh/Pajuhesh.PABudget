@@ -39,8 +39,8 @@ export class StrategyPlanComponent implements OnInit {
 
     this.getBigGoalList();
     this.companyId = Number(this.route.snapshot.paramMap.get('id'));
-    this.getData(this.companyId);
-    this.getCompanyByPlanId(this.companyId);
+    this.getData(this.companyId);debugger
+    // this.getCompanyByPlanId(this.companyId);
 
   }
 
@@ -81,9 +81,10 @@ export class StrategyPlanComponent implements OnInit {
     this.isOpenAddEditPlan = true;
   }
 
-  editRowDescription(row: any, column: any) {
+  editRowDescription(row: any, column: any) {debugger
     this.modalTitle = 'جزئیات ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
     this.addEditData['id'] = row.id;
+    this.addEditData['companyId'] = this.companyId;
     this.addEditData['strategyTypeCodeId'] = column.strategyTypeId;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
@@ -91,16 +92,16 @@ export class StrategyPlanComponent implements OnInit {
 
 
 
-  getCompanyByPlanId(id: number) {
-    this.httpService
-      .get<BigGoal[]>(BigGoal.apiAddressGetComPlanId + id)
-      .subscribe(response => {
-        if (response.data && response.data.result) {
-          this.getCompanyByPlanIdList = response.data.result;
-          this.getPlanId = this.getCompanyByPlanIdList;
-        }
-      });
-  }
+  // getCompanyByPlanId(id: number) {
+  //   this.httpService
+  //     .get<BigGoal[]>(BigGoal.apiAddressGetComPlanId + id)
+  //     .subscribe(response => {
+  //       if (response.data && response.data.result) {
+  //         this.getCompanyByPlanIdList = response.data.result;
+  //         this.getPlanId = this.getCompanyByPlanIdList;
+  //       }
+  //     });
+  // }
 
   reloadData() {
     this.isOpenAddEditPlan = false;

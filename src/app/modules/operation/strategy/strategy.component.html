@@ -75,13 +75,13 @@
 
   <ng-template pTemplate="header">
     <span class="headerTitle">{{modalTitle}}
-      <span class="additionaHeaderTitle">({{planingTitleSelected}})
+      <span class="additionaHeaderTitle" *ngIf="planingTitleSelected">({{planingTitleSelected}})
       </span>
     </span>
     
   </ng-template>
 
-  <PABudget-add-edit-strategy [data1]="addEditData" [mode]="mode" [planId]="getPlanId"
+  <PABudget-add-edit-strategy [data1]="addEditData" [mode]="mode"
     (isSuccess)="reloadData()"></PABudget-add-edit-strategy>
 </p-dialog>
 
