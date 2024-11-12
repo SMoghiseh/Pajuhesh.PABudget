@@ -50,6 +50,7 @@
         [options]="visionList"
         [filter]="true"
         [readonly]="true"
+        [ngClass]="{'readonly-dropdown': true}"
         [class.ng-invalid]="visionId?.invalid"
         [class.ng-dirty]="
           (addEditFormSubmitted && visionId?.pristine) ||

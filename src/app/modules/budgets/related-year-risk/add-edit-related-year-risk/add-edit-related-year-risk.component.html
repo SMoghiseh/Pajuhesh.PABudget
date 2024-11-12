@@ -18,6 +18,7 @@
         [options]="yearList"
         [filter]="true"
         [readonly]="true"
+        [ngClass]="{'readonly-dropdown': true}"
         [class.ng-invalid]="yearRiskId?.invalid"
         [class.ng-dirty]="
           (addEditFormSubmitted && yearRiskId?.pristine) ||

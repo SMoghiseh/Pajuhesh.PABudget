@@ -15,6 +15,7 @@
         [options]="planingList"
         [filter]="true"
         [readonly]="true"
+        [ngClass]="{'readonly-dropdown': true}"
         [class.ng-invalid]="planningId?.invalid"
         [class.ng-dirty]="
           (addEditFormSubmitted && planningId?.pristine) ||

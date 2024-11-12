@@ -4,7 +4,7 @@
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="planingId"> برنامه</label>
-      <p-dropdown id="planingId" name="planingId" formControlName="planingId" styleClass="w-100 my-1" [readonly]="true"
+      <p-dropdown id="planingId" name="planingId" formControlName="planingId" styleClass="w-100 my-1" [readonly]="true" [ngClass]="{'readonly-dropdown': true}"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true">
       </p-dropdown>
     </div>

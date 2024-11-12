@@ -9,13 +9,13 @@
       <label for="planningId"> برنامه </label>
       <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
-        [readonly]="true">
+        [readonly]="true" [ngClass]="{'readonly-dropdown': true}">
       </p-dropdown>
     </div>
     <div class="col-8 mt-2">
       <label for="title"> عنوان </label>
       <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
-        [readonly]="true"  [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+        [readonly]="true"  [ngClass]="{'readonly-dropdown': true}" [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
@@ -24,7 +24,7 @@
 
     <div class="col-3 mt-2">
       <label for="bigGoalId"> شناسه اهداف </label>
-      <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1" [readonly]="true"
+      <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1" [readonly]="true" [ngClass]="{'readonly-dropdown': true}"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید"  [options]="bigGoalList" [filter]="true"
         [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
@@ -36,7 +36,7 @@
     <div class="col-1 mt-2">
       <label for="strategyPriority"> الویت </label>
       <input pInputText type="number" id="strategyPriority" name="strategyPriority" formControlName="strategyPriority"
-        maxlength="2" [min]="0" [max]="10" class="w-100 my-1" [readonly]="true" [class.ng-invalid]="strategyPriority?.invalid"
+        maxlength="2" [min]="0" [max]="10" class="w-100 my-1" [readonly]="true" [ngClass]="{'readonly-dropdown': true}" [class.ng-invalid]="strategyPriority?.invalid"
         [class.ng-dirty]="
         (addEditFormSubmitted && strategyPriority?.pristine) ||
         strategyPriority?.dirty ||

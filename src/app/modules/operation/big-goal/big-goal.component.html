@@ -18,7 +18,8 @@
       <div class="col-3 mt-2">
         <label for="visionId"> چشم انداز </label>
         <p-dropdown id="visionId" name="visionId" formControlName="visionId" styleClass="w-100 my-1" optionLabel="title"
-          optionValue="id" placeholder="انتخاب کنید" [options]="visionList" [filter]="true" [readonly]="true">
+          optionValue="id" placeholder="انتخاب کنید" [options]="visionList" [filter]="true" [ngClass]="{'readonly-dropdown': true}" [readonly]="true" 
+          [ngClass]="{'readonly-dropdown': true}">
         </p-dropdown>
       </div>
       <!-- دکمه -->
@@ -46,7 +47,6 @@
       <tr class="data-table__header">
         <th style="min-width: 10rem"><strong> کد </strong></th>
         <th style="min-width: 10rem"><strong> عنوان </strong></th>
-        <th style="min-width: 10rem"><strong> ارزش </strong></th>
         <th style="min-width: 10rem"><strong> منظر </strong></th>
 
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
@@ -59,9 +59,6 @@
         </td>
         <td pTooltip="{{ item.title }}" tooltipEvent="hover" tooltipPosition="top">
           {{ item.title }}
-        </td>
-        <td pTooltip="{{ item.visionTitle }}" tooltipEvent="hover" tooltipPosition="top">
-          {{ item.visionTitle }}
         </td>
         <td pTooltip="{{ item.aspectCodeTitle }}" tooltipEvent="hover" tooltipPosition="top">
           {{ item.aspectCodeTitle }}

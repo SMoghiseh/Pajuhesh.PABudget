@@ -408,6 +408,17 @@
   }
 }
 
+
+/* Targeting readonly dropdown */
+.readonly-dropdown .p-dropdown-label {
+  background-color: #f0f0f0; /* Example: gray background for readonly */
+  color: #a1a1a1;            /* Example: light gray text */
+}
+.readonly-dropdown .p-dropdown-trigger {
+  display: none;             /* Hide the dropdown icon if you want */
+}
+
+
 /* breadcrumb */
 .p-breadcrumb {
   ul li.p-breadcrumb-chevron {
