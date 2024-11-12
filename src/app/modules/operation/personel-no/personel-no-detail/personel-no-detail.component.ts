@@ -98,7 +98,7 @@ export class PersonelNoDetailComponent {
         this.addEditPersonelNoModel.employeewageCU
       ),
       personelCount: new FormControl(this.addEditPersonelNoModel.personelCount),
-      gender: new FormControl(1, Validators.required),
+      gender: new FormControl(null, Validators.required),
     });
 
     this.personelNoId = Number(this.route.snapshot.paramMap.get('id'));
@@ -165,6 +165,7 @@ export class PersonelNoDetailComponent {
     this.httpService.post<PersonelNo[]>(url, body).subscribe(response => {
       if (response.data && response.data.result) {
         this.personalNoUploadlFile = response.data.result;
+        this.getPersonalNumberList();
       }
       // this.changeList = [];
       // for (let i = 0; i < this.flattenList.length; i++) {
@@ -228,9 +229,13 @@ export class PersonelNoDetailComponent {
       });
   }
 
-  getPersonalNumberList(event?: any) {
+  searchPersonalNumberList(event?: any) {
     this.formSubmitted = true;
-
+    if (!this.searchPersonelNoForm.valid) return;
+    else this.getPersonalNumberList(event);
+    this.btnDis = false;
+  }
+  getPersonalNumberList(event?: any) {
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
@@ -299,6 +304,7 @@ export class PersonelNoDetailComponent {
 
   clearSearch() {
     this.searchPersonelNoForm.reset();
+    this.formSubmitted = false;
     this.getPersonalNumberList();
     this.buttonLabel = 'افزودن';
   }

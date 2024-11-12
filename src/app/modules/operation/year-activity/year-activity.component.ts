@@ -259,7 +259,7 @@ export class YearActivityComponent {
       });
   }
 
-  getList(isInFilterMode: boolean, event?: LazyLoadEvent) { debugger
+  getList(isInFilterMode: boolean, event?: LazyLoadEvent) {
     if (isInFilterMode) {
       this.formSubmitted = true;
       // check form validation
@@ -271,7 +271,7 @@ export class YearActivityComponent {
     }
   }
 
-  getFilteredTableList(event?: LazyLoadEvent) { debugger
+  getFilteredTableList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
