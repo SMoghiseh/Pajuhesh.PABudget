@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { STRATEGY, BigGoal, StrategySWOT } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
@@ -17,7 +17,7 @@ export class DetailStrategyPlanComponent {
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
   selectedCheckbox = [];
-  
+
   // dropdown data list
   planingList: any = [];
   typeCodeList: any = [];
@@ -71,7 +71,7 @@ export class DetailStrategyPlanComponent {
       this.getRowData(this.inputData.id);
     }
 
- 
+
     this.addEditForm.patchValue({
       companyId: this.inputData['companyId'],
       strategyTypeCodeId: this.inputData['strategyTypeCodeId']
@@ -91,7 +91,7 @@ export class DetailStrategyPlanComponent {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData?.strategy?.id;
       const url = StrategySWOT.apiAddressStrategySwot + 'Create';
-      request['swot'] = this.selectedCheckbox; 
+      request['swot'] = this.selectedCheckbox;
       this.isLoadingSubmit = true;
       this.httpService
         .post<StrategySWOT>(url, request)
@@ -116,7 +116,7 @@ export class DetailStrategyPlanComponent {
 
   getSwotList() {
     this.httpService
-      .post<StrategySWOT[]>(StrategySWOT.apiAddressStrategySwot + 'StrategyType',
+      .post<StrategySWOT[]>(StrategySWOT.apiAddressStrategySwot + 'StrategyType/Company',
         {
           strategyTypeId: this.strategyTypeCodeId?.value,
           companyId: this.companyId?.value

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
-import { BigGoal, Plan, Planning, StrategySWOT, UrlBuilder } from '@shared/models/response.model';
+import { BigGoal, StrategySWOT } from '@shared/models/response.model';
 import { map } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class StrategyPlanComponent implements OnInit {
   companyId = 0;
   planDetailData: any;
   matrixSelected: any;
-  planingTitleSelected =  '';
+  planingTitleSelected = '';
   selectedPlanName = 'استراتژی';
 
   // dropdown data list
@@ -34,12 +34,12 @@ export class StrategyPlanComponent implements OnInit {
     private httpService: HttpService,
     private route: ActivatedRoute
   ) { }
-    
+
   ngOnInit(): void {
 
     this.getBigGoalList();
     this.companyId = Number(this.route.snapshot.paramMap.get('id'));
-    this.getData(this.companyId);debugger
+    this.getData(this.companyId); debugger
     // this.getCompanyByPlanId(this.companyId);
 
   }
@@ -58,7 +58,7 @@ export class StrategyPlanComponent implements OnInit {
 
   getData(id: number) {
 
-    const url = StrategySWOT.apiAddressStrategySwot + 'List/' + id;
+    const url = StrategySWOT.apiAddressStrategySwot + 'List/Company/' + id;
     this.httpService
       .get<StrategySWOT[]>(url)
 
@@ -81,7 +81,8 @@ export class StrategyPlanComponent implements OnInit {
     this.isOpenAddEditPlan = true;
   }
 
-  editRowDescription(row: any, column: any) {debugger
+  editRowDescription(row: any, column: any) {
+    debugger
     this.modalTitle = 'جزئیات ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
     this.addEditData['id'] = row.id;
     this.addEditData['companyId'] = this.companyId;

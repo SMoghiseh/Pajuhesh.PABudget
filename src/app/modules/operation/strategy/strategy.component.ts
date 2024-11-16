@@ -6,9 +6,8 @@ import {
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map } from 'rxjs';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
-import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'PABudget-strategy',
@@ -27,7 +26,7 @@ export class StrategyComponent {
   companyId!: number;
   planDetailData: any;
   matrixSelected: any;
-  planingTitleSelected =  '';
+  planingTitleSelected = '';
 
   // dropdown data list
   bigGoalList: any = [];
@@ -37,7 +36,7 @@ export class StrategyComponent {
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getBigGoalList();
