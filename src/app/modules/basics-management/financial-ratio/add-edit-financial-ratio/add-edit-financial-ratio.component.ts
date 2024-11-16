@@ -32,9 +32,7 @@ export class AddEditFinancialRatioComponent {
 
   @Output() isSuccess = new EventEmitter<boolean>();
 
-  get code() {
-    return this.addEditForm.get('code');
-  }
+
   get title() {
     return this.addEditForm.get('title');
   }
@@ -54,7 +52,6 @@ export class AddEditFinancialRatioComponent {
 
     this.getTypeCodeList();
     this.addEditForm = new FormGroup({
-      code: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       typeCode: new FormControl(null, Validators.required),
       description: new FormControl(null)

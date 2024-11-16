@@ -11,19 +11,19 @@
 <div class="panel-search mt-8 mb-8">
   <form #formDir="ngForm" [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
+
+      <div class="col-3 mt-2">
+        <label for="companyId"> شرکت</label>
+        <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
+          placeholder="انتخاب کنید">
+        </p-dropdown>
+      </div>
       <div class="col-3 mt-2">
         <label for="financialRatioId"> نسبت مالی</label>
         <p-dropdown id="financialRatioId" name="financialRatioId" formControlName="financialRatioId"
           styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
           [options]="financialRatioList" [filter]="true">
-        </p-dropdown>
-      </div>
-
-      <div class="col-3 mt-2">
-        <label for="companyId"> شرکت</label>
-        <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-          optionLabel="companyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
-          placeholder="انتخاب کنید">
         </p-dropdown>
       </div>
       <!-- <div class="col-3 mt-2">
@@ -85,26 +85,17 @@
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td
-          pTooltip="{{ item.title }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ item.title }}" tooltipEvent="hover" tooltipPosition="top">
           {{ item.title }}
         </td>
-        <td
-          pTooltip="{{ item.companyName }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ item.companyName }}" tooltipEvent="hover" tooltipPosition="top">
           {{ item.companyName }}
         </td>
-        <td
-          pTooltip="{{ item.price }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ item.price }}" tooltipEvent="hover" tooltipPosition="top">
           {{ item.price }}
         </td>
         <td>{{ item.code }}</td>
-        
+
 
         <td class="jc-left ai-left">
           <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
