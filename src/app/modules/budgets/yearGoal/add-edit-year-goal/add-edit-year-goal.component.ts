@@ -58,13 +58,12 @@ export class AddEditYearGoalComponent {
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getBudgetPeriodList();
     this.getAspectCodeLst();
     this.getCompanyLst();
-    this.getBigGoalList();
 
     this.addEditForm = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -122,6 +121,10 @@ export class AddEditYearGoalComponent {
       });
   }
 
+  onChangeCompany(e: any) {
+    this.getBigGoalList(e.value)
+  }
+
   getCompanyLst() {
     this.httpService
       .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
@@ -132,10 +135,11 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  getBigGoalList() {
+  getBigGoalList(id: number) {
     this.httpService
       .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
         withOutPagination: true,
+        comapnyId: id
       })
       .subscribe(response => {
         if (response.data && response.data.result) {

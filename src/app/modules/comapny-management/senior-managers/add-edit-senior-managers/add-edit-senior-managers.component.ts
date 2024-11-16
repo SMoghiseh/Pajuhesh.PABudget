@@ -110,13 +110,21 @@ export class AddEditSeniorManagersComponent {
 
     if (this.mode === 'edit') {
       this.addEditManagerForm.patchValue(this.inputData);
-      this.addEditManagerForm.patchValue({
-        dismissalDate: new JDate(new Date(this.inputData.dismissalDate)),
-        meetingManagementDate: new JDate(
-          new Date(this.inputData.meetingManagementDate)
-        ),
-        registerDate: new JDate(new Date(this.inputData.registerDate)),
-      });
+      debugger
+      if (this.inputData.dismissalDate)
+        this.addEditManagerForm.patchValue({
+          dismissalDate: new JDate(new Date(this.inputData.dismissalDate)),
+        });
+      if (this.inputData.meetingManagementDate)
+        this.addEditManagerForm.patchValue({
+          meetingManagementDate: new JDate(
+            new Date(this.inputData.meetingManagementDate)
+          )
+        });
+      if (this.inputData.registerDate)
+        this.addEditManagerForm.patchValue({
+          registerDate: new JDate(new Date(this.inputData.registerDate)),
+        });
     }
   }
 

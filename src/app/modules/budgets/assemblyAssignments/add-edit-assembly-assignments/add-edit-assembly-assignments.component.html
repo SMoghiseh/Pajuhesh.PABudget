@@ -3,6 +3,12 @@
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditAssemblyAssignment()">
   <div class="container row">
     <div class="col-6 mt-2">
+      <label for="companyId"> شناسه شرکت </label>
+      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+        optionLabel="partyName" optionValue="id" [options]="companyList" placeholder="انتخاب کنید" [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
       <label for="title"> شرح </label>
       <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" />
     </div>
@@ -16,12 +22,6 @@
       <label for="typeCode"> نوع صورتجلسه </label>
       <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1" optionLabel="title"
         optionValue="id" [options]="MeetingTopicList" placeholder="انتخاب کنید" [filter]="true">
-      </p-dropdown>
-    </div>
-    <div class="col-6 mt-2">
-      <label for="companyId"> شناسه شرکت </label>
-      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-        optionLabel="companyName" optionValue="id" [options]="companyList" placeholder="انتخاب کنید" [filter]="true">
       </p-dropdown>
     </div>
     <!-- <div class="col-3 mt-2">

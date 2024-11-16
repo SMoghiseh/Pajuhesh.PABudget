@@ -51,12 +51,11 @@ export class YearGoalComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAspectCodeLst();
     this.getCompanyLst();
-    this.getBigGoalList();
 
     this.searchForm = new FormGroup({
       title: new FormControl(null),
@@ -80,10 +79,11 @@ export class YearGoalComponent {
       });
   }
 
-  getBigGoalList() {
+  getBigGoalList(id: number) {
     this.httpService
       .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
         withOutPagination: true,
+        comapnyId: id
       })
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -102,6 +102,10 @@ export class YearGoalComponent {
       });
   }
 
+  onChangeCompany(e: any) {
+    this.getBigGoalList(e.value)
+  }
+
   getList(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
@@ -116,7 +120,7 @@ export class YearGoalComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      periodId : this.selectedPeriodId,
+      periodId: this.selectedPeriodId,
       ...formValue,
     };
 

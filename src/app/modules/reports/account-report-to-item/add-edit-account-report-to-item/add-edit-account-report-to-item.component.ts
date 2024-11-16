@@ -37,14 +37,11 @@ export class AddEditAccountReportToItemComponent implements OnInit {
   get itemReportTypeCode() {
     return this.addNewAccountReportForm.get('itemReportTypeCode');
   }
-  get code() {
-    return this.addNewAccountReportForm.get('code');
-  }
 
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getItemReportTypeCodeList();
@@ -53,7 +50,6 @@ export class AddEditAccountReportToItemComponent implements OnInit {
     this.addNewAccountReportForm = new FormGroup({
       title: new FormControl('', Validators.required),
       itemReportTypeCode: new FormControl(0, Validators.required),
-      code: new FormControl(0, Validators.required),
       order: new FormControl(0),
       displayTypeId: new FormControl(),
     });
