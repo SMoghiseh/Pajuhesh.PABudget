@@ -1,19 +1,11 @@
-<p-toast key="bigGoal"
-  position="bottom-left"></p-toast>
+<p-toast key="bigGoal" position="bottom-left"></p-toast>
 
-<form #formDir="ngForm"
-  [formGroup]="addEditForm"
-  (ngSubmit)="addEditPlan()">
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="title"> عنوان </label>
-      <input pInputText
-        id="title"
-        name="title"
-        formControlName="title"
-        class="w-100 my-1"
-        [class.ng-invalid]="title?.invalid"
-        [class.ng-dirty]="
+      <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
@@ -21,17 +13,9 @@
     </div>
     <div class="col-6 mt-2">
       <label for="aspectCode">منظر </label>
-      <p-dropdown id="aspectCode"
-        name="aspectCode"
-        formControlName="aspectCode"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="aspectCodeList"
-        [filter]="true"
-        [class.ng-invalid]="aspectCode?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="aspectCode" name="aspectCode" formControlName="aspectCode" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="aspectCodeList" [filter]="true"
+        [class.ng-invalid]="aspectCode?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && aspectCode?.pristine) ||
           aspectCode?.dirty ||
           aspectCode?.touched
@@ -40,19 +24,9 @@
     </div>
     <div class="col-12 mt-2">
       <label for="visionId"> چشم انداز </label>
-      <p-dropdown id="visionId"
-        name="visionId"
-        formControlName="visionId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="visionList"
-        [filter]="true"
-        [readonly]="true"
-        [ngClass]="{'readonly-dropdown': true}"
-        [class.ng-invalid]="visionId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="visionId" name="visionId" formControlName="visionId" styleClass="w-100 my-1" optionLabel="title"
+        optionValue="id" placeholder="انتخاب کنید" [options]="visionList" [filter]="true" [readonly]="true"
+        [ngClass]="{'readonly-field': true}" [class.ng-invalid]="visionId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && visionId?.pristine) ||
           visionId?.dirty ||
           visionId?.touched
@@ -62,22 +36,12 @@
     <div class="col-12 mt-2 mb-8">
       <label for="
       visionId"> توضیحات </label>
-      <textarea pInputTextarea
-        id="description"
-        name="description"
-        formControlName="description"
-        rows="10"
-        cols="30"
-        class="w-100"
-        placeholder="توضیحات"
-        [autoResize]="true">
+      <textarea pInputTextarea id="description" name="description" formControlName="description" rows="10" cols="30"
+        class="w-100" placeholder="توضیحات" [autoResize]="true">
       </textarea>
     </div>
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>

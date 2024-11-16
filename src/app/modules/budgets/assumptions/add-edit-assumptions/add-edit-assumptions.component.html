@@ -6,7 +6,8 @@
       <label for="budgetPeriodId"> دوره </label>
       <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId" styleClass="w-100 my-1"
         optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="budgetPeriodList"
-        [filter]="true" [readonly]="true" [ngClass]="{'readonly-dropdown': true}" [class.ng-invalid]="budgetPeriodId?.invalid" [class.ng-dirty]="
+        [filter]="true" [readonly]="true" [ngClass]="{'readonly-field': true}"
+        [class.ng-invalid]="budgetPeriodId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && budgetPeriodId?.pristine) ||
           budgetPeriodId?.dirty ||
           budgetPeriodId?.touched

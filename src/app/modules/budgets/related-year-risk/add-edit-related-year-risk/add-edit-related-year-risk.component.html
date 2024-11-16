@@ -1,25 +1,12 @@
 <p-toast key="RelatedYearRisk" position="bottom-left"></p-toast>
 
-<form
-  #formDir="ngForm"
-  [formGroup]="addEditForm"
-  (ngSubmit)="addEditRelatedYearRisk()">
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditRelatedYearRisk()">
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="yearRiskId"> شناسه ریسک </label>
-      <p-dropdown
-        id="yearRiskId"
-        name="yearRiskId"
-        formControlName="yearRiskId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="yearList"
-        [filter]="true"
-        [readonly]="true"
-        [ngClass]="{'readonly-dropdown': true}"
-        [class.ng-invalid]="yearRiskId?.invalid"
+      <p-dropdown id="yearRiskId" name="yearRiskId" formControlName="yearRiskId" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="yearList" [filter]="true"
+        [readonly]="true" [ngClass]="{'readonly-field': true}" [class.ng-invalid]="yearRiskId?.invalid"
         [class.ng-dirty]="
           (addEditFormSubmitted && yearRiskId?.pristine) ||
           yearRiskId?.dirty ||
@@ -29,18 +16,9 @@
     </div>
     <div class="col-6 mt-2">
       <label for="yearActivityId"> برنامه عملیاتی </label>
-      <p-dropdown
-        id="yearActivityId"
-        name="yearActivityId"
-        formControlName="yearActivityId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="yearActivityList"
-        [filter]="true"
-        [class.ng-invalid]="yearActivityId?.invalid"
-        [class.ng-dirty]="
+      <p-dropdown id="yearActivityId" name="yearActivityId" formControlName="yearActivityId" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="yearActivityList" [filter]="true"
+        [class.ng-invalid]="yearActivityId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && yearActivityId?.pristine) ||
           yearActivityId?.dirty ||
           yearActivityId?.touched
@@ -49,30 +27,20 @@
     </div>
     <div class="col-6 mt-24">
       <div class="d-flex align-items-center">
-        <p-radioButton
-          name="isOptimistically"
-          formControlName="isOptimistically"
-          [value]="1"
+        <p-radioButton name="isOptimistically" formControlName="isOptimistically" [value]="1"
           inputId="ingredient2"></p-radioButton>
         <label for="ingredient2" class="ms-2 me-4">خوشبینانه </label>
         <!-- </div>
       
               <div class="d-flex align-items-center"> -->
-        <p-radioButton
-          name="isOptimistically"
-          formControlName="isOptimistically"
-          [value]="0"
+        <p-radioButton name="isOptimistically" formControlName="isOptimistically" [value]="0"
           inputId="ingredient1"></p-radioButton>
         <label for="ingredient1" class="ms-2 me-4"> بدبینانه</label>
       </div>
     </div>
 
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>

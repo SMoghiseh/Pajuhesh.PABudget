@@ -4,19 +4,9 @@
   <div class="container row">
     <div class="col-6 mt-2">
       <label for="planningId"> برنامه </label>
-      <p-dropdown
-        id="planningId"
-        name="planningId"
-        formControlName="planningId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="planingList"
-        [filter]="true"
-        [readonly]="true"
-        [ngClass]="{'readonly-dropdown': true}"
-        [class.ng-invalid]="planningId?.invalid"
+      <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
+        [readonly]="true" [ngClass]="{'readonly-field': true}" [class.ng-invalid]="planningId?.invalid"
         [class.ng-dirty]="
           (addEditFormSubmitted && planningId?.pristine) ||
           planningId?.dirty ||
@@ -27,55 +17,27 @@
 
     <div class="col-6 mt-2">
       <label for="keyTypeCode"> کلید واژه</label>
-      <p-dropdown
-        id="keyTypeCode"
-        name="keyTypeCode"
-        formControlName="keyTypeCode"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="KeyTypeList"
-        [filter]="true">
+      <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="KeyTypeList" [filter]="true">
       </p-dropdown>
     </div>
     <div class="col-12 mt-2">
       <label for="planningValueId"> ارزش</label>
-      <p-dropdown
-        id="planningValueId"
-        name="planningValueId"
-        formControlName="planningValueId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="planningValueList"
-        [filter]="true">
+      <p-dropdown id="planningValueId" name="planningValueId" formControlName="planningValueId" styleClass="w-100 my-1"
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planningValueList" [filter]="true">
       </p-dropdown>
     </div>
     <div class="col-12 mt-2">
       <label for="title"> متن چشم انداز </label>
-      <textarea
-        pInputTextarea
-        id="title"
-        name="title"
-        formControlName="title"
-        class="w-100 my-1"
-        rows="3"
-        cols="10"
-        [class.ng-invalid]="title?.invalid"
-        [class.ng-dirty]="
+      <textarea pInputTextarea id="title" name="title" formControlName="title" class="w-100 my-1" rows="3" cols="10"
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
         "></textarea>
     </div>
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>
