@@ -8,31 +8,31 @@
     <div class="col-6 mt-2" *ngIf="false">
       <input pInputText id="companyId" name="companyId" formControlName="companyId" class="w-100 my-1" />
     </div>
-    <div class="col-8 mt-2">
+    <div class="col-8 mt-2" [ngClass]="{'readonly-field': true}">
       <label for="title"> عنوان </label>
       <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1" [readonly]="true"
-        [ngClass]="{'readonly-field': true}" [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
         " />
     </div>
 
-    <div class="col-3 mt-2">
+    <div class="col-3 mt-2" [ngClass]="{'readonly-field': true}">
       <label for="bigGoalId"> شناسه اهداف </label>
       <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1" [readonly]="true"
-        [ngClass]="{'readonly-field': true}" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-        [options]="bigGoalList" [filter]="true" [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="bigGoalList" [filter]="true"
+        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
         ">
       </p-dropdown>
     </div>
-    <div class="col-1 mt-2">
+    <div class="col-1 mt-2" [ngClass]="{'readonly-field': true}">
       <label for="strategyPriority"> الویت </label>
       <input pInputText type="number" id="strategyPriority" name="strategyPriority" formControlName="strategyPriority"
-        maxlength="2" [min]="0" [max]="10" class="w-100 my-1" [readonly]="true" [ngClass]="{'readonly-field': true}"
+        maxlength="2" [min]="0" [max]="10" class="w-100 my-1" [readonly]="true"
         [class.ng-invalid]="strategyPriority?.invalid" [class.ng-dirty]="
         (addEditFormSubmitted && strategyPriority?.pristine) ||
         strategyPriority?.dirty ||

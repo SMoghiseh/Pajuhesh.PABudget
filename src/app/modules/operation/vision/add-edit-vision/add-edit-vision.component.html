@@ -2,12 +2,11 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
   <div class="container row">
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" [ngClass]="{'readonly-field': true}">
       <label for="planningId"> برنامه </label>
       <p-dropdown id="planningId" name="planningId" formControlName="planningId" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true"
-        [readonly]="true" [ngClass]="{'readonly-field': true}" [class.ng-invalid]="planningId?.invalid"
-        [class.ng-dirty]="
+        [readonly]="true" [class.ng-invalid]="planningId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && planningId?.pristine) ||
           planningId?.dirty ||
           planningId?.touched

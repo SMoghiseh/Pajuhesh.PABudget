@@ -2,12 +2,11 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditRelatedYearRisk()">
   <div class="container row">
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" [ngClass]="{'readonly-field': true}">
       <label for="yearRiskId"> شناسه ریسک </label>
       <p-dropdown id="yearRiskId" name="yearRiskId" formControlName="yearRiskId" styleClass="w-100 my-1"
         optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="yearList" [filter]="true"
-        [readonly]="true" [ngClass]="{'readonly-field': true}" [class.ng-invalid]="yearRiskId?.invalid"
-        [class.ng-dirty]="
+        [readonly]="true" [class.ng-invalid]="yearRiskId?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && yearRiskId?.pristine) ||
           yearRiskId?.dirty ||
           yearRiskId?.touched

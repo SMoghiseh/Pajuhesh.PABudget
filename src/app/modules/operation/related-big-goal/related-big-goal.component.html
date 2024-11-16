@@ -10,11 +10,11 @@
     <form #formDir="ngForm" [formGroup]="addNewRelatedBigGoalForm">
         <div class="row cols-4">
 
-            <div class="col my-1">
+            <div class="col my-1" [ngClass]="{'readonly-field': true}">
                 <label for="bigGoalId"> اهداف کلان </label>
                 <p-dropdown id="bigGoalId" name="bigGoalId" formControlName="bigGoalId" styleClass="w-100 my-1"
                     optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="bigGoalList"
-                    [readonly]="true" [ngClass]="{'readonly-field': true}" [filter]="true">
+                    [readonly]="true" [filter]="true">
                 </p-dropdown>
             </div>
             <div class="col my-1">

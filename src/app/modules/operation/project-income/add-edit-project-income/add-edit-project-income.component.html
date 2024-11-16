@@ -17,11 +17,10 @@
           [filter]="true">
         </p-dropdown>
       </div>
-      <div class="col-4 my-2">
+      <div class="col-4 my-2" [ngClass]="{'readonly-field': true}">
         <label for="projectId">شناسه پروژه </label>
         <p-inputNumber id="projectId" name="projectId" formControlName="projectId" mode="decimal" [readonly]="true"
-          [ngClass]="{'readonly-field': true}" inputId="withoutgrouping" [useGrouping]="false"
-          class="w-100"></p-inputNumber>
+          inputId="withoutgrouping" [useGrouping]="false" class="w-100"></p-inputNumber>
       </div>
 
       <div class="col-4 my-2">

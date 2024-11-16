@@ -11,11 +11,11 @@
 <div class="panel-search mt-8 mb-8">
   <form #formDir="ngForm" [formGroup]="searchForm">
     <div class="row mt-8 pb-3">
-      <div class="col-2">
+      <div class="col-2" [ngClass]="{'readonly-field': true}">
         <label for="yearActivityId"> برنامه </label>
         <p-dropdown id="yearActivityId" name="yearActivityId" formControlName="yearActivityId" styleClass="w-100 my-1"
           optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="yearActivityList" [filter]="true"
-          [readonly]="true" [ngClass]="{'readonly-field': true}">
+          [readonly]="true">
         </p-dropdown>
       </div>
       <div class="col-2">

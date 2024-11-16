@@ -14,12 +14,11 @@
   ">
       </p-dropdown>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" [ngClass]="{'readonly-field': mode == 'edit'}">
       <label for="saleType">نوع فروش </label>
       <p-dropdown id="saleType" name="saleType" formControlName="saleType" styleClass="w-100 my-1" optionLabel="title"
-        placeholder="انتخاب کنید" [options]="saleTypeList" [filter]="true" [readonly]="mode == 'edit'"
-        [ngClass]="{'readonly-field': mode == 'edit'}" [required]="true" [class.ng-invalid]="saleType?.invalid"
-        [class.ng-dirty]="
+        placeholder="انتخاب کنید" [options]="saleTypeList" [filter]="true" [readonly]="mode == 'edit'" [required]="true"
+        [class.ng-invalid]="saleType?.invalid" [class.ng-dirty]="
           (addEditSaleSubmitted && saleType?.pristine) ||
           saleType?.dirty ||
           saleType?.touched

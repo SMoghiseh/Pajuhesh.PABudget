@@ -2,11 +2,10 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditPlan()">
   <div class="container row">
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" [ngClass]="{'readonly-field': true}">
       <label for="planingId"> برنامه</label>
       <p-dropdown id="planingId" name="planingId" formControlName="planingId" styleClass="w-100 my-1" [readonly]="true"
-        [ngClass]="{'readonly-field': true}" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
-        [options]="planingList" [filter]="true">
+        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="planingList" [filter]="true">
       </p-dropdown>
     </div>
 

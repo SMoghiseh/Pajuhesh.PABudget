@@ -411,10 +411,21 @@
 
 /* Targeting readonly dropdown */
 .readonly-field .p-dropdown-label {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0 !important;
   /* Example: gray background for readonly */
-  color: #a1a1a1;
+  color: #929292 !important;
   /* Example: light gray text */
+}
+
+.readonly-field .p-inputtext {
+  background-color: #f0f0f0 !important;
+  /* Example: gray background for readonly */
+  color: #929292 !important;
+  /* Example: light gray text */
+}
+
+.readonly-field label {
+  color: #929292 !important;
 }
 
 .readonly-field .p-dropdown-trigger {
