@@ -1,38 +1,20 @@
 <p-toast key="FinancialRatiosPrice" position="bottom-left"></p-toast>
 
-<form
-  #formDir="ngForm"
-  [formGroup]="addEditForm"
-  (ngSubmit)="addEditFinancialRatiosPrice()">
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditFinancialRatiosPrice()">
   <div class="container row">
-    <div class="col-6 mt-2">
-      <label for="financialRatioId"> نسبت مالی</label>
-      <p-dropdown
-        id="financialRatioId"
-        name="financialRatioId"
-        formControlName="financialRatioId"
-        styleClass="w-100 my-1"
-        optionLabel="title"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="financialRatioList"
-        [filter]="true">
-      </p-dropdown>
-    </div>
 
     <div class="col-6 mt-2">
       <label for="companyId"> شرکت</label>
-      <p-dropdown
-        id="companyId"
-        name="companyId"
-        formControlName="companyId"
-        styleClass="w-100 my-1"
-        optionLabel="companyName"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="companyList"
-        [filter]="true"
+      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
+        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
         placeholder="انتخاب کنید">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="financialRatioId"> نسبت مالی</label>
+      <p-dropdown id="financialRatioId" name="financialRatioId" formControlName="financialRatioId"
+        styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+        [options]="financialRatioList" [filter]="true">
       </p-dropdown>
     </div>
     <!-- <div class="col-3 mt-2">
@@ -46,35 +28,18 @@
     </div> -->
     <div class="col-6 mt-2">
       <label for="price">مبلغ قرارداد(میلیون ریال)</label>
-      <p-inputNumber
-        id="price"
-        name="price"
-        formControlName="price"
-        inputId="integeronly"
+      <p-inputNumber id="price" name="price" formControlName="price" inputId="integeronly"
         class="w-100"></p-inputNumber>
     </div>
     <div class="col-6 mt-2">
       <label for="companyId"> واحد مبلغ</label>
-      <p-dropdown
-        id="code"
-        name="code"
-        formControlName="code"
-        styleClass="w-100 my-1"
-        optionLabel="code"
-        optionValue="id"
-        placeholder="انتخاب کنید"
-        [options]="unitList"
-        [filter]="true"
-        placeholder="انتخاب کنید">
+      <p-dropdown id="code" name="code" formControlName="code" styleClass="w-100 my-1" optionLabel="code"
+        optionValue="id" placeholder="انتخاب کنید" [options]="unitList" [filter]="true" placeholder="انتخاب کنید">
       </p-dropdown>
     </div>
 
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button
-        class="pe-2 p-button-wide"
-        styleClass="p-button-success"
-        [label]="'ثبت'"
-        type="submit"
+      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>

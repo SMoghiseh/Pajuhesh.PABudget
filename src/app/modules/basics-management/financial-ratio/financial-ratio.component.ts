@@ -50,7 +50,6 @@ export class FinancialRatioComponent {
     this.getTypeCodeList();
 
     this.searchForm = new FormGroup({
-      code: new FormControl(''),
       title: new FormControl(''),
       typeCode: new FormControl(0),
       description: new FormControl('')

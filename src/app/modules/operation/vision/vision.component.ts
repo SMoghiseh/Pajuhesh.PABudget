@@ -58,12 +58,10 @@ export class VisionComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getplanningValueLst();
     this.getkeyTypeCodeLst();
-
     this.searchForm = new FormGroup({
       planningValueId: new FormControl(null),
       title: new FormControl(null),
@@ -71,12 +69,15 @@ export class VisionComponent {
       keyTypeCode: new FormControl(null),
     });
     this.planningId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getplanningValueLst();
+
   }
 
   getplanningValueLst() {
     this.httpService
       .post<PlanningValue[]>(PlanningValue.apiAddress + 'List', {
         withOutPagination: true,
+        planningValue: this.planningId
       })
       .subscribe(response => {
         if (response.data && response.data.result) {

@@ -35,7 +35,7 @@ export class AddEditFinancialRatiosPriceComponent {
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getFinancialRatioLst();
     this.getCompanyLst();
@@ -127,9 +127,7 @@ export class AddEditFinancialRatiosPriceComponent {
   }
   getCompanyLst() {
     this.httpService
-      .post<Company[]>(Company.apiAddressDetailCo + 'List', {
-        withOutPagination: true,
-      })
+      .get<Company[]>(Company.apiAddressUserCompany + 'Combo')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.companyList = response.data.result;
