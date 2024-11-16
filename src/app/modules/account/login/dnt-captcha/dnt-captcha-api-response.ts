@@ -1,4 +1,5 @@
 ﻿export class DNTCaptchaApiResponse {
+  data: any;
   constructor(
     public dntCaptchaImgUrl: string = '',
     public dntCaptchaId: string = '',
