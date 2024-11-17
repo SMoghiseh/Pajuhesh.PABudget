@@ -224,7 +224,10 @@
             <div #tblDiv class="tbl-context-menu"></div>
             <p-menu
               #menu
+              
               [popup]="true"
+              (onShow)="positionMenu($event)"
+              [baseZIndex]="1000"
               [model]="item.componentList"
               [appendTo]="tblDiv"></p-menu>
           </div>

@@ -1,7 +1,8 @@
 <div class="row bottom-section">
   <div class="co-info-box">
     <div class="row">
-      <p-table #dataTable
+      <p-table
+        #dataTable
         dataKey="id"
         class="data-table d-none d-lg-block"
         [styleClass]="gridClass"
@@ -19,7 +20,10 @@
         <ng-template pTemplate="header">
           <div class="headerStyleForm">
             <h3>{{ selectedPlanName }}</h3>
-            <label class="labelStyle"><span>ارزش : </span>{{ planDetailData[0].titleTwo }}</label>
+            <label class="labelStyle"
+              ><span>چشم انداز : </span
+              >{{ planDetailData[0].titleFirst }}</label
+            >
           </div>
           <br />
           <tr class="data-table__header">
@@ -29,27 +33,17 @@
               </th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> چشم انداز </strong></th>
-            </div>
-
-            <!-- <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> ارزش </strong></th>
-            </div> -->
-            <div class="headerStyle Width: auto">
               <th style="min-width: 7rem"><strong> منظر </strong></th>
             </div>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body"
-          let-item
-          let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <div class="detailStyle Width: auto"
+            <div
+              class="detailStyle Width: auto"
               [ngStyle]="{ 'background-color': item.color }">
-              <td style="width: 33rem">{{ item.titleMain }}</td>
-              <td style="width: 33rem">{{ item.titleFirst }}</td>
-              <!-- <td style="width: 33rem">{{ item.titleTwo }}</td> -->
-              <td style="width: 33rem">{{ item.titleThree }}</td>
+              <td style="width: 53rem">{{ item.titleMain }}</td>
+              <td style="width: 53rem">{{ item.titleThree }}</td>
             </div>
           </tr>
         </ng-template>

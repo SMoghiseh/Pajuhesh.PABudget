@@ -55,6 +55,11 @@ export class ProjectComponent {
       icon: 'pi pi-fw pi-star',
       routerLink: ['/Operation/ProjectPic'],
     },
+    {
+      label: 'ساختار پروژه',
+      icon: 'pi pi-fw pi-star',
+      routerLink: ['/Operation/ProjectStructure'],
+    },
   ];
   constructor(
     private httpService: HttpService,
@@ -93,7 +98,15 @@ export class ProjectComponent {
     this.getProject();
   }
 
-  getProject(event?: LazyLoadEvent) {
+  positionMenu(event: any) { debugger
+    const menu = event.originalEvent.target.nextElementSibling; // Access the menu DOM element
+    if (menu) {
+      const menuRect = menu.getBoundingClientRect();
+      menu.style.top = `${event.originalEvent.clientY - menuRect.height}px`; // Position above the button
+      menu.style.left = `${event.originalEvent.clientX}px`;
+    }
+  }
+  getProject(event?: LazyLoadEvent) {debugger
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -127,10 +140,10 @@ export class ProjectComponent {
       )
       .subscribe(res => (this.data = this.addSubComponentList(res)));
   }
-  onChangeCompanyId(e: any) {
+  onChangeCompanyId(e: any) {debugger
     this.getBudgetPeriodLst(e.value);
   }
-  addSubComponentList(data: any) {
+  addSubComponentList(data: any) {debugger
     data.forEach((row: any) => {
       row['componentList'] = [];
       let array = this.subComponentList;
@@ -184,7 +197,7 @@ export class ProjectComponent {
     }
   }
 
-  onChangBudgetPeriod(e: any) {
+  onChangBudgetPeriod(e: any) {debugger
     this.getfromToBudgetPeriodLst(e.value);
   }
   editRow(data: Project) {

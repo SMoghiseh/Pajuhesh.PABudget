@@ -72,6 +72,8 @@ import { PickListModule } from 'primeng/picklist';
 import { RelatedBigGoalComponent } from './related-big-goal/related-big-goal.component';
 import { AddEditRelatedBigGoalComponent } from './related-big-goal/add-edit-related-big-goal/add-edit-related-big-goal.component';
 import { ListboxModule } from 'primeng/listbox';
+import { ProjectStructureComponent } from './project-structure/project-structure.component';
+
 
 @NgModule({
   declarations: [
@@ -115,6 +117,7 @@ import { ListboxModule } from 'primeng/listbox';
     SWOTStrategyComponent,
     RelatedBigGoalComponent,
     AddEditRelatedBigGoalComponent,
+    ProjectStructureComponent,
   ],
   imports: [
     CommonModule,
@@ -144,7 +147,8 @@ import { ListboxModule } from 'primeng/listbox';
     TooltipModule,
     MenuModule,
     FileUploadModule,
-    ListboxModule
+    ListboxModule,
+
   ],
   providers: [
     {

@@ -111,6 +111,7 @@
 
             <!-- delete -->
             <button
+              *ngIf="loginData.role === 'ادمین'"
               class="action-image-container"
               pTooltip="حذف شرکت"
               (click)="deleteRow(company)">

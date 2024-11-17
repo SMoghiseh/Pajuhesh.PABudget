@@ -1,5 +1,5 @@
 ﻿export abstract class DNTCaptchaBase {
-  DNTCaptchaText = '';
-  DNTCaptchaToken = '';
+  DNTCaptchaText: any;
+  DNTCaptchaToken: any;
   DNTCaptchaInputText = '';
 }

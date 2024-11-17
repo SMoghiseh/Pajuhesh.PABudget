@@ -24,6 +24,7 @@ export class CompanyDefinitionComponent implements OnInit {
   # Table
   --------------------------*/
   totalCount!: number;
+  loginData: any;
   data: Company[] = [];
   loading = false;
   dataTableRows = 10;
@@ -45,6 +46,8 @@ export class CompanyDefinitionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const loginData = localStorage.getItem('loginData');
+    this.loginData = loginData ? JSON.parse(loginData) : {};
     this.getSubCompanies();
   }
 

@@ -80,7 +80,7 @@ export class AggregateComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getCompanyLst();
@@ -101,14 +101,13 @@ export class AggregateComponent implements OnInit {
     //       const control = this.accountReportPriceForm.get(controlName);
     //       const prevValue = prev[controlName];
 
-
     //       // Update the control with the reversed value
     //       control?.setValue(prevValue, { emitEvent: false });
     //     });
     //   });
 
     // this.accountReportPriceForm.valueChanges
-    // .subscribe(([prev, next]: [any, any]) => {debugger
+    // .subscribe(([prev, next]: [any, any]) => {
     //   Object.keys(prev).forEach(controlName => {
     //     const control = this.accountReportPriceForm.get(controlName);
     //     const currentValue = prev[controlName];
@@ -122,7 +121,6 @@ export class AggregateComponent implements OnInit {
     // });
 
     /////
-
   }
 
   getPeriodLst(companyId: number) {
@@ -203,7 +201,7 @@ export class AggregateComponent implements OnInit {
 
     // check if atLeast one record has changed
     // if (this.changeList?.length != 0) {
-    //   debugger
+    //
     //   this.confirmOnSearch();
     // } else {
     this.searchOnDataList(event);
@@ -266,8 +264,8 @@ export class AggregateComponent implements OnInit {
     this.httpService
       .get<AccountReportToItem[]>(
         AccountReportToItem.apiAddress +
-        'ReadPriceAccountRepToItemFromExcelFile/' +
-        multiMediaIdId
+          'ReadPriceAccountRepToItemFromExcelFile/' +
+          multiMediaIdId
       )
       .subscribe(response => {
         if (response.data && response.data.result) {
@@ -348,8 +346,6 @@ export class AggregateComponent implements OnInit {
 
         if (this.accountReportItemList.body.length != 0)
           this.accountReportPriceForm.disable();
-
-
       });
   }
 
@@ -358,7 +354,8 @@ export class AggregateComponent implements OnInit {
   }
 
   getAdditionalTextForColumn() {
-    this.AdditionalTextForColumn = this.priceType?.value == 2 ? 'عملکرد' : 'بودجه';
+    this.AdditionalTextForColumn =
+      this.priceType?.value == 2 ? 'عملکرد' : 'بودجه';
   }
 
   changeButtonsDisablity() {
@@ -414,7 +411,7 @@ export class AggregateComponent implements OnInit {
     });
   }
 
-  reject() { }
+  reject() {}
 
   confirm() {
     this.addList();
@@ -598,5 +595,5 @@ export class AggregateComponent implements OnInit {
       });
   }
 
-  openDialog(e: any) { }
+  openDialog(e: any) {}
 }

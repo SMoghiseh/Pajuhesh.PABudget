@@ -21,8 +21,10 @@ import { PersonelNoDetailComponent } from './personel-no/personel-no-detail/pers
 import { YearActivityComponent } from './year-activity/year-activity.component';
 import { RelatedActivityComponent } from './related-activity/related-activity.component';
 import { SWOTStrategyComponent } from './swotstrategy/swotstrategy.component';
-import { RelatedBigGoal } from '@shared/models/response.model';
+import { ProjectPic, RelatedBigGoal } from '@shared/models/response.model';
 import { RelatedBigGoalComponent } from './related-big-goal/related-big-goal.component';
+import { ProjectPicComponent } from './project-pic/project-pic.component';
+import { ProjectStructureComponent } from './project-structure/project-structure.component';
 
 
 const routes: Routes = [
@@ -196,9 +198,30 @@ const routes: Routes = [
             },
           },
           {
+            path: 'ProjectPic/:id',
+            component: ProjectPicComponent,
+            title: 'برنامه و بودجه |  تصاویر پروژه',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+   
+          {
             path: 'ProjectCost/:id',
             component: ProjectCostComponent,
             title: 'برنامه و بودجه |  هزینه های پروژه',
+            data: {
+              reuse: true,
+              title: 'تعریف عناوین',
+              animation: 'SubjectDefinitionPage',
+            },
+          },
+          {
+            path: 'ProjectStructure/:id',
+            component: ProjectStructureComponent,
+            title: 'برنامه و بودجه |  ساختار پروژه',
             data: {
               reuse: true,
               title: 'تعریف عناوین',

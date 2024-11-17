@@ -185,6 +185,7 @@
           </button>
 
           <button
+            *ngIf="loginData.role === 'ادمین'"
             class="action-image-container edit-button"
             (click)="editRow(report)"
             pTooltip="ویرایش">
@@ -192,6 +193,7 @@
           </button>
 
           <button
+            *ngIf="loginData.role === 'ادمین'"
             class="action-image-container delete-button"
             (click)="deleteRow(report)"
             pTooltip="حذف">
