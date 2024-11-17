@@ -32,9 +32,7 @@ class LoginModel {
   rememberMe = false;
 }
 
-interface Captcha {
-  dntCaptchaTextValue: string;
-}
+
 
 @Component({
   selector: 'app-login',
