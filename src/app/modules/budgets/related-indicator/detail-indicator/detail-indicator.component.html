@@ -1,0 +1,61 @@
+<p-toast key="message" position="bottom-left"></p-toast>
+
+<div class="table-header">
+    مقداردهی شاخص 
+    
+    <!-- <span> : {{ this.detailIndicatorList[0]?.indicatorTitle }}</span> -->
+</div>
+
+
+<div class="table-container">
+    <!-- <div *ngIf="detailIndicatorList" class="card"> -->
+
+
+    <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+        [value]="detailIndicatorList" [loading]="isLoadingSubmit" [tableStyle]="{ 'min-width': '75rem' }"
+        [(first)]="first">
+        <ng-template pTemplate="header">
+            <tr class="data-table__header">
+                <th style="min-width: 10rem"><strong> از دوره عملیاتی </strong></th>
+                <th style="min-width: 10rem"><strong> تا دوره عملیاتی</strong></th>
+                <th style="min-width: 10rem"><strong> کمترین مقدار</strong></th>
+                <th style="min-width: 10rem"><strong> بیشترین مقدار </strong></th>
+                <th style="min-width: 10rem"><strong> مقدار </strong></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
+            <tr>
+
+                <td> {{ item.fromPeriodDetail }}</td>
+                <td> {{ item.toPeriodDetail }}</td>
+                <td> {{ item.minValue }}</td>
+                <td> {{ item.maxValue }}</td>
+                <td pEditableColumn style="min-width: 15rem; direction: ltr">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-inputNumber [(ngModel)]="item.value" (onInput)="onChangePrice(item)"
+                                (keydown.enter)="onChangePrice(item)"
+                                (keydown.tab)="onChangePrice(item)"></p-inputNumber>
+                        </ng-template>
+
+                        <ng-template pTemplate="output">
+                            <input pInputText type="text" value=" {{ item.value | number }}" />
+                        </ng-template>
+                    </p-cellEditor>
+
+                    &nbsp;
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div class="d-flex justify-content-end" style="padding: 13px 2px">
+        <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="ذخیره تغییرات"
+            (click)="addList()"></p-button>
+    </div>
+</div>
+
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

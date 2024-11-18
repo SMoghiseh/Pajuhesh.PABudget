@@ -12,6 +12,8 @@ import { YearRiskComponent } from './year-risk/year-risk.component';
 import { FinancialRatiosPriceComponent } from './financial-ratios-price/financial-ratios-price.component';
 import { FinancialRatiosIndustryComponent } from './financial-ratios-industry/financial-ratios-industry.component';
 import { RelatedYearRiskComponent } from './related-year-risk/related-year-risk.component';
+import { RelatedIndicatorComponent } from './related-indicator/related-indicator.component';
+import { DetailIndicatorComponent } from './related-indicator/detail-indicator/detail-indicator.component';
 
 const routes: Routes = [
   {
@@ -66,6 +68,16 @@ const routes: Routes = [
             path: 'FinancialRatiosIndustry/:id',
             component: FinancialRatiosIndustryComponent,
             title: 'برنامه و بودجه | برنامه عملیاتی',
+          },
+          {
+            path: 'RelatedIndicator',
+            component: RelatedIndicatorComponent,
+            title: 'برنامه و بودجه |  شاخص های مرتبط',
+          },
+          {
+            path: 'RelatedIndicator/:id',
+            component: DetailIndicatorComponent,
+            title: 'برنامه و بودجه |  شاخص های مرتبط',
           },
         ],
       },

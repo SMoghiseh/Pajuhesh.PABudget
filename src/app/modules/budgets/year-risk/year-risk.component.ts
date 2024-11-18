@@ -11,7 +11,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-year-risk',
@@ -56,7 +56,8 @@ export class YearRiskComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -134,7 +135,7 @@ export class YearRiskComponent {
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
-      periodId : this.selectedPeriodId,
+      periodId: this.selectedPeriodId,
       withOutPagination: false,
       ...formValue,
     };
@@ -244,5 +245,8 @@ export class YearRiskComponent {
     this.getList();
   }
 
-
+  navigateToIndicatorPage(item: any) {
+    this.router.navigate(['Period/RelatedIndicator'],
+      { queryParams: { page: 'YearRisk', id: item.id, companyId: item.companyId, periodId: this.selectedPeriodId } })
+  }
 }

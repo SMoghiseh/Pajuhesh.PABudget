@@ -11,7 +11,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-year-policy',
@@ -48,7 +48,8 @@ export class YearPolicyComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -68,7 +69,10 @@ export class YearPolicyComponent {
 
 
   }
-
+  navigateToIndicatorPage(item: any) {
+    this.router.navigate(['Period/RelatedIndicator'],
+      { queryParams: { page: 'YearPolicy', id: item.id, companyId: item.companyId, periodId: this.selectedPeriodId } })
+  }
 
   getCompanyLst() {
     this.httpService
@@ -104,7 +108,7 @@ export class YearPolicyComponent {
     const body = {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
-      periodId : this.selectedPeriodId,
+      periodId: this.selectedPeriodId,
       withOutPagination: false,
       ...formValue,
     };

@@ -14,7 +14,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-assumptions',
@@ -50,7 +50,8 @@ export class AssumptionsComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -103,7 +104,7 @@ export class AssumptionsComponent {
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber,
       withOutPagination: false,
-      periodId : this.selectedPeriodId,
+      periodId: this.selectedPeriodId,
       ...formValue,
     };
 
@@ -185,4 +186,10 @@ export class AssumptionsComponent {
     this.searchForm.reset();
     this.getList();
   }
+
+  navigateToIndicatorPage(item: any) {
+    this.router.navigate(['Period/RelatedIndicator'],
+      { queryParams: { page: 'Assumptions', id: item.id, companyId: item.companyId, periodId: this.selectedPeriodId } })
+  }
+
 }
