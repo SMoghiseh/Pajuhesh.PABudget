@@ -139,7 +139,7 @@ export class AddEditYearGoalComponent {
     this.httpService
       .post<BigGoal[]>(BigGoal.apiAddress + 'List', {
         withOutPagination: true,
-        comapnyId: id
+        companyId: id
       })
       .subscribe(response => {
         if (response.data && response.data.result) {

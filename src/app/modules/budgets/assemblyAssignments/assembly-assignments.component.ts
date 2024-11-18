@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
 import {
   AssemblyAssignments,
@@ -49,7 +49,8 @@ export class AssemblyAssignmentsComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
   ngOnInit(): void {
     // this.getAssemblyAssignmentsLst();
@@ -138,6 +139,12 @@ export class AssemblyAssignmentsComponent {
 
     });
     return data;
+  }
+
+  navigateToIndicatorPage(item: any) {
+    debugger
+    this.router.navigate(['Period/RelatedIndicator'],
+      { queryParams: { page: 'YearUnion', id: item.id, companyId: item.companyId, periodId: this.selectedPeriodId } })
   }
 
   addAssemblyAssignment(data: string) {
