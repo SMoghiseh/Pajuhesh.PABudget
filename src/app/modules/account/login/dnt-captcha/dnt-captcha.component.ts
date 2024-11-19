@@ -45,14 +45,12 @@ export class DntCaptchaComponent implements OnInit {
   }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
-    debugger;
     console.error('getCaptchaInfo error: ', error);
     // return Observable.throw(error.statusText);
     throw new Error('Value expected!');
   }
 
   getCaptchaInfo(): Observable<DNTCaptchaApiResponse> {
-    debugger;
     return this.http.get<DNTCaptchaApiResponse>(`${this.apiUrl}`, {
       withCredentials: true /* For CORS */,
     });
@@ -67,7 +65,10 @@ export class DntCaptchaComponent implements OnInit {
     // this.onTokenChange();
     this.getCaptchaInfo().subscribe(data => {
       this.apiResponse = {
-        dntCaptchaImgUrl: 'data:application/octet-stream;base64,' + data.data,
+        dntCaptchaImgUrl:
+          'data:application/octet-stream;base64,' + data.data.dntCaptchaImgUrl,
+        dntCaptchaTextValue: data.data.dntCaptchaTextValue,
+        dntCaptchaTokenValue: data.data.dntCaptchaTokenValue,
       };
 
       this.text = data.data;
@@ -88,7 +89,5 @@ export class DntCaptchaComponent implements OnInit {
   onInputTextChange() {
     this.inputTextChange.emit(this.inputText);
   }
-  get(e: any) {
-    debugger;
-  }
+  get(e: any) {}
 }

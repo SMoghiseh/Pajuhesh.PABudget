@@ -9,6 +9,9 @@
     height: auto !important;
 }
 
-::ng-deep .p-menu {
-    width: 15rem !important
+ :host ::ng-deep .p-menu {
+    width: 15rem !important;
+    transform-origin: center bottom !important;
+    top: 403.5px  !important; 
 }
+

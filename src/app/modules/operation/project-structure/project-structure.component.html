@@ -1,0 +1,230 @@
+<!-- pop up messages -->
+<p-toast key="ProjectStructureMessage" position="bottom-left"></p-toast>
+
+<!-- data table -->
+<section class="section">
+  <div class="pb-2">
+    <div class="table-header">ساختار پروژه</div>
+    <div class="d-flex justify-content-end pb-3 w-100">
+      <!-- دکمه -->
+      <p-button
+        class="pe-2 mt-4"
+        styleClass="p-button-info"
+        icon="pi pi-plus-circle"
+        label="افزودن ساختار پروژه جدید"
+        (click)="onAddNewProjectStructure()"></p-button>
+      <!-- / دکمه -->
+    </div>
+    <!-- </p-panel> -->
+  </div>
+
+  <!-- data table -->
+  <div class="table-container">
+    <div class="tree-header">لیست ساختار پروژه</div>
+    <p-tree
+      selectionMode="single"
+      class="w-full md:w-30rem"
+      [value]="ProjectStructures"
+      [(selection)]="selectedProjectStructures"
+      [style]="{ height: '73vh', overflow: 'auto' }"
+      (onNodeSelect)="onNodeSelect($event)">
+      <ng-template let-node pTemplate="default">
+        <div class="node-container d-flex justify-content-between">
+          <span>{{ node.title }}</span>
+          <div class="command-list">
+            <!-- edit -->
+            <button
+              class="action-image-container"
+              pTooltip="ویرایش ساختار پروژه"
+              (click)="onEditRow()">
+              <img ngSrc="icons\Group 116.svg" width="22" height="22" />
+            </button>
+            <!-- / edit -->
+
+            <!-- insert -->
+            <button
+              class="action-image-container"
+              pTooltip="افزودن ساختار پروژه"
+              (click)="onAddSubGroup()">
+              <img ngSrc="icons\Group 187.svg" width="22" height="22" />
+            </button>
+            <!-- / insert -->
+
+            <!-- delete -->
+            <button
+              class="action-image-container"
+              pTooltip="حذف ساختار پروژه"
+              (click)="onDeleteRow()">
+              <img ngSrc="icons\Group 117.svg" width="22" height="22" />
+            </button>
+            <!-- / delete -->
+          </div>
+        </div>
+      </ng-template>
+    </p-tree>
+  </div>
+
+  <!-- data table -->
+
+  <!-- data list -->
+  <div class="data-list d-block d-lg-none"></div>
+  <!-- / data list -->
+  <!-- </div>
+  </div> -->
+</section>
+<!-- / data table -->
+
+<!--  insert modal -->
+<p-dialog
+  styleClass="p-fluid"
+  header="{{ modalTitle }}"
+  class="height-size"
+  [modal]="true"
+  [(visible)]="isOpenAddProjectStructure"
+  [style]="{ width: '500px', height: '400px' }">
+  <!-- dialog content -->
+  <ng-template pTemplate="content">
+    <form
+      [formGroup]="addNewProjectStructureForm"
+      (ngSubmit)="onSubmitNewProjectStructure()">
+      <div class="container row">
+        <div class="col-6 mt-2">
+          <label for="code">عنوان</label>
+          <input
+            pInputText
+            id="title"
+            name="title"
+            formControlName="title"
+            type="text"
+            class="w-100" />
+        </div>
+        <div class="col-6 mt-2">
+          <label for="from_PeriodId"> آیا زیرمجموعه دارد؟</label>
+          <div class="d-flex align-items-center">
+            <p-radioButton
+              name="hasChild"
+              formControlName="hasChild"
+              [value]="false"
+              inputId="false"></p-radioButton>
+            <label for="false" class="ms-2 me-4">دارد</label>
+            <!-- </div>
+  
+            <div class="d-flex align-items-center"> -->
+            <p-radioButton
+              name="hasChild"
+              formControlName="hasChild"
+              [value]="true"
+              inputId="true"></p-radioButton>
+            <label for="true" class="ms-2 me-4">ندارد</label>
+          </div>
+        </div>
+        <!-- شروع دوره بودجه  -->
+        <div *ngIf="hasChild === false" class="col-6 mt-2">
+          <label for="from_PeriodId"> شروع دوره بودجه</label>
+          <p-dropdown
+            id="from_PeriodId"
+            name="from_PeriodId"
+            formControlName="from_PeriodId"
+            styleClass="w-100 my-1"
+            optionLabel="periodTitle"
+            optionValue="id"
+            placeholder="انتخاب کنید"
+            [options]="periodLst"
+            [filter]="true"
+            (onChange)="onChangeFromPeriod($event)"></p-dropdown>
+        </div>
+        <!-- / شروع دوره بودجه  -->
+
+        <!-- شروع دوره عملیاتی  -->
+        <div *ngIf="hasChild === false" class="col-6 mt-2">
+          <label for="from_PeriodDetailId"> شروع دوره عملیاتی</label>
+          <p-dropdown
+            id="from_PeriodDetailId"
+            name="from_PeriodDetailId"
+            formControlName="from_PeriodDetailId"
+            styleClass="w-100 my-1"
+            optionLabel="periodDetailTitle"
+            optionValue="id"
+            placeholder="انتخاب کنید"
+            [options]="periodFromDetailLst"
+            [filter]="true"></p-dropdown>
+        </div>
+        <!-- / شروع دوره عملیاتی  -->
+
+        <!-- پایان دوره بودجه  -->
+        <div *ngIf="hasChild === false" class="col-6 mt-2">
+          <label for="to_PeriodId"> پایان دوره بودجه</label>
+          <p-dropdown
+            id="to_PeriodId"
+            name="to_PeriodId"
+            formControlName="to_PeriodId"
+            styleClass="w-100 my-1"
+            optionLabel="periodTitle"
+            optionValue="id"
+            placeholder="انتخاب کنید"
+            [options]="periodLst"
+            [filter]="true"
+            (onChange)="onChangeToPeriod($event)"></p-dropdown>
+        </div>
+        <!-- / پایان دوره بودجه  -->
+
+        <!-- شروع دوره عملیاتی  -->
+        <div *ngIf="hasChild === false" class="col-6 mt-2">
+          <label for="to_PeriodDetailId"> پایان دوره عملیاتی</label>
+          <p-dropdown
+            id="to_PeriodDetailId"
+            name="to_PeriodDetailId"
+            formControlName="to_PeriodDetailId"
+            styleClass="w-100 my-1"
+            optionLabel="periodDetailTitle"
+            optionValue="id"
+            placeholder="انتخاب کنید"
+            [options]="periodToDetailLst"
+            [filter]="true"></p-dropdown>
+        </div>
+        <!-- / شروع دوره عملیاتی  -->
+
+        <div *ngIf="hasChild === false" class="col-6 mt-2">
+          <label for="typeCode"> نوع</label>
+          <p-dropdown
+            id="typeCode"
+            name="typeCode"
+            formControlName="typeCode"
+            styleClass="w-100 my-1"
+            optionLabel="title"
+            optionValue="id"
+            placeholder="انتخاب کنید"
+            [options]="typeList"
+            [filter]="true">
+          </p-dropdown>
+        </div>
+
+        <div  *ngIf="hasChild === false" class="col-6 mt-2">
+          <label for="hourPerson">ساعت/نفرات</label>
+          <input
+            pInputText
+            id="hourPerson"
+            name="hourPerson"
+            formControlName="hourPerson"
+            type="text"
+            class="w-100" />
+        </div>
+
+        <!-- دکمه ها -->
+        <div class="col-12 row-btn row-btn-fixed-bottom">
+          <p-button
+            class="pe-2 p-button-wide"
+            styleClass="p-button-success"
+            [label]="'ثبت'"
+            type="submit"
+            [loading]="addNewProjectStructureLoading"></p-button>
+        </div>
+        <!-- / دکمه ها -->
+      </div>
+    </form>
+  </ng-template>
+  <!-- / dialog content -->
+</p-dialog>
+<!-- / insert modal -->
+
+<p-confirmDialog [style]="{ width: '500px' }" [rtl]="true"></p-confirmDialog>

@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-strategy-plan',
   templateUrl: './strategy-plan.component.html',
-  styleUrls: ['./strategy-plan.component.scss']
+  styleUrls: ['./strategy-plan.component.scss'],
 })
 export class StrategyPlanComponent implements OnInit {
   @Input() inputData: any;
@@ -28,20 +28,16 @@ export class StrategyPlanComponent implements OnInit {
   getCompanyByPlanIdList: any = [];
   getPlanId!: number;
 
-
-
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.getBigGoalList();
     this.companyId = Number(this.route.snapshot.paramMap.get('id'));
-    this.getData(this.companyId); debugger
+    this.getData(this.companyId);
     // this.getCompanyByPlanId(this.companyId);
-
   }
 
   getBigGoalList() {
@@ -54,10 +50,7 @@ export class StrategyPlanComponent implements OnInit {
       });
   }
 
-
-
   getData(id: number) {
-
     const url = StrategySWOT.apiAddressStrategySwot + 'List/Company/' + id;
     this.httpService
       .get<StrategySWOT[]>(url)
@@ -82,16 +75,14 @@ export class StrategyPlanComponent implements OnInit {
   }
 
   editRowDescription(row: any, column: any) {
-    debugger
-    this.modalTitle = 'جزئیات ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
+    this.modalTitle =
+      'جزئیات ' + '"' + row.title?.substring(0, 40) + ' ... ' + '"';
     this.addEditData['id'] = row.id;
     this.addEditData['companyId'] = this.companyId;
     this.addEditData['strategyTypeCodeId'] = column.strategyTypeId;
     this.mode = 'edit';
     this.isOpenAddEditPlan = true;
   }
-
-
 
   // getCompanyByPlanId(id: number) {
   //   this.httpService
@@ -108,5 +99,4 @@ export class StrategyPlanComponent implements OnInit {
     this.isOpenAddEditPlan = false;
     this.getData(this.companyId);
   }
-
 }

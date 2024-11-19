@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
-import { AccountReportItem, Profile, UrlBuilder } from '@shared/models/response.model';
+import {
+  AccountReportItem,
+  Profile,
+  UrlBuilder,
+} from '@shared/models/response.model';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { map } from 'rxjs';
 
@@ -17,9 +21,10 @@ export class AccountReportToItemComponent implements OnInit {
   selectedAccountReports: any;
   reportItemTypeList: any;
   selectedReportTypeId!: number;
-  isOpenAddAccountReport: boolean = false;
+  isOpenAddAccountReport = false;
   addNewAccountReportForm!: FormGroup;
   modalTitle = '';
+  loginData: any;
   mode!:
     | 'insertGroupPro'
     | 'insertSubGroupPro'
@@ -30,9 +35,12 @@ export class AccountReportToItemComponent implements OnInit {
     private httpService: HttpService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+
+    const loginData = localStorage.getItem('loginData');
+    this.loginData = loginData ? JSON.parse(loginData) : {};
     this.getReportItemType();
   }
 
@@ -80,9 +88,7 @@ export class AccountReportToItemComponent implements OnInit {
       else element.isSelected = false;
     });
 
-
     this.getAccountReportList(this.selectedReportTypeId);
-
   }
 
   onNodeSelect(e: any) {

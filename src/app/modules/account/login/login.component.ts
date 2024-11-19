@@ -105,8 +105,14 @@ export class LoginComponent implements OnInit {
       this.model.password = password;
       const data = new FormData();
       data.append('DNT_CaptchaInputText', this.model.DNTCaptchaInputText);
-      data.append('DNT_CaptchaText', this.model.DNTCaptchaText);
-      data.append('DNT_CaptchaToken', this.model.DNTCaptchaToken);
+      data.append(
+        'DNT_CaptchaText',
+        this.model.DNTCaptchaText.dntCaptchaTextValue
+      );
+      data.append(
+        'DNT_CaptchaToken',
+        this.model.DNTCaptchaText.dntCaptchaTokenValue
+      );
       data.append(
         'password',
         PersianNumberService.toEnglish(this.model.password)
@@ -214,5 +220,4 @@ export class LoginComponent implements OnInit {
   //       }
   //     });
   // }
-
 }

@@ -605,6 +605,26 @@ export class ProductGroup {
   children!: ProductGroup[];
 }
 
+export class ProjectStructure {
+  static readonly apiAddress = 'api/PABudgetApi/v1/Project/ProjectTree/';
+  static readonly apiAddressType =
+    'api/PABudgetApi/v1/BaseInfo/ProjectTree/list';
+  id!: number;
+  title!: string;
+  code!: number;
+  projectId!: number;
+  hasChild!: boolean;
+  parentId!: number | null;
+  from_PeriodId!: number;
+  to_PeriodId!: number;
+  from_PeriodDetailId!: number;
+  to_PeriodDetailId!: number;
+  typeCode!: string;
+  hourPerson!: string;
+
+  children!: ProjectStructure[];
+}
+
 /**قرارداد */
 export class Contract {
   /** آدرس سرویس */
