@@ -22,12 +22,14 @@
         </p-dropdown>
       </div>
       <div class="col-2 mt-2">
-        <label for="swotRank"> ضریب </label>
-        <input pInputText id="swotRank" name="swotRank" formControlName="swotRank" class="w-100 my-1" />
+        <label for="swotRank"> ضریب(بین0تا100) </label>
+        <input pInputText type="number" id="swotRank" name="swotRank" formControlName="swotRank" maxlength="2" [min]="0"
+          [max]="100" class="w-100 my-1" (keypress)="validateInputSwotRank($event)" />
       </div>
       <div class="col-2 mt-2">
-        <label for="swoPriority"> اولویت </label>
-        <input pInputText id="swoPriority" name="swoPriority" formControlName="swoPriority" class="w-100 my-1" />
+        <label for="strategyPriority"> الویت(بین1تا10) </label>
+        <input pInputText type="number" id="strategyPriority" name="strategyPriority" formControlName="strategyPriority"
+          maxlength="2" [min]="0" [max]="10" class="w-100 my-1" (keypress)="validateInputStrategyPriority($event)" />
       </div>
       <!-- دکمه -->
       <div class="d-flex justify-content-end col text-end" style="margin-top: 20px">

@@ -188,5 +188,54 @@ export class SwotComponent {
     this.getData();
   }
 
+  validateInputSwotRank(event: KeyboardEvent) {
+    const charCode = event.key;
+    const input = (event.target as HTMLInputElement).value;
+
+    // Allow backspace and delete
+    if (charCode === 'Backspace' || charCode === 'Delete') {
+      return;
+    }
+
+    // Prevent entering values starting with '0' unless it’s '0'
+    if (input === '' && charCode === '0') {
+      event.preventDefault();
+    }
+    if (input === '0' && charCode) {
+      event.preventDefault();
+    }
+
+    // Prevent values greater than 100
+    const newValue = parseInt(input + charCode, 10);
+    if (newValue > 101) {
+      event.preventDefault();
+    }
+
+  }
+
+
+  validateInputStrategyPriority(event: KeyboardEvent) {
+    const charCode = event.key;
+    const input = (event.target as HTMLInputElement).value;
+
+    // Allow backspace and delete
+    if (charCode === 'Backspace' || charCode === 'Delete') {
+      return;
+    }
+
+    // Prevent entering values starting with '0' unless it’s '0'
+    if (input === '' && charCode === '0') {
+      event.preventDefault();
+    }
+
+    // Prevent values greater than 100
+    const newValue = parseInt(input + charCode, 10);
+    if (newValue > 10) {
+      event.preventDefault();
+    }
+
+  }
+
+
 }
 
