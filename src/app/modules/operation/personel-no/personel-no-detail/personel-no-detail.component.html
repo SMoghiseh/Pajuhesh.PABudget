@@ -6,115 +6,48 @@
     <div class="row mt-8 pb-3">
       <div class="col-2 my-1">
         <label for="costCenterTypeId">مرکز هزینه</label>
-        <p-dropdown
-          id="costCenterTypeId"
-          name="costCenterTypeId"
-          formControlName="costCenterTypeId"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="CostCenterLst"
-          [filter]="true"
-          [class.ng-invalid]="costCenterTypeId?.invalid"
-          [class.ng-dirty]="
-            (formSubmitted && costCenterTypeId?.pristine) ||
-            costCenterTypeId?.dirty ||
-            costCenterTypeId?.touched
-          ">
+        <p-dropdown id="costCenterTypeId" name="costCenterTypeId" formControlName="costCenterTypeId"
+          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+          [options]="CostCenterLst" [filter]="true">
         </p-dropdown>
       </div>
       <div class="col-2 my-1">
         <label for="employmentTypeId">نوع استخدام</label>
-        <p-dropdown
-          id="employmentTypeId"
-          name="employmentTypeId"
-          formControlName="employmentTypeId"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="employmentTypeLst"
-          [filter]="true"
-          [class.ng-invalid]="employmentTypeId?.invalid"
-          [class.ng-dirty]="
-            (formSubmitted && employmentTypeId?.pristine) ||
-            employmentTypeId?.dirty ||
-            employmentTypeId?.touched
-          ">
+        <p-dropdown id="employmentTypeId" name="employmentTypeId" formControlName="employmentTypeId"
+          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+          [options]="employmentTypeLst" [filter]="true">
         </p-dropdown>
       </div>
 
       <div class="col-2 my-1">
         <label for="educationTypeId">تحصیلات</label>
-        <p-dropdown
-          id="educationTypeId"
-          name="educationTypeId"
-          formControlName="educationTypeId"
-          styleClass="w-100 my-1"
-          optionLabel="title"
-          optionValue="id"
-          placeholder="انتخاب کنید"
-          [options]="educationTypeCodeLst"
-          [filter]="true"
-          [class.ng-invalid]="educationTypeId?.invalid"
-          [class.ng-dirty]="
-            (formSubmitted && educationTypeId?.pristine) ||
-            educationTypeId?.dirty ||
-            educationTypeId?.touched
-          ">
+        <p-dropdown id="educationTypeId" name="educationTypeId" formControlName="educationTypeId"
+          styleClass="w-100 my-1" optionLabel="title" optionValue="id" placeholder="انتخاب کنید"
+          [options]="educationTypeCodeLst" [filter]="true">
         </p-dropdown>
       </div>
       <div class="col-2 mt-2">
         <label for="personelCount">تعداد</label>
-        <p-inputNumber
-          id="personelCount"
-          name="personelCount"
-          formControlName="personelCount"
+        <p-inputNumber id="personelCount" name="personelCount" formControlName="personelCount"
           class="w-100"></p-inputNumber>
       </div>
       <div class="col-2 mt-2">
         <label for="employeewageCU"> مبلغ دستمزد (میلیون ریال)</label>
-        <p-inputNumber
-          id="employeewageCU"
-          name="employeewageCU"
-          formControlName="employeewageCU"
-          inputId="integeronly"
+        <p-inputNumber id="employeewageCU" name="employeewageCU" formControlName="employeewageCU" inputId="integeronly"
           class="w-100"></p-inputNumber>
       </div>
       <!-- جنسیت -->
       <div class="d-flex">
         <label class="p-4">جنسیت :</label>
         <div class="d-flex p-4">
-          <p-radioButton
-            id="gender"
-            style="padding-top: 5px"
-            name="gender"
-            formControlName="gender"
-            [value]="1"
-            inputId="ingredient2"
-            [class.ng-invalid]="gender?.invalid"
-            [class.ng-dirty]="
-              (formSubmitted && gender?.pristine) ||
-              gender?.dirty ||
-              gender?.touched
-            "></p-radioButton>
+          <p-radioButton id="gender" style="padding-top: 5px" name="gender" formControlName="gender" [value]="1"
+            inputId="ingredient2"></p-radioButton>
           <label for="ingredient2" class="ms-2">زن</label>
         </div>
 
         <div class="d-flex p-4">
-          <p-radioButton
-            id="gender"
-            name="gender"
-            formControlName="gender"
-            [value]="0"
-            inputId="ingredient1"
-            [class.ng-invalid]="gender?.invalid"
-            [class.ng-dirty]="
-              (formSubmitted && gender?.pristine) ||
-              gender?.dirty ||
-              gender?.touched
-            "></p-radioButton>
+          <p-radioButton id="gender" name="gender" formControlName="gender" [value]="0"
+            inputId="ingredient1"></p-radioButton>
           <label for="ingredient1" class="ms-2">مرد</label>
         </div>
       </div>
@@ -123,20 +56,9 @@
       <!-- دکمه -->
       <div class="d-flex justify-content-start col text-end">
         <div class="mt-12 d-flex">
-          <p-button
-            class="ng-star-inserted"
-            style="padding-left: 3px"
-            styleClass="p-button-info"
-            [disabled]="btnDis"
-            [label]="'دانلود فایل اکسل'"
-            (click)="downloadExcelFile()"></p-button>
-          <p-fileUpload
-            #form
-            mode="basic"
-            [disabled]="btnDis"
-            chooseLabel="افزودن پیوست"
-            name="attachments[]"
-            [auto]="true"
+          <p-button class="ng-star-inserted" style="padding-left: 3px" styleClass="p-button-info"
+            [label]="'دانلود فایل اکسل'" (click)="downloadExcelFile()"></p-button>
+          <p-fileUpload #form mode="basic" chooseLabel="افزودن پیوست" name="attachments[]" [auto]="true"
             (onSelect)="onSelectAttachment($event.files)"></p-fileUpload>
         </div>
         <div class="d-flex justify-content-end col text-end">
@@ -144,18 +66,10 @@
             <div class="clear-search" (click)="clearSearch()">
               <i class="pi pi-filter-slash"></i>
             </div>
-            <p-button
-              class="pe-2 p-button-wide"
-              styleClass="p-button-info"
-              [label]="'جستجو'"
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-info" [label]="'جستجو'"
               (click)="searchPersonalNumberList()"></p-button>
-            <p-button
-              class="pe-2 p-button-wide"
-              styleClass="p-button-info"
-              icon="pi pi-plus-circle"
-              [label]="buttonLabel"
-              [loading]="isLoadingSubmit"
-              (click)="addPersonalNoDetail()"></p-button>
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-info" icon="pi pi-plus-circle"
+              [label]="buttonLabel" [loading]="isLoadingSubmit" (click)="addPersonalNoDetail()"></p-button>
           </div>
         </div>
       </div>
@@ -164,22 +78,10 @@
   </form>
 </div>
 <div class="table-container">
-  <p-table
-    #dataTable
-    dataKey="id"
-    class="data-table d-none d-lg-block"
-    [styleClass]="gridClass"
-    [rowHover]="true"
-    [paginator]="true"
-    [rows]="dataTableRows"
-    [rowsPerPageOptions]="[10, 20, 30]"
-    [totalRecords]="totalCount"
-    [value]="data"
-    [loading]="loading"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [lazy]="true"
-    (onLazyLoad)="getPersonalNumberList($event)"
-    [(first)]="first">
+  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+    (onLazyLoad)="getPersonalNumberList($event)" [(first)]="first">
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
@@ -209,55 +111,31 @@
     </ng-template>
     <ng-template pTemplate="body" let-personelNo let-rowIndex="rowIndex">
       <tr>
-        <td
-          pTooltip="{{ personelNo.costCenterTypeTitle }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ personelNo.costCenterTypeTitle }}" tooltipEvent="hover" tooltipPosition="top">
           {{ personelNo.costCenterTypeTitle }}
         </td>
-        <td
-          pTooltip="{{ personelNo.employmentTypeTitle }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ personelNo.employmentTypeTitle }}" tooltipEvent="hover" tooltipPosition="top">
           {{ personelNo.employmentTypeTitle }}
         </td>
-        <td
-          pTooltip="{{ personelNo.educationTypeTitle }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ personelNo.educationTypeTitle }}" tooltipEvent="hover" tooltipPosition="top">
           {{ personelNo.educationTypeTitle }}
         </td>
-        <td
-          pTooltip="{{ personelNo.personelCount }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ personelNo.personelCount }}" tooltipEvent="hover" tooltipPosition="top">
           {{ personelNo.personelCount }}
         </td>
-        <td
-          pTooltip="{{ personelNo.employeewageCU }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ personelNo.employeewageCU }}" tooltipEvent="hover" tooltipPosition="top">
           {{ personelNo.employeewageCU | number }}
         </td>
-        <td
-          pTooltip="{{ personelNo.genderTitle }}"
-          tooltipEvent="hover"
-          tooltipPosition="top">
+        <td pTooltip="{{ personelNo.genderTitle }}" tooltipEvent="hover" tooltipPosition="top">
           {{ personelNo.genderTitle }}
         </td>
 
         <td class="jc-left ai-left">
-          <button
-            class="action-image-container edit-button"
-            (click)="editRow(personelNo)"
-            pTooltip="ویرایش  ">
+          <button class="action-image-container edit-button" (click)="editRow(personelNo)" pTooltip="ویرایش  ">
             <img ngSrc="icons\Group 116.svg" width="24" height="24" />
           </button>
 
-          <button
-            class="action-image-container delete-button"
-            (click)="deleteRow(personelNo)"
-            pTooltip="حذف  ">
+          <button class="action-image-container delete-button" (click)="deleteRow(personelNo)" pTooltip="حذف  ">
             <img ngSrc="icons\Group 117.svg" width="24" height="24" />
           </button>
         </td>
@@ -336,16 +214,11 @@
 
         <div class="col my-1 text-center">
           <div class="d-flex jc-center ai-center">
-            <button
-              class="action-image-container edit-button"
-              (click)="editRow(personelNo)"
-              title="ویرایش بودجه پرسنل">
+            <button class="action-image-container edit-button" (click)="editRow(personelNo)" title="ویرایش بودجه پرسنل">
               <img ngSrc="icons\Group 116.svg" width="24" height="24" />
             </button>
 
-            <button
-              class="action-image-container delete-button"
-              (click)="deleteRow(personelNo)"
+            <button class="action-image-container delete-button" (click)="deleteRow(personelNo)"
               title="حذف بودجه پرسنل">
               <img ngSrc="icons\Group 117.svg" width="24" height="24" />
             </button>

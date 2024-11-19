@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  AccountReportToItem,
   AttachmentType,
   BudgetSourceUse,
   Company,
@@ -9,7 +8,7 @@ import {
   EmploymentType,
   Pagination,
   PersonelNo,
-  UrlBuilder,
+  UrlBuilder
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, of, tap } from 'rxjs';
@@ -45,7 +44,6 @@ export class PersonelNoDetailComponent {
   personelNoId = 0;
   isLoadingSubmit = false;
   buttonLabel = 'افزودن';
-  btnDis = true;
   // dropdown properties
   employmentTypeLst: EmploymentType[] = [];
   CostCenterLst: CostCenterType[] = [];
@@ -73,7 +71,7 @@ export class PersonelNoDetailComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCostCenterType();
@@ -83,17 +81,11 @@ export class PersonelNoDetailComponent {
 
     this.searchPersonelNoForm = new FormGroup({
       employmentTypeId: new FormControl(
-        this.addEditPersonelNoModel.employmentTypeId,
-        Validators.required
-      ),
+        this.addEditPersonelNoModel.employmentTypeId),
       costCenterTypeId: new FormControl(
-        this.addEditPersonelNoModel.costCenterTypeId,
-        Validators.required
-      ),
+        this.addEditPersonelNoModel.costCenterTypeId),
       educationTypeId: new FormControl(
-        this.addEditPersonelNoModel.educationTypeId,
-        Validators.required
-      ),
+        this.addEditPersonelNoModel.educationTypeId),
       employeewageCU: new FormControl(
         this.addEditPersonelNoModel.employeewageCU
       ),
@@ -231,10 +223,9 @@ export class PersonelNoDetailComponent {
 
   searchPersonalNumberList(event?: any) {
     this.formSubmitted = true;
-    if (!this.searchPersonelNoForm.valid) return;
-    else this.getPersonalNumberList(event);
-    this.btnDis = false;
+    this.getPersonalNumberList(event);
   }
+
   getPersonalNumberList(event?: any) {
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
@@ -353,7 +344,7 @@ export class PersonelNoDetailComponent {
       this.httpService
         .get<PersonelNo>(
           UrlBuilder.build(PersonelNo.apiAddressPersonelNo + 'DELETE', '') +
-            `/${id}`
+          `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
