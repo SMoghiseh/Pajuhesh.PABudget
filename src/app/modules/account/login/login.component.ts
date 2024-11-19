@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 
@@ -17,6 +24,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/services/app-config.service';
 import { LoginForm } from './login-form';
 import { Common } from 'src/app/app.component';
+import { json } from 'd3';
 
 class LoginModel {
   username = '';
@@ -30,12 +38,13 @@ class LoginModel {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  @Output() showCaptchImage = new EventEmitter<string>();
   public loading = false;
   public submitted = false;
-  captchaData: any;
+  captchaImageData: any;
+  dntCaptchaImgUrl: string | undefined;
   captchaApiUrl =
     this.config.getAddress('baseUrl') + Account.apiAddress + '/GetDNTCaptcha';
-
   // Form group:
   public loginForm!: FormGroup;
   public loginModel = new LoginModel();
@@ -68,13 +77,13 @@ export class LoginComponent implements OnInit {
     public sidemenuService: SidemenuService,
     private httpService: HttpService,
     private http: HttpClient
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.prjType = Common.prjType;
     this.prjTitle = Common.prjTitle;
     this.prjDescription = Common.prjDescription;
-    this.GetDNTCaptcha();
+    // this.GetDNTCaptcha();
     this.offcanvasModeDetection(window.innerWidth);
     this.loginForm = new FormGroup({
       username: new FormControl(this.loginModel.username, Validators.required),
@@ -96,8 +105,14 @@ export class LoginComponent implements OnInit {
       this.model.password = password;
       const data = new FormData();
       data.append('DNT_CaptchaInputText', this.model.DNTCaptchaInputText);
-      data.append('DNT_CaptchaText', this.model.DNTCaptchaText);
-      data.append('DNT_CaptchaToken', this.model.DNTCaptchaToken);
+      data.append(
+        'DNT_CaptchaText',
+        this.model.DNTCaptchaText.dntCaptchaTextValue
+      );
+      data.append(
+        'DNT_CaptchaToken',
+        this.model.DNTCaptchaText.dntCaptchaTokenValue
+      );
       data.append(
         'password',
         PersianNumberService.toEnglish(this.model.password)
@@ -193,9 +208,16 @@ export class LoginComponent implements OnInit {
     else this.sidemenuService.offcanvasMode = false;
   }
 
-  GetDNTCaptcha() {
-    this.httpService
-      .get<Account>(Account.apiAddress + '/GetDNTCaptcha')
-      .subscribe(captchaData => (this.captchaData = captchaData));
-  }
+  // GetDNTCaptcha() {
+  //   this.httpService
+  //     .get<Account>(Account.apiAddress + '/GetDNTCaptcha')
+  //     .subscribe(response => {
+  //       if (response.data) {
+
+  //         this.captchaImageData =
+  //           'data:application/octet-stream;base64,' + response.data;
+  //         this.showCaptchImage.emit(this.captchaImageData);
+  //       }
+  //     });
+  // }
 }

@@ -10,9 +10,19 @@
       <!--  شرکت -->
       <div class="col-2">
         <label for="companyId"> شرکت </label>
-        <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-          optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
-          (onChange)="onChangeCompanyId($event)" [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+        <p-dropdown
+          id="companyId"
+          name="companyId"
+          formControlName="companyId"
+          styleClass="w-100 my-1"
+          optionLabel="partyName"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="companyList"
+          [filter]="true"
+          (onChange)="onChangeCompanyId($event)"
+          [class.ng-invalid]="companyId?.invalid"
+          [class.ng-dirty]="
             (formSubmitted && companyId?.pristine) ||
             companyId?.dirty ||
             companyId?.touched
@@ -23,9 +33,19 @@
       <!--  دوره بودجه -->
       <div class="col-2">
         <label for="periodId">دوره بودجه </label>
-        <p-dropdown id="periodId" name="periodId" formControlName="periodId" styleClass="w-100 my-1"
-          optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="periodList" [filter]="true"
-          (onChange)="onChangePeriod($event)" [class.ng-invalid]="periodId?.invalid" [class.ng-dirty]="
+        <p-dropdown
+          id="periodId"
+          name="periodId"
+          formControlName="periodId"
+          styleClass="w-100 my-1"
+          optionLabel="periodTitle"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="periodList"
+          [filter]="true"
+          (onChange)="onChangePeriod($event)"
+          [class.ng-invalid]="periodId?.invalid"
+          [class.ng-dirty]="
             (formSubmitted && periodId?.pristine) ||
             periodId?.dirty ||
             periodId?.touched
@@ -36,9 +56,18 @@
       <!--  دوره عملیاتی -->
       <div class="col-2">
         <label for="fromPeriodDetailId"> از دوره عملیاتی </label>
-        <p-dropdown id="fromPeriodDetailId" name="fromPeriodDetailId" formControlName="fromPeriodDetailId"
-          styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-          [options]="periodDetailLst" [filter]="true" [class.ng-invalid]="fromPeriodDetailId?.invalid" [class.ng-dirty]="
+        <p-dropdown
+          id="fromPeriodDetailId"
+          name="fromPeriodDetailId"
+          formControlName="fromPeriodDetailId"
+          styleClass="w-100 my-1"
+          optionLabel="periodDetailTitle"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="periodDetailLst"
+          [filter]="true"
+          [class.ng-invalid]="fromPeriodDetailId?.invalid"
+          [class.ng-dirty]="
             (formSubmitted && fromPeriodDetailId?.pristine) ||
             fromPeriodDetailId?.dirty ||
             fromPeriodDetailId?.touched
@@ -47,9 +76,18 @@
       </div>
       <div class="col-2">
         <label for="toPeriodDetailId">تا دوره عملیاتی </label>
-        <p-dropdown id="toPeriodDetailId" name="toPeriodDetailId" formControlName="toPeriodDetailId"
-          styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-          [options]="periodDetailLst" [filter]="true" [class.ng-invalid]="toPeriodDetailId?.invalid" [class.ng-dirty]="
+        <p-dropdown
+          id="toPeriodDetailId"
+          name="toPeriodDetailId"
+          formControlName="toPeriodDetailId"
+          styleClass="w-100 my-1"
+          optionLabel="periodDetailTitle"
+          optionValue="id"
+          placeholder="انتخاب کنید"
+          [options]="periodDetailLst"
+          [filter]="true"
+          [class.ng-invalid]="toPeriodDetailId?.invalid"
+          [class.ng-dirty]="
             (formSubmitted && toPeriodDetailId?.pristine) ||
             toPeriodDetailId?.dirty ||
             toPeriodDetailId?.touched
@@ -60,8 +98,13 @@
 
       <div class="col-4 align-content-end pb-2">
         <div class="d-flex align-items-center">
-          <p-radioButton name="priceType" formControlName="priceType" [value]="2" inputId="ingredient2"
-            [class.ng-invalid]="priceType?.invalid" [class.ng-dirty]="
+          <p-radioButton
+            name="priceType"
+            formControlName="priceType"
+            [value]="2"
+            inputId="ingredient2"
+            [class.ng-invalid]="priceType?.invalid"
+            [class.ng-dirty]="
               (formSubmitted && priceType?.pristine) ||
               priceType?.dirty ||
               priceType?.touched
@@ -69,8 +112,12 @@
           <label for="ingredient2" class="ms-2 me-4">مبلغ عملکرد</label>
           <!-- </div>
 
-        <div class="d-flex align-items-center"> -->
-          <p-radioButton name="priceType" formControlName="priceType" [value]="1" inputId="ingredient1"></p-radioButton>
+          <div class="d-flex align-items-center"> -->
+          <p-radioButton
+            name="priceType"
+            formControlName="priceType"
+            [value]="1"
+            inputId="ingredient1"></p-radioButton>
           <label for="ingredient1" class="ms-2 me-4">مبلغ بودجه</label>
         </div>
       </div>
@@ -113,25 +160,34 @@
 </div>
 <div class="table-container">
   <div *ngIf="accountReportItemList" class="card">
-    <p-treeTable class="treeTable-container" [value]="accountReportItemList.body"
-      [columns]="accountReportItemList.headers" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-treeTable
+      class="treeTable-container"
+      [value]="accountReportItemList.body"
+      [columns]="accountReportItemList.headers"
+      [scrollable]="true"
+      [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th style="width: 330px" *ngFor="let col of columns ; let i = index">
+          <th style="width: 330px" *ngFor="let col of columns; let i = index">
             {{ col.headerName }}
 
-            <span *ngIf="i == 0">{{AdditionalTextForColumn}}</span>
-
+            <span *ngIf="i == 0">{{ AdditionalTextForColumn }}</span>
           </th>
           <th style="width: 300px">
-            <ng-container *ngIf="IsBreakingBudgeVisibile">شکست بودجه</ng-container>
+            <ng-container *ngIf="IsBreakingBudgeVisibile"
+              >شکست بودجه</ng-container
+            >
             <ng-container *ngIf="!IsBreakingBudgeVisibile"></ng-container>
           </th>
 
           <!-- <th>جمع مبلغ(میلیون ریال)</th> -->
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+      <ng-template
+        pTemplate="body"
+        let-rowNode
+        let-rowData="rowData"
+        let-columns="columns">
         <tr [ttRow]="rowNode">
           <td>
             <p-treeTableToggler [rowNode]="rowNode" />
@@ -140,12 +196,18 @@
           <td ttEditableColumn style="min-width: 15rem; direction: ltr">
             <p-treeTableCellEditor>
               <ng-template pTemplate="input">
-                <p-inputNumber [(ngModel)]="rowData.priceCu" (onInput)="onChangePrice(rowData)"
-                  (keydown.enter)="onChangePrice(rowData)" (keydown.tab)="onChangePrice(rowData)"></p-inputNumber>
+                <p-inputNumber
+                  [(ngModel)]="rowData.priceCu"
+                  (onInput)="onChangePrice(rowData)"
+                  (keydown.enter)="onChangePrice(rowData)"
+                  (keydown.tab)="onChangePrice(rowData)"></p-inputNumber>
               </ng-template>
 
               <ng-template pTemplate="output">
-                <input pInputText type="text" value=" {{ rowData.priceCu | number }}"
+                <input
+                  pInputText
+                  type="text"
+                  value=" {{ rowData.priceCu | number }}"
                   [class.negative-number]="rowData.priceCu < 0" />
               </ng-template>
             </p-treeTableCellEditor>
@@ -153,9 +215,15 @@
             &nbsp;
           </td>
           <td class="jc-left ai-left">
-
-            <ng-container  *ngIf="IsBreakingBudgeVisibile && !rowData.changePrice && rowData.priceCu != 0">
-              <button class="action-image-container edit-button" (click)="onOpenBreakingBudgeDialog(rowData)"
+            <ng-container
+              *ngIf="
+                IsBreakingBudgeVisibile &&
+                !rowData.changePrice &&
+                rowData.priceCu != 0
+              ">
+              <button
+                class="action-image-container edit-button"
+                (click)="onOpenBreakingBudgeDialog(rowData)"
                 pTooltip=" شکست بودجه">
                 <img ngSrc="icons\Group 131.svg" width="24" height="24" />
               </button>
@@ -197,18 +265,31 @@
   <!-- </form> -->
 
   <div class="d-flex justify-content-end" style="padding: 13px 2px">
-    <p-button class="pe-2 mr-8" styleClass="p-button-info" icon="pi pi-plus-circle" label="ذخیره تغییرات"
+    <p-button
+      class="pe-2 mr-8"
+      styleClass="p-button-info"
+      icon="pi pi-plus-circle"
+      label="ذخیره تغییرات"
       (click)="addList()"></p-button>
   </div>
 </div>
 
-<p-dialog *ngIf="addBuggetBreakingModal" [header]="'افزودن شکست بودجه به ازای هر ماه '"
-  [(visible)]="addBuggetBreakingModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{ width: '80%' }"
+<p-dialog
+  *ngIf="addBuggetBreakingModal"
+  [header]="'افزودن شکست بودجه به ازای هر ماه '"
+  [(visible)]="addBuggetBreakingModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '80%' }"
   class="height-size">
   <div class="d-flex row-cols-lg-6 flex-wrap month-list">
     <ng-container *ngFor="let item of monthList">
       <div class="col">
-        <div [class.selected]="item.id === selectedMonthItem?.id" class="content" (click)="onSelectMonthItem(item)">
+        <div
+          [class.selected]="item.id === selectedMonthItem?.id"
+          class="content"
+          (click)="onSelectMonthItem(item)">
           <p class="month-title">
             <span>{{ item.periodTitle }}</span>
           </p>
@@ -221,16 +302,23 @@
             <!-- <p-inputNumber [minFractionDigits]="2"  mode="decimal" [(ngModel)]="item.percentage" (onInput)="onChangePercent(item)"
               (keydown.enter)="onChangePercent(item)" (keydown.tab)="onChangePercent(item)"></p-inputNumber> -->
 
-            <input pInputText [(ngModel)]="item.percentage" (ngModelChange)="onChangePercent(item)" />
+            <input
+              pInputText
+              [(ngModel)]="item.percentage"
+              (ngModelChange)="onChangePercent(item)" />
           </div>
         </div>
       </div>
     </ng-container>
   </div>
 
-  <div class="col-12 row-btn row-btn-fixed-bottom d-flex justify-content-between">
+  <div
+    class="col-12 row-btn row-btn-fixed-bottom d-flex justify-content-between">
     <span>*تمامی مبالغ به میلیون ریال است</span>
-    <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'"
+    <p-button
+      class="pe-2 p-button-wide"
+      styleClass="p-button-success"
+      [label]="'ثبت'"
       (click)="addPercentageList()"></p-button>
   </div>
 </p-dialog>

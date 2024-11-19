@@ -11,8 +11,12 @@ import { map } from 'rxjs';
 export class InformationsComponent {
 
   @Input() inputData: any;
-
+  gridClass = 'p-datatable-sm';
+  dataTableRows = 10;
+  first = 0;
+  totalCount!: number;
   planDetailData: any;
+  loading = false;
   selectDateType = 'single';
   selectedPlanName = 'مفروضات';
 

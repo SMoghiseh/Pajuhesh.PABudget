@@ -66,6 +66,7 @@ export class PeriodDefinitionComponent implements OnInit {
       routerLink: ['/Period/FinancialRatiosIndustry'],
     },
   ];
+  loginData: any;
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
@@ -75,6 +76,8 @@ export class PeriodDefinitionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const loginData = localStorage.getItem('loginData');
+    this.loginData = loginData ? JSON.parse(loginData) : {};
     this.route.params.subscribe((param: any) => {
       if (param.id) {
         this.isDetail = true;

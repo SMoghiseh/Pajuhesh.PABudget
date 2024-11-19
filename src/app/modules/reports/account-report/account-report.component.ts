@@ -42,7 +42,7 @@ export class AccountReportComponent implements OnInit {
   periodTypeList: any = [];
   reportTypeCodeList: any = [];
   companyList: any = [];
-
+  loginData: any;
   get reportTypeCode() {
     return this.addNewAccountReportForm.get('reportTypeCode');
   }
@@ -54,6 +54,8 @@ export class AccountReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const loginData = localStorage.getItem('loginData');
+    this.loginData = loginData ? JSON.parse(loginData) : {};
     this.getPeriodTypeList();
     this.getReportTypeCodeList();
     this.getCompanyLst();

@@ -1,7 +1,10 @@
 <p-toast key="periodDefinition" position="bottom-left"></p-toast>
 
 <div class="table-header">{{ pageTitle }}</div>
-<div class="justify-content-between pb-3 w-100" style="text-align: end">
+<div
+  class="justify-content-between pb-3 w-100"
+  *ngIf="loginData.role === 'ادمین'"
+  style="text-align: end">
   <p-button
     class="pe-2"
     styleClass="p-button-info"
@@ -95,7 +98,7 @@
               [appendTo]="tblDiv"></p-menu>
           </div>
           <button
-            *ngIf="!isDetail"
+            *ngIf="!isDetail &&  loginData.role === 'ادمین'"
             class="action-image-container add-button"
             (click)="periodDetail(period)"
             pTooltip="دوره عملیاتی">
@@ -103,6 +106,7 @@
           </button>
 
           <button
+            *ngIf="loginData.role === 'ادمین'"
             class="action-image-container edit-button"
             (click)="editRow(period)"
             pTooltip="ویرایش دوره">
@@ -110,6 +114,7 @@
           </button>
 
           <button
+            *ngIf="loginData.role === 'ادمین'"
             class="action-image-container delete-button"
             (click)="deleteRow(period)"
             pTooltip="حذف دوره">
