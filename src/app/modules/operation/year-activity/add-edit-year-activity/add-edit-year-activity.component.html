@@ -119,8 +119,8 @@
     </div>
 
     <div class="col-4">
-      <label for="priceCu"> تاثیر مالی </label>
-      <p-inputNumber id="priceCu" formControlName="priceCu" type="text" pKeyFilter="int" [minlength]="0" class="w-100"
+      <label for="priceCu"> تاثیر مالی (میلیون ریال) </label>
+      <p-inputNumber id="priceCu" formControlName="priceCu" inputId="integeronly" class="w-100"
         [class.ng-invalid]="priceCu?.invalid" [class.ng-dirty]="
           (addEditFormSubmitted && priceCu?.pristine) ||
           priceCu?.dirty ||
