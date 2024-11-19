@@ -40,16 +40,12 @@ export class HeaderComponent implements OnInit {
     private themeService: ThemeService,
     private storedRoutesService: StoredRoutesService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.darkmode = this.themeService.theme === 'light-theme' ? false : true;
     const loginData = localStorage.getItem('loginData');
     this.loginData = loginData ? JSON.parse(loginData) : {};
-    this.defaultPath =
-      this.loginData.mainRole === 'CEO'
-        ? this.loginData.mainRole + '/landing'
-        : this.loginData.mainRole + '/dashboard';
     this.currentApplicationVersion = environment.appVersion;
     this.profileItems = [
       {
@@ -135,7 +131,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onDownloadHelp() {
-    const urlPDF = './assets/Helps/' + this.loginData.mainRole + '.pdf';
+    const urlPDF = './assets/Helps/' + this.loginData.role + '.pdf';
     window.open(urlPDF, '_blank');
   }
 

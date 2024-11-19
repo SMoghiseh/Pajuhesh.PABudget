@@ -14,10 +14,16 @@ export class TreeOrganizationComponent {
   filterList: any = []
   selectedFilterTab = new listReportForTree();
 
-  constructor(private httpService: HttpService, private router: Router , private _location:Location) {
+  constructor(private httpService: HttpService, private router: Router, private _location: Location) {
   }
 
   ngOnInit(): void {
+
+    const data = localStorage.getItem('loginData');
+    let loginData: any = data ? JSON.parse(data) : {};
+    if (loginData.role != 'Admin')
+      this.router.navigate(['/default/Dashboard']);
+
     this.getFilteredCompanyList();
   }
 

@@ -137,12 +137,7 @@ export class AllDocumentsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const loginData = localStorage.getItem('loginData');
     this.loginData = loginData ? JSON.parse(loginData) : {};
-    if (
-      this.loginData.mainRole == 'CEO' ||
-      this.loginData.mainRole === 'Administrator'
-    ) {
-      this.getMySubCompanies(0);
-    }
+
     this.addNewAdvertTagTypeForm = new FormGroup({
       companyId: new FormControl(),
       yearValue: new FormControl(),
@@ -164,7 +159,6 @@ export class AllDocumentsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     const input = new Publisher();
-    if (this.loginData.mainRole !== 'CEO') this._searchData = input;
   }
 
   /*--------------------------
