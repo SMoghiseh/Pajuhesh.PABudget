@@ -98,7 +98,7 @@ export class ProjectComponent {
     this.getProject();
   }
 
-  positionMenu(event: any) { debugger
+  positionMenu(event: any) {
     const menu = event.originalEvent.target.nextElementSibling; // Access the menu DOM element
     if (menu) {
       const menuRect = menu.getBoundingClientRect();
@@ -106,7 +106,7 @@ export class ProjectComponent {
       menu.style.left = `${event.originalEvent.clientX}px`;
     }
   }
-  getProject(event?: LazyLoadEvent) {debugger
+  getProject(event?: LazyLoadEvent) {
     if (event) this.lazyLoadEvent = event;
 
     const pagination = new Pagination();
@@ -140,10 +140,10 @@ export class ProjectComponent {
       )
       .subscribe(res => (this.data = this.addSubComponentList(res)));
   }
-  onChangeCompanyId(e: any) {debugger
+  onChangeCompanyId(e: any) {
     this.getBudgetPeriodLst(e.value);
   }
-  addSubComponentList(data: any) {debugger
+  addSubComponentList(data: any) {
     data.forEach((row: any) => {
       row['componentList'] = [];
       let array = this.subComponentList;
@@ -197,7 +197,7 @@ export class ProjectComponent {
     }
   }
 
-  onChangBudgetPeriod(e: any) {debugger
+  onChangBudgetPeriod(e: any) {
     this.getfromToBudgetPeriodLst(e.value);
   }
   editRow(data: Project) {
@@ -247,14 +247,13 @@ export class ProjectComponent {
 
   onlyNumberKey(event: { charCode: number }) {
     return event.charCode == 8 || event.charCode == 0
-    ? null
-    : ( event.charCode >= 48 && event.charCode <= 57 );
+      ? null
+      : event.charCode >= 48 && event.charCode <= 57;
   }
 
   onlyFloatNumberKey(event: { charCode: number }) {
     return event.charCode == 8 || event.charCode == 0
-    ? null
-    : ( event.charCode >= 48 && event.charCode <= 57 )|| event.charCode == 46 ;
+      ? null
+      : (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46;
   }
-
 }

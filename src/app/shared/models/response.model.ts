@@ -607,12 +607,21 @@ export class ProductGroup {
 
 export class ProjectStructure {
   static readonly apiAddress = 'api/PABudgetApi/v1/Project/ProjectTree/';
+  static readonly apiAddressType =
+    'api/PABudgetApi/v1/BaseInfo/ProjectTree/list';
   id!: number;
   title!: string;
   code!: number;
+  projectId!: number;
+  hasChild!: boolean;
   parentId!: number | null;
-  productGroupTitle!: string;
-  productGroupCode!: number;
+  from_PeriodId!: number;
+  to_PeriodId!: number;
+  from_PeriodDetailId!: number;
+  to_PeriodDetailId!: number;
+  typeCode!: string;
+  hourPerson!: string;
+
   children!: ProjectStructure[];
 }
 

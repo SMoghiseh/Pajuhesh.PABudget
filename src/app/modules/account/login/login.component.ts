@@ -32,8 +32,6 @@ class LoginModel {
   rememberMe = false;
 }
 
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -82,7 +80,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
     this.prjType = Common.prjType;
     this.prjTitle = Common.prjTitle;
     this.prjDescription = Common.prjDescription;
@@ -100,7 +97,6 @@ export class LoginComponent implements OnInit {
 
   /** Log in user */
   public signin(): void {
-    debugger;
     this.submitted = true;
 
     if (this.loginForm.valid) {

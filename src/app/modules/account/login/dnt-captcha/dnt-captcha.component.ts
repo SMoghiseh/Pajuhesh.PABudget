@@ -41,7 +41,6 @@ export class DntCaptchaComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    debugger;
     this.doRefresh();
   }
 
@@ -65,7 +64,6 @@ export class DntCaptchaComponent implements OnInit {
     // this.token = this.apiUrl.dntCaptchaTokenValue;
     // this.onTokenChange();
     this.getCaptchaInfo().subscribe(data => {
-      debugger;
       this.apiResponse = {
         dntCaptchaImgUrl:
           'data:application/octet-stream;base64,' + data.data.dntCaptchaImgUrl,
