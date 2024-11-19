@@ -4,20 +4,13 @@
 <section class="section">
   <div class="d-flex justify-content-between">
     <div class="table-header">گزارشات مالی</div>
-    <p-button
-      class="pe-2 mt-4"
-      styleClass="p-button-info"
-      icon="pi pi-plus-circle"
-      label="افزودن  آیتم جدید"
+    <p-button class="pe-2 mt-4" styleClass="p-button-info" icon="pi pi-plus-circle" label="افزودن  آیتم جدید"
       (click)="onAddNewAccountReport()"></p-button>
   </div>
 
   <div class="panel-search mt-8 mb-8">
     <div class="row row-feature">
-      <div
-        *ngFor="let item of reportItemTypeList"
-        class="items"
-        (click)="onSelectReportItemType(item.id)"
+      <div *ngFor="let item of reportItemTypeList" class="items" (click)="onSelectReportItemType(item.id)"
         [class.select-feature]="item.isSelected">
         <span>{{ item.title }}</span>
       </div>
@@ -27,41 +20,28 @@
   <!-- data table -->
   <div class="table-container">
     <div class="tree-header mr-8">لیست آیتم ها</div>
-    <p-tree
-      selectionMode="single"
-      class="w-full md:w-30rem"
-      [value]="accountReports"
-      [(selection)]="selectedAccountReports"
-      [style]="{ height: '73vh', overflow: 'auto' }"
+    <p-tree selectionMode="single" class="w-full md:w-30rem" [value]="accountReports"
+      [(selection)]="selectedAccountReports" [style]="{ height: '73vh', overflow: 'auto' }"
       (onNodeSelect)="onNodeSelect($event)">
       <ng-template let-node pTemplate="default">
         <div class="node-container d-flex justify-content-between">
           <span>{{ node.label }}</span>
           <div class="command-list">
             <!-- edit -->
-            <button
-              *ngIf="loginData.role === 'ادمین'"
-              class="action-image-container"
-              pTooltip="ویرایش"
+            <button *ngIf="loginData.role === 'Admin'" class="action-image-container" pTooltip="ویرایش"
               (click)="onEditRow(node)">
               <img ngSrc="icons\Group 116.svg" width="22" height="22" />
             </button>
             <!-- / edit -->
 
             <!-- insert -->
-            <button
-              class="action-image-container"
-              pTooltip="افزودن"
-              (click)="onAddSubGroup(node)">
+            <button class="action-image-container" pTooltip="افزودن" (click)="onAddSubGroup(node)">
               <img ngSrc="icons\Group 187.svg" width="22" height="22" />
             </button>
             <!-- / insert -->
 
             <!-- delete -->
-            <button
-              *ngIf="loginData.role === 'ادمین'"
-              class="action-image-container"
-              pTooltip="حذف"
+            <button *ngIf="loginData.role === 'Admin'" class="action-image-container" pTooltip="حذف"
               (click)="onDeleteRow(node)">
               <img ngSrc="icons\Group 117.svg" width="22" height="22" />
             </button>
@@ -86,19 +66,9 @@
 <!-- <p-dialog styleClass="p-fluid" header="{{ modalTitle }}" [style]="{ width: '700px' }" [modal]="true"
   [(visible)]="isOpenAddAccountReport"> -->
 
-<p-dialog
-  [header]="modalTitle"
-  *ngIf="isOpenAddAccountReport"
-  [(visible)]="isOpenAddAccountReport"
-  [modal]="true"
-  [draggable]="false"
-  [resizable]="false"
-  class="height-size"
-  [style]="{ width: '700px' }">
-  <PABudget-add-edit-account-report-to-item
-    [data]="addEditData"
-    [mode]="mode"
-    (isSuccess)="reloadData()"
+<p-dialog [header]="modalTitle" *ngIf="isOpenAddAccountReport" [(visible)]="isOpenAddAccountReport" [modal]="true"
+  [draggable]="false" [resizable]="false" class="height-size" [style]="{ width: '700px' }">
+  <PABudget-add-edit-account-report-to-item [data]="addEditData" [mode]="mode" (isSuccess)="reloadData()"
     (isCloseModal)="closeModal()"></PABudget-add-edit-account-report-to-item>
 </p-dialog>
 <!-- / insert modal -->

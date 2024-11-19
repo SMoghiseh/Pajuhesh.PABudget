@@ -52,9 +52,9 @@
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
-      <label for="riskIntensity"> شدت </label>
-      <p-inputNumber id="riskIntensity" formControlName="riskIntensity" type="text" pKeyFilter="int" [minlength]="0"
-        class="w-100"></p-inputNumber>
+      <label for="riskIntensity"> شدت(بین0تا100) </label>
+      <input pInputText type="number" id="riskIntensity" name="riskIntensity" formControlName="riskIntensity"
+        maxlength="2" [min]="0" [max]="100" class="w-100 my-1" (keypress)="validateInputRiskIntensity($event)" />
     </div>
     <!-- <div class="col-6 mt-2">
       <label for="riskLevel"> سطح </label>
@@ -67,9 +67,9 @@
         class="w-100"></p-inputNumber>
     </div> -->
     <div class="col-6 mt-2">
-      <label for="possibility"> احتمال </label>
-      <p-inputNumber id="possibility" formControlName="possibility" type="text" pKeyFilter="int" [minlength]="0"
-        class="w-100"></p-inputNumber>
+      <label for="possibility"> احتمال(بین0تا100) </label>
+      <input pInputText type="number" id="possibility" name="possibility" formControlName="possibility" maxlength="2"
+        [min]="0" [max]="100" class="w-100 my-1" (keypress)="validateInputPossibility($event)" />
     </div>
     <div class="col-6 mt-2">
       <label for="effectBudget"> پیامد های وقوع ریسک در بودجه </label>

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { STRATEGY, Planning, BigGoal, StrategySWOT } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
@@ -17,7 +17,7 @@ export class AddEditStrategyComponent {
   addEditFormSubmitted = false;
   isLoadingSubmit = false;
   selectedCheckbox = [];
-  
+
   // dropdown data list
   planingList: any = [];
   typeCodeList: any = [];
@@ -64,14 +64,14 @@ export class AddEditStrategyComponent {
       title: new FormControl(''),
       planningId: new FormControl(0),
       bigGoalId: new FormControl(0),
-      strategyPriority: new FormControl(0),
+      strategyPriority: new FormControl(1),
     });
 
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
     }
 
- 
+
     this.addEditForm.patchValue({
       planningId: Number(this.route.snapshot.paramMap.get('id')),
       strategyTypeCodeId: this.inputData['strategyTypeCodeId']
@@ -92,7 +92,7 @@ export class AddEditStrategyComponent {
       const request = this.addEditForm.value;
       request.id = this.mode === 'insert' ? 0 : this.inputData?.strategy?.id;
       const url = StrategySWOT.apiAddressStrategySwot + 'Create';
-      request['swot'] = this.selectedCheckbox; 
+      request['swot'] = this.selectedCheckbox;
       this.isLoadingSubmit = true;
       this.httpService
         .post<StrategySWOT>(url, request)
@@ -164,6 +164,29 @@ export class AddEditStrategyComponent {
           this.selectedCheckbox = response.data.result['swot']
         }
       });
+  }
+
+
+  validateInput(event: KeyboardEvent) {
+    const charCode = event.key;
+    const input = (event.target as HTMLInputElement).value;
+
+    // Allow backspace and delete
+    if (charCode === 'Backspace' || charCode === 'Delete') {
+      return;
+    }
+
+    // Prevent entering values starting with '0' unless it’s '0'
+    if (input === '' && charCode === '0') {
+      event.preventDefault();
+    }
+
+    // Prevent values greater than 100
+    const newValue = parseInt(input + charCode, 10);
+    if (newValue > 10) {
+      event.preventDefault();
+    }
+
   }
 
 }

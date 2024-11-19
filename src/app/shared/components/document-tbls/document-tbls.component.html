@@ -1,21 +1,8 @@
 <!-- data table -->
-<p-table
-  #dataTable
-  dataKey="id"
-  [styleClass]="gridClass"
-  [paginator]="true"
-  [rows]="dataTableRows"
-  [rowsPerPageOptions]="[15, 20, 30]"
-  [rowHover]="true"
-  [totalRecords]="totalCount"
-  [value]="reportList"
-  [loading]="loading"
-  [tableStyle]="{ 'min-width': '75rem' }"
-  [lazy]="true"
-  (firstChange)="onfirstChange($event)"
-  (rowsChange)="onRowsChange($event)"
-  class="data-table d-none d-lg-block"
-  [(first)]="first">
+<p-table #dataTable dataKey="id" [styleClass]="gridClass" [paginator]="true" [rows]="dataTableRows"
+  [rowsPerPageOptions]="[15, 20, 30]" [rowHover]="true" [totalRecords]="totalCount" [value]="reportList"
+  [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true" (firstChange)="onfirstChange($event)"
+  (rowsChange)="onRowsChange($event)" class="data-table d-none d-lg-block" [(first)]="first">
   <!-- table header -->
   <ng-template pTemplate="header">
     <tr class="data-table__header">
@@ -63,9 +50,7 @@
         <strong>توضیحات</strong>
       </th>
 
-      <th
-        [class.col-w-3]="accessToActions.length === 1"
-        [class.col-w-4]="accessToActions.length === 2">
+      <th [class.col-w-3]="accessToActions.length === 1" [class.col-w-4]="accessToActions.length === 2">
         <strong>عملیات</strong>
       </th>
     </tr>
@@ -74,26 +59,16 @@
   <!-- table body -->
   <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
     <tr class="data-table__body" [class.warning-row]="report.docStatus === 2">
-      <td
-        pTooltip="{{ report.company }}"
-        tooltipEvent="hover"
-        tooltipPosition="top">
+      <td pTooltip="{{ report.company }}" tooltipEvent="hover" tooltipPosition="top">
         {{ report.company }}
       </td>
 
-      <td
-        pTooltip="{{ report.description }}"
-        tooltipEvent="hover"
-        tooltipPosition="top">
+      <td pTooltip="{{ report.description }}" tooltipEvent="hover" tooltipPosition="top">
         {{ report.description }}
         <!-- <a routerLink="/form" href="/form">{{ report.description }}</a> -->
       </td>
 
-      <td
-        pTooltip="{{ report.documentType }}"
-        tooltipEvent="hover"
-        tooltipPosition="top"
-        *ngIf="type !== 'myApproval'">
+      <td pTooltip="{{ report.documentType }}" tooltipEvent="hover" tooltipPosition="top" *ngIf="type !== 'myApproval'">
         {{ report.documentType }}
       </td>
 
@@ -127,69 +102,34 @@
         {{ report.publishDate | jDate }}
       </td>
 
-      <td
-        *ngIf="type === 'myApproval'"
-        pTooltip="{{ report.docTypeCodeDescription }}"
-        tooltipEvent="hover"
+      <td *ngIf="type === 'myApproval'" pTooltip="{{ report.docTypeCodeDescription }}" tooltipEvent="hover"
         tooltipPosition="top">
         {{ report.docTypeCodeDescription | faNum }}
       </td>
 
       <td>
-        <p-button
-          class="table-action-btns"
-          styleClass="p-button-text p-button-rounded p-button-lg"
-          icon="pi pi-eye"
-          pTooltip="جزئیات"
-          tooltipEvent="hover"
-          tooltipPosition="top"
-          (click)="previewDetails(report)"></p-button>
+        <p-button class="table-action-btns" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-eye"
+          pTooltip="جزئیات" tooltipEvent="hover" tooltipPosition="top" (click)="previewDetails(report)"></p-button>
 
-        <p-button
-          class="table-action-btns"
-          styleClass="p-button-text p-button-rounded p-button-lg"
-          icon="pi pi-paperclip"
-          pTooltip="پیوست ها"
-          tooltipEvent="hover"
-          tooltipPosition="top"
+        <p-button class="table-action-btns" styleClass="p-button-text p-button-rounded p-button-lg"
+          icon="pi pi-paperclip" pTooltip="پیوست ها" tooltipEvent="hover" tooltipPosition="top"
           (click)="previewAttachments(report)"></p-button>
 
-        <!-- <p-button
-          *ngIf="isAccessEditTag && loginData.mainRole !== 'CEO'"
-          class="table-action-btns"
-          styleClass="p-button-text p-button-rounded p-button-lg"
-          icon="pi pi-file-edit"
-          pTooltip="ویرایش تگ ها"
-          tooltipEvent="hover"
-          tooltipPosition="top"
-          (click)="editTags(report)"></p-button> -->
-
-        <p-button
-          *ngIf="isAccessPreviewConfirmation"
-          class="table-action-btns"
-          pTooltip="تعیین وضعیت"
-          tooltipEvent="hover"
-          tooltipPosition="top"
-          styleClass="p-button-text p-button-rounded p-button-lg"
-          icon="pi pi-pencil"
-          (click)="previewConfirmation(report)"></p-button>
+        <p-button *ngIf="isAccessPreviewConfirmation" class="table-action-btns" pTooltip="تعیین وضعیت"
+          tooltipEvent="hover" tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg"
+          icon="pi pi-pencil" (click)="previewConfirmation(report)"></p-button>
 
         <!-- <p-button *ngIf="isAccessWorkflow" class="table-action-btns" pTooltip="گردش کار" tooltipEvent="hover"
           tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-sitemap"
           (click)="onWorkflow(report)"></p-button> -->
 
-        <p-button
-          *ngIf="
+        <p-button *ngIf="
             isAccessRegisterAmendment &&
             (report.docStatus === 3 ||
               report.docStatus === 1 ||
               report.docStatus === 2)
-          "
-          class="table-action-btns"
-          [pTooltip]="report.docStatus === 3 ? 'ویرایش' : 'ثبت اصلاحیه'"
-          tooltipEvent="hover"
-          tooltipPosition="top"
-          styleClass="p-button-text p-button-rounded p-button-lg"
+          " class="table-action-btns" [pTooltip]="report.docStatus === 3 ? 'ویرایش' : 'ثبت اصلاحیه'"
+          tooltipEvent="hover" tooltipPosition="top" styleClass="p-button-text p-button-rounded p-button-lg"
           [icon]="report.docStatus === 3 ? 'pi pi-pencil' : 'pi pi-file-edit'"
           (click)="registerAmendment(report)"></p-button>
       </td>
@@ -394,10 +334,7 @@
         </div>
 
         <div class="col my-1 text-center">
-          <p-button
-            class="pe-2"
-            styleClass="p-button-text p-button-rounded p-button-lg"
-            icon="pi pi-eye"
+          <p-button class="pe-2" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-eye"
             (click)="previewDetails(report)"></p-button>
         </div>
       </div>
@@ -412,10 +349,7 @@
         </div>
 
         <div class="col my-1 text-center">
-          <p-button
-            class="pe-2"
-            styleClass="p-button-text p-button-rounded"
-            icon="pi pi-file"
+          <p-button class="pe-2" styleClass="p-button-text p-button-rounded" icon="pi pi-file"
             (click)="previewAttachments(report)"></p-button>
         </div>
       </div>
@@ -423,21 +357,15 @@
     <!-- / پیوست‌ها -->
 
     <!-- ویرایش تگ ها -->
-    <li
-      *ngIf="isAccessEditTag && loginData.mainRole !== 'CEO'"
-      class="list-group-item">
+    <li class="list-group-item">
       <div class="row">
         <div class="col my-1 text-center">
           <strong>ویرایش تگ ها</strong>
         </div>
 
         <div class="col my-1 text-center">
-          <p-button
-            class="table-action-btns"
-            styleClass="p-button-text p-button-rounded p-button-lg"
-            icon="pi pi-file-edit"
-            title="ویرایش تگ ها"
-            (click)="editTags(report)"></p-button>
+          <p-button class="table-action-btns" styleClass="p-button-text p-button-rounded p-button-lg"
+            icon="pi pi-file-edit" title="ویرایش تگ ها" (click)="editTags(report)"></p-button>
         </div>
       </div>
     </li>
@@ -451,11 +379,8 @@
         </div>
 
         <div class="col my-1 text-center">
-          <p-button
-            class="table-action-btns"
-            title="تعیین وضعیت"
-            styleClass="p-button-text p-button-rounded p-button-lg"
-            icon="pi pi-pencil"
+          <p-button class="table-action-btns" title="تعیین وضعیت"
+            styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-pencil"
             (click)="previewConfirmation(report)"></p-button>
         </div>
       </div>
@@ -470,12 +395,8 @@
         </div>
 
         <div class="col my-1 text-center">
-          <p-button
-            class="table-action-btns"
-            title="گردش کار"
-            styleClass="p-button-text p-button-rounded p-button-lg"
-            icon="pi pi-sitemap"
-            (click)="onWorkflow(report)"></p-button>
+          <p-button class="table-action-btns" title="گردش کار" styleClass="p-button-text p-button-rounded p-button-lg"
+            icon="pi pi-sitemap" (click)="onWorkflow(report)"></p-button>
         </div>
       </div>
     </li>
@@ -489,11 +410,8 @@
         </div>
 
         <div class="col my-1 text-center">
-          <p-button
-            class="table-action-btns"
-            title="ثبت اصلاحیه"
-            styleClass="p-button-text p-button-rounded p-button-lg"
-            icon="pi pi-file-edit"
+          <p-button class="table-action-btns" title="ثبت اصلاحیه"
+            styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-file-edit"
             (click)="registerAmendment(report)"></p-button>
         </div>
       </div>
@@ -504,17 +422,12 @@
 <!-- / data list -->
 
 <!-- preview report detail -->
-<p-dialog
-  styleClass="p-fluid"
-  header="جزئیات"
-  [style]="{ width: '80%' }"
-  [modal]="true"
+<p-dialog styleClass="p-fluid" header="جزئیات" [style]="{ width: '80%' }" [modal]="true"
   [(visible)]="previewDetailsDialog">
   <!-- dialog content -->
   <ng-template pTemplate="content">
     <div class="data-table-detail__content-info">
-      <app-document-detail
-        [selectedReport]="selectedReport"></app-document-detail>
+      <app-document-detail [selectedReport]="selectedReport"></app-document-detail>
     </div>
   </ng-template>
   <!-- / dialog content -->
@@ -522,13 +435,8 @@
 <!-- / preview report detail -->
 
 <!-- preview attachments dialog -->
-<p-dialog
-  class="data-table-detail"
-  styleClass="p-fluid"
-  header="پیوست‌ ها"
-  [style]="{ width: '800px', height: '500px' }"
-  [modal]="true"
-  [(visible)]="previewAttachmentsDialog">
+<p-dialog class="data-table-detail" styleClass="p-fluid" header="پیوست‌ ها"
+  [style]="{ width: '800px', height: '500px' }" [modal]="true" [(visible)]="previewAttachmentsDialog">
   <!-- dialog content -->
   <ng-template pTemplate="content">
     <!-- header -->
@@ -556,20 +464,15 @@
     <!-- / header -->
 
     <!-- body -->
-    <ul
-      *ngFor="let attachment of reportAttachment.attachments"
-      class="list-group my-1">
+    <ul *ngFor="let attachment of reportAttachment.attachments" class="list-group my-1">
       <!-- نمایه -->
       <li class="list-group-item">
         <div class="row d-flex jc-center ai-center">
           <div class="col my-1 text-center">
-            <i
-              class="mgc_file_fill fs-2"
-              [class.mgc_pic_2_fill]="attachment.type === attachmentType.IMAGE"
+            <i class="mgc_file_fill fs-2" [class.mgc_pic_2_fill]="attachment.type === attachmentType.IMAGE"
               [class.mgc_video_fill]="attachment.type === attachmentType.VIDEO"
               [class.mgc_pdf_fill]="attachment.type === attachmentType.PDF"
-              [class.mgc_doc_fill]="attachment.type === attachmentType.WORD"
-              [class.mgc_xls_fill]="
+              [class.mgc_doc_fill]="attachment.type === attachmentType.WORD" [class.mgc_xls_fill]="
                 attachment.type === attachmentType.EXCEL
               "></i>
           </div>
@@ -589,20 +492,13 @@
 
           <!-- اندازه فایل -->
           <div class="col my-1 text-center">
-            <p-button
-              class="pe-2"
-              styleClass="p-button-text p-button-rounded p-button-lg"
-              icon="pi pi-download"
+            <p-button class="pe-2" styleClass="p-button-text p-button-rounded p-button-lg" icon="pi pi-download"
               (click)="downloadAttachmnet(attachment)"></p-button>
           </div>
           <!-- / اندازه فایل -->
           <div class="col my-1 text-center">
-            <p-button
-              *ngIf="attachment.type !== 5"
-              class="pe-2"
-              styleClass="p-button-text p-button-rounded p-button-lg"
-              icon="pi pi-eye"
-              (click)="onClickPdfViewer(attachment)"></p-button>
+            <p-button *ngIf="attachment.type !== 5" class="pe-2" styleClass="p-button-text p-button-rounded p-button-lg"
+              icon="pi pi-eye" (click)="onClickPdfViewer(attachment)"></p-button>
           </div>
         </div>
       </li>
@@ -614,11 +510,7 @@
 <!-- / preview attachments dialog -->
 
 <!-- PDF viewer dialog -->
-<p-dialog
-  class="data-table-detail"
-  styleClass="p-fluid"
-  [style]="{ width: '80%', height: '100%' }"
-  [modal]="true"
+<p-dialog class="data-table-detail" styleClass="p-fluid" [style]="{ width: '80%', height: '100%' }" [modal]="true"
   [(visible)]="pdfViewerDialog">
   <!-- dialog content -->
   <ng-template pTemplate="content">
@@ -629,59 +521,34 @@
 <!-- / PDF viewer dialog -->
 
 <!-- edit tags dialog -->
-<p-dialog
-  *ngIf="isOpenEditTags"
-  header="ویرایش تگ"
-  [(visible)]="isOpenEditTags"
-  [modal]="true"
-  [style]="{ width: '70vw' }"
-  [draggable]="false"
-  [resizable]="false">
-  <app-edit-tags
-    [rowData]="selectedRowData"
-    (closeModal)="isOpenEditTags = false"></app-edit-tags>
+<p-dialog *ngIf="isOpenEditTags" header="ویرایش تگ" [(visible)]="isOpenEditTags" [modal]="true"
+  [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+  <app-edit-tags [rowData]="selectedRowData" (closeModal)="isOpenEditTags = false"></app-edit-tags>
 </p-dialog>
 <!-- / edit tags dialog -->
 
 <!-- confirmation dialog -->
-<p-dialog
-  class="data-table-detail"
-  styleClass="p-fluid"
-  header="تعیین وضعیت"
-  [style]="{ width: '450px', height: '360px' }"
-  [modal]="true"
-  [(visible)]="previewConfirmationDialog">
+<p-dialog class="data-table-detail" styleClass="p-fluid" header="تعیین وضعیت"
+  [style]="{ width: '450px', height: '360px' }" [modal]="true" [(visible)]="previewConfirmationDialog">
   <!-- dialog content -->
   <ng-template pTemplate="content">
     <div class="data-table-detail__content-info">
       <!-- actionType -->
       <div class="align-items-center justify-content-around my-1 w-50">
         <div class="align-items-center">
-          <p-radioButton
-            inputId="ingredient1"
-            name="accept"
-            [value]="'APPROVE'"
-            [(ngModel)]="actionType"
+          <p-radioButton inputId="ingredient1" name="accept" [value]="'APPROVE'" [(ngModel)]="actionType"
             class="radio-btns"></p-radioButton>
           <label for="ingredient1" class="ms-2">تایید</label>
         </div>
 
         <div class="align-items-center">
-          <p-radioButton
-            inputId="ingredient2"
-            name="reject"
-            [value]="'REJECT'"
-            [(ngModel)]="actionType"
+          <p-radioButton inputId="ingredient2" name="reject" [value]="'REJECT'" [(ngModel)]="actionType"
             class="radio-btns"></p-radioButton>
           <label for="ingredient2" class="ms-2">تحت احتیاط</label>
         </div>
 
         <div class="align-items-center">
-          <p-radioButton
-            inputId="ingredient2"
-            name="reffer"
-            [value]="'REFFER'"
-            [(ngModel)]="actionType"
+          <p-radioButton inputId="ingredient2" name="reffer" [value]="'REFFER'" [(ngModel)]="actionType"
             class="radio-btns"></p-radioButton>
           <label for="ingredient2" class="ms-2">بازگشت به ناشر</label>
         </div>
@@ -692,32 +559,20 @@
       <form #formDir="ngForm" [formGroup]="rejectReportForm">
         <div class="form-group">
           <div class="pt-3">
-            <textarea
-              pInputTextarea
-              id="reason"
-              name="reason"
-              formControlName="reason"
-              rows="5"
-              cols="30"
-              class="w-100"
-              placeholder="توضیحات"
-              [autoResize]="true"
-              [class.ng-invalid]="reason?.invalid"
-              [class.ng-dirty]="
+            <textarea pInputTextarea id="reason" name="reason" formControlName="reason" rows="5" cols="30" class="w-100"
+              placeholder="توضیحات" [autoResize]="true" [class.ng-invalid]="reason?.invalid" [class.ng-dirty]="
                 (rejectReportFormSubmitted && reason?.pristine) ||
                 reason?.dirty ||
                 reason?.touched
               "></textarea>
 
             <div id="reason-help">
-              <small
-                *ngIf="
+              <small *ngIf="
                   reason?.invalid &&
                   (reason?.dirty ||
                     reason?.touched ||
                     rejectReportFormSubmitted)
-                "
-                class="p-error">
+                " class="p-error">
                 لطفا این فیلد را خالی نگذارید
               </small>
               <small style="visibility: hidden" class="p-error"> error </small>
@@ -734,22 +589,12 @@
   <ng-template pTemplate="footer">
     <div class="d-flex justify-content-between align-items-center w-100">
       <div class="d-flex justify-content-end align-items-center w-100">
-        <p-button
-          class="operation__reject"
-          styleClass="p-button-success"
-          icon="pi pi-check"
-          iconPos="left"
-          label="ثبت"
+        <p-button class="operation__reject" styleClass="p-button-success" icon="pi pi-check" iconPos="left" label="ثبت"
           (click)="confirmReport()">
         </p-button>
 
-        <p-button
-          class="operation__reject"
-          styleClass="p-button-warning"
-          icon="pi pi-times"
-          iconPos="left"
-          label="انصراف"
-          (click)="closeConfirmationDialog()">
+        <p-button class="operation__reject" styleClass="p-button-warning" icon="pi pi-times" iconPos="left"
+          label="انصراف" (click)="closeConfirmationDialog()">
         </p-button>
       </div>
     </div>
@@ -759,23 +604,14 @@
 <!-- / confirmation dialog -->
 
 <!-- workflow -->
-<p-dialog
-  styleClass="p-fluid"
-  header="گردش کار"
-  [style]="{ width: '900px' }"
-  [modal]="true"
+<p-dialog styleClass="p-fluid" header="گردش کار" [style]="{ width: '900px' }" [modal]="true"
   [(visible)]="isShowWorkflowDialog">
   <!-- dialog content -->
   <ng-template pTemplate="content">
-    <div
-      *ngFor="let element of workflowList"
-      class="row wf-box"
-      [style.border-color]="element.advertStatusColor"
+    <div *ngFor="let element of workflowList" class="row wf-box" [style.border-color]="element.advertStatusColor"
       title="{{ element.comment }}">
       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-        <span
-          class="wf-bullet"
-          [style.background-color]="element.advertStatusColor"
+        <span class="wf-bullet" [style.background-color]="element.advertStatusColor"
           title="{{ element.docStatus }}"></span>
         <span class="wf-fullname">{{ element.fullname }}</span>
       </div>
@@ -783,23 +619,15 @@
         <span>({{ element.companyName }})</span>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-        <span
-          >{{ element.advertModifiedTime }}
-          {{ element.advertModifiedDate }}</span
-        >
+        <span>{{ element.advertModifiedTime }}
+          {{ element.advertModifiedDate }}</span>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <span [style.border-color]="element.advertStatusColor" class="wf-stt">
-          {{ element.docStatus }}</span
-        >
+          {{ element.docStatus }}</span>
       </div>
-      <div
-        *ngIf="element.comment !== null && element.comment !== ''"
-        class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
-        <i
-          class="pi pi-comments"
-          (click)="onClick($event)"
-          title="نمایش نظرات"></i>
+      <div *ngIf="element.comment !== null && element.comment !== ''" class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+        <i class="pi pi-comments" (click)="onClick($event)" title="نمایش نظرات"></i>
       </div>
       <div class="customComment" style="display: none">
         {{ element.comment }}
@@ -811,14 +639,9 @@
 <!-- / workflow -->
 
 <!-- confirmation dialog -->
-<p-dialog
-  class="data-table-detail"
-  styleClass="p-fluid"
-  [header]="selectedReport.docStatus === 3 ? 'ویرایش سند' : 'ثبت اصلاحیه'"
-  [style]="{ width: '1024px' }"
-  [modal]="true"
-  [(visible)]="registerAmendmentDialog"
-  (onHide)="onHideAddAmendment()">
+<p-dialog class="data-table-detail" styleClass="p-fluid"
+  [header]="selectedReport.docStatus === 3 ? 'ویرایش سند' : 'ثبت اصلاحیه'" [style]="{ width: '1024px' }" [modal]="true"
+  [(visible)]="registerAmendmentDialog" (onHide)="onHideAddAmendment()">
   <!-- dialog content -->
   <ng-template pTemplate="content">
     <div class="data-table-detail__content-info">
@@ -829,22 +652,14 @@
             <!-- عنوان اسناد -->
             <div class="col my-1" *ngIf="selectedReport.docStatus === 3">
               <label for="description">عنوان اسناد</label>
-              <input
-                id="description"
-                name="description"
-                formControlName="description"
-                pInputText
-                type="text"
-                class="w-100"
-                [class.ng-invalid]="description?.invalid" />
+              <input id="description" name="description" formControlName="description" pInputText type="text"
+                class="w-100" [class.ng-invalid]="description?.invalid" />
               <div id="description-help">
-                <small
-                  *ngIf="
+                <small *ngIf="
                                       (addAmendmentFormSubmitted && description?.pristine) || 
                                       (description?.errors?.['required'] && 
                                       (description?.dirty || description?.touched))
-                                    "
-                  class="p-error">
+                                    " class="p-error">
                   لطفا این فیلد را خالی نگذارید
                 </small>
                 <small style="visibility: hidden" class="p-error">
@@ -859,54 +674,31 @@
                 <label for="audited" class="px-2">
                   <strong> {{ el.displayName }} </strong>
                 </label>
-                <p-inputSwitch
-                  id="audited"
-                  name="audited"
-                  formControlName="{{
+                <p-inputSwitch id="audited" name="audited" formControlName="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
                   }}"></p-inputSwitch>
               </div>
               <div *ngIf="el.typeName === 'String'">
-                <label
-                  for="{{
+                <label for="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  style="display: inherit"
-                  >{{ el.displayName }}</label
-                >
-                <input
-                  id="{{
+                  }}" style="display: inherit">{{ el.displayName }}</label>
+                <input id="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  name="documentType"
-                  formControlName="{{
+                  }}" name="documentType" formControlName="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  pInputText
-                  type="text"
-                  class="w-90" />
+                  }}" pInputText type="text" class="w-90" />
               </div>
               <div *ngIf="el.typeName === 'Decimal'">
-                <label
-                  for="{{
+                <label for="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  >{{ el.displayName }}</label
-                >
-                <p-inputNumber
-                  mode="decimal"
-                  [minFractionDigits]="0"
-                  [maxFractionDigits]="20"
-                  id="{{
+                  }}">{{ el.displayName }}</label>
+                <p-inputNumber mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="20" id="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  name="{{
+                  }}" name="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  formControlName="{{
+                  }}" formControlName="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  value="
+                  }}" value="
                     addAmendmentForm.get(
                       el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
                     )?.value
@@ -933,28 +725,20 @@
                   " /> -->
               </div>
               <div *ngIf="el.typeName === 'Date'">
-                <label
-                  for="{{
+                <label for="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  >{{ el.displayName }}</label
-                >
-                <p-persian-calendar
-                  id="{{
+                  }}">{{ el.displayName }}</label>
+                <p-persian-calendar id="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  name="{{
+                  }}" name="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  formControlName="{{
+                  }}" formControlName="{{
                     el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
-                  }}"
-                  styleClass="w-100 ">
+                  }}" styleClass="w-100 ">
                 </p-persian-calendar>
               </div>
               <div *ngIf="el.isRequired">
-                <small
-                  *ngIf="
+                <small *ngIf="
                     addAmendmentForm.get(
                       el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
                     )?.invalid &&
@@ -965,8 +749,7 @@
                         el.tagName + '_' + el.typeName + '_' + el.docTypeTagsId
                       )?.touched ||
                       addAmendmentFormSubmitted)
-                  "
-                  class="p-error">
+                  " class="p-error">
                   لطفا این فیلد را خالی نگذارید
                 </small>
                 <small style="visibility: hidden" class="p-error">
@@ -977,17 +760,8 @@
             <!-- / تگ ها-->
           </div>
           <div class="pt-3">
-            <textarea
-              pInputTextarea
-              id="reason"
-              name="reason"
-              formControlName="reason"
-              rows="5"
-              cols="30"
-              class="w-100"
-              placeholder="دلیل اصلاحیه"
-              [autoResize]="true"
-              [class.ng-invalid]="reasonAmendment?.invalid"
+            <textarea pInputTextarea id="reason" name="reason" formControlName="reason" rows="5" cols="30" class="w-100"
+              placeholder="دلیل اصلاحیه" [autoResize]="true" [class.ng-invalid]="reasonAmendment?.invalid"
               [class.ng-dirty]="
                 (addAmendmentFormSubmitted && reasonAmendment?.pristine) ||
                 reasonAmendment?.dirty ||
@@ -995,13 +769,11 @@
               "></textarea>
 
             <div id="reason-help">
-              <small
-                *ngIf="
+              <small *ngIf="
                   (addAmendmentFormSubmitted && reasonAmendment?.pristine) || 
                   (reasonAmendment?.errors?.['required'] && 
                   (reasonAmendment?.dirty || reasonAmendment?.touched))
-                "
-                class="p-error">
+                " class="p-error">
                 لطفا این فیلد را خالی نگذارید
               </small>
               <small style="visibility: hidden" class="p-error"> error </small>
@@ -1017,18 +789,9 @@
             <li>فایل انتخابی بایستی حداکثر 20 مگابایت باشد.</li>
           </ul>
         </div>
-        <p-table
-          #dataTable
-          class="data-table d-none d-lg-block"
-          dataKey="id"
-          [paginator]="false"
-          [rows]="dataTableRows"
-          [styleClass]="gridClass"
-          [rowHover]="true"
-          [totalRecords]="totalCount"
-          [value]="onlineAdvertAttachNeeds"
-          [loading]="onlineDocumentLoading"
-          [tableStyle]="{ 'min-width': '75rem' }">
+        <p-table #dataTable class="data-table d-none d-lg-block" dataKey="id" [paginator]="false" [rows]="dataTableRows"
+          [styleClass]="gridClass" [rowHover]="true" [totalRecords]="totalCount" [value]="onlineAdvertAttachNeeds"
+          [loading]="onlineDocumentLoading" [tableStyle]="{ 'min-width': '75rem' }">
           <!-- table header -->
           <ng-template pTemplate="header">
             <tr class="data-table__header">
@@ -1056,10 +819,7 @@
           </ng-template>
           <!-- / table header -->
           <!-- table body -->
-          <ng-template
-            pTemplate="body"
-            let-onlineDocumentNeeds
-            let-rowIndex="rowIndex">
+          <ng-template pTemplate="body" let-onlineDocumentNeeds let-rowIndex="rowIndex">
             <tr>
               <td>
                 {{ onlineDocumentNeeds.attachmentFileTypeTitle }}
@@ -1068,28 +828,16 @@
               <td>{{ onlineDocumentNeeds.extention }}</td>
               <td>{{ onlineDocumentNeeds.type }}</td>
               <td>
-                <i
-                  *ngIf="onlineDocumentNeeds.isRequired"
-                  class="pi pi-check-square"></i>
-                <i
-                  *ngIf="!onlineDocumentNeeds.isRequired"
-                  class="pi pi-times-circle"></i>
+                <i *ngIf="onlineDocumentNeeds.isRequired" class="pi pi-check-square"></i>
+                <i *ngIf="!onlineDocumentNeeds.isRequired" class="pi pi-times-circle"></i>
               </td>
               <th>
                 <div class="row">
                   <div style="width: fit-content; padding: 0px">
-                    <p-fileUpload
-                      #form
-                      accept=".{{ onlineDocumentNeeds.extention }}"
-                      id="fileUpload_{{
+                    <p-fileUpload #form accept=".{{ onlineDocumentNeeds.extention }}" id="fileUpload_{{
                         onlineDocumentNeeds.adverTyeFileNeedsId
-                      }}"
-                      mode="basic"
-                      chooseLabel="افزودن پیوست"
-                      name="attachments[]"
-                      [disabled]="isDisableaddAmendmentBtn"
-                      [auto]="true"
-                      (onSelect)="
+                      }}" mode="basic" chooseLabel="افزودن پیوست" name="attachments[]"
+                      [disabled]="isDisableaddAmendmentBtn" [auto]="true" (onSelect)="
                         onSelectAttachment(
                           $event.files,
                           onlineDocumentNeeds,
@@ -1098,13 +846,10 @@
                       "></p-fileUpload>
                   </div>
                   <div style="width: 30px">
-                    <div
-                      style="width: fit-content; display: none"
-                      id="spinner_{{
+                    <div style="width: fit-content; display: none" id="spinner_{{
                         onlineDocumentNeeds.adverTyeFileNeedsId
                       }}">
-                      <p-progressSpinner
-                        [style]="{
+                      <p-progressSpinner [style]="{
                           width: '25px',
                           height: '25px',
                           padding: '0px'
@@ -1126,14 +871,8 @@
   <ng-template pTemplate="footer">
     <div class="d-flex justify-content-between align-items-center w-100">
       <div class="d-flex justify-content-end align-items-center w-100">
-        <p-button
-          class="operation__reject p-button-wide"
-          styleClass="p-button-success"
-          icon="pi pi-check"
-          iconPos="left"
-          label="تایید"
-          [loading]="addAmendmentLoading"
-          [disabled]="isDisableaddAmendmentBtn"
+        <p-button class="operation__reject p-button-wide" styleClass="p-button-success" icon="pi pi-check"
+          iconPos="left" label="تایید" [loading]="addAmendmentLoading" [disabled]="isDisableaddAmendmentBtn"
           (click)="addAmendment(selectedReport.id)">
         </p-button>
 

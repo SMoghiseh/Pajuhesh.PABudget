@@ -26,22 +26,25 @@
             </p-dropdown>
         </div>
         <div class="col-6 mt-2">
-            <label for="swotRank"> ضریب </label>
-            <input pInputText id="swotRank" name="swotRank" formControlName="swotRank" class="w-100 my-1"
+            <label for="swotRank"> ضریب(بین0تا100) </label>
+            <input pInputText type="number" id="swotRank" name="swotRank" formControlName="swotRank" maxlength="2"
+                [min]="0" [max]="100" class="w-100 my-1" (keypress)="validateInputSwotRank($event)"
                 [class.ng-invalid]="swotRank?.invalid" [class.ng-dirty]="
-          (addEditFormSubmitted && swotRank?.pristine) ||
-          swotRank?.dirty ||
-          swotRank?.touched
-        " />
+              (addEditFormSubmitted && swotRank?.pristine) ||
+              swotRank?.dirty ||
+              swotRank?.touched
+            " />
         </div>
         <div class="col-6 mt-2">
-            <label for="swoPriority"> اولویت </label>
-            <input pInputText id="swoPriority" name="swoPriority" formControlName="swoPriority" class="w-100 my-1"
-                [class.ng-invalid]="swoPriority?.invalid" [class.ng-dirty]="
-          (addEditFormSubmitted && swoPriority?.pristine) ||
-          swoPriority?.dirty ||
-          swoPriority?.touched
-        " />
+            <label for="strategyPriority"> الویت(بین1تا10) </label>
+            <input pInputText type="number" id="strategyPriority" name="strategyPriority"
+                formControlName="strategyPriority" maxlength="2" [min]="0" [max]="10" class="w-100 my-1"
+                (keypress)="validateInputStrategyPriority($event)" [class.ng-invalid]="swoPriority?.invalid"
+                [class.ng-dirty]="
+              (addEditFormSubmitted && swoPriority?.pristine) ||
+              swoPriority?.dirty ||
+              swoPriority?.touched
+            " />
         </div>
 
         <div class="col-12 row-btn row-btn-fixed-bottom">

@@ -30,8 +30,8 @@ export class RelatedIndicatorComponent implements OnInit {
   apiUrl = '';
   rowSelected = 0;
   selectedCompanyId = 0;
-  selectedPeriodId = 0 ;
-  
+  selectedPeriodId = 0;
+
   // table property 
   gridClass = 'p-datatable-sm';
   dataTableRows = 10;
@@ -213,9 +213,8 @@ export class RelatedIndicatorComponent implements OnInit {
     };
 
     this.first = 0;
-    // const url = Indicator.apiAddressIndicator + 'getIndicatorTo' + this.apiUrl + 'List';
+    const url = Indicator.apiAddressIndicator + 'getIndicatorTo' + this.apiUrl + 'List';
     // change 
-    const url = Indicator.apiAddressIndicator + 'AddYearUnionIndicator';
     this.httpService
       .post<any[]>(url, body)
       .pipe(
@@ -297,8 +296,8 @@ export class RelatedIndicatorComponent implements OnInit {
   }
 
   setValueOnIndicators(item: any) {
-    this.router.navigate(['Period/RelatedIndicator/' + item.indicatorId] , 
-    { queryParams: { referenceId : item.referenceId , companyId: this.selectedCompanyId , periodId: this.selectedPeriodId } })
+    this.router.navigate(['Period/RelatedIndicator/' + item.indicatorId],
+      { queryParams: { referenceId: item.referenceId, companyId: this.selectedCompanyId, periodId: this.selectedPeriodId } })
   }
 
 }
