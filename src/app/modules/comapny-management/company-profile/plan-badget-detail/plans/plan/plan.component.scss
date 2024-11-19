@@ -4,9 +4,10 @@
 }
 
 .headerStyle {
-    &:last-child{
-     margin-left: 0px; 
+    &:last-child {
+        margin-left: 0px;
     }
+
     background-color:  #0AB39C;
     color: #ffffff;
     height: 38px;
@@ -18,18 +19,14 @@
     text-align: -webkit-center;
 }
 
-.detailStyle{
-    &:last-child{
-        margin-left: 0px; 
-       }
+.detailStyle {
     padding: 8px;
     margin: 5px 0;
     border-radius: 8px;
+
 }
 
 
-
-//   :host ::ng-deep .data-table__header ng-star-inserted {
-//     position: relative !important;
-//     display: -webkit-inline-flex !important;
-// }
+tr:nth-child(even) {
+    background-color: #EEF2FF;
+}

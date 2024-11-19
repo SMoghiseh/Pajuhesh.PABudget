@@ -1312,6 +1312,7 @@ export class Plan {
     'api/PABudgetApi/Dashboard/GetPersonelNoCompanyForPie';
   static readonly apiAddressEmployeeTable =
     'api/PABudgetApi/Dashboard/GetPersonelNoForDashboard';
+  static readonly apiAddressPlan = 'api/PABudgetApi/Dashboard/GetProject/Info';
 }
 
 export class Planning {

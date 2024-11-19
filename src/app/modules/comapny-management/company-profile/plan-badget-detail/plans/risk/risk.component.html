@@ -50,10 +50,10 @@
                 <strong> پیامد ریسک در بودجه </strong>
               </th>
             </div>
-            <div class="headerStyle Width: auto">
+            <!-- <div class="headerStyle Width: auto">
               <th style="min-width: 7rem"><strong> بدبینانه </strong></th>
               <th style="min-width: 7rem"><strong> خوش بینانه </strong></th>
-            </div>
+            </div> -->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-risk let-rowIndex="rowIndex">
@@ -78,12 +78,12 @@
               <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.effectBudget }}
               </td>
-              <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
+              <!-- <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.possimistically }}
               </td>
               <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.optimistically }}
-              </td>
+              </td> -->
             </div>
           </tr>
         </ng-template>

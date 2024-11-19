@@ -24,8 +24,13 @@
 
 }
 
+.maxWidth{
+  width: 35rem   !important;
+}
 
-
+.minWidth{
+  width: 13rem !important;
+}
 .pasitiveNumbers {
   direction: ltr;
   color: green;
@@ -110,7 +115,7 @@ tr:nth-child(even) {
   >tr>td {
 
     text-align: center !important;
-    width: 510px !important;
+    // width: 510px !important;
 
   }
 

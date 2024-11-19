@@ -74,6 +74,7 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { GraphComponent } from './company-profile/plan-badget-detail/plans/strategy-map/graph/graph.component';
 import { EmployeesComponent } from './company-profile/plan-badget-detail/plans/employees/employees.component';
 import { DetailStrategyPlanComponent } from './company-profile/plan-badget-detail/plans/strategy-plan/detail-strategy-plan/detail-strategy-plan.component';
+import { PlanComponent } from './company-profile/plan-badget-detail/plans/plan/plan.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { DetailStrategyPlanComponent } from './company-profile/plan-badget-detai
     CompanyDefinitionLookupComponent,
     GraphComponent,
     EmployeesComponent,
-    DetailStrategyPlanComponent
+    DetailStrategyPlanComponent,
+    PlanComponent
   ],
   imports: [
     ComapnyManagementRoutingModule,

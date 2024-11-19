@@ -1,0 +1,86 @@
+<div class="row bottom-section">
+  <div class="co-info-box">
+    <h3>{{ selectedPlanName }}</h3>
+    <div class="row">
+      <p-table
+        #dataTable
+        dataKey="id"
+        class="data-table d-none d-lg-block"
+        [styleClass]="gridClass"
+        [rowHover]="true"
+        [paginator]="true"
+        [rows]="dataTableRows"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [totalRecords]="totalCount"
+        [value]="planDetailData"
+        [loading]="loading"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [lazy]="true"
+        [(first)]="first">
+        <!-- table header -->
+        <ng-template pTemplate="header">
+          <div class="row row-feature">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
+              <div class="row">
+                <app-select-date
+                  [companyId]="inputData.companyId"
+                  [selectType]="selectDateType"
+                  (selectedVal)="returnSelectedDate($event)"></app-select-date>
+              </div>
+            </div>
+
+            <!-- <div style="justify-content: end" class="headerStyleForm">
+                <label class="labelStyle" style="margin-top: -29px"
+                  ><span>دوره : </span>{{ planDetailData[0].titleTwo }}</label
+                >
+              </div> -->
+          </div>
+          <tr class="data-table__header">
+            <div class="headerStyle">
+              <th style="min-width: 7rem">
+                <strong> عنوان </strong>
+              </th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> نوع طرح </strong></th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem">
+                <strong> نرخ بازده داخلی </strong>
+              </th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem"><strong> خالص ارزش فعلی </strong></th>
+            </div>
+            <div class="headerStyle Width: auto">
+              <th style="min-width: 7rem">
+                <strong> دوره بازگشت سرمایه </strong>
+              </th>
+            </div>
+
+            <!-- <div class="headerStyle Width: auto">
+                <th style="min-width: 7rem"><strong> دوره </strong></th>
+              </div> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr>
+            <div
+              class="detailStyle Width: auto"
+              [ngStyle]="{ 'background-color': item.color }">
+              <td style="width: 53rem">{{ item.titleMain }}</td>
+              <td style="width: 53rem">{{ item.titleFirst }}</td>
+              <td style="width: 53rem">
+                {{ item.titleTwo }}
+              </td>
+              <td style="width: 53rem">
+                {{ item.titleThree | number : '1.0-0' }}
+              </td>
+              <td style="width: 53rem">{{ item.titleFour }}</td>
+            </div>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

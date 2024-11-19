@@ -71,7 +71,7 @@ export class CostAndBenefitComponent implements OnInit {
         }
       });
   }
-  reloadFilteredData() {
+  reloadFilteredData() { debugger
     if (this.viewMode == 'treeTable') this.getTreeTableData();
     if (this.viewMode == 'table') this.getTableData(this.comparisonTableId);
     if (this.viewMode == 'chart') this.loadChart();
@@ -131,7 +131,7 @@ export class CostAndBenefitComponent implements OnInit {
     this.getChart(this.comparisonTableId);
   }
 
-  getTreeTableData() {
+  getTreeTableData() { debugger
     this.selectedRows = [];
     // if (!this.selectedYerId) return;
     const body = {
@@ -196,14 +196,14 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getTableData(comparison: number) {
+  getTableData(comparison: number) {debugger
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
       if (comparison == 2) url = Budget.apiAddressCompareBudgetWithBudget;
       if (comparison == 3) url = Budget.apiAddressCompareRealWithBudget;
     }
-    const body = {
+    const body = { 
       accountReportCode: null,
       companyId: this.inputData.companyId,
       firstPeriodId:

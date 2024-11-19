@@ -13,7 +13,8 @@
 
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <ng-container *ngIf="viewMode === 'treeTable'">
-          <div *ngFor="let item of reportItemTypeList"
+          <div
+            *ngFor="let item of reportItemTypeList"
             class="items"
             (click)="onSelectReportItemType(item.id)"
             [class.select-feature]="item.isSelected">
@@ -66,7 +67,10 @@
           [tableStyle]="{ 'min-width': '50rem' }">
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th class="fontStyle" *ngFor="let col of columns">
+              <th
+                class="fontStyle"
+                *ngFor="let col of columns; let i = index"
+                [ngStyle]="{ width: i === 0 ? '40%' : '15%' }">
                 {{ col.headerName }}
               </th>
             </tr>
@@ -81,11 +85,12 @@
               <td
                 *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
-                [class.pasitiveNumbers]="rowData[col.field] > 0">
+                [class.pasitiveNumbers]="rowData[col.field] > 0"
+                [ngStyle]="{ width: i === 0 ? '40%' : '15%' }">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
 
-                <ng-container *ngIf="col.field === 'reportName'">
+                <ng-container *ngIf="col.field === 'reportName'" >
                   {{ rowData[col.field] }}
                 </ng-container>
                 <ng-container *ngIf="col.field === 'budgetvalue'">
@@ -161,7 +166,7 @@
           <!-- table header -->
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th class="fontStyle"  *ngFor="let col of columns">
+              <th class="fontStyle" *ngFor="let col of columns">
                 {{ col.headerName }}
               </th>
             </tr>
