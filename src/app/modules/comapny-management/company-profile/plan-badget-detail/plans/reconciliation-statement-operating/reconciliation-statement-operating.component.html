@@ -62,7 +62,9 @@
           <ng-template pTemplate="header"
             let-columns>
             <tr>
-              <th  class="fontStyle"  *ngFor="let col of columns">
+              <th class="fontStyle"
+                *ngFor="let col of columns; let i = index"
+                [ngStyle]="{ width: i === 0 ? '40%' : '15%' }">
                 {{ col.headerName }}
               </th>
             </tr>
@@ -77,7 +79,8 @@
 
               <td *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
-                [class.pasitiveNumbers]="rowData[col.field] > 0">
+                [class.pasitiveNumbers]="rowData[col.field] > 0"
+                [ngStyle]="{ width: i === 0 ? '40%' : '15%' }">
                 <p-treeTableToggler [rowNode]="rowNode"
                   *ngIf="i === 0" />
                 <p-treeTableCheckbox [value]="rowNode"
@@ -170,7 +173,8 @@
           <ng-template pTemplate="header"
             let-columns>
             <tr>
-              <th  class="fontStyle"  *ngFor="let col of columns">
+              <th class="fontStyle"
+                *ngFor="let col of columns">
                 {{ col.headerName }}
               </th>
             </tr>

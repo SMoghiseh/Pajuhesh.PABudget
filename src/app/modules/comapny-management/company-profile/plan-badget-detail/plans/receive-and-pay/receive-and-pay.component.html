@@ -4,8 +4,7 @@
     <div class="row row-feature">
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date
-            [companyId]="inputData.companyId"
+          <app-select-date [companyId]="inputData.companyId"
             [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
@@ -13,8 +12,7 @@
 
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
         <ng-container *ngIf="viewMode === 'treeTable'">
-          <div
-            *ngFor="let item of reportItemTypeList"
+          <div *ngFor="let item of reportItemTypeList"
             class="items"
             (click)="onSelectReportItemType(item.id)"
             [class.select-feature]="item.isSelected">
@@ -22,8 +20,7 @@
           </div>
         </ng-container>
         <ng-container *ngIf="viewMode === 'chart'">
-          <div
-            *ngFor="let item of priceTypeList"
+          <div *ngFor="let item of priceTypeList"
             class="items"
             (click)="onSelectPriceType(item.id)"
             [class.select-feature]="item.isSelected">
@@ -33,31 +30,28 @@
       </div>
 
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
-        <div
-          class="items"
+        <div class="items"
           (click)="tabChange('treeTable', 'single')"
           [class.select-feature]="viewMode === 'treeTable'">
           <span>جدول</span>
         </div>
-        <div
-          class="items disable-btns"
+        <div class="items disable-btns"
           [class.enable-btns]="selectedRows?.length > 0"
           [class.select-feature]="viewMode === 'chart'"
           (click)="tabChange('chart', 'multiple')">
           <span>روند</span>
         </div>
 
-        <div
-          class="items"
+        <div class="items"
           (click)="tabChange('table', 'double', 2)"
           [class.select-feature]="viewMode === 'table'">
           <span>مقایسه بودجه با بودجه</span>
         </div>
       </div>
 
-      <div *ngIf="viewMode === 'treeTable'" class="table-container">
-        <p-treeTable
-          class="treeTable-container treeTable-profile-style"
+      <div *ngIf="viewMode === 'treeTable'"
+        class="table-container">
+        <p-treeTable class="treeTable-container treeTable-profile-style"
           [value]="treeTableData?.budgetDetails"
           [columns]="treeTableData?.headers"
           selectionMode="checkbox"
@@ -65,15 +59,17 @@
           [scrollable]="true"
           (onNodeSelect)="nodeSelect($event)"
           [tableStyle]="{ 'min-width': '50rem' }">
-          <ng-template pTemplate="header" let-columns>
+          <ng-template pTemplate="header"
+            let-columns>
             <tr>
-              <th class="fontStyle" *ngFor="let col of columns">
+              <th class="fontStyle"
+                *ngFor="let col of columns; let i = index"
+                [ngStyle]="{ width: i === 0 ? '40%' : '15%' }">
                 {{ col.headerName }}
               </th>
             </tr>
           </ng-template>
-          <ng-template
-            pTemplate="body"
+          <ng-template pTemplate="body"
             let-rowNode
             let-rowData="rowData"
             let-columns="columns"
@@ -81,15 +77,16 @@
             <tr [ttRow]="rowNode">
               <!-- <span><i class="pi pi-equals"></i></span> -->
 
-              <td
-                *ngFor="let col of columns; let i = index"
+              <td *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
-                [class.pasitiveNumbers]="rowData[col.field] > 0">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
+                [class.pasitiveNumbers]="rowData[col.field] > 0"
+                [ngStyle]="{ width: i === 0 ? '40%' : '15%' }">
+                <p-treeTableToggler [rowNode]="rowNode"
+                  *ngIf="i === 0" />
+                <p-treeTableCheckbox [value]="rowNode"
+                  *ngIf="i === 0" />
 
-                <ng-container
-                  *ngIf="
+                <ng-container *ngIf="
                     col.field !== 'value' &&
                     col.field !== 'realvalue' &&
                     col.field !== 'budgetvalue'
@@ -97,8 +94,7 @@
                   {{ rowData[col.field] }}
                 </ng-container>
 
-                <ng-container
-                  *ngIf="
+                <ng-container *ngIf="
                     col.field === 'value' ||
                     col.field === 'realvalue' ||
                     col.field === 'budgetvalue'
@@ -106,26 +102,22 @@
                   {{ rowData[col.field] | number }}
                 </ng-container>
 
-                <div
-                  *ngIf="
+                <div *ngIf="
                     (col.field === 'realvalue' && rowData.realvalue !== 0) ||
                     (col.field === 'budgetvalue' && rowData.budgetvalue !== 0)
                   ">
                   <div>
-                    <i
-                      *ngIf="rowData.displayType === '1'"
+                    <i *ngIf="rowData.displayType === '1'"
                       class="pi pi-minus"
                       style="font-size: 23px"></i>
                   </div>
                   <div>
-                    <i
-                      *ngIf="rowData.displayType === '2'"
+                    <i *ngIf="rowData.displayType === '2'"
                       class="pi pi-equals"
                       style="font-size: 23px"></i>
                   </div>
                   <div>
-                    <i
-                      *ngIf="rowData.displayType === '3'"
+                    <i *ngIf="rowData.displayType === '3'"
                       class="pi pi-bars"
                       style="font-size: 23px"></i>
                   </div>
@@ -143,29 +135,25 @@
       </div>
 
       <div *ngIf="viewMode === 'chart'">
-        <div
-          class="chartStyle"
+        <div class="chartStyle"
           *ngIf="selectedPriceTypeId === 1 || selectedPriceTypeId === 0">
-          <canvas
-            id="LineChart1"
+          <canvas id="LineChart1"
             width="900"
             height="200"
             style="display: unset"></canvas>
         </div>
-        <div
-          class="chartStyle"
+        <div class="chartStyle"
           *ngIf="selectedPriceTypeId === 2 || selectedPriceTypeId === 0">
-          <canvas
-            id="LineChart2"
+          <canvas id="LineChart2"
             width="900"
             height="200"
             style="display: unset"></canvas>
         </div>
       </div>
 
-      <div *ngIf="viewMode === 'table'" class="table-container">
-        <p-table
-          #dataTable
+      <div *ngIf="viewMode === 'table'"
+        class="table-container">
+        <p-table #dataTable
           style="text-align: center"
           class="table-Profile table-profile-style"
           dataKey="id"
@@ -182,9 +170,11 @@
 
           <!--  table header -->
 
-          <ng-template pTemplate="header" let-columns>
+          <ng-template pTemplate="header"
+            let-columns>
             <tr>
-              <th class="fontStyle" *ngFor="let col of columns">
+              <th class="fontStyle"
+                *ngFor="let col of columns">
                 {{ col.headerName }}
               </th>
             </tr>
@@ -192,14 +182,15 @@
           <!-- / table header -->
           <!-- table body -->
 
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <ng-template pTemplate="body"
+            let-rowData
+            let-columns="columns">
             <tr>
               <!-- <td>
                 {{ rowData['accountReportItemTitle'] }}
               </td> -->
 
-              <td
-                *ngFor="let col of columns; let i = index"
+              <td *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
                 {{ rowData[col.field] }}
