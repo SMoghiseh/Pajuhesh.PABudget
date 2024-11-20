@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
-  AccountReportToItemData, Indicator
+  AccountReportToItemData,
+  Indicator,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -15,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'PABudget-detail-indicator',
   templateUrl: './detail-indicator.component.html',
   styleUrls: ['./detail-indicator.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class DetailIndicatorComponent {
   gridClass = 'p-datatable-sm';
@@ -35,14 +36,13 @@ export class DetailIndicatorComponent {
   selectedPeriodId = 0;
   selectedReferenceIdId = 0;
 
-
   constructor(
     private httpService: HttpService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private activatedRoute: ActivatedRoute,
-  ) { }
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.selectedIndicatorId = Number(this.route.snapshot.paramMap.get('id'));
@@ -55,13 +55,12 @@ export class DetailIndicatorComponent {
   }
 
   getDetailIndicatorList() {
-    const url =
-      Indicator.apiAddressIndicator + 'GetIndicatorDetailValue';
+    const url = Indicator.apiAddressIndicator + 'GetIndicatorDetailValue';
     let body = {
       indicatorId: this.selectedIndicatorId,
       companyId: this.selectedCompanyId,
-      periodId: this.selectedPeriodId
-    }
+      periodId: this.selectedPeriodId,
+    };
     this.httpService
       .post<AccountReportToItemData>(url, body)
       .pipe(
@@ -76,7 +75,6 @@ export class DetailIndicatorComponent {
         this.detailIndicatorList = res;
         this.formSubmitted = false;
       });
-
   }
 
   confirm() {
@@ -91,7 +89,7 @@ export class DetailIndicatorComponent {
     const request: any = {};
 
     // data to post
-    request["refrencesIndicatorId"] = this.selectedReferenceIdId;
+    request['refrencesIndicatorId'] = this.selectedReferenceIdId;
     request['indicatorCompanyValue'] = this.changeList;
 
     this.isLoadingSubmit = true;
@@ -115,7 +113,6 @@ export class DetailIndicatorComponent {
   }
 
   onChangePrice(item: any) {
-    debugger
     const Indexfltr = this.changeList.findIndex(
       (x: any) => x.indicatorValueId === item.id
     );
@@ -142,6 +139,4 @@ export class DetailIndicatorComponent {
   onChangePercent(item: any) {
     item['changed'] = true;
   }
-
-
 }

@@ -8,7 +8,7 @@ import {
   EmploymentType,
   Pagination,
   PersonelNo,
-  UrlBuilder
+  UrlBuilder,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, of, tap } from 'rxjs';
@@ -37,6 +37,7 @@ export class PersonelNoDetailComponent {
   first = 0;
   inputData = new BudgetSourceUse();
   modalTitle = '';
+  public submitted = false;
   // isOpenAddEditPersonelNo = false;
   addEditData = new PersonelNo();
   pId!: string;
@@ -51,6 +52,7 @@ export class PersonelNoDetailComponent {
   companyList: any = [];
   formSubmitted = false;
   uploadFile: any;
+  fileLoad = false;
   personalNoExcelFile: any;
   personalNoUploadlFile: any;
   get employmentTypeId() {
@@ -65,36 +67,53 @@ export class PersonelNoDetailComponent {
   get gender() {
     return this.searchPersonelNoForm.get('gender');
   }
+  get personelCount() {
+    return this.searchPersonelNoForm.get('personelCount');
+  }
+  get employeewageCU() {
+    return this.searchPersonelNoForm.get('employeewageCU');
+  }
   constructor(
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.personelNoId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCostCenterType();
     this.getEmploymentType();
     this.getEducationTypeCode();
     this.getCompanyLst();
+    // this.downloadExcelFile(this.personelNoId);
 
     this.searchPersonelNoForm = new FormGroup({
       employmentTypeId: new FormControl(
-        this.addEditPersonelNoModel.employmentTypeId),
-      costCenterTypeId: new FormControl(
-        this.addEditPersonelNoModel.costCenterTypeId),
-      educationTypeId: new FormControl(
-        this.addEditPersonelNoModel.educationTypeId),
-      employeewageCU: new FormControl(
-        this.addEditPersonelNoModel.employeewageCU
+        this.addEditPersonelNoModel.employmentTypeId,
+        Validators.required
       ),
-      personelCount: new FormControl(this.addEditPersonelNoModel.personelCount),
+      costCenterTypeId: new FormControl(
+        this.addEditPersonelNoModel.costCenterTypeId,
+        Validators.required
+      ),
+      educationTypeId: new FormControl(
+        this.addEditPersonelNoModel.educationTypeId,
+        Validators.required
+      ),
+      employeewageCU: new FormControl(
+        this.addEditPersonelNoModel.employeewageCU,
+        Validators.required
+      ),
+      personelCount: new FormControl(
+        this.addEditPersonelNoModel.personelCount,
+        Validators.required
+      ),
       gender: new FormControl(null, Validators.required),
     });
 
     this.personelNoId = Number(this.route.snapshot.paramMap.get('id'));
-
     this.inputData.type === 'insert';
   }
 
@@ -179,28 +198,19 @@ export class PersonelNoDetailComponent {
     //   this.priceAccountRepToItemFromExcelFile[i].priceCu;
   }
 
-  downloadExcelFile() {
-    if (this.searchPersonelNoForm.valid) {
-      const formValue = this.searchPersonelNoForm.value;
-      const body = {
-        personelNoId: this.personelNoId,
-        employmentTypeId: formValue.employmentTypeId,
-        costCenterTypeId: formValue.costCenterTypeId,
-        gender: formValue.gender,
-        educationTypeId: formValue.educationTypeId,
-      };
-      const url =
-        PersonelNo.apiAddressPersonelNoFile +
-        'DownloadPersonelNoSampleExcelFile';
-      this.httpService.post<PersonelNo>(url, body).subscribe(res => {
-        if (res.successed) {
-          const a = document.createElement('a'); //Create <a>
-          a.href = 'data:application/octet-stream;base64,' + res.data.result; //Image Base64 Goes here
-          a.download = res.data.fileName || ''; //File name Here
-          a.click(); //Downloaded file
-        }
-      });
-    }
+  downloadExcelFile(id?: number) {
+    const url =
+      PersonelNo.apiAddressPersonelNoFile +
+      'DownloadPersonelNoSampleExcelFile/';
+    this.httpService.get<PersonelNo>(url + `${id}`).subscribe(res => {
+      if (res.successed) {
+        const a = document.createElement('a'); //Create <a>
+        a.href = 'data:application/octet-stream;base64,' + res.data.result; //Image Base64 Goes here
+        a.download = res.data.fileName || ''; //File name Here
+        a.click(); //Downloaded file
+        // this.fileLoad = false;
+      }
+    });
   }
   getCompanyLst() {
     this.httpService
@@ -263,6 +273,7 @@ export class PersonelNoDetailComponent {
   }
 
   addPersonalNoDetail() {
+    this.submitted = true;
     if (this.searchPersonelNoForm.valid) {
       const request: PersonelNo = this.searchPersonelNoForm.value;
       request.id = this.inputData.type === 'insert' ? 0 : this.inputData.id;
@@ -289,6 +300,7 @@ export class PersonelNoDetailComponent {
             });
             this.reloadData();
           }
+          this.submitted = false;
         });
     }
   }
@@ -344,7 +356,7 @@ export class PersonelNoDetailComponent {
       this.httpService
         .get<PersonelNo>(
           UrlBuilder.build(PersonelNo.apiAddressPersonelNo + 'DELETE', '') +
-          `/${id}`
+            `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {

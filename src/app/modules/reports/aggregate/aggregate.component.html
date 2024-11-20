@@ -131,6 +131,7 @@
           [disabled]="btnDis"
           styleClass="p-button-info"
           [label]="'دانلود فایل اکسل'"
+          [loading]="loadFile"
           (click)="downloadExcelFile()"></p-button>
         <p-fileUpload
           #form
@@ -138,6 +139,8 @@
           chooseLabel="افزودن پیوست"
           name="attachments[]"
           [disabled]="btnDis"
+          (beforeUpload)="onBeforeUpload()"
+          (onUpload)="onUpload()"
           [auto]="true"
           (onSelect)="onSelectAttachment($event.files)"></p-fileUpload>
       </div>

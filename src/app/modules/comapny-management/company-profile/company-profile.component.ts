@@ -120,7 +120,7 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  getProfileCoInfo(id: string) { debugger
+  getProfileCoInfo(id: string) {
     const body = {
       companyId: id,
     };
@@ -148,7 +148,7 @@ export class CompanyProfileComponent implements OnInit {
       };
   }
 
-  getCostAndBenefitForProfile(id: string) { debugger
+  getCostAndBenefitForProfile(id: string) {
     this.httpService
       .get<number>(
         UrlBuilder.build(Dashboard.apiAddressCostAndBenefitForProfile + id, '')
@@ -210,7 +210,7 @@ export class CompanyProfileComponent implements OnInit {
     return grouped;
   }
 
-  onSelectBudget(data: any) { debugger
+  onSelectBudget(data: any) {
     this.switchItem = data.componentName;
     this.selectedBudgetId = data.id;
     let yearId = 12;

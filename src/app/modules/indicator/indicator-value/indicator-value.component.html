@@ -201,13 +201,13 @@
           pTooltip="{{ item.minValue }}"
           tooltipEvent="hover"
           tooltipPosition="top">
-          {{ item.minValue }}
+          {{ item.minValue | number : '1.0-0' }}
         </td>
         <td
           pTooltip="{{ item.maxValue }}"
           tooltipEvent="hover"
           tooltipPosition="top">
-          {{ item.maxValue }}
+          {{ item.maxValue | number : '1.0-0' }}
         </td>
         <td class="jc-left ai-left">
           <button

@@ -35,6 +35,7 @@ export class AggregateComponent implements OnInit {
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
   first = 0;
+  loadFile = false;
   accountReportList: any[] = [];
   selectedReport: any = {};
   isLoadingSubmit = false;
@@ -210,6 +211,7 @@ export class AggregateComponent implements OnInit {
 
   downloadExcelFile() {
     if (this.btnDis == false) {
+      this.loadFile = true;
       const formValue = this.accountReportPriceForm.value;
       this.formSubmitted = true;
       const body = {
@@ -226,6 +228,7 @@ export class AggregateComponent implements OnInit {
           a.download = res.data.fileName || ''; //File name Here
           a.click(); //Downloaded file
         }
+        this.loadFile = false;
       });
     }
   }
@@ -233,6 +236,7 @@ export class AggregateComponent implements OnInit {
   onSelectAttachment(files: FileList) {
     const File = files[0].name;
     if (files.length) {
+      this.onBeforeUpload();
       Array.from(files).forEach(file => {
         const data = new FormData();
         data.append('File', file);
@@ -254,6 +258,7 @@ export class AggregateComponent implements OnInit {
                 this.uploadFile = response.data.result.multiMediaId;
                 this.ReadPriceAccountFromExcelFile(this.uploadFile);
               }
+              this.onUpload();
             });
         else return of();
       });
@@ -413,6 +418,12 @@ export class AggregateComponent implements OnInit {
 
   reject() {}
 
+  onBeforeUpload(): void {
+    this.loading = true; // Show loading indicator
+  }
+  onUpload(): void {
+    this.loading = false; // Hide loading indicator after upload
+  }
   confirm() {
     this.addList();
     setTimeout(() => {

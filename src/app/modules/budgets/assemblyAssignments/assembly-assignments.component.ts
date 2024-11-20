@@ -5,7 +5,8 @@ import { HttpService } from '@core/http/http.service';
 import {
   AssemblyAssignments,
   Company,
-  Pagination, UrlBuilder
+  Pagination,
+  UrlBuilder,
 } from '@shared/models/response.model';
 import {
   ConfirmationService,
@@ -51,7 +52,7 @@ export class AssemblyAssignmentsComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
   ngOnInit(): void {
     // this.getAssemblyAssignmentsLst();
     this.getMeetingTopicList();
@@ -64,8 +65,9 @@ export class AssemblyAssignmentsComponent {
       // meetingDate: new FormControl(),
     });
 
-    this.selectedPeriodId = Number(this.route.snapshot.paramMap.get('budgetPeriodId'));
-
+    this.selectedPeriodId = Number(
+      this.route.snapshot.paramMap.get('budgetPeriodId')
+    );
   }
 
   getMeetingTopicList() {
@@ -121,30 +123,33 @@ export class AssemblyAssignmentsComponent {
       });
   }
 
-
   addSubComponentList(data: any) {
     data.forEach((row: any) => {
-
       row['componentList'] = [];
       let array = this.subComponentList;
-      let snapshotParams = '/' + Number(this.route.snapshot.paramMap.get('budgetPeriodId')) + '/';
+      let snapshotParams =
+        '/' + Number(this.route.snapshot.paramMap.get('budgetPeriodId')) + '/';
 
       array = array.map(com => {
         let params = snapshotParams + '/' + row.id;
         let route = com['routerLink'][0].concat(params);
-        return { ...com, routerLink: [route] }
-      })
+        return { ...com, routerLink: [route] };
+      });
 
       row['componentList'].push(...array);
-
     });
     return data;
   }
 
   navigateToIndicatorPage(item: any) {
-    debugger
-    this.router.navigate(['Period/RelatedIndicator'],
-      { queryParams: { page: 'YearUnion', id: item.id, companyId: item.companyId, periodId: this.selectedPeriodId } })
+    this.router.navigate(['Period/RelatedIndicator'], {
+      queryParams: {
+        page: 'YearUnion',
+        id: item.id,
+        companyId: item.companyId,
+        periodId: this.selectedPeriodId,
+      },
+    });
   }
 
   addAssemblyAssignment(data: string) {
@@ -179,7 +184,7 @@ export class AssemblyAssignmentsComponent {
       this.httpService
         .get<AssemblyAssignments>(
           UrlBuilder.build(AssemblyAssignments.apiAddress + 'Delete', '') +
-          `/${id}`
+            `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -214,5 +219,4 @@ export class AssemblyAssignmentsComponent {
     this.searchForm.reset();
     this.getAssemblyAssignmentList();
   }
-
 }
