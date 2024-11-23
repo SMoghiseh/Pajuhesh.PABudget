@@ -68,10 +68,11 @@
 
         .desc {
             text-align: right;
-            margin: 10px 10px 0 0;
+            margin: 18px 10px 0 0;
             overflow: auto;
             scrollbar-color: #ccc #F5F7FA;
-            height: 200px;
+            scrollbar-width: thin;
+            height: 92%;
 
             p {
                 margin-top: 10px;
@@ -103,3 +104,4 @@
         font-weight: 400;
     }
 }
+
