@@ -168,7 +168,7 @@ export class AddEditSwotComponent {
 
   }
 
-  validateInputStrategyPriority(event: KeyboardEvent) {
+  validateInputSwoPriority(event: KeyboardEvent) {
     const charCode = event.key;
     const input = (event.target as HTMLInputElement).value;
 

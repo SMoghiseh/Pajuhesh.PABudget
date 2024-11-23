@@ -36,10 +36,10 @@
             " />
         </div>
         <div class="col-6 mt-2">
-            <label for="strategyPriority"> الویت(بین1تا10) </label>
-            <input pInputText type="number" id="strategyPriority" name="strategyPriority"
-                formControlName="strategyPriority" maxlength="2" [min]="0" [max]="10" class="w-100 my-1"
-                (keypress)="validateInputStrategyPriority($event)" [class.ng-invalid]="swoPriority?.invalid"
+            <label for="swoPriority"> الویت(بین1تا10) </label>
+            <input pInputText type="number" id="swoPriority" name="swoPriority"
+                formControlName="swoPriority" maxlength="2" [min]="0" [max]="10" class="w-100 my-1"
+                (keypress)="validateInputSwoPriority($event)" [class.ng-invalid]="swoPriority?.invalid"
                 [class.ng-dirty]="
               (addEditFormSubmitted && swoPriority?.pristine) ||
               swoPriority?.dirty ||
