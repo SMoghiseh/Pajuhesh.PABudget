@@ -1786,7 +1786,7 @@ export class YearPolicy {
   title!: string;
 }
 
-export class BudgetPeriod {
+export class ItemPirce {
   static readonly apiAddress =
     'api/PABudgetApi/v1/BudgetPeriod/Budget/GetItemPirceOriginal';
 }
@@ -1856,4 +1856,11 @@ export class ShareHolder {
   partyName!: string;
   partyLastName!: string;
   partyNationalId!: string;
+}
+
+export class BudgetPeriod {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/';
+  id!: number;
+  yearActivityTitle!: string;
+
 }

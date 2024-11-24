@@ -1,0 +1,54 @@
+<p-toast key="RelatedActivity" position="bottom-left"></p-toast>
+
+
+<form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
+    <div class="container row">
+        <div class="col-4 mt-2" [ngClass]="{'readonly-field': true}">
+            <label for="yearActivityTitle">عنوان</label>
+            <input [readOnly]="true" pInputText id="yearActivityTitle" name="yearActivityTitle"
+                formControlName="yearActivityTitle" type="text" class="w-100" />
+        </div>
+        <div class="col-4 mt-2" [ngClass]="{'readonly-field': true}">
+            <label for="fromFiscalPeriodTitle">از دوره عملیاتی</label>
+            <input [readOnly]="true" pInputText id="fromFiscalPeriodTitle" name="fromFiscalPeriodTitle"
+                formControlName="fromFiscalPeriodTitle" type="text" class="w-100" />
+        </div>
+        <div class="col-4 mt-2" [ngClass]="{'readonly-field': true}">
+            <label for="toFiscalPeriodTitle">تا دوره عملیاتی</label>
+            <input [readOnly]="true" pInputText id="toFiscalPeriodTitle" name="toFiscalPeriodTitle"
+                formControlName="toFiscalPeriodTitle" type="text" class="w-100" />
+        </div>
+        <div class="col-4 mt-2" [ngClass]="{'readonly-field': true}">
+            <label for="budgetPrice">مبلغ بودجه شده </label>
+            <input [readOnly]="true" pInputText id="budgetPrice" name="budgetPrice" formControlName="budgetPrice"
+                type="text" class="w-100" />
+        </div>
+        <div class="col-4 mt-2" [ngClass]="{'readonly-field': true}">
+            <label for="budgetPercent"> درصد انتظار پیشرفت </label>
+            <input [readOnly]="true" pInputText id="budgetPercent" name="budgetPercent" formControlName="budgetPercent"
+                type="text" class="w-100" />
+        </div>
+
+        <div class="col-4 mt-2">
+            <label for="reportPrice">مبلغ هزینه شده(میلیون ریال)</label>
+            <p-inputNumber id="reportPrice" name="reportPrice" formControlName="reportPrice" inputId="integeronly"
+                class="w-100"></p-inputNumber>
+        </div>
+
+        <div class="col-4 mt-2">
+            <label for="reportPercent"> درصد پیشرفت </label>
+            <input pInputText id="reportPercent" name="reportPercent" formControlName="reportPercent" type="text"
+                type="number" class="w-100" (keypress)="onlyFloatNumberKey($event)" />
+        </div>
+
+        <div class="col-12">
+            <label for="description"> شرح </label>
+            <textarea pInputTextarea id="description" name="description" formControlName="description" rows="3"
+                cols="10" class="w-100"></textarea>
+        </div>
+        <div class="col-12 row-btn  row-btn-fixed-bottom">
+            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+                [loading]="isLoadingSubmit"></p-button>
+        </div>
+    </div>
+</form>

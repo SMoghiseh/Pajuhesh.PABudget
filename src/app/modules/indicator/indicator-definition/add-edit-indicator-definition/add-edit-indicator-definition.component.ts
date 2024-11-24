@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '@core/http/http.service';
 import {
   AccountReportItem,
-  BudgetPeriod,
+  ItemPirce,
   Indicator,
   ReferenceList,
 } from '@shared/models/response.model';
@@ -135,7 +135,7 @@ export class AddEditIndicatorDefinitionComponent {
   }
   getAccountReportItemList() {
     this.httpService
-      .post<BudgetPeriod[]>(BudgetPeriod.apiAddress, {
+      .post<ItemPirce[]>(ItemPirce.apiAddress, {
         withOutPagination: true,
       })
       .subscribe(response => {

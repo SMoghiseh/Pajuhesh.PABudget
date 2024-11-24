@@ -1,28 +1,69 @@
-
-
 :host ::ng-deep .height-size .p-dialog {
-    min-height: 100% !important;
-    height: auto !important;
+ // min-height: 70% !important;
+  height: auto !important;
 }
 
 ::ng-deep .p-inputnumber {
-    width: 100%;
+  width: 100%;
 }
 
-  :host ::ng-deep  .p-datatable {
-    .p-datatable-thead>tr>th {
-      background: unset;
-      text-align: center !important;
-    }
-    .p-datatable-tbody>tr>td {
-      &:last-child {
-        text-align: center !important;
+:host ::ng-deep .p-datatable {
+  .p-datatable-thead>tr>th {
+    background: unset;
+    text-align: center !important;
+  }
 
+  .p-datatable-tbody>tr>td {
+    &:last-child {
+      text-align: center !important;
+
+    }
+  }
+}
+
+::ng-deep .p-menu.p-menu-overlay {
+  width: 18rem !important;
+}
+
+.breakingItem-list {
+  font-size: 1.2rem;
+  margin-top: 10px;
+
+
+  .content {
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--BlueGray-300, #CBD5E1);
+    background: var(--BlueGray-50, #F8FAFC);
+    //   width: fit-content;
+    margin-bottom: 30px;
+    // width: 90%;
+    text-align: center;
+    min-width: 130px;
+    margin: 15px;
+    //   height: 130px;
+
+    p {
+      &:nth-child(3) {
+        font-size: 1rem;
       }
     }
   }
 
- ::ng-deep .p-menu.p-menu-overlay {
-    // 
-    width: 18rem !important;
+  .month-title {
+    font-weight: 600;
   }
+
+  .selected {
+    border: 1px solid #60A5FA !important;
+  }
+
+
+}
+
+
+:host ::ng-deep .breakingItem-list .p-inputtext {
+  width: 60px;
+  text-align: center !important;
+  direction: ltr;
+}
