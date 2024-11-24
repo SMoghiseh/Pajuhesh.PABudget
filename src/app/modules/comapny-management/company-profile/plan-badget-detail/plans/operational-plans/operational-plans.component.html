@@ -4,14 +4,16 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date [companyId]="inputData.companyId"
+          <app-select-date
+            [companyId]="inputData.companyId"
             [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
     </div>
     <div class="row">
-      <p-table #dataTable
+      <p-table
+        #dataTable
         dataKey="id"
         class="data-table d-none d-lg-block"
         [styleClass]="gridClass"
@@ -22,50 +24,48 @@
         [totalRecords]="totalCount"
         [value]="planDetailData"
         [loading]="loading"
-        [tableStyle]="{ 'min-width': '75rem' }"
+        [tableStyle]="{ width: '100%' }"
         [lazy]="true"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
-          <tr class="data-table__header">
-            <div class="headerStyle">
-              <th style="min-width: 30rem">
+          <tr class="data-table__header w-100">
+            <div class="headerStyle" style="width: 40%">
+              <th>
                 <strong> عنوان </strong>
               </th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> منشاء </strong></th>
+            <div class="headerStyle" style="width: 10%">
+              <th><strong> منشاء </strong></th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> شکست فصل اول </strong></th>
+            <div class="headerStyle" style="width: 10%">
+              <th><strong> شکست فصل اول </strong></th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> شکست فصل دوم </strong></th>
+            <div class="headerStyle" style="width: 10%">
+              <th><strong> شکست فصل دوم </strong></th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> شکست فصل سوم </strong></th>
+            <div class="headerStyle" style="width: 10%">
+              <th><strong> شکست فصل سوم </strong></th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> شکست فصل چهارم </strong></th>
+            <div class="headerStyle" style="width: 10%">
+              <th><strong> شکست فصل چهارم </strong></th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> اثر مالی </strong></th>
+            <div class="headerStyle" style="width: 10%">
+              <th><strong> اثر مالی </strong></th>
             </div>
           </tr>
         </ng-template>
 
-        <ng-template pTemplate="body"
-          let-item
-          let-rowIndex="rowIndex">
-          <tr>
-            <div class="detailStyle Width: auto">
-              <td style="min-width: 30rem">{{ item.titleMain }}</td>
-              <td style="min-width: 10rem">{{ item.titleFirst }}</td>
-              <td style="min-width: 10rem">{{ item.titleTwo }}</td>
-              <td style="min-width: 10rem">{{ item.titleThree }}</td>
-              <td style="min-width: 10rem">{{ item.titleFour }}</td>
-              <td style="min-width: 10rem">{{ item.titleFive }}</td>
-              <td style="min-width: 10rem">{{ item.titleSix | number }}</td>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr class=" w-100">
+            <div class="detailStyle">
+              <td style="width: 40%">{{ item.titleMain }}</td>
+              <td style="width: 10%">{{ item.titleFirst }}</td>
+              <td style="width: 10%">{{ item.titleTwo }}</td>
+              <td style="width: 10%">{{ item.titleThree }}</td>
+              <td style="width: 10%">{{ item.titleFour }}</td>
+              <td style="width: 10%">{{ item.titleFive }}</td>
+              <td style="width: 10%">{{ item.titleSix | number }}</td>
             </div>
           </tr>
         </ng-template>

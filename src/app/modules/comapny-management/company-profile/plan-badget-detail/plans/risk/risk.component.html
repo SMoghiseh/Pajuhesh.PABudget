@@ -34,19 +34,19 @@
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
-          <tr class="data-table__header">
-            <div class="headerStyle">
-              <th style="min-width: 45rem">
+          <tr class="data-table__header w-100">
+            <div class="headerStyle" style="width: 50%">
+              <th>
                 <strong> عنوان ریسک </strong>
               </th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem"><strong> احتمال </strong></th>
-              <th style="min-width: 7rem"><strong> شدت اثر </strong></th>
-              <th style="min-width: 7rem"><strong> سطح ریسک </strong></th>
+            <div class="headerStyle" style="width: 30%">
+              <th style="width: 10%"><strong> احتمال </strong></th>
+              <th style="width: 10%"><strong> شدت اثر </strong></th>
+              <th style="width: 10%"><strong> سطح ریسک </strong></th>
             </div>
-            <div class="headerStyle Width: auto">
-              <th style="min-width: 7rem">
+            <div class="headerStyle" style="width: 20%">
+              <th style="width: 20%">
                 <strong> پیامد ریسک در بودجه </strong>
               </th>
             </div>
@@ -57,25 +57,23 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-risk let-rowIndex="rowIndex">
-          <tr style="font-size: 13px">
+          <tr style="font-size: 13px" class="w-100">
             <div
-              class="detailStyle Width: auto"
+              class="detailStyle"
               [ngStyle]="{ 'background-color': risk.color }">
-              <td
-                style="min-width: 45rem"
-                [ngStyle]="{ color: risk.fontColor }">
+              <td style="width: 50%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.title }}
               </td>
-              <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
+              <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.possibility }}
               </td>
-              <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
+              <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.riskIntensity }}
               </td>
-              <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
+              <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.riskLevel }}
               </td>
-              <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
+              <td style="width: 20%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.effectBudget }}
               </td>
               <!-- <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">
