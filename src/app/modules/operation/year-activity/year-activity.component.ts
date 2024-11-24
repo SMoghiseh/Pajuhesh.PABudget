@@ -491,10 +491,8 @@ export class YearActivityComponent {
       return;
     }
 
-    let finalList = this.breakingItem.filter(
-      (item: { changed: boolean }) => item.changed == true
-    );
-    finalList = finalList.map((item: { id: any; percent: any }) => {
+
+    let finalList = this.breakingItem.map((item: { id: any; percent: any }) => {
       return { id: item.id, percent: Number(item.percent) };
     });
 
@@ -526,10 +524,6 @@ export class YearActivityComponent {
           this.router.navigate(['/Operation/OperationalPlanBreaking/' + this.rowSelected.id]);
         }
       });
-  }
-
-  onChangePercent(item: any) {
-    item['changed'] = true;
   }
 
 
