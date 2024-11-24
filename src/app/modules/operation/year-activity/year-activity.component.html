@@ -168,13 +168,14 @@
         <td>{{ item.description }}</td>
         <td>{{ item.statusTitle }}</td>
         <td class="jc-left ai-left">
-          <ng-container *ngIf="item.HasBreaked">
+        
+          <ng-container *ngIf="item.hasBreaked">
             <button class="action-image-container edit-button" (click)="routeToInsertBreak(item)"
               pTooltip="  نمایش شکست">
               <img ngSrc="icons\Group 131.svg" width="24" height="24" />
             </button>
           </ng-container>
-          <ng-container *ngIf="!item.HasBreaked">
+          <ng-container *ngIf="!item.hasBreaked">
             <button class="action-image-container edit-button" (click)="onOpenBreakingDialog(item)"
               pTooltip="شکست برنامه عملیاتی  ">
               <img ngSrc="icons\Group 131.svg" width="24" height="24" />
