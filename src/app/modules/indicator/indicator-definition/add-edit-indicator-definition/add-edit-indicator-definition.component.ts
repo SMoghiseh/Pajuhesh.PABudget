@@ -79,7 +79,7 @@ export class AddEditIndicatorDefinitionComponent {
       // code: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       accountReportItemId: new FormControl(null),
-      indicatorTypeCode: new FormControl(null, Validators.required),
+      indicatorTypeCode: new FormControl(null),
       periodTypeCode: new FormControl(null),
       minMaxTypeCode: new FormControl(null),
       chartTypeCode: new FormControl(null),
