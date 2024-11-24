@@ -1,5 +1,6 @@
 <p-toast key="YearActivity" position="bottom-left"></p-toast>
 <p-toast key="FieldsRequired" position="bottom-left"></p-toast>
+<p-toast key="messageOnAddBreaking" position="bottom-left"></p-toast>
 
 <div class="d-flex justify-content-between">
   <div class="table-header">برنامه عملیاتی</div>
@@ -167,6 +168,18 @@
         <td>{{ item.description }}</td>
         <td>{{ item.statusTitle }}</td>
         <td class="jc-left ai-left">
+          <ng-container *ngIf="item.HasBreaked">
+            <button class="action-image-container edit-button" (click)="routeToInsertBreak(item)"
+              pTooltip="  نمایش شکست">
+              <img ngSrc="icons\Group 131.svg" width="24" height="24" />
+            </button>
+          </ng-container>
+          <ng-container *ngIf="!item.HasBreaked">
+            <button class="action-image-container edit-button" (click)="onOpenBreakingDialog(item)"
+              pTooltip="شکست برنامه عملیاتی  ">
+              <img ngSrc="icons\Group 131.svg" width="24" height="24" />
+            </button>
+          </ng-container>
           <div class="d-inline-block">
             <button class="action-image-container delete-button context-menu" (click)="menu.toggle($event)" pTooltip="">
               <img ngSrc="icons\Group 109.svg" width="24" height="24" />
@@ -228,4 +241,34 @@
     </p-table>
   </div>
 </p-dialog>
+
+<p-dialog *ngIf="addYearActivityBreakingModal" [header]="'افزودن شکست برنامه عملیاتی  '"
+  [(visible)]="addYearActivityBreakingModal" [modal]="true" [draggable]="false" [resizable]="false"
+  [style]="{ width: 'auto' }" class="height-size">
+  <div class="d-flex flex-wrap breakingItem-list">
+    <ng-container *ngFor="let item of breakingItem">
+      <div class="col">
+        <div [class.selected]="item.id === selectedBreakingItem?.id" class="content"
+          (click)="onSelectYearActivityItem(item)">
+          <p class="month-title">
+            <span>{{ item.title }}</span>
+          </p>
+
+          <div class="d-flex justify-content-between">
+            <span class="mt-8">درصد: </span>
+            <input pInputText [(ngModel)]="item.percent" (ngModelChange)="onChangePercent(item)" />
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="col-12 row-btn row-btn-fixed-bottom d-flex justify-content-between">
+    <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" [loading]="isLoadingSubmit"
+      (click)="addBreakingList()"></p-button>
+  </div>
+</p-dialog>
+
+
 <p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>

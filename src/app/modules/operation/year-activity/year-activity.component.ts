@@ -9,6 +9,7 @@ import {
   ReferenceType,
   ReferenceList,
   Company,
+  BudgetPeriod,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -17,8 +18,8 @@ import {
   LazyLoadEvent,
   MessageService,
 } from 'primeng/api';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-year-activity',
@@ -42,6 +43,14 @@ export class YearActivityComponent {
   pId!: string;
   mode!: string;
   formSubmitted = false;
+  isLoadingSubmit = false;
+
+  // property modal for add breaking
+  addYearActivityBreakingModal = false;
+  breakingItem: any = [];
+  selectedBreakingItem: any;
+  rowSelected: any;
+
 
   // form property
   searchForm!: FormGroup;
@@ -91,8 +100,9 @@ export class YearActivityComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getReferenceList();
@@ -131,6 +141,7 @@ export class YearActivityComponent {
     // this.getPeriodDetailList(
     //   Number(this.route.snapshot.paramMap.get('periodId'))
     // );
+
   }
 
   openDialog() {
@@ -432,4 +443,95 @@ export class YearActivityComponent {
     this.searchForm.reset();
     this.getList(false);
   }
+
+  // method modal for add breaking
+  onOpenBreakingDialog(item: any) {
+    this.addYearActivityBreakingModal = true;
+    this.rowSelected = item;
+    this.getBreakingData(item.id);
+  }
+  
+  routeToInsertBreak(item: any) {
+    this.rowSelected = item;
+    this.router.navigate(['/Operation/OperationalPlanBreaking/' + this.rowSelected.id]);
+  }
+
+  getBreakingData(id: number) {
+    this.httpService
+      .get<BudgetPeriod[]>(
+        BudgetPeriod.apiAddress + 'GetSeasonPercents/' + id)
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.breakingItem = response.data.result;
+        }
+      })
+  }
+
+  onSelectYearActivityItem(item: any) {
+    this.selectedBreakingItem = item;
+  }
+
+  addBreakingList() {
+
+    const percentageList = this.breakingItem.map((item: { percent: any }) => {
+      return item.percent ? Number(item.percent) : 0;
+    });
+    let sum = 0;
+    percentageList.forEach((element: any) => {
+      sum = sum + element;
+    });
+    if (sum != 100) {
+      this.messageService.add({
+        key: 'messageOnAddBreaking',
+        life: 8000,
+        severity: 'error',
+        detail: ``,
+        summary: 'جمع درصد های وارد شده برابر 100 نیست',
+      });
+      return;
+    }
+
+    let finalList = this.breakingItem.filter(
+      (item: { changed: boolean }) => item.changed == true
+    );
+    finalList = finalList.map((item: { id: any; percent: any }) => {
+      return { id: item.id, percent: Number(item.percent) };
+    });
+
+
+
+    const data = {
+      yearActivityId: this.rowSelected.id,
+      seasonPercents: finalList
+    };
+
+
+    this.httpService
+      .post<BudgetPeriod>(
+        BudgetPeriod.apiAddress + 'ProgramBreak/' + 'Create',
+        data
+      )
+      .pipe(tap(() => (this.isLoadingSubmit = false)))
+      .subscribe(response => {
+        if (response.successed) {
+          this.messageService.add({
+            key: 'messageOnAddBreaking',
+            life: 8000,
+            severity: 'success',
+            // detail: ` عنوان  ${request.title}`,
+            detail: ``,
+            summary: 'با موفقیت ثبت شد',
+          });
+          this.addYearActivityBreakingModal = false;
+          this.router.navigate(['/Operation/OperationalPlanBreaking/' + this.rowSelected.id]);
+        }
+      });
+  }
+
+  onChangePercent(item: any) {
+    item['changed'] = true;
+  }
+
+
+
 }

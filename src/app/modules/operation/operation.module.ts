@@ -73,6 +73,8 @@ import { RelatedBigGoalComponent } from './related-big-goal/related-big-goal.com
 import { AddEditRelatedBigGoalComponent } from './related-big-goal/add-edit-related-big-goal/add-edit-related-big-goal.component';
 import { ListboxModule } from 'primeng/listbox';
 import { ProjectStructureComponent } from './project-structure/project-structure.component';
+import { YearActivityBreakComponent } from './year-activity/year-activity-break/year-activity-break.component';
+import { AddEditYearActivityBreakComponent } from './year-activity/year-activity-break/add-edit-year-activity-break/add-edit-year-activity-break.component';
 
 
 @NgModule({
@@ -118,6 +120,8 @@ import { ProjectStructureComponent } from './project-structure/project-structure
     RelatedBigGoalComponent,
     AddEditRelatedBigGoalComponent,
     ProjectStructureComponent,
+    YearActivityBreakComponent,
+    AddEditYearActivityBreakComponent,
   ],
   imports: [
     CommonModule,
@@ -159,4 +163,4 @@ import { ProjectStructureComponent } from './project-structure/project-structure
     },
   ],
 })
-export class OperationModule {}
+export class OperationModule { }
