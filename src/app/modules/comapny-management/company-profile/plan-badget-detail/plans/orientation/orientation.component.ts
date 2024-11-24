@@ -21,7 +21,7 @@ export class OrientationComponent {
   isOpenDataList = false;
   dataList: any;
   selectDateType = 'single';
-  selectedPlanName = '  جهت گیری';
+  selectedPlanName = '   سیاست ها';
 
   constructor(private httpService: HttpService) {}
 
