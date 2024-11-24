@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-goals',
   templateUrl: './goals.component.html',
-  styleUrls: ['./goals.component.scss']
+  styleUrls: ['./goals.component.scss'],
 })
 export class GoalsComponent implements OnInit {
   @Input() inputData: any;
@@ -19,9 +19,7 @@ export class GoalsComponent implements OnInit {
   selectDateType = 'single';
   selectedPlanName = ' اهداف کلان ';
 
-
-
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getPlanDetail(0);
@@ -49,7 +47,4 @@ export class GoalsComponent implements OnInit {
   returnSelectedDate(e: any) {
     this.getPlanDetail(e);
   }
-
-
-
 }

@@ -20,9 +20,12 @@
         <ng-template pTemplate="header">
           <div class="headerStyleForm">
             <h3>{{ selectedPlanName }}</h3>
-            <label class="labelStyle"
+            <label
+              class="labelStyle"
+              data-bs-toggle="tooltip"
+              [attr.title]="planDetailData[0]?.titleFirst"
               ><span>چشم انداز : </span
-              >{{ planDetailData[0].titleFirst }}</label
+              >{{ planDetailData[0].titleFirst?.substring(30, 0) }}</label
             >
           </div>
           <br />

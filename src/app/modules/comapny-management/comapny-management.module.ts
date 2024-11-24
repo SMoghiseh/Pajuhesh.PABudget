@@ -115,7 +115,7 @@ import { PlanComponent } from './company-profile/plan-badget-detail/plans/plan/p
     GraphComponent,
     EmployeesComponent,
     DetailStrategyPlanComponent,
-    PlanComponent
+    PlanComponent,
   ],
   imports: [
     ComapnyManagementRoutingModule,
@@ -149,6 +149,7 @@ import { PlanComponent } from './company-profile/plan-badget-detail/plans/plan/p
     MenuModule,
     DialogModule,
     NgxGraphModule,
+    TooltipModule,
   ],
   providers: [
     {
@@ -160,4 +161,4 @@ import { PlanComponent } from './company-profile/plan-badget-detail/plans/plan/p
     TableCheckbox,
   ],
 })
-export class ComapnyManagementModule { }
+export class ComapnyManagementModule {}
