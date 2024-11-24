@@ -2,10 +2,13 @@
 
 <div class="d-flex justify-content-between">
   <div class="table-header"> شکست برنامه عملیاتی</div>
+  <div>
+    <p-button class="pe-2 mr-8" styleClass="p-button-danger" icon="pi pi-trash" label="حذف شکست " (onClick)="deleteAll()"></p-button>
+  </div>
 </div>
 
 
-<div class="table-container">
+<div class="table-container mt-8">
   <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
     [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
     [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
