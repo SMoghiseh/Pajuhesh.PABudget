@@ -119,7 +119,7 @@
                   {{ rowData[col.field] }}
                 </ng-container>
                 <ng-container *ngIf="col.field === 'amountDifference'">
-                  {{ rowData[col.field] }}
+                  {{ formatNumber(rowData[col.field]) }}
                 </ng-container>
               </td>
             </tr>
@@ -185,7 +185,7 @@
                 *ngFor="let col of columns; let i = index"
                 [class.negativeNumbers]="rowData[col.field] < 0"
                 [class.pasitiveNumbers]="rowData[col.field] > 0">
-                {{ rowData[col.field] }}
+                {{ formatNumber(rowData[col.field]) }}
               </td>
             </tr>
           </ng-template>

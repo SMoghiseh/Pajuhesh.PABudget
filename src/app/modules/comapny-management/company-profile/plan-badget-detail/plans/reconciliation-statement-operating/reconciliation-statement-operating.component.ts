@@ -87,6 +87,10 @@ export class ReconciliationStatementOperatingComponent {
     );
     return getpartialSelected.map(item => item.data.code);
   }
+  formatNumber(value: number | string): string {
+    if (value == null) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
 
   createRequestBody(priceTypeId: number) {
     this.selectDateType = 'multiple';
