@@ -20,10 +20,17 @@
 }
 
 .detailStyle {
+    &:last-child {
+        margin-left: 0px;
+    }
     padding: 8px;
     margin: 5px 0;
+    display: inline-block;
+    width: inherit;
     border-radius: 8px;
+
 }
+
 
 tr:nth-child(even) {
     background-color: #EEF2FF;

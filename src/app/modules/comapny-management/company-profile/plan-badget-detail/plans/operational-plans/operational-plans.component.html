@@ -4,21 +4,14 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date
-            [companyId]="inputData.companyId"
+          <app-select-date [companyId]="inputData.companyId"
             [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
-        <!-- <div class="items select-feature">
-          <span>شرح</span>
-        </div> -->
-      </div>
     </div>
     <div class="row">
-      <p-table
-        #dataTable
+      <p-table #dataTable
         dataKey="id"
         class="data-table d-none d-lg-block"
         [styleClass]="gridClass"
@@ -36,44 +29,43 @@
         <ng-template pTemplate="header">
           <tr class="data-table__header">
             <div class="headerStyle">
-              <th style="min-width: 29rem">
+              <th style="min-width: 30rem">
                 <strong> عنوان </strong>
               </th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 9rem"><strong> منشاء </strong></th>
+              <th style="min-width: 7rem"><strong> منشاء </strong></th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 9rem"><strong> شکست فصل اول </strong></th>
+              <th style="min-width: 7rem"><strong> شکست فصل اول </strong></th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 9rem"><strong> شکست فصل دوم  </strong></th>
+              <th style="min-width: 7rem"><strong> شکست فصل دوم </strong></th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 9rem"><strong> شکست فصل سوم </strong></th>
+              <th style="min-width: 7rem"><strong> شکست فصل سوم </strong></th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 9rem"><strong> شکست فصل چهارم </strong></th>
+              <th style="min-width: 7rem"><strong> شکست فصل چهارم </strong></th>
             </div>
             <div class="headerStyle Width: auto">
-              <th style="min-width: 9rem"><strong> اثر مالی </strong></th>
+              <th style="min-width: 7rem"><strong> اثر مالی </strong></th>
             </div>
-
           </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        <ng-template pTemplate="body"
+          let-item
+          let-rowIndex="rowIndex">
           <tr>
-            <div
-              class="detailStyle Width: auto"
-              [ngStyle]="{ 'background-color': item.color }">
-              <td style="width: 29rem">{{ item.titleMain }}</td>
-              <td style="width: 9rem">{{ item.titleFirst }}</td>
-              <td style="width: 9rem">{{ item.titleTwo }}</td>
-              <td style="width: 9rem">{{ item.titleThree }}</td>
-              <td style="width: 9rem">{{ item.titleFour }}</td>
-              <td style="width: 9rem">{{ item.titleFive }}</td>
-              <td style="width: 9rem">{{ item.titleSix }}</td>
+            <div class="detailStyle Width: auto">
+              <td style="min-width: 30rem">{{ item.titleMain }}</td>
+              <td style="min-width: 10rem">{{ item.titleFirst }}</td>
+              <td style="min-width: 10rem">{{ item.titleTwo }}</td>
+              <td style="min-width: 10rem">{{ item.titleThree }}</td>
+              <td style="min-width: 10rem">{{ item.titleFour }}</td>
+              <td style="min-width: 10rem">{{ item.titleFive }}</td>
+              <td style="min-width: 10rem">{{ item.titleSix | number }}</td>
             </div>
           </tr>
         </ng-template>
@@ -81,4 +73,3 @@
     </div>
   </div>
 </div>
-
