@@ -1,0 +1,75 @@
+<p-toast key="RelatedActivity" position="bottom-left"></p-toast>
+
+<div class="d-flex justify-content-between">
+  <div class="table-header"> شکست برنامه عملیاتی</div>
+</div>
+
+
+<div class="table-container">
+  <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+    [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+    [value]="data" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
+    (onLazyLoad)="getList($event)" [(first)]="first">>
+    <!-- table header -->
+    <ng-template pTemplate="header">
+      <tr class="data-table__header">
+        <th style="min-width: 10rem"><strong> عنوان </strong></th>
+        <th style="min-width: 10rem"><strong> از دوره عملیاتی </strong></th>
+        <th style="min-width: 10rem"><strong> تا دوره عملیاتی </strong></th>
+        <th style="min-width: 10rem"><strong> مبلغ بودجه شده </strong></th>
+        <th style="min-width: 10rem"><strong> درصد انتظار پیشرفت </strong></th>
+        <th style="min-width: 10rem"><strong> مبلغ هزینه شده </strong></th>
+        <th style="min-width: 10rem"><strong> درصد پیشرفت </strong></th>
+        <th style="min-width: 10rem"><strong> شرح </strong></th>
+        <th style="min-width: 10rem"><strong> عملیات</strong></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
+      <tr>
+        <td pTooltip="{{ item.yearActivityTitle }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.yearActivityTitle }}
+        </td>
+        <td pTooltip="{{ item.fromFiscalPeriodTitle }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.fromFiscalPeriodTitle }}
+        </td>
+        <td pTooltip="{{ item.toFiscalPeriodTitle }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.toFiscalPeriodTitle }}
+        </td>
+        <td pTooltip="{{ item.budgetPrice }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.budgetPrice }}
+        </td>
+        <td pTooltip="{{ item.budgetPercent }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.budgetPercent }}
+        </td>
+        <td pTooltip="{{ item.reportPrice }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.reportPrice }}
+        </td>
+        <td pTooltip="{{ item.reportPercent }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.reportPercent }}
+        </td>
+        <td pTooltip="{{ item.description }}" tooltipEvent="hover" tooltipPosition="top">
+          {{ item.description }}
+        </td>
+
+        <td class="jc-left ai-left">
+          <button class="action-image-container edit-button" (click)="editRow(item)" pTooltip="ویرایش">
+            <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+          </button>
+
+          <!-- <button class="action-image-container delete-button" (click)="deleteRow(item)" pTooltip="حذف">
+            <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+          </button> -->
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog *ngIf="isOpenAddEditYearActivity" [header]="modalTitle" [(visible)]="isOpenAddEditYearActivity" [modal]="true"
+  [draggable]="false" [resizable]="false" [style]="{ width: '800px' }"
+  [class.height-size]="mode === 'insert' || mode === 'edit'">
+  <PABudget-add-edit-year-activity-break [data1]="addEditData" [mode]="mode"
+    (isSuccess)="reloadData()"></PABudget-add-edit-year-activity-break>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" [rtl]="true"></p-confirmDialog>
