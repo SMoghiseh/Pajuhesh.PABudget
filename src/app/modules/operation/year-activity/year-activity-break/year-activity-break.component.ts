@@ -10,7 +10,7 @@ import {
   MessageService,
 } from 'primeng/api';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'PABudget-year-activity-break',
@@ -45,7 +45,8 @@ export class YearActivityBreakComponent {
     private httpService: HttpService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -91,11 +92,10 @@ export class YearActivityBreakComponent {
     this.isOpenAddEditYearActivity = true;
   }
 
-  deleteRow(item: BudgetPeriod) {
-    if (item && item.id)
+  deleteAll() {
       this.confirmationService.confirm({
-        message: `آیا از حذف "${item.yearActivityTitle} " اطمینان دارید؟`,
-        header: `عنوان "${item.yearActivityTitle}"`,
+        message: `آیا از حذف همه سطر ها اطمینان دارید؟`,
+        header: `حذف شکست های برنامه عملیاتی `,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'تایید و حذف',
         acceptButtonStyleClass: 'p-button-danger',
@@ -103,19 +103,14 @@ export class YearActivityBreakComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.deleteYearActivity(item.id, item.yearActivityTitle),
+        accept: () => this.deleteAllRows(),
       });
   }
 
-  deleteYearActivity(id: number, title: string) {
-    if (id && title) {
+  deleteAllRows() {
+    let url = BudgetPeriod.apiAddress + 'ProgramBreak/' + 'DeleteAll/' + this.yearActivityId;
       this.httpService
-        .get<RelatedActivity>(
-          UrlBuilder.build(
-            RelatedActivity.apiAddress + 'Delete',
-            ''
-          ) + `/${id}`
-        )
+        .get<RelatedActivity>(url)
         .subscribe(response => {
           if (response.successed) {
             this.first = 0;
@@ -123,13 +118,14 @@ export class YearActivityBreakComponent {
               key: 'RelatedActivity',
               life: 8000,
               severity: 'success',
-              detail: `  مورد  ${title}`,
+              detail: `  `,
               summary: 'با موفقیت حذف شد',
             });
-            this.getList();
+           setTimeout(() => {
+            this.router.navigate(['/Operation/OperationalPlan']);
+           }, 1000);
           }
         });
-    }
   }
 
   reloadData() {
@@ -141,5 +137,7 @@ export class YearActivityBreakComponent {
     this.searchForm.reset();
     this.getList();
   }
+
+
 }
 
