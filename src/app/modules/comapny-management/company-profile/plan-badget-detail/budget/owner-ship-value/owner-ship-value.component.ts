@@ -123,6 +123,11 @@ export class OwnerShipValueComponent implements OnInit {
     this.getChart(this.comparisonTableId);
   }
 
+  formatNumber(value: number | string): string {
+    if (value == null) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   getTreeTableData() {
     this.selectedRows = [];
     // if (!this.selectedYerId) return;

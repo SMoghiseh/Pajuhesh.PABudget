@@ -53,6 +53,11 @@ export class ReceiveAndPayComponent {
     this.reloadFilteredData();
   }
 
+  formatNumber(value: number | string): string {
+    if (value == null) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   getListOfBudgetReportLst() {
     this.httpService
       .get<Budget[]>(Budget.apiListOfBudgetReport)

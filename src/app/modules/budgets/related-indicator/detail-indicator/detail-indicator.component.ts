@@ -138,5 +138,4 @@ export class DetailIndicatorComponent {
 
   onChangePercent(item: any) {
     item['changed'] = true;
-  }
-}
+  }}

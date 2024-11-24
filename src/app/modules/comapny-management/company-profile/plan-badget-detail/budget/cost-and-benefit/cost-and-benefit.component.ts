@@ -196,7 +196,7 @@ export class CostAndBenefitComponent implements OnInit {
     }
   }
 
-  getTableData(comparison: number) {
+  getTableData(comparison: number) { debugger
     let url = '';
     if (this.viewMode == 'table') {
       if (comparison == 1) url = Budget.apiAddressCompareBudgetWithReal;
@@ -308,7 +308,10 @@ export class CostAndBenefitComponent implements OnInit {
       this.lineChart2 = chart;
     }
   }
-
+  formatNumber(value: number | string): string {
+    if (value == null) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   onSelectReportItemType(id: number) {
     this.selectedReportTypeId = id;
 
