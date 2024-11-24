@@ -224,6 +224,10 @@ export class StatementCashFlowsComponent {
       });
   }
 
+  formatNumber(value: number | string): string {
+    if (value == null) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   createLineChart(data: any, indx: any) {
     if (indx == 1) {
       this.lineChart1?.destroy();
