@@ -108,7 +108,7 @@ export class AccountReportToItemComponent implements OnInit {
     this.getRowDataById(node.id);
   }
 
-  onEditRow(node: any) {
+  onEditRow(node: any) { debugger
     this.modalTitle = 'ویرایش گروه';
     if (!node.parentId) this.mode = 'editGroupPro';
     else this.mode = 'editSubGroupPro';

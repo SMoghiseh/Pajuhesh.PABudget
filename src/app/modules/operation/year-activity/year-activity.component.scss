@@ -61,13 +61,13 @@
 
 }
 
-.custom-tooltip {
-  background-color: #333;
+ .custom-tooltip {
+  background-color: #4d4646 !important;
   color: #fff;
   font-size: 14px;
   padding: 5px;
   border-radius: 4px;
-  max-width: 300px; /* Optional: Limit tooltip width */
+  max-width: 600px; /* Optional: Limit tooltip width */
   word-wrap: break-word; /* Handle long text gracefully */
 }
 
@@ -76,3 +76,4 @@
   text-align: center !important;
   direction: ltr;
 }
+

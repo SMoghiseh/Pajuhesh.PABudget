@@ -86,12 +86,12 @@
           optionValue="id"
           placeholder="انتخاب کنید"
           [options]="referenceOnList.contents"
-          [filter]="true"
-          appendTo="body">
+          [panelStyle]="{ width: '23rem' }"
+          [filter]="true">
           <ng-template let-item pTemplate="item">
             <div
               pTooltip="{{ item.title }}"
-              tooltipPosition="right"
+              tooltipPosition="top"
               tooltipStyleClass="custom-tooltip">
               {{ item.title }}
             </div>
