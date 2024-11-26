@@ -584,6 +584,7 @@ export class Company {
   companyInspectionInstituteTitle!: string;
   companyManagerName!: string;
   registerDatePc!: any;
+  result!: any;
 }
 
 export class ProductGroup {
@@ -1862,5 +1863,4 @@ export class BudgetPeriod {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/';
   id!: number;
   yearActivityTitle!: string;
-
 }

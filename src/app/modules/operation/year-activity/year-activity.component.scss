@@ -61,6 +61,15 @@
 
 }
 
+.custom-tooltip {
+  background-color: #333;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 4px;
+  max-width: 300px; /* Optional: Limit tooltip width */
+  word-wrap: break-word; /* Handle long text gracefully */
+}
 
 :host ::ng-deep .breakingItem-list .p-inputtext {
   width: 60px;
