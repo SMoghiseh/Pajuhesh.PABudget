@@ -9,7 +9,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 
-import { tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 import { SidemenuService } from '@core/layout/sidemenu/sidemenu.service';
 import { PersianNumberService } from '@shared/services/persian-number.service';
@@ -17,7 +17,14 @@ import { PersianNumberService } from '@shared/services/persian-number.service';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 
-import { Permission, Account } from '@shared/models/response.model';
+import {
+  Permission,
+  Account,
+  UrlBuilder,
+  RolePermissions,
+  Reports,
+  Company,
+} from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { DntCaptchaComponent } from './dnt-captcha/dnt-captcha.component';
 import { HttpClient } from '@angular/common/http';
@@ -53,6 +60,7 @@ export class LoginComponent implements OnInit {
   prjType = '';
   prjTitle = '';
   prjDescription = '';
+  companyId: any;
 
   // Form group fields:
   get username() {
@@ -80,6 +88,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getCompanyPermission();
     this.prjType = Common.prjType;
     this.prjTitle = Common.prjTitle;
     this.prjDescription = Common.prjDescription;
@@ -93,6 +102,24 @@ export class LoginComponent implements OnInit {
       ]),
       rememberMe: new FormControl(this.loginModel.rememberMe),
     });
+  }
+
+  getCompanyPermission() {
+    this.httpService
+      .get<any>(Company.apiAddressUserCompany)
+      .pipe(
+        map(response => {
+          if (response.data && response.data.result) {
+            return response.data.result;
+          } else return 0;
+        })
+      )
+      .subscribe(res => {
+        this.companyId = res?.id;
+        this.router.navigate([
+          '/Comapny/companyProfile/' + `${this.companyId}`,
+        ]);
+      });
   }
 
   /** Log in user */
@@ -157,11 +184,11 @@ export class LoginComponent implements OnInit {
                     menuResponse.data.result
                   ) {
                     this.saveMenuItems(rememberMe, menuResponse.data.result);
-
-                    this.router.navigate(
-                      ['/default/Dashboard'],
-                      navigationExtras
-                    );
+                    this.getCompanyPermission();
+                    // this.router.navigate(
+                    //   ['/Comapny/companyProfile/' + `${this.companyId}`],
+                    //   navigationExtras
+                    // );
                   }
                 });
             }
