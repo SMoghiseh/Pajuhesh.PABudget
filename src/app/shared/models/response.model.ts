@@ -1366,6 +1366,8 @@ export class Project {
 
   static readonly apiAddressSourceType =
     'api/PABudgetApi/v1/BaseInfo/ProjectSourceType/';
+  static readonly apiAddressCompany =
+    'api/PABudgetApi/v1/Project/Project/Company/';
   id!: number;
   title!: string;
   budgetPeriodId!: number;

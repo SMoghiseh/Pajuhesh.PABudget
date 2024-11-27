@@ -10,6 +10,7 @@ import {
   ReferenceList,
   Company,
   BudgetPeriod,
+  Project,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map, tap } from 'rxjs';
@@ -50,7 +51,6 @@ export class YearActivityComponent {
   breakingItem: any = [];
   selectedBreakingItem: any;
   rowSelected: any;
-
 
   // form property
   searchForm!: FormGroup;
@@ -102,12 +102,11 @@ export class YearActivityComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getReferenceList();
     this.getManagerTypeList();
-    this.getOperationList();
     this.getWeightCodeList();
     this.getPriorityCodeList();
     this.getCostCenterList();
@@ -141,7 +140,6 @@ export class YearActivityComponent {
     // this.getPeriodDetailList(
     //   Number(this.route.snapshot.paramMap.get('periodId'))
     // );
-
   }
 
   openDialog() {
@@ -191,20 +189,21 @@ export class YearActivityComponent {
 
   getReferenceFilteredList() {
     // check if periodId &  referenceCode is selected
-    let formValue = this.searchForm.value;
+    const formValue = this.searchForm.value;
     if (formValue.periodId & formValue.referenceCode) {
       this.getListByReference();
     }
   }
 
-  onChangeCompanyId(e: any) {
+  onChangeCompanyId(e: any) { debugger
     this.getBudgetPeriodList(e.value);
+    this.getOperationList(e.value);
   }
 
   getListByReference() {
     const formValue = this.searchForm.value;
 
-    let body = {
+    const body = {
       referenceCode: formValue.referenceCode,
       periodId: formValue.periodId,
       companyId: formValue.companyId,
@@ -229,11 +228,9 @@ export class YearActivityComponent {
       });
   }
 
-  getOperationList() {
+  getOperationList(companyId: number) { debugger
     this.httpService
-      .post<Operating[]>(Operating.apiAddress + 'List', {
-        withOutPagination: true,
-      })
+      .get<Project[]>(Project.apiAddressCompany + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.operationList = response.data.result;
@@ -450,21 +447,22 @@ export class YearActivityComponent {
     this.rowSelected = item;
     this.getBreakingData(item.id);
   }
-  
+
   routeToInsertBreak(item: any) {
     this.rowSelected = item;
-    this.router.navigate(['/Operation/OperationalPlanBreaking/' + this.rowSelected.id]);
+    this.router.navigate([
+      '/Operation/OperationalPlanBreaking/' + this.rowSelected.id,
+    ]);
   }
 
   getBreakingData(id: number) {
     this.httpService
-      .get<BudgetPeriod[]>(
-        BudgetPeriod.apiAddress + 'GetSeasonPercents/' + id)
+      .get<BudgetPeriod[]>(BudgetPeriod.apiAddress + 'GetSeasonPercents/' + id)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.breakingItem = response.data.result;
         }
-      })
+      });
   }
 
   onSelectYearActivityItem(item: any) {
@@ -472,7 +470,6 @@ export class YearActivityComponent {
   }
 
   addBreakingList() {
-
     const percentageList = this.breakingItem.map((item: { percent: any }) => {
       return item.percent ? Number(item.percent) : 0;
     });
@@ -491,18 +488,16 @@ export class YearActivityComponent {
       return;
     }
 
-
-    let finalList = this.breakingItem.map((item: { id: any; percent: any }) => {
-      return { id: item.id, percent: Number(item.percent) };
-    });
-
-
+    const finalList = this.breakingItem.map(
+      (item: { id: any; percent: any }) => {
+        return { id: item.id, percent: Number(item.percent) };
+      }
+    );
 
     const data = {
       yearActivityId: this.rowSelected.id,
-      seasonPercents: finalList
+      seasonPercents: finalList,
     };
-
 
     this.httpService
       .post<BudgetPeriod>(
@@ -521,11 +516,10 @@ export class YearActivityComponent {
             summary: 'با موفقیت ثبت شد',
           });
           this.addYearActivityBreakingModal = false;
-          this.router.navigate(['/Operation/OperationalPlanBreaking/' + this.rowSelected.id]);
+          this.router.navigate([
+            '/Operation/OperationalPlanBreaking/' + this.rowSelected.id,
+          ]);
         }
       });
   }
-
-
-
 }
