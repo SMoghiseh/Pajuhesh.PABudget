@@ -75,11 +75,14 @@ export class AddEditYearGoalComponent {
 
     if (this.mode === 'edit') {
       this.getRowData(this.inputData.id);
+      this.getBigGoalList(this.companyId?.value);
     }
 
     this.addEditForm.patchValue({
       budgetPeriodId: Number(this.route.snapshot.paramMap.get('id')),
     });
+
+    
   }
 
   addEditBudget() {
@@ -121,8 +124,8 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  onChangeCompany(e: any) {
-    this.getBigGoalList(e.value)
+  onChangeCompany(e: any) {debugger
+    this.getBigGoalList(e.value);
   }
 
   getCompanyLst() {
@@ -144,6 +147,7 @@ export class AddEditYearGoalComponent {
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.bigGoalList = response.data.result;
+
         }
       });
   }
