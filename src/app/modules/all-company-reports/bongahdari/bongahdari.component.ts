@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'PABudget-bongahdari',
   templateUrl: './bongahdari.component.html',
-  styleUrls: ['./bongahdari.component.scss']
+  styleUrls: ['./bongahdari.component.scss'],
 })
 export class BongahdariComponent implements OnInit {
   rankingList: any;
@@ -16,7 +16,7 @@ export class BongahdariComponent implements OnInit {
   rankingManagers: any;
   legalCasesList: any;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.GetRanking();
@@ -32,8 +32,7 @@ export class BongahdariComponent implements OnInit {
 --------------------------*/
   GetRanking() {
     this.httpService
-      .get<any>(Reports.apiAddressRanking,
-      )
+      .get<any>(Reports.apiAddressRanking)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -50,8 +49,7 @@ export class BongahdariComponent implements OnInit {
 --------------------------*/
   GetElection() {
     this.httpService
-      .get<any>(Reports.apiAddressElection,
-      )
+      .get<any>(Reports.apiAddressElection)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -68,8 +66,7 @@ export class BongahdariComponent implements OnInit {
 --------------------------*/
   GetAssemblies() {
     this.httpService
-      .get<any>(Reports.apiAddressAssemblies,
-      )
+      .get<any>(Reports.apiAddressAssemblies)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -86,8 +83,7 @@ export class BongahdariComponent implements OnInit {
 --------------------------*/
   GetAllSubCompanyCountWithCompanyType() {
     this.httpService
-      .get<any>(Reports.apiAddressAllSubCompanyCountWithCompanyType,
-      )
+      .get<any>(Reports.apiAddressAllSubCompanyCountWithCompanyType)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -104,8 +100,7 @@ export class BongahdariComponent implements OnInit {
 --------------------------*/
   GetRankingManagers() {
     this.httpService
-      .get<any>(Reports.apiAddressRankingManagers,
-      )
+      .get<any>(Reports.apiAddressRankingManagers)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -122,8 +117,7 @@ export class BongahdariComponent implements OnInit {
 --------------------------*/
   GetLegalCases() {
     this.httpService
-      .get<any>(Reports.apiAddresslegalCases,
-      )
+      .get<any>(Reports.apiAddresslegalCases)
       .pipe(
         map(response => {
           if (response.data && response.data.result) {
@@ -135,6 +129,4 @@ export class BongahdariComponent implements OnInit {
         this.legalCasesList = result;
       });
   }
-
-
 }

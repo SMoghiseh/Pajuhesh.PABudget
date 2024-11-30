@@ -2,11 +2,21 @@
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditBudget()">
   <div class="container row">
-    <div class="col-6 mt-2" [ngClass]="{'readonly-field': true}">
+    <div class="col-6 mt-2" [ngClass]="{ 'readonly-field': true }">
       <label for="budgetPeriodId"> دوره </label>
-      <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId" styleClass="w-100 my-1"
-        optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید" [options]="budgetPeriodList"
-        [filter]="true" [readonly]="true" [class.ng-invalid]="budgetPeriodId?.invalid" [class.ng-dirty]="
+      <p-dropdown
+        id="budgetPeriodId"
+        name="budgetPeriodId"
+        formControlName="budgetPeriodId"
+        styleClass="w-100 my-1"
+        optionLabel="periodTitle"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="budgetPeriodList"
+        [filter]="true"
+        [readonly]="true"
+        [class.ng-invalid]="budgetPeriodId?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && budgetPeriodId?.pristine) ||
           budgetPeriodId?.dirty ||
           budgetPeriodId?.touched
@@ -15,9 +25,18 @@
     </div>
     <div class="col-6 mt-2">
       <label for="companyId"> شرکت </label>
-      <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-        optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList" [filter]="true"
-        [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true"
+        [class.ng-invalid]="companyId?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && companyId?.pristine) ||
           companyId?.dirty ||
           companyId?.touched
@@ -27,8 +46,14 @@
 
     <div class="col-6 mt-2">
       <label for="title"> عنوان </label>
-      <input pInputText id="title" name="title" formControlName="title" class="w-100 my-1"
-        [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
+      <input
+        pInputText
+        id="title"
+        name="title"
+        formControlName="title"
+        class="w-100 my-1"
+        [class.ng-invalid]="title?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && title?.pristine) ||
           title?.dirty ||
           title?.touched
@@ -36,9 +61,18 @@
     </div>
     <div class="col-6 mt-2">
       <label for="keyTypeCode"> نوع ریسک </label>
-      <p-dropdown id="keyTypeCode" name="keyTypeCode" formControlName="keyTypeCode" styleClass="w-100 my-1"
-        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="typeCodeList" [filter]="true"
-        [class.ng-invalid]="keyTypeCode?.invalid" [class.ng-dirty]="
+      <p-dropdown
+        id="keyTypeCode"
+        name="keyTypeCode"
+        formControlName="keyTypeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="typeCodeList"
+        [filter]="true"
+        [class.ng-invalid]="keyTypeCode?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && keyTypeCode?.pristine) ||
           keyTypeCode?.dirty ||
           keyTypeCode?.touched
@@ -47,14 +81,31 @@
     </div>
     <div class="col-6 mt-2">
       <label for="evaluateIndexId"> شاخص ارزیابی </label>
-      <p-dropdown id="evaluateIndexId" name="evaluateIndexId" formControlName="evaluateIndexId" styleClass="w-100 my-1"
-        optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="evaluateIndexList" [filter]="true">
+      <p-dropdown
+        id="evaluateIndexId"
+        name="evaluateIndexId"
+        formControlName="evaluateIndexId"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="evaluateIndexList"
+        [filter]="true">
       </p-dropdown>
     </div>
     <div class="col-6 mt-2">
-      <label for="riskIntensity"> شدت(بین0تا100) </label>
-      <input pInputText type="number" id="riskIntensity" name="riskIntensity" formControlName="riskIntensity"
-        maxlength="2" [min]="0" [max]="100" class="w-100 my-1" (keypress)="validateInputRiskIntensity($event)" />
+      <label for="riskIntensity"> شدت(بین1تا5) </label>
+      <input
+        pInputText
+        type="number"
+        id="riskIntensity"
+        name="riskIntensity"
+        formControlName="riskIntensity"
+        maxlength="2"
+        [min]="1"
+        [max]="5"
+        class="w-100 my-1"
+        (keypress)="validateInputRiskIntensity($event)" />
     </div>
     <!-- <div class="col-6 mt-2">
       <label for="riskLevel"> سطح </label>
@@ -67,13 +118,27 @@
         class="w-100"></p-inputNumber>
     </div> -->
     <div class="col-6 mt-2">
-      <label for="possibility"> احتمال(بین0تا100) </label>
-      <input pInputText type="number" id="possibility" name="possibility" formControlName="possibility" maxlength="2"
-        [min]="0" [max]="100" class="w-100 my-1" (keypress)="validateInputPossibility($event)" />
+      <label for="possibility"> احتمال(بین1تا5) </label>
+      <input
+        pInputText
+        type="number"
+        id="possibility"
+        name="possibility"
+        formControlName="possibility"
+        maxlength="2"
+        [min]="1"
+        [max]="5"
+        class="w-100 my-1"
+        (keypress)="validateInputPossibility($event)" />
     </div>
     <div class="col-6 mt-2">
       <label for="effectBudget"> پیامد های وقوع ریسک در بودجه </label>
-      <p-inputNumber id="effectBudget" formControlName="effectBudget" type="text" pKeyFilter="int" [minlength]="0"
+      <p-inputNumber
+        id="effectBudget"
+        formControlName="effectBudget"
+        type="text"
+        pKeyFilter="int"
+        [minlength]="0"
         class="w-100"></p-inputNumber>
     </div>
     <!-- <div class="col-6 mt-2">
@@ -97,7 +162,11 @@
         class="w-100"></p-inputNumber>
     </div> -->
     <div class="col-12 row-btn row-btn-fixed-bottom">
-      <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
         [loading]="isLoadingSubmit"></p-button>
     </div>
   </div>

@@ -7,13 +7,16 @@
     </ul>
   </div>
   <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box"
+    <div
+      class="col-lg-2 col-md-2 col-sm-6 col-xs-6 center-box"
       *ngFor="let company of mySubCompanies">
-      <div class="holding-box"
+      <div
+        class="holding-box"
         *ngIf="company.id !== 5"
         [class.select-co-item]="company.isSelected"
         (click)="onSelectCompany(company)">
-        <div class="div-img-logo"
+        <div
+          class="div-img-logo"
           [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
@@ -22,11 +25,13 @@
         </div>
         <span class="count">{{ company.count }}</span>
       </div>
-      <div class="holdingBox-arrow"
+      <div
+        class="holdingBox-arrow"
         *ngIf="company.id === 5"
         [class.select-co-item-arrow]="company.isSelected"
         (click)="onSelectCompany(company)">
-        <div class="div-img-logo"
+        <div
+          class="div-img-logo"
           [style.background-image]="
             'url(../../../../assets/images/holding-logo/' + company.logo + ')'
           "></div>
@@ -38,9 +43,9 @@
       </div>
     </div>
   </div>
-  <div class="row"
-    style="margin-top: 20px">
-    <div [class.col-lg-9]="subCos.length > 0 && selectedHoldingId !== 5"
+  <div class="row" style="margin-top: 20px">
+    <div
+      [class.col-lg-9]="subCos.length > 0 && selectedHoldingId !== 5"
       [class.col-md-9]="subCos.length > 0 && selectedHoldingId !== 5"
       [class.col-lg-12]="subCos.length === 0 && selectedHoldingId === 5"
       [class.col-md-12]="subCos.length === 0 && selectedHoldingId === 5"
@@ -50,21 +55,22 @@
           <div class="co-info-box">
             <h4>نمودار عملکرد شرکت</h4>
             <div class="row row-feature">
-              <div *ngFor="let item of yearTypeLst"
+              <div
+                *ngFor="let item of yearTypeLst"
                 (click)="onYearType(item.id)"
                 [class.select-feature]="item.isSelected">
                 <span>{{ item.title }}</span>
               </div>
             </div>
             <div class="row row-feature">
-              <div *ngFor="let item of reportTypeLst"
+              <div
+                *ngFor="let item of reportTypeLst"
                 (click)="onReportType(item.id)"
                 [class.select-feature]="item.isSelected">
                 <span>{{ item.title }}</span>
               </div>
             </div>
-            <div id="chart-wrapper"
-              class="chart-box">
+            <div id="chart-wrapper" class="chart-box">
               <canvas id="BarChart"></canvas>
             </div>
           </div>
@@ -73,16 +79,21 @@
           <div class="co-info-box cost-benefit-box">
             <h4>سود و زیان</h4>
             <div class="row div1">
-              <div class="div2"
+              <div
+                class="div2"
                 [class.profitable-b-col]="benefitCost?.haspositiveProfit"
                 [class.not-profitable-b-col]="!benefitCost?.haspositiveProfit">
-                <i class="pi"
+                <i
+                  class="pi"
                   [class.pi-arrow-up]="benefitCost?.haspositiveProfit"
                   [class.pi-arrow-down]="!benefitCost?.haspositiveProfit"></i>
               </div>
-              <span class="cost"
+              <span
+                class="cost"
                 [class.profitable-col]="benefitCost?.haspositiveProfit"
-                [class.not-profitable-col]="!benefitCost?.haspositiveProfit">{{ benefitCost?.benefitThisYear }}</span>
+                [class.not-profitable-col]="!benefitCost?.haspositiveProfit"
+                >{{ benefitCost?.benefitThisYear }}</span
+              >
               <div>
                 <span>سود شرکت در سال گذشته</span>
               </div>
@@ -92,31 +103,40 @@
             </div>
             <div class="div4">
               <span class="ttl">درصد تغییر: </span>
-              <i [class.pi-angle-up]="benefitCost?.hasProfitable"
+              <i
+                [class.pi-angle-up]="benefitCost?.hasProfitable"
                 [class.pi-angle-down]="!benefitCost?.hasProfitable"
                 [class.profitable-col]="benefitCost?.hasProfitable"
                 [class.not-profitable-col]="!benefitCost?.hasProfitable"
                 class="pi val"></i>
-              <span class="val"
+              <span
+                class="val"
                 [class.profitable-col]="benefitCost?.hasProfitable"
-                [class.not-profitable-col]="!benefitCost?.hasProfitable">{{ benefitCost?.percentageChange }}</span>
+                [class.not-profitable-col]="!benefitCost?.hasProfitable"
+                >{{ benefitCost?.percentageChange }}</span
+              >
             </div>
             <div class="div4">
               <span class="ttl">میزان تغییر: </span>
-              <i [class.pi-angle-up]="benefitCost?.hasProfitable"
+              <i
+                [class.pi-angle-up]="benefitCost?.hasProfitable"
                 [class.pi-angle-down]="!benefitCost?.hasProfitable"
                 [class.profitable-col]="benefitCost?.hasProfitable"
                 [class.not-profitable-col]="!benefitCost?.hasProfitable"
                 class="pi val"></i>
-              <span class="val"
+              <span
+                class="val"
                 [class.profitable-col]="benefitCost?.hasProfitable"
-                [class.not-profitable-col]="!benefitCost?.hasProfitable">{{ benefitCost?.countChange }}</span>
+                [class.not-profitable-col]="!benefitCost?.hasProfitable"
+                >{{ benefitCost?.countChange }}</span
+              >
             </div>
           </div>
         </div>
       </div>
       <div class="row margin-b-20">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+        <div
+          class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
           style="padding-top: 20px">
           <div class="co-info-box">
             <div class="row">
@@ -133,7 +153,9 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 inline-flx">
                 <h5>سرمایه ثبت شده :</h5>
-                <span>{{ coInfo.registeredCapital | number }}(میلیون ریال)</span>
+                <span
+                  >{{ coInfo.registeredCapital | number }}(میلیون ریال)</span
+                >
               </div>
               <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 inline-flx">
                 <h5>نام شرکت :</h5>
@@ -144,7 +166,8 @@
                 <span>{{ coInfo.registerDatePC }}</span>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 detail-btn">
-                <p-button class="pe-2"
+                <p-button
+                  class="pe-2"
                   styleClass="p-button-info"
                   icon="pi pi-plus-circle"
                   label="مشاهده جزئیات شرکت"
@@ -155,13 +178,15 @@
         </div>
       </div>
     </div>
-    <div *ngIf="subCos.length > 0 && selectedHoldingId !== 5"
+    <div
+      *ngIf="subCos.length > 0 && selectedHoldingId !== 5"
       class="col-lg-3 col-md-3 col-sm-12 col-xs-12 margin-b-20">
       <div class="co-info-box justify-content-unset">
         <div class="row">
           <h4 class="sub-co-title">شرکت های تابعه</h4>
         </div>
-        <div *ngFor="let item of subCos"
+        <div
+          *ngFor="let item of subCos"
           class="row sub-co"
           (click)="onSelectSubCo(item.id)"
           [class.selected-sub-co]="item.isSelected">
