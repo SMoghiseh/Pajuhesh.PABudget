@@ -1450,8 +1450,7 @@ export class FinancialRatiosPrice {
   static apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/FinancialRatiosPrice/';
   static apiAddressFinancialRatio =
     'api/PABudgetApi/v1/FinancialRatio/FinancialRatio/List';
-  static apiAddressAllUnits =
-    'api/PABudgetApi/v1/BudgetPeriod/GetAllUnits/List';
+
   id!: number;
   financialRatioId!: number;
   companyId!: number;
@@ -1865,4 +1864,15 @@ export class BudgetPeriod {
   static readonly apiAddress = 'api/PABudgetApi/v1/BudgetPeriod/';
   id!: number;
   yearActivityTitle!: string;
+}
+
+export class Unit {
+  static apiAddressAllUnits = 'api/PABudgetApi/v1/BudgetPeriod/GetAllUnits/List';
+  static apiAddress = 'api/PABudgetApi/v1/BaseInfo/Unit/';
+  id!: number;
+}
+
+export class ValueType {
+  static readonly apiAddress = 'api/PABudgetApi/v1/BaseInfo/ValueType/';
+  id!: number;
 }

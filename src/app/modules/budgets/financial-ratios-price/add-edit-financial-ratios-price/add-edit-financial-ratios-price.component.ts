@@ -5,6 +5,7 @@ import { HttpService } from '@core/http/http.service';
 import {
   Company,
   FinancialRatiosPrice,
+  Unit,
   UrlBuilder,
 } from '@shared/models/response.model';
 import { MessageService } from 'primeng/api';
@@ -116,7 +117,7 @@ export class AddEditFinancialRatiosPriceComponent {
 
   getUnitLst() {
     this.httpService
-      .post<FinancialRatiosPrice[]>(FinancialRatiosPrice.apiAddressAllUnits, {
+      .post<Unit[]>(Unit.apiAddressAllUnits, {
         withOutPagination: true,
       })
       .subscribe(response => {

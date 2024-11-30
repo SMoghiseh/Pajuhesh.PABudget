@@ -118,6 +118,32 @@
         [filter]="true">
       </p-dropdown>
     </div>
+    <div class="col-6 mt-2">
+      <label for="valueType"> نوع مقادیر</label>
+      <p-dropdown id="valueType"
+        name="valueType"
+        formControlName="valueType"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="valueTypeList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
+    <div class="col-6 mt-2">
+      <label for="unitTypeCode"> نوع واحد</label>
+      <p-dropdown id="unitTypeCode"
+        name="unitTypeCode"
+        formControlName="unitTypeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="unitList"
+        [filter]="true">
+      </p-dropdown>
+    </div>
 
     <div class="col-12 row-btn row-btn-fixed-bottom">
       <p-button class="pe-2"
