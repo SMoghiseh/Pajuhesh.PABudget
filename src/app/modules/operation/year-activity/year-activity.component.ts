@@ -228,7 +228,7 @@ export class YearActivityComponent {
       });
   }
 
-  getOperationList(companyId: number) { debugger
+  getOperationList(companyId: number) {
     this.httpService
       .get<Project[]>(Project.apiAddressCompany + companyId)
       .subscribe(response => {

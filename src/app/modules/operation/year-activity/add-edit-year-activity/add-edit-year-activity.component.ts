@@ -9,6 +9,7 @@ import {
   ReferenceType,
   ReferenceList,
   Company,
+  Project,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { tap } from 'rxjs';
@@ -98,7 +99,6 @@ export class AddEditYearActivityComponent {
   ngOnInit(): void {
     this.getReferenceList();
     this.getManagerTypeList();
-    this.getOperationList();
     this.getWeightCodeList();
     this.getPriorityCodeList();
     this.getCostCenterList();
@@ -196,9 +196,9 @@ export class AddEditYearActivityComponent {
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
 
-      if(this.mode === 'insert'){
+      if (this.mode === 'insert') {
         delete request['id'];
-      } 
+      }
 
       request.id = this.mode === 'insert' ? 0 : this.inputData.id;
       const url =
@@ -208,7 +208,7 @@ export class AddEditYearActivityComponent {
       // delete request['companyId'];
       // delete request['periodId'];
 
-      
+
       this.isLoadingSubmit = true;
       this.httpService
         .post<YearActivity>(url, request)
@@ -233,6 +233,7 @@ export class AddEditYearActivityComponent {
 
   onChangeCompanyId(e: any) {
     this.getBudgetPeriodList(e.value);
+    this.getOperationList(e.value);
     this.addEditForm.controls['periodId'].enable();
   }
 
@@ -275,11 +276,10 @@ export class AddEditYearActivityComponent {
         }
       });
   }
-  getOperationList() {
+
+  getOperationList(companyId: number) {
     this.httpService
-      .post<Operating[]>(Operating.apiAddress + 'List', {
-        withOutPagination: true,
-      })
+      .get<Project[]>(Project.apiAddressCompany + companyId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.operationList = response.data.result;
