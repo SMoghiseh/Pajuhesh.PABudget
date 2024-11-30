@@ -124,8 +124,6 @@ export class GraphComponent implements OnInit {
 
     this.createNodesList(data.nodes, layerScale, height);
 
-    //  رسم لینک برای نود های هم سطح (منحنی )
-    this.drawLinesForNodesSameLevel(svg, data);
 
     //  رسم لینک برای نود های هم سطح (منحنی )
     this.drawLinesForNodesSameLevel(svg, data);
@@ -173,16 +171,19 @@ export class GraphComponent implements OnInit {
 
         // Start and end points
         const x1 = this.returnCXNodesScale(source) + 45;
-        const y1 = this.returnCYNodesScale(source) + 60;
+        const y1 = this.returnCYNodesScale(source) + this.returnCYPath(this.findNode(data.nodes, source).layer);
+        //  const y1 = this.returnCYNodesScale(source) + 65;
         const x2 = this.returnCXNodesScale(target) + 45;
-        const y2 = this.returnCYNodesScale(target) + 65;
+        const y2 = this.returnCYNodesScale(target) + this.returnCYPath(this.findNode(data.nodes, source).layer);
+        // const y2 = this.returnCYNodesScale(target) + 65;
 
         // Calculate a control point (midpoint with an offset)
         const cx = (x1 + x2) / 2;
-        const cy = (y1 + y2) / 2 + 40; // Offset for curvature
+        const cy = (y1 + y2) / 2 + this.returnOffsetForCurvature(this.findNode(data.nodes, source).layer); // Offset for curvature
 
         // Return a quadratic Bézier curve
-        return `M ${x1},${y1} Q ${cx},${cy + 10} ${x2},${y2}`;
+        let quadratic = `M ${x1},${y1} Q ${cx},${cy + 10} ${x2},${y2}`
+        return quadratic;
 
       })
       .attr('stroke', '#475569')
@@ -190,6 +191,14 @@ export class GraphComponent implements OnInit {
       .attr('stroke-width', 2)
       .attr('stroke-dasharray', '2,2')
       .attr('marker-end', 'url(#arrowheadForPath)');
+  }
+
+  returnOffsetForCurvature(layer: number) {
+    return layer == 1 ? -40 : 40;
+  }
+
+  returnCYPath(layer: number) {
+    return layer == 1 ? -2 : 65;
   }
 
   drawLinesForNodesInDifferentLevel(svg: any, data: data) {
@@ -219,6 +228,7 @@ export class GraphComponent implements OnInit {
       // .attr('stroke', '#a1a0a0')
       .attr('stroke', '#475569')
       .attr('stroke-width', 2)
+      .attr('stroke-dasharray', '2,2')
       .attr('marker-end', 'url(#arrowhead)');
 
   }
@@ -353,8 +363,8 @@ export class GraphComponent implements OnInit {
           cx: layerScale(1),
           cy:
             nodeData.layer === 1
-              ? (h / 4) * nodeData.layer - 120
-              : (h / 4) * nodeData.layer + nodeData.layer - 120,
+              ? (h / 4) * nodeData.layer - 80
+              : (h / 4) * nodeData.layer + nodeData.layer - 80,
         };
         this.nodesDrawList.push(arr);
         return arr.cx;
@@ -380,10 +390,10 @@ export class GraphComponent implements OnInit {
       .attr('x', (d: any) => {
         return this.returnCXNodesScale(d.id) + 65;
       })
-      .attr('y', (d: any) => (height / 4) * d.layer - 84)
+      .attr('y', (d: any) => (height / 4) * d.layer - 45)
       //      .attr('y', d => this.returnCYtext(d.layer) )
       .attr('text-anchor', 'middle')
-     .attr('fill', '#4A4A4A')
+      .attr('fill', '#4A4A4A')
       .text((d: any) => d.title);
   }
 
