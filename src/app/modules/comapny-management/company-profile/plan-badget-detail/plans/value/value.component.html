@@ -30,20 +30,18 @@
                 <strong> عنوان </strong>
               </th>
             </div>
-            <!-- <div class="headerStyle Width: auto">
+            <!-- <div class="headerStyle">
               <th style="min-width: 7rem"><strong> برنامه </strong></th>
             </div> -->
 
-            <div class="headerStyle Width: auto">
+            <div class="headerStyle">
               <th style="min-width: 7rem"><strong> کلید واژه </strong></th>
             </div>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <div
-              class="detailStyle Width: auto"
-              [ngStyle]="{ 'background-color': item.color }">
+            <div class="detailStyle" [ngStyle]="{ 'background-color': item.color }">
               <td style="width: 53rem">{{ item.titleMain }}</td>
               <!-- <td style="width: 33rem">{{ item.titleFirst }}</td> -->
               <td style="width: 53rem">{{ item.titleTwo }}</td>

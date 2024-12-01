@@ -4,9 +4,7 @@
     <div class="row row-feature">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
         <div class="row">
-          <app-select-date
-            [companyId]="inputData.companyId"
-            [selectType]="selectDateType"
+          <app-select-date [companyId]="inputData.companyId" [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
@@ -17,20 +15,9 @@
       </div>
     </div>
     <div class="row">
-      <p-table
-        #dataTable
-        dataKey="id"
-        class="data-table d-none d-lg-block"
-        [styleClass]="gridClass"
-        [rowHover]="true"
-        [paginator]="true"
-        [rows]="dataTableRows"
-        [rowsPerPageOptions]="[10, 20, 30]"
-        [totalRecords]="totalCount"
-        [value]="planDetailData"
-        [loading]="loading"
-        [tableStyle]="{ 'min-width': '75rem' }"
-        [lazy]="true"
+      <p-table #dataTable dataKey="id" class="data-table d-none d-lg-block" [styleClass]="gridClass" [rowHover]="true"
+        [paginator]="true" [rows]="dataTableRows" [rowsPerPageOptions]="[10, 20, 30]" [totalRecords]="totalCount"
+        [value]="planDetailData" [loading]="loading" [tableStyle]="{ 'min-width': '75rem' }" [lazy]="true"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
@@ -55,7 +42,7 @@
                 <strong> پیامد ریسک در بودجه </strong>
               </th>
             </div>
-            <!-- <div class="headerStyle Width: auto">
+            <!-- <div class="headerStyle">
               <th style="min-width: 7rem"><strong> بدبینانه </strong></th>
               <th style="min-width: 7rem"><strong> خوش بینانه </strong></th>
             </div> -->
@@ -63,9 +50,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-risk let-rowIndex="rowIndex">
           <tr style="font-size: 13px" class="w-100">
-            <div
-              class="detailStyle"
-              [ngStyle]="{ 'background-color': risk.color }">
+            <div class="detailStyle" [ngStyle]="{ 'background-color': risk.color }">
               <td style="width: 50%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.title }}
               </td>

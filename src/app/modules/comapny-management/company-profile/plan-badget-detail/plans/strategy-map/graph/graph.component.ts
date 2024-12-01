@@ -10,8 +10,8 @@ export interface Node {
   title: string;
 }
 export interface link {
-  source: string;
-  target: string;
+  source: number;
+  target: number;
 }
 export interface data {
   nodes: Array<Node>;
@@ -28,16 +28,19 @@ export class GraphComponent implements OnInit {
 
   nodesDrawList: any = [];
   linkDrawList: any = [];
+  grafData: any = [];
+  nodesPlacedNextToEachOther: any = [];
+  filteredData1: any = [];
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
     this.getPlanDetail();
   }
 
   createLayeredGraph(data: data) {
-    const width = this.getNodeCount(data) * 250;
-    const height = 600;
+    const width = 1100;
+    const height = 500;
 
     const svg = d3
       .select(this.graphContainer.nativeElement)
@@ -45,71 +48,312 @@ export class GraphComponent implements OnInit {
       .attr('width', width)
       .attr('height', height);
 
+
+    data.links = [
+      {
+        source: 10055,
+        target: 10045
+      },
+      // {
+      //   source: 10055,
+      //   target: 10046,
+      // },
+      {
+        source: 10049,
+        target: 10048
+      },
+      {
+        source: 10049,
+        target: 10043
+      },
+      {
+        source: 10048,
+        target: 10044
+      },
+      {
+        source: 10042,
+        target: 10041
+      },
+      {
+        source: 10042,
+        target: 10049
+      },
+      {
+        source: 10042,
+        target: 10040
+      },
+      {
+        source: 10041,
+        target: 10040
+      },
+      {
+        source: 10041,
+        target: 10048
+      },
+      {
+        source: 10041,
+        target: 10049
+      },
+      {
+        source: 10044,
+        target: 10045
+      },
+      {
+        source: 10044,
+        target: 10046
+      },
+      {
+        source: 10044,
+        target: 10055
+      },
+      {
+        source: 10046,
+        target: 10055
+      },
+      {
+        source: 10039,
+        target: 10041
+      },
+      {
+        source: 10048,
+        target: 10110
+      },
+    ]
+
     const layers = [...new Set(data.nodes.map(d => d.layer))];
     const layerScale = d3
       .scalePoint<number>()
       .domain(layers)
-      .range([50, width - 50]);
+      .range([50, width - 50])
 
     this.createNodesList(data.nodes, layerScale, height);
 
-    // رسم لینک‌ها
-    svg
-      .selectAll('line')
-      .data(data.links)
-      .enter()
-      .append('line')
-      .attr('x1', d => {
-        return this.returnCXNodesScale(d.source) + 80;
-      })
-      .attr('x2', d => {
-        return this.returnCXNodesScale(d.target) + 90;
-      })
-      .attr('y1', d => {
-        return this.returnCYNodesScale(d.source) + 70;
-      })
-      .attr('y2', d => {
-        return this.returnCYNodesScale(d.target);
-      })
-      .attr('stroke', '#a1a0a0')
-      .attr('stroke-width', 2);
+
+    //  رسم لینک برای نود های هم سطح (منحنی )
+    this.drawLinesForNodesSameLevel(svg, data);
 
     // رسم نودها
-    svg
-      .selectAll('rect')
-      .data(data.nodes)
-      .enter()
-      .append('rect')
-      .attr('x', (d: any) => {
-        return this.returnCXNodesScale(d.id);
-      })
-      .attr('y', d => {
-        return this.returnCYNodesScale(d.id);
-      })
-      .attr('width', 170)
-      .attr('height', 70)
-      .attr('rx', '10')
-      .attr('ry', '10')
-      .attr('fill', '#A0D8B3')
-      .attr('color', '#4A4A4A');
+    this.createNode(svg, data)
 
     // اضافه کردن متن به گره‌ها
+    this.addTextToNodes(svg, data, height);
+
+    // رسم کمانک
+    this.createTarget(svg, data);
+
+
+    // رسم لینک‌ برای نود های غیر هم سطح
+    this.drawLinesForNodesInDifferentLevel(svg, data);
+
+    //  رسم لینک برای نود های هم سطح (خط صاف)
+    this.drawLinesForNodesPlacedNextToEachOther(svg);
+
+
+  }
+
+  drawLinesForNodesSameLevel(svg: any, data: data) {
+
+    svg.append('defs')
+      .append('marker')
+      .attr('id', 'arrowheadForPath')
+      .attr('viewBox', '0 -5 10 10') // Viewbox for the arrowhead
+      .attr('refX', 5) // Position of the arrow relative to the line end
+      .attr('refY', 0)
+      .attr('markerWidth', 6) // Width of the arrowhead
+      .attr('markerHeight', 6) // Height of the arrowhead
+      .attr('orient', 'auto') // Rotate to match the line direction
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5') // Triangle shape
+      .attr('fill', '#475569');
+
+
+    // Add curved links (paths)
     svg
-      .selectAll('text')
+      .selectAll('path')
+      .data(data.links)
+      .enter()
+      .append('path')
+      .attr('d', (d: any) => {
+        const source = d.source;
+        const target = d.target;
+        const sourceLayer = this.findNode(data.nodes, source).layer;
+        const targetLayer = this.findNode(data.nodes, target).layer;
+
+        if (!source || !target) return '';
+        // this ignore nodes that their layers are different
+        if (sourceLayer != targetLayer) return;
+
+        // this ignore nodes that placed next to each other 
+        if (Math.abs(this.compareNodesIndex(source, target)) == 1) {
+          this.nodesPlacedNextToEachOther.push(d);
+          return
+        }
+
+        // Start and end points
+        const x1 = this.returnCXNodesScale(source) + 45;
+        const y1 = this.returnCYNodesScale(source) + (sourceLayer == 1 ? -2 : 65);
+        const x2 = this.returnCXNodesScale(target) + 45;
+        const y2 = this.returnCYNodesScale(target) + (sourceLayer == 1 ? -3 : 65);
+
+        // Calculate a control point (midpoint with an offset)
+        const cx = (x1 + x2) / 2;
+        const cy = (y1 + y2) / 2 + (sourceLayer == 1 ? -40 : 40); // Offset for curvature
+
+        // Return a quadratic Bézier curve
+        let quadratic = `M ${x1},${y1} Q ${cx},${cy + 10} ${x2},${y2}`
+        return quadratic;
+
+      })
+      .attr('stroke', (d: any) => this.colorScale(this.findNode(data.nodes, d.source).layer))
+      .attr('fill', 'none')
+      .attr('stroke-width', 2)
+      .attr('stroke-dasharray', '2,2')
+      .attr('marker-end', 'url(#arrowheadForPath)');
+  }
+
+
+  drawLinesForNodesInDifferentLevel(svg: any, data: data) {
+
+    // filtered data that placed  in same layer
+    let filteredData = data.links.filter(link =>
+      this.findNode(data.nodes, link.source).layer != this.findNode(data.nodes, link.target).layer
+    );
+
+    svg
+      .selectAll('line')
+      .data(filteredData)
+      .enter()
+      .append('line')
+      .attr('x1', (d: any) => {
+        return this.returnCXNodesScale(d.source) + 65;
+      })
+      .attr('x2', (d: any) => {
+        return this.returnCXNodesScale(d.target) + 65;
+      })
+      .attr('y1', (d: any) => {
+        return this.returnCYNodesScale(d.source) + 25 + 35;
+      })
+      .attr('y2', (d: any) => {
+        return this.returnCYNodesScale(d.target);
+      })
+      // .attr('stroke', '#a1a0a0')
+      .attr('stroke', '#475569')
+      .attr('stroke-width', 2)
+      .attr('stroke-dasharray', '2,2')
+      .attr('marker-end', 'url(#arrowhead)');
+
+  }
+
+  drawLinesForNodesPlacedNextToEachOther(svg: any) {
+
+    let LTRdirection = false;
+
+    svg
+      .selectAll('line.second')
+      .data(this.nodesPlacedNextToEachOther)
+      .enter()
+      .append('line')
+      .attr('d', (d: any) => {
+
+        const source = d.source;
+        const target = d.target;
+
+        // this check nodes position to check line direction  
+        if (this.compareNodesIndex(source, target) == -1) {
+          LTRdirection = true;
+          return
+        }
+
+      })
+      .attr('x1', (d: any) => {
+        return this.returnCXNodesScale(d.source) + (LTRdirection ? 130 : 0);
+      })
+      .attr('x2', (d: any) => {
+        return this.returnCXNodesScale(d.target) + (LTRdirection ? 0 : 130);
+      })
+      .attr('y1', (d: any) => {
+        return this.returnCYNodesScale(d.source) + 32;
+      })
+      .attr('y2', (d: any) => {
+        return this.returnCYNodesScale(d.target) + 32;
+      })
+      // .attr('stroke', '#a1a0a0')
+      .attr('stroke', '#475569')
+      .attr('stroke-width', 2)
+      .attr('stroke-dasharray', '2,2')
+      .attr('marker-end', 'url(#arrowhead)');
+
+  }
+
+  drawShapesForTargetNodes(svg2: any, data: data) {
+    const svg = d3.select('svg');
+    // Identify all target nodes
+    const targetIds = new Set(data.links.map(link => link.target));
+
+    // Add nodes with conditional shapes
+    svg
+      .selectAll('g') // Use a group <g> for each node to support different shapes
       .data(data.nodes)
       .enter()
-      .append('text')
-      .attr('x', (d: any) => {
-        return this.returnCXNodesScale(d.id) + 90;
-      })
-      .attr('y', d => (height / 4) * d.layer - 84)
-      .attr('text-anchor', 'middle')
-      .attr('fill', '#4A4A4A')
-      .text(d => d.title);
+      .append('g')
+      .each(function (d: any) {
+        const group = d3.select(this);
+
+        if (targetIds.has(d.id)) {
+          // Draw rectangle for target nodes
+          group
+            .append('rect')
+            .attr('x', d.x - 15) // Center the rectangle
+            .attr('y', d.y - 15)
+            .attr('width', 30)
+            .attr('height', 30)
+            .attr('fill', 'red')
+            .attr('stroke', '#475569')
+            .attr('stroke-width', 2);
+        } else {
+          // Draw circle for non-target nodes
+          group
+            .append('circle')
+            .attr('cx', d.x)
+            .attr('cy', d.y)
+            .attr('r', 20)
+            .attr('fill', 'blue')
+            .attr('stroke', '#475569')
+            .attr('stroke-width', 2);
+        }
+      });
+
+  }
+
+
+  compareNodesIndex(source: any, target: any) {
+    let IndexOfSource = this.findIndexOfNode(source);
+    let IndexOfTarget = this.findIndexOfNode(target);
+    let differenceOfIndex = IndexOfSource - IndexOfTarget
+    return differenceOfIndex;
   }
 
   findNode(nodes: any, id: any) {
     return nodes.find((node: any) => node.id === id);
+  }
+
+  findIndexOfNode(id: any) {
+    return this.grafData.nodes.findIndex((node: any) => node.id === id);
+  }
+
+  colorScale(layerId: number) {
+    let colorCode = '';
+
+    if (layerId == 1)
+      colorCode = '#88DFD5';
+    if (layerId == 2)
+      colorCode = '#8CEFE4';
+    if (layerId == 3)
+      colorCode = '#CCE0FF';
+    if (layerId == 4)
+      colorCode = '#97BEFF';
+    return colorCode;
+
   }
 
   returnCXNodesScale(nodeId: any): number {
@@ -136,8 +380,8 @@ export class GraphComponent implements OnInit {
           cx: layerScale(1),
           cy:
             nodeData.layer === 1
-              ? (h / 4) * nodeData.layer - 120
-              : (h / 4) * nodeData.layer + nodeData.layer - 120,
+              ? (h / 4) * nodeData.layer - 80
+              : (h / 4) * nodeData.layer + nodeData.layer - 80,
         };
         this.nodesDrawList.push(arr);
         return arr.cx;
@@ -145,12 +389,67 @@ export class GraphComponent implements OnInit {
         const arr = {
           layer: nodeData.layer,
           id: nodeData.id,
-          cx: fltr[fltr.length - 1].cx + 250,
+          cx: fltr[fltr.length - 1].cx + 150,
           cy: fltr[fltr.length - 1].cy,
         };
         this.nodesDrawList.push(arr);
       }
     });
+  }
+
+  addTextToNodes(svg: any, data: data, height: any) {
+    // اضافه کردن متن به گره‌ها
+    svg
+      .selectAll('text')
+      .data(data.nodes)
+      .enter()
+      .append('text')
+      .attr('x', (d: any) => {
+        return this.returnCXNodesScale(d.id) + 65;
+      })
+      .attr('y', (d: any) => (height / 4) * d.layer - 45)
+      //      .attr('y', d => this.returnCYtext(d.layer) )
+      .attr('text-anchor', 'middle')
+      .attr('fill', '#4A4A4A')
+      .text((d: any) => d.title);
+  }
+
+  createNode(svg: any, data: data) {
+    // رسم نودها
+    svg
+      .selectAll('rect')
+      .data(data.nodes)
+      .enter()
+      .append('rect')
+      .attr('x', (d: any) => {
+        return this.returnCXNodesScale(d.id);
+      })
+      .attr('y', (d: any) => {
+        return this.returnCYNodesScale(d.id);
+      })
+      .attr('width', 130)
+      .attr('height', 60)
+      .attr('rx', '10')
+      .attr('ry', '10')
+      .attr('fill', (d: any) => {
+        return this.colorScale(d.layer);
+      })
+      .attr('color', '#4A4A4A');
+  }
+
+  createTarget(svg: any, data: data) {
+    svg.append('defs')
+      .append('marker')
+      .attr('id', 'arrowhead')
+      .attr('viewBox', '0 -5 10 10') // Viewbox for the arrowhead
+      .attr('refX', 5) // Position of the arrow relative to the line end
+      .attr('refY', 0)
+      .attr('markerWidth', 6) // Width of the arrowhead
+      .attr('markerHeight', 6) // Height of the arrowhead
+      .attr('orient', 'auto') // Rotate to match the line direction
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5') // Triangle shape
+      .attr('fill', '#475569');
   }
 
   getPlanDetail() {
@@ -167,6 +466,7 @@ export class GraphComponent implements OnInit {
         })
       )
       .subscribe(res => {
+        this.grafData = res;
         this.createLayeredGraph(res);
       });
   }
@@ -180,28 +480,4 @@ export class GraphComponent implements OnInit {
     arr.sort();
     return arr[arr.length - 1];
   }
-
-  //     returnLinkScale(layerScale: any, layer: number): number {
-  //     const fltr= this.linkDrawList.filter((x: any)=>x.layer === layer);
-  //     if (fltr.length === 0) {
-  //       const arr = {
-  //         layer: nodeData.layer,
-  //         id: nodeData.id,
-  //         cx: layerScale(nodeData.layer),
-  //         cy: (h / 4) * nodeData.layer,
-  //       };
-  //       this.nodesDrawList.push(arr);
-  //       return arr.cx;
-  //     } else {
-  //       const arr = {
-  //         layer: nodeData.layer,
-  //         id: nodeData.id,
-  //         cx: fltr[fltr.length - 1].cx + 250,
-  //         cy: (h / 4) * nodeData.layer,
-  //       };
-  //       this.nodesDrawList.push(arr);
-  //       return arr.cx;
-  //     layerScale(layer)
-  //   }
-  // }
 }

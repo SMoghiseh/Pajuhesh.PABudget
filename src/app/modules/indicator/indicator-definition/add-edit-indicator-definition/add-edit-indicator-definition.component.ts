@@ -7,6 +7,8 @@ import {
   ItemPirce,
   Indicator,
   ReferenceList,
+  ValueType,
+  Unit,
 } from '@shared/models/response.model';
 import { MessageService } from 'primeng/api';
 import { tap } from 'rxjs';
@@ -30,6 +32,8 @@ export class AddEditIndicatorDefinitionComponent {
   minMaxTypeCodeList: any = [];
   qualityTypeCodeList: any = [];
   indicatorTypeList: any = [];
+  valueTypeList: any = [];
+  unitList: any = [];
   accountReportItemList: any = [];
   chartTypeList: any = [];
 
@@ -57,6 +61,12 @@ export class AddEditIndicatorDefinitionComponent {
   get minMaxTypeCode() {
     return this.addEditForm.get('minMaxTypeCode');
   }
+  get valueType() {
+    return this.addEditForm.get('valueType');
+  }
+  get unitTypeCode() {
+    return this.addEditForm.get('unitTypeCode');
+  }
   // get chartTypeCode() {
   //   return this.addEditForm.get('chartTypeCode');
   // }
@@ -67,9 +77,11 @@ export class AddEditIndicatorDefinitionComponent {
   constructor(
     private httpService: HttpService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.getValueTypeList();
+    this.getUnitList();
     this.getIndicatorTypeList();
     this.getMinMaxTypeCodeList();
     this.getQualityTypeCodeList();
@@ -84,6 +96,8 @@ export class AddEditIndicatorDefinitionComponent {
       minMaxTypeCode: new FormControl(null),
       chartTypeCode: new FormControl(null),
       qualityTypeCode: new FormControl(null),
+      valueType: new FormControl(null),
+      unitTypeCode: new FormControl(null),
     });
 
     if (this.mode === 'edit') {
@@ -179,12 +193,33 @@ export class AddEditIndicatorDefinitionComponent {
         }
       });
   }
+
   getIndicatorTypeList() {
     this.httpService
       .get<Indicator[]>(Indicator.apiaddressIndicatorType + 'list')
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.indicatorTypeList = response.data.result;
+        }
+      });
+  }
+
+  getValueTypeList() {
+    this.httpService
+      .get<ValueType[]>(ValueType.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.valueTypeList = response.data.result;
+        }
+      });
+  }
+
+  getUnitList() {
+    this.httpService
+      .get<Unit[]>(Unit.apiAddress + 'list')
+      .subscribe(response => {
+        if (response.data && response.data.result) {
+          this.unitList = response.data.result;
         }
       });
   }
