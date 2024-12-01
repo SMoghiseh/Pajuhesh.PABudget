@@ -120,7 +120,7 @@ export class YearActivityComponent {
       fromPeriodDetailId: new FormControl(null),
       toPeriodDetailId: new FormControl(null),
       rollId: new FormControl(null),
-      operatingId: new FormControl(null),
+      projectId: new FormControl(null),
       weightCode: new FormControl(null),
       priorityCode: new FormControl(null),
       code: new FormControl(null),
@@ -195,7 +195,7 @@ export class YearActivityComponent {
     }
   }
 
-  onChangeCompanyId(e: any) { debugger
+  onChangeCompanyId(e: any) {
     this.getBudgetPeriodList(e.value);
     this.getOperationList(e.value);
   }
@@ -228,7 +228,7 @@ export class YearActivityComponent {
       });
   }
 
-  getOperationList(companyId: number) { debugger
+  getOperationList(companyId: number) {
     this.httpService
       .get<Project[]>(Project.apiAddressCompany + companyId)
       .subscribe(response => {

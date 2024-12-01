@@ -14,12 +14,13 @@
         [totalRecords]="totalCount"
         [value]="planDetailData"
         [loading]="loading"
-        [tableStyle]="{ 'min-width': '75rem' }"
         [lazy]="true"
+        (onLazyLoad)="loadData($event)"
+        [tableStyle]="{ 'min-width': '75rem' }"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
-          <div class="row row-feature" >
+          <div class="row row-feature">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
               <div class="row">
                 <app-select-date

@@ -61,8 +61,8 @@ export class AddEditYearActivityComponent {
   get rollId() {
     return this.addEditForm.get('rollId');
   }
-  get operatingId() {
-    return this.addEditForm.get('operatingId');
+  get projectId() {
+    return this.addEditForm.get('projectId');
   }
   get weightCode() {
     return this.addEditForm.get('weightCode');
@@ -127,7 +127,7 @@ export class AddEditYearActivityComponent {
         Validators.required
       ),
       rollId: new FormControl('', Validators.required),
-      operatingId: new FormControl(0),
+      projectId: new FormControl(0),
       weightCode: new FormControl('', Validators.required),
       priorityCode: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),

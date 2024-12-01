@@ -1,7 +1,8 @@
 <div class="row bottom-section">
   <div class="co-info-box">
     <div class="row">
-      <p-table #dataTable
+      <p-table
+        #dataTable
         dataKey="id"
         class="data-table d-none d-lg-block"
         [styleClass]="gridClass"
@@ -14,6 +15,7 @@
         [loading]="loading"
         [tableStyle]="{ 'min-width': '75rem' }"
         [lazy]="true"
+        (onLazyLoad)="getPlanDetail($event)"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">
@@ -37,11 +39,10 @@
             </div>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body"
-          let-item
-          let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
           <tr>
-            <div class="detailStyle Width: auto"
+            <div
+              class="detailStyle Width: auto"
               [ngStyle]="{ 'background-color': item.color }">
               <td style="width: 53rem">{{ item.titleMain }}</td>
               <!-- <td style="width: 33rem">{{ item.titleFirst }}</td> -->

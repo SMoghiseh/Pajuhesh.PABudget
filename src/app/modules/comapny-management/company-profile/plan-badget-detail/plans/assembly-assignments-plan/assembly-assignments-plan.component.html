@@ -14,6 +14,7 @@
         [totalRecords]="totalCount"
         [value]="planDetailData"
         [loading]="loading"
+        (onLazyLoad)="loadData($event)"
         [tableStyle]="{ 'min-width': '75rem' }"
         [lazy]="true"
         [(first)]="first">
@@ -37,7 +38,7 @@
           <tr class="data-table__header">
             <div class="headerStyle">
               <th style="min-width: 7rem">
-                <strong> هدف </strong>
+                <strong> عنوان </strong>
               </th>
             </div>
             <!-- <div class="headerStyle Width: auto">

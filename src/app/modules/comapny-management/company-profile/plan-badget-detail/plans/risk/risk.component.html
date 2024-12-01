@@ -40,13 +40,18 @@
                 <strong> عنوان ریسک </strong>
               </th>
             </div>
+            <div class="headerStyle" style="width: 10%">
+              <th>
+                <strong> نوع </strong>
+              </th>
+            </div>
             <div class="headerStyle" style="width: 30%">
               <th style="width: 10%"><strong> احتمال </strong></th>
               <th style="width: 10%"><strong> شدت اثر </strong></th>
               <th style="width: 10%"><strong> سطح ریسک </strong></th>
             </div>
-            <div class="headerStyle" style="width: 20%">
-              <th style="width: 20%">
+            <div class="headerStyle" style="width: 10%">
+              <th style="width: 10%">
                 <strong> پیامد ریسک در بودجه </strong>
               </th>
             </div>
@@ -65,6 +70,9 @@
                 {{ risk.title }}
               </td>
               <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
+                {{ risk.keyTypeTitle }}
+              </td>
+              <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.possibility }}
               </td>
               <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
@@ -73,7 +81,7 @@
               <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.riskLevel }}
               </td>
-              <td style="width: 20%" [ngStyle]="{ color: risk.fontColor }">
+              <td style="width: 10%" [ngStyle]="{ color: risk.fontColor }">
                 {{ risk.effectBudget }}
               </td>
               <!-- <td style="min-width: 7rem" [ngStyle]="{ color: risk.fontColor }">

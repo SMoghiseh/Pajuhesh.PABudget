@@ -14,6 +14,7 @@
         [totalRecords]="totalCount"
         [value]="planDetailData"
         [loading]="loading"
+        (onLazyLoad)="loadData($event)"
         [tableStyle]="{ 'min-width': '75rem' }"
         [lazy]="true"
         [(first)]="first">

@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
-import { Plan, UrlBuilder } from '@shared/models/response.model';
-import { map } from 'rxjs';
+import { Pagination, Plan, UrlBuilder } from '@shared/models/response.model';
+import { LazyLoadEvent } from 'primeng/api';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'PABudget-goals',
@@ -16,32 +17,44 @@ export class GoalsComponent implements OnInit {
   totalCount!: number;
   planDetailData: any;
   loading = false;
+  lazyLoadEvent?: LazyLoadEvent;
   selectDateType = 'single';
   selectedPlanName = ' اهداف کلان ';
 
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.getPlanDetail(0);
+    this.getPlanDetail();
   }
 
-  getPlanDetail(yearId: number) {
+  getPlanDetail(event?: any) {
+    if (event) this.lazyLoadEvent = event;
+    const pagination = new Pagination();
+    const first = this.lazyLoadEvent?.first || 0;
+    const rows = this.lazyLoadEvent?.rows || this.dataTableRows;
+
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
     const body = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
       companyId: this.inputData.companyId,
-      // periodId: yearId,
     };
+    this.first = 0;
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressGoals, ''), body)
       .pipe(
+        tap(() => (this.loading = false)),
         map(response => {
           if (response.data && response.data.result) {
+            if (response.data.totalCount)
+              this.totalCount = response.data.totalCount;
             return response.data.result;
-          } else return [];
+          } else return [new Plan()];
         })
       )
-      .subscribe(res => {
-        this.planDetailData = res;
-      });
+      .subscribe(res => (this.planDetailData = res));
   }
 
   returnSelectedDate(e: any) {

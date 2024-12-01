@@ -26,6 +26,7 @@
         [loading]="loading"
         [tableStyle]="{ width: '100%' }"
         [lazy]="true"
+        (onLazyLoad)="loadData($event)"
         [(first)]="first">
         <!-- table header -->
         <ng-template pTemplate="header">

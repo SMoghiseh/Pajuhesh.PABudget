@@ -134,8 +134,8 @@ export class AccountReportComponent implements OnInit {
   //     .subscribe(res => {
   //       this.data = res;
   //     });
-  // }
 
+  // }
   getAccountReportList(event?: any) {
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();

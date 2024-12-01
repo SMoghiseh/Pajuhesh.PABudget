@@ -167,11 +167,11 @@
       </div>
 
       <div class="col-3 mt-8">
-        <label for="operatingId"> شناسه طرح</label>
+        <label for="projectId"> شناسه طرح</label>
         <p-dropdown
-          id="operatingId"
-          name="operatingId"
-          formControlName="operatingId"
+          id="projectId"
+          name="projectId"
+          formControlName="projectId"
           styleClass="w-100 my-1"
           optionLabel="title"
           optionValue="id"
@@ -291,7 +291,12 @@
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
         <td>{{ item.code }}</td>
-        <td>{{ item.title }}</td>
+        <td
+          pTooltip="{{ item.title }}"
+          tooltipEvent="hover"
+          tooltipPosition="top">
+          {{ item.title }}
+        </td>
         <td>{{ item.referenceTitle }}</td>
         <td>{{ item.fromPeriodDetailTitle }}</td>
         <td>{{ item.toPeriodDetailTitle }}</td>

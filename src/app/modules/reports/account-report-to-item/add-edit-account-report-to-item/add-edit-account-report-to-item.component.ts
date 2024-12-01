@@ -93,7 +93,7 @@ export class AddEditAccountReportToItemComponent implements OnInit {
       });
   }
 
-  onSubmitNewAccountReport() { debugger
+  onSubmitNewAccountReport() {  
     this.addNewAccountReportSubmitted = true;
     if (this.addNewAccountReportForm.invalid) return;
     const url = AccountReportItem.apiAddress + 'Create';

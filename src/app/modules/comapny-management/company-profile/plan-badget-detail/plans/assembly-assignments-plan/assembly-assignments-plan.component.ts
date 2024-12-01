@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
-import { Plan, UrlBuilder } from '@shared/models/response.model';
+import { Pagination, Plan, UrlBuilder } from '@shared/models/response.model';
+import { LazyLoadEvent } from 'primeng/api';
 import { map } from 'rxjs';
 
 @Component({
@@ -18,6 +19,7 @@ export class AssemblyAssignmentsPlanComponent implements OnInit {
   planDetailData: any;
   // data: Plan[] = [];
   loading = false;
+  yearId: any;
   assemblyAssignmentsClass = 'p-datatable-sm';
   assemblyAssignmentsTotalCount!: number;
   selectDateType = 'single';
@@ -30,11 +32,23 @@ export class AssemblyAssignmentsPlanComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getPlanDetail(yearId: number) {
+  getPlanDetail(event?: LazyLoadEvent) {
+    if (!this.yearId) return;
+    const pagination = new Pagination();
+    const first = event?.first || 0;
+    const rows = event?.rows || this.dataTableRows;
+
+    pagination.pageNumber = first / rows + 1;
+    pagination.pageSize = rows;
+
     const body = {
+      pageSize: pagination.pageSize,
+      pageNumber: pagination.pageNumber,
+      withOutPagination: false,
       companyId: this.inputData.companyId,
-      periodId: yearId,
+      periodId: this.yearId,
     };
+    this.first = 0;
     this.httpService
       .post<any>(UrlBuilder.build(Plan.apiAddressYearUnion, ''), body)
       .pipe(
@@ -59,7 +73,11 @@ export class AssemblyAssignmentsPlanComponent implements OnInit {
     this.isOpenDataList = false;
   }
 
-  returnSelectedDate(e: any) {
-    this.getPlanDetail(e);
+  loadData(event?: any) {
+    this.getPlanDetail(event);
+  }
+  returnSelectedDate(e?: any) {
+    this.yearId = e;
+    if (this.yearId) this.getPlanDetail();
   }
 }
