@@ -40,7 +40,7 @@ export class GraphComponent implements OnInit {
 
   createLayeredGraph(data: data) {
     const width = 1100;
-    const height = 500;
+    const height = 700;
 
     const svg = d3
       .select(this.graphContainer.nativeElement)
@@ -49,76 +49,98 @@ export class GraphComponent implements OnInit {
       .attr('height', height);
 
 
-    data.links = [
-      {
-        source: 10055,
-        target: 10045
-      },
-      // {
-      //   source: 10055,
-      //   target: 10046,
-      // },
-      {
-        source: 10049,
-        target: 10048
-      },
-      {
-        source: 10049,
-        target: 10043
-      },
-      {
-        source: 10048,
-        target: 10044
-      },
-      {
-        source: 10042,
-        target: 10041
-      },
-      {
-        source: 10042,
-        target: 10049
-      },
-      {
-        source: 10042,
-        target: 10040
-      },
-      {
-        source: 10041,
-        target: 10040
-      },
-      {
-        source: 10041,
-        target: 10048
-      },
-      {
-        source: 10041,
-        target: 10049
-      },
-      {
-        source: 10044,
-        target: 10045
-      },
-      {
-        source: 10044,
-        target: 10046
-      },
-      {
-        source: 10044,
-        target: 10055
-      },
-      {
-        source: 10046,
-        target: 10055
-      },
-      {
-        source: 10039,
-        target: 10041
-      },
-      {
-        source: 10048,
-        target: 10110
-      },
-    ]
+    // data.links = [
+    //   {
+    //     source: 10055,
+    //     target: 10045
+    //   },
+    //   {
+    //     source: 10049,
+    //     target: 10048
+    //   },
+    //   {
+    //     source: 10049,
+    //     target: 10043
+    //   },
+    //   {
+    //     source: 10048,
+    //     target: 10044
+    //   },
+    //   {
+    //     source: 10042,
+    //     target: 10041
+    //   },
+    //   {
+    //     source: 10042,
+    //     target: 10049
+    //   },
+    //   {
+    //     source: 10042,
+    //     target: 10040
+    //   },
+    //   {
+    //     source: 10041,
+    //     target: 10040
+    //   },
+    //   {
+    //     source: 10041,
+    //     target: 10040
+    //   },
+    //   {
+    //     source: 10041,
+    //     target: 10048
+    //   },
+    //   {
+    //     source: 10041,
+    //     target: 10049
+    //   },
+    //   {
+    //     source: 10044,
+    //     target: 10045
+    //   },
+    //   {
+    //     source: 10044,
+    //     target: 10046
+    //   },
+    //   {
+    //     source: 10044,
+    //     target: 10055
+    //   },
+    //   {
+    //     source: 10046,
+    //     target: 10055
+    //   },
+    //   {
+    //     source: 10039,
+    //     target: 10041
+    //   },
+    //   {
+    //     source: 10109,
+    //     target: 10049
+    //   },
+
+    //   {
+    //     source: 10111,
+    //     target: 10043
+    //   },
+    //   //// bug
+    //   {
+    //     source: 10111,
+    //     target: 10112
+    //   },
+    //   {
+    //     source: 10048,
+    //     target: 10110
+    //   },
+    //   {
+    //     source: 10045,
+    //     target: 10112
+    //   },
+    //   {
+    //     source: 10045,
+    //     target: 10111
+    //   },
+    // ]
 
     const layers = [...new Set(data.nodes.map(d => d.layer))];
     const layerScale = d3
@@ -129,48 +151,41 @@ export class GraphComponent implements OnInit {
     this.createNodesList(data.nodes, layerScale, height);
 
 
-    //  رسم لینک برای نود های هم سطح (منحنی )
-    this.drawLinesForNodesSameLevel(svg, data);
-
     // رسم نودها
     this.createNode(svg, data)
+
 
     // اضافه کردن متن به گره‌ها
     this.addTextToNodes(svg, data, height);
 
-    // رسم کمانک
-    this.createTarget(svg, data);
-
-
-    // رسم لینک‌ برای نود های غیر هم سطح
+    // (خط کج) رسم لینک‌ برای نود های غیر هم سطح
     this.drawLinesForNodesInDifferentLevel(svg, data);
+
+    //  رسم لینک برای نود های هم سطح (منحنی )
+    this.drawLinesForNodesSameLevel(svg, data);
 
     //  رسم لینک برای نود های هم سطح (خط صاف)
     this.drawLinesForNodesPlacedNextToEachOther(svg);
+
+    // رسم کمانک
+    this.createTargetOnLines(svg, data);
 
 
   }
 
   drawLinesForNodesSameLevel(svg: any, data: data) {
 
-    svg.append('defs')
-      .append('marker')
-      .attr('id', 'arrowheadForPath')
-      .attr('viewBox', '0 -5 10 10') // Viewbox for the arrowhead
-      .attr('refX', 5) // Position of the arrow relative to the line end
-      .attr('refY', 0)
-      .attr('markerWidth', 6) // Width of the arrowhead
-      .attr('markerHeight', 6) // Height of the arrowhead
-      .attr('orient', 'auto') // Rotate to match the line direction
-      .append('path')
-      .attr('d', 'M0,-5L10,0L0,5') // Triangle shape
-      .attr('fill', '#475569');
+    // filtered data that placed  in same layer
+    let filteredData = data.links.filter(link =>
+      this.findNode(data.nodes, link.source).layer == this.findNode(data.nodes, link.target).layer
+    );
 
+    console.log(filteredData)
 
     // Add curved links (paths)
     svg
       .selectAll('path')
-      .data(data.links)
+      .data(filteredData)
       .enter()
       .append('path')
       .attr('d', (d: any) => {
@@ -179,21 +194,20 @@ export class GraphComponent implements OnInit {
         const sourceLayer = this.findNode(data.nodes, source).layer;
         const targetLayer = this.findNode(data.nodes, target).layer;
 
-        if (!source || !target) return '';
-        // this ignore nodes that their layers are different
-        if (sourceLayer != targetLayer) return;
-
         // this ignore nodes that placed next to each other 
         if (Math.abs(this.compareNodesIndex(source, target)) == 1) {
           this.nodesPlacedNextToEachOther.push(d);
           return
         }
 
+        console.log(this.returnCXNodesScale(d.source))
+        console.log(this.returnCXNodesScale(d.target))
+
         // Start and end points
         const x1 = this.returnCXNodesScale(source) + 45;
-        const y1 = this.returnCYNodesScale(source) + (sourceLayer == 1 ? -2 : 65);
+        const y1 = this.returnCYNodesScale(source) + (sourceLayer == 1 ? -2 : 63);
         const x2 = this.returnCXNodesScale(target) + 45;
-        const y2 = this.returnCYNodesScale(target) + (sourceLayer == 1 ? -3 : 65);
+        const y2 = this.returnCYNodesScale(target) + (sourceLayer == 1 ? -3 : 63);
 
         // Calculate a control point (midpoint with an offset)
         const cx = (x1 + x2) / 2;
@@ -208,13 +222,30 @@ export class GraphComponent implements OnInit {
       .attr('fill', 'none')
       .attr('stroke-width', 2)
       .attr('stroke-dasharray', '2,2')
-      .attr('marker-end', 'url(#arrowheadForPath)');
+      .attr('marker-end', 'url(#arrowheadForPath)')
+      .attr('marker-end', (d: any) => `url(#arrow-${d.source}-${d.target}-path)`);
+
+
+    data.links.forEach(link => {
+      svg.append('defs')
+        .append('marker')
+        .attr('id', `arrow-${link.source}-${link.target}-path`)
+        .attr('viewBox', '0 -5 10 10') // Viewbox for the arrowhead
+        .attr('refX', 5) // Position of the arrow relative to the line end
+        .attr('refY', 0)
+        .attr('markerWidth', 4) // Width of the arrowhead
+        .attr('markerHeight', 6) // Height of the arrowhead
+        .attr('orient', 'auto') // Rotate to match the line direction
+        .append('path')
+        .attr('d', 'M0,-5L10,0L0,5') // Triangle shape
+        .attr('fill', this.colorScale(this.findNode(data.nodes, link.source).layer));
+    });
   }
 
 
   drawLinesForNodesInDifferentLevel(svg: any, data: data) {
 
-    // filtered data that placed  in same layer
+    // filtered data that placed in different layer 
     let filteredData = data.links.filter(link =>
       this.findNode(data.nodes, link.source).layer != this.findNode(data.nodes, link.target).layer
     );
@@ -225,16 +256,26 @@ export class GraphComponent implements OnInit {
       .enter()
       .append('line')
       .attr('x1', (d: any) => {
+
+
         return this.returnCXNodesScale(d.source) + 65;
       })
       .attr('x2', (d: any) => {
         return this.returnCXNodesScale(d.target) + 65;
       })
       .attr('y1', (d: any) => {
-        return this.returnCYNodesScale(d.source) + 25 + 35;
+
+        // this check nodes layer to check line direction  
+        let TopFromBottomDirection = this.findNode(data.nodes, d.source).layer < this.findNode(data.nodes, d.target).layer ? true : false;
+
+        return this.returnCYNodesScale(d.source) + (TopFromBottomDirection ? 60 : 0);
       })
       .attr('y2', (d: any) => {
-        return this.returnCYNodesScale(d.target);
+
+        // this check nodes layer to check line direction  
+        let TopFromBottomDirection = this.findNode(data.nodes, d.source).layer < this.findNode(data.nodes, d.target).layer ? true : false;
+
+        return this.returnCYNodesScale(d.target) + (TopFromBottomDirection ? 0 : 60);
       })
       // .attr('stroke', '#a1a0a0')
       .attr('stroke', '#475569')
@@ -246,29 +287,24 @@ export class GraphComponent implements OnInit {
 
   drawLinesForNodesPlacedNextToEachOther(svg: any) {
 
-    let LTRdirection = false;
 
     svg
       .selectAll('line.second')
       .data(this.nodesPlacedNextToEachOther)
       .enter()
       .append('line')
-      .attr('d', (d: any) => {
-
-        const source = d.source;
-        const target = d.target;
+      .attr('x1', (d: any) => {
 
         // this check nodes position to check line direction  
-        if (this.compareNodesIndex(source, target) == -1) {
-          LTRdirection = true;
-          return
-        }
+        let LTRdirection = this.compareNodesIndex(d.source, d.target) == -1 ? true : false;
 
-      })
-      .attr('x1', (d: any) => {
         return this.returnCXNodesScale(d.source) + (LTRdirection ? 130 : 0);
       })
       .attr('x2', (d: any) => {
+
+        // this check nodes position to check line direction  
+        let LTRdirection = this.compareNodesIndex(d.source, d.target) == -1 ? true : false;
+
         return this.returnCXNodesScale(d.target) + (LTRdirection ? 0 : 130);
       })
       .attr('y1', (d: any) => {
@@ -378,10 +414,12 @@ export class GraphComponent implements OnInit {
           layer: nodeData.layer,
           id: nodeData.id,
           cx: layerScale(1),
+          // cy: this.returnYPoint(nodeData.layer, h)
           cy:
-            nodeData.layer === 1
-              ? (h / 4) * nodeData.layer - 80
-              : (h / 4) * nodeData.layer + nodeData.layer - 80,
+            // nodeData.layer === 1
+            // ? (h / 4) * nodeData.layer - 60
+            // : 
+            (h / 4) * nodeData.layer + nodeData.layer - (60 * nodeData.layer),
         };
         this.nodesDrawList.push(arr);
         return arr.cx;
@@ -397,7 +435,26 @@ export class GraphComponent implements OnInit {
     });
   }
 
-  addTextToNodes(svg: any, data: data, height: any) {
+  returnYPoint(layer: number, height: number) {
+    let ypoint = (height / 4) * layer;
+
+    if (layer == 1) {
+      ypoint = ypoint - 120
+    }
+    if (layer == 2) {
+      ypoint = ypoint + layer - 120
+    }
+    if (layer == 3) {
+      ypoint = ypoint + layer - 120
+    }
+    if (layer == 4) {
+      ypoint = ypoint + layer - 120
+    }
+
+    return ypoint;
+  }
+
+  addTextToNodes(svg: any, data: data, h: any) {
     // اضافه کردن متن به گره‌ها
     svg
       .selectAll('text')
@@ -407,7 +464,7 @@ export class GraphComponent implements OnInit {
       .attr('x', (d: any) => {
         return this.returnCXNodesScale(d.id) + 65;
       })
-      .attr('y', (d: any) => (height / 4) * d.layer - 45)
+      .attr('y', (d: any) => (h / 4) * d.layer + d.layer - (60 * d.layer) + 30)
       //      .attr('y', d => this.returnCYtext(d.layer) )
       .attr('text-anchor', 'middle')
       .attr('fill', '#4A4A4A')
@@ -437,14 +494,14 @@ export class GraphComponent implements OnInit {
       .attr('color', '#4A4A4A');
   }
 
-  createTarget(svg: any, data: data) {
+  createTargetOnLines(svg: any, data: data) {
     svg.append('defs')
       .append('marker')
       .attr('id', 'arrowhead')
       .attr('viewBox', '0 -5 10 10') // Viewbox for the arrowhead
       .attr('refX', 5) // Position of the arrow relative to the line end
       .attr('refY', 0)
-      .attr('markerWidth', 6) // Width of the arrowhead
+      .attr('markerWidth', 4) // Width of the arrowhead
       .attr('markerHeight', 6) // Height of the arrowhead
       .attr('orient', 'auto') // Rotate to match the line direction
       .append('path')
