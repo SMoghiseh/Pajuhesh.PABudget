@@ -4,9 +4,22 @@
   overflow: auto;
   direction: ltr;
   scrollbar-width: thin;
+  position: relative;
+  top: -128px;
 }
 
-
+.steps-container{
+  div{
+    width: 130px;
+    border-radius: 8px;
+    padding: 21px 0 ;
+    text-align: center;
+    &:nth-child(1){ background: #88DFD5 ; margin: -12px 0 72px 0;}
+    &:nth-child(2){ background: #8CEFE4 ; margin: -14px 0 72px 0;}
+    &:nth-child(3){ background: #CCE0FF ; margin: -16px 0 72px 0;}
+    &:nth-child(4){ background: #97BEFF ; margin: -18px 0 72px 0;}
+  }
+}
 
 // drawPath(svg: any, data: data) {
 

@@ -68,13 +68,15 @@
 
         .desc {
             text-align: right;
-            margin: 18px 10px 0 0;
+            margin: 18px 3px 0 0;
             overflow: auto;
             scrollbar-color: #ccc #F5F7FA;
             height: 79%;
             scrollbar-width: thin;
+            padding-left: 7px;
             p {
                 margin-top: 10px;
+                line-height: 22px;
             }
         }
     }
@@ -100,3 +102,9 @@
     }
 }
 
+
+.action-image-container img {
+    width: 26px;
+    height: 34px;
+    margin-top: 5px;
+}
