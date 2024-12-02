@@ -31,12 +31,21 @@
             <div class="title">{{item.strategyTypeTitle}}</div>
             <div class="desc">
               <ng-container *ngFor="let desc of item.title">
-                <p>
-                  <button class="action-image-container" pTooltip=" ویرایش" (click)="editRowDescription(desc , item)">
-                    <img ngSrc="icons\Group 116.svg" width="24" height="24" />
-                  </button>
-                  {{ desc.title }}
-                </p>
+
+
+                <div class="d-flex justify-content-between" style="border-bottom: 1px dotted #cccccc;">
+                  <p>{{ desc.title }}</p>
+
+                  <div class="d-flex align-items-start">
+                    <button class="action-image-container" pTooltip=" ویرایش" (click)="editRowDescription(desc , item)">
+                      <img ngSrc="icons\Group 116.svg" width="24" height="24" />
+                    </button>
+                    <button class="action-image-container delete-button" pTooltip="حذف" (click)="deleteRow(desc)" >
+                      <img ngSrc="icons\Group 117.svg" width="24" height="24" />
+                    </button>
+                  </div>
+                </div>
+
               </ng-container>
             </div>
           </div>
@@ -78,7 +87,7 @@
       <span class="additionaHeaderTitle" *ngIf="planingTitleSelected">({{planingTitleSelected}})
       </span>
     </span>
-    
+
   </ng-template>
 
   <PABudget-add-edit-strategy [data1]="addEditData" [mode]="mode"
