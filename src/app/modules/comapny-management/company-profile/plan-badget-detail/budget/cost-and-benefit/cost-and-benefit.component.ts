@@ -53,7 +53,7 @@ export class CostAndBenefitComponent implements OnInit {
     this.getListOfBudgetReportLst();
   }
 
-  returnSelectedDate(e: any) {
+  returnSelectedDate(e: any) {  
     this.selectedYerId = e;
     this.reloadFilteredData();
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   AccountReportToItem,
   AccountReport,
@@ -17,6 +17,7 @@ import {
 } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'PABudget-aggregate',
@@ -57,7 +58,7 @@ export class AggregateComponent implements OnInit {
   periodList: any = [];
   monthList: any = [];
   periodDetailLst: Period[] = [];
-
+  @ViewChild('form') fileUpload!: FileUpload;
   get reportTypeCode() {
     return this.accountReportPriceForm.get('reportTypeCode');
   }
@@ -265,7 +266,7 @@ export class AggregateComponent implements OnInit {
     }
   }
 
-  ReadPriceAccountFromExcelFile(multiMediaIdId: number) {
+  ReadPriceAccountFromExcelFile(multiMediaIdId: number) {  
     this.httpService
       .get<AccountReportToItem[]>(
         AccountReportToItem.apiAddress +
@@ -315,7 +316,9 @@ export class AggregateComponent implements OnInit {
             //   this.priceAccountRepToItemFromExcelFile[i].priceCu;
           }
         }
+        
       });
+      this.fileUpload.clear();
   }
   searchOnDataList(event?: LazyLoadEvent) {
     const formValue = this.accountReportPriceForm.value;

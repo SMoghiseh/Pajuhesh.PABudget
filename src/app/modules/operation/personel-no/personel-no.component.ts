@@ -164,7 +164,7 @@ export class PersonelNoComponent {
         }
       });
   }
-  getPersonalNumberList(event?: any) {
+  getPersonalNumberList(event?: any) {   
     if (event) this.lazyLoadEvent = event;
     const pagination = new Pagination();
     const first = this.lazyLoadEvent?.first || 0;
@@ -236,7 +236,7 @@ export class PersonelNoComponent {
   closeModal() {
     this.isOpenAddEditPersonelNo = false;
   }
-  deleteRow(period: PersonelNo) {
+  deleteRow(period: PersonelNo) {  
     if (period && period.id)
       this.confirmationService.confirm({
         message: 'آیا از حذف بودجه پرسنل اطمینان دارید؟',
@@ -248,15 +248,15 @@ export class PersonelNoComponent {
         rejectLabel: 'انصراف',
         rejectButtonStyleClass: 'p-button-secondary',
         defaultFocus: 'reject',
-        accept: () => this.getPersonalNumberList(period.id),
+        accept: () => this.deletePersonelNo(period.id , period.companyName),
       });
   }
 
-  deletePersonelNo(id: number, title: string) {
-    if (id && title) {
+  deletePersonelNo(id: number, companyName: any) {  
+    if (id && companyName) {
       this.httpService
         .get<PersonelNo>(
-          UrlBuilder.build(PersonelNo.apiAddress + 'DELETE', '') + `/${id}`
+          UrlBuilder.build(PersonelNo.apiAddress + 'Delete', '') + `/${id}`
         )
         .subscribe(response => {
           if (response.successed) {
@@ -265,7 +265,7 @@ export class PersonelNoComponent {
               key: 'personelNo',
               life: 8000,
               severity: 'success',
-              detail: `بودجه پرسنل ${title}`,
+              detail: `بودجه پرسنل ${companyName}`,
               summary: 'با موفقیت حذف شد',
             });
             this.getPersonalNumberList();

@@ -124,7 +124,7 @@ export class AddEditYearGoalComponent {
       });
   }
 
-  onChangeCompany(e: any) {debugger
+  onChangeCompany(e: any) { 
     this.getBigGoalList(e.value);
   }
 

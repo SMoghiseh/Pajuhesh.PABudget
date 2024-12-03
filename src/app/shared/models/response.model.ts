@@ -1,3 +1,4 @@
+import { title } from 'process';
 export class UrlBuilder {
   static build(url: string, actionType: ActionType) {
     switch (actionType) {
@@ -1132,6 +1133,7 @@ export class PersonelNo {
   periodTitle!: string;
   costCenterTypeTitle!: string;
   gender!: any;
+  companyName!: any
 }
 export class ContractNo {
   static readonly apiAddress = 'api/PABudgetApi/v1/Info/CreateContract';

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   AttachmentType,
   BudgetSourceUse,
@@ -19,6 +19,7 @@ import {
 } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'PABudget-personel-no-detail',
@@ -31,6 +32,7 @@ export class PersonelNoDetailComponent {
   searchPersonelNoForm!: FormGroup;
   dataTableRows = 10;
   totalCount!: number;
+  message !: string;
   data: PersonelNo[] = [];
   loading = false;
   lazyLoadEvent?: LazyLoadEvent;
@@ -55,6 +57,7 @@ export class PersonelNoDetailComponent {
   fileLoad = false;
   personalNoExcelFile: any;
   personalNoUploadlFile: any;
+  @ViewChild('form') fileUpload!: FileUpload;
   get employmentTypeId() {
     return this.searchPersonelNoForm.get('employmentTypeId');
   }
@@ -135,7 +138,7 @@ export class PersonelNoDetailComponent {
         }
       });
   }
-  onSelectAttachment(files: FileList) {
+  onSelectAttachment(files: FileList) {  
     const File = files[0].name;
     if (files.length) {
       Array.from(files).forEach(file => {
@@ -165,7 +168,7 @@ export class PersonelNoDetailComponent {
     }
   }
 
-  readPersonalNoFile(multiMediaIdId: number) {
+  readPersonalNoFile(multiMediaIdId: number) {  
     const body = {
       personelNoId: this.personelNoId,
       multiMediaId: multiMediaIdId,
@@ -176,7 +179,14 @@ export class PersonelNoDetailComponent {
     this.httpService.post<PersonelNo[]>(url, body).subscribe(response => {
       if (response.data && response.data.result) {
         this.personalNoUploadlFile = response.data.result;
+        this.messageService.add({
+          key: 'personelNo',
+          life: 2000,
+          severity: 'success',
+          summary: response.message
+        });
         this.getPersonalNumberList();
+       
       }
       // this.changeList = [];
       // for (let i = 0; i < this.flattenList.length; i++) {
@@ -194,8 +204,8 @@ export class PersonelNoDetailComponent {
 
       // groupId: item.parentId ? item.parentId : item.id
     });
-    // this.flattenList[i].priceCu =
-    //   this.priceAccountRepToItemFromExcelFile[i].priceCu;
+    this.fileUpload.clear();
+
   }
 
   downloadExcelFile(id?: number) {

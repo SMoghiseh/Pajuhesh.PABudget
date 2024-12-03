@@ -2,14 +2,14 @@
   <div class="co-info-box">
     <h3>{{ selectedPlanName }}</h3>
     <div class="row row-feature">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
+      <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 box">
         <div class="row">
           <app-select-date [companyId]="inputData.companyId"
             [selectType]="selectDateType"
             (selectedVal)="returnSelectedDate($event)"></app-select-date>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
+      <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 box">
         <ng-container *ngIf="viewMode === 'treeTable'">
           <div *ngFor="let item of reportItemTypeList"
             class="items"
@@ -27,7 +27,7 @@
           </div>
         </ng-container>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box" style="padding-right: 60px">
         <div class="items"
           (click)="tabChange('treeTable', 'single')"
           [class.select-feature]="viewMode === 'treeTable'">
