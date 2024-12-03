@@ -3,10 +3,12 @@ import {
   BigGoal,
   StrategySWOT,
   Planning,
+  UrlBuilder,
+  STRATEGY,
 } from '@shared/models/response.model';
 import { HttpService } from '@core/http/http.service';
 import { map } from 'rxjs';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -35,7 +37,9 @@ export class StrategyComponent {
 
   constructor(
     private httpService: HttpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -109,7 +113,41 @@ export class StrategyComponent {
     this.isOpenAddEditPlan = true;
   }
 
+  deleteRow(item: STRATEGY) {
+    if (item && item.id)
+      this.confirmationService.confirm({
+        message: `آیا از حذف "${item.title.substring(0, 40) + ' ...'}" اطمینان دارید؟`,
+        header: `عنوان "${item.title.substring(0, 40) + ' ...'}"`,
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'تایید و حذف',
+        acceptButtonStyleClass: 'p-button-danger',
+        acceptIcon: 'pi pi-trash',
+        rejectLabel: 'انصراف',
+        rejectButtonStyleClass: 'p-button-secondary',
+        defaultFocus: 'reject',
+        accept: () => this.deleteItem(item.id, item.title),
+      });
+  }
 
+  deleteItem(id: number, title: string) {
+    if (id && title) {
+      this.httpService
+        .get<STRATEGY>(
+          UrlBuilder.build(STRATEGY.apiAddress + 'Delete', '') + `/${id}`
+        )
+        .subscribe(response => {
+          if (response.successed) {
+            this.messageService.add({
+              key: 'strategy',
+              life: 8000,
+              severity: 'success',
+              summary: 'با موفقیت حذف شد',
+            });
+            this.getData(this.planningId);
+          }
+        });
+    }
+  }
 
   // getCompanyByPlanId(id: number) {
   //   this.httpService
