@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="viewMode === 'table'" class="row row-cols-lg-1 table-container">
+    <div *ngIf="viewMode === 'table'" class="row-cols-lg-1 table-container">
       <p-table
         #dataTable
         style="text-align: center"
@@ -35,7 +35,7 @@
         class="table-Profile table-profile-style"
         [columns]="cols"
         [value]="tableData"
-        [paginator]="true"
+        [paginator]="false"
         [rows]="dataTableRows"
         [rowsPerPageOptions]="[15, 20, 30]"
         [styleClass]="gridClass"

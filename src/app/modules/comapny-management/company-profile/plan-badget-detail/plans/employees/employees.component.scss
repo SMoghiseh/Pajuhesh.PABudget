@@ -36,35 +36,7 @@
     margin-right: 80px !important;
     
   }
-  
-  
-  // ::ng-deep .p-treetable table {
-  //   table-layout: unset !important;
-  // }
-  
-  //  ::ng-deep .p-treetable .p-treetable-tbody > tr {
-   
-  //   margin-right: 7px !important;
-  //   > td {
-  //     border: unset !important;
-  //   }
-  
-  //   &:focus {
-  //     outline: 0.15rem solid rgba(255, 152, 116, 0.6)!important;
-  //   }
-  //  }
-  
-  
-  
-  // ::ng-deep .p-treetable .p-treetable-scrollable-header,
-  // .p-treetable .p-treetable-scrollable-footer {
-  //   background: none;
-  //   // padding-top: 40px ;
-  // }
-  
-  // ::ng-deep .p-treetable-scrollable-header-box{
-  //   padding-right: 0px !important;
-  // }
+
   
   :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
        display:table-row;
@@ -73,8 +45,8 @@
   
   :host ::ng-deep  .table-container .p-datatable-tbody>tr>td {
   
-    //  min-width: 240px  !important;
-    //  width: 500px !important;
+     min-width: 240px  !important;
+     width: 500px !important;
      text-align-last : center  !important;
      height: 40px;
      border: unset;
@@ -86,15 +58,6 @@
     background-color: #EEF2FF;
   }
   
-  // ::ng-deep   .p-treetable-tbody {
-  //   >tr >td {
-   
-  //     text-align: center !important;
-  //     width: 510px !important;
-  
-  //     }
-    
-  // }
   
   ::ng-deep  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box {
      &.p-highlight:hover {
@@ -116,7 +79,7 @@
   padding-right: 0px !important;
   padding-top: 40px ;
   position: relative;
-  display: ruby !important;
+  display: -webkit-box !important;
   }
   
   
@@ -125,14 +88,10 @@
 
     .p-datatable-thead>tr {
       display: flex;
-      width: 250%;
+      width: 300%;
   
     }
   }
-
-  // :host ::ng-deep .p-datatable-table { 
-  //   width: unset !important;
-  // }
 
   .stylePie{
     margin-right: 6rem !important;
