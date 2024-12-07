@@ -63,7 +63,7 @@ export class DetailStrategyPlanComponent {
       strategyTypeCodeId: new FormControl(0),
       title: new FormControl(''),
       companyId: new FormControl(0),
-      bigGoalId: new FormControl(0),
+      bigGoalId: new FormControl(),
       strategyPriority: new FormControl(0),
     });
 
@@ -130,9 +130,9 @@ export class DetailStrategyPlanComponent {
   }
 
 
-  getBigGoalList(planId: number) {
+  getBigGoalList(planId: number) {   
     this.httpService
-      .get<BigGoal[]>(BigGoal.apiAddress + 'GetList/' + planId)
+      .get<BigGoal[]>(BigGoal.apiAddress + 'GetListCompany/' + planId)
       .subscribe(response => {
         if (response.data && response.data.result) {
           this.bigGoalList = response.data.result;
