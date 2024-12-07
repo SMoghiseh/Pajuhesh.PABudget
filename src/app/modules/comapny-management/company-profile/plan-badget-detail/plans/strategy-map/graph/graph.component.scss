@@ -5,267 +5,28 @@
   direction: ltr;
   scrollbar-width: thin;
   position: relative;
-  top: -128px;
+  top: -90px;
+  left: -20px;
 }
 
 .steps-container{
   div{
     width: 130px;
     border-radius: 8px;
-    padding: 21px 0 ;
+    padding: 19px 0 ;
     text-align: center;
-    &:nth-child(1){ background: #88DFD5 ; margin: -12px 0 72px 0;}
-    &:nth-child(2){ background: #8CEFE4 ; margin: -14px 0 72px 0;}
-    &:nth-child(3){ background: #CCE0FF ; margin: -16px 0 72px 0;}
+    border-radius: 0px 50px 50px 0px;
+    border: 2px solid #BBCCE5;
+    &:nth-child(1){ background: #88DFD5 ; margin: 27px 0 72px 0;}
+    &:nth-child(2){ background: #8CEFE4 ; margin: -18px 0 72px 0;}
+    &:nth-child(3){ background: #CCE0FF ; margin: -17px 0 72px 0;}
     &:nth-child(4){ background: #97BEFF ; margin: -18px 0 72px 0;}
   }
 }
 
-// drawPath(svg: any, data: data) {
-
-//   // Add curved links (paths)
-//   svg
-//     .selectAll('path')
-//     .data(data.links)
-//     .enter()
-//     .append('path')
-//     .attr('d', (d: any) => {
-//       const source = d.source;
-//       const target = d.target;
-
-//       if (!source || !target) return '';
-//       if (this.findNode(data.nodes, source).layer != this.findNode(data.nodes, target).layer) return;
-
-//       // Calculate control point for the curve
-//       const controlX = ((this.returnCXNodesScale(d.source) + this.returnCXNodesScale(d.target)) / 2);
-//       const controlY = Math.min(this.returnCYNodesScale(d.source), this.returnCYNodesScale(d.target)) - 70; // Adjust curve height
-
-//       // Use a quadratic Bézier curve (Q command)
-//       let curve = `M ${this.returnCXNodesScale(d.source)},${this.returnCYNodesScale(d.source)} 
-//       Q ${controlX},${controlY} ${this.returnCXNodesScale(d.target)},${this.returnCYNodesScale(d.target)}`
-//       console.log(curve)
-//       // return curve;
-
-//       // Start and end points
-//       const x1 = this.returnCXNodesScale(source) + 40;
-//       const y1 = this.returnCYNodesScale(source);
-//       const x2 = this.returnCXNodesScale(target) + 40;
-//       const y2 = this.returnCYNodesScale(target);
-
-//       // Calculate a control point (midpoint with an offset)
-//       const cx = (x1 + x2) / 2;
-//       const cy = (y1 + y2) / 2 - 50; // Offset for curvature
-
-//       // Return a quadratic Bézier curve
-//       return `M ${x1},${y1} Q ${cx},${cy} ${x2},${y2}`;
-
-
-
-//     })
-//     .attr('stroke', 'blue')
-//     .attr('fill', 'none')
-//     .attr('stroke-width', 2);
-// }
-
-// drawLines(svg: any, data: data) {
-
-//   let filteredData = data.links.filter(link =>
-//     this.findNode(data.nodes, link.source).layer != this.findNode(data.nodes, link.target).layer
-//   );
-
-//   // رسم لینک‌ها
-//   svg
-//     .selectAll('line')
-//     .data(filteredData)
-//     .enter()
-//     .append('line')
-//     .attr('x1', (d: any) => {
-//       let sourceLayer = this.findNode(data.nodes, d.source).layer;
-//       return this.returnCXNodesScale(d.source) + 40;
-//     })
-//     .attr('x2', (d: any) => {
-//       let targetLayer = this.findNode(data.nodes, d.target).layer;
-//       return this.returnCXNodesScale(d.target) + 40;
-//     })
-//     .attr('y1', (d: any) => {
-//       return this.returnCYNodesScale(d.source) + 25 + 10;
-//     })
-//     .attr('y2', (d: any) => {
-//       return this.returnCYNodesScale(d.target) + 25 + 10;
-//     })
-//     // .attr('stroke', '#a1a0a0')
-//     .attr('stroke', '#000')
-//     .attr('stroke-width', 2);
-
-// }
-
-// drawShapesForTargetNodes(svg2: any, data: data) {
-//   const svg = d3.select('svg');
-//   // Identify all target nodes
-//   const targetIds = new Set(data.links.map(link => link.target));
-
-//   // Add nodes with conditional shapes
-//   svg
-//     .selectAll('g') // Use a group <g> for each node to support different shapes
-//     .data(data.nodes)
-//     .enter()
-//     .append('g')
-//     .each(function (d: any) {
-//       const group = d3.select(this);
-
-//       if (targetIds.has(d.id)) {
-//         // Draw rectangle for target nodes
-//         group
-//           .append('rect')
-//           .attr('x', d.x - 15) // Center the rectangle
-//           .attr('y', d.y - 15)
-//           .attr('width', 30)
-//           .attr('height', 30)
-//           .attr('fill', 'red')
-//           .attr('stroke', 'black')
-//           .attr('stroke-width', 2);
-//       } else {
-//         // Draw circle for non-target nodes
-//         group
-//           .append('circle')
-//           .attr('cx', d.x)
-//           .attr('cy', d.y)
-//           .attr('r', 20)
-//           .attr('fill', 'blue')
-//           .attr('stroke', 'black')
-//           .attr('stroke-width', 2);
-//       }
-//     });
-
-// }
-
-// findNode(nodes: any, id: any) {
-//   return nodes.find((node: any) => node.id === id);
-// }
-
-// colorScale(layerId: number) {
-//   let colorCode = '';
-
-//   if (layerId == 1)
-//     colorCode = '#88DFD5';
-//   if (layerId == 2)
-//     colorCode = '#8CEFE4';
-//   if (layerId == 3)
-//     colorCode = '#CCE0FF';
-//   if (layerId == 4)
-//     colorCode = '#97BEFF';
-//   return colorCode;
-
-// }
-
-// returnCXNodesScale(nodeId: any): number {
-//   const fltr = this.nodesDrawList.filter((x: any) => x.id === nodeId);
-//   if (fltr.length > 0) return fltr[0].cx;
-//   else return -1;
-// }
-
-// returnCYNodesScale(nodeId: any): number {
-//   const fltr = this.nodesDrawList.filter((x: any) => x.id === nodeId);
-//   if (fltr.length > 0) return fltr[0].cy;
-//   else return -1;
-// }
-
-// createNodesList(nodes: any, layerScale: any, h: number) {
-//   nodes.forEach((nodeData: any) => {
-//     const fltr = this.nodesDrawList.filter(
-//       (x: any) => x.layer === nodeData.layer
-//     );
-//     if (fltr.length === 0) {
-//       const arr = {
-//         layer: nodeData.layer,
-//         id: nodeData.id,
-//         cx: layerScale(1),
-//         //  cy: this.returnCY(nodeData.layer)
-//         cy:
-//           nodeData.layer === 1
-//             ? (h / 4) * nodeData.layer - 120
-//             : (h / 4) * nodeData.layer + nodeData.layer - 120,
-//       };
-//       console.log(arr)
-//       this.nodesDrawList.push(arr);
-//       return arr.cx;
-//     } else {
-//       const arr = {
-//         layer: nodeData.layer,
-//         id: nodeData.id,
-//         cx: fltr[fltr.length - 1].cx + 150,
-//         cy: fltr[fltr.length - 1].cy,
-//       };
-//       this.nodesDrawList.push(arr);
-//     }
-//   });
-// }
-
-// addTextToNodes(svg: any, data: data , height: any){
-//   // اضافه کردن متن به گره‌ها
-//   svg
-//     .selectAll('text')
-//     .data(data.nodes)
-//     .enter()
-//     .append('text')
-//     .attr('x', (d: any) => {
-//       return this.returnCXNodesScale(d.id) + 65;
-//     })
-//     .attr('y', (d:any) => (height / 4) * d.layer - 84)
-//     //      .attr('y', d => this.returnCYtext(d.layer) )
-//     .attr('text-anchor', 'middle')
-//     //.attr('fill', '#4A4A4A')
-//     .attr('fill', '#000')
-//     .text((d:any) => d.title);
-// }
-
-// createRects(svg: any, data: data) {
-//   // رسم نودها
-//   svg
-//     .selectAll('rect')
-//     .data(data.nodes)
-//     .enter()
-//     .append('rect')
-//     .attr('x', (d: any) => {
-//       return this.returnCXNodesScale(d.id);
-//     })
-//     .attr('y', (d: any) => {
-//       return this.returnCYNodesScale(d.id);
-//     })
-//     .attr('width', 130)
-//     .attr('height', 60)
-//     .attr('rx', '10')
-//     .attr('ry', '10')
-//     .attr('fill', (d: any) => {
-//       return this.colorScale(d.layer);
-//     })
-//     .attr('color', '#4A4A4A');
-// }
-
-// getPlanDetail() {
-//   const body = {
-//     companyId: this.inputData.companyId,
-//   };
-//   this.httpService
-//     .post<any>(UrlBuilder.build(Plan.apiAddressStrategyMap, ''), body)
-//     .pipe(
-//       map(response => {
-//         if (response.data && response.data.result) {
-//           return response.data.result;
-//         } else return [];
-//       })
-//     )
-//     .subscribe(res => {
-//       this.createLayeredGraph(res);
-//     });
-// }
-
-// getNodeCount(data: data): number {
-//   const arr = [];
-//   arr.push(data.nodes.filter((x: Node) => x.layer === 1).length);
-//   arr.push(data.nodes.filter((x: Node) => x.layer === 2).length);
-//   arr.push(data.nodes.filter((x: Node) => x.layer === 3).length);
-//   arr.push(data.nodes.filter((x: Node) => x.layer === 4).length);
-//   arr.sort();
-//   return arr[arr.length - 1];
-// }
+.text-container {
+  border: 1px solid #E2E8F0;
+  border-radius: 7px;
+  margin: 17px 3px 17px 20px;
+  padding: 23px 17px 5px 3px;
+}

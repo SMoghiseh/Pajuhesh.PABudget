@@ -25,7 +25,8 @@ export interface data {
 export class GraphComponent implements OnInit {
   @ViewChild('graphContainer', { static: true }) graphContainer!: ElementRef;
   @Input() inputData!: any;
-
+  isOpenDialog = false;
+  dynamicTitle = '';
   nodesDrawList: any = [];
   linkDrawList: any = [];
   grafData: any = [];
@@ -49,97 +50,97 @@ export class GraphComponent implements OnInit {
       .attr('height', height);
 
 
-    // data.links = [
-    //   {
-    //     source: 10055,
-    //     target: 10045
-    //   },
-    //   {
-    //     source: 10049,
-    //     target: 10048
-    //   },
-    //   {
-    //     source: 10049,
-    //     target: 10043
-    //   },
-    //   {
-    //     source: 10048,
-    //     target: 10044
-    //   },
-    //   {
-    //     source: 10042,
-    //     target: 10041
-    //   },
-    //   {
-    //     source: 10042,
-    //     target: 10049
-    //   },
-    //   {
-    //     source: 10042,
-    //     target: 10040
-    //   },
-    //   {
-    //     source: 10041,
-    //     target: 10040
-    //   },
-    //   {
-    //     source: 10041,
-    //     target: 10040
-    //   },
-    //   {
-    //     source: 10041,
-    //     target: 10048
-    //   },
-    //   {
-    //     source: 10041,
-    //     target: 10049
-    //   },
-    //   {
-    //     source: 10044,
-    //     target: 10045
-    //   },
-    //   {
-    //     source: 10044,
-    //     target: 10046
-    //   },
-    //   {
-    //     source: 10044,
-    //     target: 10055
-    //   },
-    //   {
-    //     source: 10046,
-    //     target: 10055
-    //   },
-    //   {
-    //     source: 10039,
-    //     target: 10041
-    //   },
-    //   {
-    //     source: 10109,
-    //     target: 10049
-    //   },
+    //data.links = [
+    // {
+    //   source: 10055,
+    //   target: 10045
+    // },
+    // {
+    //   source: 10049,
+    //   target: 10048
+    // },
+    // {
+    //   source: 10049,
+    //   target: 10043
+    // },
+    // {
+    //   source: 10048,
+    //   target: 10044
+    // },
+    // {
+    //   source: 10042,
+    //   target: 10041
+    // },
+    // {
+    //   source: 10042,
+    //   target: 10049
+    // },
+    // {
+    //   source: 10042,
+    //   target: 10040
+    // },
+    // {
+    //   source: 10041,
+    //   target: 10040
+    // },
+    // {
+    //   source: 10041,
+    //   target: 10040
+    // },
+    // {
+    //   source: 10041,
+    //   target: 10048
+    // },
+    // {
+    //   source: 10041,
+    //   target: 10049
+    // },
+    // {
+    //   source: 10044,
+    //   target: 10045
+    // },
+    // {
+    //   source: 10044,
+    //   target: 10046
+    // },
+    // {
+    //   source: 10044,
+    //   target: 10055
+    // },
+    // {
+    //   source: 10046,
+    //   target: 10055
+    // },
+    // {
+    //   source: 10039,
+    //   target: 10041
+    // },
+    // {
+    //   source: 10109,
+    //   target: 10049
+    // },
 
-    //   {
-    //     source: 10111,
-    //     target: 10043
-    //   },
-    //   //// bug
-    //   {
-    //     source: 10111,
-    //     target: 10112
-    //   },
-    //   {
-    //     source: 10048,
-    //     target: 10110
-    //   },
-    //   {
-    //     source: 10045,
-    //     target: 10112
-    //   },
-    //   {
-    //     source: 10045,
-    //     target: 10111
-    //   },
+    // {
+    //   source: 10111,
+    //   target: 10043
+    // },
+    // //// bug
+    // {
+    //   source: 10111,
+    //   target: 10112
+    // },
+    // {
+    //   source: 10048,
+    //   target: 10110
+    // },
+    // {
+    //   source: 10045,
+    //   target: 10112
+    // },
+    // {
+    //   source: 10045,
+    //   target: 10111
+    // },
     // ]
 
     const layers = [...new Set(data.nodes.map(d => d.layer))];
@@ -151,12 +152,15 @@ export class GraphComponent implements OnInit {
     this.createNodesList(data.nodes, layerScale, height);
 
 
+
     // رسم نودها
     this.createNode(svg, data)
 
 
     // اضافه کردن متن به گره‌ها
-    this.addTextToNodes(svg, data, height);
+    // this.addTextToNodes(svg, data, height);
+
+    /// this.addTooltip(svg, data);
 
     // (خط کج) رسم لینک‌ برای نود های غیر هم سطح
     this.drawLinesForNodesInDifferentLevel(svg, data);
@@ -244,6 +248,7 @@ export class GraphComponent implements OnInit {
 
 
   drawLinesForNodesInDifferentLevel(svg: any, data: data) {
+    debugger
 
     // filtered data that placed in different layer 
     let filteredData = data.links.filter(link =>
@@ -468,30 +473,173 @@ export class GraphComponent implements OnInit {
       //      .attr('y', d => this.returnCYtext(d.layer) )
       .attr('text-anchor', 'middle')
       .attr('fill', '#4A4A4A')
-      .text((d: any) => d.title);
+      .text((d: any) => d.title.charAt(11) ? '...' + d.title.substring(0, 18) : d.title);
   }
 
   createNode(svg: any, data: data) {
-    // رسم نودها
-    svg
-      .selectAll('rect')
+
+    // // Draw nodes as rectangles
+    // svg
+    // .selectAll('rect')
+    // .data(data.nodes)
+    // .enter()
+    // .append('rect')
+    // .attr('x', (d: any) => {
+    //   return this.returnCXNodesScale(d.id);
+    // })
+    // .attr('y', (d: any) => {
+    //   return this.returnCYNodesScale(d.id);
+    // })
+    // .attr('width', 130)
+    // .attr('height', 60)
+    // .attr('rx', '10')
+    // .attr('ry', '10')
+    // .attr('fill', (d: any) => {
+    //   return this.colorScale(d.layer);
+    // })
+
+
+    // Tooltip container
+    const tooltip = svg.append('g')
+      .style('visibility', 'hidden')
+      .attr('class', 'custom-graf-tooltip')
+      .attr('pointer-events', 'none'); // Prevent tooltip from interfering with events
+
+    const tooltipRect = tooltip.append('rect')
+      .attr('fill', '#333')
+      .attr('stroke', 'black')
+      .attr('rx', 8)
+      .attr('ry', 8);
+
+    const tooltipText = tooltip.append('text')
+      .attr('x', 10) // Padding inside the tooltip
+      .attr('y', 20)
+      .style('font-size', '12px')
+      .style('fill', '#fff')
+      .style('white-space', 'pre-wrap'); // Ensure line breaks within text;
+
+    // Draw nodes
+    const nodeGroup = svg.selectAll('g.node')
       .data(data.nodes)
       .enter()
-      .append('rect')
-      .attr('x', (d: any) => {
-        return this.returnCXNodesScale(d.id);
+      .append('g')
+      .attr('class', 'node')
+      .attr('transform', (d: any) => `translate(${this.returnCXNodesScale(d.id)}, ${this.returnCYNodesScale(d.id)})`)
+      .on('mouseover', function (this: SVGRectElement, event: any, d: any) {
+        // tooltipText.text(d.title); // Set tooltip text
+        // const bbox = tooltipText.node().getBBox(); // Get text bounding box for tooltip sizing
+
+
+
+        // // Apply min-width and max-width constraints
+        // const minWidth = 120; // Minimum width for the tooltip
+        // const maxWidth = 120; // Maximum width for the tooltip
+        // const dynamicWidth = Math.max(minWidth, Math.min(maxWidth, bbox.width + 20)); // Constrain width
+
+        // // Set tooltip rectangle size
+        // //      tooltipRect.attr('width', dynamicWidth).attr('height', bbox.height + 10);
+        // // Set tooltip rect size
+        // tooltipRect.attr('width', 100) // Fixed width for the tooltip
+        //   .attr('height', bbox.height + 20); // Auto height based on text content
+
+        // tooltip.style('visibility', 'visible'); // Show tooltip
+        // tooltip.raise(); // Ensure tooltip is on top
+
+
+        d3.selectAll('.node').classed('active', false); // Remove 'active' from all nodes
+        d3.select(this)
+          .transition()
+          .duration(10) // Animate over 300ms
+          .style('filter', 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5))');
+
       })
-      .attr('y', (d: any) => {
-        return this.returnCYNodesScale(d.id);
+      .on('mousemove', function (this: SVGRectElement, event: any, d: any) {
+        // // Calculate tooltip position based on node corner
+        // const [mouseX, mouseY] = d3.pointer(event, svg.node()); // Relative to the SVG container
+        // tooltip.attr('transform', `translate(${mouseX - 40}, ${mouseY - 50})`); // Adjust for offset
+       
       })
+      .on('click', (event: any, d: any) => {
+        debugger
+        // // Calculate tooltip position based on node corner
+        // const [mouseX, mouseY] = d3.pointer(event, svg.node()); // Relative to the SVG container
+        // tooltip.attr('transform', `translate(${mouseX - 40}, ${mouseY - 50})`); // Adjust for offset
+
+        this.isOpenDialog = true;
+        this.dynamicTitle = d.title
+       
+      })
+      .on('mouseout', function (this: SVGRectElement, event: any, d: any){
+        //      tooltip.style('visibility', 'hidden'); // Hide tooltip
+        d3.selectAll('.node').classed('active', false); // Remove 'active' from all nodes
+        d3.select(this).style('filter', 'none'); // Remove shadow
+      });
+
+    // Add rectangles
+    nodeGroup.append('rect')
       .attr('width', 130)
       .attr('height', 60)
       .attr('rx', '10')
       .attr('ry', '10')
-      .attr('fill', (d: any) => {
-        return this.colorScale(d.layer);
+      .attr('fill', (d: any) => this.colorScale(d.layer))
+      .style('cursor', 'pointer') // Add pointer cursor
+      .on('click', function (this: SVGRectElement, event: any, d: any) {
+        d3.select(this).style('filter', 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5))');
+      });
+
+    // Add text inside the nodes
+    nodeGroup.append('text')
+      .attr('x', 65) // Center text horizontally
+      .attr('y', 35) // Center text vertically
+      .attr('text-anchor', 'middle')
+      .attr('alignment-baseline', 'middle')
+      .text((d: any) => d.title)
+      .style('fill', '#000')
+      .style('cursor', 'pointer') // Add pointer cursor
+      .style('font-size', '12px')
+      .text((d: any) => d.title.charAt(11) ? '...' + d.title.substring(0, 18) : d.title);
+  }
+
+  addTooltip(svg: any, data: any) {
+    // Create tooltip elements
+    const tooltip = svg.append('g')
+      .style('visibility', 'hidden')
+      .attr('pointer-events', 'none');
+
+    const tooltipRect = tooltip.append('rect')
+      .attr('fill', '#474747')
+      .attr('stroke', '#474747')
+      .attr('rx', 8)
+      .attr('ry', 8);
+
+    const tooltipText = tooltip.append('text')
+      .attr('x', 10) // Padding inside the tooltip
+      .attr('y', 20)
+      .style('font-size', '12px')
+      .style('fill', '#fff');
+
+    // Add event listeners for tooltips
+    svg
+      .selectAll('rect')
+      .on('mouseover', function (event: any, d: any) {
+        tooltipText.text(d.title);
+        tooltip.style('visibility', 'visible');
+        const [mouseX, mouseY] = d3.pointer(event);
+        tooltip.attr('transform', `translate(${mouseX + 10}, ${mouseY - 50})`);
+        const bbox = tooltipText.node().getBBox();
+        tooltipRect
+          .attr('width', bbox.width + 20)
+          .attr('height', bbox.height + 10);
+
+        tooltip.raise(); // Ensure tooltip is on top
       })
-      .attr('color', '#4A4A4A');
+      .on('mousemove', function (event: any) {
+        const [mouseX, mouseY] = d3.pointer(event);
+        tooltip.attr('transform', `translate(${mouseX + 10}, ${mouseY - 50})`);
+      })
+      .on('mouseout', function () {
+        tooltip.style('visibility', 'hidden');
+      });
   }
 
   createTargetOnLines(svg: any, data: data) {
