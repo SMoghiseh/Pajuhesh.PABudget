@@ -183,7 +183,6 @@
     <!-- table header -->
     <ng-template pTemplate="header">
       <tr class="data-table__header">
-        <th style="min-width: 10rem"><strong> کد </strong></th>
         <th style="min-width: 10rem"><strong> شرکت </strong></th>
         <th style="min-width: 10rem"><strong> عنوان </strong></th>
         <th style="min-width: 10rem"><strong> دوره بودجه </strong></th>
@@ -202,7 +201,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
-        <td>{{ item.code }}</td>
         <td>{{ item.companyName }}</td>
         <td>{{ item.title }}</td>
         <td>{{ item.budgetPeriodTitle }}</td>

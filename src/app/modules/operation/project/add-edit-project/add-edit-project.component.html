@@ -1,129 +1,205 @@
 <p-toast key="Project" position="bottom-left"></p-toast>
 
 <form #formDir="ngForm" [formGroup]="addEditForm" (ngSubmit)="addEditProject()">
-    <div class="container row">
-        <div class="col-4 mt-2">
-            <label for="companyId"> شرکت</label>
-            <p-dropdown id="companyId" name="companyId" formControlName="companyId" styleClass="w-100 my-1"
-                optionLabel="partyName" optionValue="id" placeholder="انتخاب کنید" [options]="companyList"
-                [filter]="true" (onChange)="onChangeCompanyId($event)"   [class.ng-invalid]="companyId?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && companyId?.pristine) ||
-                companyId?.dirty ||
-                companyId?.touched
-              ">
-            </p-dropdown>
-        </div>
-        <div class="col-4 mt-2">
-            <label for="title">عنوان</label>
-            <input pInputText id="title" name="title" formControlName="title" type="text" class="w-100"  [class.ng-invalid]="title?.invalid" [class.ng-dirty]="
-            (addEditFormSubmitted && title?.pristine) ||
-            title?.dirty ||
-            title?.touched
-          "/>
-        </div>
-        <div class="col-4 mt-2">
-            <label for="budgetPeriodId"> دوره بودجه</label>
-            <p-dropdown id="budgetPeriodId" name="budgetPeriodId" formControlName="budgetPeriodId"
-                styleClass="w-100 my-1" optionLabel="periodTitle" optionValue="id" placeholder="انتخاب کنید"
-                [options]="budgetPeriodList" (onChange)="onChangBudgetPeriod($event)" [filter]="true"   [class.ng-invalid]="budgetPeriodId?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && budgetPeriodId?.pristine) ||
-                budgetPeriodId?.dirty ||
-                budgetPeriodId?.touched
-              ">
-            </p-dropdown>
-        </div>
-        <div class="col-4 mt-2">
-            <label for="fromBudgetPeriodId"> از دوره</label>
-            <p-dropdown id="fromBudgetPeriodId" name="fromBudgetPeriodId" formControlName="fromBudgetPeriodId"
-                styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-                [options]="fromBudgetPeriodList" [filter]="true"   [class.ng-invalid]="fromBudgetPeriodId?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && fromBudgetPeriodId?.pristine) ||
-                fromBudgetPeriodId?.dirty ||
-                fromBudgetPeriodId?.touched
-              ">
-            </p-dropdown>
-        </div>
-        <div class="col-4 mt-2">
-            <label for="toBudgetPeriodId"> تا دوره</label>
-            <p-dropdown id="toBudgetPeriodId" name="toBudgetPeriodId" formControlName="toBudgetPeriodId"
-                styleClass="w-100 my-1" optionLabel="periodDetailTitle" optionValue="id" placeholder="انتخاب کنید"
-                [options]="fromBudgetPeriodList" [filter]="true"   [class.ng-invalid]="toBudgetPeriodId?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && toBudgetPeriodId?.pristine) ||
-                toBudgetPeriodId?.dirty ||
-                toBudgetPeriodId?.touched
-              ">
-            </p-dropdown>
-        </div>
+  <div class="container row">
+    <div class="col-4 mt-2">
+      <label for="companyId"> شرکت</label>
+      <p-dropdown
+        id="companyId"
+        name="companyId"
+        formControlName="companyId"
+        styleClass="w-100 my-1"
+        optionLabel="partyName"
+        optionValue="id"
+        [panelStyle]="{ width: '21rem' }"
+        placeholder="انتخاب کنید"
+        [options]="companyList"
+        [filter]="true"
+        (onChange)="onChangeCompanyId($event)"
+        [class.ng-invalid]="companyId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && companyId?.pristine) ||
+          companyId?.dirty ||
+          companyId?.touched
+        ">
+      </p-dropdown>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="title">عنوان</label>
+      <input
+        pInputText
+        id="title"
+        name="title"
+        formControlName="title"
+        type="text"
+        class="w-100"
+        [class.ng-invalid]="title?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && title?.pristine) ||
+          title?.dirty ||
+          title?.touched
+        " />
+    </div>
+    <div class="col-4 mt-2">
+      <label for="budgetPeriodId"> دوره بودجه</label>
+      <p-dropdown
+        id="budgetPeriodId"
+        name="budgetPeriodId"
+        formControlName="budgetPeriodId"
+        styleClass="w-100 my-1"
+        optionLabel="periodTitle"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="budgetPeriodList"
+        (onChange)="onChangBudgetPeriod($event)"
+        [filter]="true"
+        [class.ng-invalid]="budgetPeriodId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && budgetPeriodId?.pristine) ||
+          budgetPeriodId?.dirty ||
+          budgetPeriodId?.touched
+        ">
+      </p-dropdown>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="fromBudgetPeriodId"> از دوره</label>
+      <p-dropdown
+        id="fromBudgetPeriodId"
+        name="fromBudgetPeriodId"
+        formControlName="fromBudgetPeriodId"
+        styleClass="w-100 my-1"
+        optionLabel="periodDetailTitle"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="fromBudgetPeriodList"
+        [filter]="true"
+        [class.ng-invalid]="fromBudgetPeriodId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && fromBudgetPeriodId?.pristine) ||
+          fromBudgetPeriodId?.dirty ||
+          fromBudgetPeriodId?.touched
+        ">
+      </p-dropdown>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="toBudgetPeriodId"> تا دوره</label>
+      <p-dropdown
+        id="toBudgetPeriodId"
+        name="toBudgetPeriodId"
+        formControlName="toBudgetPeriodId"
+        styleClass="w-100 my-1"
+        optionLabel="periodDetailTitle"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="fromBudgetPeriodList"
+        [filter]="true"
+        [class.ng-invalid]="toBudgetPeriodId?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && toBudgetPeriodId?.pristine) ||
+          toBudgetPeriodId?.dirty ||
+          toBudgetPeriodId?.touched
+        ">
+      </p-dropdown>
+    </div>
 
-
-        <div class="col-4 mt-2">
-            <label for="internalRateOfReturn">نرخ بازده داخلی(درصد)</label>
-            <input 
-          pInputText
-          id="internalRateOfReturn"
-          name="internalRateOfReturn"
-          formControlName="internalRateOfReturn"
-          type="number"
-          class="w-100" 
-          (keypress)="onlyFloatNumberKey($event)"
-          [class.ng-invalid]="internalRateOfReturn?.invalid" [class.ng-dirty]="
+    <div class="col-4 mt-2">
+      <label for="internalRateOfReturn">نرخ بازده داخلی(درصد)</label>
+      <input
+        pInputText
+        id="internalRateOfReturn"
+        name="internalRateOfReturn"
+        formControlName="internalRateOfReturn"
+        type="number"
+        class="w-100"
+        (keypress)="onlyFloatNumberKey($event)"
+        [class.ng-invalid]="internalRateOfReturn?.invalid"
+        [class.ng-dirty]="
           (addEditFormSubmitted && internalRateOfReturn?.pristine) ||
           internalRateOfReturn?.dirty ||
           internalRateOfReturn?.touched
-        "/>
-        </div>
-
-        <div class="col-4 mt-2">
-            <label for="netPersentValue">خالص ارزش فعلی(میلیون ریال)</label>
-            <p-inputNumber id="netPersentValue" name="netPersentValue" formControlName="netPersentValue"
-                inputId="integeronly" class="w-100" [class.ng-invalid]="netPersentValue?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && netPersentValue?.pristine) ||
-                netPersentValue?.dirty ||
-                netPersentValue?.touched
-              "></p-inputNumber>
-        </div>
-        <div class="col-4 mt-2">
-            <label for="payBackPeriod">دوره بازگشت سرمایه</label>
-            <input
-            pInputText
-            id="payBackPeriod"
-            name="payBackPeriod"
-            formControlName="payBackPeriod"
-            type="number"
-            class="w-100" 
-            (keypress)="onlyNumberKey($event)" [class.ng-invalid]="payBackPeriod?.invalid" [class.ng-dirty]="
-            (addEditFormSubmitted && payBackPeriod?.pristine) ||
-            payBackPeriod?.dirty ||
-            payBackPeriod?.touched
-          "/>
-        </div>
-        <div class="col-4 mt-2">
-            <label for="typeCode"> نوع طرح</label>
-            <p-dropdown id="typeCode" name="typeCode" formControlName="typeCode" styleClass="w-100 my-1"
-                optionLabel="title" optionValue="id" placeholder="انتخاب کنید" [options]="projectTypeCodeList"
-                [filter]="true"  [class.ng-invalid]="typeCode?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && typeCode?.pristine) ||
-                typeCode?.dirty ||
-                typeCode?.touched
-              ">
-            </p-dropdown>
-        </div>
-
-        <div class="col-4 mt-2">
-            <label for="address">آدرس</label>
-            <textarea pInputTextarea id="address" name="address" formControlName="address" class="w-100 my-1" rows="3"
-                cols="10"         [class.ng-invalid]="address?.invalid" [class.ng-dirty]="
-                (addEditFormSubmitted && address?.pristine) ||
-                address?.dirty ||
-                address?.touched
-              "></textarea>
-        </div>
-        <div class="col-12 mt-4 row-btn row-btn-fixed-bottom">
-            <p-button class="pe-2 p-button-wide" styleClass="p-button-success" [label]="'ثبت'" type="submit"
-                [loading]="isLoadingSubmit"></p-button>
-        </div>
-        <!-- / دکمه -->
+        " />
     </div>
-    <!-- </form> -->
-    <!-- </div> -->
+
+    <div class="col-4 mt-2">
+      <label for="netPersentValue">خالص ارزش فعلی(میلیون ریال)</label>
+      <p-inputNumber
+        id="netPersentValue"
+        name="netPersentValue"
+        formControlName="netPersentValue"
+        inputId="integeronly"
+        class="w-100"
+        [class.ng-invalid]="netPersentValue?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && netPersentValue?.pristine) ||
+          netPersentValue?.dirty ||
+          netPersentValue?.touched
+        "></p-inputNumber>
+    </div>
+    <div class="col-4 mt-2">
+      <label for="payBackPeriod">دوره بازگشت سرمایه</label>
+      <input
+        pInputText
+        id="payBackPeriod"
+        name="payBackPeriod"
+        formControlName="payBackPeriod"
+        type="number"
+        class="w-100"
+        (keypress)="onlyNumberKey($event)"
+        [class.ng-invalid]="payBackPeriod?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && payBackPeriod?.pristine) ||
+          payBackPeriod?.dirty ||
+          payBackPeriod?.touched
+        " />
+    </div>
+    <div class="col-4 mt-2">
+      <label for="typeCode"> نوع طرح</label>
+      <p-dropdown
+        id="typeCode"
+        name="typeCode"
+        formControlName="typeCode"
+        styleClass="w-100 my-1"
+        optionLabel="title"
+        optionValue="id"
+        placeholder="انتخاب کنید"
+        [options]="projectTypeCodeList"
+        [filter]="true"
+        [class.ng-invalid]="typeCode?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && typeCode?.pristine) ||
+          typeCode?.dirty ||
+          typeCode?.touched
+        ">
+      </p-dropdown>
+    </div>
+
+    <div class="col-4 mt-2">
+      <label for="address">آدرس</label>
+      <textarea
+        pInputTextarea
+        id="address"
+        name="address"
+        formControlName="address"
+        class="w-100 my-1"
+        rows="3"
+        cols="10"
+        [class.ng-invalid]="address?.invalid"
+        [class.ng-dirty]="
+          (addEditFormSubmitted && address?.pristine) ||
+          address?.dirty ||
+          address?.touched
+        "></textarea>
+    </div>
+    <div class="col-12 mt-4 row-btn row-btn-fixed-bottom">
+      <p-button
+        class="pe-2 p-button-wide"
+        styleClass="p-button-success"
+        [label]="'ثبت'"
+        type="submit"
+        [loading]="isLoadingSubmit"></p-button>
+    </div>
+    <!-- / دکمه -->
+  </div>
+  <!-- </form> -->
+  <!-- </div> -->
 </form>
