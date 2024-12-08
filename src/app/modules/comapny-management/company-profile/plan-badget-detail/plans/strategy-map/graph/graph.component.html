@@ -1,9 +1,19 @@
 <div class="d-flex">
     <div #graphContainer class="graph-container"></div>
     <div class="steps-container">
-        <div>سطر اول</div>
-        <div>سطر دوم</div>
-        <div>سطر سوم </div>
-        <div>سطر چهارم</div>
+        <div> مالی</div>
+        <div> مشتری</div>
+        <div>فرآیند های داخلی </div>
+        <div> رشدو یادگیری</div>
     </div>
 </div>
+
+
+<p-dialog *ngIf="isOpenDialog" [header]="'نمایش کامل عنوان'" [(visible)]="isOpenDialog" [modal]="true"
+    [draggable]="false" [resizable]="false" [style]="{ width: '500px' }">
+
+    <div class="text-container">
+        <p> {{ dynamicTitle }}</p>
+    </div>
+
+</p-dialog>
