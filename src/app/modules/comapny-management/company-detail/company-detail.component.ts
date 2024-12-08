@@ -1,3 +1,4 @@
+import { data } from './../company-profile/plan-badget-detail/plans/strategy-map/graph/graph.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@core/http/http.service';
@@ -11,7 +12,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./company-detail.component.scss'],
 })
 export class CompanyDetailComponent implements OnInit {
-  infoLst = new Company();
+  infoLst = new Company() ;
+
 
   constructor(
     private httpService: HttpService,
@@ -25,14 +27,13 @@ export class CompanyDetailComponent implements OnInit {
     });
   }
 
-  getProfileCoInfo(id: string) {
+  getProfileCoInfo(id: string) {    debugger
     const body = {
       companyId: id,
     };
     this.httpService
-      .post<Company[]>(
-        UrlBuilder.build(Company.apiAddressDetailCo + 'list', ''),
-        body
+      .get<Company[]>(
+        UrlBuilder.build(Company.apiAddressDetailCo + 'companyDetail/' + id , '')
       )
       .pipe(
         map(response => {
@@ -41,8 +42,8 @@ export class CompanyDetailComponent implements OnInit {
           } else return [new Company()];
         })
       )
-      .subscribe(info => {
-        this.infoLst = info[0];
+      .subscribe((info: any) => {
+        this.infoLst = info;
       });
   }
 

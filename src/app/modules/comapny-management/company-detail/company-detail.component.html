@@ -63,9 +63,9 @@
         </div>
       </div>
     </div>
-    <div class="all-box">
+    <div class="all-box" >
       <h4>اساسنامه شرکت</h4>
-      <div class="main-content" [innerHTML]="infoLst.activitySubject"></div>
+      <div  *ngFor="let activity of infoLst.activitySubject" class="main-content">{{ activity }}</div>
     </div>
   </div>
 </div>
