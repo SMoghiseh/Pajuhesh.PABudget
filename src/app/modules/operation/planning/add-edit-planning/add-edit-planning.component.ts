@@ -76,12 +76,12 @@ export class AddEditPlanningComponent {
       endDate: new FormControl('', Validators.required),
     });
 
-    if (this.mode === 'edit') {
+    if (this.mode === 'edit') { debugger
       this.getRowData(this.inputData.id);
     }
   }
 
-  addEditPlan() {
+  addEditPlan() { 
     this.addEditFormSubmitted = true;
     if (this.addEditForm.valid) {
       const request = this.addEditForm.value;
@@ -161,7 +161,7 @@ export class AddEditPlanningComponent {
     //   });
   }
 
-  getRowData(id: number) {
+  getRowData(id: number) { debugger
     this.httpService
       .get<any>(Planning.apiAddress + 'Get/' + id)
       .subscribe(response => {

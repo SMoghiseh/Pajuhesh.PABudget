@@ -203,7 +203,7 @@ export class PlanningComponent {
     this.isOpenAddEditPlan = true;
   }
 
-  editRow(data: Planning) {
+  editRow(data: Planning) { debugger
     this.modalTitle = 'ویرایش ' + '"' + data.title + '"';
     this.addEditData = data;
     this.mode = 'edit';
@@ -248,7 +248,7 @@ export class PlanningComponent {
     }
   }
 
-  reloadData() {
+  reloadData() { debugger
     this.isOpenAddEditPlan = false;
     this.getPlan();
   }

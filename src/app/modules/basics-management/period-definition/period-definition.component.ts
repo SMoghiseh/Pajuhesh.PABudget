@@ -197,7 +197,7 @@ export class PeriodDefinitionComponent implements OnInit {
       if (this.isDetail) url = Period.apiAddressDetail;
       else url = Period.apiAddress;
       this.httpService
-        .delete<Period>(UrlBuilder.build(url + 'DELETE', '') + `/${id}`)
+        .get<Period>(UrlBuilder.build(url + 'DELETE', '') + `/${id}`)
         .subscribe(response => {
           if (response.successed) {
             this.first = 0;
