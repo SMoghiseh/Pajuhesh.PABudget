@@ -275,15 +275,16 @@
         <th><strong> کد</strong></th>
         <th style="min-width: 10rem"><strong> عنوان</strong></th>
         <th style="min-width: 10rem"><strong> مرجع</strong></th>
-        <th style="min-width: 10rem"><strong> از دوره عملیاتی </strong></th>
-        <th style="min-width: 10rem"><strong> تا دوره عملیاتی </strong></th>
-        <th style="min-width: 10rem"><strong> مرکز هزینه</strong></th>
-        <th style="min-width: 10rem"><strong> مسئول</strong></th>
-        <th style="min-width: 10rem"><strong> تاثیر مالی</strong></th>
-        <th style="min-width: 10rem"><strong> الویت</strong></th>
-        <th style="min-width: 10rem"><strong> وزن</strong></th>
-        <th style="min-width: 10rem"><strong> شرح</strong></th>
-        <th style="min-width: 10rem"><strong> وضعیت</strong></th>
+        <!-- <th style="min-width: 10rem"><strong> از دوره عملیاتی </strong></th> -->
+        <!-- <th style="min-width: 10rem"><strong> تا دوره عملیاتی </strong></th> -->
+        <!-- <th style="min-width: 10rem"><strong> مرکز هزینه</strong></th> -->
+        <th style="min-width: 8rem"><strong> مسئول</strong></th>
+        <th style="min-width: 6rem"><strong> تاثیر مالی</strong></th>
+        <th style="min-width: 8rem"><strong> طرح</strong></th>
+        <!-- <th style="min-width: 10rem"><strong> الویت</strong></th> -->
+        <!-- <th style="min-width: 10rem"><strong> وزن</strong></th> -->
+        <!-- <th style="min-width: 10rem"><strong> شرح</strong></th> -->
+        <th style="min-width: 6rem"><strong> وضعیت</strong></th>
 
         <th style="min-width: 10rem"><strong> عملیات</strong></th>
       </tr>
@@ -291,27 +292,28 @@
     <ng-template pTemplate="body" let-item item let-rowIndex="rowIndex">
       <tr>
         <td>{{ item.code }}</td>
-        <td
+        <td 
           pTooltip="{{ item.title }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.title }}
         </td>
-        <td>{{ item.referenceTitle }}</td>
-        <td>{{ item.fromPeriodDetailTitle }}</td>
-        <td>{{ item.toPeriodDetailTitle }}</td>
-        <td>{{ item.costCenterTitle }}</td>
-        <td>{{ item.rollTitle }}</td>
-        <td>{{ item.priceCu }}</td>
-        <td>{{ item.priorityTitle }}</td>
-        <td>{{ item.weightTitle }}</td>
-        <td
+        <td style="text-align: center !important;">{{ item.referenceTitle }}</td>
+        <!-- <td>{{ item.fromPeriodDetailTitle }}</td> -->
+        <!-- <td>{{ item.toPeriodDetailTitle }}</td> -->
+        <!-- <td>{{ item.costCenterTitle }}</td> -->
+        <td style="text-align: center !important;">{{ item.rollTitle }}</td>
+        <td style="text-align: center !important;">{{ item.priceCu }}</td>
+        <td style="text-align: center !important;">{{ item.projectTitle  }}</td>
+        <!-- <td>{{ item.priorityTitle }}</td> -->
+        <!-- <td>{{ item.weightTitle }}</td> -->
+        <!-- <td
           pTooltip="{{ item.description }}"
           tooltipEvent="hover"
           tooltipPosition="top">
           {{ item.description }}
-        </td>
-        <td>{{ item.statusTitle }}</td>
+        </td> -->
+        <td style="text-align: center !important;">{{ item.statusTitle }}</td>
         <td class="jc-left ai-left">
           <ng-container *ngIf="item.hasBreaked">
             <button
