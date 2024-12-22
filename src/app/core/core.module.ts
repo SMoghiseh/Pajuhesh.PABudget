@@ -26,8 +26,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* PrimeNG */
 import { MessageService } from 'primeng/api';
 import { BrowserModule } from '@angular/platform-browser';
+import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 @NgModule({
   declarations: [
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -61,5 +63,8 @@ import { BrowserModule } from '@angular/platform-browser';
       },
     },
   ],
+  exports:[
+    SpinnerComponent
+  ]
 })
 export class CoreModule { }

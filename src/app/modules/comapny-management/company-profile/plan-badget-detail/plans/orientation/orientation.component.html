@@ -13,14 +13,14 @@
         [rows]="dataTableRows"
         [rowsPerPageOptions]="[10, 20, 30]"
         [totalRecords]="totalCount"
-        [value]="planDetailData"
+        [value]="planDetailData?.body" [columns]="planDetailData?.headers"
         [loading]="loading"
         [tableStyle]="{ 'min-width': '75rem' }"
         [lazy]="true"
         (onLazyLoad)="loadData($event)"
         [(first)]="first">
         <!-- table header -->
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" let-columns>
           <div class="row row-feature">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 box">
               <div class="row">
@@ -28,40 +28,23 @@
                   (selectedVal)="returnSelectedDate($event)"></app-select-date>
               </div>
             </div>
-
-            <!-- <div style="justify-content: end" class="headerStyleForm">
-              <label class="labelStyle" style="margin-top: -29px"
-                ><span>دوره : </span>{{ planDetailData[0].titleFirst }}</label
-              >
-            </div> -->
           </div>
 
           <tr class="data-table__header">
-            <div class="headerStyle">
+            <div *ngFor="let col of columns" class="headerStyle">
               <th style="min-width: 7rem">
-                <strong> عنوان </strong>
+                <strong> {{ col.headerName }} </strong>
               </th>
             </div>
-
-            <div class="headerStyle">
-              <th style="min-width: 7rem">
-                <strong> نوع </strong>
-              </th>
-            </div>
-
-            <!-- <div class="headerStyle">
-              <th style="min-width: 7rem"><strong> دوره </strong></th>
-            </div> -->
           </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr>
-            <div class="detailStyle" [ngStyle]="{ 'background-color': item.color }">
-              <td style="width: 53rem">{{ item.titleMain }}</td>
-              <td style="width: 53rem">{{ item.titleTwo }}</td>
-              <!-- <td  style="width: 19rem"></td>
-              <td style="width: 33rem">{{ item.titleFirst }}</td> -->
+            <div class="detailStyle" [ngStyle]="{ 'background-color': rowData.color  }">
+              <td *ngFor="let col of columns" >
+                {{ rowData[col.field] }}
+              </td>
             </div>
           </tr>
         </ng-template>

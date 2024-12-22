@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from '@core/http/http.service';
 import { Plan, UrlBuilder } from '@shared/models/response.model';
+import { SpinnerService } from '@shared/services/spinner.service';
 import * as d3 from 'd3';
 import { map } from 'rxjs';
 
@@ -33,7 +34,8 @@ export class GraphComponent implements OnInit {
   nodesPlacedNextToEachOther: any = [];
   filteredData1: any = [];
 
-  constructor(private httpService: HttpService) { }
+  // constructor(private httpService: HttpService, private spinnerService: SpinnerService) { }
+  constructor(private httpService: HttpService, private spinnerService: SpinnerService) { }
 
   ngOnInit(): void {
     this.getPlanDetail();
@@ -203,9 +205,6 @@ export class GraphComponent implements OnInit {
           this.nodesPlacedNextToEachOther.push(d);
           return
         }
-
-        console.log(this.returnCXNodesScale(d.source))
-        console.log(this.returnCXNodesScale(d.target))
 
         // Start and end points
         const x1 = this.returnCXNodesScale(source) + 45;
@@ -478,25 +477,7 @@ export class GraphComponent implements OnInit {
 
   createNode(svg: any, data: data) {
 
-    // // Draw nodes as rectangles
-    // svg
-    // .selectAll('rect')
-    // .data(data.nodes)
-    // .enter()
-    // .append('rect')
-    // .attr('x', (d: any) => {
-    //   return this.returnCXNodesScale(d.id);
-    // })
-    // .attr('y', (d: any) => {
-    //   return this.returnCYNodesScale(d.id);
-    // })
-    // .attr('width', 130)
-    // .attr('height', 60)
-    // .attr('rx', '10')
-    // .attr('ry', '10')
-    // .attr('fill', (d: any) => {
-    //   return this.colorScale(d.layer);
-    // })
+    const that = this; // Save the Angular component context
 
 
     // Tooltip container
@@ -525,55 +506,85 @@ export class GraphComponent implements OnInit {
       .append('g')
       .attr('class', 'node')
       .attr('transform', (d: any) => `translate(${this.returnCXNodesScale(d.id)}, ${this.returnCYNodesScale(d.id)})`)
-      .on('mouseover', function (this: SVGRectElement, event: any, d: any) {
-        // tooltipText.text(d.title); // Set tooltip text
-        // const bbox = tooltipText.node().getBBox(); // Get text bounding box for tooltip sizing
+      .each(function (this: SVGRectElement, d: any) {
+        const group = d3.select(this);
+        const dynacDo = d
+
+        // Add the main rectangle for the node
+        // group.append('rect')
+        //   .attr('width', 130)
+        //   .attr('height', 60)
+        //   .attr('rx', 10)
+        //   .attr('ry', 10)
+        //   .attr('fill', '#ccc');
+
+        // Add hover interaction
+        group.on('mouseover', function () {
+          // Add hover-rect (if not already added)
+          if (!group.select('.hover-rect').empty()) return; // Prevent duplication
+
+          const width = 38; // Width of the tooltip
+          const height = 18; // Height of the tooltip
+          const radius = 12; // Corner radius
+
+          const pathData = `
+          M ${12},${0} 
+          h ${width} 
+          v ${height - radius} 
+          a ${radius},${radius} 0 0 1 -${radius},${radius} 
+          h -${width - radius * 2} 
+          a ${radius},${radius} 0 0 1 -${radius},-${radius} 
+          z
+        `;
+
+          const hoverGroup = group.append('g').attr('class', 'hover-rect-group');
+          hoverGroup.append('path')
+            .attr('class', 'hover-rect')
+            .attr('d', pathData)
+            .attr('fill', '#BBCCE5')
+            .attr('opacity', 0.8)
+            .attr('pointer-events', 'all') // Ensure the rectangle itself captures pointer events
+            .attr('transform', `translate(0, 60)`); // Position at the bottom-left corner
+
+          // Add three circles inside the hover-rect
+          const circleSpacing = 10; // Space between circles
+          hoverGroup.selectAll('.hover-circle')
+            .data([0, 1, 2]) // Use an array to create three circles
+            .enter()
+            .append('circle')
+            .attr('class', 'hover-circle')
+            .attr('cx', (d, i) => 10 + i * circleSpacing + 10) // Position circles horizontally
+            .attr('cy', 68) // Position vertically relative to the hover-rect
+            .attr('r', 2.5) // Radius of the circle
+            .attr('fill', '#fff')
+
+            // svg.selectAll('.hoverGroup')
+            .on('mouseover', (event: any, d: any) => {
+              debugger
 
 
+              that.isOpenDialog = true;
+              that.dynamicTitle = d.title
 
-        // // Apply min-width and max-width constraints
-        // const minWidth = 120; // Minimum width for the tooltip
-        // const maxWidth = 120; // Maximum width for the tooltip
-        // const dynamicWidth = Math.max(minWidth, Math.min(maxWidth, bbox.width + 20)); // Constrain width
+            })
 
-        // // Set tooltip rectangle size
-        // //      tooltipRect.attr('width', dynamicWidth).attr('height', bbox.height + 10);
-        // // Set tooltip rect size
-        // tooltipRect.attr('width', 100) // Fixed width for the tooltip
-        //   .attr('height', bbox.height + 20); // Auto height based on text content
+        })
+          .on('mouseout', function (event) {
+            const related = event.relatedTarget;
+            // Check if the mouse is still over the node group or child elements
+            if (this.contains(related)) return;
 
-        // tooltip.style('visibility', 'visible'); // Show tooltip
-        // tooltip.raise(); // Ensure tooltip is on top
-
-
-        d3.selectAll('.node').classed('active', false); // Remove 'active' from all nodes
-        d3.select(this)
-          .transition()
-          .duration(10) // Animate over 300ms
-          .style('filter', 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5))');
-
-      })
-      .on('mousemove', function (this: SVGRectElement, event: any, d: any) {
-        // // Calculate tooltip position based on node corner
-        // const [mouseX, mouseY] = d3.pointer(event, svg.node()); // Relative to the SVG container
-        // tooltip.attr('transform', `translate(${mouseX - 40}, ${mouseY - 50})`); // Adjust for offset
-       
-      })
-      .on('click', (event: any, d: any) => {
-        debugger
-        // // Calculate tooltip position based on node corner
-        // const [mouseX, mouseY] = d3.pointer(event, svg.node()); // Relative to the SVG container
-        // tooltip.attr('transform', `translate(${mouseX - 40}, ${mouseY - 50})`); // Adjust for offset
-
-        this.isOpenDialog = true;
-        this.dynamicTitle = d.title
-       
-      })
-      .on('mouseout', function (this: SVGRectElement, event: any, d: any){
-        //      tooltip.style('visibility', 'hidden'); // Hide tooltip
-        d3.selectAll('.node').classed('active', false); // Remove 'active' from all nodes
-        d3.select(this).style('filter', 'none'); // Remove shadow
+            // Remove the hover rectangle and its children
+            group.select('.hover-rect-group').remove();
+          });
       });
+
+
+
+
+
+
+
 
     // Add rectangles
     nodeGroup.append('rect')
@@ -583,9 +594,16 @@ export class GraphComponent implements OnInit {
       .attr('ry', '10')
       .attr('fill', (d: any) => this.colorScale(d.layer))
       .style('cursor', 'pointer') // Add pointer cursor
-      .on('click', function (this: SVGRectElement, event: any, d: any) {
-        d3.select(this).style('filter', 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5))');
-      });
+      .on('click', (event: any, d: any) => {
+        debugger
+        // // Calculate tooltip position based on node corner
+        // const [mouseX, mouseY] = d3.pointer(event, svg.node()); // Relative to the SVG container
+        // tooltip.attr('transform', `translate(${mouseX - 40}, ${mouseY - 50})`); // Adjust for offset
+
+        this.isOpenDialog = true;
+        this.dynamicTitle = d.title
+
+      })
 
     // Add text inside the nodes
     nodeGroup.append('text')
