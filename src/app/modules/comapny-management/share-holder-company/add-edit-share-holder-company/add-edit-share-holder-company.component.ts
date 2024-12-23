@@ -170,6 +170,7 @@ export class AddEditShareHolderCompanyComponent {
           this.addEditForm.patchValue({
             shareHolderPartyId: response.data.result.partyName ? response.data.result.partyName : '' 
           })
+          this.selectedUserId = response.data.result.shareHolderPartyId;
         }
       });
   }
